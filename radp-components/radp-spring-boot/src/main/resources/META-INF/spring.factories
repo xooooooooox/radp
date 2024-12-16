@@ -1,0 +1,3 @@
+# Environment PostProcessor
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.x9x.radp.spring.boot.logging.env.BootstrapLogEnvironmentPostProcessor

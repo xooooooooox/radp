@@ -1,0 +1,8 @@
+--- # database
+spring:
+  datasource:
+    # 如果是 mysql 5 的画使用 com.mysql.jdbc.Driver, 之后的版本都是用 com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/${appName}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
+    password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)

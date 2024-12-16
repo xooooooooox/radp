@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.x9x.radp</groupId>
+        <artifactId>radp-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../radp-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>radp-spring-test</artifactId>
+    <description>Spring Test 扩展</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Redis 嵌入式组件 -->
+        <dependency>
+            <groupId>com.github.codemonstur</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Spock 测试组件 -->
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+        </dependency>
+
+        <!-- 内部组件 -->
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-extensions</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

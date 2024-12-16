@@ -1,0 +1,18 @@
+--- # logback
+debug: false
+logging:
+  config: classpath:logback/template/logback-spring.xml
+  file:
+    path: ./logs/${spring.application.name}
+    name: ${logging.file.path}/${spring.application.name}.log # 日志文件名，全路径
+  logback:
+    rollingpolicy:
+      max-history: 7
+      total-size-cap: 1GB
+      max-file-size: 30MB
+  level:
+    root: info
+    com.ulisesbocchio.jasyptspringboot: warn
+    com.x9x.radp: info
+    com.x9x: info
+    space.x9x: info

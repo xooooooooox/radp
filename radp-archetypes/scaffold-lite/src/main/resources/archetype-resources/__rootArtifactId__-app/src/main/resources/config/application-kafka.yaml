@@ -1,0 +1,39 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      # 发生错误后, 消息重发的次数
+      retries: 1
+      # 当有多个消息需要被发送到同一个分区时, 生产者会把他们放在同一个批次里. 该参数指定了一个批次可以使用的内存大小(单位:byte)
+      batch-size: 16384
+      # 设置生产者内存缓冲区的大小
+      buffer-memory: 33554432
+      # 键的序列化方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 值的序列化方式
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # acks=0: 表示生产者在成功写入消息之前不会等待任何来自服务器的响应
+      # acks=1: 表示只要集群的首领节点收到消息, 生产者就会收到一个来自服务器的成功响应
+      # acks=all: 表示只有当所有参与复制的节点全部收到消息时, 生产者才会收到一个来自服务器的成功响应
+      acks: 1
+    consumer:
+      # 自动提交的时间间隔. 在 SpringBoot 2.x 版本中,这里采用的是 Duration 类型, 需要符合特定的格式. 如 1S, 1M, 2H, 5D
+      auto-commit-interval: 1S
+      # 该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下该如何处理:
+      # latest(默认值): 在偏移量无效的情况下, 消费者将从最新的记录开始读取数据(即在消费者启动之后生成的记录)
+      # earliest: 在偏移量吴晓东情况下, 消费者将从起始位置读取分区的记录
+      auto-offset-reset: earliest
+      # 是否自动提交偏移量, 默认为 true.
+      # 为了避免出现重复数据和数据丢失, 可以将其设置为 false, 然后手动提交偏移量
+      enable-auto-commit: false
+      # 键的反序列化方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 值的反序列化方式
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      # 在侦听器容器中运行的线程数
+      concurrency: 5
+      # listener 负责 ack, 每调用一次, 就立即 commit
+      ack-mode: manual_immediate
+      # 当消费者尝试订阅一个不存在的主题时，如果设置为 false，消费者不会因为找不到主题而抛出致命错误并停止运行。且可以在稍后主题被创建时自动开始消费。(默认值 false)
+      missing-topics-fatal: false

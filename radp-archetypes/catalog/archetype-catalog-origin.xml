@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-catalog xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0 http://maven.apache.org/xsd/archetype-catalog-1.0.0.xsd"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <archetypes>
+    <archetype>
+      <groupId>io.github.xooooooooox</groupId>
+      <artifactId>scaffold-tiny</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+      <description>极简版本(MVC架构)</description>
+    </archetype>
+    <archetype>
+      <groupId>io.github.xooooooooox</groupId>
+      <artifactId>scaffold-simple</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+      <description>轻量版(无模块,DDD架构)</description>
+    </archetype>
+    <archetype>
+      <groupId>io.github.xooooooooox</groupId>
+      <artifactId>scaffold-lite</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+      <description>轻量版(单机,DDD架构)</description>
+    </archetype>
+    <archetype>
+      <groupId>io.github.xooooooooox</groupId>
+      <artifactId>scaffold-std</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+      <description>标准版(分布式,DDD架构)</description>
+    </archetype>
+    <archetype>
+      <groupId>io.github.xooooooooox</groupId>
+      <artifactId>scaffold-starter</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+      <description>spring-boot-starter 脚手架</description>
+    </archetype>
+  </archetypes>
+</archetype-catalog>

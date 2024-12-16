@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.x9x.radp</groupId>
+        <artifactId>radp-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../radp-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>radp-spring-boot-starters</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>radp-mybatis-spring-boot-starter</module>
+        <module>radp-swagger3-spring-boot-starter</module>
+        <module>radp-undertow-spring-boot-starter</module>
+        <module>radp-hikaricp-spring-boot-starter</module>
+        <module>radp-druid-spring-boot-starter</module>
+        <module>radp-liquibase-spring-boot-starter</module>
+        <module>radp-tomcat-spring-boot-tarter</module>
+        <module>radp-logging-spring-boot-starter</module>
+        <module>radp-jasypt-spring-boot-starter</module>
+        <module>radp-redis-spring-boot-starter</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-boot</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

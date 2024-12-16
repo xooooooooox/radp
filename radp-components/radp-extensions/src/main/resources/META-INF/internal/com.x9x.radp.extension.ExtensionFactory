@@ -1,0 +1,2 @@
+adaptive=com.x9x.radp.extension.factory.AdaptiveExtensionFactory
+spi=com.x9x.radp.extension.factory.SpiExtensionFactory

@@ -1,0 +1,14 @@
+--- # log
+debug: false
+logging:
+  file:
+    path: ../logs/${spring.application.name}
+  level:
+    com.x9x.radp: debug
+    com.x9x: debug
+    space.x9x: debug
+--- # database
+spring:
+  datasource:
+    username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
+    password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)

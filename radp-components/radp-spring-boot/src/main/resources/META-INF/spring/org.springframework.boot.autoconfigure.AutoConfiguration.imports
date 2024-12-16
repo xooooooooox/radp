@@ -1,0 +1,4 @@
+com.x9x.radp.spring.boot.beans.autoconfigure.ApplicationContextAutoConfiguration
+com.x9x.radp.spring.boot.web.autoconfigure.WebAPIAutoConfiguration
+com.x9x.radp.spring.boot.logging.autoconfigure.AccessLogAutoConfiguration
+com.x9x.radp.spring.boot.logging.autoconfigure.BootstrapLogAutoConfiguration

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.12</version>
+    </parent>
+    <groupId>com.x9x.radp</groupId>
+    <artifactId>radp</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <description>Rapid Application Development Platform</description>
+
+    <modules>
+        <module>radp-agents</module>
+        <module>radp-components</module>
+        <module>radp-plugins</module>
+        <module>radp-tests</module>
+        <module>radp-archetypes</module>
+    </modules>
+
+    <properties>
+        <!-- project version -->
+        <application.version>0.0.2</application.version>
+        <application.policy>SNAPSHOT</application.policy>
+        <revision>${application.version}-${application.policy}</revision>
+        <radp.version>${application.version}-${application.policy}</radp.version>
+
+        <!-- build -->
+        <java.version>8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <flattened.filename>.flatten-pom-xml</flattened.filename>
+
+        <!-- plugin version -->
+        <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>x9x</id>
+            <name>xooooooooox</name>
+            <email>xozozsos@gmail.com</email>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/xooooooooox/radp.git</url>
+        <connection>scm:git@github.com:xooooooooox/radp.git</connection>
+        <developerConnection>scm:git@github.com:xooooooooox/radp.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/xooooooooox/radp/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, Version 3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+            <distribution>repo</distribution>
+            <comments>A description of the license can be added here if necessary.</comments>
+        </license>
+    </licenses>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-wrapper-plugin</artifactId>
+                <version>${maven-wrapper-plugin.version}</version>
+                <configuration>
+                    <mavenVersion>3.9.9</mavenVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <locale>en_US</locale>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                </configuration>
+            </plugin>
+
+            <!-- 解决多模块 revision 版本替换问题 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenedPomFilename>${flattened.filename}</flattenedPomFilename>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

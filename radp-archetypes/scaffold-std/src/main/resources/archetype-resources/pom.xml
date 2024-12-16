@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.x9x.radp</groupId>
+        <artifactId>radp-parent</artifactId>
+        <version>${radpVersion}</version>
+    </parent>
+    <packaging>pom</packaging>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+
+    <modules>
+        <module>${rootArtifactId}-types</module>
+        <module>${rootArtifactId}-api</module>
+        <module>${rootArtifactId}-domain</module>
+        <module>${rootArtifactId}-infrastructure</module>
+        <module>${rootArtifactId}-trigger</module>
+        <module>${rootArtifactId}-app</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-api</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-domain</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-infrastructure</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-trigger</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-types</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

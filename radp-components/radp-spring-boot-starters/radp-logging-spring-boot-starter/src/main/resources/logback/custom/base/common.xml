@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+所有 sey_xxx_appender.xml 都要用到的内容放到这个文件中
+-->
+
+<included>
+    <property name="default_pattern_charset" value="UTF-8"/>
+</included>

@@ -1,0 +1,14 @@
+--- # swagger
+# swagger 接口文档地址: <http://ip:port/swagger-ui>
+springdoc:
+  api-docs:
+    enabled: true #是否启用 OpenAPI 文档生成
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true #是否启用 Swagger UI
+    path: /swagger-ui
+radp:
+  swagger3:
+    title: ${spring.application.name}
+    # 读取 pom.xml 中的 property application.version, 这样就不用手动更新了该值了
+    version: @project.version@

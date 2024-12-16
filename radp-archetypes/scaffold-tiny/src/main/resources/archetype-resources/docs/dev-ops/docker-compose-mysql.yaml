@@ -1,0 +1,24 @@
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - local-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s

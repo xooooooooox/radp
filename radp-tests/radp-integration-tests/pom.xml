@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.x9x.radp</groupId>
+        <artifactId>radp-tests</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <packaging>pom</packaging>
+    <artifactId>radp-integration-tests</artifactId>
+    <description>集成测试</description>
+
+    <dependencies>
+        <!-- 内部组件 -->
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-cloud</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-test</artifactId>
+        </dependency>
+        <!-- 内部组件 -->
+
+        <!-- Spock -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

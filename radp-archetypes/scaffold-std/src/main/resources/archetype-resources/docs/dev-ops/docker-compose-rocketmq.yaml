@@ -1,0 +1,46 @@
+networks:
+  local-network:
+    driver: bridge
+
+# 单机版Apache RocketMQ, 内置 Dashboard
+# 控制台页面 http://localhost:8080 (见 volumes/rocketmq-data/console/conf/application.properties)
+# 控制台账密 admin/admin, normal/normal
+# 1) amd 使用 https://hub.docker.com/r/xuchengen/rocketmq
+# 2) arm 使用 https://hub.docker.com/r/livinphp/rocketmq
+#
+# 注意修改项；
+# 01：data/rocketmq/conf/broker.conf 添加 brokerIP1=127.0.0.1
+# 02：data/console/config/application.properties server.port=9009 - 如果8080端口被占用，可以修改或者添加映射端口
+services:
+  # amd
+  #  rocketmq:
+  #    image: xuchengen/rocketmq:latest
+  #    restart: unless-stopped
+  #    hostname: rocketmq
+  #    ports:
+  #      - "8080:8080"
+  #      - "9876:9876"
+  #      - "10909:10909"
+  #      - "10911:10911"
+  #      - "10912:10912"
+  #    volumes:
+  #      - ./volumes/rocketmq-data:/home/app/data
+  #      - /etc/localtime:/etc/localtime
+  #      - /var/run/docker.sock:/var/run/docker.sock
+  #    network_mode: host
+
+  # arm
+  # 提示: 首次启动可能会有问题, 可以多试几次且等待一段时间, 直到 rocketmq_data/rocketmq/store 目录被创建
+  rocketmq:
+    image: livinphp/rocketmq:5.1.0
+    ports:
+      - "8080:8080"
+      - "9876:9876"
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    volumes:
+      - ./volumes/rocketmq_data:/home/app/data
+    environment:
+      TZ: "Asia/Shanghai"
+      NAMESRV_ADDR: "rocketmq:9876"

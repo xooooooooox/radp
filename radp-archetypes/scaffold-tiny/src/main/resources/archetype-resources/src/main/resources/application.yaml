@@ -1,0 +1,37 @@
+server:
+  port: @app.server.port@
+  tomcat:
+    threads:
+      # 设定处理客户请求线程的最大数目.决定了服务器可以同时响应客户请求数,默认200
+      max: 200
+      # 初始化线程数, 最小空闲线程数, 默认10
+      min-spare: 50
+    # 等待队列大小. 表示但 ${tomcat.threads.max} 线程均满时, 最多可以有多少个连接请求在等待队列中等待处理, 如果超过, 新的连接将会被拒绝
+    accept-count: 10
+  # 优雅关闭
+  shutdown: graceful
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    # 建议通过 --jasypt.encryptor.password=xxx 或者配置环境变量的方式, 而不是直接将秘钥配置在 yaml 配置文件中
+    password: dsaf#,jds.klfj1
+
+spring:
+  profiles:
+    active: @runtime.env@
+    # 建议采用如下的策略进行配置管理，
+    # 1. 将各种类型的配置集中在单独的配置文件中进行集中管理, 如: application-logback.yaml
+    # 2. 然后在 application.yaml 中显式的引入
+    # 3. 对于多环境部署且存在环境差异的配置，再单独在 application-env.yaml 的环境配置文件中进行覆盖
+    # 4. 对于当前服务独有的配置，建议统一放在 application-app.yaml 中进行管理
+    # include: logback, swagger, db, mybatis, druid, app
+    include: logback, swagger
+  application:
+    name: ${appName}
+  main:
+    # 允许自定义配置覆盖 Spring Boot 的默认配置
+    allow-bean-definition-overriding: true
+  # 设置优雅关闭的最大等待时间，确保在规定时间内完成请求处理
+  lifecycle:
+    timeout-per-shutdown-phase: 30s

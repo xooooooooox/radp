@@ -1,0 +1,56 @@
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  # 方式一: 如果使用传统的 zookeeper 模式
+  kafka:
+    image: bitnami/kafka:3.7.0
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      # KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://<真实ip地址/云服务器公网ip/本地电脑分配ip>:9092
+      # 如果这里使用 kafka:9092, 而不是 ip:9092, 记得在本机配置 hosts
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ENABLE_KRAFT: no
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_MESSAGE_MAX_BYTES: "2000000"
+      JMX_PORT: 9999
+      TZ: Asia/Shanghai
+    depends_on:
+      - zookeeper
+    networks:
+      - local-network
+
+  # 方式二: 如果使用 kraft 模式, 不需要 zookeeper
+#  kafka:
+#    image: bitnami/kafka:3.9.0
+#    ports:
+#      - "9092:9092"
+#    restart: unless-stopped
+#    environment:
+#      ALLOW_PLAINTEXT_LISTENER: "yes"
+#      # 注意，你可以在电脑上增加 kafka 的 host 映射ip，或者直接写上服务器ip地址
+#      # KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://真实ip地址，云服务器公网ip/本地电脑分配ip:9092
+#      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+#      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+#      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@127.0.0.1:9093
+#      KAFKA_CFG_FETCH_MESSAGE_MAX_BYTES: 524288000
+#      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+#      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+#      KAFKA_CFG_LOG_RETENTION_MS: 60000
+#      KAFKA_CFG_MAX_REQUEST_SIZE: 524288000
+#      KAFKA_CFG_MESSAGE_MAX_BYTES: 524288000
+#      KAFKA_CFG_NODE_ID: 0
+#      KAFKA_CFG_PARTITION_FETCH_BYTES: 524288000
+#      KAFKA_CFG_PROCESS_ROLES: controller,broker
+#      KAFKA_CFG_REPLICA_FETCH_MAX_BYTES: 524288000
+#      KAFKA_HEAP_OPTS: -Xmx512m -Xms256m
+#    networks:
+#      - local-network
+#    extra_hosts:
+#      - "kafka:host-gateway"

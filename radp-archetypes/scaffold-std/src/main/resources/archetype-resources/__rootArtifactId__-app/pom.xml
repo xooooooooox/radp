@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+    <artifactId>${artifactId}</artifactId>
+
+    <properties>
+        <start-class>${package}.Application</start-class>
+        <app.server.port>${appPort}</app.server.port>
+        <docker.build.image_name>${docker.build.registry}/x9x/${appName}</docker.build.image_name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-jasypt-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-logging-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>com.x9x.radp</groupId>
+            <artifactId>radp-spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 自身模块 -->
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-trigger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-infrastructure</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${appName}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

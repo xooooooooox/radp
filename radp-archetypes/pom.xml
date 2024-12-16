@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.x9x.radp</groupId>
+        <artifactId>radp-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../radp-components/radp-parent/pom.xml</relativePath>
+    </parent>
+    <packaging>pom</packaging>
+    <artifactId>radp-archetypes</artifactId>
+
+    <!-- 为了加快整个工程的构建速度, radp-archetype-xxx 将不会发布到制品库 -->
+    <!-- 仅需要将 scaffold-xxx 发布到制品库 -->
+    <modules>
+        <!-- 在 radp-archetype-xxx 进行脚手架源代码开发 -->
+        <module>radp-archetype-simple</module>
+        <module>radp-archetype-lite</module>
+        <module>radp-archetype-std</module>
+        <module>radp-archetype-tiny</module>
+        <module>radp-archetype-starter</module>
+
+        <!-- 脚手架发布 -->
+        <module>scaffold-simple</module>
+        <module>scaffold-lite</module>
+        <module>scaffold-std</module>
+        <module>scaffold-tiny</module>
+        <module>scaffold-starter</module>
+    </modules>
+
+
+</project>

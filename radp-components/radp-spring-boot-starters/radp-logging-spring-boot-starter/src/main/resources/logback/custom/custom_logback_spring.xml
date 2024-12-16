@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+logback_spring.xml include 这个就可以了
+-->
+
+<included>
+    <springProperty scope="context" name="logHome" source="logging.file.path" defaultValue="${java.io.tmpdir:-/tmp}"/>
+    <springProperty scope="context" name="logNamePrefix" source="spring.application.name" defaultValue="application"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="logback/custom/base/custom_stdout_appender.xml"/>
+    <include resource="logback/custom/base/custom_file_appender.xml"/>
+
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <springProfile name="local">
+        <root level="${logging.level.root-info}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC"/>
+            <appender-ref ref="async_filter_debug"/>
+            <appender-ref ref="async_filter_info"/>
+            <appender-ref ref="async_filter_warn"/>
+            <appender-ref ref="async_filter_error"/>
+        </root>
+    </springProfile>
+    <!-- 其它环境 -->
+    <springProfile name="dev,test,prod">
+        <root level="${logging.level.root-info}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC"/>
+            <appender-ref ref="async_filter_debug"/>
+            <appender-ref ref="async_filter_info"/>
+            <appender-ref ref="async_filter_warn"/>
+            <appender-ref ref="async_filter_error"/>
+        </root>
+    </springProfile>
+</included>
+

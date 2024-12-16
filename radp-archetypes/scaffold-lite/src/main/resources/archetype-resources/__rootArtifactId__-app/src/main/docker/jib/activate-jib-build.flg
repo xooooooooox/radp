@@ -1,0 +1,1 @@
+如果不想使用 jib-maven-plugin 来构建 docker image, 只需要删除这个标志文件即可

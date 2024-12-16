@@ -1,0 +1,64 @@
+services:
+  nginx:
+    image: nginx:1.21.0-alpine
+    restart: unless-stopped
+    volumes:
+      - ./volumes/nginx/ssl:/etc/nginx/ssl
+      - ./volumes/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./volumes/nginx/conf/conf.d:/etc/nginx/conf.d
+      - ./volumes/nginx/logs:/var/log/nginx
+      - ./volumes/nginx/html:/usr/share/nginx/html:ro
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - local-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mysql:
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - local-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s
+
+  redis:
+    image: redis:7.2.0
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./volumes/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - local-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  local-network:
+    driver: bridge

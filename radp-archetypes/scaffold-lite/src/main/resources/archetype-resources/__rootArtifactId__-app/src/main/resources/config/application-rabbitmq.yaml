@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    listener:
+      simple:
+        # 每次投递 n 个消息, 消息完再投递 n 个. 实际场景可以适当配的大一些
+        prefetch: 1

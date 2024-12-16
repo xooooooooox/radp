@@ -1,0 +1,25 @@
+--- # MyBatis
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+  type-aliases-package: ${package}.domain.po
+  configuration:
+    # 虽然默认为 true ，但是还是显示去指定下
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 自增 ID，适合 MySQL 等直接自增的数据库
+      id-type: AUTO
+      # 逻辑已删除值(默认为 1)
+      logic-delete-value: 1
+      # 逻辑未删除值(默认为 0)
+      logic-not-delete-value: 0
+
+--- # extended mybatis
+radp:
+  mybatis-plus:
+    extension:
+      # 是否自动填充创建时间和更新时间
+      auto-fill:
+        enabled: true
+        created-data-field-name: createdDate
+        last-modified-date-field-name: lastModifiedDate

@@ -13,6 +13,5 @@ logging:
   level:
     root: info
     com.ulisesbocchio.jasyptspringboot: warn
-    com.x9x.radp: info
-    com.x9x: info
+    space.x9x.radp: info
     space.x9x: info

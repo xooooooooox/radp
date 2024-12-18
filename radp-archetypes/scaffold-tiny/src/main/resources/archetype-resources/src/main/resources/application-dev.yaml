@@ -4,8 +4,7 @@ logging:
   file:
     path: /data/logs/${spring.application.name}
   level:
-    com.x9x.radp: info
-    com.x9x: info
+    space.x9x.radp: info
     space.x9x: debug
 --- # database
 spring:

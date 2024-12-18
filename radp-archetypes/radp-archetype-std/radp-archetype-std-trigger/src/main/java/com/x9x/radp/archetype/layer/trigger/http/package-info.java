@@ -1,1 +1,0 @@
-package com.x9x.radp.archetype.layer.trigger.http;

@@ -1,0 +1,4 @@
+jackson=space.x9x.radp.spring.framework.json.jackson.Jackson
+fastjson=space.x9x.radp.spring.framework.json.fastjson.Fastjson
+fastjson2=space.x9x.radp.spring.framework.json.fastjson2.Fastjson2
+gson=space.x9x.radp.spring.framework.json.gson.Gson

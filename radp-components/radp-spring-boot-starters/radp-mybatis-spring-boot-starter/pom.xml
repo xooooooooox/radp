@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.x9x.radp</groupId>
+        <groupId>space.x9x.radp</groupId>
         <artifactId>radp-spring-boot-starters</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
@@ -38,7 +38,7 @@
 
         <!-- 内部组件 -->
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-spring-data</artifactId>
         </dependency>
     </dependencies>

@@ -15,7 +15,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-spring-framework</artifactId>
         </dependency>
     </dependencies>

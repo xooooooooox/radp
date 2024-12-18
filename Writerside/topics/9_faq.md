@@ -82,7 +82,7 @@ org.junit.platform.commons.JUnitException: TestEngine with ID 'spock' failed to 
 	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
 	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
 	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
-Caused by: org.junit.platform.commons.JUnitException: ClassSelector [className = 'com.x9x.radp.extension.ExtensionLoaderSpec'] resolution failed
+Caused by: org.junit.platform.commons.JUnitException: ClassSelector [className = 'space.x9x.radp.extension.ExtensionLoaderSpec'] resolution failed
 	at org.junit.platform.launcher.listeners.discovery.AbortOnFailureLauncherDiscoveryListener.selectorProcessed(AbortOnFailureLauncherDiscoveryListener.java:39)
 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:102)
 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:82)
@@ -90,7 +90,7 @@ Caused by: org.junit.platform.commons.JUnitException: ClassSelector [className =
 	at org.spockframework.runtime.SpockEngine.discover(SpockEngine.java:28)
 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:152)
 	... 13 more
-Caused by: org.junit.platform.commons.PreconditionViolationException: Could not load class with name: com.x9x.radp.extension.ExtensionLoaderSpec
+Caused by: org.junit.platform.commons.PreconditionViolationException: Could not load class with name: space.x9x.radp.extension.ExtensionLoaderSpec
 	at org.junit.platform.engine.discovery.ClassSelector.lambda$getJavaClass$0(ClassSelector.java:75)
 	at org.junit.platform.commons.function.Try$Failure.getOrThrow(Try.java:335)
 	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:74)
@@ -109,7 +109,7 @@ Caused by: org.junit.platform.commons.PreconditionViolationException: Could not 
 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:125)
 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:91)
 	... 17 more
-Caused by: java.lang.ClassNotFoundException: com.x9x.radp.extension.ExtensionLoaderSpec
+Caused by: java.lang.ClassNotFoundException: space.x9x.radp.extension.ExtensionLoaderSpec
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.x9x.radp</groupId>
+        <groupId>space.x9x.radp</groupId>
         <artifactId>radp-components</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
@@ -134,52 +134,52 @@
                 ============================ -->
             <!-- radp 基础组件 -->
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-commons</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-extensions</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-framework</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-test</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-boot-test</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-data</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-integration</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-security</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-boot</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-spring-cloud</artifactId>
                 <version>${radp.version}</version>
             </dependency>
@@ -194,52 +194,52 @@
                  自定义 Spring Boot Starters
             ============================ -->
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-tomcat-spring-boot-tarter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-jasypt-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-logging-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-mybatis-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-swagger3-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-undertow-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-druid-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-hikaricp-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-redis-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.x9x.radp</groupId>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-liquibase-spring-boot-starter</artifactId>
                 <version>${radp.version}</version>
             </dependency>

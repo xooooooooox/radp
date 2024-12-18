@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package};
 
-import com.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
+import space.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

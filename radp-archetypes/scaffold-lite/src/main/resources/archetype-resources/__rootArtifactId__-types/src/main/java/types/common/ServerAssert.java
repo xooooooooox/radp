@@ -3,9 +3,9 @@
 #set( $symbol_escape = '\' )
 package ${package}.types.common;
 
-import com.x9x.radp.spring.framework.error.ErrorCode;
-import com.x9x.radp.spring.framework.error.ServerException;
-import com.x9x.radp.spring.framework.error.asserts.BaseServerAssert;
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.ServerException;
+import space.x9x.radp.spring.framework.error.asserts.BaseServerAssert;
 import lombok.experimental.UtilityClass;
 
 /**

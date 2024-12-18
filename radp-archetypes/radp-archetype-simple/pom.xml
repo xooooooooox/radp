@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.x9x.radp</groupId>
+        <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetypes</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>radp-archetype-simple</artifactId>
 
     <properties>
-        <start-class>com.x9x.radp.Application</start-class>
+        <start-class>space.x9x.radp.Application</start-class>
         <build.jib.enabled>true</build.jib.enabled>
         <build.layers.enabled>true</build.layers.enabled> <!-- 是否激活分层构建 -->
         <docker.build.image_name/>
@@ -31,35 +31,35 @@
         </dependency>
 
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-redis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-jasypt-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-mybatis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-liquibase-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-tomcat-spring-boot-tarter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-logging-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-swagger3-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>

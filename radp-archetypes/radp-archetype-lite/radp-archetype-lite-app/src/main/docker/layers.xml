@@ -14,10 +14,10 @@
             <include>*:*:*SNAPSHOT</include>
         </into>
         <into layer="modules-dependencies">
-            <include>com.x9x.demo:*:*</include>
+            <include>space.x9x.demo:*:*</include>
         </into>
         <into layer="organization-dependencies">
-            <include>com.x9x*:*:*</include>
+            <include>space.x9x*:*:*</include>
         </into>
         <into layer="dependencies"/>
     </dependencies>

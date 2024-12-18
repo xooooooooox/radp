@@ -17,7 +17,7 @@
             <include>${package}:*:*</include>
         </into>
         <into layer="organization-dependencies">
-            <include>com.x9x*:*:*</include>
+            <include>space.x9x*:*:*</include>
         </into>
         <into layer="dependencies"/>
     </dependencies>

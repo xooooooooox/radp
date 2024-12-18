@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package}.test;
 
-import com.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
+import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Assertions;

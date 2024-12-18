@@ -8,7 +8,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.12</version>
     </parent>
-    <groupId>com.x9x.radp</groupId>
+    <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>

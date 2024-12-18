@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.x9x.radp</groupId>
+        <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetype-lite</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>radp-archetype-lite-app</artifactId>
 
     <properties>
-        <start-class>com.x9x.radp.Application</start-class>
+        <start-class>space.x9x.radp.Application</start-class>
         <build.jib.enabled>true</build.jib.enabled>
         <build.layers.enabled>true</build.layers.enabled> <!-- 是否激活分层构建 -->
         <docker.build.image_name>${docker.build.registry}/x9x/radp-archetype-lite-app</docker.build.image_name>
@@ -19,11 +19,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-jasypt-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-logging-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
@@ -32,18 +32,18 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
 
         <!-- 自身模块 -->
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-archetype-lite-trigger</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.x9x.radp</groupId>
+            <groupId>space.x9x.radp</groupId>
             <artifactId>radp-archetype-lite-infrastructure</artifactId>
         </dependency>
     </dependencies>

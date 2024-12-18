@@ -2,7 +2,7 @@ name: Build And Publish Writerside documentation
 
 on:
   push:
-    branches: ["feat/241218-devops-writerside"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:

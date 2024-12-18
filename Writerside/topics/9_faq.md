@@ -143,6 +143,40 @@ Caused by: java.lang.ClassNotFoundException: com.x9x.radp.extension.ExtensionLoa
 
 依次点击 `File` -> `Settings` -> `File Encodings` -> 开启 `Transparent native-to-ascii conversation`
 
+
+### Q5: GitHub actions deploy to GitHub Pages got error "protection rules"
+
+#### 现象
+
+在使用 Github Actions 发布到 GitHub Pages 报错如下
+
+```
+Branch "feat/241218-devops-writerside" is not allowed to deploy to github-pages due to environment protection rules.
+```
+
+#### 原因
+
+```yaml
+deploy:
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+```
+
+因为这里的 `deploy` job 中的 `github-pages` environment 有分支保护限制, 所以这个 Job 执行时报错了.(有点类似于 Git **受保护分支** 关于 git push 的限制)
+
+#### 解决方案
+
+调整这个 `github-pages environment` 的 `protection rule` 或者使用 `github-pages environment` 允许的分支进行 deploy.
+
+- Go to your repository’s Settings.
+- Scroll down to Environments.
+- Click on the github-pages environment.
+  - Under Deployment branches, verify whether the branch `feat/241218-devops-writerside` is allowed. If not:
+    - Add it explicitly, or adjust the branch protection pattern (e.g., add feat/* if you want all feature branches to be eligible).
+
+![9.2_4.png](9.1_1.png)
+
 ## 编码技巧
 
 ### Q1: IntelliJ 无法快速输入 TODO 和 FIXME

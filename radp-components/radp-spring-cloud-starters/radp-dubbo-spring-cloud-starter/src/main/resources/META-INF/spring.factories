@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.x9x.radp.dubbo.spring.cloud.autoconfigure.DubboAutoConfigurationImportFilter
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=space.x9x.radp.dubbo.spring.cloud.autoconfigure.DubboAutoConfigurationImportFilter

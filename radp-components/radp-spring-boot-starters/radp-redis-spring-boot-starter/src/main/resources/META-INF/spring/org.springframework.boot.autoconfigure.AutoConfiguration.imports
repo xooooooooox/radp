@@ -1,3 +1,3 @@
-  com.x9x.radp.redis.spring.boot.autoconfigure.RadpRedisTemplateAutoConfiguration
-  com.x9x.radp.redis.spring.boot.autoconfigure.CustomRedisTemplateAutoConfiguration
-  com.x9x.radp.redis.spring.boot.autoconfigure.RadpRedisCacheAutoConfiguration
+  space.x9x.radp.redis.spring.boot.autoconfigure.RadpRedisTemplateAutoConfiguration
+  space.x9x.radp.redis.spring.boot.autoconfigure.CustomRedisTemplateAutoConfiguration
+  space.x9x.radp.redis.spring.boot.autoconfigure.RadpRedisCacheAutoConfiguration

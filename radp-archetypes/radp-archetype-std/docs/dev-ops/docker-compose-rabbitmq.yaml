@@ -1,0 +1,16 @@
+# rabbitmq-plugins enable rabbitmq_management
+services:
+  # 管理后台 http://127.0.0.1:15672
+  # 账号密码 admin/admin
+  rabbitmq:
+    image: rabbitmq:3.12.9
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    command: rabbitmq-server
+    volumes:
+      - ./volumes/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins

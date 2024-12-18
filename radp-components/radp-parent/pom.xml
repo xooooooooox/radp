@@ -100,7 +100,7 @@
         <liquibase-maven-plugin.property_file>
             src/main/resources/db/config/liquibase_maven_plugin-${runtime.env}.properties
         </liquibase-maven-plugin.property_file>
-        <liquibase-maven-plugin.property_provider_class>com.x9x.radp.jasypt.spring.boot.env.ExtendJasyptProperties
+        <liquibase-maven-plugin.property_provider_class>env.space.x9x.radp.jasypt.spring.boot.ExtendJasyptProperties
         </liquibase-maven-plugin.property_provider_class>
         <jasypt.encryptor.password>${user.jasypt.encryptor.password}</jasypt.encryptor.password>
         <jasypt.encryptor.algorithm>PBEWithMD5AndDES</jasypt.encryptor.algorithm>

@@ -1,6 +1,6 @@
 package com.x9x.radp.types.common;
 
-import com.x9x.radp.spring.framework.error.asserts.BaseThirdServiceAssert;
+import space.x9x.radp.spring.framework.error.asserts.BaseThirdServiceAssert;
 import lombok.experimental.UtilityClass;
 
 /**

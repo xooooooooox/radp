@@ -1,0 +1,26 @@
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  nginx:
+    image: nginx:1.21.0-alpine
+    restart: unless-stopped
+    volumes:
+      - ./volumes/nginx/ssl:/etc/nginx/ssl
+      - ./volumes/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./volumes/nginx/conf/conf.d:/etc/nginx/conf.d
+      - ./volumes/nginx/logs:/var/log/nginx
+      - ./volumes/nginx/html:/usr/share/nginx/html:ro
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - local-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

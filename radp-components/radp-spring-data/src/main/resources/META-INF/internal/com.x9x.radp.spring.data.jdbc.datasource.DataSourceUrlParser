@@ -1,3 +1,3 @@
-hikaricp=com.x9x.radp.spring.data.jdbc.datasource.spi.HikariDataSourceUrlParser
-druid=com.x9x.radp.spring.data.jdbc.datasource.spi.DruidDataSourceUrlParser
-mybatis=com.x9x.radp.spring.data.jdbc.datasource.spi.MybatisDataSourceUrlParser
+hikaricp=spi.datasource.jdbc.space.x9x.radp.spring.data.HikariDataSourceUrlParser
+druid=spi.datasource.jdbc.space.x9x.radp.spring.data.DruidDataSourceUrlParser
+mybatis=spi.datasource.jdbc.space.x9x.radp.spring.data.MybatisDataSourceUrlParser

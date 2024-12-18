@@ -1,3 +1,7 @@
+networks:
+  local-network:
+    driver: bridge
+
 services:
   # 后端
   app:
@@ -17,18 +21,14 @@ services:
       TZ: Asia/Shanghai
       SERVER_PORT: ${appPort}
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/big_market?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${appName}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
       SPRING_REDIS_HOST: redis
     volumes:
       - ./volumes/logs:/data/logs
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${appPort}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
     networks:
       - local-network
-
-networks:
-  local-network:
-    driver: bridge

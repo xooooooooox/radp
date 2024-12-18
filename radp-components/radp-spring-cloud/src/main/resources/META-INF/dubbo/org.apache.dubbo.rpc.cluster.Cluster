@@ -1,1 +1,1 @@
-local-call-first=com.x9x.radp.spring.cloud.dubbo.cluster.LocalCallFirstCluster
+local-call-first=cluster.dubbo.space.x9x.radp.spring.cloud.LocalCallFirstCluster

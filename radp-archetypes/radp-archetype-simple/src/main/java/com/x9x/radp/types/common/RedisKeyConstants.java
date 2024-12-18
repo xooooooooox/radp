@@ -1,7 +1,7 @@
 package com.x9x.radp.types.common;
 
-import com.x9x.radp.commons.lang.StringUtils;
-import com.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
 import lombok.experimental.UtilityClass;
 
 /**

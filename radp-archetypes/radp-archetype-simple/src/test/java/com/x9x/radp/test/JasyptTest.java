@@ -1,10 +1,9 @@
 package com.x9x.radp.test;
 
 
-import com.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
+import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

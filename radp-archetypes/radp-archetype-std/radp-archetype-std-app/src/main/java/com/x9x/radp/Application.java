@@ -1,6 +1,6 @@
 package com.x9x.radp;
 
-import com.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
+import space.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

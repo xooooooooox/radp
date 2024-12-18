@@ -121,6 +121,7 @@ Caused by: java.lang.ClassNotFoundException: com.x9x.radp.extension.ExtensionLoa
 	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:748)
 	... 32 more
 ```
+{collapsible="true" collapsed-title="org.junit.platform.commons.JUnitException: TestEngine with ID 'spock' failed to discover tests"}
 
 #### 原因
 

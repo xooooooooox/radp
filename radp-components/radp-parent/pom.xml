@@ -807,7 +807,7 @@
                                 <arg>/entrypoint.sh</arg>
                             </entrypoint>
                             <labels>
-                                <org.opencontainers.image.authors>x9x &lt;xozozsos@gmail.com&gt;
+                                <org.opencontainers.image.authors>x9x &lt;${developer.email}&gt;
                                 </org.opencontainers.image.authors>
                                 <org.opencontainers.image.version>${project.version}
                                 </org.opencontainers.image.version>

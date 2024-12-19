@@ -38,9 +38,9 @@
 
     <developers>
         <developer>
-            <id>x9x</id>
-            <name>xooooooooox</name>
-            <email>xozozsos@gmail.com</email>
+            <id>${developer.id}</id>
+            <name>${developer.name}</name>
+            <email>${developer.email}</email>
             <roles>
                 <role>Architect</role>
                 <role>Developer</role>

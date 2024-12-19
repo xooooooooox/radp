@@ -29,6 +29,12 @@
         <application.policy>SNAPSHOT</application.policy>
         <revision>${application.version}-${application.policy}</revision>
         <radp.version>${application.version}-${application.policy}</radp.version>
+        <scm.git.web_url>https://github.com/xooooooooox/radp.git</scm.git.web_url>
+        <scm.git.url>git@github.com:xooooooooox/radp.git</scm.git.url>
+        <scm.issue.url>https://github.com/xooooooooox/radp/issues</scm.issue.url>
+        <developer.id>x9x</developer.id>
+        <developer.name>xooooooooox</developer.name>
+        <developer.email>xozozsos@gmail.com</developer.email>
 
         <!-- build -->
         <java.version>8</java.version>
@@ -48,9 +54,9 @@
 
     <developers>
         <developer>
-            <id>x9x</id>
-            <name>xooooooooox</name>
-            <email>xozozsos@gmail.com</email>
+            <id>${developer.id}</id>
+            <name>${developer.name}</name>
+            <email>${developer.email}</email>
             <roles>
                 <role>Architect</role>
                 <role>Developer</role>
@@ -59,14 +65,14 @@
     </developers>
 
     <scm>
-        <url>https://github.com/xooooooooox/radp.git</url>
-        <connection>scm:git@github.com:xooooooooox/radp.git</connection>
-        <developerConnection>scm:git@github.com:xooooooooox/radp.git</developerConnection>
+        <url>${scm.git.web_url}</url>
+        <connection>scm:git:${scm.git.url}</connection>
+        <developerConnection>scm:git:${scm.git.url}</developerConnection>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/xooooooooox/radp/issues</url>
+        <url>${scm.issue.url}</url>
     </issueManagement>
 
     <licenses>

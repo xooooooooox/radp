@@ -1474,6 +1474,43 @@
             </build>
         </profile>
 
+        <profile>
+            <id>private-scm</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>get-origin-url</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>git</executable>
+                                    <arguments>
+                                        <argument>remote</argument>
+                                        <argument>get-url</argument>
+                                        <argument>origin</argument>
+                                    </arguments>
+                                    <!-- todo 通过 outputProperty 将命令结果存入 Maven 属性 -->
+                                    <outputProperty>originUrl</outputProperty>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-- 使用获取到的 originUrl 来覆盖 scm.git.url 以及 scm.git.weburl -->
+            <properties>
+                <scm.git.url>${originUrl}</scm.git.url>
+                <scm.git.web_url>${originUrl}</scm.git.web_url>
+            </properties>
+        </profile>
+
         <!--中央仓库私服-->
         <profile>
             <id>ossrh</id>

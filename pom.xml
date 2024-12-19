@@ -29,6 +29,8 @@
         <application.policy>SNAPSHOT</application.policy>
         <revision>${application.version}-${application.policy}</revision>
         <radp.version>${application.version}-${application.policy}</radp.version>
+
+        <!-- project info -->
         <scm.git.web_url>https://github.com/xooooooooox/radp.git</scm.git.web_url>
         <scm.git.url>git@github.com:xooooooooox/radp.git</scm.git.url>
         <scm.issue.url>https://github.com/xooooooooox/radp/issues</scm.issue.url>
@@ -80,7 +82,6 @@
             <name>GNU General Public License, Version 3</name>
             <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
             <distribution>repo</distribution>
-            <comments>A description of the license can be added here if necessary.</comments>
         </license>
     </licenses>
 

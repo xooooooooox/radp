@@ -1463,34 +1463,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>private-scm</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>set-properties</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <!-- Assuming git-commit-id-plugin already defined git.remote.origin.url -->
-                                        <property name="scm.git.url" value="${git.remote.origin.url}" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <!--中央仓库私服-->
         <profile>
             <id>ossrh</id>

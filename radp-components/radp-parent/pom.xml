@@ -471,6 +471,7 @@
                 <!-- 部署仓库 END -->
 
                 <!-- 发布版本 START -->
+                <!-- 该插件需要结合 scm 使用 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>

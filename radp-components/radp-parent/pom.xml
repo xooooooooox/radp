@@ -11,7 +11,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-parent</artifactId>
-    <name>${project.artifactId}</name> <!-- 如果不设定, 会导致 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
+    <name>${project.artifactId}</name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
 
     <properties>
         <!-- 基础属性 -->

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -10,7 +8,7 @@
     </parent>
     <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
     <description>Rapid Application Development Platform</description>
     <url>https://github.com/xooooooooox/radp</url>
@@ -31,7 +29,7 @@
         <developer.id>x9x</developer.id>
         <developer.name>xooooooooox</developer.name>
         <developer.email>xozozsos@gmail.com</developer.email>
-        <git.remote.origin.url/>
+        <git.remote.origin.url />
 
         <!-- build -->
         <java.version>8</java.version>
@@ -70,7 +68,8 @@
         <url>${scm.git.web_url}</url>
         <connection>scm:git:${scm.git.url}</connection>
         <developerConnection>scm:git:${scm.git.url}</developerConnection>
-    </scm>
+      <tag>v0.0.2</tag>
+  </scm>
 
     <issueManagement>
         <system>GitHub</system>
@@ -311,7 +310,7 @@
                                 <configuration>
                                     <target>
                                         <!-- Assuming git-commit-id-plugin already defined git.remote.origin.url -->
-                                        <property name="scm.git.url" value="${git.remote.origin.url}"/>
+                                        <property name="scm.git.url" value="${git.remote.origin.url}" />
                                     </target>
                                 </configuration>
                             </execution>

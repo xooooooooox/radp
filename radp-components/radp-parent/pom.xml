@@ -11,7 +11,8 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-parent</artifactId>
-    <name>${project.artifactId}</name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
+    <name>${project.artifactId}
+    </name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
 
     <properties>
         <!-- 基础属性 -->
@@ -272,7 +273,7 @@
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
-                        <!--                        <release>${java.version}</release>-->
+                        <!--<release>${java.version}</release>-->
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <compilerArgs>
                             <arg>-Xlint:all</arg>
@@ -1006,7 +1007,7 @@
                                 <goal>jar</goal>
                             </goals>
                             <configuration>
-                                <failOnError>false</failOnError> <!-- TODO: 临时调整为 false -->
+                                <failOnError>false</failOnError>
                             </configuration>
                         </execution>
                         <!-- 聚合多模块项目的 java doc -->

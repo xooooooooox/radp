@@ -13,6 +13,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <description>Rapid Application Development Platform</description>
+    <url>https://github.com/xooooooooox/radp</url>
 
     <modules>
         <module>radp-agents</module>

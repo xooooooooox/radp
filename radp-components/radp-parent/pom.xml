@@ -322,7 +322,6 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>package</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -436,6 +435,11 @@
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
                     <version>${nexus-staging-maven-plugin.version}</version>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -996,6 +1000,7 @@
                                 <failOnError>false</failOnError> <!-- TODO: 临时调整为 false -->
                             </configuration>
                         </execution>
+                        <!-- 聚合多模块项目的 java doc -->
                         <execution>
                             <id>aggregate</id>
                             <goals>
@@ -1464,13 +1469,13 @@
 
         <!--中央仓库私服-->
         <profile>
-            <id>repo-sonatype-ossrh</id>
+            <id>ossrh</id>
             <properties>
                 <altReleaseDeploymentRepository>
-                    sonatype-ossrh::default::https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+                    ossrh::https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
                 </altReleaseDeploymentRepository>
                 <altSnapshotDeploymentRepository>
-                    sonatype-ossrh::default::https://s01.oss.sonatype.org/content/repositories/snapshots/
+                    ossrh::https://s01.oss.sonatype.org/content/repositories/snapshots/
                 </altSnapshotDeploymentRepository>
             </properties>
             <repositories>
@@ -1487,14 +1492,14 @@
                 </repository>
             </repositories>
             <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
                 <repository>
-                    <id>sonatype-ossrh</id>
+                    <id>ossrh</id>
                     <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
-                <snapshotRepository>
-                    <id>sonatype-ossrh</id>
-                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
             </distributionManagement>
             <build>
                 <plugins>
@@ -1617,6 +1622,35 @@
             </build>
         </profile>
         <!-- 公服私服 END -->
+
+
+        <profile>
+            <id>devops-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>net.nicoulaj.maven.plugins</groupId>
+                        <artifactId>checksum-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 

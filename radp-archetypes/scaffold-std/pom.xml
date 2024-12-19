@@ -9,7 +9,8 @@
     <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-std</artifactId>
     <packaging>maven-archetype</packaging>
-    <description>标准版(分布式,DDD架构)</description>
+    <name>${project.artifactId}</name>
+    <description>标准版(DDD架构)</description>
 
     <properties>
         <archetype.test.skip>true</archetype.test.skip>

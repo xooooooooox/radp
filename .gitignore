@@ -1,4 +1,5 @@
-radp-archetypes/catalog/archetype-catalog.xml
+radp-archetypes/catalog/archetype-catalog-origin.xml
+radp-archetypes/catalog/archetype-catalog-artifactory.xml
 # flatten-maven-plugin
 .flatten-pom-xml
 # mvn release:prepare generated

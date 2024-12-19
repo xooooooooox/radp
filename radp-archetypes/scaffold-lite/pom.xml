@@ -9,7 +9,8 @@
     <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-lite</artifactId>
     <packaging>maven-archetype</packaging>
-    <description>轻量版(单机,DDD架构)</description>
+    <name>${project.artifactId}</name>
+    <description>精简版(DDD架构)</description>
 
     <properties>
         <archetype.test.skip>true</archetype.test.skip>

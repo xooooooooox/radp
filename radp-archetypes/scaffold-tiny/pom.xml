@@ -8,8 +8,9 @@
     </parent>
     <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-tiny</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>maven-archetype</packaging>
-    <description>极简版本(MVC架构)</description>
+    <description>极简版(MVC架构)</description>
 
     <properties>
         <archetype.test.skip>true</archetype.test.skip>

@@ -8,8 +8,9 @@
     </parent>
     <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-simple</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>maven-archetype</packaging>
-    <description>轻量版(无模块,DDD架构)</description>
+    <description>简易版(DDD架构)</description>
 
     <properties>
         <archetype.test.skip>true</archetype.test.skip>

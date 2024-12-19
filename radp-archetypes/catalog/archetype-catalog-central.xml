@@ -6,31 +6,31 @@
     <archetype>
       <groupId>io.github.xooooooooox</groupId>
       <artifactId>scaffold-tiny</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-      <description>极简版本(MVC架构)</description>
+      <version>0.0.3</version>
+      <description>极简版(MVC架构)</description>
     </archetype>
     <archetype>
       <groupId>io.github.xooooooooox</groupId>
       <artifactId>scaffold-simple</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-      <description>轻量版(无模块,DDD架构)</description>
+      <version>0.0.3</version>
+      <description>简易版(DDD架构)</description>
     </archetype>
     <archetype>
       <groupId>io.github.xooooooooox</groupId>
       <artifactId>scaffold-lite</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-      <description>轻量版(单机,DDD架构)</description>
+      <version>0.0.3</version>
+      <description>精简版(DDD架构)</description>
     </archetype>
     <archetype>
       <groupId>io.github.xooooooooox</groupId>
       <artifactId>scaffold-std</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-      <description>标准版(分布式,DDD架构)</description>
+      <version>0.0.3</version>
+      <description>标准版(DDD架构)</description>
     </archetype>
     <archetype>
       <groupId>io.github.xooooooooox</groupId>
       <artifactId>scaffold-starter</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
+      <version>0.0.3</version>
       <description>spring-boot-starter 脚手架</description>
     </archetype>
   </archetypes>

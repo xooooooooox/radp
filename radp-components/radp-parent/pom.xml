@@ -212,19 +212,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -453,6 +441,9 @@
                                 <goal>sign</goal>
                             </goals>
                             <configuration>
+                                <!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
+                                <!-- 1. 确保 gpg version 2.1+ -->
+                                <!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
                                 <gpgArguments>
                                     <arg>--pinentry-mode</arg>
                                     <arg>loopback</arg>
@@ -633,9 +624,13 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <!-- 如果没有 Git 目录，不会导致构建失败 -->
                         <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                        <!-- 如果无法提取仓库信息，不会导致构建失败 -->
                         <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+                        <!-- 生成 git.properties 文件 -->
                         <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <!-- 仅包含指定的属性 -->
                         <includeOnlyProperties>
                             <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
                             <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
@@ -1470,14 +1465,6 @@
         <!--中央仓库私服-->
         <profile>
             <id>ossrh</id>
-            <properties>
-                <altReleaseDeploymentRepository>
-                    ossrh::https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-                </altReleaseDeploymentRepository>
-                <altSnapshotDeploymentRepository>
-                    ossrh::https://s01.oss.sonatype.org/content/repositories/snapshots/
-                </altSnapshotDeploymentRepository>
-            </properties>
             <repositories>
                 <repository>
                     <id>central</id>
@@ -1623,9 +1610,17 @@
         </profile>
         <!-- 公服私服 END -->
 
-
         <profile>
-            <id>devops-release</id>
+            <!-- 为了加快构建速度 -->
+            <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
+            <!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
+            <id>auto-release</id>
+            <activation>
+                <property>
+                    <name>auto.release.enabled</name>
+                    <value>true</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>

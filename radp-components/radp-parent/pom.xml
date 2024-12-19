@@ -647,6 +647,7 @@
                             <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
                             <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
                             <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                            <includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
                         </includeOnlyProperties>
                     </configuration>
                 </plugin>
@@ -1479,36 +1480,27 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${exec-maven-plugin.version}</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>get-origin-url</id>
-                                <phase>initialize</phase>
+                                <id>set-properties</id>
+                                <phase>validate</phase>
                                 <goals>
-                                    <goal>exec</goal>
+                                    <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>git</executable>
-                                    <arguments>
-                                        <argument>remote</argument>
-                                        <argument>get-url</argument>
-                                        <argument>origin</argument>
-                                    </arguments>
-                                    <!-- todo 通过 outputProperty 将命令结果存入 Maven 属性 -->
-                                    <outputProperty>originUrl</outputProperty>
+                                    <target>
+                                        <!-- Assuming git-commit-id-plugin already defined git.remote.origin.url -->
+                                        <property name="scm.git.url" value="${git.remote.origin.url}"/>
+                                    </target>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            <!-- 使用获取到的 originUrl 来覆盖 scm.git.url 以及 scm.git.weburl -->
-            <properties>
-                <scm.git.url>${originUrl}</scm.git.url>
-                <scm.git.web_url>${originUrl}</scm.git.web_url>
-            </properties>
         </profile>
 
         <!--中央仓库私服-->

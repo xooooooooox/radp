@@ -1648,9 +1648,6 @@
             <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
             <!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
             <id>auto-release</id>
-            <properties>
-                <devops.release.arguments>-Pcoding,repo-artifactory -DskipTests</devops.release.arguments>
-            </properties>
             <activation>
                 <property>
                     <name>auto.release.enabled</name>

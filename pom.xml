@@ -37,13 +37,17 @@
         <developer.id>x9x</developer.id>
         <developer.name>xooooooooox</developer.name>
         <developer.email>xozozsos@gmail.com</developer.email>
+        <git.remote.origin.url/>
 
         <!-- build -->
         <java.version>8</java.version>
+        <devops.release.arguments>-Pcoding,repo-artifactory -DskipTests</devops.release.arguments>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flattened.filename>.flatten-pom-xml</flattened.filename>
+        <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
+        <gpg.keyname>${user.gpg.keyname}</gpg.keyname>
 
         <!-- plugin version -->
         <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
@@ -52,6 +56,8 @@
         <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
         <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     </properties>
 
     <developers>
@@ -89,54 +95,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-wrapper-plugin</artifactId>
-                    <version>${maven-wrapper-plugin.version}</version>
-                    <configuration>
-                        <mavenVersion>3.9.9</mavenVersion>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                        <tagNameFormat>v@{project.version}</tagNameFormat>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <locale>en_US</locale>
-                        <charset>UTF-8</charset>
-                        <encoding>UTF-8</encoding>
-                        <docencoding>UTF-8</docencoding>
-                        <doclint>none</doclint>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <configuration>
-                        <generateBackupPoms>false</generateBackupPoms>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
                     <executions>
@@ -147,14 +105,135 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <!-- 如果没有 Git 目录，不会导致构建失败 -->
                         <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                        <!-- 如果无法提取仓库信息，不会导致构建失败 -->
                         <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+                        <!-- 生成 git.properties 文件 -->
                         <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <!-- 仅包含指定的属性 -->
                         <includeOnlyProperties>
                             <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
                             <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
                             <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                            <includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
                         </includeOnlyProperties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <charset>${javadoc.encoding}</charset>
+                        <docencoding>${javadoc.encoding}</docencoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <failOnError>false</failOnError>
+                            </configuration>
+                        </execution>
+                        <!-- 聚合多模块项目的 java doc -->
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Specific configuration for the aggregate report -->
+                                <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+                                <destDir>javadoc</destDir>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                            <configuration>
+                                <!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
+                                <!-- 1. 确保 gpg version 2.1+ -->
+                                <!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
+                                <gpgArguments>
+                                    <arg>--pinentry-mode</arg>
+                                    <arg>loopback</arg>
+                                </gpgArguments>
+                                <useAgent>true</useAgent>
+                                <keyname>${gpg.keyname}</keyname>
+                                <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>net.nicoulaj.maven.plugins</groupId>
+                    <artifactId>checksum-maven-plugin</artifactId>
+                    <version>${maven-checksum-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>create-checksums</id>
+                            <goals>
+                                <goal>artifacts</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <configuration>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
+                        <!-- 如果为true, 那么 performRelease 将会为 true -->
+                        <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
+                        <arguments>${devops.release.arguments}</arguments>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-wrapper-plugin</artifactId>
+                    <version>${maven-wrapper-plugin.version}</version>
+                    <configuration>
+                        <mavenVersion>3.9.9</mavenVersion>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <configuration>
+                        <generateBackupPoms>false</generateBackupPoms>
                     </configuration>
                 </plugin>
 
@@ -193,7 +272,64 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+            <!-- 一定要先签名,再生成校验文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+            <plugin>
+                <groupId>net.nicoulaj.maven.plugins</groupId>
+                <artifactId>checksum-maven-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <inherited>false</inherited>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>private-scm</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>set-properties</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <!-- Assuming git-commit-id-plugin already defined git.remote.origin.url -->
+                                        <property name="scm.git.url" value="${git.remote.origin.url}"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

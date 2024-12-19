@@ -10,7 +10,7 @@
     </parent>
     <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
-    <version>${revision}</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Rapid Application Development Platform</description>
     <url>https://github.com/xooooooooox/radp</url>
@@ -25,10 +25,10 @@
 
     <properties>
         <!-- project version -->
-        <application.version>0.0.2</application.version>
-        <application.policy>SNAPSHOT</application.policy>
-        <revision>${application.version}-${application.policy}</revision>
-        <radp.version>${application.version}-${application.policy}</radp.version>
+<!--        <application.version>0.0.2</application.version>-->
+<!--        <application.policy>SNAPSHOT</application.policy>-->
+<!--        <revision>${application.version}-${application.policy}</revision>-->
+        <radp.version>${project.version}</radp.version>
 
         <!-- project info -->
         <scm.git.web_url>https://github.com/xooooooooox/radp.git</scm.git.web_url>

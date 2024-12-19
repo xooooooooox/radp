@@ -1,5 +1,10 @@
 radp-archetypes/catalog/archetype-catalog.xml
+# flatten-maven-plugin
 .flatten-pom-xml
+# mvn release:prepare generated
+pom.xml.releaseBackup
+release.properties
+
 target/
 !**/src/main/**/target/
 !**/src/test/**/target/

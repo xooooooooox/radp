@@ -10,5 +10,5 @@ springdoc:
 radp:
   swagger3:
     title: ${spring.application.name}
-    # 读取 pom.xml 中的 property application.version, 这样就不用手动更新了该值了
+    # 读取 pom.xml 中的 property project.version, 这样就不用手动更新了该值了
     version: @project.version@

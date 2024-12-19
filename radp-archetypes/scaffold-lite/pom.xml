@@ -5,7 +5,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetypes</artifactId>
-        <version>${revision}</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
     <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-lite</artifactId>

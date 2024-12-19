@@ -10,6 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>radp-mybatis-spring-boot-starter</artifactId>
+    <name>${project.artifactId}</name>
 
     <dependencies>
         <!-- 开发组件 -->

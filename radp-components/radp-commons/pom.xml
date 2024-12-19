@@ -10,8 +10,8 @@
         <relativePath>../radp-parent/pom.xml</relativePath>
     </parent>
     <artifactId>radp-commons</artifactId>
+    <name>${project.artifactId}</name>
     <description>流行工具集整合</description>
-
 
     <dependencies>
         <!-- ===========================

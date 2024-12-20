@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-integration-tests</artifactId>
+    <name>${project.artifactId}</name>
     <description>集成测试</description>
 
     <dependencies>

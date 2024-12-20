@@ -33,7 +33,6 @@
 
         <!-- build -->
         <java.version>8</java.version>
-        <devops.release.arguments>-Pcoding,repo-artifactory,publish-artifactory -DskipTests</devops.release.arguments>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -312,6 +311,9 @@
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>${ossrh.server_id}</publishingServerId>
+                            <!-- 是否自动 publish, 默认为 false, 需要去页面手动点击 publish -->
+                            <!--                            <autoPublish>true</autoPublish>-->
+                            <!--                            <waitUntil>true</waitUntil>-->
                         </configuration>
                     </plugin>
                 </plugins>

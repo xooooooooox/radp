@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-performance-tests</artifactId>
+    <name>${project.artifactId}</name>
     <description>性能测试</description>
 
 

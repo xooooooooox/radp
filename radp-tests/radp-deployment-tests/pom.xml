@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-deployment-tests</artifactId>
+    <name>${project.artifactId}</name>
     <description>部署测试</description>
 
 

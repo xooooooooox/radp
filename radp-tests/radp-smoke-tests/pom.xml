@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-smoke-tests</artifactId>
+    <name>${project.artifactId}</name>
     <description>冒烟测试</description>
 
 

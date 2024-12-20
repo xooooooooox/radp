@@ -5,6 +5,8 @@ radp-archetypes/catalog/archetype-catalog-artifactory.xml
 # mvn release:prepare generated
 pom.xml.releaseBackup
 release.properties
+# version-maven-plugin
+pom.xml.versionsBackup
 
 target/
 !**/src/main/**/target/

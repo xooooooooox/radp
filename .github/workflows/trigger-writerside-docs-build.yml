@@ -1,8 +1,9 @@
-name: Build And Publish Writerside documentation
+name: Trigger Build Writerside documentation
 
 on:
   push:
-    branches: ["main"]
+    branches: main
+    paths: [ 'Writerside/*' ]
   workflow_dispatch:
 
 permissions:

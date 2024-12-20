@@ -1,6 +1,8 @@
 # ChangeLog
 
-## 0.0.2-SNAPSHOT
+## 0.1.3
 
-- 使用 Writerside 维护工程文档
-- 发布构件到中央仓库
+- 支持发布构件到 central, GitHub packages, self-hosted artifactory
+- Use GitHUb Actions build and publish GitHub Pages
+- DDD 脚手架
+- 基础通用组件

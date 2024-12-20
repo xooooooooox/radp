@@ -26,9 +26,9 @@
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <!-- archetype -->
-        <gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
-        <minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
-        <minio.bucket.path>${user.minio.bucket.path}</minio.bucket.path>
+        <gpg.keyname>${setting.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
+        <minio.alias>${setting.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
+        <minio.bucket.path>${setting.minio.bucket.path}</minio.bucket.path>
 
         <!-- MAVEN PLUGIN VERSION START-->
         <!-- 打包成可执行程序 -->
@@ -72,8 +72,8 @@
         <build.jib.enabled>true</build.jib.enabled>
         <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
-        <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
-        <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
+        <docker.build.registry>${setting.docker.build.registry}</docker.build.registry>
+        <docker.build.base_image>${setting.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
         <app.home>/app</app.home> <!-- 容器内的应用目录 -->
@@ -102,7 +102,7 @@
         </liquibase-maven-plugin.property_file>
         <liquibase-maven-plugin.property_provider_class>env.space.x9x.radp.jasypt.spring.boot.ExtendJasyptProperties
         </liquibase-maven-plugin.property_provider_class>
-        <jasypt.encryptor.password>${user.jasypt.encryptor.password}</jasypt.encryptor.password>
+        <jasypt.encryptor.password>${setting.jasypt.encryptor.password}</jasypt.encryptor.password>
         <jasypt.encryptor.algorithm>PBEWithMD5AndDES</jasypt.encryptor.algorithm>
         <jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
         <liquibase.contexts>local</liquibase.contexts>
@@ -1533,50 +1533,11 @@
             </build>
         </profile>
         <profile>
-            <id>auto-archetype-dispatch</id>
-            <activation>
-                <property>
-                    <name>auto.archetype.dispatch.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
-                        <executions>
-                            <!-- 检测需要激活分发 archtype-catalog.xml 到哪些地方, 比如 github/minio -->
-                            <execution>
-                                <id>enabled-dispatch-target</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <condition property="auto.archetype.catalog.minio">
-                                            <equals arg1="${auto.archetype.internal.minio}" arg2="true" />
-                                        </condition>
-                                        <condition property="auto.archetype.catalog.vcs">
-                                            <available file="${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml" />
-                                        </condition>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>auto-archetype-vcs</id>
             <activation>
-                <property>
-                    <name>auto.archetype.catalog.vcs</name>
-                    <value>true</value>
-                </property>
+                <file>
+                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+                </file>
             </activation>
             <build>
                 <plugins>
@@ -1613,6 +1574,9 @@
             <!-- 这个 profile 将 archetype-catalog.xml 上传到 minio -->
             <id>auto-archetype-minio</id>
             <activation>
+                <file>
+                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+                </file>
                 <property>
                     <name>auto.archetype.catalog.minio</name>
                     <value>true</value>
@@ -1646,49 +1610,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- 公服私服 END -->
-
-        <profile>
-            <!-- 为了加快构建速度 -->
-            <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
-            <!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
-            <id>auto-release</id>
-            <activation>
-                <property>
-                    <name>auto.release.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>versions-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <!-- 一定要先签名,再生成校验文件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.nicoulaj.maven.plugins</groupId>
-                        <artifactId>checksum-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

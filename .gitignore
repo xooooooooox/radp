@@ -11,6 +11,7 @@ pom.xml.versionsBackup
 target/
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/maven-wrapper.jar
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

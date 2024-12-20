@@ -8,8 +8,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>
-
     <artifactId>radp-agents</artifactId>
+    <name>${project.artifactId}</name>
 
 
 </project>

@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-archetypes</artifactId>
+    <name>${project.artifactId}</name>
 
     <!-- 为了加快整个工程的构建速度, radp-archetype-xxx 将不会发布到制品库 -->
     <!-- 仅需要将 scaffold-xxx 发布到制品库 -->

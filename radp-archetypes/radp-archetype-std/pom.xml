@@ -8,6 +8,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-archetype-std</artifactId>
+    <name>${project.artifactId}</name>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>

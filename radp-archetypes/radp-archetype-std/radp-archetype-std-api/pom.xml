@@ -7,6 +7,7 @@
         <version>0.1.3-SNAPSHOT</version>
     </parent>
     <artifactId>radp-archetype-std-api</artifactId>
+    <name>${project.artifactId}</name>
     <description>开发 API 层</description>
 
     <dependencies>

@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-dependencies</artifactId>
+    <name>${project.artifactId}</name>
     <description>统一依赖管理</description>
 
     <properties>

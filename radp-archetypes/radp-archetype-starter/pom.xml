@@ -7,6 +7,7 @@
         <version>0.1.3-SNAPSHOT</version>
     </parent>
     <artifactId>radp-archetype-starter</artifactId>
+    <name>${project.artifactId}</name>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>

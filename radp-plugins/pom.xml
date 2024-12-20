@@ -9,6 +9,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-plugins</artifactId>
+    <name>${project.artifactId}</name>
 
 
 </project>

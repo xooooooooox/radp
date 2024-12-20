@@ -8,7 +8,7 @@
     </parent>
     <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
     <description>Rapid Application Development Platform</description>
     <url>https://github.com/xooooooooox/radp</url>
@@ -67,7 +67,7 @@
         <url>${scm.git.web_url}</url>
         <connection>scm:git:${scm.git.url}</connection>
         <developerConnection>scm:git:${scm.git.url}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v0.0.4</tag>
     </scm>
 
     <issueManagement>

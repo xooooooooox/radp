@@ -38,7 +38,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
-        <ossrh.server_id>ossrh</ossrh.server_id>
+        <central.server.id>central-portal</central.server.id>
         <user.gpg.keyname/>
         <user.minio.alias/>
         <user.minio.bucket.path/>
@@ -289,10 +289,10 @@
         <!-- https://central.sonatype.com/ -->
         <!-- 该插件的存在无需指定 distributionManagement -->
         <profile>
-            <id>publish-ossrh</id>
+            <id>publish-central</id>
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
-                <devops.release.arguments>-Pcoding,publish-ossrh -DskipTests</devops.release.arguments>
+                <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
             </properties>
             <build>
                 <plugins>
@@ -302,7 +302,7 @@
                         <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <publishingServerId>${ossrh.server_id}</publishingServerId>
+                            <publishingServerId>${central.server.id}</publishingServerId>
                             <autoPublish>true</autoPublish>
                             <waitUntil>published</waitUntil>
                         </configuration>

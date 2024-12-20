@@ -38,8 +38,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
-        <gpg.keyname>${setting.gpg.keyname}</gpg.keyname>
         <ossrh.server_id>ossrh</ossrh.server_id>
+        <user.gpg.keyname/>
+        <user.minio.alias/>
+        <user.minio.bucket.path/>
+        <user.docker.build.registry/>
+        <user.docker.build.base_image/>
+        <user.jasypt.encryptor.password/>
 
         <!-- plugin version -->
         <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
@@ -181,8 +186,8 @@
                                     <arg>loopback</arg>
                                 </gpgArguments>
                                 <useAgent>true</useAgent>
-                                <keyname>${gpg.keyname}</keyname>
-                                <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                <keyname>${user.gpg.keyname}</keyname>
+                                <passphraseServerId>${user.gpg.keyname}</passphraseServerId>
                             </configuration>
                         </execution>
                     </executions>
@@ -265,6 +270,21 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>coding</id>
+            <properties>
+                <!-- archetype -->
+                <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
+                <user.minio.alias>${setting.minio.alias}</user.minio.alias>
+                <user.minio.bucket.path>${setting.minio.bucket.path}</user.minio.bucket.path>
+                <!-- docker -->
+                <user.docker.build.registry>${setting.docker.build.registry}</user.docker.build.registry>
+                <user.docker.build.base_image>${setting.docker.build.base_image}
+                </user.docker.build.base_image>
+                <!-- jasypt -->
+                <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+            </properties>
+        </profile>
         <!-- 发布到中央仓库 -->
         <!-- https://central.sonatype.com/ -->
         <!-- 该插件的存在无需指定 distributionManagement -->
@@ -284,7 +304,7 @@
                         <configuration>
                             <publishingServerId>${ossrh.server_id}</publishingServerId>
                             <autoPublish>true</autoPublish>
-                            <waitUntil>true</waitUntil>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>

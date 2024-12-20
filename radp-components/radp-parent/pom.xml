@@ -26,9 +26,9 @@
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <!-- archetype -->
-        <gpg.keyname>${setting.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
-        <minio.alias>${setting.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
-        <minio.bucket.path>${setting.minio.bucket.path}</minio.bucket.path>
+        <gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
+        <minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
+        <minio.bucket.path>${user.minio.bucket.path}</minio.bucket.path>
 
         <!-- MAVEN PLUGIN VERSION START-->
         <!-- 打包成可执行程序 -->
@@ -72,8 +72,8 @@
         <build.jib.enabled>true</build.jib.enabled>
         <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
-        <docker.build.registry>${setting.docker.build.registry}</docker.build.registry>
-        <docker.build.base_image>${setting.docker.build.base_image}</docker.build.base_image> <!-- from -->
+        <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
+        <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
         <app.home>/app</app.home> <!-- 容器内的应用目录 -->
@@ -102,7 +102,7 @@
         </liquibase-maven-plugin.property_file>
         <liquibase-maven-plugin.property_provider_class>env.space.x9x.radp.jasypt.spring.boot.ExtendJasyptProperties
         </liquibase-maven-plugin.property_provider_class>
-        <jasypt.encryptor.password>${setting.jasypt.encryptor.password}</jasypt.encryptor.password>
+        <jasypt.encryptor.password>${user.jasypt.encryptor.password}</jasypt.encryptor.password>
         <jasypt.encryptor.algorithm>PBEWithMD5AndDES</jasypt.encryptor.algorithm>
         <jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
         <liquibase.contexts>local</liquibase.contexts>
@@ -445,8 +445,8 @@
                                     <arg>loopback</arg>
                                 </gpgArguments>
                                 <useAgent>true</useAgent>
-                                <keyname>${gpg.keyname}</keyname>
-                                <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                <keyname>${user.gpg.keyname}</keyname>
+                                <passphraseServerId>${user.gpg.keyname}</passphraseServerId>
                             </configuration>
                         </execution>
                     </executions>

@@ -15,7 +15,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp?style=for-the-badge)](https://github.com/xooooooooox/radp/releases)
 [![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp?style=for-the-badge)](https://central.sonatype.com/namespace/space.x9x.radp)
 
-[![Static Badge](https://img.shields.io/badge/README-EN-blue)](./README.md) [![Static Badge](https://img.shields.io/badge/README-中-red)](./README_CN.md) [![Static Badge](https://img.shields.io/badge/Document-Pages-green)](./README.md)
+[![Static Badge](https://img.shields.io/badge/README-EN-blue)](./README.md) [![Static Badge](https://img.shields.io/badge/README-中-red)](./README_CN.md) [![Static Badge](https://img.shields.io/badge/Document-Pages-green)](https://xooooooooox.github.io/radp)
 
 ## Introduction
 

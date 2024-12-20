@@ -692,7 +692,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <inherited>false</inherited>
             </plugin>
-            <!-- 一定要先签名,再生成校验文件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>

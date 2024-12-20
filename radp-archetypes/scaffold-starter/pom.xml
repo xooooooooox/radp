@@ -6,7 +6,6 @@
         <artifactId>radp-archetypes</artifactId>
         <version>0.0.5-SNAPSHOT</version>
     </parent>
-    <groupId>io.github.xooooooooox</groupId>
     <artifactId>scaffold-starter</artifactId>
     <name>${project.artifactId}</name>
     <packaging>maven-archetype</packaging>

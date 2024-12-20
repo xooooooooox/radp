@@ -1463,21 +1463,6 @@
             </build>
         </profile>
 
-        <!--中央仓库私服-->
-        <profile>
-            <id>publish-ossrh</id>
-            <properties>
-                <auto.release.enabled>true</auto.release.enabled>
-                <altReleaseDeploymentRepository>
-                    ossrh::https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-                </altReleaseDeploymentRepository>
-                <altSnapshotDeploymentRepository>
-                    ossrh::https://s01.oss.sonatype.org/content/repositories/snapshots/
-                </altSnapshotDeploymentRepository>
-                <devops.release>true</devops.release>
-            </properties>
-        </profile>
-
         <profile>
             <!-- 不需要手动激活, 会自动激活 -->
             <id>auto-archetype-build</id>

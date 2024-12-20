@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,6 +40,7 @@
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
         <gpg.keyname>${user.gpg.keyname}</gpg.keyname>
+        <ossrh.server_id>ossrh</ossrh.server_id>
 
         <!-- plugin version -->
         <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
@@ -49,6 +51,7 @@
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
     </properties>
 
     <developers>
@@ -289,4 +292,30 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- 发布到中央仓库 -->
+        <!-- https://central.sonatype.com/ -->
+        <!-- 该插件的存在无需指定 distributionManagement -->
+        <profile>
+            <id>publish-ossrh</id>
+            <properties>
+                <auto.release.enabled>true</auto.release.enabled>
+                <devops.release.arguments>-Pcoding,publish-ossrh -DskipTests</devops.release.arguments>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>${ossrh.server_id}</publishingServerId>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

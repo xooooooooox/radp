@@ -1479,24 +1479,6 @@
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <!-- 一定要先签名, 再生成校验文件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.nicoulaj.maven.plugins</groupId>
-                        <artifactId>checksum-maven-plugin</artifactId>
-                        <version>${maven-checksum-plugin.version}</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <version>${maven-antrun-plugin.version}</version>
                         <executions>
@@ -1509,21 +1491,6 @@
                                 <configuration>
                                     <target>
                                         <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                            <!-- 检查是否需要激活 分发 archetype-catalog.xml -->
-                            <execution>
-                                <id>check-if-enable-mc-upload</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <condition property="auto.archetype.dispatch.enabled">
-                                            <equals arg1="${auto.release.enabled}" arg2="true" />
-                                        </condition>
                                     </target>
                                 </configuration>
                             </execution>

@@ -12,6 +12,7 @@
 ```
 
 [![GitHub License](https://img.shields.io/github/license/xooooooooox/radp?style=for-the-badge)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp?display_name=tag&style=for-the-badge)](https://github.com/xooooooooox/radp/releases)
 
 [[English]](./README.md)  [[中文文档]](./README_CN.md) [[Documentation]](https://xooooooooox.github.io/radp)
 

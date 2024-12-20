@@ -1481,7 +1481,7 @@
 
         <profile>
             <!-- 不需要手动激活, 会自动激活 -->
-            <id>auto-archetype-central</id>
+            <id>auto-archetype-build</id>
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
@@ -1513,24 +1513,95 @@
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>copy-archetype-catalog</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <copy file="${settings.localRepository}/archetype-catalog.xml"
+                                              tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <!-- 检查是否需要激活 分发 archetype-catalog.xml -->
+                            <execution>
+                                <id>check-if-enable-mc-upload</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <condition property="auto.archetype.dispatch.enabled">
+                                            <equals arg1="${auto.release.enabled}" arg2="true"/>
+                                        </condition>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>auto-archetype-github</id>
+            <id>auto-archetype-dispatch</id>
             <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
-                </file>
+                <property>
+                    <name>auto.archetype.dispatch.enabled</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin.version}</version>
+                        <executions>
+                            <!-- 检测需要激活分发 archtype-catalog.xml 到哪些地方, 比如 github/minio -->
+                            <execution>
+                                <id>enabled-dispatch-target</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <condition property="auto.archetype.catalog.minio">
+                                            <equals arg1="${auto.archetype.internal.minio}" arg2="true"/>
+                                        </condition>
+                                        <condition property="auto.archetype.catalog.vcs">
+                                            <available
+                                                    file="${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml"/>
+                                        </condition>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>auto-archetype-vcs</id>
+            <activation>
+                <property>
+                    <name>auto.archetype.catalog.vcs</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
                     <!-- 这里复制一份生成的 archetype-catalog.xml 到 radp-archetype/catalog/archetype-catalog-origin.xml -->
-                    <!-- 你只需要复制这份 archetype-catalog-origin.xml 到同级目录下的 archetype-catalog-central.xml -->
+                    <!-- 你只需要复制这份 archetype-catalog-origin.xml 到同级目录下的 archetype-catalog-vcs.xml -->
                     <!-- 这样我们便可以利用 GitHub raw url 来使用了 -->
-                    <!-- https://raw.githubusercontent.com/xooooooooox/radp/refs/heads/main/radp-archetypes/catalog/archetype-catalog-central.xml -->
+                    <!-- https://raw.githubusercontent.com/xooooooooox/radp/refs/heads/main/radp-archetypes/catalog/archetype-catalog-vcs.xml -->
                     <!-- 将上面这个地址配置到 IntelliJ 的 Archetype Catalogs 中, 你便可以使用 radp 封装的脚手架了 -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -1550,25 +1621,6 @@
                                     </target>
                                 </configuration>
                             </execution>
-                            <!-- 检查是否需要激活 auto-archetype-minio 等 -->
-                            <execution>
-                                <id>check-if-enable-mc-upload</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <condition property="uto.archetype.internal.minio.enabled">
-                                            <and>
-                                                <available
-                                                        file="${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml"/>
-                                                <equals arg1="${uto.archetype.internal.minio}" arg2="true"/>
-                                            </and>
-                                        </condition>
-                                    </target>
-                                </configuration>
-                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
@@ -1581,7 +1633,7 @@
             <id>auto-archetype-minio</id>
             <activation>
                 <property>
-                    <name>auto.archetype.minio.enabled</name>
+                    <name>auto.archetype.catalog.minio</name>
                     <value>true</value>
                 </property>
             </activation>

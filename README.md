@@ -12,7 +12,7 @@
 ```
 
 [![GitHub License](https://img.shields.io/github/license/xooooooooox/radp?style=for-the-badge)](LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp?display_name=tag&style=for-the-badge)](https://github.com/xooooooooox/radp/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp)](https://github.com/xooooooooox/radp/releases)
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp)](https://central.sonatype.com/namespace/space.x9x.radp)
 [![GitHub Tag](https://img.shields.io/github/v/tag/xooooooooox/radp)](https://github.com/xooooooooox/radp/tags)

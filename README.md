@@ -12,10 +12,8 @@
 ```
 
 [![GitHub License](https://img.shields.io/github/license/xooooooooox/radp?style=for-the-badge)](LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp)](https://github.com/xooooooooox/radp/releases)
-
-[![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp)](https://central.sonatype.com/namespace/space.x9x.radp)
-[![GitHub Tag](https://img.shields.io/github/v/tag/xooooooooox/radp)](https://github.com/xooooooooox/radp/tags)
+[![GitHub Release](https://img.shields.io/github/v/release/xooooooooox/radp?style=for-the-badge)](https://github.com/xooooooooox/radp/releases)
+[![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp?style=for-the-badge)](https://central.sonatype.com/namespace/space.x9x.radp)
 
 [[English]](./README.md)  [[中文文档]](./README_CN.md) [[Documentation]](https://xooooooooox.github.io/radp)
 

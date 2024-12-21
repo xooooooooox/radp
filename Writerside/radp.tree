@@ -4,14 +4,29 @@
 
 <instance-profile id="radp"
                  name="radp"
-                 start-page="starter-topic.md">
+                 start-page="about.md">
 
-    <toc-element topic="starter-topic.md"/>
-    <toc-element topic="1_manual.md">
-        <toc-element topic="1.1_archetype.md">
-            <toc-element topic="1.1.1_use_archetype_create_project.md"/>
+    <toc-element topic="about.md"/>
+    <toc-element topic="1-manual.md">
+        <toc-element topic="1.1-archetype.md">
+            <toc-element topic="1.1.1-use_archetype_create_project.md"/>
         </toc-element>
-        <toc-element topic="1.2_components.md"/>
+        <toc-element topic="1.2-components.md">
+            <toc-element topic="1.2.1-dependencies.md"/>
+            <toc-element topic="1.2.2-parent.md"/>
+            <toc-element topic="1.2.3-commons.md"/>
+            <toc-element topic="1.2.4-extensions.md"/>
+            <toc-element topic="1.2.5-framework.md"/>
+            <toc-element topic="1.2.6-data.md"/>
+            <toc-element topic="1.2.7-security.md"/>
+            <toc-element topic="1.2.8-integration.md"/>
+            <toc-element topic="1.2.9-starter.md"/>
+            <toc-element topic="1.2.10-cloud.md"/>
+        </toc-element>
+        <toc-element topic="1.3-solutions.md">
+            <toc-element topic="1.3.1-desensitization.md"/>
+            <toc-element topic="1.3.2-db_router.md"/>
+        </toc-element>
     </toc-element>
-    <toc-element topic="9_faq.md"/>
+    <toc-element topic="9-faq.md"/>
 </instance-profile>

@@ -8,7 +8,9 @@
 
     <toc-element topic="starter-topic.md"/>
     <toc-element topic="1_manual.md">
-        <toc-element topic="1.1_archetype.md"/>
+        <toc-element topic="1.1_archetype.md">
+            <toc-element topic="1.1.1_use_archetype_create_project.md"/>
+        </toc-element>
         <toc-element topic="1.2_components.md"/>
     </toc-element>
     <toc-element topic="9_faq.md"/>

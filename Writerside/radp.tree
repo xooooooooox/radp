@@ -13,7 +13,10 @@
         </toc-element>
         <toc-element topic="1.2-components.md">
             <toc-element topic="1.2.1-dependencies.md"/>
-            <toc-element topic="1.2.2-parent.md"/>
+            <toc-element topic="1.2.2-parent.md">
+                <toc-element topic="1.2.2.1-profiles.md"/>
+                <toc-element topic="1.2.2.2-deploy.md"/>
+            </toc-element>
             <toc-element topic="1.2.3-commons.md"/>
             <toc-element topic="1.2.4-extensions.md"/>
             <toc-element topic="1.2.5-framework.md"/>

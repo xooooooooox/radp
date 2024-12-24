@@ -8,7 +8,7 @@
     </parent>
     <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>Rapid Application Development Platform</description>
@@ -39,12 +39,12 @@
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
         <central.server.id>central-portal</central.server.id>
-        <user.gpg.keyname/>
-        <user.minio.alias/>
-        <user.minio.bucket.path/>
-        <user.docker.build.registry/>
-        <user.docker.build.base_image/>
-        <user.jasypt.encryptor.password/>
+        <user.gpg.keyname />
+        <user.minio.alias />
+        <user.minio.bucket.path />
+        <user.docker.build.registry />
+        <user.docker.build.base_image />
+        <user.jasypt.encryptor.password />
 
         <!-- plugin version -->
         <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
@@ -74,7 +74,7 @@
         <url>${scm.git.web_url}</url>
         <connection>scm:git:${scm.git.url}</connection>
         <developerConnection>scm:git:${scm.git.url}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v0.2</tag>
     </scm>
 
     <issueManagement>

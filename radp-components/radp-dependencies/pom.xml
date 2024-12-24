@@ -51,7 +51,7 @@
         <mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
-        <mybatis-plus-join-boot-starter.version>1.4.3.2
+        <mybatis-plus-join-boot-starter.version>1.5.2
         </mybatis-plus-join-boot-starter.version>
         <druid.version>1.2.16</druid.version>
         <pagehelper.version>5.3.1</pagehelper.version>

@@ -1,13 +1,10 @@
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.management.Query;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 /**
  * @author x9x
@@ -15,32 +12,22 @@ import javax.validation.constraints.Min;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-public abstract class PageQuery extends Query {
+public class PageParam implements Serializable {
 
-    public static final String ASC = "ASC";
-    public static final String DESC = "DESC";
     public static final int DEFAULT_PAGE_INDEX = 1;
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int MIN_PAGE_INDEX = 1;
     public static final int MIN_PAGE_SIZE = 1;
     public static final int MAX_PAGE_SIZE = 500;
+    public static final int PAGE_SIZE_NONE = -1;
 
     @Min(value = MIN_PAGE_INDEX, message = "页码最小值为 {value}")
-    private int pageIndex = DEFAULT_PAGE_INDEX;
+    private Integer pageIndex = DEFAULT_PAGE_INDEX;
 
     @Min(value = MIN_PAGE_SIZE, message = "每页最小条数为 {value}")
     @Max(value = MAX_PAGE_SIZE, message = "每页最大条数为 {value}")
-    private int pageSize = DEFAULT_PAGE_SIZE;
-
-    private String orderBy;
-    private String orderDirection = DESC;
-    private String groupBy;
-
-    public void setOrderDirection(String orderDirection) {
-        if (ASC.equalsIgnoreCase(orderDirection) || DESC.equalsIgnoreCase(orderDirection)) {
-            this.orderDirection = orderDirection;
-        }
-    }
+    private Integer pageSize = DEFAULT_PAGE_SIZE;
 }

@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2
+
+- 优化分页查询
+
 ## 0.1.3
 
 - 支持发布构件到 central, GitHub packages, self-hosted artifactory

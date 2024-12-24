@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.dto;
 
-import space.x9x.radp.spring.framework.error.ErrorCode;
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,10 +20,11 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Getter
+@SuppressWarnings("java:S1948")
 public class PageResult<T> extends Result {
 
     private Collection<T> data;
-    private int total = 0;
+    private Long total = 0L;
 
     public Collection<T> getData() {
         if (data == null) {
@@ -35,7 +36,7 @@ public class PageResult<T> extends Result {
         return new ArrayList<>(data);
     }
 
-    public static <T> PageResult<T> build(Collection<T> data, int total) {
+    public static <T> PageResult<T> build(Collection<T> data, Long total) {
         return PageResult.<T>pageResultBuilder()
                 .success(true)
                 .code(GlobalResponseCode.SUCCESS.code())

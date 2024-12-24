@@ -2,7 +2,13 @@
 
 ## 0.2
 
+### features
+
 - 优化分页查询
+
+### fix
+
+- refine archetype includes and remove redundant entries
 
 ## 0.1.3
 

@@ -188,19 +188,13 @@
                 <fileSet encoding="UTF-8">
                     <directory>src/main/resources/mybatis</directory>
                     <includes>
-                        <include>**/*</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources/META-INF</directory>
-                    <includes>
-                        <include>**/*</include>
+                        <include>**/**</include>
                     </includes>
                 </fileSet>
                 <fileSet encoding="UTF-8">
                     <directory>src/main/resources</directory>
                     <includes>
-                        <include>**/*.gitkeep</include>
+                        <include>**/.gitkeep</include>
                         <include>**/*.yaml</include>
                         <include>**/*.yml</include>
                         <include>**/*.properties</include>

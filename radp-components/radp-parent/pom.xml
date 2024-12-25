@@ -1045,12 +1045,6 @@
             </properties>
         </profile>
         <profile>
-            <id>env-homelab</id>
-            <properties>
-                <runtime.env>homelab</runtime.env>
-            </properties>
-        </profile>
-        <profile>
             <id>env-test</id>
             <properties>
                 <runtime.env>test</runtime.env>

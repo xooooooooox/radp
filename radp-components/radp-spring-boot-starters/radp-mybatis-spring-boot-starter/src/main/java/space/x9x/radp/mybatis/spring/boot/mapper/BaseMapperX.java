@@ -50,7 +50,7 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     // ================================ Join ============================== //
 
     default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
-        if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)){
+        if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
             List<D> totalList = selectJoinList(clazz, lambdaWrapper);
             return PageResult.build(totalList, (long) totalList.size());
         }
@@ -157,5 +157,16 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
     default int delete(SFunction<T, ?> field, Object value) {
         return delete(new LambdaQueryWrapper<T>().eq(field, value));
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param collections 待插入的数据列表
+     * @param size        插入数量, {@link Db#saveBatch} 默认为 1000
+     * @return 操作成功或失败
+     */
+    default Boolean insertBatch(Collection<T> collections, int size) {
+        return Db.saveBatch(collections, size);
     }
 }

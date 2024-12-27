@@ -212,7 +212,11 @@
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
+
+                        <!-- scmCommentPrefix: default is [maven-release-plugin] -->
+                        <!-- scmReleaseCommitComment: default is @{prefix} prepare release @{releaseLabel} -->
+                        <!-- scmDevelopmentCommitComment: default is @{prefix} prepare for next development iteration -->
+
                         <!-- 如果为true, 那么 performRelease 将会为 true -->
                         <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
                         <useReleaseProfile>false</useReleaseProfile>

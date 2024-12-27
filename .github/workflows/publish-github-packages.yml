@@ -13,6 +13,9 @@ on:
 
 jobs:
   publish:
+    # 当在 main 分支执行 ./mvnw release:prepare 时, 会产生两次 push 到 main, 避免触发重复 ci/cd(两次)
+    # skip if commit message has [maven-release-plugin] prepare release
+    if: "! contains(github.event.head_commit.message, '[maven-release-plugin] prepare release')"
     runs-on: ubuntu-latest
     permissions:
       contents: read

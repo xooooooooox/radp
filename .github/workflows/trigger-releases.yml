@@ -43,7 +43,7 @@ jobs:
           echo "test gpg" > test.txt
           gpg -ab test.txt
           gpg --verify test.txt.asc
-          rm test.txt test.asc
+          rm test.txt test.txt.asc
 
       - name: Set up Java
         uses: actions/setup-java@v4

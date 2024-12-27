@@ -39,13 +39,11 @@ jobs:
 
       - name: Test GPG signing
         run: |
-          GPG -K
+          gpg -K
           echo "test gpg" > test.txt
           gpg -ab test.txt
           gpg --verify test.txt.asc
           rm test.txt test.asc
-        env:
-          GPG_TTY: ${{ env.GPG_TTY }}
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -68,4 +66,3 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
           GPG_KEYID: ${{ secrets.GPG_KEYID }}
-          GPG_TTY: ${{ env.GPG_TTY }}

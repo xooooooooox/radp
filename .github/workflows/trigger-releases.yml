@@ -60,7 +60,7 @@ jobs:
 
       - name: Publish package
         run: |
-          ./mvnw --batch-mode clean deploy \
+          ./mvnw clean deploy \
           -Pcoding,publish-central -DskipTests --settings .mvn/settings.xml
         env:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}

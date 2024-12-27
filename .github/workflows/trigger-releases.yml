@@ -37,6 +37,8 @@ jobs:
           gpg -ab test.txt
           gpg --verify test.txt.asc
           rm test.txt test.asc
+        env:
+          GPG_TTY: ${{ env.GPG_TTY }}
 
       - name: Set up Java
         uses: actions/setup-java@v4

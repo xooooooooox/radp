@@ -23,6 +23,18 @@ jobs:
             exit 1
           fi
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          server-id: central-portal
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          # import gpg
+          gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
       - name: Configure GPG for CI
         run: |
           mkdir -p ~/.gnupg
@@ -39,18 +51,6 @@ jobs:
           rm test.txt test.asc
         env:
           GPG_TTY: ${{ env.GPG_TTY }}
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '8'
-          distribution: 'temurin'
-          server-id: central-portal
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          # import gpg
-          gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Set version
         run: |

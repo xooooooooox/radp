@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.4
+## 0.5
 
 - [x] dependency management shiro and jwt version
 - [x] add Utility classes for base64 and digest

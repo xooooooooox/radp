@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.6
+
+- [x] support create release tag via actions
+
 ## 0.5
 
 - [x] dependency management shiro and jwt version

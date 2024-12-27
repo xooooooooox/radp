@@ -1,27 +1,29 @@
-name: [RELEASE] Publish packages to Maven Central
+name: [SNAPSHOTS] Publish package to GitHub Packages
 
 on:
-  release:
-    types: [ created ]    # triggers on release creation
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '.github/**'
+      - 'Writerside/**'
+      - '.mvn/**'
+  workflow_dispatch:
 
 jobs:
   publish:
+    # 当在 main 分支执行 ./mvnw release:prepare 时, 会产生两次 push 到 main, 避免触发重复 ci/cd(两次)
+    # skip if commit message has [maven-release-plugin] prepare release
+    if: "! contains(github.event.head_commit.message, '[maven-release-plugin] prepare release')"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Validate tag version format
-        run: |
-          # Fail if the release tag doesn't match x.x or x.x.x
-          if [[ ! "${{ github.event.release.tag_name }}" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
-            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match x.x or x.x.x."
-            exit 1
-          fi
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -50,19 +52,11 @@ jobs:
         with:
           java-version: '8'
           distribution: 'temurin'
-          server-id: central-portal
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
 
-      - name: Set version
-        run: |
-          ./mvnw versions:set -DnewVersion=${{ github.event.release.tag_name }}
-
-      - name: Publish package
+      - name: Publish to GitHub Packages
         run: |
           ./mvnw --batch-mode clean deploy \
-          -Pcoding,publish-central -DskipTests --settings .mvn/settings.xml
+          -Pcoding,publish-github -DskipTests --settings .mvn/settings.xml
         env:
-          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
-          GPG_KEYID: ${{ secrets.GPG_KEYID }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME}}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

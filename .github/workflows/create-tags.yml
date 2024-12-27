@@ -1,21 +1,12 @@
-name: Publish package to GitHub Packages
+name: Create tag
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**/*.md'
-      - '.github/**'
-      - 'Writerside/**'
-      - '.mvn/**'
   workflow_dispatch:
 
 jobs:
-  publish:
-    # 当在 main 分支执行 ./mvnw release:prepare 时, 会产生两次 push 到 main, 避免触发重复 ci/cd(两次)
-    # skip if commit message has [maven-release-plugin] prepare release
-    if: "! contains(github.event.head_commit.message, '[maven-release-plugin] prepare release')"
+  prepare_tag:
+    # Only proceed if the workflow dispatch event is for the "main" branch
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -52,11 +43,10 @@ jobs:
         with:
           java-version: '8'
           distribution: 'temurin'
+          server-id: central-portal
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
 
-      - name: Publish to GitHub Packages
+      - name: Prepare release tag
         run: |
-          ./mvnw --batch-mode clean deploy \
-          -Pcoding,publish-github -DskipTests --settings .mvn/settings.xml
-        env:
-          GITHUB_USERNAME: ${{ secrets.GH_USERNAME}}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          ./mvnw clean -Pcoding,auto-release release:prepare -B --settings .mvn/settings.xml

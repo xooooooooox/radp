@@ -1,4 +1,4 @@
-name: Publish to Maven Central and GitHub Packages
+name: Publish packages to Maven Central
 
 on:
   push:
@@ -19,13 +19,13 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-#      - name: Validate tag version format
-#        run: |
-#          # Fail if the release tag doesn't match x.x.x
-#          if [[ ! "${{ github.event.release.tag_name }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-#            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match x.x.x."
-#            exit 1
-#          fi
+      - name: Validate tag version format
+        run: |
+          # Fail if the release tag doesn't match x.x.x
+          if [[ ! "${{ github.event.release.tag_name }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match x.x.x."
+            exit 1
+          fi
 
       - name: Set up Java
         uses: actions/setup-java@v4

@@ -1,10 +1,10 @@
 # ChangeLog
 
-## 0.4-SNAPSHOT
+## 0.4
 
-- [ ] dependency management shiro and jwt version
-- [ ] add Utility classes for base64 and digest
-- [ ] gitlab actions to auto publish to github packages
+- [x] dependency management shiro and jwt version
+- [x] add Utility classes for base64 and digest
+- [x] ci/cd supported. Publish packages to github packages and maven central portal
 
 ## 0.3
 

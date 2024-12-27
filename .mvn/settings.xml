@@ -19,7 +19,7 @@
         <profile>
             <id>default</id>
             <properties>
-                <setting.gpg.keyname>${env.MAVEN_GPG_KEYID}</setting.gpg.keyname>
+                <setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
             </properties>
         </profile>
         <profile>

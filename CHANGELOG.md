@@ -1,8 +1,8 @@
 # ChangeLog
 
-## 0.6
+## 0.6 (Doing)
 
-- [x] support create release tag via actions
+- 
 
 ## 0.5
 

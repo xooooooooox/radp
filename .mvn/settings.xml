@@ -22,5 +22,25 @@
                 <setting.gpg.keyname>${env.MAVEN_GPG_KEYID}</setting.gpg.keyname>
             </properties>
         </profile>
+        <profile>
+            <id>publish-central</id>
+            <properties>
+                <auto.release.enabled>true</auto.release.enabled>
+                <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+            </properties>
+        </profile>
+        <profile>
+            <id>publish-github</id>
+            <properties>
+                <auto.release.enabled>true</auto.release.enabled>
+                <devops.release.arguments>-Pcoding,publish-github -DskipTests</devops.release.arguments>
+                <altSnapshotDeploymentRepository>
+                    github::https://maven.pkg.github.com/xooooooooox/radp
+                </altSnapshotDeploymentRepository>
+                <altReleaseDeploymentRepository>
+                    github::https://maven.pkg.github.com/xooooooooox/radp
+                </altReleaseDeploymentRepository>
+            </properties>
+        </profile>
     </profiles>
 </settings>

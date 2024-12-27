@@ -26,7 +26,7 @@ jobs:
       - name: Publish to GitHub Packages
         run: |
           ./mvnw --batch-mode clean deploy \
-          -DaltDeploymentRepository=github::https://maven.pkg.github.com/xooooooooox/radp -DskipTests \
+          -Pcoding,publish-github -DskipTests \
           -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

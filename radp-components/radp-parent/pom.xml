@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-dependencies</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.4</version>
         <relativePath>../radp-dependencies/pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>

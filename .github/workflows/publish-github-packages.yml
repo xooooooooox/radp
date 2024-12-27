@@ -1,0 +1,32 @@
+name: Publish package to GitHub Packages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      - name: Publish to GitHub Packages
+        run: |
+          ./mvnw --batch-mode clean deploy \
+          -DaltDeploymentRepository=github::https://maven.pkg.github.com/xooooooooox/radp -DskipTests \
+          -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

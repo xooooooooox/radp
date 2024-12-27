@@ -1,0 +1,57 @@
+name: Publish to Maven Central and GitHub Packages
+
+on:
+  push:
+    branches:
+      - feat/241227-v0.4
+  release:
+    types: [created]    # triggers on release creation
+  workflow_dispatch:    # allows manual trigger if you wish
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+#      - name: Validate tag version format
+#        run: |
+#          # Fail if the release tag doesn't match x.x.x
+#          if [[ ! "${{ github.event.release.tag_name }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+#            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match x.x.x."
+#            exit 1
+#          fi
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          server-id: central-portal
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          # import gpg
+          gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - name: List keys
+        run: gpg -K
+
+#      - name: Set version
+#        run: |
+#          gpg -K
+#          mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
+#
+#      - name: Publish package
+#        run: |
+#          ./mvnw --batch-mode clean deploy \
+#          -Pcoding,publish-central -DskipTests
+#        env:
+#          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+#          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+#          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}

@@ -1,9 +1,6 @@
 name: Publish packages to Maven Central
 
 on:
-  push:
-    branches:
-      - feat/241227-v0.4
   release:
     types: [created]    # triggers on release creation
   workflow_dispatch:    # allows manual trigger if you wish
@@ -45,13 +42,12 @@ jobs:
       - name: Set version
         run: |
           ./mvnw versions:set -DnewVersion=${{ github.event.release.tag_name }}
-          cat pom.xml
 
-#      - name: Publish package
-#        run: |
-#          ./mvnw --batch-mode clean deploy \
-#          -Pcoding,publish-central -DskipTests
-#        env:
-#          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
-#          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
-#          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+      - name: Publish package
+        run: |
+          ./mvnw --batch-mode clean deploy \
+          -Pcoding,publish-central -DskipTests
+        env:
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}

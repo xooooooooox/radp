@@ -23,6 +23,15 @@ jobs:
             exit 1
           fi
 
+      - name: Configure GPG for CI
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          gpgconf --reload gpg-agent
+          export GPG_TTY=$(tty)
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:

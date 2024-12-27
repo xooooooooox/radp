@@ -29,8 +29,7 @@ jobs:
           chmod 700 ~/.gnupg
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-          gpgconf --reload gpg-agent
-          export GPG_TTY=$(tty)
+          echo "GPG_TTY=$(tty)" >> $GITHUB_ENV
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -56,4 +55,5 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
-          MAVEN_GPG_KEYID: ${{ secrets.GPG_KEYID }}
+          GPG_KEYID: ${{ secrets.GPG_KEYID }}
+          GPG_TTY: ${{ env.GPG_TTY }}

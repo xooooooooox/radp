@@ -32,6 +32,6 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
       - name: Publish to GitHub Packages
-        run: mvn --batch-mode clean deploy -DaltDeploymentRepository=github::https://maven.pkg.github.com/xooooooooox/radp -DskipTests
+        run: ./mvnw --batch-mode clean deploy -DaltDeploymentRepository=github::https://maven.pkg.github.com/xooooooooox/radp -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

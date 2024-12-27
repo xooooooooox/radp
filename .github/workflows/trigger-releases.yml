@@ -3,7 +3,6 @@ name: Publish packages to Maven Central
 on:
   release:
     types: [created]    # triggers on release creation
-  workflow_dispatch:    # allows manual trigger if you wish
 
 jobs:
   publish:

@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-spring-cloud-starters</artifactId>
-        <version>0.4</version>
+        <version>0.5-SNAPSHOT</version>
     </parent>
     <artifactId>radp-dubbo-spring-cloud-starter</artifactId>
     <name>${project.artifactId}</name>

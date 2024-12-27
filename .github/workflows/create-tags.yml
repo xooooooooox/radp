@@ -49,9 +49,10 @@ jobs:
 
       # resolve miss user.name and user.email gitconfig when push
       - name: Set up Git config
-        uses: fregante/setup-git-user@v2
+        run: |
+          git config --global user.name "${{ secrets.GH_USER_NAME }}" 
+          git config --global user.email "${{ secrets.GH_USER_EMAIL }}" 
 
       - name: Prepare release tag
         run: |
-          git config -l
           ./mvnw clean -Pcoding,auto-release release:prepare -B --settings .mvn/settings.xml

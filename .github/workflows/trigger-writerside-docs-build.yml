@@ -1,4 +1,4 @@
-name: Trigger Build Writerside documentation
+name: "[Pages] Trigger Build Writerside documentation"
 
 on:
   push:

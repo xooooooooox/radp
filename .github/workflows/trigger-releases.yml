@@ -1,4 +1,4 @@
-name: "[RELEASE] Publish releases packages to Maven Central"
+name: "[Release] Publish releases packages to Maven Central"
 
 on:
   release:

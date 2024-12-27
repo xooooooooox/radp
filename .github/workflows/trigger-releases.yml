@@ -42,11 +42,11 @@ jobs:
       - name: List keys
         run: gpg -K
 
-#      - name: Set version
-#        run: |
-#          gpg -K
-#          mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
-#
+      - name: Set version
+        run: |
+          ./mvnw versions:set -DnewVersion=${{ github.event.release.tag_name }}
+          cat pom.xml
+
 #      - name: Publish package
 #        run: |
 #          ./mvnw --batch-mode clean deploy \

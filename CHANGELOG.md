@@ -4,6 +4,7 @@
 
 - [ ] dependency management shiro and jwt version
 - [ ] add Utility classes for base64 and digest
+- [ ] gitlab actions to auto publish to github packages
 
 ## 0.3
 

@@ -47,6 +47,11 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
+      # resolve miss user.name and user.email gitconfig when push
+      - name: Set up Git config
+        uses: fregante/setup-git-user@v2
+
       - name: Prepare release tag
         run: |
+          git config -l
           ./mvnw clean -Pcoding,auto-release release:prepare -B --settings .mvn/settings.xml

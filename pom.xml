@@ -210,7 +210,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
-                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
                         <!-- 如果为true, 那么 performRelease 将会为 true -->

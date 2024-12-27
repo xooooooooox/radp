@@ -1,4 +1,4 @@
-name: Publish snapshots package to GitHub Packages
+name: "[SNAPSHOTS] Publish snapshots package to GitHub Packages"
 
 on:
   push:

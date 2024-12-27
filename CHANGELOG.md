@@ -2,7 +2,7 @@
 
 ## 0.3
 
--
+- Add Utility classes for regex `RegexUtils`, ID generation `NanoIdGenerator` `SnowflakeGenerator`
 
 ## 0.2
 

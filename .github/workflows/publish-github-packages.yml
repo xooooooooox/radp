@@ -16,6 +16,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_SIGNING_KEY }}
+          passphrase: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+
+      - name: Configure GPG for CI
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "GPG_TTY=$(tty)" >> $GITHUB_ENV
+
+      - name: Test GPG signing
+        run: |
+          gpg -K
+          echo "test gpg" > test.txt
+          gpg -ab test.txt
+          gpg --verify test.txt.asc
+          rm test.txt test.txt.asc
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -25,7 +47,6 @@ jobs:
       - name: Publish to GitHub Packages
         run: |
           ./mvnw --batch-mode clean deploy \
-          -Pcoding,publish-github -DskipTests \
-          -DskipTests
+          -Pcoding,publish-github -DskipTests --settings .mvn/settings.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

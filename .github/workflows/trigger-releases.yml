@@ -2,7 +2,7 @@ name: Publish packages to Maven Central
 
 on:
   release:
-    types: [created]    # triggers on release creation
+    types: [ created ]    # triggers on release creation
 
 jobs:
   publish:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Publish package
         run: |
-          ./mvnw clean deploy \
+          ./mvnw --batch-mode clean deploy \
           -Pcoding,publish-central -DskipTests --settings .mvn/settings.xml
         env:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}

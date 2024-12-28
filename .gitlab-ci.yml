@@ -8,6 +8,7 @@ debug:
   only:
     - feat/241228-0.6
   script:
+    - pwd
     - whoami
     - cat /etc/os-release
     - uname -a
@@ -16,3 +17,4 @@ debug:
     - echo "--------------------------"
     - echo "GitLab CI/CD | Print all environment variables"
     - env
+    - which gpg || true

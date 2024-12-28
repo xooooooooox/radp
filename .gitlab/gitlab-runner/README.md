@@ -26,6 +26,30 @@ services:
       - local-network
 ```
 
+### virtualbox vm
+
+> 在虚拟机中安装 GitLab Runner.
+
+这里通过 `vagrant` 在 `virtualbox` 快速创建 `ubuntu/24.04` 虚拟机, 然后运行 `setup.sh` 安装 GitLab Runner.
+
+`.gitlab/gitlab-runner/vm/Vagrantfile` 中的大致逻辑如下:
+
+- Setup plugin
+  - install required vagrant plugins
+  - configure vagrant plugins
+- Setup guests
+  - configure guest OS
+  - configure Virtualbox
+    - guest name on Virtualbox
+  - configure guest network
+    - guest hostname and hostname alias
+    - guest private network and public network
+    - guest port forwarding
+  - configure bootstrap scripts
+    - auto update host and guest /etc/hosts
+    - establish trust between host and guest, so you can straight use `ssh vagrant@hostname` without `vagrant ssh`
+    - run gitlab-runner bootstrap scripts
+
 ## 注册
 
 前置条件: [完成 GitLab Runner 的安装](#安装)

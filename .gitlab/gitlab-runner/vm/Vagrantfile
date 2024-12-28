@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
 
   # 1. Setup plugin
   plugins.each do |plugin_name|
-    # install required plugin
+    # 1.1 install required plugin
     unless Vagrant.has_plugin?(plugin_name)
       if system "vagrant plugin install #{plugin_name}"
         puts "Plugin #{plugin_name} installed"
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
       end
     end
 
-    # configure plugin
+    # 1.2 configure plugin
     case plugin_name
     when 'vagrant-hostmanager'
       config.hostmanager.enabled = false
@@ -91,11 +91,13 @@ Vagrant.configure("2") do |config|
       # guest_config.vm.network 'forwarded_port', guest: opts[:forwarded_port_guest], host: opts[:forwarded_port_host]
 
       # 2.6 run script/file
+      # 2.6.1 update host and guest /etc/hosts
       if plugins.include?("vagrant-hostmanager")
         # Execute the hostmanager provisioner
         config.vm.provision :hostmanager
       end
 
+      # 2.6.2 establish trust between host and guest
       host_public_key_path = File.expand_path("~/.ssh/keys/id_rsa_vagrant.pub")
       unless File.exist?(host_public_key_path)
         abort("Error: Public key not found at #{host_public_key_path}. Please generate it using `ssh-keygen`.")
@@ -105,7 +107,6 @@ Vagrant.configure("2") do |config|
       guest_config.vm.provision "shell", privileged: false, run: "once", inline: <<-SHELL
         # Ensure the .ssh directory exists
         mkdir -p ~/.ssh
-      
         # Append the public key to authorized_keys if it's not already present
         if ! grep -q "#{host_public_key}" ~/.ssh/authorized_keys 2>/dev/null; then
           echo "#{host_public_key}" >> ~/.ssh/authorized_keys
@@ -113,11 +114,12 @@ Vagrant.configure("2") do |config|
         else
           echo "Public key already exists in ~/.ssh/authorized_keys."
         fi
-      
         # Set the correct permissions
         chmod 700 ~/.ssh
         chmod 600 ~/.ssh/authorized_keys
       SHELL
+
+      # 2.6.3 bootstrap
       guest_config.vm.provision "shell", privileged: false, path: "./setup.sh"
     end
   end

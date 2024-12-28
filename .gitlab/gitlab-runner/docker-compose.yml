@@ -6,6 +6,7 @@ networks:
 
 services:
   gitlab-runner:
+    container_name: gitlab-runner
     image: gitlab/gitlab-runner:ubuntu-v16.11.4
     restart: unless-stopped
     environment:

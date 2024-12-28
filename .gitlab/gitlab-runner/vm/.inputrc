@@ -1,0 +1,27 @@
+# 该文件用于控制 bash 命令行默认行为(readline)
+# 如果修改了这个文件, 使用bind -f ~/.inputrc 或者exec $SHELL 进行生效
+set editing-mode vi
+set completion-ignore-case on
+set show-mode-in-prompt on
+# set vi-ins-mode-string "(ins)"
+# set vi-cmd-mode-string "(cmd)"
+set vi-ins-mode-string "\001\033[32m\002I \001\033[0m\002"
+set vi-cmd-mode-string "\001\033[33m\002C \001\033[0m\002"
+#set vi-ins-mode-string \1\e[5 q\2
+#set vi-cmd-mode-string \1\e[2 q\2
+
+
+$if mode=vi
+  # define key bindings on normal mode
+  set keymap vi-command
+  "gg": beginning-of-history
+  "G": end-of-history
+  "L": end-of-line
+
+  # define key bindings on insert mode
+  set keymap vi-insert
+  "jk": vi-movement-mode
+  "\C-p": previous-history
+  "\C-n": next-history
+$endif
+

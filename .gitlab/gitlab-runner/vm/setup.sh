@@ -8,4 +8,5 @@ if ! command -v gitlab-runner >/dev/null 2>&1; then
     echo "Failed to install gitlab runner"
     exit 1
   }
+  sudo apt-get install -y tmux || true
 fi

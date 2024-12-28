@@ -87,17 +87,20 @@ Vagrant.configure("2") do |config|
       # 2.4 挂载
       guest_config.vm.synced_folder opts[:synced_folder_host_path], opts[:synced_folder_mount_path], create: opts[:synced_folder_create]
 
-      # 2.5 端口转发
+      # 2.5 (Optional) 端口转发
       # guest_config.vm.network 'forwarded_port', guest: opts[:forwarded_port_guest], host: opts[:forwarded_port_host]
 
       # 2.6 run script/file
-      # 2.6.1 update host and guest /etc/hosts
+      # 2.6.0 (Optional) copy .inputrc to guest
+      config.vm.provision "file", source: ".inputrc", destination: "/home/vagrant/.inputrc"
+
+      # 2.6.1 (Optional) update host and guest /etc/hosts
       if plugins.include?("vagrant-hostmanager")
         # Execute the hostmanager provisioner
         config.vm.provision :hostmanager
       end
 
-      # 2.6.2 establish trust between host and guest
+      # 2.6.2 (Optional) establish trust between host and guest
       host_public_key_path = File.expand_path("~/.ssh/keys/id_rsa_vagrant.pub")
       unless File.exist?(host_public_key_path)
         abort("Error: Public key not found at #{host_public_key_path}. Please generate it using `ssh-keygen`.")

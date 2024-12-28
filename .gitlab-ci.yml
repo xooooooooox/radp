@@ -6,7 +6,7 @@ debug:
   tags:
     - k8s-linux
   only:
-
+    - feat/241228-0.6
   script:
     - whoami
     - cat /etc/os-release

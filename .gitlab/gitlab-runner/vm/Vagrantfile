@@ -1,0 +1,92 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# see https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/configuration
+
+Vagrant.require_version ">= 1.6.0"
+
+plugins = ["vagrant-hostmanager", "vagrant-vbguest", "vagrant-bindfs", "vagrant-vbox-snapshot", "vagrant-proxyconf"]
+
+boxes = [
+  {
+    :vm_group => "/local/develop",
+    :vm_name => "local-gitlab-runner",
+    :vm_mem => "4096",
+    :vm_cpu => "2",
+    :box_name => "net9/ubuntu-24.04-arm64",
+    :box_version => "1.1",
+    :network_hostname => "gitlab-runner.develop.local",
+    :network_hostname_aliases => ["gitlab-runner.develop.local"],
+    :network_private_ip => "172.16.16.10",
+    :network_private_netmask => "255.255.255.0",
+    :network_public_ip => "192.168.31.100",
+    :network_public_netmask => "255.255.255.0",
+    :network_public_bridge => ["en0: Ethernet", "en0: Wi-Fi (AirPort)", "en0: Wi-Fi"],
+    :synced_folder_type => "basic",
+    :synced_folder_create => true,
+    :synced_folder_host_path => "#{Dir.home}/local/var/vms/develop/local-gitlab-runner",
+    :synced_folder_mount_path => "/data",
+    :forwarded_port_guest => "",
+    :forwarded_port_host => "",
+  }
+]
+
+Vagrant.configure("2") do |config|
+
+  # 1. Setup plugin
+  plugins.each do |plugin_name|
+    # install required plugin
+    unless Vagrant.has_plugin?(plugin_name)
+      if system "vagrant plugin install #{plugin_name}"
+        puts "Plugin #{plugin_name} installed"
+      else
+        exit(1)
+      end
+    end
+
+    # configure plugin
+    case plugin_name
+    when 'vagrant-vbguest'
+      puts "configuring plugin #{plugin_name}"
+      config.vbguest.auto_update = false
+      config.vbguest.installer_options = { allow_kernel_upgrade: false }
+    else
+      # type code here
+    end
+  end
+
+  # 2. Setup guests
+  boxes.each do |opts|
+    config.vm.define opts[:vm_name] do |guest_config|
+      # 2.1 操作系统
+      guest_config.vm.box = opts[:box_name]
+      guest_config.vm.box_version = opts[:box_version]
+      # guest_config.vm.box_url = "https://portal.cloud.hashicorp.com/vagrant/discover/bento/ubuntu-24.04/versions/202404.26.0"
+      # guest_config.vm.box_check_update = true
+
+      # 2.2 虚拟机配置
+      guest_config.vm.provider "virtualbox" do |vb|
+        vb.name = opts[:vm_name]
+        vb.memory = opts[:vm_mem]
+        vb.cpus = opts[:vm_cpu]
+        vb.customize ["modifyvm", :id, "--groups", opts[:vm_group]]
+      end
+
+      # 2.3 网络配置
+      guest_config.vm.hostname = opts[:network_hostname]
+      # guest_config.vm.network 'private_network', type: 'dhcp'
+      guest_config.vm.network 'private_network', ip: opts[:network_private_ip]
+      # guest_config.vm.network 'public_network', type: 'dhcp', bridge: opts[:network_public_bridge]
+      guest_config.vm.network 'public_network', ip: opts[:network_public_ip], bridge: opts[:network_public_bridge]
+      # guest_config.hostmanager.aliases = opts[:network_hostname_aliases]
+
+      # 2.4 挂载
+      guest_config.vm.synced_folder opts[:synced_folder_host_path], opts[:synced_folder_mount_path], create: opts[:synced_folder_create]
+
+      # 2.5 端口转发
+      # guest_config.vm.network 'forwarded_port', guest: opts[:forwarded_port_guest], host: opts[:forwarded_port_host]
+
+      # 2.6 run script/file
+      # guest_config.vm.provision "shell", privileged: true, path: "./setup.sh"
+    end
+  end
+end

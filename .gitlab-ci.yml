@@ -4,7 +4,7 @@ stages:
 debug:
   stage: debug
   tags:
-    - k8s-linux
+    - docker-shell
   only:
     - feat/241228-0.6
   script:

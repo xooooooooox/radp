@@ -2,7 +2,7 @@
 
 ## 0.6 (Doing)
 
-- 
+- [ ] Support GitLab CI/CD
 
 ## 0.5
 

@@ -1,0 +1,19 @@
+stages:
+  - debug
+
+debug:
+  stage: debug
+  tags:
+    - k8s-linux
+  only:
+
+  script:
+    - whoami
+    - cat /etc/os-release
+    - uname -a
+    - ifconfig -a
+    - echo "--------------------------"
+    - echo ">>>${X9X_HTTP_PROXY}<<<"
+    - echo "--------------------------"
+    - echo "GitLab CI/CD | Print all environment variables"
+    - env

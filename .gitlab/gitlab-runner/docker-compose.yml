@@ -1,0 +1,15 @@
+# docker run --rm -d --env TZ="Asia/Shanghai" -v "~/.config/gitlab-runner/config:/etc/gitlab-runner" --network local-network gitlab/gitlab-runner:ubuntu-v16.11.4
+
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:ubuntu-v16.11.4
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ~/.config/gitlab-runner/config:/etc/gitlab-runner
+    networks:
+      - local-network

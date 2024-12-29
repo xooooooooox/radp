@@ -40,4 +40,4 @@ release:
       ./mvnw clean deploy -Pcoding,publish-artifactory \
         --settings .mvn/settings.xml \
         -DskipTests \
-        -Dauto.release.enabled=false -D-Dauto.archetype.catalog.minio=false
+        -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false

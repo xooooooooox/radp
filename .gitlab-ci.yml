@@ -38,5 +38,6 @@ release:
       pwd
       [[ ! -x mvnw ]] && chmod +x mvnw
       ./mvnw clean deploy -Pcoding,publish-artifactory \
+        --settings .mvn/settings.xml \
         -DskipTests \
         -Dauto.release.enabled=false -D-Dauto.archetype.catalog.minio=false

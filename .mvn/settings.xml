@@ -8,11 +8,20 @@
             <username>${env.GITHUB_USERNAME}</username>
             <password>${env.GITHUB_TOKEN}</password>
         </server>
-
         <server>
             <id>central-portal</id>
             <username>${env.MAVEN_USERNAME}</username>
             <password>${env.MAVEN_PASSWORD}</password>
+        </server>
+        <server>
+            <id>artifactory-releases</id>
+            <username>${env.X9X_ARTIFACTORY_USERNAME}</username>
+            <password>${env.X9X_ARTIFACTORY_PASSWORD}</password>
+        </server>
+        <server>
+            <id>artifactory-snapshots</id>
+            <username>${env.X9X_ARTIFACTORY_USERNAME}</username>
+            <password>${env.X9X_ARTIFACTORY_PASSWORD}</password>
         </server>
 
         <server>
@@ -45,6 +54,21 @@
                 </altSnapshotDeploymentRepository>
                 <altReleaseDeploymentRepository>
                     github::https://maven.pkg.github.com/xooooooooox/radp
+                </altReleaseDeploymentRepository>
+            </properties>
+        </profile>
+        <profile>
+            <id>publish-artifactory</id>
+            <properties>
+                <auto.release.enabled>true</auto.release.enabled>
+                <auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
+                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
+                </devops.release.arguments>
+                <altSnapshotDeploymentRepository>
+                    artifactory-snapshots::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local
+                </altSnapshotDeploymentRepository>
+                <altReleaseDeploymentRepository>
+                    artifactory-releases::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
                 </altReleaseDeploymentRepository>
             </properties>
         </profile>

@@ -10,7 +10,6 @@ prepare_environment:
     - feat/241228-0.6
   script:
     - |
-      whoami
       if ! command -v vfox >/dev/null 2>&1;then
         exit 1
       fi

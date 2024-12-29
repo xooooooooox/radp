@@ -24,7 +24,6 @@ prepare_environment:
         vfox install maven@3.9.9 || true
         eval "$(vfox activate bash)" || true
         vfox use -g maven@3.9.9 || true
-        which mvn || true
         mvn -v || exit 1
       fi
 

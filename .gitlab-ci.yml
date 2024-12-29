@@ -39,8 +39,6 @@ release:
   stage: release
   tags:
     - ubuntu-shell
-  only:
-    - main
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:

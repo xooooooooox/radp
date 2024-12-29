@@ -36,7 +36,7 @@ release:
   script:
     - |
       pwd
-      chmod +x "$(pwd)/.mvnw"
-      .mvnw clean deploy -Pcoding,publish-artifactory \
+      [[ ! -x mvnw ]] && chmod +x mvnw
+      ./mvnw clean deploy -Pcoding,publish-artifactory \
         -DskipTests \
         -Dauto.release.enabled=false -D-Dauto.archetype.catalog.minio=false

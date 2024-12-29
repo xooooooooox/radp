@@ -32,7 +32,15 @@ release:
   tags:
     - ubuntu-shell
   only:
-    - feat/241228-0.6
+    - main
+  # except ignores the same paths GitHub was ignoring
+  except:
+    - '.github/**'
+    - '.gitlab/**'
+    - 'Writerside/**'
+    - '.mvn/**'
+    - '**/*.md'
+    - '*.yml'
   script:
     - |
       pwd

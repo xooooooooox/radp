@@ -5,10 +5,12 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**/*.md'
       - '.github/**'
+      - '.gitlab/**'
       - 'Writerside/**'
       - '.mvn/**'
+      - '**/*.md'
+      - '*.yml'
   workflow_dispatch:
 
 jobs:

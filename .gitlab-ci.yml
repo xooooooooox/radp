@@ -1,20 +1,41 @@
 stages:
-  - debug
+  - build
+  - release
 
-debug:
-  stage: debug
+prepare_environment:
+  stage: .pre
   tags:
-    - docker-shell
+    - ubuntu-shell
   only:
     - feat/241228-0.6
   script:
-    - pwd
-    - whoami
-    - cat /etc/os-release
-    - uname -a
-    - echo "--------------------------"
-    - echo ">>>${X9X_HTTP_PROXY}<<<"
-    - echo "--------------------------"
-    - echo "GitLab CI/CD | Print all environment variables"
-    - env
-    - which gpg || true
+    - |
+      if ! command -v vfox >/dev/null 2>&1;then
+        exit 1
+      fi
+      if ! command -v java >/dev/null 2>&1;then
+        vfox add java
+        vfox install java@v8.0.342+7-tem
+        vfox use -g java@8.0.432+6-tem
+        java -version || exit 1
+      fi
+      if ! command -v mvn >/dev/null 2>&1;then
+        vfox add maven
+        vfox install maven@3.9.9
+        vfox use -g maven@3.9.3
+        mvn -v || exit 1
+      fi
+
+release:
+  stage: release
+  tags:
+    - ubuntu-shell
+  only:
+    - feat/241228-0.6
+  script:
+    - |
+      pwd
+      [[ ! -x .mvnw ]] && chmod +x .mvnw
+      .mvnw clean deploy -Pcoding,publish-artifactory \
+        -DskipTests \
+        -Dauto.release.enabled=false -D-Dauto.archetype.catalog.minio=false

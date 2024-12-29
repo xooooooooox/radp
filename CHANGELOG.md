@@ -2,8 +2,8 @@
 
 ## 0.6 (Doing)
 
-- [ ] Support GitLab CI/CD
-- [ ] Provide ubuntu/24.04 Vagrantfile for mac arm64
+- [x] Support GitLab CI/CD
+- [x] Provide ubuntu/24.04 Vagrantfile for mac arm64
 
 ## 0.5
 

@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.6 (Doing)
+## 0.6
 
 - [x] Support GitLab CI/CD
 - [x] Provide ubuntu/24.04 Vagrantfile for mac arm64

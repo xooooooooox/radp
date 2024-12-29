@@ -23,6 +23,7 @@ prepare_environment:
         vfox add maven || true
         vfox install maven@3.9.9 || true
         vfox use -g maven@3.9.9 || true
+        which mvn || true
         mvn -v || exit 1
       fi
 

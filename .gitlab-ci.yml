@@ -1,24 +1,21 @@
 stages:
-  - build
+  - prepare
   - release
 
 prepare_environment:
-  stage: .pre
+  stage: prepare
   tags:
     - ubuntu-shell
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - "**/*"
-      exclude:
         - ".github/**"
         - ".gitlab/**"
         - "Writerside/**"
         - ".mvn/**"
         - "**/*.md"
         - "*.yml"
-      when: on_success
-    - when: never
+      when: never
   script:
     - |
       if ! command -v vfox >/dev/null 2>&1;then
@@ -47,16 +44,13 @@ release:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - "**/*"
-      exclude:
         - ".github/**"
         - ".gitlab/**"
         - "Writerside/**"
         - ".mvn/**"
         - "**/*.md"
         - "*.yml"
-      when: on_success
-    - when: never
+      when: never
   script:
     - |
       pwd

@@ -22,7 +22,7 @@ prepare_environment:
       if ! command -v mvn >/dev/null 2>&1;then
         vfox add maven || true
         vfox install maven@3.9.9 || true
-        vfox use -g maven@3.9.3 || true
+        vfox use -g maven@3.9.9 || true
         mvn -v || exit 1
       fi
 

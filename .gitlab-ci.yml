@@ -22,6 +22,7 @@ prepare_environment:
       if ! command -v mvn >/dev/null 2>&1;then
         vfox add maven || true
         vfox install maven@3.9.9 || true
+        eval "$(vfox activate bash)" || true
         vfox use -g maven@3.9.9 || true
         which mvn || true
         mvn -v || exit 1

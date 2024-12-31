@@ -4,7 +4,9 @@ include:
 stages:
   - prepare
   - release
-  - pages
+  - gitlab_pages_build
+  - gitlab_pages_test
+  - gitlab_pages
 
 prepare_environment:
   stage: prepare

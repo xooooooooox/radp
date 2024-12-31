@@ -4,10 +4,12 @@ variables:
   DOCKER_VERSION: '243.22562'
 
 stages:
-  - pages
+  - gitlab_pages_build
+  - gitlab_pages_test
+  - gitlab_pages
 
 build:
-  stage: pages
+  stage: gitlab_pages_build
   image: registry.jetbrains.team/p/writerside/builder/writerside-builder:$DOCKER_VERSION
   tags:
     - k8s
@@ -29,7 +31,7 @@ build:
     expire_in: 1 week
 
 test:
-  stage: pages
+  stage: gitlab_pages_test
   image: openjdk:18-jdk-alpine
   tags:
     - k8s
@@ -45,7 +47,7 @@ test:
     - build
 
 pages:
-  stage: pages
+  stage: gitlab_pages
   image: ubuntu:latest
   tags:
     - k8s

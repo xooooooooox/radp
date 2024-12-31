@@ -3,6 +3,7 @@ variables:
   INSTANCE: 'Writerside/radp'
   DOCKER_VERSION: '243.22562'
   GIT_CLONE_PATH: ${CI_BUILDS_DIR}/builds/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/${CI_PIPELINE_ID}
+  GIT_CHECKOUT: "false"
 
 stages:
   - gitlab_pages_build
@@ -10,6 +11,8 @@ stages:
   - gitlab_pages
 
 build:
+  variables:
+    GIT_CHECKOUT: "true"
   stage: gitlab_pages_build
   image: registry.jetbrains.team/p/writerside/builder/writerside-builder:$DOCKER_VERSION
   tags:

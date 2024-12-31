@@ -1,6 +1,10 @@
+include:
+  local: .gitlab/pages.yml
+
 stages:
   - prepare
   - release
+  - pages
 
 prepare_environment:
   stage: prepare

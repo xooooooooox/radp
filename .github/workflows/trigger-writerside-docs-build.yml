@@ -1,3 +1,4 @@
+# see https://www.jetbrains.com/help/writerside/deploy-docs-to-github-pages.html
 name: "[Pages] Trigger Build Writerside documentation"
 
 on:

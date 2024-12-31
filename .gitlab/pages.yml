@@ -2,6 +2,7 @@
 variables:
   INSTANCE: 'Writerside/radp'
   DOCKER_VERSION: '243.22562'
+  GIT_CLONE_PATH: ${CI_BUILDS_DIR}/builds/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/${CI_PIPELINE_ID}
 
 stages:
   - gitlab_pages_build

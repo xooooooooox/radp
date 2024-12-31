@@ -2,7 +2,9 @@ name: "[Pages] Trigger Build Writerside documentation"
 
 on:
   push:
-    branches: main
+    branches:
+      - main
+      - feat/241230-0.7
     paths: [ 'Writerside/*' ]
   workflow_dispatch:
 

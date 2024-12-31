@@ -10,6 +10,11 @@ stages:
   - gitlab_pages_test
   - gitlab_pages
 
+before_script:
+  - export
+  - pwd
+  - ls
+
 build:
   variables:
     GIT_CHECKOUT: "true"

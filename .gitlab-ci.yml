@@ -1,12 +1,14 @@
 include:
-  local: .gitlab/pages.yml
+  - project: homelab/gitlab-ci-templates
+    ref: main
+    file: templates/writerside-pipeline.yml
 
 stages:
   - prepare
   - release
-  - gitlab_pages_build
-  - gitlab_pages_test
-  - gitlab_pages
+#  - pages_build
+#  - pages_test
+#  - pages
 
 prepare_environment:
   stage: prepare

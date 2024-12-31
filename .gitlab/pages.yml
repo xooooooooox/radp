@@ -41,8 +41,6 @@ test:
     - cd public
     - curl -o wrs-checker.jar -L https://packages.jetbrains.team/maven/p/writerside/maven/com/jetbrains/writerside/writerside-ci-checker/1.0/writerside-ci-checker-1.0.jar
     - java -jar wrs-checker.jar report.json $INSTANCE
-  needs:
-    - build
   dependencies:
     - build
 
@@ -60,8 +58,6 @@ pages:
     - echo "Using artifact $ARTIFACT"
     - cd public
     - unzip -O UTF-8 $ARTIFACT
-  needs:
-    - test
   dependencies:
     - build
   artifacts:

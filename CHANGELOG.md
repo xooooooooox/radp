@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.7
+
+- [ ] Support publish gitlab pages
+
 ## 0.6
 
 - [x] Support GitLab CI/CD

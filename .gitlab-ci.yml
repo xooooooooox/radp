@@ -6,7 +6,7 @@ include:
 variables:
   TP_RUN_BUILD: "false"
   TP_RUN_TEST: "false"
-  TP_RUN_RELEASE: "false"
+  TP_RUN_RELEASE: "true"
   TP_RUN_PAGES: "true"
 
   ## 发布制品参数 - by maven

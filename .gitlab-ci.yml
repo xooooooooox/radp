@@ -2,3 +2,13 @@ include:
   - project: homelab/gitlab-ci-templates
     ref: main
     file: templates/k8s/java-pipeline.yml
+
+variables:
+  TP_RUN_BUILD: "false"
+  TP_RUN_TEST: "false"
+  TP_RUN_RELEASE: "true"
+  TP_RUN_PAGES: "false"
+
+  TP_MAVEN_DPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
+                         -Pcoding,publish-artifactory \
+                         -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"

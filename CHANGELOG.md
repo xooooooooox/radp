@@ -2,7 +2,7 @@
 
 ## 0.7
 
-- [x] Support publish gitlab pages
+- [x] Support publish gitlab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
 
 ## 0.6

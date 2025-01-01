@@ -2,8 +2,8 @@
 
 ## 0.7
 
-- [ ] Support publish gitlab pages
-- [ ] Optimize gitlab ci pipeline
+- [x] Support publish gitlab pages
+- [x] Optimize gitlab ci pipeline
 
 ## 0.6
 

@@ -4,6 +4,7 @@
 
 - [x] Support publish GitLab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
+- [x] Update archetype, .mvn, .github actions
 
 ## 0.6
 

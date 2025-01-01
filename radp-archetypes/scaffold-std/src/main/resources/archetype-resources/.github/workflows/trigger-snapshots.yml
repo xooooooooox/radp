@@ -1,0 +1,64 @@
+name: "[Snapshots] Publish snapshots package to GitHub Packages"
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.gitlab/**'
+      - 'Writerside/**'
+      - '.mvn/**'
+      - '**/*.md'
+      - '*.yml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    # 当在 main 分支执行 ./mvnw release:prepare 时, 会产生两次 push 到 main, 避免触发重复 ci/cd(两次)
+    # skip if commit message has [maven-release-plugin] prepare release
+    if: "! contains(github.event.head_commit.message, '[maven-release-plugin] prepare release')"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_SIGNING_KEY }}
+          passphrase: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+
+      - name: Configure GPG for CI
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "GPG_TTY=$(tty)" >> $GITHUB_ENV
+
+      - name: Test GPG signing
+        run: |
+          gpg -K
+          echo "test gpg" > test.txt
+          gpg -ab test.txt
+          gpg --verify test.txt.asc
+          rm test.txt test.txt.asc
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      - name: Publish to GitHub Packages
+        run: |
+          ./mvnw --batch-mode clean deploy \
+          -Pcoding,publish-github -DskipTests --settings .mvn/settings.xml
+        env:
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME}}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

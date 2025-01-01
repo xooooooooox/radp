@@ -1,0 +1,59 @@
+# todo: git push 由于 credentials and gitconfig 问题, 暂时搁置该 workflow
+name: "[Tags] Create tag"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare_tag:
+    # Only proceed if the workflow dispatch event is for the "main" branch
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_SIGNING_KEY }}
+          passphrase: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+
+      - name: Configure GPG for CI
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "GPG_TTY=$(tty)" >> $GITHUB_ENV
+
+      - name: Test GPG signing
+        run: |
+          gpg -K
+          echo "test gpg" > test.txt
+          gpg -ab test.txt
+          gpg --verify test.txt.asc
+          rm test.txt test.txt.asc
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          server-id: central-portal
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      # resolve miss user.name and user.email gitconfig when push
+      - name: Set up Git config
+        run: |
+          git config --global user.name "${{ secrets.GH_USER_NAME }}" 
+          git config --global user.email "${{ secrets.GH_USER_EMAIL }}" 
+
+      - name: Prepare release tag
+        run: |
+          ./mvnw clean -Pcoding,auto-release release:prepare -B --settings .mvn/settings.xml

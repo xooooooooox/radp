@@ -81,12 +81,20 @@
                 <include>.tool-versions</include>
             </includes>
         </fileSet>
+        <!-- github -->
+        <fileSet encoding="UTF-8">
+            <directory>.github</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
         <!-- mvn -->
         <fileSet encoding="UTF-8">
             <directory>.mvn</directory>
             <includes>
                 <include>**/*.config</include>
                 <include>**/*.properties</include>
+                <include>**/*.xml</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

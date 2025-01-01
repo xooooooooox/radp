@@ -3,7 +3,7 @@
 ## 0.7
 
 - [x] Support publish gitlab pages
-- [x] Optimize gitlab ci pipeline
+- [x] Optimize gitlab ci pipeline, use remote template
 
 ## 0.6
 

@@ -176,7 +176,7 @@ deploy:
   - Under Deployment branches, verify whether the branch `feat/241218-devops-writerside` is allowed. If not:
     - Add it explicitly, or adjust the branch protection pattern (e.g., add feat/* if you want all feature branches to be eligible).
 
-![9.2_4.png](9.1_1.png)
+![9.2_4.png](9.1_1.png) { width="700" }
 
 ## 编码技巧
 

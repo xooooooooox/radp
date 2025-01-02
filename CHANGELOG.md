@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.8
+
+- [ ] Update archetype
+
 ## 0.7
 
 - [x] Support publish GitLab pages via GitLab CI/CD

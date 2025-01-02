@@ -1,0 +1,19 @@
+include:
+  - project: homelab/gitlab-ci-templates
+    ref: main
+    file: templates/k8s/java-pipeline.yml
+
+variables:
+  TP_RUN_BUILD: "false"
+  TP_RUN_TEST: "false"
+  TP_RUN_RELEASE: "false"
+  TP_RUN_PAGES: "false"
+
+  ## 发布制品参数 - by maven
+  TP_MAVEN_DPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
+                         -Pcoding,repo-aliyun,publish-artifactory \
+                         -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
+
+  ## 发布 pages - writerside
+  TP_PAGES_TYPE: "writerside"
+  TP_WRITERSIDE_INSTANCE: "Writerside/radp"

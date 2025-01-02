@@ -80,6 +80,7 @@
                 <include>__gitignore__</include>
                 <include>.java-version</include>
                 <include>.tool-versions</include>
+                <include>.gitlab-ci.yml</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

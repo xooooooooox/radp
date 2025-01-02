@@ -13,18 +13,15 @@ permissions:
   pages: write
 
 jobs:
-  pages:
+  wrs_pages:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
     steps:
       - name: Build and deploy to GitHub Pages
+        id: pages
         uses: xooooooooox/writerside-action@main
         with:
           instance: 'Writerside/radp'
           docker_version: '243.22562'
-
-      - name: Capture Deployment URL
-        run: |
-          echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
-        shell: bash

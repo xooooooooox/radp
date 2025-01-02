@@ -3,6 +3,7 @@
 ## 0.8
 
 - [ ] Update archetype
+- [ ] Optimize GitHub Actions
 
 ## 0.7
 

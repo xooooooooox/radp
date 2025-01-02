@@ -3,14 +3,19 @@ name: "[Doc] Publish Writerside Pages"
 on:
   push:
     branches:
-      - feat/250102-0.8
+      - main
+      - feat/241230-0.7
+    paths: [ 'Writerside/*' ]
   workflow_dispatch:
 
 jobs:
-  pages:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Writerside docs using Docker
-        uses: JetBrains/writerside-github-action@v4
-        with:
-          instance: 'Writerside/radp'
+  invoke-pages-build:
+    uses: ./.github/actions/writerside
+    with:
+      instance: 'Writerside/radp'
+      docker_version: '243.22562'
+      branches:
+        - 'main'
+        - 'feat/241230-0.7'
+      paths:
+        - 'Writerside/*'

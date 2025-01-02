@@ -1,6 +1,9 @@
 name: "[Doc] Publish Writerside Pages"
 
 on:
+  push:
+    branches:
+      - feat/250102-0.8
   workflow_dispatch:
 
 jobs:

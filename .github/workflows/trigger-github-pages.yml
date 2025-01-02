@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+    paths: [ 'Writerside/*' ]
   workflow_dispatch:
 
 permissions:

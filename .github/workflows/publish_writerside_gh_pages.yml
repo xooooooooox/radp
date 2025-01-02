@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - feat/241230-0.7
+      - feat/250102-0.8
     paths: [ 'Writerside/*' ]
   workflow_dispatch:
 
@@ -16,6 +16,6 @@ jobs:
       docker_version: '243.22562'
       branches:
         - 'main'
-        - 'feat/241230-0.7'
+        - 'feat/250102-0.8'
       paths:
         - 'Writerside/*'

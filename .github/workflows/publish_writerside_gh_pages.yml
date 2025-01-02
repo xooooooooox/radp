@@ -9,7 +9,7 @@ on:
 
 jobs:
   invoke-pages-build:
-    uses: .github/actions/writerside
+    uses: xooooooooox/writerside-action@main
     with:
       instance: 'Writerside/radp'
       docker_version: '243.22562'

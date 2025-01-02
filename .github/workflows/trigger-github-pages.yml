@@ -1,4 +1,4 @@
-name: "[Doc] Publish Writerside Pages"
+name: "[Pages] Build and deploy Writerside documentation to GitHub Pages"
 
 on:
   push:

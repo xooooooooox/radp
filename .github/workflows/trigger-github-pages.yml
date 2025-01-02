@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Build Writerside docs using Docker and deploy to GitHub Pages
         id: pages
-        uses: xooooooooox/writerside-action@main
+        uses: xooooooooox/writerside-action@v1
         with:
           instance: 'Writerside/radp'
           docker_version: '243.22562'

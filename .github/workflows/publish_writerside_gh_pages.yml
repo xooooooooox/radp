@@ -13,8 +13,3 @@ jobs:
     with:
       instance: 'Writerside/radp'
       docker_version: '243.22562'
-      branches:
-        - 'main'
-        - 'feat/250102-0.8'
-      paths:
-        - 'Writerside/*'

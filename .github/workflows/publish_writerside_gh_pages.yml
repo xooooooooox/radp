@@ -7,8 +7,13 @@ on:
       - feat/250102-0.8
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
 jobs:
-  invoke-pages-build:
+  pages:
     uses: xooooooooox/writerside-action@main
     with:
       instance: 'Writerside/radp'

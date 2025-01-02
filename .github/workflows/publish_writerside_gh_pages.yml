@@ -1,0 +1,13 @@
+name: "[Doc] Publish Writerside Pages"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Writerside docs using Docker
+        uses: JetBrains/writerside-github-action@v4
+        with:
+          instance: 'Writerside/radp'

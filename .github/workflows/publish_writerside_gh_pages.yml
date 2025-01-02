@@ -14,7 +14,10 @@ permissions:
 
 jobs:
   pages:
-    uses: xooooooooox/writerside-action@main
-    with:
-      instance: 'Writerside/radp'
-      docker_version: '243.22562'
+    runs-on: ubuntu-latest
+    steps:
+      - name: xxx
+        uses: xooooooooox/writerside-action@main
+        with:
+          instance: 'Writerside/radp'
+          docker_version: '243.22562'

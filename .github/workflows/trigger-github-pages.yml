@@ -19,7 +19,7 @@ jobs:
       name: github-pages
       url: ${{ steps.pages.outputs.page_url }}
     steps:
-      - name: Build and deploy to GitHub Pages
+      - name: Build Writerside docs using Docker and deploy to GitHub Pages
         id: pages
         uses: xooooooooox/writerside-action@main
         with:

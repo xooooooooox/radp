@@ -1,5 +1,8 @@
 package space.x9x.radp.design.framework.tree;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 /**
  * 多线程异步资源加载 + 策略路由的抽象类
  *
@@ -22,7 +25,7 @@ public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends Abstrac
      * @param requestParameter 入参
      * @param dynamicContext   动态上下文
      */
-    protected abstract void multiThread(T requestParameter, D dynamicContext);
+    protected abstract void multiThread(T requestParameter, D dynamicContext) throws ExecutionException, InterruptedException, TimeoutException;
 
     /**
      * 业务流程受理
@@ -31,5 +34,5 @@ public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends Abstrac
      * @param dynamicContext   动态上下文
      * @return 执行结果
      */
-    protected abstract R doApply(T requestParameter, D dynamicContext);
+    protected abstract R doApply(T requestParameter, D dynamicContext) throws Exception;
 }

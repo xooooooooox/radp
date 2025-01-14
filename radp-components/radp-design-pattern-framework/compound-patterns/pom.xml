@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>space.x9x.radp</groupId>
+        <artifactId>radp-design-pattern-framework</artifactId>
+        <version>0.8-SNAPSHOT</version>
+    </parent>
+    <artifactId>compound-patterns</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>混合型模式: 有些模式/方案既包含了创建型的思路，又兼具结构型或行为型的特征。对于这类同时兼具多种特点的模式或方案，我们通常称之为
+        复合模式（Compound Pattern）
+    </description>
+
+    <modules>
+        <module>radp-decision-tree-pattern</module>
+    </modules>
+
+
+</project>

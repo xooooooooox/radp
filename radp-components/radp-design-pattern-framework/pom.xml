@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>space.x9x.radp</groupId>
+        <artifactId>radp-components</artifactId>
+        <version>0.8-SNAPSHOT</version>
+        <relativePath>../radp-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>radp-design-pattern-framework</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>设计模式框架</description>
+
+    <modules>
+        <module>behavioral-patterns</module>
+        <module>creational-patterns</module>
+        <module>structural-patterns</module>
+        <module>compound-patterns</module>
+    </modules>
+
+
+</project>

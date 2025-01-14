@@ -26,6 +26,7 @@
         <module>radp-spring-cloud</module>
         <module>radp-spring-cloud-starters</module>
         <module>radp-spring-security</module>
+        <module>radp-design-pattern-framework</module>
     </modules>
 
 </project>

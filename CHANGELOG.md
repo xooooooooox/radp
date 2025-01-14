@@ -4,6 +4,7 @@
 
 - [ ] Update archetype
 - [ ] Optimize GitHub Actions
+- [ ] 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
 
 ## 0.7
 

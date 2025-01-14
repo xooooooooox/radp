@@ -248,6 +248,15 @@
             ============================ -->
             <!-- TODO -->
 
+            <!-- ===========================
+                 设计模式框架/模板
+            ============================ -->
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>radp-decision-tree-pattern</artifactId>
+                <version>0.8-SNAPSHOT</version>
+            </dependency>
+
 
             <!-- ===========================
                  效率工具

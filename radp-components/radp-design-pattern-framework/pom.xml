@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-components</artifactId>
+        <artifactId>radp-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
         <relativePath>../radp-parent/pom.xml</relativePath>
     </parent>

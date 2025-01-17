@@ -1,6 +1,8 @@
 #!/bin/bash
 
-APP_DIR="../app"
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+APP_HOME="${SCRIPT_DIR}/.."
+APP_DIR="${APP_HOME}/app"
 APP_PATTERN="$APP_DIR/*.jar"
 APP_NAME=$(ls -l $APP_PATTERN | awk '{print $9}')
 APP_JVM="-server -Xms1g -Xmx1g"
@@ -13,8 +15,8 @@ if [ $1 == "start" ]; then
 		java -version
 	fi
 	echo start $APP_NAME
-	echo "nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=../conf/ --logging.file.path=../logs/ >/dev/null 2>&1 &"
-	nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=../conf/ --logging.file.path=../logs/ >/dev/null 2>&1 &
+	echo "nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &"
+	nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &
 elif [ $1 == "stop" ]; then
 	echo "stop $APP_NAME($APP_SERVER)"
 	if [ ! $APP_PID ]; then

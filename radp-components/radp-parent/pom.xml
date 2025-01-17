@@ -1389,7 +1389,12 @@
         </profile>
 
         <profile>
-            <id>assembly</id>
+            <id>auto-assembly</id>
+            <activation>
+                <file>
+                    <exists>${project.basedir}/src/main/assembly/assembly.xml</exists>
+                </file>
+            </activation>
             <build>
                 <plugins>
                     <plugin>

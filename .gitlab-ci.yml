@@ -9,7 +9,14 @@ variables:
   TP_RUN_RELEASE: "true"
   TP_RUN_PAGES: "true"
 
+  ## 构建参数
+  TP_BUILD_IMAGE: ${DF_MAVEN_IMAGE}
+  TP_MAVEN_OPTS: "-Dmaven.repo.local=${TP_RUNNER_BUILD_CACHE} --settings .mvn/settings.xml"
+  TP_BUILD_SHELL: "mvn clean package ${TP_MAVEN_OPTS} -DskipTests"
+
   ## 发布制品参数 - by maven
+  TP_RELEASE_TYPE: maven
+  TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
   TP_MAVEN_DPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
                          -Pcoding,publish-artifactory \
                          -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"

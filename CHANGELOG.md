@@ -6,7 +6,7 @@
 - [x] Optimize GitHub Actions
 - [x] 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
     - 决策树设计模式抽象
-- [x] arch 额type
+- [x] archetype
     - assembly 优化
     - 分层构建优化
 

@@ -8,6 +8,7 @@ variables:
   TP_RUN_TEST: "false"
   TP_RUN_RELEASE: "true"
   TP_RUN_PAGES: "true"
+  TP_RUN_DEPLOY: "false"
 
   ## 构建参数
   TP_BUILD_IMAGE: ${DF_MAVEN_IMAGE}

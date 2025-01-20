@@ -3,10 +3,11 @@
 ## 0.8
 
 - [ ] Update archetype
-- [ ] Optimize GitHub Actions
-- [ ] 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
-- [ ] 调整统一异常
-- [ ] assembly 优化
+- [x] Optimize GitHub Actions
+- [x] 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
+- [x] arch 额type
+    - assembly 优化
+    - 分层构建优化
 
 ## 0.7
 

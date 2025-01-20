@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.9
+
+- [ ] Optimize GitHub Action: maven cache
+
 ## 0.8
 
 - [ ] Update archetype

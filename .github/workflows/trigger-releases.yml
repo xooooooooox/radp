@@ -53,6 +53,7 @@ jobs:
           server-id: central-portal
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+          cache: 'maven'
 
       - name: Set version
         run: |

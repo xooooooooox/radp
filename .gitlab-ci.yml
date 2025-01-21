@@ -23,7 +23,7 @@ variables:
   TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
   TP_MAVEN_DPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
                          -Pcoding,publish-artifactory \
-                         -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
+                         -Dauto.release.enabled=true -Dauto.archetype.catalog.minio=false"
 
   ## 发布 pages - writerside
   TP_PAGES_TYPE: "writerside"

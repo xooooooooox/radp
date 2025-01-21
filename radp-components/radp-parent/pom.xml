@@ -36,7 +36,7 @@
         <build.layers.enabled>true</build.layers.enabled>
         <spring-boot-maven-plugin.version>2.7.18</spring-boot-maven-plugin.version>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
-        <app.assembly.filename>${project.name}-assembly.tar.gz</app.assembly.filename>
+        <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>

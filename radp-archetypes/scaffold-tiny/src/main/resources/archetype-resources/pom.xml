@@ -13,6 +13,9 @@
 
     <properties>
         <start-class>${package}.Application</start-class>
+        <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
+        <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
+        <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
         <app.server.port>${appPort}</app.server.port>
         <docker.build.image_name>${docker.build.registry}/x9x/${appName}</docker.build.image_name>
     </properties>

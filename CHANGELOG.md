@@ -2,8 +2,8 @@
 
 ## 0.9
 
-- [ ] Optimize GitHub Action: maven cache
-- [ ] Optimize auto-assembly profile
+- [x] Optimize GitHub Action: maven cache
+- [x] Optimize auto-assembly profile
 
 ## 0.8
 

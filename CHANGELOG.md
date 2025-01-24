@@ -5,6 +5,7 @@
 - [x] Fix GitHub Action maven cache not work
 - [x] Change default jdk from `java 8.0.432+6-tem` to `java 8.0.442+6-amzn`. Because no available `java 8.0.432+6-tem`
   on arm64
+- [x] Update archetype application-dev.yaml
 
 ## 0.9
 

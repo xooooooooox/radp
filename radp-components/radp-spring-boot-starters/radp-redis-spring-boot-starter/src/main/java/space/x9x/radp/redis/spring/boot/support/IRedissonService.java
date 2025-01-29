@@ -2,6 +2,8 @@ package space.x9x.radp.redis.spring.boot.support;
 
 import org.redisson.api.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author x9x
  * @since 2024-10-28 15:21
@@ -71,7 +73,7 @@ public interface IRedissonService {
     /**
      * 获取值
      *
-     * @param key   key 键
+     * @param key key 键
      */
     Long getAtomicLong(String key);
 
@@ -260,4 +262,8 @@ public interface IRedissonService {
     <T> RBloomFilter<T> getBloomFilter(String key);
 
     Boolean setNx(String key);
+
+    Boolean setNx(String key, long expired, TimeUnit timeUnit);
+
+    RBitSet getBitSet(String key);;
 }

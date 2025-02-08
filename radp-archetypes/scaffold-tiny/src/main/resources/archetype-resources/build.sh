@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -f ./Dockerfile -t xooooooooox/${appName}
+docker build -f ./Dockerfile -t xooooooooox/${appName} .

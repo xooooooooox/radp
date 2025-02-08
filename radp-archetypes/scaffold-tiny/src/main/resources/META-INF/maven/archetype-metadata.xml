@@ -51,6 +51,8 @@
             <directory/>
             <includes>
                 <include>Dockerfile</include>
+                <include>build.sh</include>
+                <include>start.sh</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">

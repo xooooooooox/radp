@@ -1,3 +1,4 @@
 #!/bin/bash
 
-./mvnw clean package -Penv-dev || exit 1docker build -f ./Dockerfile -t xooooooooox/${appName} .
+./mvnw clean package -Penv-dev || exit 1
+docker build -f ./Dockerfile -t xooooooooox/${appName} .

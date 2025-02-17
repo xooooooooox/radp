@@ -18,7 +18,7 @@ if [ $1 == "start" ]; then
 	echo "nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &"
 	nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &
 elif [ $1 == "stop" ]; then
-	echo "stop $APP_NAME"
+echo "stop $APP_NAME"
 	if [ ! $APP_PID ]; then
 		echo stop $APP_NAME failed due to running pid not found
 	else

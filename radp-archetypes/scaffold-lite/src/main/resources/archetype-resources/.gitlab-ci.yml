@@ -8,12 +8,23 @@ variables:
   TP_RUN_TEST: "false"
   TP_RUN_RELEASE: "false"
   TP_RUN_PAGES: "false"
+  TP_RUN_DEPLOY: "false"
+
+  # 缓存
+  TP_CACHE_DIR: ''
+
+  ## 构建参数
+  TP_BUILD_IMAGE: ${DF_MAVEN_IMAGE}
+  TP_MAVEN_OPTS: "-Dmaven.repo.local=${TP_RUNNER_BUILD_CACHE} --settings .mvn/settings.xml"
+  TP_BUILD_SHELL: "mvn clean package ${TP_MAVEN_OPTS} -DskipTests"
 
   ## 发布制品参数 - by maven
-  TP_MAVEN_DPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
-                         -Pcoding,repo-aliyun,publish-artifactory \
+  TP_RELEASE_TYPE: maven
+  TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
+  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
+                         -Pcoding,publish-artifactory \
                          -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
 
   ## 发布 pages - writerside
   TP_PAGES_TYPE: "writerside"
-  TP_WRITERSIDE_INSTANCE: "Writerside/radp"
+  TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

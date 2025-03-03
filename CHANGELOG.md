@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.11
+
+- [ ] fix archetype GitLab CI/CD yml
+
 ## 0.10
 
 - [x] Fix GitHub Action maven cache not work

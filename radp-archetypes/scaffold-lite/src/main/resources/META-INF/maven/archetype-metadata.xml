@@ -70,6 +70,7 @@
             <directory/>
             <includes>
                 <include>README.md</include>
+                <include>.gitlab-ci.yml</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
@@ -79,7 +80,6 @@
                 <include>__gitignore__</include>
                 <include>.java-version</include>
                 <include>.tool-versions</include>
-                <include>.gitlab-ci.yml</include>
             </includes>
         </fileSet>
         <!-- github -->
@@ -103,7 +103,6 @@
             <includes>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
-                <include>.gitlab-ci.yml</include>
             </includes>
         </fileSet>
     </fileSets>

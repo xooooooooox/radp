@@ -3,7 +3,7 @@
 ## 0.11
 
 - [ ] fix archetype GitLab CI/CD yml
-- [ ] fix archetype auto-release profile now work
+- [x] fix archetype auto-release profile not work
 
 ## 0.10
 

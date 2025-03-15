@@ -1,5 +1,7 @@
 package space.x9x.radp.spring.framework.logging.bootstrap.config;
 
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 import space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**

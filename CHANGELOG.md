@@ -2,7 +2,10 @@
 
 ## 3.12
 
-- 基于 JDK17 + SpringBoot3.x
+- [x] 基于 JDK17 + SpringBoot3.x
+- [x] netty-resolver-dns-native-macos 增加 arm64 支持
+- [x] `javax.validate:validation-api` -> `jakarta.validate:jakarta.validation-api`
+- [x] `javax.servlet.*` -> `jakarta.servlet.*`
 
 ## 2.12
 

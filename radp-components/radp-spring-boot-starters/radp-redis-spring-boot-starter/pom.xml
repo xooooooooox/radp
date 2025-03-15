@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
@@ -56,10 +57,12 @@
     <profiles>
         <!-- 解决 Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. -->
         <profile>
-            <id>auto-netty_resolver</id>
+            <!-- 针对 Intel Mac 的配置 -->
+            <id>auto-netty_resolver_x86_64</id>
             <activation>
                 <os>
                     <family>mac</family>
+                    <arch>x86_64</arch>
                 </os>
             </activation>
             <dependencies>
@@ -67,6 +70,23 @@
                     <groupId>io.netty</groupId>
                     <artifactId>netty-resolver-dns-native-macos</artifactId>
                     <classifier>osx-x86_64</classifier>
+                </dependency>
+            </dependencies>
+        </profile>
+        <!-- 针对 Apple Silicon (ARM) 的配置 -->
+        <profile>
+            <id>auto-netty_resolver_aarch64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch> <!-- 这里表明激活条件是 ARM 架构 -->
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-resolver-dns-native-macos</artifactId>
+                    <classifier>osx-aarch_64</classifier>
                 </dependency>
             </dependencies>
         </profile>

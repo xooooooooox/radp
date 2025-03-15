@@ -21,6 +21,10 @@
         <!-- 自身模块 -->
         <dependency>
             <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-domain</artifactId>
         </dependency>
     </dependencies>

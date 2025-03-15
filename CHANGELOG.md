@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 3.12
+
+- 基于 JDK17 + SpringBoot3.x
+
 ## 2.12
 
 - [x] 从这个版本开始, 新增 future 分支, 基于 JDK17+SpringBoot3.x 进行开发

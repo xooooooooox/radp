@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-parent</artifactId>
-        <version>0.11</version>
+        <version>0.12-SNAPSHOT</version>
         <relativePath>../radp-parent/pom.xml</relativePath>
     </parent>
     <artifactId>radp-spring-security</artifactId>

@@ -6,6 +6,7 @@
 - [x] netty-resolver-dns-native-macos 增加 arm64 支持
 - [x] `javax.validate:validation-api` -> `jakarta.validate:jakarta.validation-api`
 - [x] `javax.servlet.*` -> `jakarta.servlet.*`
+- [x] 允许在 `future` 分支出发 GitHub Actions
 
 ## 2.12
 

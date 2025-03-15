@@ -2,7 +2,6 @@
 
 ## 0.11
 
-- [ ] fix archetype GitLab CI/CD yml
 - [x] fix archetype auto-release profile not work
 - [x] fix archetype import error
 

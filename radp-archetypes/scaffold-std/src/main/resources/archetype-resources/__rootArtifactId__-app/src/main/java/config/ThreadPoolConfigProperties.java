@@ -5,7 +5,7 @@ package ${package}.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import ${package}.spring.framework.bootstrap.constant.Globals;
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
  * @author x9x

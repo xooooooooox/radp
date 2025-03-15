@@ -4,8 +4,8 @@
 package ${package}.types.exception;
 
 import org.jetbrains.annotations.PropertyKey;
-import ${package}.spring.framework.error.ErrorCode;
-import ${package}.spring.framework.error.ServerException;
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.ServerException;
 
 /**
  * @author x9x

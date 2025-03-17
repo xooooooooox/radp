@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 3.13
+
+- [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
+
 ## 3.12
 
 - [x] 基于 JDK17 + SpringBoot3.x

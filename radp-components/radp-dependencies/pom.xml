@@ -32,7 +32,7 @@
         <!-- 工具集 -->
         <spring-shell.version>2.1.13</spring-shell.version>
         <jasypt.version>3.0.5</jasypt.version>
-        <commons-io.version>2.7</commons-io.version>
+        <commons-io.version>2.13.0</commons-io.version>
         <hutool.version>5.8.25</hutool.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <retrofit2.version>2.9.0</retrofit2.version>

@@ -4,6 +4,7 @@
 
 - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
 - [x] scaffold add postgresql template application.yaml
+- [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
 
 ## 3.12
 

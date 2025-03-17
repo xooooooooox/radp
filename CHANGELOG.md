@@ -3,6 +3,7 @@
 ## 3.13
 
 - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
+- [x] scaffold add postgresql template application.yaml
 
 ## 3.12
 

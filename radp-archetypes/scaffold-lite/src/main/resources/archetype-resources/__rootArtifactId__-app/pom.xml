@@ -17,6 +17,7 @@
         <app.server.port>${appPort}</app.server.port>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image>
         <docker.build.image_name>${docker.build.registry}/x9x/${appName}</docker.build.image_name>
+        <docker.build.image_tag>${project.version}</docker.build.image_tag>
     </properties>
 
     <dependencies>

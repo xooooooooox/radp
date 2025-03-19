@@ -7,6 +7,7 @@
 - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
 - [x] `radp-spring-framework` add `MultiResult`
 - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
+- [x] scaffold add property `docker.build.base_image`
 
 ## 3.12
 

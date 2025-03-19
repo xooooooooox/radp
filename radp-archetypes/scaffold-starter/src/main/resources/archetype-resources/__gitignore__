@@ -1,6 +1,8 @@
 !docs/dev-ops/volumes/rocketmq_data/console/config
 !docs/dev-ops/volumes/rocketmq_data/rocketmq/conf
 docs/dev-ops/volumes/rocketmq_data
+
+application-private.yaml
 .flatten-pom-xml
 target/
 !.mvn/wrapper/maven-wrapper.jar

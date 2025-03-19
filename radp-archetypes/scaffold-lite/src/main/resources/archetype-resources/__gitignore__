@@ -3,6 +3,8 @@
 docs/dev-ops/volumes/rocketmq_data
 !docs/dev-ops/volumes/xxl-job_data/sql
 docs/dev-ops/volumes/xxl-job_data
+
+application-private.yaml
 target/
 .flatten-pom-xml
 .mvn/wrapper/maven-wrapper.jar

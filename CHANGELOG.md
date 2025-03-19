@@ -8,6 +8,7 @@
 - [x] `radp-spring-framework` add `MultiResult`
 - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
 - [x] scaffold add property `docker.build.base_image` and `docker.build.image_tag`
+- [X] scaffold optimise .gitignore
 
 ## 3.12
 

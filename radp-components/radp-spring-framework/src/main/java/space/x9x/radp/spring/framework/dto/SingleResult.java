@@ -5,6 +5,8 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Objects;
+
 /**
  * @author x9x
  * @since 2024-09-26 15:57
@@ -18,6 +20,10 @@ import lombok.experimental.SuperBuilder;
 public class SingleResult<T> extends Result {
 
     private T data;
+
+    public static <T> SingleResult<T> build() {
+        return build(null);
+    }
 
     public static <T> SingleResult<T> build(T data) {
         return SingleResult.<T>singleResultBuilder()

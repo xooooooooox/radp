@@ -9,6 +9,7 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author x9x
@@ -22,6 +23,10 @@ import java.util.Collection;
 public class MultiResult<T> extends Result {
 
     private Collection<T> data;
+
+    public static <T> MultiResult<T> build() {
+        return build(Collections.emptyList());
+    }
 
     public static <T> MultiResult<T> build(Collection<T> data) {
         return MultiResult.<T>multiResultBuilder()

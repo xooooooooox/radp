@@ -11,6 +11,7 @@
 - [X] scaffold optimise .gitignore
 - [x] template/logback-spring.xml 增加 `NopStatusListener`
 - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
+- [x] use springdoc-openapi bom
 
 ## 3.12
 

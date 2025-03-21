@@ -20,7 +20,19 @@
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image>
         <docker.build.image_name>${docker.build.registry}/x9x/${appName}</docker.build.image_name>
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
+
+        <!-- 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
+        <scm.git.web_url/>
+        <scm.git.url/>
+        <scm.issue.url/>
     </properties>
+
+    <scm>
+        <url>${scm.git.web_url}</url>
+        <connection>scm:git:${scm.git.url}</connection>
+        <developerConnection>scm:git:${scm.git.url}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <dependencies>
         <dependency>

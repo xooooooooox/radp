@@ -11,6 +11,20 @@
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 
+    <properties>
+        <!-- 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
+        <scm.git.web_url/>
+        <scm.git.url/>
+        <scm.issue.url/>
+    </properties>
+
+    <scm>
+        <url>${scm.git.web_url}</url>
+        <connection>scm:git:${scm.git.url}</connection>
+        <developerConnection>scm:git:${scm.git.url}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <modules>
         <module>${rootArtifactId}-types</module>
         <module>${rootArtifactId}-domain</module>

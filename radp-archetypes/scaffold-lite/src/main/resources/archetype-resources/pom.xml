@@ -12,7 +12,7 @@
     <version>${version}</version>
 
     <properties>
-        <!-- 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
+        <!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
         <scm.git.web_url/>
         <scm.git.url/>
         <scm.issue.url/>

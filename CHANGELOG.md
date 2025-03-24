@@ -13,6 +13,7 @@
 - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
 - [x] use springdoc-openapi bom
 - [x] fix scaffold maven-release-plugin scm
+- [x] upgrade spring-cloud.version from `2021.0.5` to `2023.0.0`
 
 ## 3.12
 

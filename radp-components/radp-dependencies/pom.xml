@@ -15,7 +15,7 @@
     <properties>
         <!-- 基础框架 -->
         <cola.version>4.1.0</cola.version>
-        <spring-boot.version>2.7.12</spring-boot.version>
+        <spring-boot.version>3.2.3</spring-boot.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
 
         <!-- 效率组件 -->

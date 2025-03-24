@@ -29,6 +29,11 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser
+            </artifactId> <!-- Mybatis-plus 3.5.9+ 后需要手动引入 see https://github.com/baomidou/mybatis-plus/issues/6561 -->
+        </dependency>
+        <dependency>
             <groupId>com.github.yulichang</groupId>
             <artifactId>mybatis-plus-join-boot-starter</artifactId> <!-- MyBatis 联表查询 -->
         </dependency>

@@ -14,6 +14,9 @@
 - [x] use springdoc-openapi bom
 - [x] fix scaffold maven-release-plugin scm
 - [x] upgrade spring-cloud.version from `2021.0.5` to `2023.0.0`
+- [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
+- [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
+- [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
 
 ## 3.12
 

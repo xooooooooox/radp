@@ -17,7 +17,7 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - "8888:8888"
+      - "8888:${appPort}"
     environment:
       TZ: Asia/Shanghai
       SERVER_PORT: ${appPort}

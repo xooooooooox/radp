@@ -2,23 +2,28 @@
 
 ## 3.13
 
-- [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
-- [x] scaffold add postgresql template application.yaml
-- [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
-- [x] `radp-spring-framework` add `MultiResult`
-- [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
-- [x] scaffold add property `docker.build.base_image` and `docker.build.image_tag`
-- [X] scaffold optimise .gitignore
-- [x] template/logback-spring.xml 增加 `NopStatusListener`
-- [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
-- [x] use springdoc-openapi bom
-- [x] fix scaffold maven-release-plugin scm
-- [x] upgrade spring-cloud.version from `2021.0.5` to `2023.0.0`
-- [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
-- [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
-- [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
-- [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
-- [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
+- scaffold
+  - [x] add postgresql template application.yaml
+  - [x] add property `docker.build.base_image` and `docker.build.image_tag`
+  - [X] optimise .gitignore
+  - [x] fix maven-release-plugin scm
+  - [x] Dockerfile base image `eclipse-temurin:11-jdk` -> `eclipse-temurin:17-jdk`
+- dependencies
+  - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
+  - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
+  - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
+  - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
+  - [x] use springdoc-openapi bom
+  - [x] upgrade spring-cloud.version from `2021.0.5` to `2023.0.0`
+  - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
+  - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
+- feature
+  - [x] `radp-spring-framework` add `MultiResult`
+  - [x] `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
+- fix
+  - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
+  - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
+  - [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
 
 ## 3.12
 

@@ -1,5 +1,5 @@
 # 使用基础镜像
-FROM eclipse-temurin:11-jdk  AS builder
+FROM eclipse-temurin:17-jdk  AS builder
 
 # 设置工作目录并指定构建模块
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
 RUN java -Djarmode=layertools -jar application.jar extract
 
 # 创建容器镜像
-FROM  eclipse-temurin:11-jdk
+FROM  eclipse-temurin:17-jdk
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
 ARG USER=tmpuser

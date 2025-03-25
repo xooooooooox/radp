@@ -8,6 +8,7 @@
   - [X] optimise .gitignore
   - [x] fix maven-release-plugin scm
   - [x] Dockerfile base image `eclipse-temurin:11-jdk` -> `eclipse-temurin:17-jdk`
+  - [x] optimize docker-compose-app.yaml
 - dependencies
   - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
   - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`

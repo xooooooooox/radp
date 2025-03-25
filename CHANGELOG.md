@@ -17,7 +17,8 @@
 - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
 - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
 - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
-- [x] fix GitLab CI/CD after upgrade to Spring Boot3
+- [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
+- [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
 
 ## 3.12
 

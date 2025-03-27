@@ -1,2 +1,2 @@
-adaptive=factory.space.x9x.radp.extension.AdaptiveExtensionFactory
-spi=factory.space.x9x.radp.extension.SpiExtensionFactory
+adaptive=space.x9x.radp.extension.factory.AdaptiveExtensionFactory
+spi=space.x9x.radp.extension.factory.SpiExtensionFactory

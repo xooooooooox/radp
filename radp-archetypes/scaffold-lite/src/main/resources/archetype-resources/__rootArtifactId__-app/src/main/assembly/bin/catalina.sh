@@ -15,8 +15,8 @@ if [ $1 == "start" ]; then
 		java -version
 	fi
 	echo start $APP_NAME
-	echo "nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &"
-	nohup java $APP_JVM -jar $APP_NAME --spring.config.additional-location=${APP_HOME}/conf/ --logging.file.path=${APP_HOME}/logs/ >/dev/null 2>&1 &
+	echo "nohup java $APP_JVM -Dspring.config.additional-location=${APP_HOME}/conf/ -Dlogging.file.path=${APP_HOME}/logs/ -jar $APP_NAME >/dev/null 2>&1 &"
+	nohup java $APP_JVM -Dspring.config.additional-location=${APP_HOME}/conf/ -Dlogging.file.path=${APP_HOME}/logs/ -jar $APP_NAME >/dev/null 2>&1 &
 elif [ $1 == "stop" ]; then
 echo "stop $APP_NAME"
 	if [ ! $APP_PID ]; then

@@ -28,6 +28,7 @@
   - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
   - [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
   - [x] fix `radp-spring-framework` ResponseBuilder bug
+  - [x] fix META-INF/internal resource SPI
 
 ## 3.12
 

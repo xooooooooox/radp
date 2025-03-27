@@ -13,7 +13,7 @@ if "%1" == "start" (
           java -version
      )
      echo start %APP_NAME%
-     start "%APP_NAME%" java -server -Xms1g -Xmx1g -Dfile.encoding=UTF-8 -jar %APP_NAME% --spring.config.additional-location=../conf/ --logging.file.path=../logs/
+     start "%APP_NAME%" java -server -Xms1g -Xmx1g -Dfile.encoding=UTF-8 -Dspring.config.additional-location=../conf/ -Dlogging.file.path=../logs/ -jar %APP_NAME%
 ) else if "%1" == "stop" (
      echo stop %APP_NAME%
      taskkill /fi "WINDOWTITLE eq %APP_NAME%"

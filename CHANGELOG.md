@@ -1,5 +1,30 @@
 # ChangeLog
 
+## 2.13
+
+- scaffold
+  - [X] optimise .gitignore
+  - [x] fix maven-release-plugin scm
+  - [x] optimize actuator
+  - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
+  - [x] optimize assembly jar profiles active by cli not work
+  - [x] optimize application-xx.yaml
+- dependencies
+  - [x] `radp-spring-framework` change `javax.validation:validation-api` to `jakarta.validation:validatation-api`
+  - [x] upgrade spring-boot-parent from `2.7.12` to `2.7.18`
+- feature
+  - [x] optimize profile `auto-layered` and `auto-assembly`
+  - [x] `RestExceptionHandler` add handler `MethodArgumentTypeMismatchException`
+  - [x]  add `MultiResult`
+  - [x] `ResultBuilder` add method signature ` buildFailure(ErrorCode errorCode)`
+  - [x] `SingleResult` add method signature `build()`
+  - [x] Optimize gitlab CI/CD
+  - [x] `radp-logging-spring-boot-starter` template 增加 `NopStatusListener`
+- fix
+  - [x] fix META-INF/internal resource SPI
+  - [x] fix `radp-spring-framework` ResponseBuilder bug
+  - [x] fix `ApplicationContextHelper#getBean` bug
+
 ## 2.12
 
 - [x] 从这个版本开始, 新增 future 分支, 基于 JDK17+SpringBoot3.x 进行开发

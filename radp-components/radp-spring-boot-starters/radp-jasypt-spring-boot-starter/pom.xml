@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-spring-boot-starters</artifactId>
-        <version>3.13-SNAPSHOT</version>
+        <version>3.13</version>
     </parent>
     <artifactId>radp-jasypt-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>

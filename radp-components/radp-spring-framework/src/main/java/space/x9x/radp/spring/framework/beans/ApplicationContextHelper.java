@@ -60,7 +60,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
             String beanName = Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
             try {
                 beanInstance = (T) getBeanFactory().getBean(beanName);
-            } catch (Exception e) {
+            } catch (Exception ignore) {
                 // eat it
             }
         }

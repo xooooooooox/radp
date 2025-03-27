@@ -14,6 +14,7 @@
   - [x] optimize actuator
   - [x] add project.name
   - [x] optimize assembly jar profiles active by cli not work
+  - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
 - dependencies
   - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
   - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
@@ -36,7 +37,6 @@
   - [x] fix META-INF/internal resource SPI
   - [x] fix ApplicationContextHelper#getBean bug
   - [x] fix `RestExceptionHandler`
-  - [x] fix assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh
 
 ## 3.12
 

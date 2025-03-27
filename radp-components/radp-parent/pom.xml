@@ -1397,7 +1397,10 @@
         </profile>
 
         <profile>
-            <id>auto-assembly</id>
+            <id>package-assembly</id>
+            <properties>
+                <auto.assembly.enabled>true</auto.assembly.enabled>
+            </properties>
             <activation>
                 <!-- 当 assembly.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
                 <file>

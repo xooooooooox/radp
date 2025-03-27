@@ -2,18 +2,6 @@ package space.x9x.radp.spring.framework.web.rest.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.extension.ExtensionLoader;
-import space.x9x.radp.spring.framework.error.BaseException;
-import space.x9x.radp.spring.framework.error.ClientException;
-import space.x9x.radp.spring.framework.error.ServerException;
-import space.x9x.radp.spring.framework.error.ThirdServiceException;
-import space.x9x.radp.spring.framework.error.http.BadRequestException;
-import space.x9x.radp.spring.framework.error.http.ForbiddenException;
-import space.x9x.radp.spring.framework.error.http.UnauthorizedException;
-import space.x9x.radp.spring.framework.web.extension.ResponseBuilder;
-import space.x9x.radp.spring.framework.web.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
@@ -26,6 +14,17 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+import space.x9x.radp.commons.collections.CollectionUtils;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.extension.ExtensionLoader;
+import space.x9x.radp.spring.framework.error.*;
+import space.x9x.radp.spring.framework.error.http.BadRequestException;
+import space.x9x.radp.spring.framework.error.http.ForbiddenException;
+import space.x9x.radp.spring.framework.error.http.UnauthorizedException;
+import space.x9x.radp.spring.framework.web.extension.ResponseBuilder;
+import space.x9x.radp.spring.framework.web.util.ServletUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -65,10 +64,26 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<?> resolveMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
+        Object response = builder().buildFailure("400", "请求参数类型错误{}", ex.getMessage());
+        return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
+    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-        Object response = builder().buildFailure("400", "不支持的请求方法");
+        log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
+        Object response = builder().buildFailure(GlobalResponseCode.METHOD_NOT_ALLOWED.getErrorCode());
         return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, response);
+    }
+
+
+    @ExceptionHandler(value = NoResourceFoundException.class)
+    public ResponseEntity<?> resolveNoResourceFoundException(NoResourceFoundException ex) {
+        log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage());
+        Object response = builder().buildFailure(GlobalResponseCode.NOT_FOUND.getErrorCode());
+        return this.buildResponseEntity(HttpStatus.NOT_FOUND, response);
     }
 
     @ExceptionHandler(BadRequestException.class)

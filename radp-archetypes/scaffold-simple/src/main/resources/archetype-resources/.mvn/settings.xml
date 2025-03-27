@@ -49,6 +49,8 @@
             <id>publish-central</id>
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.assembly.enabled>false</auto.assembly.enabled>
                 <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
             </properties>
         </profile>
@@ -56,6 +58,8 @@
             <id>publish-github</id>
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.assembly.enabled>false</auto.assembly.enabled>
                 <devops.release.arguments>-Pcoding,publish-github -DskipTests</devops.release.arguments>
                 <altSnapshotDeploymentRepository>
                     github::https://maven.pkg.github.com/xooooooooox/radp
@@ -69,6 +73,8 @@
             <id>publish-artifactory</id>
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.assembly.enabled>false</auto.assembly.enabled>
                 <auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
                 <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
                 </devops.release.arguments>

@@ -33,6 +33,16 @@
         </fileSet>
 
         <fileSet>
+            <directory>${project.build.directory}/classes</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>application-*.yml</include>
+                <include>application-*.yaml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
             <directory>${symbol_dollar}{project.build.directory}</directory>
             <outputDirectory>app</outputDirectory>
             <fileMode>0755</fileMode>

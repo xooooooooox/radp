@@ -1,8 +1,8 @@
 package space.x9x.radp.spring.framework.beans;
 
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultBeanNameGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 
 /**
  * @author x9x
@@ -39,5 +40,33 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
         BeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(beanClass).getBeanDefinition();
         String beanName = beanNameGenerator.generateBeanName(beanDefinition, registry);
         registry.registerBeanDefinition(beanName, beanDefinition);
+    }
+
+    public static ListableBeanFactory getBeanFactory() {
+        return beanFactory == null ? applicationContext : beanFactory;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getBean(Class<T> clazz) {
+        T beanInstance = null;
+        try {
+            beanInstance = getBeanFactory().getBean(clazz);
+        } catch (Exception ignore) {
+            // eat it
+        }
+
+        if (beanInstance == null) {
+            String simpleName = clazz.getSimpleName();
+            String beanName = Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
+            try {
+                Object bean = getBeanFactory().getBean(beanName);
+                if (clazz.isInstance(bean)) {
+                    beanInstance = clazz.cast(bean);
+                }
+            } catch (Exception ignore) {
+                // eat it
+            }
+        }
+        return beanInstance;
     }
 }

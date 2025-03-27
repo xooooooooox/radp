@@ -10,6 +10,7 @@
     <artifactId>${artifactId}</artifactId>
     <groupId>${groupId}</groupId>
     <version>${version}</version>
+    <name>${artifactId}</name>
 
     <properties>
         <start-class>${package}.Application</start-class>

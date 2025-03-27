@@ -1,6 +1,7 @@
 package space.x9x.radp.spring.framework.dto;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
+import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.web.extension.ResponseBuilder;
 import org.jetbrains.annotations.PropertyKey;
@@ -41,6 +42,15 @@ public class ResultBuilder implements ResponseBuilder<Result> {
                 .success(false)
                 .code(errCode)
                 .msg(MessageFormatUtils.format(errMessage, params))
+                .build();
+    }
+
+    @Override
+    public Result buildFailure(ErrorCode errorCode) {
+        return Result.builder()
+                .success(false)
+                .code(errorCode.getCode())
+                .msg(errorCode.getMessage())
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import org.jetbrains.annotations.PropertyKey;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.SPI;
 import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
+import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 
 /**
@@ -29,4 +30,6 @@ public interface ResponseBuilder<T> {
     T buildFailure(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params);
 
     T buildFailure(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, String errMessage, Object... params);
+
+    T buildFailure(ErrorCode errorCode);
 }

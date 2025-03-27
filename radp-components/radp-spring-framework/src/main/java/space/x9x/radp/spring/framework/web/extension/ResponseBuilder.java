@@ -1,9 +1,10 @@
 package space.x9x.radp.spring.framework.web.extension;
 
+import org.jetbrains.annotations.PropertyKey;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.SPI;
+import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
-import org.jetbrains.annotations.PropertyKey;
 
 /**
  * @author x9x
@@ -13,6 +14,10 @@ import org.jetbrains.annotations.PropertyKey;
 public interface ResponseBuilder<T> {
 
     static ResponseBuilder<?> builder() {
+        ResponseBuilder<?> builder = ApplicationContextHelper.getBean(ResponseBuilder.class);
+        if (builder != null) {
+            return builder;
+        }
         return ExtensionLoader.getExtensionLoader(ResponseBuilder.class).getDefaultExtension();
     }
 

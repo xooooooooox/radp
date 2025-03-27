@@ -27,6 +27,7 @@
   - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
   - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
   - [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
+  - [x] fix `radp-spring-framework` ResponseBuilder bug
 
 ## 3.12
 

@@ -25,6 +25,7 @@
   - [x] `radp-spring-framework` add `MultiResult`
   - [x] `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
   - [x] `ResponseBuilder` add method signature `Result buildFailure(ErrorCode errorCode)`
+  - [x] optimize profile `auto-layered` and `auto-assembly`
 - fix
   - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
   - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
@@ -14,8 +15,8 @@
 
     <properties>
         <!-- 基础属性 -->
-        <spring.profiles.active />
-        <runtime.env />
+        <spring.profiles.active/>
+        <runtime.env/>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <timestamp>${maven.build.timestamp}</timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +32,7 @@
         <minio.bucket.path>${user.minio.bucket.path}</minio.bucket.path>
 
         <!-- 打包成可执行程序 -->
-        <start-class />
+        <start-class/>
         <build.layers.enabled>true</build.layers.enabled>
         <spring-boot-maven-plugin.version>2.7.18</spring-boot-maven-plugin.version>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
@@ -76,7 +77,7 @@
         <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
-        <docker.build.image_name /> <!-- to -->
+        <docker.build.image_name/> <!-- to -->
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
         <app.home>/app</app.home> <!-- 容器内的应用目录 -->
         <app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->
@@ -109,26 +110,26 @@
         <jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
         <liquibase.contexts>local</liquibase.contexts>
         <liquibase.changelog_file>src/main/resources/db/db.changelog-master.yaml</liquibase.changelog_file>
-        <spring.datasource.driver />
-        <spring.datasource.url />
-        <spring.datasource.username />
-        <spring.datasource.password />
-        <liquibase.output_changeset_author />
+        <spring.datasource.driver/>
+        <spring.datasource.url/>
+        <spring.datasource.username/>
+        <spring.datasource.password/>
+        <liquibase.output_changeset_author/>
         <liquibase.output_changelog_file>src/main/resources/db/output/changelog-output-${maven.build.timestamp}.yaml
         </liquibase.output_changelog_file>
         <liquibase.output_file_encoding>UTF-8</liquibase.output_file_encoding>
         <liquibase.output_data_dir>src/main/resources/db/output/data</liquibase.output_data_dir>
-        <liquibase.reference_driver />
-        <liquibase.reference_url />
-        <liquibase.reference_username />
-        <liquibase.reference_password />
+        <liquibase.reference_driver/>
+        <liquibase.reference_url/>
+        <liquibase.reference_username/>
+        <liquibase.reference_password/>
         <liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
         </liquibase.diff_changelog_file>
         <flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
         <!-- OpenAPI 生成工具 -->
         <openapi-generator-maven-plugin.version>5.2.1</openapi-generator-maven-plugin.version>
-        <openapi-generator-maven-plugin.apiPackage />
-        <openapi-generator-maven-plugin.modelPackage />
+        <openapi-generator-maven-plugin.apiPackage/>
+        <openapi-generator-maven-plugin.modelPackage/>
         <!-- OpenAPI 文档生成工具 -->
         <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
         <asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
@@ -142,12 +143,12 @@
         <swagger.input>${server.url}/v2/api-docs</swagger.input>
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
-        <server.url />
+        <server.url/>
         <!-- 属性解析工具 -->
         <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
         <yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
-        <properties-maven-plugin.property_file />
+        <properties-maven-plugin.property_file/>
         <!-- 其他编程语言 -->
         <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
         <!-- 其它 -->
@@ -1398,12 +1399,30 @@
         <profile>
             <id>auto-assembly</id>
             <activation>
+                <!-- 当 assembly.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
                 <file>
                     <exists>${project.basedir}/src/main/assembly/assembly.xml</exists>
                 </file>
+                <property>
+                    <name>auto.assembly.enabled</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>repackage_fat_jar</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
@@ -1421,7 +1440,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${app.assembly.file}" tofile="${app.artifact.file}" />
+                                        <copy file="${app.assembly.file}" tofile="${app.artifact.file}"/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -1435,10 +1454,14 @@
             <!-- 无需手动激活,会自动激活 -->
             <id>auto-layered</id>
             <activation>
+                <!-- 当 layers.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
                 <file>
-                    <!-- 当 layers.xml 文件存在时将会自动激活这个 profile -->
                     <exists>${project.basedir}/src/main/docker/springboot/layers.xml</exists>
                 </file>
+                <property>
+                    <name>auto.layered.enabled</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -1505,7 +1528,8 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
+                                        <copy file="${settings.localRepository}/archetype-catalog.xml"
+                                              tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -1541,7 +1565,8 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
+                                        <copy file="${settings.localRepository}/archetype-catalog.xml"
+                                              tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
                                     </target>
                                 </configuration>
                             </execution>

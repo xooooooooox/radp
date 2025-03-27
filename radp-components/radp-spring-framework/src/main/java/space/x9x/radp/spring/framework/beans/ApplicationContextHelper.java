@@ -59,7 +59,10 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
             String simpleName = clazz.getSimpleName();
             String beanName = Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
             try {
-                beanInstance = (T) getBeanFactory().getBean(beanName);
+                Object bean = getBeanFactory().getBean(beanName);
+                if (clazz.isInstance(bean)) {
+                    beanInstance = clazz.cast(bean);
+                }
             } catch (Exception ignore) {
                 // eat it
             }

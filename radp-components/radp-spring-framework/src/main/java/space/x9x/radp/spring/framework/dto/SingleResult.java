@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.dto;
 
-import space.x9x.radp.spring.framework.error.ErrorCode;
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
  * @author x9x
@@ -18,6 +18,10 @@ import lombok.experimental.SuperBuilder;
 public class SingleResult<T> extends Result {
 
     private T data;
+
+    public static <T> SingleResult<T> build() {
+        return build(null);
+    }
 
     public static <T> SingleResult<T> build(T data) {
         return SingleResult.<T>singleResultBuilder()

@@ -33,7 +33,7 @@
   - [x] fix META-INF/internal resource SPI
   - [x] fix ApplicationContextHelper#getBean bug
   - [x] fix `RestExceptionHandler`
-  - [x] fix assembly bin/catalina.sh and bin/catalina.bat
+  - [x] fix assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh
 
 ## 3.12
 

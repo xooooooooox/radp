@@ -26,7 +26,7 @@ spring:
     # 3. 对于多环境部署且存在环境差异的配置，再单独在 application-env.yaml 的环境配置文件中进行覆盖
     # 4. 对于当前服务独有的配置，建议统一放在 application-app.yaml 中进行管理
     # include: logback, swagger, mysql, mybatis, druid, app
-    include: logback, swagger, mysql, hikari, liquibase, mybatis, app
+    include: logback, actuator, swagger, mysql, hikari, liquibase, mybatis, app
   application:
     name: ${appName}
   main:

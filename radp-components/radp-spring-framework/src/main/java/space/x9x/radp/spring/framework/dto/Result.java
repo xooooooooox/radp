@@ -1,8 +1,8 @@
 package space.x9x.radp.spring.framework.dto;
 
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 import java.io.Serializable;
 

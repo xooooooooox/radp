@@ -5,10 +5,11 @@ networks:
 services:
   # 后端
   app:
+    # TODO: use build or image
     build:
-      context: ../../${rootArtifactId}-app
+      context: ../../${appName}-app
       dockerfile: Dockerfile
-    image: xooooooooox/${rootArtifactId}-app:latest
+    image: xooooooooox/${appName}:latest
     restart: unless-stopped
     depends_on:
       mysql:
@@ -16,7 +17,8 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - "8888:8888"
+      - "8888:${appPort}"
+      - "9999:9999"
     environment:
       TZ: Asia/Shanghai
       SERVER_PORT: ${appPort}
@@ -24,7 +26,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${appName}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
       SPRING_REDIS_HOST: redis
     volumes:
-      - ./volumes/logs:/data/logs
+      - ./volumes/app/logs:/data/logs
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:${appPort}/actuator/health" ]
       interval: 30s

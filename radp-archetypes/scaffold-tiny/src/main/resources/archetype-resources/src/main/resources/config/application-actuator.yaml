@@ -1,0 +1,15 @@
+--- # actuator
+management:
+  server:
+    port: @app.management.server.port@
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}

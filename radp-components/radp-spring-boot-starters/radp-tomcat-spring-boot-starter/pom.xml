@@ -6,7 +6,7 @@
         <artifactId>radp-spring-boot-starters</artifactId>
         <version>3.14-SNAPSHOT</version>
     </parent>
-    <artifactId>radp-tomcat-spring-boot-tarter</artifactId>
+    <artifactId>radp-tomcat-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>

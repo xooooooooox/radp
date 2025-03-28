@@ -18,7 +18,7 @@
         <module>radp-hikaricp-spring-boot-starter</module>
         <module>radp-druid-spring-boot-starter</module>
         <module>radp-liquibase-spring-boot-starter</module>
-        <module>radp-tomcat-spring-boot-tarter</module>
+        <module>radp-tomcat-spring-boot-starter</module>
         <module>radp-logging-spring-boot-starter</module>
         <module>radp-jasypt-spring-boot-starter</module>
         <module>radp-redis-spring-boot-starter</module>

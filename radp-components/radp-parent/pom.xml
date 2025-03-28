@@ -13,6 +13,11 @@
     </name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
 
     <properties>
+        <java.version>8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <!-- 基础属性 -->
         <spring.profiles.active />
         <runtime.env />
@@ -25,6 +30,7 @@
         <java-io-tmpdir>${user.home}/tmp</java-io-tmpdir>
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>false</maven.javadoc.skip>
+
         <!-- archetype -->
         <gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
         <minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
@@ -157,6 +163,8 @@
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
+        <flattened.filename>.flatten-pom-xml</flattened.filename>
+        <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
     </properties>
 
     <build>

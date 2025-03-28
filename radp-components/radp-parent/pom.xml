@@ -14,6 +14,10 @@
     </name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
 
     <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 基础属性 -->
         <spring.profiles.active/>
         <runtime.env/>
@@ -97,6 +101,9 @@
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
         <server.url/>
+        <!-- 其他 -->
+        <flattened.filename>.flatten-pom-xml</flattened.filename>
+        <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
         <properties-maven-plugin.property_file/>
     </properties>
 

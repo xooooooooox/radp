@@ -4,8 +4,12 @@
 
 - doc
   - [x] writerside update `about.md`
+- scaffold
+  - [x] `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
+- feat
 - dependencies
   - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
+  - [x] Rename `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
 - parent
   - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
 

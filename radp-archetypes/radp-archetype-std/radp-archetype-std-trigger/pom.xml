@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-tomcat-spring-boot-tarter</artifactId>
+            <artifactId>radp-tomcat-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>space.x9x.radp</groupId>

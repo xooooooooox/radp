@@ -9,6 +9,7 @@
   - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
   - [x] optimize assembly jar profiles active by cli not work
   - [x] optimize application-xx.yaml
+  - [x] optimize gitlab CI/CD
 - dependencies
   - [x] `radp-spring-framework` change `javax.validation:validation-api` to `jakarta.validation:validatation-api`
   - [x] upgrade spring-boot-parent from `2.7.12` to `2.7.18`

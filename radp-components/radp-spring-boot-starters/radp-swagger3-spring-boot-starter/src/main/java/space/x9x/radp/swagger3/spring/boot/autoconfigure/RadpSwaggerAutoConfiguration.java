@@ -1,11 +1,5 @@
 package space.x9x.radp.swagger3.spring.boot.autoconfigure;
 
-import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
-import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
-import space.x9x.radp.swagger3.spring.boot.env.DefaultSwaggerCustomizer;
-import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
 import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.DispatcherServlet;
+import space.x9x.radp.commons.lang.ObjectUtils;
+import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
+import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
+import space.x9x.radp.swagger3.spring.boot.env.DefaultSwaggerCustomizer;
+import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
 
 import javax.servlet.Servlet;
 import java.util.List;

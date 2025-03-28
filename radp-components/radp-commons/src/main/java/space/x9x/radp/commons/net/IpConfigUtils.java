@@ -1,10 +1,10 @@
 package space.x9x.radp.commons.net;
 
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.*;

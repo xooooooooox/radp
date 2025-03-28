@@ -18,6 +18,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <!-- 基础属性 -->
         <spring.profiles.active/>
         <runtime.env/>
@@ -30,6 +31,7 @@
         <java-io-tmpdir>${user.home}/tmp</java-io-tmpdir>
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>false</maven.javadoc.skip>
+
         <!-- archetype -->
         <gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
         <minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
@@ -41,6 +43,7 @@
         <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
+
         <!-- Docker 部署 -->
         <build.jib.enabled>true</build.jib.enabled>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
@@ -64,6 +67,7 @@
         <docker.build.jdwp.port>5005</docker.build.jdwp.port>
         <docker.build.use_current_timestamp>USE_CURRENT_TIMESTAMP</docker.build.use_current_timestamp>
         <docker.build.allow_insecure_registries>true</docker.build.allow_insecure_registries>
+
         <!-- 数据库迁移工具 -->
         <liquibase-maven-plugin.property_file>
             src/main/resources/db/config/liquibase_maven_plugin-${runtime.env}.properties
@@ -90,6 +94,7 @@
         <liquibase.reference_password/>
         <liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
         </liquibase.diff_changelog_file>
+
         <!-- OpenAPI 生成工具 -->
         <openapi-generator-maven-plugin.apiPackage/>
         <openapi-generator-maven-plugin.modelPackage/>
@@ -101,6 +106,7 @@
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
         <server.url/>
+
         <!-- 其他 -->
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>

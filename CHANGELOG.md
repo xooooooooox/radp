@@ -4,6 +4,10 @@
 
 - doc
   - [x] writerside update `about.md`
+- feature
+  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
+- dependencies
+  - [x] change `com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0` to `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` 
 
 ## 3.13
 

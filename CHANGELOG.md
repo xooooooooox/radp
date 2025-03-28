@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 2.14
+
+- doc
+  - [x] writerside update `about.md`
+- dependencies
+  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
+- parent
+  - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
+
 ## 2.13
 
 - scaffold

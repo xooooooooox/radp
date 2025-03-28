@@ -39,47 +39,11 @@
         <!-- 打包成可执行程序 -->
         <start-class />
         <build.layers.enabled>true</build.layers.enabled>
-        <spring-boot-maven-plugin.version>2.7.18</spring-boot-maven-plugin.version>
-        <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
-        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
-        <!-- 安装到本地制品库-->
-        <maven-install-plugin.version>3.1.0</maven-install-plugin.version>
-        <!-- 部署到远程制品库 -->
-        <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
-        <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
-        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-        <!-- 发布版本 -->
-        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
-        <!-- 代码覆盖率 -->
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-        <!-- 代码质量 -->
-        <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-        <!-- 单元测试 -->
-        <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <!-- 集成测试 -->
-        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
-        <redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
-        <!-- 性能测试 -->
-        <gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
         <gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
-        <!-- 版本控制 -->
-        <maven-scm-plugin.version>2.0.0-M3</maven-scm-plugin.version>
-        <git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
-        <!-- 项目脚手架 -->
-        <archetype-packaging.version>3.2.0</archetype-packaging.version>
-        <maven-archetype-plugin.version>3.2.0</maven-archetype-plugin.version>
-        <!-- Docker 部署 -->
         <build.jib.enabled>true</build.jib.enabled>
-        <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
-        <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
@@ -101,10 +65,6 @@
         <docker.build.jdwp.port>5005</docker.build.jdwp.port>
         <docker.build.use_current_timestamp>USE_CURRENT_TIMESTAMP</docker.build.use_current_timestamp>
         <docker.build.allow_insecure_registries>true</docker.build.allow_insecure_registries>
-        <!-- J2EE 部署 -->
-        <cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
-        <!-- 数据库迁移工具 -->
-        <liquibase-maven-plugin.version>${liquibase.version}</liquibase-maven-plugin.version>
         <liquibase-maven-plugin.property_file>
             src/main/resources/db/config/liquibase_maven_plugin-${runtime.env}.properties
         </liquibase-maven-plugin.property_file>
@@ -130,39 +90,20 @@
         <liquibase.reference_password />
         <liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
         </liquibase.diff_changelog_file>
-        <flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
         <!-- OpenAPI 生成工具 -->
-        <openapi-generator-maven-plugin.version>5.2.1</openapi-generator-maven-plugin.version>
         <openapi-generator-maven-plugin.apiPackage />
         <openapi-generator-maven-plugin.modelPackage />
-        <!-- OpenAPI 文档生成工具 -->
-        <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
         <asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
         <asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
         <asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
         <asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
-        <asciidoctorj-diagram.version>1.5.18</asciidoctorj-diagram.version>
-        <asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
-        <swagger2markup-maven-plugin.version>1.3.7</swagger2markup-maven-plugin.version>
-        <swagger2markup-extensions.version>1.3.3</swagger2markup-extensions.version>
         <swagger.input>${server.url}/v2/api-docs</swagger.input>
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
         <server.url />
         <!-- 属性解析工具 -->
-        <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
-        <yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
-        <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <properties-maven-plugin.property_file />
-        <!-- 其他编程语言 -->
-        <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
         <!-- 其它 -->
-        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
-        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
-        <maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
-        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
-        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-        <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
     </properties>
@@ -230,9 +171,8 @@
             </plugin>
         </plugins>
         <pluginManagement>
-            <!-- 相同的 phase 按引入顺序执行 -->
             <plugins>
-                <!-- 清理 START -->
+                <!-- ====================[清理==================== -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -265,9 +205,9 @@
                         </filesets>
                     </configuration>
                 </plugin>
-                <!-- 清理 END -->
+                <!-- ====================清理]==================== -->
 
-                <!-- PHASE: COMPILE START -->
+                <!-- ====================[编译==================== -->
                 <!-- maven-compiler-plugin 插件，解决 spring-boot-configuration-processor + Lombok + MapStruct 组合 -->
                 <!-- https://stackoverflow.com/questions/33483697/re-run-spring-boot-configuration-annotation-processor-to-update-generated-metada -->
                 <plugin>
@@ -305,9 +245,9 @@
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
-                <!-- PHASE: COMPILE END -->
+                <!-- ====================编译]==================== -->
 
-                <!-- 资源管理 START -->
+                <!-- ====================[资源管理==================== -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
@@ -341,9 +281,9 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- 资源管理 END -->
+                <!-- ====================资源管理]==================== -->
 
-                <!-- 打包成可执行程序 START -->
+                <!-- ====================[打包成可执行程序==================== -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -406,9 +346,9 @@
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven-shade-plugin.version}</version>
                 </plugin>
-                <!-- 打包成可执行程序 END -->
+                <!-- ====================打包成可执行程序]==================== -->
 
-                <!-- 部署仓库 START -->
+                <!-- ====================[部署仓库==================== -->
                 <!-- 部署到本地制品库 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -471,252 +411,7 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- 部署仓库 END -->
-
-                <!-- 发布版本 START -->
-                <!-- 该插件需要结合 scm 使用 -->
-                <!-- 1. mvn release:prepare -B -->
-                <!-- 0) 这里的 -B 表示 batch mode, 无交互式运行 -->
-                <!-- 1) 检查是否有未提交的代码 -->
-                <!-- 2) 修改 pom.xml 版本号快照版本为正式版本, 并提交 commit 修改后的代码, 并对修改后的代码打 tag -->
-                <!-- 3) 更新版本为下一个快照版本, 并提交代码 -->
-                <!-- 2. mvn release:perform -B -->
-                <!-- 检出打好标签的最新正式版本, 并执行构建与部署 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven-release-plugin.version}</version>
-                    <configuration>
-                        <tagNameFormat>@{project.version}</tagNameFormat>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
-                        <!-- 如果为true, 那么 performRelease 将会为 true -->
-                        <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-                        <arguments>${devops.release.arguments}</arguments>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>${versions-maven-plugin.version}</version>
-                    <configuration>
-                        <generateBackupPoms>false</generateBackupPoms>
-                    </configuration>
-                </plugin>
-                <!-- 发布版本 END -->
-
-                <!-- 代码覆盖率 START -->
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco-maven-plugin.version}</version>
-                    <configuration>
-                        <rules>
-                            <rule implementation="org.jacoco.maven.RuleConfiguration">
-                                <element>BUNDLE</element>
-                                <limits>
-                                    <limit implementation="org.jacoco.report.check.Limit">
-                                        <counter>BRANCH</counter>
-                                        <value>COVEREDRATIO</value>
-                                        <minimum>0.50</minimum>
-                                    </limit>
-                                    <limit implementation="org.jacoco.report.check.Limit">
-                                        <counter>METHOD</counter>
-                                        <value>COVEREDRATIO</value>
-                                        <minimum>0.50</minimum>
-                                    </limit>
-                                    <limit implementation="org.jacoco.report.check.Limit">
-                                        <counter>CLASS</counter>
-                                        <value>MISSEDCOUNT</value>
-                                        <maximum>0</maximum>
-                                    </limit>
-                                </limits>
-                            </rule>
-                        </rules>
-                    </configuration>
-                </plugin>
-                <!-- 代码覆盖率 END -->
-
-                <!-- 代码质量 START -->
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar-maven-plugin.version}</version>
-                </plugin>
-                <!-- 代码质量 END -->
-
-                <!-- 单元测试 START -->
-                <!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
-                <!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <argLine>-Djava.io.tmpdir=${java-io-tmpdir}
-                            -Dcglib.debugLocation=${project.build.outputDirectory}
-                        </argLine>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                </plugin>
-                <!-- 单元测试 END -->
-
-                <!-- 集成测试 START -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven-failsafe-plugin.version}</version>
-                    <configuration>
-                        <includes>
-                            <include>**/*IT</include>
-                            <include>**/*ITCase</include>
-                        </includes>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>ru.trylogic.maven.plugins</groupId>
-                    <artifactId>redis-maven-plugin</artifactId>
-                    <version>${redis-maven-plugin.version}</version>
-                    <configuration>
-                        <forked>true</forked>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>start-redis</id>
-                            <phase>pre-integration-test</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>stop-redis</id>
-                            <phase>post-integration-test</phase>
-                            <goals>
-                                <goal>shutdown</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- 集成测试 END -->
-
-                <!-- 性能测试 START -->
-                <plugin>
-                    <groupId>io.gatling</groupId>
-                    <artifactId>gatling-maven-plugin</artifactId>
-                    <version>${gatling-maven-plugin.version}</version>
-                    <configuration>
-                        <disableCompiler>true</disableCompiler>
-                        <propagateSystemProperties>true
-                        </propagateSystemProperties>
-                        <failOnError>true</failOnError>
-                        <runMultipleSimulations>true</runMultipleSimulations>
-                    </configuration>
-                </plugin>
-                <!-- 性能测试 END -->
-
-                <!-- 版本控制 START -->
-                <!-- 版本管理 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-scm-plugin</artifactId>
-                    <version>${maven-scm-plugin.version}</version>
-                </plugin>
-                <!-- 版本提交信息 -->
-                <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>${git-commit-id-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>revision</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <!-- 如果没有 Git 目录，不会导致构建失败 -->
-                        <failOnNoGitDirectory>false</failOnNoGitDirectory>
-                        <!-- 如果无法提取仓库信息，不会导致构建失败 -->
-                        <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
-                        <!-- 生成 git.properties 文件 -->
-                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <!-- 仅包含指定的属性 -->
-                        <includeOnlyProperties>
-                            <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.branch$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
-                        </includeOnlyProperties>
-                    </configuration>
-                </plugin>
-                <!-- 版本变更记录 -->
-                <plugin>
-                    <groupId>se.bjurr.gitchangelog</groupId>
-                    <artifactId>git-changelog-maven-plugin</artifactId>
-                    <version>${git-changelog-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>GenerateGitChangelog</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>git-changelog</goal>
-                            </goals>
-                            <configuration>
-                                <templateContent>
-                                    <![CDATA[
-								{{#tags}}
-								## {{name}}
-								 {{#issues}}
-								  {{#hasIssue}}
-								   {{#hasLink}}
-								### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-								   {{/hasLink}}
-								   {{^hasLink}}
-								### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-								   {{/hasLink}}
-								  {{/hasIssue}}
-								  {{^hasIssue}}
-								### {{name}}
-								  {{/hasIssue}}
-
-								  {{#commits}}
-								**{{{messageTitle}}}**
-
-								{{#messageBodyItems}}
-								 * {{.}}
-								{{/messageBodyItems}}
-
-								[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
-
-								  {{/commits}}
-
-								 {{/issues}}
-								{{/tags}}
-								]]>
-                                </templateContent>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- 版本控制 END -->
-
-                <!-- 项目脚手架 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>${maven-archetype-plugin.version}</version>
-                    <configuration>
-                        <propertyFile>archetype.properties</propertyFile>
-                    </configuration>
-                </plugin>
-
-                <!-- Docker 部署 START  -->
+                <!-- Docker 部署 -->
                 <plugin>
                     <groupId>com.google.cloud.tools</groupId>
                     <artifactId>jib-maven-plugin</artifactId>
@@ -845,16 +540,259 @@
                         <contextDirectory>${project.build.directory}</contextDirectory>
                     </configuration>
                 </plugin>
-                <!-- Docker 部署 START  -->
-
                 <!-- 部署到 J2EE 容器 -->
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${cargo-maven2-plugin.version}</version>
                 </plugin>
+                <!-- ====================部署仓库]==================== -->
 
-                <!-- 数据库迁移工具 -->
+                <!-- ====================[发布版本==================== -->
+                <!-- 该插件需要结合 scm 使用 -->
+                <!-- 1. mvn release:prepare -B -->
+                <!-- 0) 这里的 -B 表示 batch mode, 无交互式运行 -->
+                <!-- 1) 检查是否有未提交的代码 -->
+                <!-- 2) 修改 pom.xml 版本号快照版本为正式版本, 并提交 commit 修改后的代码, 并对修改后的代码打 tag -->
+                <!-- 3) 更新版本为下一个快照版本, 并提交代码 -->
+                <!-- 2. mvn release:perform -B -->
+                <!-- 检出打好标签的最新正式版本, 并执行构建与部署 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <configuration>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
+                        <!-- 如果为true, 那么 performRelease 将会为 true -->
+                        <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
+                        <arguments>${devops.release.arguments}</arguments>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
+                    <configuration>
+                        <generateBackupPoms>false</generateBackupPoms>
+                    </configuration>
+                </plugin>
+                <!-- ====================发布版本]==================== -->
+
+                <!-- ====================[代码覆盖率==================== -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <configuration>
+                        <rules>
+                            <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                <element>BUNDLE</element>
+                                <limits>
+                                    <limit implementation="org.jacoco.report.check.Limit">
+                                        <counter>BRANCH</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.50</minimum>
+                                    </limit>
+                                    <limit implementation="org.jacoco.report.check.Limit">
+                                        <counter>METHOD</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.50</minimum>
+                                    </limit>
+                                    <limit implementation="org.jacoco.report.check.Limit">
+                                        <counter>CLASS</counter>
+                                        <value>MISSEDCOUNT</value>
+                                        <maximum>0</maximum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                </plugin>
+                <!-- ====================代码覆盖率]==================== -->
+
+                <!-- ====================[代码质量==================== -->
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+                <!-- ====================代码质量]==================== -->
+
+                <!-- ====================[单元测试==================== -->
+                <!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
+                <!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <argLine>-Djava.io.tmpdir=${java-io-tmpdir}
+                            -Dcglib.debugLocation=${project.build.outputDirectory}
+                        </argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <!-- ====================单元测试]==================== -->
+
+                <!-- ====================[集成测试==================== -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*IT</include>
+                            <include>**/*ITCase</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>ru.trylogic.maven.plugins</groupId>
+                    <artifactId>redis-maven-plugin</artifactId>
+                    <version>${redis-maven-plugin.version}</version>
+                    <configuration>
+                        <forked>true</forked>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>start-redis</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stop-redis</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>shutdown</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- ====================集成测试]==================== -->
+
+                <!-- ====================[性能测试==================== -->
+                <plugin>
+                    <groupId>io.gatling</groupId>
+                    <artifactId>gatling-maven-plugin</artifactId>
+                    <version>${gatling-maven-plugin.version}</version>
+                    <configuration>
+                        <disableCompiler>true</disableCompiler>
+                        <propagateSystemProperties>true
+                        </propagateSystemProperties>
+                        <failOnError>true</failOnError>
+                        <runMultipleSimulations>true</runMultipleSimulations>
+                    </configuration>
+                </plugin>
+                <!-- ====================性能测试]==================== -->
+
+                <!-- ====================[版本控制==================== -->
+                <!-- 版本管理 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-plugin</artifactId>
+                    <version>${maven-scm-plugin.version}</version>
+                </plugin>
+                <!-- 版本提交信息 -->
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>${git-commit-id-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>revision</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!-- 如果没有 Git 目录，不会导致构建失败 -->
+                        <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                        <!-- 如果无法提取仓库信息，不会导致构建失败 -->
+                        <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+                        <!-- 生成 git.properties 文件 -->
+                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <!-- 仅包含指定的属性 -->
+                        <includeOnlyProperties>
+                            <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+                            <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
+                            <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                            <includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
+                        </includeOnlyProperties>
+                    </configuration>
+                </plugin>
+                <!-- 版本变更记录 -->
+                <plugin>
+                    <groupId>se.bjurr.gitchangelog</groupId>
+                    <artifactId>git-changelog-maven-plugin</artifactId>
+                    <version>${git-changelog-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>GenerateGitChangelog</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>git-changelog</goal>
+                            </goals>
+                            <configuration>
+                                <templateContent>
+                                    <![CDATA[
+								{{#tags}}
+								## {{name}}
+								 {{#issues}}
+								  {{#hasIssue}}
+								   {{#hasLink}}
+								### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+								   {{/hasLink}}
+								   {{^hasLink}}
+								### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+								   {{/hasLink}}
+								  {{/hasIssue}}
+								  {{^hasIssue}}
+								### {{name}}
+								  {{/hasIssue}}
+
+								  {{#commits}}
+								**{{{messageTitle}}}**
+
+								{{#messageBodyItems}}
+								 * {{.}}
+								{{/messageBodyItems}}
+
+								[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+								  {{/commits}}
+
+								 {{/issues}}
+								{{/tags}}
+								]]>
+                                </templateContent>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- ====================版本控制]==================== -->
+
+                <!-- ====================[项目脚手架==================== -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>${maven-archetype-plugin.version}</version>
+                    <configuration>
+                        <propertyFile>archetype.properties</propertyFile>
+                    </configuration>
+                </plugin>
+                <!-- ====================项目脚手架]==================== -->
+
+                <!-- ====================[数据库迁移工具==================== -->
                 <plugin>
                     <groupId>org.flywaydb</groupId>
                     <artifactId>flyway-maven-plugin</artifactId>
@@ -865,8 +803,9 @@
                     <artifactId>liquibase-maven-plugin</artifactId>
                     <version>${liquibase-maven-plugin.version}</version>
                 </plugin>
+                <!-- ====================数据库迁移工具]==================== -->
 
-                <!-- OpenAPI 生成工具 START -->
+                <!-- ====================[OpenAPI 生成工具==================== -->
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -902,9 +841,9 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- OpenAPI 生成工具 END -->
+                <!-- ====================OpenAPI 生成工具]==================== -->
 
-                <!-- 属性解析工具 START -->
+                <!-- ====================[属性解析工具==================== -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
@@ -944,9 +883,9 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- 属性解析工具 END -->
+                <!-- ====================属性解析工具]==================== -->
 
-                <!-- 其他编程语言 START -->
+                <!-- ====================[其他编程语言==================== -->
                 <plugin>
                     <groupId>org.codehaus.gmavenplus</groupId>
                     <artifactId>gmavenplus-plugin</artifactId>
@@ -960,9 +899,9 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- 其他编程语言 END -->
+                <!-- ====================其他编程语言]==================== -->
 
-                <!-- 其它 START -->
+                <!-- ====================[其他==================== -->
                 <!-- 解决多模块 revision 版本替换问题 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -1035,7 +974,7 @@
                         <distributionType>source</distributionType>
                     </configuration>
                 </plugin>
-                <!-- 其它 END -->
+                <!-- ====================其他]==================== -->
             </plugins>
         </pluginManagement>
     </build>

@@ -12,7 +12,7 @@ spring:
   datasource:
     username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
     password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
--- # hikari
+--- # hikari
 spring:
   datasource:
     hikari:

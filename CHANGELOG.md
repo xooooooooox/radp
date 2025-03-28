@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.14
+
+- doc
+  - [x] writerside update `about.md`
+
 ## 3.13
 
 - scaffold

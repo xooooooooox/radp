@@ -6,7 +6,8 @@
   - [x] Remove module `radp-tomcat-spring-boot-starter`
   - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
   - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
-  - [x] Disable autoconfigure `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
+  - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
+  - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
 - fix
   - [x] Resolve `AsyncTaskExecutionAutoConfiguration` problem: 'org.springframework.boot.task.TaskExecutorBuilder' is deprecated since version 3.2.0 and marked for removal
 - dependencies

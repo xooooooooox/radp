@@ -11,8 +11,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-tomcat-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>space.x9x.radp</groupId>

@@ -47,6 +47,7 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
     public AsyncTaskExecutionAutoConfiguration(TaskExecutionProperties properties,
                                                ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers,
                                                ObjectProvider<TaskDecorator> taskDecorators) {
+        log.debug("Autowired asyncTaskExecutionAutoConfiguration");
         this.properties = properties;
         this.taskExecutorCustomizers = taskExecutorCustomizers;
         this.taskDecorators = taskDecorators;

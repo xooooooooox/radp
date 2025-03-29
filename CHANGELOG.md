@@ -2,16 +2,21 @@
 
 ## 2.14
 
+- feature
+  - [x] Remove module `radp-tomcat-spring-boot-starter`
+  - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
+  - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
+  - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
+  - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
+- dependencies
+  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
+  - [x] Optimize radp-dependencies, use `springdoc-openapi` bom instead`
+- parent
+  - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
 - doc
   - [x] writerside update `about.md`
 - scaffold
   - [x] `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
-- feat
-- dependencies
-  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
-  - [x] Rename `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
-- parent
-  - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
 
 ## 2.13
 

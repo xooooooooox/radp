@@ -18,12 +18,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AutoConfiguration
 @EnableConfigurationProperties(WebAPIProperties.class)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@RequiredArgsConstructor
 @Slf4j
 public class WebAPIAutoConfiguration implements WebMvcConfigurer {
 
 
     private final WebAPIProperties properties;
+
+    public WebAPIAutoConfiguration(WebAPIProperties properties) {
+        log.debug("Autowired webApiAutoConfiguration");
+        this.properties = properties;
+    }
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {

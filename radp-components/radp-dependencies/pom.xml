@@ -282,6 +282,11 @@
             </dependency>
             <dependency>
                 <groupId>space.x9x.radp</groupId>
+                <artifactId>radp-springdoc-webflux-spring-boot-starter</artifactId>
+                <version>3.14-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-undertow-spring-boot-starter</artifactId>
                 <version>3.14-SNAPSHOT</version>
             </dependency>

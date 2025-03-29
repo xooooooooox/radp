@@ -7,7 +7,7 @@
         <version>2.14-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>radp-swagger3-spring-boot-starter</artifactId>
+    <artifactId>radp-springdoc-webmvc-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>

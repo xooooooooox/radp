@@ -13,12 +13,11 @@
 
     <modules>
         <module>radp-mybatis-spring-boot-starter</module>
-        <module>radp-swagger3-spring-boot-starter</module>
+        <module>radp-springdoc-webmvc-spring-boot-starter</module>
         <module>radp-undertow-spring-boot-starter</module>
         <module>radp-hikaricp-spring-boot-starter</module>
         <module>radp-druid-spring-boot-starter</module>
         <module>radp-liquibase-spring-boot-starter</module>
-        <module>radp-tomcat-spring-boot-starter</module>
         <module>radp-logging-spring-boot-starter</module>
         <module>radp-jasypt-spring-boot-starter</module>
         <module>radp-redis-spring-boot-starter</module>

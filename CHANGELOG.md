@@ -16,7 +16,6 @@
 - doc
   - [x] writerside update `about.md`
 - scaffold
-  - [x] `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
 
 ## 2.13
 

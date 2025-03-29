@@ -254,11 +254,6 @@
             <!-- radp-xx-spring-boot-starters -->
             <dependency>
                 <groupId>space.x9x.radp</groupId>
-                <artifactId>radp-tomcat-spring-boot-starter</artifactId>
-                <version>2.14-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-jasypt-spring-boot-starter</artifactId>
                 <version>2.14-SNAPSHOT</version>
             </dependency>

@@ -9,15 +9,13 @@
   - [x] Disable autoconfigure `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
 - fix
   - [x] Resolve `AsyncTaskExecutionAutoConfiguration` problem: 'org.springframework.boot.task.TaskExecutorBuilder' is deprecated since version 3.2.0 and marked for removal
-- doc
-  - [x] writerside update `about.md`
-- scaffold
-  - [x] `radp-tomcat-spring-boot-tarter` to `radp-tomcat-spring-boot-starter`
 - dependencies
   - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
   - [x] Change `com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0` to `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
 - parent
   - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
+- doc
+  - [x] writerside update `about.md`
 
 ## 3.13
 

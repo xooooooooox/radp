@@ -1,7 +1,5 @@
 package space.x9x.radp.spring.boot.task.autoconfigure;
 
-import space.x9x.radp.spring.boot.task.TtlThreadPoolTaskExecutor;
-import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
@@ -9,14 +7,16 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
-import org.springframework.boot.task.TaskExecutorBuilder;
-import org.springframework.boot.task.TaskExecutorCustomizer;
+import org.springframework.boot.task.ThreadPoolTaskExecutorBuilder;
+import org.springframework.boot.task.ThreadPoolTaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import space.x9x.radp.spring.boot.task.TtlThreadPoolTaskExecutor;
+import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
 
 import java.util.concurrent.Executor;
 
@@ -41,12 +41,13 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
     public static final String DEFAULT_TASK_EXECUTOR_BEAN_NAME = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
 
     private final TaskExecutionProperties properties;
-    private final ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers;
+    private final ObjectProvider<ThreadPoolTaskExecutorCustomizer> taskExecutorCustomizers;
     private final ObjectProvider<TaskDecorator> taskDecorators;
 
     public AsyncTaskExecutionAutoConfiguration(TaskExecutionProperties properties,
-                                               ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers,
+                                               ObjectProvider<ThreadPoolTaskExecutorCustomizer> taskExecutorCustomizers,
                                                ObjectProvider<TaskDecorator> taskDecorators) {
+        log.debug("Autowired asyncTaskExecutionAutoConfiguration");
         this.properties = properties;
         this.taskExecutorCustomizers = taskExecutorCustomizers;
         this.taskDecorators = taskDecorators;
@@ -58,7 +59,7 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
     public Executor getAsyncExecutor() {
         log.debug(AUTOWIRED_ASYNC_TASK_EXECUTION);
         TaskExecutionProperties.Pool pool = properties.getPool();
-        TaskExecutorBuilder builder = new TaskExecutorBuilder();
+        ThreadPoolTaskExecutorBuilder builder = new ThreadPoolTaskExecutorBuilder();
 
         if (pool.getCoreSize() > POOL_SIZE_LIMIT) {
             builder = builder.corePoolSize(POOL_SIZE_LIMIT);
@@ -97,8 +98,6 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return (ex, method, params) -> {
-            log.error("Unexpected exception occurred invoking async method: {}", method, ex);
-        };
+        return (ex, method, params) -> log.error("Unexpected exception occurred invoking async method: {}", method, ex);
     }
 }

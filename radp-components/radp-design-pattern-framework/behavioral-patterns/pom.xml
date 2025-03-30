@@ -4,10 +4,10 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-design-pattern-framework</artifactId>
-        <version>3.14-SNAPSHOT</version>
+        <version>3.14</version>
     </parent>
     <artifactId>behavioral-patterns</artifactId>
-    <version>3.14-SNAPSHOT</version>
+    <version>3.14</version>
     <name>${project.artifactId}</name>
     <description>行为型模式</description>
 

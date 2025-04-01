@@ -8,6 +8,9 @@
   - [x] Upgrade spring boot version from `3.2.3` to `3.4.3` 
   - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
   - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的 `3.10.1` 版本
+  - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
+  - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
+  - [x] Remove redundant plugin version in `radp-parent`
 - scaffold
   - [x] Optimize dev-ops
   - [x] Fix application-dev.yaml
@@ -51,7 +54,7 @@
   - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
   - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
   - [x] use springdoc-openapi bom
-  - [x] upgrade spring-cloud.version from `2021.0.5` to `2023.0.0`
+  - [x] upgrade spring-cloud version from `2021.0.5` to `2023.0.0`
   - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
   - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
 - feature
@@ -111,7 +114,7 @@
 
 - [x] Support publish GitLab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
-- [x] Update archetype, .mvn, .github actions
+- [x] Update archetype, `.mvn`, `.github` actions
 
 ## 0.6
 
@@ -122,7 +125,7 @@
 
 - [x] dependency management shiro and jwt version
 - [x] add Utility classes for base64 and digest
-- [x] ci/cd supported. Publish packages to github packages and maven central portal
+- [x] ci/cd supported. Publish packages to GitHub packages and maven central portal
 
 ## 0.3
 

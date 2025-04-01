@@ -47,6 +47,7 @@
         <user.jasypt.encryptor.password />
 
         <!-- plugin version -->
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
@@ -161,6 +162,8 @@
                             </goals>
                             <configuration>
                                 <!-- Specific configuration for the aggregate report -->
+                                <!-- TODO: 如果升级 maven-javadoc-plugin 到 spring-boot-dependencies:3.4.3 默认申明的版本 3.10.1 这里会报错 -->
+                                <!-- 这个报错,目前我还不知道如何处理, 暂时格式, 沿用老版本先 -->
                                 <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
                                 <destDir>javadoc</destDir>
                             </configuration>

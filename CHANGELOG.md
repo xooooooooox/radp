@@ -6,7 +6,8 @@
   - [x] `radp-common` add `FileUtils` 
 - dependencies
   - [x] Upgrade spring boot version from `3.2.3` to `3.4.3` 
-  - [x] dependencyManagement add `central-publishing-maven-plugin`
+  - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
+  - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的 `3.10.1` 版本
 
 ## 3.14
 

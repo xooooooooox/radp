@@ -1,0 +1,3 @@
+-- db
+CREATE DATABASE demo;
+

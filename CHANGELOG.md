@@ -7,6 +7,7 @@
 - dependencies
   - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
   - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的版本
+  - [x] Remove redundant plugin version in `radp-parent`
 - scaffold
   - [x] Optimize dev-ops
 

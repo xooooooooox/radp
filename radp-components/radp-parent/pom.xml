@@ -177,7 +177,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>${maven-clean-plugin.version}</version>
                     <configuration>
                         <skip>false</skip>
                         <!--当配置 true 时, 只清理 filesets 里的文件, 构建目录中的文件不被清理, 默认为 false-->
@@ -214,7 +213,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -252,7 +250,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -265,7 +262,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>${build-helper-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>generate-sources</phase>
@@ -286,14 +282,8 @@
 
                 <!-- ====================[打包成可执行程序==================== -->
                 <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${maven-assembly-plugin.version}</version>
                     <configuration>
                         <ignoreMissingDescriptor>true</ignoreMissingDescriptor>
                         <descriptors>
@@ -313,13 +303,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>${maven-antrun-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven-jar-plugin.version}</version>
                     <configuration>
                         <excludes>
                             <exclude>**/rebel.xml</exclude>
@@ -329,7 +313,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>${maven-war-plugin.version}</version>
                     <configuration>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                         <archive>
@@ -342,31 +325,13 @@
                         <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>${maven-shade-plugin.version}</version>
-                </plugin>
                 <!-- ====================打包成可执行程序]==================== -->
 
                 <!-- ====================[部署仓库==================== -->
-                <!-- 部署到本地制品库 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>${maven-install-plugin.version}</version>
-                </plugin>
-                <!-- 部署到远程制品库 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                </plugin>
                 <!--部署到中央仓库-->
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-maven-plugin.version}</version>
                     <configuration>
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
@@ -376,7 +341,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>sign-artifacts</id>
@@ -402,7 +366,6 @@
                 <plugin>
                     <groupId>net.nicoulaj.maven.plugins</groupId>
                     <artifactId>checksum-maven-plugin</artifactId>
-                    <version>${maven-checksum-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>create-checksums</id>
@@ -416,7 +379,6 @@
                 <plugin>
                     <groupId>com.google.cloud.tools</groupId>
                     <artifactId>jib-maven-plugin</artifactId>
-                    <version>${jib-maven-plugin.version}</version>
                     <!-- 绑定 Jib 到 Maven 生命周期 -->
                     <executions>
                         <execution>
@@ -534,7 +496,6 @@
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>${dockerfile-maven-plugin.version}</version>
                     <configuration>
                         <repository>${project.name}</repository>
                         <tag>${project.version}</tag>
@@ -561,7 +522,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
@@ -576,7 +536,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>${versions-maven-plugin.version}</version>
                     <configuration>
                         <generateBackupPoms>false</generateBackupPoms>
                     </configuration>
@@ -587,7 +546,6 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco-maven-plugin.version}</version>
                     <configuration>
                         <rules>
                             <rule implementation="org.jacoco.maven.RuleConfiguration">
@@ -616,11 +574,6 @@
                 <!-- ====================代码覆盖率]==================== -->
 
                 <!-- ====================[代码质量==================== -->
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar-maven-plugin.version}</version>
-                </plugin>
                 <!-- ====================代码质量]==================== -->
 
                 <!-- ====================[单元测试==================== -->
@@ -629,17 +582,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <argLine>-Djava.io.tmpdir=${java-io-tmpdir}
                             -Dcglib.debugLocation=${project.build.outputDirectory}
                         </argLine>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
                 <!-- ====================单元测试]==================== -->
 
@@ -647,7 +594,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven-failsafe-plugin.version}</version>
                     <configuration>
                         <includes>
                             <include>**/*IT</include>
@@ -658,7 +604,6 @@
                 <plugin>
                     <groupId>ru.trylogic.maven.plugins</groupId>
                     <artifactId>redis-maven-plugin</artifactId>
-                    <version>${redis-maven-plugin.version}</version>
                     <configuration>
                         <forked>true</forked>
                     </configuration>
@@ -685,7 +630,6 @@
                 <plugin>
                     <groupId>io.gatling</groupId>
                     <artifactId>gatling-maven-plugin</artifactId>
-                    <version>${gatling-maven-plugin.version}</version>
                     <configuration>
                         <disableCompiler>true</disableCompiler>
                         <propagateSystemProperties>true
@@ -697,17 +641,10 @@
                 <!-- ====================性能测试]==================== -->
 
                 <!-- ====================[版本控制==================== -->
-                <!-- 版本管理 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-scm-plugin</artifactId>
-                    <version>${maven-scm-plugin.version}</version>
-                </plugin>
                 <!-- 版本提交信息 -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>${git-commit-id-plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -735,7 +672,6 @@
                 <plugin>
                     <groupId>se.bjurr.gitchangelog</groupId>
                     <artifactId>git-changelog-maven-plugin</artifactId>
-                    <version>${git-changelog-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>GenerateGitChangelog</id>
@@ -786,7 +722,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-archetype-plugin</artifactId>
-                    <version>${maven-archetype-plugin.version}</version>
                     <configuration>
                         <propertyFile>archetype.properties</propertyFile>
                     </configuration>
@@ -794,23 +729,12 @@
                 <!-- ====================项目脚手架]==================== -->
 
                 <!-- ====================[数据库迁移工具==================== -->
-                <plugin>
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-maven-plugin</artifactId>
-                    <version>${flyway-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.liquibase</groupId>
-                    <artifactId>liquibase-maven-plugin</artifactId>
-                    <version>${liquibase-maven-plugin.version}</version>
-                </plugin>
                 <!-- ====================数据库迁移工具]==================== -->
 
                 <!-- ====================[OpenAPI 生成工具==================== -->
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>${openapi-generator-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -848,7 +772,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
-                    <version>${properties-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>initialize</phase>
@@ -866,7 +789,6 @@
                 <plugin>
                     <groupId>it.ozimov</groupId>
                     <artifactId>yaml-properties-maven-plugin</artifactId>
-                    <version>${yaml-properties-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>yaml-read-project-properties</id>
@@ -890,7 +812,6 @@
                 <plugin>
                     <groupId>org.codehaus.gmavenplus</groupId>
                     <artifactId>gmavenplus-plugin</artifactId>
-                    <version>${gmavenplus-plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -907,7 +828,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
-                    <version>${flatten-maven-plugin.version}</version>
                     <configuration>
                         <updatePomFile>true</updatePomFile>
                         <flattenedPomFilename>${flattened.filename}</flattenedPomFilename>
@@ -968,7 +888,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-wrapper-plugin</artifactId>
-                    <version>${maven-wrapper-plugin.version}</version>
                     <configuration>
                         <mavenVersion>3.9.9</mavenVersion>
                         <distributionType>source</distributionType>

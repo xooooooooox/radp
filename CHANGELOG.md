@@ -5,12 +5,14 @@
 - feature
   - [x] `radp-common` add `FileUtils` 
 - dependencies
-  - [x] Upgrade spring boot version from `3.2.3` to `3.4.3` 
+  - [x] Upgrade spring boot version from `3.2.3` to `3.4.3`
+  - [x] Upgrade spring cloud version from `2023.0.0` to `2024.0.0`
   - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
   - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的 `3.10.1` 版本
   - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
   - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
   - [x] Remove redundant plugin version in `radp-parent`
+  - [x] Remove duplicate plugin in `radp-depdencies`
 - scaffold
   - [x] Optimize dev-ops
   - [x] Fix application-dev.yaml

@@ -17,7 +17,7 @@
         <!-- ============================================================================== -->
         <!-- [Spring] -->
         <spring-boot.version>3.4.3</spring-boot.version>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
 
         <!-- [效率组件] -->
         <mapstruct.version>1.6.2</mapstruct.version>
@@ -1020,11 +1020,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-wrapper-plugin</artifactId>
                     <version>${maven-wrapper-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
                 </plugin>
                 <!-- ====================其它]==================== -->
             </plugins>

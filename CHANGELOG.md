@@ -5,8 +5,8 @@
 - feature
   - [x] `radp-common` add `FileUtils` 
 - dependencies
-  - [ ] Upgrade spring boot version from `3.2.3` to `3.4.3` 
-  - [ ] dependencyManagement add `central-publishing-maven-plugin`
+  - [x] Upgrade spring boot version from `3.2.3` to `3.4.3` 
+  - [x] dependencyManagement add `central-publishing-maven-plugin`
 
 ## 3.14
 

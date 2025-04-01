@@ -13,6 +13,7 @@
   - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
   - [x] Remove redundant plugin version in `radp-parent`
   - [x] Remove duplicate plugin in `radp-depdencies`
+  - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
 - parent
   - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold

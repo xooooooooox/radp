@@ -14,10 +14,11 @@
   - [x] Remove redundant plugin version in `radp-parent`
   - [x] Remove duplicate plugin in `radp-depdencies`
 - parent
-  - [x] add properties `docker.build.base_image.jdk8`, `docker.build.base_image.jdk11`, `docker.build.base_image.jdk17`
+  - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold
   - [x] Optimize dev-ops
   - [x] Fix application-dev.yaml
+  - [x] Optimize docker build base image
 
 ## 3.14
 

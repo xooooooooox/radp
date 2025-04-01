@@ -17,6 +17,9 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.build.base_image.jdk8>eclipse-temurin:8-jdk</docker.build.base_image.jdk8>
+        <docker.build.base_image.jdk11>eclipse-temurin:11-jdk</docker.build.base_image.jdk11>
+        <docker.build.base_image.jdk17>eclipse-temurin:17-jdk</docker.build.base_image.jdk17>
 
         <!-- 基础属性 -->
         <spring.profiles.active />

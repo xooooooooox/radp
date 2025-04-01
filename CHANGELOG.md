@@ -10,6 +10,7 @@
   - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的 `3.10.1` 版本
 - scaffold
   - [x] Optimize dev-ops
+  - [x] Fix application-dev.yaml
 
 ## 3.14
 

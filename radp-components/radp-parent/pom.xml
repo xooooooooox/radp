@@ -17,9 +17,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <docker.build.base_image.jdk8>eclipse-temurin:8-jdk</docker.build.base_image.jdk8>
-        <docker.build.base_image.jdk11>eclipse-temurin:11-jdk</docker.build.base_image.jdk11>
-        <docker.build.base_image.jdk17>eclipse-temurin:17-jdk</docker.build.base_image.jdk17>
 
         <!-- 基础属性 -->
         <spring.profiles.active />
@@ -47,6 +44,9 @@
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
 
         <!-- Docker 部署 -->
+        <app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
+        <app.build.base_image.jdk11>eclipse-temurin:11-jdk</app.build.base_image.jdk11>
+        <app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
         <build.jib.enabled>true</build.jib.enabled>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->

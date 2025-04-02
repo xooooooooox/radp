@@ -17,12 +17,12 @@
             <defaultValue>1.0.0-SNAPSHOT</defaultValue>
         </requiredProperty>
         <requiredProperty key="package">
-            <defaultValue>space.x9x</defaultValue>
+            <defaultValue>space.x9x.demo</defaultValue>
         </requiredProperty>
 
         <!-- radp-parent version -->
         <requiredProperty key="radpVersion">
-            <defaultValue>0.0.2-SNAPSHOT</defaultValue>
+            <defaultValue>2.15</defaultValue>
         </requiredProperty>
 
         <!-- 其他 -->

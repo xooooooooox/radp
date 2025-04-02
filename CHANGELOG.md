@@ -15,6 +15,7 @@
 - scaffold
   - [x] Optimize dev-ops
   - [x] Optimize docker build base image
+  - [x] Update scaffold default radpVersion to 2.15
 
 
 ## 2.14

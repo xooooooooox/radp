@@ -4,10 +4,10 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-design-pattern-framework</artifactId>
-        <version>2.15-SNAPSHOT</version>
+        <version>2.15</version>
     </parent>
     <artifactId>creational-patterns</artifactId>
-    <version>2.15-SNAPSHOT</version>
+    <version>2.15</version>
     <name>${project.artifactId}</name>
     <description>创建型模式</description>
 

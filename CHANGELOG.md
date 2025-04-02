@@ -8,6 +8,7 @@
   - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
   - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的版本
   - [x] Remove redundant plugin version in `radp-parent`
+  - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
 - parent
   - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold

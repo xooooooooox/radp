@@ -20,6 +20,7 @@
   - [x] Optimize dev-ops
   - [x] Fix application-dev.yaml
   - [x] Optimize docker build base image
+  - [x] Update scaffold default radpVersion to 3.15
 
 ## 3.14
 

@@ -14,6 +14,7 @@
   - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold
   - [x] Optimize dev-ops
+  - [x] Optimize docker build base image
 
 
 ## 2.14

@@ -44,6 +44,11 @@
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
         <gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
+
+        <!-- Docker 部署 -->
+        <app.build.base_image.jdk8>eclipse-temurin:8</app.build.base_image.jdk8>
+        <app.build.base_image.jdk11>eclipse-temurin:11</app.build.base_image.jdk11>
+        <app.build.base_image.jdk17>eclipse-temurin:17</app.build.base_image.jdk17>
         <build.jib.enabled>true</build.jib.enabled>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->

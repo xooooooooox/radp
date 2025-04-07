@@ -7,6 +7,7 @@
 - scaffold
   - [x] dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml`
   - [x] Update scaffold default radpVersion to `3.16`
+  - [x] Fix scaffold dev-ops
 
 ## 3.15
 

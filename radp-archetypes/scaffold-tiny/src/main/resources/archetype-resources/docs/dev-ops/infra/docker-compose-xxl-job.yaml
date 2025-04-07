@@ -1,0 +1,27 @@
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  # xxl-job 官方文档: https://www.xuxueli.com/xxl-job/
+  # http://127.0.0.1:9090/xxl-job-admin admin/123456 - 安装后稍等会访问即可
+  # 官网镜像为 xuxueli/xxl-job-admin 但不支持ARM架构【需要自己打包】，所以找了一个 kuschzzp/xxl-job-aarch64:2.4.0 镜像支持 AMD/ARM
+  # 注意: 在启动 xxl-job 前, 记得先将 xxl-job 的数据库表结构导入到 mysql 中 (xxl-job_data/sql/xxl-job.sql)
+  xxl-job-admin:
+    image: kuschzzp/xxl-job-aarch64:2.4.0
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./volumes/xxl-job_data/logs:/data/applogs
+      - ./volumes/xxl-job_data/xxl-job:/xxl-job
+    networks:
+      - local-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/xxl_job?serverTimezone=UTC&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SERVER_PORT=9090

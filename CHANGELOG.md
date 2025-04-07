@@ -4,6 +4,7 @@
 
 - scaffold
   - [x] fix scaffold dev-ops 
+  - [x] Update scaffold default radpVersion to `2.16`
 
 ## 2.15
 

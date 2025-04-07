@@ -5,7 +5,8 @@
 - dependencies
   - [x] Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with `org.apache.tika:tika-core` 
 - scaffold
-  - [x] dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml` 
+  - [x] dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml`
+  - [x] Update scaffold default radpVersion to `3.16`
 
 ## 3.15
 

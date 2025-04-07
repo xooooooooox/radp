@@ -56,8 +56,8 @@
         <fileSet filtered="true" encoding="UTF-8">
             <directory>docs/dev-ops</directory>
             <includes>
-                <include>.env</include>
-                <include>docker-compose-app.yaml</include>
+                <include>**/.env</include>
+                <include>**/.env.app.template</include>
                 <include>volumes/mysql/**/*.sql</include>
             </includes>
         </fileSet>

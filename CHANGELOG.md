@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 3.16(Doing)
+## 3.15.1
 
 - dependencies
   - [x] Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with `org.apache.tika:tika-core` 

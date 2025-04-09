@@ -1,5 +1,15 @@
 # ChangeLog
 
+## 2.16
+
+- feat
+  - [x] `radp-jasypt-spring-boot-starter` add Test
+- dependencies
+  - [x] pluginManagement add `maven-resources-plugin`
+- scaffold
+  - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
+  - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
+
 ## 2.15.1
 
 - scaffold

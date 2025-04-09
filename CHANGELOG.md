@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 3.16
+
+- feat
+  - [x] `radp-jasypt-spring-boot-starter` add Test
+- dependencies
+  - [x] pluginMangement add `maven-resources-plugin`
+- scaffold
+  - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest` 
+
 ## 3.15.1
 
 - dependencies

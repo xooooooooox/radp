@@ -11,12 +11,6 @@ server:
   # 优雅关闭
   shutdown: graceful
 
-jasypt:
-  encryptor:
-    algorithm: PBEWithMD5AndDES
-    # 建议通过 --jasypt.encryptor.password=xxx 或者配置环境变量的方式, 而不是直接将秘钥配置在 yaml 配置文件中
-    password: dsaf#,jds.klfj1
-
 spring:
   profiles:
     active: @runtime.env@
@@ -25,8 +19,7 @@ spring:
     # 2. 然后在 application.yaml 中显式的引入
     # 3. 对于多环境部署且存在环境差异的配置，再单独在 application-env.yaml 的环境配置文件中进行覆盖
     # 4. 对于当前服务独有的配置，建议统一放在 application-app.yaml 中进行管理
-    # include: logback, swagger, db, mybatis, druid, app
-    include: logback, actuator, swagger
+    include: logback, actuator, swagger, hikari, mysql, jasypt, liquibase, mybatis, app
   application:
     name: ${appName}
   main:

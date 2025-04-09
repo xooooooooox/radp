@@ -8,6 +8,7 @@
   - [x] pluginMangement add `maven-resources-plugin`
 - scaffold
   - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest` 
+  - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
 
 ## 3.15.1
 

@@ -3,100 +3,109 @@
 ## 3.16
 
 - feat
-  - [x] `radp-jasypt-spring-boot-starter` add Test
+    - [x] `radp-jasypt-spring-boot-starter` add Test
 - dependencies
-  - [x] pluginManagement add `maven-resources-plugin`
+    - [x] pluginManagement add `maven-resources-plugin`
 - scaffold
-  - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest` 
-  - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
-  - [x] Update scaffold default radpVersion to `3.15.1`
+    - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
+    - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
+    - [x] Update scaffold default radpVersion to `3.15.1`
 
 ## 3.15.1
 
 - dependencies
-  - [x] Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with `org.apache.tika:tika-core` 
+    - [x] Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with
+      `org.apache.tika:tika-core`
 - scaffold
-  - [x] dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml`
-  - [x] Update scaffold default radpVersion to `3.15.1`
-  - [x] Fix scaffold dev-ops
+    - [x] dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml`
+    - [x] Update scaffold default radpVersion to `3.15.1`
+    - [x] Fix scaffold dev-ops
 
 ## 3.15
 
 - feature
-  - [x] `radp-common` add `FileUtils` 
+    - [x] `radp-common` add `FileUtils`
 - dependencies
-  - [x] Upgrade spring boot version from `3.2.3` to `3.4.4`
-  - [x] Upgrade spring cloud version from `2023.0.0` to `2024.0.0`
-  - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
-  - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的 `3.10.1` 版本
-  - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
-  - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
-  - [x] Remove redundant plugin version in `radp-parent`
-  - [x] Remove duplicate plugin in `radp-depdencies`
-  - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
+    - [x] Upgrade spring boot version from `3.2.3` to `3.4.4`
+    - [x] Upgrade spring cloud version from `2023.0.0` to `2024.0.0`
+    - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
+    - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
+      `spring-boot-dependencies` 中声明的 `3.10.1` 版本
+    - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
+    - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to
+      `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
+    - [x] Remove redundant plugin version in `radp-parent`
+    - [x] Remove duplicate plugin in `radp-depdencies`
+    - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
 - parent
-  - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
+    - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold
-  - [x] Optimize dev-ops
-  - [x] Fix application-dev.yaml
-  - [x] Optimize docker build base image
-  - [x] Update scaffold default radpVersion to 3.15
+    - [x] Optimize dev-ops
+    - [x] Fix application-dev.yaml
+    - [x] Optimize docker build base image
+    - [x] Update scaffold default radpVersion to 3.15
 
 ## 3.14
 
 - feature
-  - [x] Remove module `radp-tomcat-spring-boot-starter`
-  - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
-  - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
-  - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
-  - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
+    - [x] Remove module `radp-tomcat-spring-boot-starter`
+    - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
+    - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
+    - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`,
+      `WebAPIAutoConfiguration`
+    - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
 - fix
-  - [x] Resolve `AsyncTaskExecutionAutoConfiguration` problem: 'org.springframework.boot.task.TaskExecutorBuilder' is deprecated since version 3.2.0 and marked for removal
+    - [x] Resolve `AsyncTaskExecutionAutoConfiguration` problem: 'org.springframework.boot.task.TaskExecutorBuilder' is
+      deprecated since version 3.2.0 and marked for removal
 - dependencies
-  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
-  - [x] Change `com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0` to `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
+    - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin
+      configuration
+    - [x] Change `com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0` to
+      `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
 - parent
-  - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
+    - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`,
+      `project.build.sourceEncoding` 等
 - doc
-  - [x] writerside update `about.md`
+    - [x] writerside update `about.md`
 
 ## 3.13
 
 - scaffold
-  - [x] add postgresql template application.yaml
-  - [x] add property `docker.build.base_image` and `docker.build.image_tag`
-  - [X] optimise .gitignore
-  - [x] fix maven-release-plugin scm
-  - [x] Dockerfile base image `eclipse-temurin:11-jdk` -> `eclipse-temurin:17-jdk`
-  - [x] optimize docker-compose-app.yaml
-  - [x] application-local.yaml and application-dev.yaml hikari log 
-  - [x] delete application-homelab.yaml
-  - [x] optimize actuator
-  - [x] add project.name
-  - [x] optimize assembly jar profiles active by cli not work
-  - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
+    - [x] add postgresql template application.yaml
+    - [x] add property `docker.build.base_image` and `docker.build.image_tag`
+    - [X] optimise .gitignore
+    - [x] fix maven-release-plugin scm
+    - [x] Dockerfile base image `eclipse-temurin:11-jdk` -> `eclipse-temurin:17-jdk`
+    - [x] optimize docker-compose-app.yaml
+    - [x] application-local.yaml and application-dev.yaml hikari log
+    - [x] delete application-homelab.yaml
+    - [x] optimize actuator
+    - [x] add project.name
+    - [x] optimize assembly jar profiles active by cli not work
+    - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
 - dependencies
-  - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
-  - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
-  - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
-  - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
-  - [x] use springdoc-openapi bom
-  - [x] upgrade spring-cloud version from `2021.0.5` to `2023.0.0`
-  - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
-  - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
+    - [x] `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
+    - [x] upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
+    - [x] upgrade springdoc-openapi version from 1.6.15 to 2.4.0
+    - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to
+      `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
+    - [x] use springdoc-openapi bom
+    - [x] upgrade spring-cloud version from `2021.0.5` to `2023.0.0`
+    - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
+    - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
 - feature
-  - [x] `radp-spring-framework` add `MultiResult`
-  - [x] `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
-  - [x] `ResponseBuilder` add method signature `Result buildFailure(ErrorCode errorCode)`
-  - [x] optimize profile `auto-layered` and `auto-assembly`
+    - [x] `radp-spring-framework` add `MultiResult`
+    - [x] `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
+    - [x] `ResponseBuilder` add method signature `Result buildFailure(ErrorCode errorCode)`
+    - [x] optimize profile `auto-layered` and `auto-assembly`
 - fix
-  - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
-  - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
-  - [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
-  - [x] fix `radp-spring-framework` ResponseBuilder bug
-  - [x] fix META-INF/internal resource SPI
-  - [x] fix ApplicationContextHelper#getBean bug
-  - [x] fix `RestExceptionHandler`
+    - [x] fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
+    - [x] fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
+    - [x] fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
+    - [x] fix `radp-spring-framework` ResponseBuilder bug
+    - [x] fix META-INF/internal resource SPI
+    - [x] fix ApplicationContextHelper#getBean bug
+    - [x] fix `RestExceptionHandler`
 
 ## 3.12
 

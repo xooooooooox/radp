@@ -17,6 +17,7 @@
         <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
         <app.artifact.file>${project.basedir}/dist/${app.assembly.filename}</app.artifact.file>
+        <app.version>${project.version}</app.version>
         <app.server.port>${appPort}</app.server.port>
         <app.management.server.port>9999</app.management.server.port>
         <docker.build.base_image>${docker.build.base_image.jdk11}</docker.build.base_image>

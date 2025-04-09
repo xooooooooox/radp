@@ -22,6 +22,7 @@ spring:
     include: logback, actuator, swagger, hikari, mysql, jasypt, liquibase, mybatis, app
   application:
     name: ${appName}
+    version: @app.version@
   main:
     # 允许自定义配置覆盖 Spring Boot 的默认配置
     allow-bean-definition-overriding: true

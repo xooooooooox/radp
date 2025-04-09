@@ -19,7 +19,7 @@
 
         <!-- radp-parent version -->
         <requiredProperty key="radpVersion">
-            <defaultValue>3.15.1</defaultValue>
+            <defaultValue>3.16</defaultValue>
         </requiredProperty>
 
         <!-- spring application.yaml 占位符默认值 -->

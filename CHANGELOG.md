@@ -9,6 +9,7 @@
 - scaffold
   - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest` 
   - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
+  - [x] Update scaffold default radpVersion to `3.15.1`
 
 ## 3.15.1
 

@@ -5,7 +5,7 @@
 - feat
   - [x] `radp-jasypt-spring-boot-starter` add Test
 - dependencies
-  - [x] pluginMangement add `maven-resources-plugin`
+  - [x] pluginManagement add `maven-resources-plugin`
 - scaffold
   - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest` 
   - [x] Optimize `application.yaml`, add `application-jasypt.yaml`

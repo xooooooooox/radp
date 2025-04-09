@@ -14,7 +14,7 @@ variables:
   TP_CACHE_DIR: ''
 
   ## 构建参数
-  TP_BUILD_IMAGE: ${DF_MAVEN_IMAGE}
+  TP_BUILD_IMAGE: maven:3.9.9-eclipse-temurin-17  # default is maven:3.9.9-eclipse-temurin-8
   TP_MAVEN_OPTS: "-Dmaven.repo.local=${TP_RUNNER_BUILD_CACHE} --settings .mvn/settings.xml"
   TP_BUILD_SHELL: "mvn clean package ${TP_MAVEN_OPTS} -DskipTests"
 

@@ -4,8 +4,11 @@
 
 - feat
     - [x] `radp-jasypt-spring-boot-starter` add Test
+  - parent
+    - [x] Optimize profile `auto-jib` 
 - dependencies
     - [x] pluginManagement add `maven-resources-plugin`
+    - [x] pluginManagement add `maven-enforcer-plugin`
 - scaffold
     - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
     - [x] Optimize `application.yaml`, add `application-jasypt.yaml`

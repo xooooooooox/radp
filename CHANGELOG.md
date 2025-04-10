@@ -16,6 +16,7 @@
     - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
     - [x] Update scaffold default radpVersion to `3.15.1`
     - [x] Update `application-logback.yaml`
+    - [x] Optimize application.yaml, add application-webmvc.yaml
 - writerside
     - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 

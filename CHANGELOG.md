@@ -10,6 +10,8 @@
   - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
   - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
   - [x] Update scaffold default radpVersion to `2.16`
+- writerside
+  - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 
 ## 2.15.1
 

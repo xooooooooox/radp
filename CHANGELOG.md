@@ -4,8 +4,10 @@
 
 - feat
     - [x] `radp-jasypt-spring-boot-starter` add Test
-  - parent
-    - [x] Optimize profile `auto-jib` 
+- fix
+    - [x] Fix `logging.pattern.console` not work
+- parent
+    - [x] Optimize profile `auto-jib`
 - dependencies
     - [x] pluginManagement add `maven-resources-plugin`
     - [x] pluginManagement add `maven-enforcer-plugin`
@@ -14,7 +16,7 @@
     - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
     - [x] Update scaffold default radpVersion to `3.15.1`
 - writerside
-  - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
+    - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 
 ## 3.15.1
 

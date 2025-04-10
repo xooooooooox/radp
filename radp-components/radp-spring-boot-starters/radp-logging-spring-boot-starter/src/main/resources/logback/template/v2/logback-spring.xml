@@ -3,27 +3,27 @@
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
     <!-- =================================================================== -->
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <springProperty scope="context" name="logHome" source="logging.file.path"
                     defaultValue="${java.io.tmpdir:-/tmp}"/>
     <springProperty scope="context" name="logNamePrefix" source="spring.application.name"
                     defaultValue="application"/>
-<!--    <springProperty scope="context" name="CONSOLE_LOG_PATTERN" source="logging.pattern.console"-->
-<!--                    defaultValue="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>-->
+    <springProperty scope="context" name="rawConsolePattern" source="logging.pattern.console"/>
 
-    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
     <!-- =================================================================== -->
 
     <property name="default_pattern_charset" value="UTF-8"/>
     <!-- === CONSOLE === -->
-
+    <property name="customConsolePattern"
+              value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <!-- === FILE === -->
     <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
     <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
     <!-- 格式化输出：%d 表示日期，%X{tid} SkWalking 链路追踪编号，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符 -->
-    <property name="file_pattern"
+    <property name="custom_file_pattern"
               value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <!-- 参考 Spring Boot 的 file-appender.xml 编写 -->
@@ -31,7 +31,7 @@
         <!-- <File>${LOG_FILE}</File> --> <!-- 也可以直接使用 LOG_FILE, 读取 spring.file.name 表示日志绝对路径-->
         <File>${logHome}/${logNamePrefix}.log</File>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
+            <pattern>${custom_file_pattern}</pattern>
             <charset>${default_pattern_charset}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -72,7 +72,7 @@
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
+            <pattern>${custom_file_pattern}</pattern>
             <charset>${default_pattern_charset}</charset>
         </encoder>
     </appender>
@@ -91,7 +91,7 @@
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
+            <pattern>${custom_file_pattern}</pattern>
             <charset>${default_pattern_charset}</charset>
         </encoder>
     </appender>
@@ -110,7 +110,7 @@
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
+            <pattern>${custom_file_pattern}</pattern>
             <charset>${default_pattern_charset}</charset>
         </encoder>
     </appender>
@@ -129,7 +129,7 @@
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
+            <pattern>${custom_file_pattern}</pattern>
             <charset>${default_pattern_charset}</charset>
         </encoder>
     </appender>
@@ -159,15 +159,36 @@
         <neverBlock>true</neverBlock>
     </appender>
 
-
     <!-- =================================================================== -->
-    <root level="${logging.level.root:-info}">
-        <appender-ref ref="CONSOLE"/>
-    </root>
+    <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
+    <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
+    <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 customConsolePattern -->
+    <if condition='isDefined("rawConsolePattern")'>
+        <then>
+            <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
+            <if condition='!property("rawConsolePattern").isEmpty()'>
+                <then>
+                    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+                    <root level="${logging.level.root:-info}">
+                        <appender-ref ref="CONSOLE"/>
+                    </root>
+                </then>
+                <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
+            </if>
+        </then>
+        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 customConsolePattern -->
+        <else>
+            <!-- 使用 customConsolePattern 覆盖SpringBoot默认的控制台格式 -->
+            <property name="CONSOLE_LOG_PATTERN" value="${customConsolePattern}"/>
+            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+            <root level="${logging.level.root:-info}">
+                <appender-ref ref="CONSOLE"/>
+            </root>
+        </else>
+    </if>
     <springProfile name="local">
         <root level="${logging.level.root-info}">
-            <appender-ref ref="CONSOLE"/>
             <appender-ref ref="ASYNC"/>
             <appender-ref ref="async_filter_debug"/>
             <appender-ref ref="async_filter_info"/>
@@ -178,7 +199,6 @@
     <!-- 其它环境 -->
     <springProfile name="dev,test,prod">
         <root level="${logging.level.root-info}">
-            <appender-ref ref="CONSOLE"/>
             <appender-ref ref="ASYNC"/>
             <appender-ref ref="async_filter_debug"/>
             <appender-ref ref="async_filter_info"/>

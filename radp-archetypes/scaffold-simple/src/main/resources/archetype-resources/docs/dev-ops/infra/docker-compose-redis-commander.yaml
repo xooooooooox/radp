@@ -21,6 +21,3 @@ services:
       - LC_ALL=C.UTF-8
     networks:
       - local-network
-    depends_on:
-      redis:
-        condition: service_healthy

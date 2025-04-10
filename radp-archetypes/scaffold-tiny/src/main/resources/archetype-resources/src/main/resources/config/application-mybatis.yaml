@@ -1,7 +1,7 @@
 --- # MyBatis
 mybatis-plus:
   mapper-locations: classpath:/mybatis/mapper/*.xml
-  type-aliases-package: ${package}.domain.po
+  type-aliases-package: ${package}.infrastructure.dao.po
   configuration:
     # 虽然默认为 true ，但是还是显示去指定下
     map-underscore-to-camel-case: true

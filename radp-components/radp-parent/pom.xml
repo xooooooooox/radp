@@ -1391,7 +1391,7 @@
 
         <profile>
             <!-- 不需要手动激活, 会自动激活 -->
-            <id>auto-archetype-build</id>
+            <id>auto-update-local-catalog</id>
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>

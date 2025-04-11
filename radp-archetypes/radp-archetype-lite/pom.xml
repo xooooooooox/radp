@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetypes</artifactId>
-        <version>3.16-SNAPSHOT</version>
+        <version>3.16</version>
     </parent>
     <artifactId>radp-archetype-lite</artifactId>
     <packaging>pom</packaging>

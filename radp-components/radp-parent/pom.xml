@@ -1426,7 +1426,7 @@
             </build>
         </profile>
         <profile>
-            <id>auto-archetype-vcs</id>
+            <id>auto-upload-catalog-gh</id>
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
@@ -1464,7 +1464,7 @@
         <profile>
             <!-- 发布 archetype 到私有化部署制品库 -->
             <!-- 这个 profile 将 archetype-catalog.xml 上传到 artifactory -->
-            <id>auto-archetype-artifactory</id>
+            <id>auto-upload-catalog-artifactory</id>
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
@@ -1501,7 +1501,7 @@
         <profile>
             <!-- archetype 要可用的前提条件是: 构件上传到制品库,且 archetype-catalog.xml 可直接通过 web url 访问 -->
             <!-- 这个 profile 将 archetype-catalog.xml 上传到 minio -->
-            <id>auto-archetype-minio</id>
+            <id>auto-upload-catalog-minio</id>
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>

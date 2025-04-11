@@ -1323,7 +1323,7 @@
             <!-- 无需手动激活,会自动激活 -->
             <id>auto-layered</id>
             <activation>
-                <!-- 当 layers.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
+                <!-- 当 layers.xml 文件存在 且 auto.layered.enable=true 时, 将会自动激活这个 profile -->
                 <file>
                     <exists>${project.basedir}/src/main/docker/springboot/layers.xml</exists>
                 </file>
@@ -1355,6 +1355,8 @@
         <profile>
             <!-- 是否启用 jib-maven-plugin 进行容器化 -->
             <id>auto-jib</id>
+            <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
+            <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
@@ -1362,6 +1364,27 @@
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>check-files</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireFilesExist>
+                                            <files>
+                                                <file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
+                                            </files>
+                                        </requireFilesExist>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>

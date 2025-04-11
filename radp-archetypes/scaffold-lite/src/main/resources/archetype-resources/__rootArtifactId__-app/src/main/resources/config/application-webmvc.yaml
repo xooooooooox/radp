@@ -1,0 +1,12 @@
+server:
+  port: @app.server.port@
+  tomcat:
+    threads:
+      # 设定处理客户请求线程的最大数目.决定了服务器可以同时响应客户请求数,默认200
+      max: 200
+      # 初始化线程数, 最小空闲线程数, 默认10
+      min-spare: 50
+    # 等待队列大小. 表示但 ${tomcat.threads.max} 线程均满时, 最多可以有多少个连接请求在等待队列中等待处理, 如果超过, 新的连接将会被拒绝
+    accept-count: 10
+  # 优雅关闭
+  shutdown: graceful

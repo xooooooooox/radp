@@ -2,6 +2,11 @@
 
 ## 2.16.1
 
+- scaffold
+  - [x] Update scaffold default radpVersion to `2.17`
+
+## 2.16.1
+
 - fix
     - [x] Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
     - [x] Fix GitHub Action got error Unable to decrypt gpg passphrase

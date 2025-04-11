@@ -8,15 +8,18 @@
     - [x] Fix `logging.pattern.console` not work
 - parent
     - [x] Optimize profile `auto-jib`
+    - [x] Optimize archetype-catalog.xml deploy to self-hosted artifactory
 - dependencies
     - [x] pluginManagement add `maven-resources-plugin`
     - [x] pluginManagement add `maven-enforcer-plugin`
+    - [x] pluginManagement add `wagon-maven-plugin`
 - scaffold
     - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
     - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
     - [x] Update scaffold default radpVersion to `3.15.1`
     - [x] Update `application-logback.yaml`
     - [x] Optimize application.yaml, add application-webmvc.yaml
+    - [x] .mvn/settings.xml Add properties `auto.archetype.catalog.artifactory`
 - writerside
     - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 

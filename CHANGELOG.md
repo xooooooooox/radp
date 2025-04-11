@@ -1,5 +1,12 @@
 # ChangeLog
 
+## 2.16.1
+
+- parent
+  - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
+- scaffold
+  - [x] Fix the parameters 'url' for wagon-maven-plugin are missing or invalid
+
 ## 2.16
 
 - feat

@@ -75,6 +75,7 @@
                 <auto.release.enabled>true</auto.release.enabled>
                 <auto.layered.enabled>true</auto.layered.enabled>
                 <auto.assembly.enabled>false</auto.assembly.enabled>
+                <auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
                 <auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
                 <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
                 </devops.release.arguments>

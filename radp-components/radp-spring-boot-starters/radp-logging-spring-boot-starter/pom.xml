@@ -9,5 +9,11 @@
     <artifactId>radp-logging-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

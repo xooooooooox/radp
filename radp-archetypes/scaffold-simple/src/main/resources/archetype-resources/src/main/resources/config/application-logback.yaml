@@ -1,7 +1,7 @@
 --- # logback
 debug: false
 logging:
-  config: classpath:logback/template/logback-spring.xml
+  config: classpath:logback/template/v2/logback-spring.xml
   file:
     path: ./logs/${spring.application.name}
     name: ${logging.file.path}/${spring.application.name}.log # 日志文件名，全路径

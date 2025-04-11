@@ -2,10 +2,12 @@
 
 ## 3.16.1
 
+- fix
+    - [x] Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
 - parent
     - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
 - scaffold
-    - [x] Fix the parameters 'url' for wagon-maven-plugin are missing or invalid
+    - [x] Update 
     - [x] Update scaffold default radpVersion to `3.16.1`
 
 ## 3.16

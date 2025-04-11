@@ -3,15 +3,28 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
+        <!-- github -->
         <server>
             <id>github</id>
             <username>${env.GITHUB_USERNAME}</username>
             <password>${env.GITHUB_TOKEN}</password>
         </server>
+        <!-- ossrh -->
         <server>
             <id>central-portal</id>
             <username>${env.MAVEN_USERNAME}</username>
             <password>${env.MAVEN_PASSWORD}</password>
+        </server>
+        <!-- artifactory -->
+        <server>
+            <id>archetype</id>
+            <username>${env.X9X_ARTIFACTORY_USERNAME}</username>
+            <password>${env.X9X_ARTIFACTORY_PASSWORD}</password>
+        </server>
+        <server>
+            <id>artifactory-public</id>
+            <username>${env.X9X_ARTIFACTORY_USERNAME}</username>
+            <password>${env.X9X_ARTIFACTORY_PASSWORD}</password>
         </server>
         <server>
             <id>artifactory-releases</id>
@@ -23,10 +36,21 @@
             <username>${env.X9X_ARTIFACTORY_USERNAME}</username>
             <password>${env.X9X_ARTIFACTORY_PASSWORD}</password>
         </server>
-
+        <!-- gpg -->
         <server>
             <id>${env.GPG_KEYID}</id>
             <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
+        </server>
+        <!-- registry -->
+        <server>
+            <id>docker.io</id>
+            <username>${env.DOCKER_USERNAME}</username>
+            <password>${env.DOCKER_PASSWORD}</password>
+        </server>
+        <server>
+            <id>registry-1.docker.io</id>
+            <username>${env.DOCKER_USERNAME}</username>
+            <password>${env.DOCKER_PASSWORD}</password>
         </server>
     </servers>
 
@@ -42,6 +66,9 @@
         <profile>
             <id>default</id>
             <properties>
+                <!-- archetype -->
+                <setting.archetype.catalog.upload.serverId>artifactory-public</setting.archetype.catalog.upload.serverId>
+                <setting.archetype.catalog.upload.url>https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</setting.archetype.catalog.upload.url>
                 <setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
             </properties>
         </profile>
@@ -90,11 +117,13 @@
 
         <profile>
             <id>repo-aliyun</id>
+            <properties>
+                <setting.repository.url.aliyun-public>https://maven.aliyun.com/repository/public</setting.repository.url.aliyun-public>
+            </properties>
             <repositories>
                 <repository>
                     <id>aliyun-public</id>
-                    <name>aliyun maven public repository</name>
-                    <url>https://maven.aliyun.com/repository/public</url>
+                    <url>${setting.repository.url.aliyun-public}</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -106,8 +135,7 @@
             <pluginRepositories>
                 <pluginRepository>
                     <id>aliyun-public</id>
-                    <name>aliyun maven public repository</name>
-                    <url>https://maven.aliyun.com/repository/public</url>
+                    <url>${setting.repository.url.aliyun-public}</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>

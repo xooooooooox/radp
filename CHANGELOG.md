@@ -3,100 +3,104 @@
 ## 2.16.1
 
 - fix
-  - [x] Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
+    - [x] Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
+    - [x] Fix GitHub Action got error Unable to decrypt gpg passphrase
 - parent
-  - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
+    - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
 - scaffold
-  - [x] Update `.mvn/settings.xml`
-  - [x] Update scaffold default radpVersion to `2.16.1`
+    - [x] Update `.mvn/settings.xml`
+    - [x] Update scaffold default radpVersion to `2.16.1`
 
 ## 2.16
 
 - feat
-  - [x] `radp-jasypt-spring-boot-starter` add Test
+    - [x] `radp-jasypt-spring-boot-starter` add Test
 - fix
-  - [x] Fix `logging.pattern.console` not work  
+    - [x] Fix `logging.pattern.console` not work
 - parent
-  - [x] Optimize profile `auto-jib`
-  - [x] pluginManagement add `maven-enforcer-plugin`
-  - [x] Optimize archetype-catalog.xml deploy to self-hosted artifactory
+    - [x] Optimize profile `auto-jib`
+    - [x] pluginManagement add `maven-enforcer-plugin`
+    - [x] Optimize archetype-catalog.xml deploy to self-hosted artifactory
 - dependencies
-  - [x] pluginManagement add `maven-resources-plugin`
+    - [x] pluginManagement add `maven-resources-plugin`
 - scaffold
-  - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
-  - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
-  - [x] Update scaffold default radpVersion to `2.16`
-  - [x] Update `application-logback.yaml`
-  - [x] Optimize application.yaml, add application-webmvc.yaml
+    - [x] Delete `JasyptTest`, Add blank Junit5 `ApiTest`
+    - [x] Optimize `application.yaml`, add `application-jasypt.yaml`
+    - [x] Update scaffold default radpVersion to `2.16`
+    - [x] Update `application-logback.yaml`
+    - [x] Optimize application.yaml, add application-webmvc.yaml
 - writerside
-  - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
+    - [x] Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 
 ## 2.15.1
 
 - scaffold
-  - [x] fix scaffold dev-ops 
-  - [x] Update scaffold default radpVersion to `2.15.1`
+    - [x] fix scaffold dev-ops
+    - [x] Update scaffold default radpVersion to `2.15.1`
 
 ## 2.15
 
 - feature
-  - [x] `radp-common` add `FileUtils`
+    - [x] `radp-common` add `FileUtils`
 - dependencies
-  - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
-  - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是 `spring-boot-dependencies` 中声明的版本
-  - [x] Remove redundant plugin version in `radp-parent`
-  - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
-  - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
+    - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
+    - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
+      `spring-boot-dependencies` 中声明的版本
+    - [x] Remove redundant plugin version in `radp-parent`
+    - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
+    - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
 - parent
-  - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
+    - [x] add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
 - scaffold
-  - [x] Optimize dev-ops
-  - [x] Optimize docker build base image
-  - [x] Update scaffold default radpVersion to 2.15
-
+    - [x] Optimize dev-ops
+    - [x] Optimize docker build base image
+    - [x] Update scaffold default radpVersion to 2.15
 
 ## 2.14
 
 - feature
-  - [x] Remove module `radp-tomcat-spring-boot-starter`
-  - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
-  - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
-  - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`, `WebAPIAutoConfiguration`
-  - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
+    - [x] Remove module `radp-tomcat-spring-boot-starter`
+    - [x] Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
+    - [x] Add module `radp-springdoc-webflux-spring-boot-starter`
+    - [x] Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`,
+      `WebAPIAutoConfiguration`
+    - [x] Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
 - dependencies
-  - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin configuration
-  - [x] Optimize radp-dependencies, use `springdoc-openapi` bom instead`
+    - [x] Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin
+      configuration
+    - [x] Optimize radp-dependencies, use `springdoc-openapi` bom instead`
 - parent
-  - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`, `project.build.sourceEncoding` 等
+    - [x] `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`,
+      `project.build.sourceEncoding` 等
 - doc
-  - [x] writerside update `about.md`
+    - [x] writerside update `about.md`
 - scaffold
 
 ## 2.13
 
 - scaffold
-  - [X] optimise .gitignore
-  - [x] fix maven-release-plugin scm
-  - [x] optimize actuator
-  - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
-  - [x] optimize assembly jar profiles active by cli not work
-  - [x] optimize application-xx.yaml
-  - [x] optimize gitlab CI/CD
+    - [X] optimise .gitignore
+    - [x] fix maven-release-plugin scm
+    - [x] optimize actuator
+    - [x] assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
+    - [x] optimize assembly jar profiles active by cli not work
+    - [x] optimize application-xx.yaml
+    - [x] optimize gitlab CI/CD
 - dependencies
-  - [x] `radp-spring-framework` change `javax.validation:validation-api` to `jakarta.validation:validatation-api`
-  - [x] upgrade spring-boot-parent from `2.7.12` to `2.7.18`
+    - [x] `radp-spring-framework` change `javax.validation:validation-api` to `jakarta.validation:validatation-api`
+    - [x] upgrade spring-boot-parent from `2.7.12` to `2.7.18`
 - feature
-  - [x] optimize profile `auto-layered` and `auto-assembly`
-  - [x] `RestExceptionHandler` add handler `MethodArgumentTypeMismatchException`
-  - [x]  add `MultiResult`
-  - [x] `ResultBuilder` add method signature ` buildFailure(ErrorCode errorCode)`
-  - [x] `SingleResult` add method signature `build()`
-  - [x] Optimize gitlab CI/CD
-  - [x] `radp-logging-spring-boot-starter` template 增加 `NopStatusListener`
+    - [x] optimize profile `auto-layered` and `auto-assembly`
+    - [x] `RestExceptionHandler` add handler `MethodArgumentTypeMismatchException`
+    - [x]  add `MultiResult`
+    - [x] `ResultBuilder` add method signature ` buildFailure(ErrorCode errorCode)`
+    - [x] `SingleResult` add method signature `build()`
+    - [x] Optimize gitlab CI/CD
+    - [x] `radp-logging-spring-boot-starter` template 增加 `NopStatusListener`
 - fix
-  - [x] fix META-INF/internal resource SPI
-  - [x] fix `radp-spring-framework` ResponseBuilder bug
-  - [x] fix `ApplicationContextHelper#getBean` bug
+    - [x] fix META-INF/internal resource SPI
+    - [x] fix `radp-spring-framework` ResponseBuilder bug
+    - [x] fix `ApplicationContextHelper#getBean` bug
 
 ## 2.12
 

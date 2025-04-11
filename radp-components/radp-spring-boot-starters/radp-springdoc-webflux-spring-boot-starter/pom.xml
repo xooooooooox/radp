@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-spring-boot-starters</artifactId>
-        <version>3.16.1-SNAPSHOT</version>
+        <version>3.16.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>radp-springdoc-webflux-spring-boot-starter</artifactId>

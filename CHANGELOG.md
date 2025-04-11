@@ -4,6 +4,7 @@
 
 - fix
     - [x] Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
+    - [x] Fix GitHub Action got error _Unable to decrypt gpg passphrase_
 - parent
     - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
 - scaffold

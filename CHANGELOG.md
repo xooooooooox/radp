@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 2.16.1
+## 2.17
 
 - scaffold
   - [x] Update scaffold default radpVersion to `2.17`

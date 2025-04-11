@@ -146,4 +146,8 @@
             </pluginRepositories>
         </profile>
     </profiles>
+
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+    </activeProfiles>
 </settings>

@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.17
+
+- scaffold
+  - [x] Update scaffold default radpVersion to `3.17`
+
 ## 3.16.1
 
 - fix
@@ -8,7 +13,7 @@
 - parent
     - [x] Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
 - scaffold
-    - [x] Update 
+    - [x] Update [.mvn/settings.xml](.mvn/settings.xml)
     - [x] Update scaffold default radpVersion to `3.16.1`
 
 ## 3.16

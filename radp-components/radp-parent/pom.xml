@@ -1490,7 +1490,7 @@
                         <artifactId>wagon-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>upload-archetype-catalog</id>
+                                <id>upload-archetype-catalog-to-artifactory</id>
                                 <phase>deploy</phase>
                                 <goals>
                                     <goal>upload-single</goal>
@@ -1532,7 +1532,7 @@
                         <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>upload-archetype-catalog</id>
+                                <id>upload-archetype-catalog-to-minio</id>
                                 <phase>deploy</phase>
                                 <goals>
                                     <goal>exec</goal>

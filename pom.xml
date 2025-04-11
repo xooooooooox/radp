@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,12 +40,14 @@
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
         <central.server.id>central-portal</central.server.id>
-        <user.gpg.keyname />
-        <user.minio.alias />
-        <user.minio.bucket.path />
-        <user.docker.build.registry />
-        <user.docker.build.base_image />
-        <user.jasypt.encryptor.password />
+        <user.archetype.catalog.upload.url/>
+        <user.archetype.catalog.upload.serverId/>
+        <user.gpg.keyname/>
+        <user.minio.alias/>
+        <user.minio.bucket.path/>
+        <user.docker.build.registry/>
+        <user.docker.build.base_image/>
+        <user.jasypt.encryptor.password/>
 
         <!-- plugin version -->
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -283,6 +286,10 @@
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>
                 <user.minio.bucket.path>${setting.minio.bucket.path}</user.minio.bucket.path>
+                <user.archetype.catalog.upload.url>${setting.archetype.catalog.upload.url}
+                </user.archetype.catalog.upload.url>
+                <user.archetype.catalog.upload.serverId>${setting.archetype.catalog.upload.serverId}
+                </user.archetype.catalog.upload.serverId>
                 <!-- docker -->
                 <user.docker.build.registry>${setting.docker.build.registry}</user.docker.build.registry>
                 <user.docker.build.base_image>${setting.docker.build.base_image}

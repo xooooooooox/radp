@@ -9,6 +9,7 @@
 - parent
   - [x] Optimize profile `auto-jib`
   - [x] pluginManagement add `maven-enforcer-plugin`
+  - [x] Optimize archetype-catalog.xml deploy to self-hosted artifactory
 - dependencies
   - [x] pluginManagement add `maven-resources-plugin`
 - scaffold

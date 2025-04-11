@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.16.1
+
+- scaffold
+  - [x] Fix the parameters 'url' for wagon-maven-plugin are missing or invalid
+
 ## 3.16
 
 - feat

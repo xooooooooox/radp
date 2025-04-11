@@ -469,6 +469,257 @@
             <description>spring-boot-starter 脚手架</description>
         </archetype>
 
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.13</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.13</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.13</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.13</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.13</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.13-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.14</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.14</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.14</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.14</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.14</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.14-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.14-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.14-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.14-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.14-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.15</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.15</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.15</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.15</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.15</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.15-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.15-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.15-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.15-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.15-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.16</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.16</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.16</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.16</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.16</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>2.16-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>2.16-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>2.16-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>2.16-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>2.16-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <!-- === 3.x === -->
+
         <archetype>
             <groupId>space.x9x.radp</groupId>
             <artifactId>scaffold-tiny</artifactId>
@@ -531,7 +782,6 @@
             <description>spring-boot-starter 脚手架</description>
         </archetype>
 
-
         <archetype>
             <groupId>space.x9x.radp</groupId>
             <artifactId>scaffold-tiny</artifactId>
@@ -591,6 +841,192 @@
             <groupId>space.x9x.radp</groupId>
             <artifactId>scaffold-starter</artifactId>
             <version>3.13-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.14</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.14</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.14</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.14</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.14</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.14-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.14-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.14-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.14-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.14-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.15</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.15</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.15</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.15</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.15</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.15-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.15-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.15-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.15-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.15-SNAPSHOT</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.16</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.16</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.16</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.16</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.16</version>
+            <description>spring-boot-starter 脚手架</description>
+        </archetype>
+
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-tiny</artifactId>
+            <version>3.16-SNAPSHOT</version>
+            <description>极简版本(MVC架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-simple</artifactId>
+            <version>3.16-SNAPSHOT</version>
+            <description>轻量版(无模块,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-lite</artifactId>
+            <version>3.16-SNAPSHOT</version>
+            <description>轻量版(单机,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-std</artifactId>
+            <version>3.16-SNAPSHOT</version>
+            <description>标准版(分布式,DDD架构)</description>
+        </archetype>
+        <archetype>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>scaffold-starter</artifactId>
+            <version>3.16-SNAPSHOT</version>
             <description>spring-boot-starter 脚手架</description>
         </archetype>
     </archetypes>

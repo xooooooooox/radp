@@ -4,6 +4,8 @@
 
 - scaffold
   - [x] Update scaffold default radpVersion to `2.17`
+  - [x] Fix .github/trigger-releases.yml
+  - [X] Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
 
 ## 2.16.1
 

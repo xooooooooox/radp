@@ -1660,6 +1660,17 @@
             </build>
         </profile>
         <profile>
+            <id>publish-harbor</id>
+            <properties>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
+                <maven.deploy.skip>true</maven.deploy.skip>
+                <devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
+                </devops.release.arguments>
+            </properties>
+        </profile>
+
+        <profile>
             <!-- 为了加快构建速度 -->
             <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
             <!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
@@ -1700,7 +1711,28 @@
                 </plugins>
             </build>
         </profile>
-
+        <!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
+        <profile>
+            <id>o-release</id>
+            <properties>
+                <!-- 激活 auto-release profile -->
+                <auto.release.enabled>true</auto.release.enabled>
+                <!-- 激活 auto-layered profile -->
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <!-- 激活 auto-assembly profile -->
+                <auto.assembly.enabled>false</auto.assembly.enabled>
+                <!-- release:perform arguments -->
+                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
+            </properties>
+        </profile>
+        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
+        <profile>
+            <id>o-tar</id>
+            <properties>
+                <auto.assembly.enabled>true</auto.assembly.enabled>
+                <auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
+            </properties>
+        </profile>
     </profiles>
 
 

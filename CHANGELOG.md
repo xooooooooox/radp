@@ -2,6 +2,8 @@
 
 ## 3.17
 
+- parent
+  - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar` 不支持 multi platform 引起的构建失败问题  
 - scaffold
   - [x] Update scaffold default radpVersion to `3.17`
   - [x] Fix .github/trigger-releases.yml

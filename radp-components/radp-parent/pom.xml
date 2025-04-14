@@ -49,7 +49,6 @@
         <app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
         <app.build.base_image.jdk11>eclipse-temurin:11-jdk</app.build.base_image.jdk11>
         <app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
-        <build.jib.enabled>true</build.jib.enabled>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
@@ -388,16 +387,19 @@
                     <groupId>com.google.cloud.tools</groupId>
                     <artifactId>jib-maven-plugin</artifactId>
                     <!-- 绑定 Jib 到 Maven 生命周期 -->
+                    <!-- jib:dockerBuild, jib:build 均需要本地有 docker daemon -->
                     <executions>
                         <execution>
-                            <id>build-to-local-docker</id>
+                            <!-- Only build image -->
+                            <id>jib-dockerBuild-iamges</id>
                             <phase>install</phase>
                             <goals>
                                 <goal>dockerBuild</goal>
                             </goals>
                         </execution>
                         <execution>
-                            <id>build-and-push-to-remote</id>
+                            <!-- build and publish image to registry -->
+                            <id>jib-dockerBuild-publish</id>
                             <phase>deploy</phase>
                             <goals>
                                 <goal>build</goal>
@@ -1350,13 +1352,80 @@
 
         <profile>
             <!-- 是否启用 jib-maven-plugin 进行容器化 -->
-            <id>auto-jib</id>
+            <id>auto-jib-buildTar</id>
             <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
             <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
                 </file>
+                <property>
+                    <name>auto.jib.buildTar.enabled</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>check-files</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireFilesExist>
+                                            <files>
+                                                <file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
+                                            </files>
+                                        </requireFilesExist>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jib-buildTar</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>buildTar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <from>
+                                <platforms>
+                                    <platform>
+                                        <architecture>${os.detected.arch}</architecture>
+                                        <os>linux</os>
+                                    </platform>
+                                </platforms>
+                            </from>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- 是否启用 jib-maven-plugin 进行容器化 -->
+            <id>auto-jib-dockerBuild</id>
+            <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
+            <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
+            <activation>
+                <file>
+                    <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
+                </file>
+                <property>
+                    <name>auto.jib.dockerBuild.enabled</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>

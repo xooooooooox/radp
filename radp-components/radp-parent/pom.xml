@@ -1393,7 +1393,7 @@
                         <executions>
                             <execution>
                                 <id>jib-buildTar</id>
-                                <phase>install</phase>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>buildTar</goal>
                                 </goals>

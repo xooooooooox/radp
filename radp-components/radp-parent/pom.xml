@@ -1406,7 +1406,7 @@
                                 <platforms>
                                     <platform>
                                         <architecture>${jib.buildTar.platform.architecture}</architecture>
-                                        <os>linux</os>
+                                        <os>${jib.buildTar.platform.os}</os>
                                     </platform>
                                 </platforms>
                             </from>

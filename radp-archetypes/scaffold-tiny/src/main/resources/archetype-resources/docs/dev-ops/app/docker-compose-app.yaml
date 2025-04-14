@@ -9,8 +9,7 @@ services:
     # build:
     #   context: ../../${APP_NAME}-app
     #   dockerfile: Dockerfile
-    image: xooooooooox/${APP_NAME}:latest
-    # NOTE: 等同于 --pull always
+    image: ${IMAGE_NAMESPACE}/${APP_NAME}:latest
     # pull_policy: always
     restart: unless-stopped
     ports:
@@ -18,6 +17,10 @@ services:
       - "${EXPOSE_MANAGEMENT_SERVER_PORT:-9999}:${MANAGEMENT_SERVER_PORT:-9999}"
     environment:
       TZ: Asia/Shanghai
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_REDIS_HOST: ${SPRING_REDIS_HOST}
     volumes:
       - ./volumes/app/${APP_NAME}:/data
     healthcheck:

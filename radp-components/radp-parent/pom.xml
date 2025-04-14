@@ -46,6 +46,8 @@
         <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
 
         <!-- Docker 部署 -->
+        <jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
+        <jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
         <app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
         <app.build.base_image.jdk11>eclipse-temurin:11-jdk</app.build.base_image.jdk11>
         <app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
@@ -1403,7 +1405,7 @@
                             <from>
                                 <platforms>
                                     <platform>
-                                        <architecture>${os.detected.arch}</architecture>
+                                        <architecture>${jib.buildTar.platform.architecture}</architecture>
                                         <os>linux</os>
                                     </platform>
                                 </platforms>

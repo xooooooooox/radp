@@ -1618,6 +1618,9 @@
         <profile>
             <id>coding</id>
             <properties>
+                <!-- delpoy -->
+                <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
+                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>
@@ -1632,6 +1635,27 @@
                 </user.docker.build.base_image>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+            </properties>
+        </profile>
+        <!-- 发布到 artifactory -->
+        <profile>
+            <id>publish-artifactory</id>
+            <properties>
+                <!-- 是否要激活上传 archtype-catalog.xml 到 artifactory 等 -->
+                <auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+                <!-- 是否要激活上传 archtype-catalog.xml 到 minio 等 -->
+                <auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+                <!-- release:perform arguments -->
+                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
+                </devops.release.arguments>
+                <!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
+                <!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
+                <!-- 比如:
+                1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
+                2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
+                -->
+                <altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}</altSnapshotDeploymentRepository>
+                <altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}</altReleaseDeploymentRepository>
             </properties>
         </profile>
         <!-- 发布到中央仓库 -->

@@ -51,6 +51,8 @@
         <app.build.base_image.jdk11>eclipse-temurin:11</app.build.base_image.jdk11>
         <app.build.base_image.jdk17>eclipse-temurin:17</app.build.base_image.jdk17>
         <build.jib.enabled>true</build.jib.enabled>
+        <jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
+        <jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
@@ -386,16 +388,18 @@
                     <groupId>com.google.cloud.tools</groupId>
                     <artifactId>jib-maven-plugin</artifactId>
                     <!-- 绑定 Jib 到 Maven 生命周期 -->
+                    <!-- jib:dockerBuild, jib:build 均需要本地有 docker daemon -->
                     <executions>
                         <execution>
-                            <id>build-to-local-docker</id>
+                            <!-- Only build image -->
+                            <id>jib-dockerBuild-iamges</id>
                             <phase>install</phase>
                             <goals>
                                 <goal>dockerBuild</goal>
                             </goals>
                         </execution>
                         <execution>
-                            <id>build-and-push-to-remote</id>
+                            <id>jib-dockerBuild-publish</id>
                             <phase>deploy</phase>
                             <goals>
                                 <goal>build</goal>
@@ -1356,13 +1360,80 @@
 
         <profile>
             <!-- 是否启用 jib-maven-plugin 进行容器化 -->
-            <id>auto-jib</id>
+            <id>auto-jib-buildTar</id>
             <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
             <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
             <activation>
                 <file>
                     <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
                 </file>
+                <property>
+                    <name>auto.jib.buildTar.enabled</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>check-files</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireFilesExist>
+                                            <files>
+                                                <file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
+                                            </files>
+                                        </requireFilesExist>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jib-buildTar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>buildTar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <from>
+                                <platforms>
+                                    <platform>
+                                        <architecture>${jib.buildTar.platform.architecture}</architecture>
+                                        <os>${jib.buildTar.platform.os}</os>
+                                    </platform>
+                                </platforms>
+                            </from>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- 是否启用 jib-maven-plugin 进行容器化 -->
+            <id>auto-jib-dockerBuild</id>
+            <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
+            <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
+            <activation>
+                <file>
+                    <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
+                </file>
+                <property>
+                    <name>auto.jib.dockerBuild.enabled</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -1468,7 +1539,7 @@
             </build>
         </profile>
         <profile>
-            <!-- archetype 要可用的前提条件是: 构件上传到制品库,且 archetype-catalog.xml 可直接通过 web url 访问 -->
+            <!-- 发布 archetype 到私有化部署制品库 -->
             <!-- 这个 profile 将 archetype-catalog.xml 上传到 artifactory -->
             <id>auto-upload-catalog-artifactory</id>
             <activation>
@@ -1553,6 +1624,9 @@
         <profile>
             <id>coding</id>
             <properties>
+                <!-- delpoy -->
+                <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
+                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>
@@ -1565,6 +1639,27 @@
                 </user.docker.build.base_image>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+            </properties>
+        </profile>
+        <!-- 发布到 artifactory -->
+        <profile>
+            <id>publish-artifactory</id>
+            <properties>
+                <!-- 是否要激活上传 archtype-catalog.xml 到 artifactory 等 -->
+                <auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+                <!-- 是否要激活上传 archtype-catalog.xml 到 minio 等 -->
+                <auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+                <!-- release:perform arguments -->
+                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
+                </devops.release.arguments>
+                <!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
+                <!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
+                <!-- 比如:
+                1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
+                2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
+                -->
+                <altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}</altSnapshotDeploymentRepository>
+                <altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}</altReleaseDeploymentRepository>
             </properties>
         </profile>
         <!-- 发布到中央仓库 -->
@@ -1592,6 +1687,17 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>publish-harbor</id>
+            <properties>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
+                <maven.deploy.skip>true</maven.deploy.skip>
+                <devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
+                </devops.release.arguments>
+            </properties>
+        </profile>
+
         <profile>
             <!-- 为了加快构建速度 -->
             <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
@@ -1633,7 +1739,28 @@
                 </plugins>
             </build>
         </profile>
-
+        <!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
+        <profile>
+            <id>o-release</id>
+            <properties>
+                <!-- 激活 auto-release profile -->
+                <auto.release.enabled>true</auto.release.enabled>
+                <!-- 激活 auto-layered profile -->
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <!-- 激活 auto-assembly profile -->
+                <auto.assembly.enabled>false</auto.assembly.enabled>
+                <!-- release:perform arguments -->
+                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
+            </properties>
+        </profile>
+        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
+        <profile>
+            <id>o-tar</id>
+            <properties>
+                <auto.assembly.enabled>true</auto.assembly.enabled>
+                <auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
+            </properties>
+        </profile>
     </profiles>
 
 

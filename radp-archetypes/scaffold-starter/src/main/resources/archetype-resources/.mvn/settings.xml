@@ -66,6 +66,9 @@
         <profile>
             <id>default</id>
             <properties>
+                <!-- deploy -->
+                <setting.altSnapshotDeploymentRepository.artifactory>artifactory-snapshots::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local</setting.altSnapshotDeploymentRepository.artifactory>
+                <setting.altReleaseDeploymentRepository.artifactory>artifactory-releases::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local</setting.altReleaseDeploymentRepository.artifactory>
                 <!-- archetype -->
                 <setting.archetype.catalog.upload.serverId>artifactory-public</setting.archetype.catalog.upload.serverId>
                 <setting.archetype.catalog.upload.url>https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</setting.archetype.catalog.upload.url>
@@ -99,9 +102,6 @@
         <profile>
             <id>publish-artifactory</id>
             <properties>
-                <auto.release.enabled>true</auto.release.enabled>
-                <auto.layered.enabled>true</auto.layered.enabled>
-                <auto.assembly.enabled>false</auto.assembly.enabled>
                 <auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
                 <auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
                 <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests

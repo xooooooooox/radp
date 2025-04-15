@@ -284,8 +284,8 @@
             <id>coding</id>
             <properties>
                 <!-- deploy -->
-                <user.altSnapshotDeploymentRepository>${setting.altSnapshotDeploymentRepository}</user.altSnapshotDeploymentRepository>
-                <user.altReleaseDeploymentRepository>${setting.altReleaseDeploymentRepository}</user.altReleaseDeploymentRepository>
+                <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
+                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>

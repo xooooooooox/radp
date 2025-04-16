@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetypes</artifactId>
-        <version>2.17-SNAPSHOT</version>
+        <version>2.17</version>
     </parent>
     <artifactId>scaffold-tiny</artifactId>
     <name>${project.artifactId}</name>

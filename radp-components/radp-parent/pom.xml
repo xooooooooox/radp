@@ -1624,6 +1624,9 @@
                 </user.altSnapshotDeploymentRepository.artifactory>
                 <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}
                 </user.altReleaseDeploymentRepository.artifactory>
+                <user.altSnapshotDeploymentRepository.central>
+                    ${setting.altSnapshotDeploymentRepository.central}
+                </user.altSnapshotDeploymentRepository.central>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>
@@ -1671,6 +1674,8 @@
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
                 <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+                <altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.central}
+                </altSnapshotDeploymentRepository>
             </properties>
             <build>
                 <plugins>

@@ -286,6 +286,7 @@
                 <!-- deploy -->
                 <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
                 <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
+                <user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}</user.altSnapshotDeploymentRepository.central>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>

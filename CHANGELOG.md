@@ -2,8 +2,6 @@
 
 ## 3.17
 
-- feat
-  - [ ] 支持一键生成 k8x 资源文件 
 - parent
   - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar` 不支持 multi platform 引起的构建失败问题
   - [x] Add profile `o-release`, `o-tar`, `publish-harbor`

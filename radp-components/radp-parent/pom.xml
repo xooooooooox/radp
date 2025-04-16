@@ -1673,9 +1673,9 @@
             <id>publish-central</id>
             <properties>
                 <auto.release.enabled>true</auto.release.enabled>
+                <auto.layered.enabled>true</auto.layered.enabled>
+                <auto.assembly.enabled>false</auto.assembly.enabled>
                 <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
-                <altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.central}
-                </altSnapshotDeploymentRepository>
             </properties>
             <build>
                 <plugins>

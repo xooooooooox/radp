@@ -3,15 +3,16 @@
 ## 2.17
 
 - parent
-    - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar` 不支持 multi platform 引起的构建失败问题
+    - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar`
+      不支持 multi platform 引起的构建失败问题
     - [x] Add profile `o-release`, `o-tar`, `publish-harbor`
     - [x] Add profile `publish-artifactory`
 - scaffold
-  - [x] Update scaffold default radpVersion to `2.17`
-  - [x] Fix .github/trigger-releases.yml
-  - [X] Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
-  - [x] Optimize `.mvn/settings.xml`
-  - [x] Optimize dev-ops/app
+    - [x] Update scaffold default radpVersion to `2.17`
+    - [x] Fix .github/trigger-releases.yml
+    - [X] Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
+    - [x] Optimize `.mvn/settings.xml`
+    - [x] Optimize dev-ops/app
 
 ## 2.16.1
 

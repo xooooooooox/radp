@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.18
+
+- scaffold
+  - [x] Update scaffold default radpVersion to `3.18`
+
 ## 3.17
 
 - parent

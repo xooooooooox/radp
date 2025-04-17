@@ -11,6 +11,7 @@
   - [x] `.mvn/settings.xml` add profile `repo-central`
   - [x] Support writerside and mdbook to manage project documentation
   - [x] Fix `layers.xml`, `Dockerfile`, `build.sh`
+  - [x] Optimize `docker.build.image_name`
 
 ## 3.17
 

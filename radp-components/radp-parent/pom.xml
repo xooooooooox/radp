@@ -54,6 +54,7 @@
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
         <docker.build.image_name /> <!-- to -->
+        <docker.build.namespace>${user.docker.build.registry}/x9x</docker.build.namespace>
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
         <app.home>/app</app.home> <!-- 容器内的应用目录 -->
         <app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->

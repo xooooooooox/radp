@@ -58,7 +58,7 @@
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
     </properties>
 
     <developers>
@@ -281,6 +281,10 @@
         <profile>
             <id>coding</id>
             <properties>
+                <!-- deploy -->
+                <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
+                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
+                <user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}</user.altSnapshotDeploymentRepository.central>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>

@@ -4,6 +4,7 @@
 
 - scaffold
   - [x] Update scaffold default radpVersion to `2.18`
+  - [x] `.mvn/settings.xml` add profile `repo-central`
 
 ## 2.17
 

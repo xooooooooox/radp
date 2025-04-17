@@ -15,6 +15,11 @@
             <username>${env.MAVEN_USERNAME}</username>
             <password>${env.MAVEN_PASSWORD}</password>
         </server>
+        <server>
+            <id>central-portal-snapshots</id>
+            <username>${env.MAVEN_USERNAME}</username>
+            <password>${env.MAVEN_PASSWORD}</password>
+        </server>
         <!-- artifactory -->
         <server>
             <id>archetype</id>
@@ -69,6 +74,7 @@
                 <!-- deploy -->
                 <setting.altSnapshotDeploymentRepository.artifactory>artifactory-snapshots::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local</setting.altSnapshotDeploymentRepository.artifactory>
                 <setting.altReleaseDeploymentRepository.artifactory>artifactory-releases::https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local</setting.altReleaseDeploymentRepository.artifactory>
+                <setting.altSnapshotDeploymentRepository.central>central-portal-snapshots::https://central.sonatype.com/repository/maven-snapshots/</setting.altSnapshotDeploymentRepository.central>
                 <!-- archetype -->
                 <setting.archetype.catalog.upload.serverId>artifactory-public</setting.archetype.catalog.upload.serverId>
                 <setting.archetype.catalog.upload.url>https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</setting.archetype.catalog.upload.url>
@@ -145,6 +151,50 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+
+        <profile>
+            <id>repo-central</id>
+            <repositories>
+                <repository>
+                    <id>repo-central</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>central-portal-snapshots</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+                    <id>archetype</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>repo-central</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
     </profiles>
 
     <activeProfiles>

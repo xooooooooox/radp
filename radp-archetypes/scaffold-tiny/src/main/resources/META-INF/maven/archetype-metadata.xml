@@ -64,6 +64,12 @@
         </fileSet>
         <!-- docs -->
         <fileSet filtered="true" encoding="UTF-8">
+            <directory>docs/mdbook</directory>
+            <includes>
+                <include>**/**</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
             <directory/>
             <includes>
                 <include>Dockerfile</include>
@@ -96,16 +102,11 @@
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">
-            <directory>docs/api</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
             <directory>docs</directory>
             <includes>
+                <include>api/**</include>
                 <include>dev-ops/**</include>
-                <include>**/*.drawio</include>
+                <include>drawio/**</include>
                 <include>*.drawio</include>
             </includes>
         </fileSet>

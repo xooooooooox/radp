@@ -5,7 +5,9 @@
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0` 
 - parent
-  - [x] Support publish snapshots to central-portal 
+  - [x] Support publish snapshots to central-portal
+  - [x] Fix liquibase plugin properties file
+  - [x] Add profile `env.uat`, and `application-uat.yaml`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.18`
   - [x] `.mvn/settings.xml` add profile `repo-central`

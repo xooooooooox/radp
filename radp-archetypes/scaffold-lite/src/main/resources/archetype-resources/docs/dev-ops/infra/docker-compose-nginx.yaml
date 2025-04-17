@@ -2,7 +2,7 @@ networks:
   local-network:
     driver: bridge
     name: ${appName}-network
-    external: true
+    external: false
 
 services:
   nginx:

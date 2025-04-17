@@ -2,7 +2,7 @@ networks:
   local-network:
     driver: bridge
     name: ${appName}-network
-    external: true
+    external: false
 
 # 单机版Apache RocketMQ, 内置 Dashboard
 # 控制台页面 http://localhost:8080 (见 volumes/rocketmq-data/console/conf/application.properties)

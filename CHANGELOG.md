@@ -5,8 +5,7 @@
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0` 
 - parent
-  - [ ] Support publish snapshots to central-portal 
-    - [ ] Fix publish snapshots to central, Got Error `java.lang.IllegalStateException: An AuthProvider has not been set!`
+  - [x] Support publish snapshots to central-portal 
 - scaffold
   - [x] Update scaffold default radpVersion to `3.18`
   - [x] `.mvn/settings.xml` add profile `repo-central`

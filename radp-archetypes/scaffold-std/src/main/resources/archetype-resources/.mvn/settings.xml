@@ -79,6 +79,7 @@
                 <setting.archetype.catalog.upload.serverId>artifactory-public</setting.archetype.catalog.upload.serverId>
                 <setting.archetype.catalog.upload.url>https://${env.X9X_ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</setting.archetype.catalog.upload.url>
                 <setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
+                <setting.docker.build.namespace>${env.X9X_REGISTRY}/x9x</setting.docker.build.namespace>
             </properties>
         </profile>
         <profile>

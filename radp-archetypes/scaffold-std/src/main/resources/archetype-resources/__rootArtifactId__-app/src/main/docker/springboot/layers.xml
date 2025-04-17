@@ -14,10 +14,10 @@
             <include>*:*:*SNAPSHOT</include>
         </into>
         <into layer="modules-dependencies">
-            <include>space.x9x.labs:group-buy-market-*:*</include>
+            <include>${groupId}:*:*</include>
         </into>
         <into layer="organization-dependencies">
-            <include>space.x9x.radp:*:*</include>
+            <include>space.x9x*:*:*</include>
         </into>
         <into layer="dependencies"/>
     </dependencies>

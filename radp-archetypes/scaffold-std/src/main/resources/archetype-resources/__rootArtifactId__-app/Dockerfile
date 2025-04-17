@@ -4,7 +4,7 @@ FROM eclipse-temurin:17-jdk  AS builder
 # 设置工作目录并指定构建模块
 WORKDIR /app
 ARG MODULE=.
-ARG ARTIFACT=${rootArtifactId}-app.jar
+ARG ARTIFACT=${appName}.jar
 
 # 复制必要文件
 COPY ${MODULE}/target/$ARTIFACT application.jar

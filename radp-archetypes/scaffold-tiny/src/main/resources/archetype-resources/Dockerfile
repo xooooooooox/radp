@@ -11,10 +11,13 @@ COPY ${MODULE}/target/$ARTIFACT application.jar
 COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
-RUN java -Djarmode=layertools -jar application.jar extract
+# 1) Use the old tools extractor in Spring Boot 3.1 and below.
+# RUN java -Djarmode=layertools -jar application.jar extract
+# 2) Use the new tools extractor in Spring Boot 3.2 instead, -Djarmode=layertools deprecated.
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
 
 # 创建容器镜像
-FROM eclipse-temurin:17-jdk
+FROM  eclipse-temurin:17-jdk
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
 ARG USER=tmpuser
@@ -53,12 +56,12 @@ RUN groupadd -g "$GID" "$GROUP" \
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=builder /app/spring-boot-loader ./
-COPY --from=builder /app/dependencies/ ./
-COPY --from=builder /app/organization-dependencies ./
-COPY --from=builder /app/modules-dependencies ./
-COPY --from=builder /app/snapshot-dependencies/ ./
-COPY --from=builder /app/application/ ./
+COPY --from=builder /app/application/spring-boot-loader ./
+COPY --from=builder /app/application/dependencies/ ./
+COPY --from=builder /app/application/organization-dependencies ./
+COPY --from=builder /app/application/modules-dependencies ./
+COPY --from=builder /app/application/snapshot-dependencies/ ./
+COPY --from=builder /app/application/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 

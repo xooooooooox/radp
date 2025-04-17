@@ -1,6 +1,8 @@
 networks:
   local-network:
     driver: bridge
+    name: ${appName}-network
+    external: false
 
 services:
   # 方式一: 如果使用传统的 zookeeper 模式

@@ -299,6 +299,7 @@
                 <user.docker.build.registry>${setting.docker.build.registry}</user.docker.build.registry>
                 <user.docker.build.base_image>${setting.docker.build.base_image}
                 </user.docker.build.base_image>
+                <user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
             </properties>

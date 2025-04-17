@@ -14,7 +14,9 @@
   - [x] Support writerside and mdbook to manage project documentation
   - [x] Fix `layers.xml`, `Dockerfile`, `build.sh`
   - [x] Optimize `docker.build.image_name`
-  - [x] Optimize dev-ops `COMPOSE_PROJECT_NAME` and network
+  - [x] Optimize dev-ops 
+    - Rename `COMPOSE_PROJECT_NAME` and network
+    - Add up.sh, down.sh, ps.sh
   - [x] archetype-metadata.xml add required property `imageNamespace`
   - [x] Fix build.sh and start.sh
 

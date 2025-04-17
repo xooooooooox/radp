@@ -15,6 +15,8 @@
   - [x] Fix `layers.xml`, `Dockerfile`, `build.sh`
   - [x] Optimize `docker.build.image_name`
   - [x] Optimize dev-ops `COMPOSE_PROJECT_NAME` and network
+  - [x] archetype-metadata.xml add required property `imageNamespace`
+  - [x] Fix build.sh and start.sh
 
 ## 3.17
 

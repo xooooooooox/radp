@@ -9,6 +9,7 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `3.18`
   - [x] `.mvn/settings.xml` add profile `repo-central`
+  - [x] Support writerside and mdbook to manage project documentation
 
 ## 3.17
 

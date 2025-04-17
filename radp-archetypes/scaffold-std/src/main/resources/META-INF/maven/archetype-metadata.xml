@@ -46,6 +46,13 @@
     </requiredProperties>
 
     <fileSets>
+        <!-- writerside -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>Writerside</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
         <!-- docs -->
         <fileSet filtered="true" encoding="UTF-8">
             <directory>docs/dev-ops</directory>

@@ -46,6 +46,22 @@
     </requiredProperties>
 
     <fileSets>
+        <!-- writerside -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>Writerside</directory>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.tree</include>
+                <include>**/*.md</include>
+                <include>**/*.cfg</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>Writerside</directory>
+            <includes>
+                <include>**/**</include>
+            </includes>
+        </fileSet>
         <!-- docs -->
         <fileSet filtered="true" encoding="UTF-8">
             <directory/>

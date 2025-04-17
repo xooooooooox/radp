@@ -1,3 +1,9 @@
+networks:
+  local-network:
+    driver: bridge
+    name: ${appName}-network
+    external: true
+
 # rabbitmq-plugins enable rabbitmq_management
 services:
   # 管理后台 http://127.0.0.1:15672

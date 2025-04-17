@@ -14,6 +14,7 @@
   - [x] Support writerside and mdbook to manage project documentation
   - [x] Fix `layers.xml`, `Dockerfile`, `build.sh`
   - [x] Optimize `docker.build.image_name`
+  - [x] Optimize dev-ops `COMPOSE_PROJECT_NAME` and network
 
 ## 3.17
 

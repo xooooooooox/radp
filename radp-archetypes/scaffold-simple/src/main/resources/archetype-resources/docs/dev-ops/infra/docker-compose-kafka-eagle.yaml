@@ -2,6 +2,8 @@
 networks:
   local-network:
     driver: bridge
+    name: ${appName}-network
+    external: true
 
 services:
   # kafka

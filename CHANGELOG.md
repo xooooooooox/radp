@@ -3,21 +3,25 @@
 ## 3.18
 
 - dependencies
-  - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0` 
+  - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`
 - parent
   - [x] Support publish snapshots to central-portal
-  - [x] Fix liquibase plugin properties file
-  - [x] Add profile `env.uat`, and `application-uat.yaml`
+  - [x] Add profile `env.uat`
+  - [x] Optimize profile `repo-central`, add property `auto.layered.enabled` and `auto.assembly.enabled`
+  - [x] profile `coding` add property `user.docker.build.namespace`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.18`
-  - [x] `.mvn/settings.xml` add profile `repo-central`
-  - [x] Support writerside and mdbook to manage project documentation
+  - [x] Optimize`.mvn/settings.xml`
+    - add profile `repo-central`
+    - profile `default` add property `setting.docker.build.namespace`
+  - [x] Support **writerside** and **mdbook** to manage project documentation
   - [x] Fix `layers.xml`, `Dockerfile`, `build.sh`
+  - [x] Fix liquibase plugin properties file
+  - [x] Add `application-uat.yaml`
   - [x] Optimize `docker.build.image_name`
-  - [x] Optimize dev-ops 
+  - [x] Optimize dev-ops
     - Rename `COMPOSE_PROJECT_NAME` and network
     - Add up.sh, down.sh, ps.sh
-  - [x] archetype-metadata.xml add required property `imageNamespace`
   - [x] Fix build.sh and start.sh
 
 ## 3.17

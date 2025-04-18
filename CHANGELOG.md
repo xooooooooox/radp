@@ -5,7 +5,7 @@
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`
 - parent
-  - [x] Support publish snapshots to central-portal
+  - [x] Support for publishing snapshots to the central portal
   - [x] Add profile `env.uat`
   - [x] Optimize profile `repo-central`, add property `auto.layered.enabled` and `auto.assembly.enabled`
   - [x] profile `coding` add property `user.docker.build.namespace`
@@ -33,7 +33,7 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `3.17`
   - [x] Fix .github/trigger-releases.yml
-  - [X] Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
+  - [X] Change the version of the generated project  from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
   - [x] Optimize dev-ops/app
   - [x] Optimize `.mvn/settings.xml`
 
@@ -86,15 +86,15 @@
 - feature
     - [x] `radp-common` add `FileUtils`
 - dependencies
-    - [x] Upgrade spring boot version from `3.2.3` to `3.4.4`
-    - [x] Upgrade spring cloud version from `2023.0.0` to `2024.0.0`
+    - [x] Upgrade the spring boot version from `3.2.3` to `3.4.4`
+    - [x] Upgrade the spring cloud version from `2023.0.0` to `2024.0.0`
     - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
     - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
       `spring-boot-dependencies` 中声明的 `3.10.1` 版本
     - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
     - [x] Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to
       `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
-    - [x] Remove redundant plugin version in `radp-parent`
+    - [x] Remove the redundant plugin version in `radp-parent`
     - [x] Remove duplicate plugin in `radp-depdencies`
     - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
 - parent
@@ -150,9 +150,9 @@
     - [x] upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to
       `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
     - [x] use springdoc-openapi bom
-    - [x] upgrade spring-cloud version from `2021.0.5` to `2023.0.0`
+    - [x] upgrade the spring-cloud version from `2021.0.5` to `2023.0.0`
     - [x] upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
-    - [x] upgrade mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
+    - [x] upgrade the mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
 - feature
     - [x] `radp-spring-framework` add `MultiResult`
     - [x] `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
@@ -181,7 +181,7 @@
 
 ## 0.11
 
-- [x] fix archetype auto-release profile not work
+- [x] fix archetype auto-release profile does not work
 - [x] fix archetype import error
 
 ## 0.10
@@ -208,7 +208,7 @@
 
 ## 0.7
 
-- [x] Support publish GitLab pages via GitLab CI/CD
+- [x] Support publishing GitLab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
 - [x] Update archetype, `.mvn`, `.github` actions
 
@@ -240,6 +240,6 @@
 ## 0.1.3
 
 - [x] 支持发布构件到 central, GitHub packages, self-hosted artifactory
-- [x] Use GitHUb Actions build and publish GitHub Pages
+- [x] Use GitHub Actions to build and publish GitHub Pages
 - [x] DDD 脚手架
 - [x] 基础通用组件

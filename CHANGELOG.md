@@ -4,6 +4,8 @@
 
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`
+  - [x] Upgrade `org.springdoc:springdoc-openapi` from `2.4.0` to `2.8.6`
+    - see https://github.com/springdoc/springdoc-openapi/issues/2687
 - parent
   - [x] Support for publishing snapshots to the central portal
   - [x] Add profile `env.uat`

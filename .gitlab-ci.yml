@@ -1,6 +1,6 @@
 include:
   - project: homelab/gitlab-ci-templates
-    ref: "1.0"
+    ref: "feat/1.1"
     file: templates/k8s/java-pipeline.yml
 
 variables:

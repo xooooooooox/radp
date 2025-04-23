@@ -5,7 +5,7 @@
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`
 - parent
-  - [x] Support publish snapshots to central-portal
+  - [x] Supports publish snapshots to central-portal
   - [x] Add profile `env.uat`
   - [x] Optimize profile `repo-central`, add property `auto.layered.enabled` and `auto.assembly.enabled`
   - [x] profile `coding` add property `user.docker.build.namespace`

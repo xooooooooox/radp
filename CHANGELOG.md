@@ -23,6 +23,7 @@
     - Rename `COMPOSE_PROJECT_NAME` and network
     - Add up.sh, down.sh, ps.sh  
   - [x] Fix build.sh and start.sh
+  - [x] Fix Dockerfile and entrypoint.sh
 
 ## 2.17
 

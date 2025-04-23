@@ -1,3 +1,5 @@
+#################### [1] builder 阶段 ####################
+
 # 使用基础镜像
 FROM eclipse-temurin:11-jdk  AS builder
 
@@ -9,27 +11,32 @@ ARG ARTIFACT=${appName}.jar
 # 复制必要文件
 COPY ${MODULE}/target/$ARTIFACT application.jar
 COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract
+
+#################### [2] runtime 阶段 ####################
 
 # 创建容器镜像
 FROM  eclipse-temurin:11-jdk
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
+ARG TZ="Asia/Shanghai"
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
 ARG UID=1001
 ARG GID=1001
 
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} >/etc/timezone
+
 ENV APP_HOME="/app"
 ENV DATA_HOME="/data"
-ENV TZ="Asia/Shanghai"
 ENV LANG="C.UTF-8"
 ENV JVM_XMS="1g"
 ENV JVM_XMX="1g"
 ENV JVM_XSS="256k"
-ENV JVM_GC_MODE="G1"
+ENV GC_MODE="G1"
 ENV JDWP_DEBUG="N"
 ENV JDWP_PORT="5005"
 ENV USE_GC_LOG="Y"
@@ -55,12 +62,11 @@ WORKDIR $APP_HOME
 # 从基础镜像复制应用程序依赖项和模块
 COPY --from=builder /app/spring-boot-loader ./
 COPY --from=builder /app/dependencies/ ./
-COPY --from=builder /app/organization-dependencies ./
-COPY --from=builder /app/modules-dependencies ./
+COPY --from=builder /app/organization-dependencies/ ./
+COPY --from=builder /app/modules-dependencies/ ./
 COPY --from=builder /app/snapshot-dependencies/ ./
 COPY --from=builder /app/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
-RUN chmod +x entrypoint.sh
 
 # 切换到容器用户并创建日志目录
 USER $USER

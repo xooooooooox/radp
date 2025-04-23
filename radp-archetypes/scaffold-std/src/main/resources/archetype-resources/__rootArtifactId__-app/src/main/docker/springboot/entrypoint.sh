@@ -94,10 +94,11 @@ if [[ -d "$EXTERNAL_CONFIG_HOME" && "$(ls -A "$EXTERNAL_CONFIG_HOME")" ]]; then
 fi
 
 # 设置 Spring Boot 端口
-JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT} -Dmanagement.server.port=${MANAGEMENT_SERVER_PORT}"
+JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT} -Dmanagement.server.port=${MANAGEMENT_SERVER_PORT}"ls
 
 # 执行 Java 应用
 # 方式一: spring-boot-maven 分层构建
-exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
+BOOT_LAYER_CP=${BOOT_LAYER_CP:-"spring-boot-loader:dependencies:snapshot-dependencies:organization-dependencies:modules-dependencies:application"}
+exec java ${JAVA_OPTS} -cp "${BOOT_LAYER_CP}" -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
 # 方式二: jib-maven-plugin
 #exec java ${JAVA_OPTS} -cp $(cat "$APP_HOME"/jib-classpath-file) $(cat "$APP_HOME"/jib-main-class-file)

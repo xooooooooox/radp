@@ -60,7 +60,7 @@ RUN groupadd -g "$GID" "$GROUP" \
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=builder /app/spring-boot-loader ./
+COPY --from=builder /app/spring-boot-loader/ ./
 COPY --from=builder /app/dependencies/ ./
 COPY --from=builder /app/organization-dependencies/ ./
 COPY --from=builder /app/modules-dependencies/ ./

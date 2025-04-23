@@ -98,7 +98,6 @@ JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT} -Dmanagement.server.port=${
 
 # 执行 Java 应用
 # 方式一: spring-boot-maven 分层构建
-BOOT_LAYER_CP=${BOOT_LAYER_CP:-"spring-boot-loader/*:dependencies/*:snapshot-dependencies/*:organization-dependencies/*:modules-dependencies/*:application/*"}
-exec java ${JAVA_OPTS} -cp "${BOOT_LAYER_CP}" -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
+exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
 # 方式二: jib-maven-plugin
 #exec java ${JAVA_OPTS} -cp $(cat "$APP_HOME"/jib-classpath-file) $(cat "$APP_HOME"/jib-main-class-file)

@@ -22,16 +22,14 @@ RUN java -Djarmode=layertools -jar application.jar extract
 FROM  eclipse-temurin:11-jdk
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
-ARG TZ="Asia/Shanghai"
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
 ARG UID=1001
 ARG GID=1001
 
-RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} >/etc/timezone
-
 ENV APP_HOME="/app"
 ENV DATA_HOME="/data"
+ENV TZ="Asia/Shanghai"
 ENV LANG="C.UTF-8"
 ENV JVM_XMS="1g"
 ENV JVM_XMX="1g"
@@ -67,6 +65,7 @@ COPY --from=builder /app/modules-dependencies/ ./
 COPY --from=builder /app/snapshot-dependencies/ ./
 COPY --from=builder /app/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
+RUN chmod +x "$APP_HOME"/entrypoint.sh
 
 # 切换到容器用户并创建日志目录
 USER $USER

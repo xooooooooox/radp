@@ -24,6 +24,8 @@
     - Add up.sh, down.sh, ps.sh  
   - [x] Fix build.sh and start.sh
   - [x] Fix Dockerfile and entrypoint.sh
+  - [x] application-actuator.yml enable probe endpoint
+  - [x] Optimize .gitlab-ci.yml
 
 ## 2.17
 

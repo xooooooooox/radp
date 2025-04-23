@@ -10,6 +10,15 @@ management:
   endpoint:
     health:
       show-details: always
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState
+          show-details: always
+        liveness:
+          include: livenessState
+          show-details: always
   metrics:
     tags:
       application: ${spring.application.name}

@@ -11,7 +11,6 @@ ARG ARTIFACT=${appName}.jar
 # 复制必要文件
 COPY ${MODULE}/target/$ARTIFACT application.jar
 COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract

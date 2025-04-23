@@ -27,6 +27,7 @@
   - [x] Fix build.sh and start.sh
   - [x] application-actuator.yml enable probe endpoint
   - [x] Fix Dockerfile and springboot entrypoint.sh
+  - [x] Optimize .gitlab-ci.yml
 
 ## 3.17
 

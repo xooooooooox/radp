@@ -1,3 +1,5 @@
+#################### [1] builder 阶段 ####################
+
 # 使用基础镜像
 FROM eclipse-temurin:17-jdk  AS builder
 
@@ -16,6 +18,7 @@ COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
 # 2) Use the new tools extractor in Spring Boot 3.2 instead, -Djarmode=layertools deprecated.
 RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
 
+#################### [2] runtime 阶段 ####################
 
 # 创建容器镜像
 FROM  eclipse-temurin:17-jdk
@@ -33,7 +36,7 @@ ENV LANG="C.UTF-8"
 ENV JVM_XMS="1g"
 ENV JVM_XMX="1g"
 ENV JVM_XSS="256k"
-ENV JVM_GC_MODE="G1"
+ENV GC_MODE="G1"
 ENV JDWP_DEBUG="N"
 ENV JDWP_PORT="5005"
 ENV USE_GC_LOG="Y"
@@ -57,10 +60,10 @@ RUN groupadd -g "$GID" "$GROUP" \
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=builder /app/application/spring-boot-loader ./
+COPY --from=builder /app/application/spring-boot-loader/ ./
 COPY --from=builder /app/application/dependencies/ ./
-COPY --from=builder /app/application/organization-dependencies ./
-COPY --from=builder /app/application/modules-dependencies ./
+COPY --from=builder /app/application/organization-dependencies/ ./
+COPY --from=builder /app/application/modules-dependencies/ ./
 COPY --from=builder /app/application/snapshot-dependencies/ ./
 COPY --from=builder /app/application/application/ ./
 COPY --from=builder /app/entrypoint.sh ./

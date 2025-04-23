@@ -26,6 +26,7 @@
     - Add up.sh, down.sh, ps.sh
   - [x] Fix build.sh and start.sh
   - [x] application-actuator.yml enable probe endpoint
+  - [x] Fix Dockerfile and springboot entrypoint.sh
 
 ## 3.17
 

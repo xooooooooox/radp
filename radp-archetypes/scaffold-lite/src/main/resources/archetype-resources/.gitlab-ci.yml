@@ -31,4 +31,4 @@ variables:
 
   ## 发布 pages - writerside
   TP_PAGES_TYPE: "writerside"
-  TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"
+  TP_WRITERSIDE_INSTANCE: "Writerside/radp"

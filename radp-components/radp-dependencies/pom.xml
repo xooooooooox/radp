@@ -99,6 +99,7 @@
         <fastjson.version>2.0.22</fastjson.version>
         <fastjson2.version>2.0.22</fastjson2.version>
         <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
 
         <!-- [测试组件] -->
         <spock.version>2.3-groovy-4.0</spock.version>
@@ -151,6 +152,7 @@
         <!-- J2EE 部署 -->
         <cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
         <!-- 数据库迁移工具 -->
+        <liquibase.version>4.31.1</liquibase.version>
         <liquibase-maven-plugin.version>${liquibase.version}</liquibase-maven-plugin.version>
         <flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
         <!-- OpenAPI 生成工具 -->

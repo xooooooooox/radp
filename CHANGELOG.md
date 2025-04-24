@@ -5,6 +5,7 @@
 - dependencies
   - [x] Override liquibase.version to 4.31.1 
 - scaffold
+  - [x] Update scaffold default radpVersion to `3.18.1`
   - [x] Optimize entrypoint.sh
   - [x] Optimize liquibase
     - Fixed issue with duplicate initialization caused by inconsistent filenames recognized in changesets

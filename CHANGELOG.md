@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 3.19
+
+- scaffold
+  - [x] Update scaffold default radpVersion to `3.19`
+  - [x] Optimize build.sh
+
 ## 3.18.1
 
 - dependencies

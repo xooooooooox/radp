@@ -1,9 +1,16 @@
 # ChangeLog
 
-## 3.19
+## 3.18.1
 
+- dependencies
+  - [x] Override liquibase.version to 4.31.1 
 - scaffold
   - [x] Optimize entrypoint.sh
+  - [x] Optimize liquibase
+    - Fixed issue with duplicate initialization caused by inconsistent filenames recognized in changesets
+      - see <https://docs.liquibase.com/change-types/includeall.html>
+      - see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
+
 
 ## 3.18
 

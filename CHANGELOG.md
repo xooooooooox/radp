@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.19
+
+- scaffold
+  - [x] Optimize entrypoint.sh
+
 ## 3.18
 
 - dependencies

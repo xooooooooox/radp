@@ -74,6 +74,7 @@ _optimize_java_opts() {
       JAVA_MAJOR_VERSION="8"
     fi
   fi
+  java -version || exit 1
   echo "Detected Java major version: ${JAVA_MAJOR_VERSION}"
 
   # Default Java parameter settings
@@ -148,15 +149,30 @@ _optimize_java_opts() {
       }
     fi
 
-    echo "GC log path is '${gc_log_path}/jvm_gc.log'."
+    # Ensure the directory is writable
+    if [[ ! -w "${gc_log_path}" ]]; then
+      echo "Warning: GC log directory '${gc_log_path}' is not writable, using default logs directory"
+      gc_log_path="${DATA_HOME}/logs"
+      # Try to make the default directory writable if it exists
+      if [[ -d "${gc_log_path}" && ! -w "${gc_log_path}" ]]; then
+        chmod 755 "${gc_log_path}" 2>/dev/null || echo "Warning: Could not make '${gc_log_path}' writable"
+      fi
+    fi
 
     # Different GC log options for Java 9+ vs Java 8 and earlier
     if [[ "${JAVA_MAJOR_VERSION}" -gt "8" ]]; then
       # Java 9+ uses unified logging with -Xlog
-      _append_if_supported "-Xlog:gc:file=${gc_log_path}/jvm_gc-%p-%t.log:tags,uptime,time,level:filecount=${GC_LOG_FILE_COUNT:-10},filesize=${GC_LOG_FILE_SIZE:-100M}"
+      gc_log_file="${gc_log_path}/jvm_gc-%p-%t.log"
+      echo "GC log path is '${gc_log_file}'."
+      _append_if_supported "-Xlog:gc:file=${gc_log_file}:tags,uptime,time,level:filecount=${GC_LOG_FILE_COUNT:-10},filesize=${GC_LOG_FILE_SIZE:-100M}"
     else
       # Java 8 and earlier use multiple options
-      _append_if_supported "-Xloggc:${gc_log_path}/jvm_gc.log"
+      gc_log_file="${gc_log_path}/jvm_gc.log"
+      echo "GC log path is '${gc_log_file}'."
+      # Touch the file to ensure it exists and check if it's writable
+      touch "${gc_log_file}" 2>/dev/null || echo "Warning: Could not create GC log file '${gc_log_file}'"
+
+      _append_if_supported "-Xloggc:${gc_log_file}"
       _append_if_supported "-verbose:gc"
       _append_if_supported "-XX:+PrintGCDetails"
       _append_if_supported "-XX:+PrintGCDateStamps"
@@ -176,6 +192,8 @@ _optimize_java_opts() {
       _append_if_supported "-XX:+SafepointTimeout"
       _append_if_supported "-XX:SafepointTimeoutDelay=500"
     fi
+  else
+    echo "Warning: GC log not enabled."
   fi
 
   # Heap dump settings
@@ -194,6 +212,8 @@ _optimize_java_opts() {
     echo "Heap dump path is '${heap_dump_path}/jvm_heap_dump.hprof'."
     _append_if_supported "-XX:HeapDumpPath=${heap_dump_path}/jvm_heap_dump.hprof"
     _append_if_supported "-XX:+HeapDumpOnOutOfMemoryError"
+  else
+    echo "Warning: JVM Heap Dump not enabled"
   fi
 
   # Large pages settings
@@ -229,8 +249,8 @@ _optimize_java_opts() {
   JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT:-8888} -Dmanagement.server.port=${MANAGEMENT_SERVER_PORT:-9999}"
 
   # Add an option to ignore unrecognized VM options to prevent JVM startup failures
-  # 兜底避免不兼容的 jvm options 导致 'Could not create the Java Virtual Machine'
-  JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions ${JAVA_OPTS}"
+  #!! 不建议加这个参数(生产环境), 临时测试可用
+  # JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions ${JAVA_OPTS}"
 }
 
 # Run the application based on how it was built (jib or spring-boot)
@@ -238,11 +258,11 @@ _run_application() {
   if [[ -e "${APP_HOME}/jib-main-class-file" ]]; then
     echo "=> Running application built by jib-maven-plugin"
     # Use exec to replace the shell process with java, ensuring signals are properly handled
-    exec java "${JAVA_OPTS}" -cp "$(cat "${APP_HOME}/jib-classpath-file")" "$(cat "${APP_HOME}/jib-main-class-file")"
+    exec java ${JAVA_OPTS} -cp $(cat "$APP_HOME"/jib-classpath-file) $(cat "$APP_HOME"/jib-main-class-file)
   else
     echo "=> Running application built by spring-boot-maven-plugin"
     # Use exec to replace the shell process with java, ensuring signals are properly handled
-    exec java "${JAVA_OPTS}" -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
+    exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
   fi
 }
 

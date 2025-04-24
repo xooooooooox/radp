@@ -151,6 +151,7 @@
         <!-- J2EE 部署 -->
         <cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
         <!-- 数据库迁移工具 -->
+        <liquibase.version>4.31.1</liquibase.version>
         <liquibase-maven-plugin.version>${liquibase.version}</liquibase-maven-plugin.version>
         <flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
         <!-- OpenAPI 生成工具 -->

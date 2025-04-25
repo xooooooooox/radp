@@ -14,7 +14,7 @@ variables:
   TP_CACHE_DIR: ''
 
   ## prepare - 参数
-  # TP_PREPARE_SCRIPT_REF:  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
+  TP_PREPARE_SCRIPT_REF: main  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
   # TP_TAG_NAME: 指定要创建的标签名称, 如果未指定, 将自动计算下一个版本号
 
   ## 构建参数

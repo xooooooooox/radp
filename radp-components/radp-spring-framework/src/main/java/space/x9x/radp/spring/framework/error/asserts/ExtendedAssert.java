@@ -9,12 +9,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * 与
- * {@link BaseClientAssert}, <br/>
- * {@link BaseServerAssert}, <br/>
- * {@link BaseThirdServiceAssert}, <br/>
- * 不同的是,
- * {@link ExtendedAssert} 主要用于框架内, 继承了 {@link Assert} 会抛出 {@link IllegalArgumentException}, 而前者主要为了前后端联调统一错误码和返回值,
+ * {@link ExtendedAssert} 主要用于框架内, 继承了 {@link Assert} 会抛出 {@link IllegalArgumentException},
  * 之所以这里额外封装一个 AssertUtils 是为了使用相同的错误码定义方式.
  *
  * @author x9x

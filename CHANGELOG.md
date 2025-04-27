@@ -2,6 +2,8 @@
 
 ## 3.19
 
+- feat
+  - [x] Optimize Assert
 - scaffold
   - [x] Update scaffold default radpVersion to `3.19`
   - [x] Optimize build.sh

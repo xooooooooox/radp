@@ -18,18 +18,13 @@ import java.util.function.BiFunction;
  * @author x9x
  * @since 2024-10-24 21:54
  */
-public class ServerAssert extends BaseAssert<ServerException> {
+public final class ServerAssert extends BaseAssert<ServerException> {
+
+    private ServerAssert() {
+
+    }
 
     private static final ServerAssert INSTANCE = new ServerAssert();
-
-    /**
-     * Get the singleton instance of ServerAssert.
-     *
-     * @return the singleton instance
-     */
-    public static ServerAssert getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     protected BiFunction<String, String, ServerException> getExceptionCreator() {

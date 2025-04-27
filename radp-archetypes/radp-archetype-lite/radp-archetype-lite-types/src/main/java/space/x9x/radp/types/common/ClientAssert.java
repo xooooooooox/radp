@@ -17,18 +17,14 @@ import java.util.function.BiFunction;
  * @author x9x
  * @since 2024-10-24 23:46
  */
-public class ClientAssert extends BaseAssert<ClientException> {
+public final class ClientAssert extends BaseAssert<ClientException> {
+
+    private ClientAssert() {
+
+    }
 
     private static final ClientAssert INSTANCE = new ClientAssert();
 
-    /**
-     * Get the singleton instance of ClientAssert.
-     *
-     * @return the singleton instance
-     */
-    public static ClientAssert getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     protected BiFunction<String, String, ClientException> getExceptionCreator() {

@@ -17,18 +17,13 @@ import java.util.function.BiFunction;
  * @author x9x
  * @since 2024-10-24 23:46
  */
-public class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {
+public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {
+
+    private ThirdServiceAssert() {
+    }
 
     private static final ThirdServiceAssert INSTANCE = new ThirdServiceAssert();
 
-    /**
-     * Get the singleton instance of ThirdServiceAssert.
-     *
-     * @return the singleton instance
-     */
-    public static ThirdServiceAssert getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     protected BiFunction<String, String, ThirdServiceException> getExceptionCreator() {

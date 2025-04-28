@@ -18,7 +18,7 @@
   - [x] Update scaffold default radpVersion to `3.18.1`
   - [x] Optimize entrypoint.sh
   - [x] Optimize liquibase
-    - Fixed issue with duplicate initialization caused by inconsistent filenames recognized in changesets
+    - Fixed the issue with duplicate initialization caused by inconsistent filenames recognized in changesets
       - see <https://docs.liquibase.com/change-types/includeall.html>
       - see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
     - Optimized changelog-init.yaml example, migration/20241018 directory structure, and multienvironment support

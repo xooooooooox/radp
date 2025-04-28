@@ -919,6 +919,12 @@
             </properties>
         </profile>
         <profile>
+            <id>env-sit</id>
+            <properties>
+                <runtime.env>sit</runtime.env>
+            </properties>
+        </profile>
+        <profile>
             <id>env-uat</id>
             <properties>
                 <runtime.env>uat</runtime.env>

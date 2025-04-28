@@ -4,6 +4,8 @@
 
 - feat
   - [x] Optimize Assert
+- parent
+  - [x] Add profile `env-sit`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.19`
   - [x] Optimize build.sh

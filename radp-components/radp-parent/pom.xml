@@ -924,6 +924,12 @@
             </properties>
         </profile>
         <profile>
+            <id>env-sit</id>
+            <properties>
+                <runtime.env>sit</runtime.env>
+            </properties>
+        </profile>
+        <profile>
             <id>env-uat</id>
             <properties>
                 <runtime.env>uat</runtime.env>
@@ -946,6 +952,32 @@
             <properties>
                 <runtime.env>private</runtime.env>
             </properties>
+        </profile>
+
+        <!-- 当激活此 profile 时，将会打包所有 application-xx.yaml 配置文件 -->
+        <!-- 默认仅打包 application.yaml, application-${runtime.env}.yaml, config/application-xx.yaml -->
+        <profile>
+            <id>o-all-env</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>**/*.gitkeep</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>application*.yml</include>
+                            <include>application*.yaml</include>
+                            <include>config/application*.yml</include>
+                            <include>config/application*.yaml</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
         </profile>
 
         <profile>

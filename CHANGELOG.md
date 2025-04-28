@@ -2,9 +2,15 @@
 
 ## 2.19
 
+- feat
+  - [x] Optimize Assert
+- parent
+  - [x] Add profile `env-sit`
+  - [x] Add profile `o-all-env`
 - scaffold
   - [x] Update scaffold default radpVersion to `2.19`
   - [x] Optimize build.sh
+  - [x] Optimize the pom.xml of scaffold-xx xx-types module 
 
 ## 2.18.1
 

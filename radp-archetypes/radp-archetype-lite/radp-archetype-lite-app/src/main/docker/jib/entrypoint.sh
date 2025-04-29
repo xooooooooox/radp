@@ -253,19 +253,6 @@ _optimize_java_opts() {
   # JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions ${JAVA_OPTS}"
 }
 
-# Run the application based on how it was built (jib or spring-boot)
-_run_application() {
-  if [[ -e "${APP_HOME}/jib-main-class-file" ]]; then
-    echo "=> Running application built by jib-maven-plugin"
-    # Use exec to replace the shell process with java, ensuring signals are properly handled
-    exec java ${JAVA_OPTS} -cp $(cat "$APP_HOME"/jib-classpath-file) $(cat "$APP_HOME"/jib-main-class-file)
-  else
-    echo "=> Running application built by spring-boot-maven-plugin"
-    # Use exec to replace the shell process with java, ensuring signals are properly handled
-    exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
-  fi
-}
-
 # Initialize environment variables with defaults
 JAVA_OPTS=${JAVA_OPTS:-}
 APP_HOME=${APP_HOME:-${HOME}}
@@ -286,4 +273,12 @@ fi
 # Main execution flow
 _detect_java_environment || exit 1
 _optimize_java_opts
-_run_application
+if [[ -e "${APP_HOME}/jib-main-class-file" ]]; then
+  echo "=> Running application built by jib-maven-plugin"
+  # Use exec to replace the shell process with java, ensuring signals are properly handled
+  exec java ${JAVA_OPTS} -cp $(cat "$APP_HOME"/jib-classpath-file) $(cat "$APP_HOME"/jib-main-class-file)
+else
+  echo "=> Running application built by spring-boot-maven-plugin"
+  # Use exec to replace the shell process with java, ensuring signals are properly handled
+  exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
+fi

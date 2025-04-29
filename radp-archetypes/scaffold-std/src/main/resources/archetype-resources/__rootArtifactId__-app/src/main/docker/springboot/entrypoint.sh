@@ -238,7 +238,7 @@ _optimize_java_opts() {
     # Check if the directory is not empty without using ls
     if [[ -n "$(find "${EXTERNAL_CONFIG_HOME}" -mindepth 1 -maxdepth 1 2>/dev/null)" ]]; then
       echo "Using external configuration from ${EXTERNAL_CONFIG_HOME}"
-      _append_if_supported "--spring.config.additional-location=file:${EXTERNAL_CONFIG_HOME}/"
+      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.additional-location=file:${EXTERNAL_CONFIG_HOME}/"
     else
       echo "External configuration directory ${EXTERNAL_CONFIG_HOME} exists but is empty, skipping"
     fi

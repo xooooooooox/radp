@@ -2,7 +2,7 @@
 debug: false
 logging:
   file:
-    path: /data/logs/${spring.application.name}
+    path: /data/logs
   level:
     space.x9x.radp: info
     space.x9x: info

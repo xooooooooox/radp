@@ -10,7 +10,8 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `3.19`
   - [x] Optimize build.sh
-  - [x] Optimize the pom.xml of scaffold-xx xx-types module 
+  - [x] Optimize the pom.xml of scaffold-xx xx-types module
+  - [x] Optimize the pom.xml of scaffold-xx xx-app module
 
 ## 3.18.1
 

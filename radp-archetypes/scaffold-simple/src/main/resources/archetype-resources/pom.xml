@@ -21,7 +21,7 @@
         <app.server.port>${appPort}</app.server.port>
         <app.management.server.port>9999</app.management.server.port>
         <docker.build.base_image>${app.build.base_image.jdk17}</docker.build.base_image>
-        <docker.build.image_name>${docker.build.namespace}/${appName}</docker.build.image_name>
+        <docker.build.image_name>${docker.build.namespace}/${runtime.env}/${appName}</docker.build.image_name>
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
 
         <!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->

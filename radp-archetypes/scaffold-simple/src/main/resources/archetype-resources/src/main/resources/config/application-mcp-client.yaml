@@ -1,0 +1,17 @@
+--- # 方式一: mcp stdio
+spring:
+  mcp:
+    client:
+      stdio:
+        servers-configuration: classpath:/config/mcp-servers-config.json
+
+--- # 方式二: mcp sse
+#spring:
+#  mcp:
+#    client:
+#      request-timeout: 360s
+#      sse:
+#        connections:
+#          # 通过 http://mcp-server-xx:8888/sse 验证服务是否成功启动
+#          mcp-server-xx:
+#            url: http://mcp-server-xx:8888

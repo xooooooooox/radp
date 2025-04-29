@@ -238,7 +238,10 @@ _optimize_java_opts() {
     # Check if the directory is not empty without using ls
     if [[ -n "$(find "${EXTERNAL_CONFIG_HOME}" -mindepth 1 -maxdepth 1 2>/dev/null)" ]]; then
       echo "Using external configuration from ${EXTERNAL_CONFIG_HOME}"
-      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.additional-location=file:${EXTERNAL_CONFIG_HOME}/"
+      # springboot < 2.4
+      #      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.additional-location=optional:file:${EXTERNAL_CONFIG_HOME}/"
+      # springboot >= 2.4
+      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.import=optional:file:${EXTERNAL_CONFIG_HOME}/"
     else
       echo "External configuration directory ${EXTERNAL_CONFIG_HOME} exists but is empty, skipping"
     fi
@@ -282,3 +285,4 @@ else
   # Use exec to replace the shell process with java, ensuring signals are properly handled
   exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
 fi
+

@@ -14,6 +14,7 @@
   - [x] Optimize build.sh
   - [x] Optimize the pom.xml of scaffold-xx xx-types module
   - [x] Optimize the pom.xml of scaffold-xx xx-app module
+  - [x] Fix entrypoint.sh `Unrecognized option: --spring.config.additional-location=`
 
 ## 3.18.1
 

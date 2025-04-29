@@ -13,8 +13,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus,metrics,env
+        include: health,info,prometheus,metrics,loggers,env
   endpoint:
+    loggers:
+      access: unrestricted
+    health:
+      show-details: always
     env:
       show-values: always
 --- # database

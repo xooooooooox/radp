@@ -2,7 +2,7 @@
 debug: false
 logging:
   file:
-    path: logs/${spring.application.name}
+    path: ../logs/${spring.application.name}
   level:
     space.x9x.radp: debug
     space.x9x: debug
@@ -13,8 +13,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus,metrics,env
+        include: health,info,prometheus,metrics,loggers,env
   endpoint:
+    loggers:
+      access: unrestricted
+    health:
+      show-details: always
     env:
       show-values: always
 --- # database

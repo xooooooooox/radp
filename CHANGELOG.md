@@ -16,6 +16,7 @@
   - [x] Optimize the pom.xml of scaffold-xx xx-app module
   - [x] Fix entrypoint.sh `Unrecognized option: --spring.config.additional-location=`
   - [x] Optimize application-local.yaml for exposure env endpoint and unrestricted loggers endpoint
+  - [x] Optimize dev-ops docker-compose-app.yaml
 
 ## 3.18.1
 

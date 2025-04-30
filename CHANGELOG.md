@@ -5,8 +5,7 @@
 - feat
   - [x] Optimize Assert
 - parent
-  - [x] Add profile `env-sit`
-  - [x] Add profile `o-all-env`
+  - [x] Add profile `env-sit`,`o-all-env`
 - dependencies
   - [x] Upgrade jib-maven-plugin from 3.4.4 to 3.4.5
 - scaffold

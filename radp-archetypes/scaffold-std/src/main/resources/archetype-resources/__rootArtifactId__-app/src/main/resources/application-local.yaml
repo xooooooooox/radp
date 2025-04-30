@@ -7,6 +7,20 @@ logging:
     space.x9x.radp: debug
     space.x9x: debug
     com.zaxxer.hikari.HikariConfig: debug
+#    org.springframework.boot.context.config: trace
+--- # actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics,loggers,env
+  endpoint:
+    loggers:
+      access: unrestricted
+    health:
+      show-details: always
+    env:
+      show-values: always
 --- # database
 spring:
   datasource:

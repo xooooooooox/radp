@@ -18,8 +18,7 @@
         <app.server.port>${appPort}</app.server.port>
         <app.management.server.port>9999</app.management.server.port>
         <docker.build.base_image>${docker.build.base_image.jdk11}</docker.build.base_image>
-        <docker.build.image_name>${docker.build.registry}/x9x/${appName}</docker.build.image_name>
-        <docker.build.image_name>${docker.build.namespace}/${appName}</docker.build.image_name>
+        <docker.build.image_name>${docker.build.namespace}/${runtime.env}/${appName}</docker.build.image_name>
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
     </properties>
 

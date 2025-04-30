@@ -20,11 +20,11 @@ services:
     environment:
       TZ: Asia/Shanghai
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE}
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_REDIS_HOST: ${SPRING_REDIS_HOST}
+
     volumes:
-      - ./volumes/app/${APP_NAME}:/data
+      - ./volumes/app/${APP_NAME}/data:/data
+      - ./volumes/app/${APP_NAME}/config/:/app/config/
+
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:${MANAGEMENT_SERVER_PORT:-9999}/actuator/health" ]
       interval: 30s

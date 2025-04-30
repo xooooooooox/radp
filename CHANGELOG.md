@@ -8,7 +8,8 @@
   - [x] Add profile `env-sit`
   - [x] Add profile `o-all-env`
 - dependencies
-  - [x] Upgrade jib-maven-plugin from 3.4.4 to 3.4.5
+  - [x] Upgrade `com.google.cloud.tools:jib-maven-plugin` from 3.4.4 to 3.4.5
+  - [x] Upgrade `org.yaml:snakeyaml` from 1.30 to 2.3
 - scaffold
   - [x] Update scaffold default radpVersion to `2.19`
   - [x] Optimize build.sh

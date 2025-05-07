@@ -1,6 +1,10 @@
 ## 二选一
 
 --- # 方式一: mcp sse
+logging:
+  level:
+    io.modelcontextprotocol.spec.DefaultMcpSession: error
+
 spring:
   ai:
     mcp:

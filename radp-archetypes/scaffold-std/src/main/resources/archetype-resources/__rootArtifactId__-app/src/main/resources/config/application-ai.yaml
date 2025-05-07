@@ -6,6 +6,9 @@ spring:
         model: nomic-embed-text
         options:
           num-batch: 512
+      chat:
+        options:
+          model: deepseek-r1:1.5b
     openai:
       base-url: https://api.openai.com
       api-key: ""

@@ -3,7 +3,8 @@
 ## 3.20
 
 - scaffold
-
+  - [x] Optimize application-mcp-client.yaml
+  - [x] Add application-mcp-server.yaml, application-ai.yaml
 ## 3.19
 
 - feat

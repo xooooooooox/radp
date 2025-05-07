@@ -1,0 +1,21 @@
+--- # sse mode
+spring:
+  main:
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        name: ${spring.application.name}
+        version: ${spring.application.version}
+
+--- # 若要使用, stdio mode, 启用下面的配置
+#spring:
+#  main:
+#    web-application-type: none
+#  ai:
+#    mcp:
+#      server:
+#        stdio: true
+#logging:
+#  pattern:
+#    console:

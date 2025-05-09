@@ -7,9 +7,14 @@ logging:
     space.x9x.radp: debug
     space.x9x: debug
     com.zaxxer.hikari.HikariConfig: debug
-#    org.springframework.boot.context.config: trace
+    org.springframework.boot.context.config: trace
+--- # webmvc
+server:
+  port: 7080
 --- # actuator
 management:
+  server:
+    port: 7081
   endpoints:
     web:
       exposure:
@@ -21,14 +26,15 @@ management:
       show-details: always
     env:
       show-values: always
---- # database
-spring:
-  datasource:
-    username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
-    password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
 --- # hikari
 spring:
   datasource:
     hikari:
       data-source-properties:
         loggerLevel: INFO
+--- # database
+spring:
+  datasource:
+    username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
+    password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
+

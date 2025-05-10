@@ -9,6 +9,12 @@ spring:
   ai:
     mcp:
       client:
+        enabled: true
+        name: ${spring.application.name}
+        version: ${spring.application.version}
+        # default sync
+        type: sync
+        # MCP 客户端请求超时时长
         request-timeout: 360s
         sse:
           connections:

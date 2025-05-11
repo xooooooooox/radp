@@ -25,6 +25,8 @@ spring:
 --- # 方式二: mcp stdio
 #spring:
 #  ai:
+#    toolcallback:
+#      enabled: true
 #    mcp:
 #      client:
 #        stdio:

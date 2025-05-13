@@ -5,7 +5,7 @@
 - docs
   - [x] Add GitHub Issue Templates
 - scaffold
-  - [x] Optimize application-mcp-client.yaml
+  - [x] Optimize application-mcp-client.yaml, application-local.yaml
   - [x] Add application-mcp-server.yaml, application-ai.yaml
 
 ## 3.19

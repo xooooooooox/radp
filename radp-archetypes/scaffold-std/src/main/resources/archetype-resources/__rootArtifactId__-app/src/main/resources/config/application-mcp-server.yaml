@@ -1,7 +1,5 @@
 --- # sse mode
 spring:
-  main:
-    banner-mode: off
   ai:
     mcp:
       server:
@@ -11,6 +9,7 @@ spring:
 --- # 若要使用, stdio mode, 启用下面的配置
 #spring:
 #  main:
+#    banner-mode: off
 #    web-application-type: none
 #  ai:
 #    mcp:

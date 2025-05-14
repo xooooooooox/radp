@@ -7,6 +7,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.error.ServerException;
 import space.x9x.radp.spring.framework.error.asserts.BaseAssert;
 import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
+import space.x9x.radp.spring.framework.type.common.AssertUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -29,6 +30,11 @@ public final class ServerAssert extends BaseAssert<ServerException> {
     @Override
     protected BiFunction<String, String, ServerException> getExceptionCreator() {
         return ExceptionUtils::serverException;
+    }
+
+    @Override
+    protected BiFunction<String, String, ServerException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::serverExceptionWithFormattedMessage;
     }
 
     /**

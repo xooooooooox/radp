@@ -2,11 +2,18 @@
 
 ## 3.20
 
+- fix
+  - [x] Fix ErrorCodeLoader
+  - [x] Fix `BaseException` message formatting with parameters
+  - [x] Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException` and
+    `ExceptionUtils.thirdServiceException` message formatting issue with placeholders
+  - [x] Add unit test for `ExceptionUtils`, `ServerAssert`, `MessageFormatter`, etc.
 - docs
   - [x] Add GitHub Issue Templates
 - scaffold
   - [x] Optimize application-mcp-client.yaml, application-local.yaml
   - [x] Add application-mcp-server.yaml, application-ai.yaml
+  - [x] Fix `XxxAssert` message formatting issue with placeholders
 
 ## 3.19
 

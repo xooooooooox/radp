@@ -4,6 +4,17 @@
 
 ## 2.19
 
+- fix
+  - [x] Fix ErrorCodeLoader
+  - [x] Fix `BaseException` message formatting with parameters
+  - [x] Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException` and
+    `ExceptionUtils.thirdServiceException` message formatting issue with placeholders
+  - [x] Add unit test for `ExceptionUtils`, `ServerAssert`, `MessageFormatter`, etc.
+- docs
+  - [x] Add GitHub Issue Templates
+- scaffold
+  - [x] Fix `XxxAssert` message formatting issue with placeholders
+
 - feat
   - [x] Optimize Assert
 - parent
@@ -15,7 +26,7 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `2.19`
   - [x] Optimize build.sh
-  - [x] Optimize the pom.xml of scaffold-xx xx-types module 
+  - [x] Optimize the pom.xml of scaffold-xx xx-types module
   - [x] Optimize the pom.xml of scaffold-xx xx-app module
   - [x] Fix entrypoint.sh
 
@@ -30,7 +41,8 @@
   - [x] Optimize liquibase
     - Fixed issue with duplicate initialization caused by inconsistent filenames recognized in changesets
       - see <https://docs.liquibase.com/change-types/includeall.html>
-      - see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
+      -
+      see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
     - Optimized changelog-init.yaml example, migration/20241018 directory structure, and multienvironment support
 
 ## 2.18
@@ -44,7 +56,7 @@
   - [x] profile `coding` add property `user.docker.build.namespace`
 - scaffold
   - [x] Update scaffold default radpVersion to `2.18`
-  - [x] Optimize`.mvn/settings.xml` 
+  - [x] Optimize`.mvn/settings.xml`
     - add profile `repo-central`
     - profile `default` add property `setting.docker.build.namespace`
   - [x] Support writerside and mdbook to manage project documentation
@@ -54,7 +66,7 @@
   - [x] Optimize `docker.build.image_name`
   - [x] Optimize dev-ops
     - Rename `COMPOSE_PROJECT_NAME` and network
-    - Add up.sh, down.sh, ps.sh  
+    - Add up.sh, down.sh, ps.sh
   - [x] Fix build.sh and start.sh
   - [x] Fix Dockerfile and entrypoint.sh
   - [x] application-actuator.yml enable probe endpoint

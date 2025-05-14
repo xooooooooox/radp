@@ -1,8 +1,6 @@
 # ChangeLog
 
-## 2.20
-
-## 2.19
+## 2.19.1
 
 - fix
   - [x] Fix ErrorCodeLoader
@@ -15,6 +13,8 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `2.19.1`
   - [x] Fix `XxxAssert` message formatting issue with placeholders
+
+## 2.19
 
 - feat
   - [x] Optimize Assert

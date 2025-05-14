@@ -27,7 +27,6 @@ public class ErrorCodeLoader {
             resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
         } catch (Exception e) {
             log.error("加载应用错误码文件失败 {}, 将回退使用框架内置错误码资源文件 {}", BUNDLE_NAME + ".properties", INTERNAL_BUNDLE_NAME + ".properties", e);
-        } finally {
             resourceBundle = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
         }
     }

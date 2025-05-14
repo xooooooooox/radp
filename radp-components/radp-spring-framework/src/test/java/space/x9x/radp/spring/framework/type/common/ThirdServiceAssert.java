@@ -30,6 +30,11 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
         return ExceptionUtils::thirdServiceException;
     }
 
+    @Override
+    protected BiFunction<String, String, ThirdServiceException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::thirdServiceExceptionWithFormattedMessage;
+    }
+
     public static void doesNotContain(@NotNull String textToSearch, String substring,
                                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                                       Object... placeholders) {

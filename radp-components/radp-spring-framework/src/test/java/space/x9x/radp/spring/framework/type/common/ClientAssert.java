@@ -31,6 +31,11 @@ public final class ClientAssert extends BaseAssert<ClientException> {
         return ExceptionUtils::clientException;
     }
 
+    @Override
+    protected BiFunction<String, String, ClientException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::clientExceptionWithFormattedMessage;
+    }
+
     public static void doesNotContain(@NotNull String textToSearch, String substring,
                                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                                       Object... placeholders) {

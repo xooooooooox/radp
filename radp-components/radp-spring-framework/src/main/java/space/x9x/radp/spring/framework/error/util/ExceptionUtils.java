@@ -49,7 +49,7 @@ public class ExceptionUtils {
      * @return the created exception
      */
     public static ServerException serverExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
-        return new ServerException(code, formattedMessage, new Object[0]);
+        return new ServerException(code, formattedMessage);
     }
 
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
@@ -91,7 +91,7 @@ public class ExceptionUtils {
      * @return the created exception
      */
     public static ClientException clientExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
-        return new ClientException(code, formattedMessage, new Object[0]);
+        return new ClientException(code, formattedMessage);
     }
 
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
@@ -133,7 +133,7 @@ public class ExceptionUtils {
      * @return the created exception
      */
     public static ThirdServiceException thirdServiceExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
-        return new ThirdServiceException(code, formattedMessage, new Object[0]);
+        return new ThirdServiceException(code, formattedMessage);
     }
 
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {

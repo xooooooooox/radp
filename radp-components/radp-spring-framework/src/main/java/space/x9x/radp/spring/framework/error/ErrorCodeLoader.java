@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.error;
 
-import space.x9x.radp.commons.lang.format.MessageFormatter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.PropertyKey;
+import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -27,7 +27,6 @@ public class ErrorCodeLoader {
             resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
         } catch (Exception e) {
             log.error("加载应用错误码文件失败 {}, 将回退使用框架内置错误码资源文件 {}", BUNDLE_NAME + ".properties", INTERNAL_BUNDLE_NAME + ".properties", e);
-        } finally {
             resourceBundle = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
         }
     }

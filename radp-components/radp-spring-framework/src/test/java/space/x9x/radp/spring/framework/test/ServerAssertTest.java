@@ -17,6 +17,7 @@ class ServerAssertTest {
         try {
             ServerAssert.notNull(null, "10000", "world");
         } catch (Exception e) {
+            e.printStackTrace();
             Assertions.assertEquals("test world", e.getMessage());
         }
     }

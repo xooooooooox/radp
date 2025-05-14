@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.error;
 
-import space.x9x.radp.commons.lang.format.MessageFormatter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
+import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 /**
  * @author x9x
@@ -34,9 +34,10 @@ public class BaseException extends RuntimeException {
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
-        super(ErrorCodeLoader.getErrMessage(errCode));
+        super(ErrorCodeLoader.getErrMessage(errCode, params));
         this.errCode = errCode;
         this.errMessage = ErrorCodeLoader.getErrMessage(errCode, params);
+        this.params = params;
     }
 
     public BaseException(ErrorCode errorCode) {

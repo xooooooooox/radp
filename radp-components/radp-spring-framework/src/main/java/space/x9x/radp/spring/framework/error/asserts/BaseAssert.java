@@ -26,6 +26,17 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
     protected abstract BiFunction<String, String, E> getExceptionCreator();
 
     /**
+     * Get the exception creator function that creates the specific exception type with a pre-formatted message.
+     *
+     * @return the exception creator function
+     */
+    protected BiFunction<String, String, E> getFormattedMessageExceptionCreator() {
+        // Default implementation returns the same as getExceptionCreator
+        // Subclasses can override this to provide a different implementation
+        return getExceptionCreator();
+    }
+
+    /**
      * Create an exception to the specific type.
      *
      * @param errCode the error code
@@ -33,7 +44,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
      * @return the created exception
      */
     protected E createException(String errCode, String message) {
-        return getExceptionCreator().apply(errCode, message);
+        // Use the formatted message exception creator to avoid double formatting
+        return getFormattedMessageExceptionCreator().apply(errCode, message);
     }
 
     /**

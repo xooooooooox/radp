@@ -40,6 +40,18 @@ public class ExceptionUtils {
         return new ServerException(code, params);
     }
 
+    /**
+     * Create a ServerException with a pre-formatted message.
+     * This method is used when the message is already formatted and should not be formatted again.
+     *
+     * @param code             the error code
+     * @param formattedMessage the pre-formatted message
+     * @return the created exception
+     */
+    public static ServerException serverExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
+        return new ServerException(code, formattedMessage);
+    }
+
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ServerException(code, t);
     }
@@ -70,6 +82,18 @@ public class ExceptionUtils {
         return new ClientException(code, params);
     }
 
+    /**
+     * Create a ClientException with a pre-formatted message.
+     * This method is used when the message is already formatted and should not be formatted again.
+     *
+     * @param code             the error code
+     * @param formattedMessage the pre-formatted message
+     * @return the created exception
+     */
+    public static ClientException clientExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
+        return new ClientException(code, formattedMessage);
+    }
+
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ClientException(code, t);
     }
@@ -98,6 +122,18 @@ public class ExceptionUtils {
 
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ThirdServiceException(code, params);
+    }
+
+    /**
+     * Create a ThirdServiceException with a pre-formatted message.
+     * This method is used when the message is already formatted and should not be formatted again.
+     *
+     * @param code             the error code
+     * @param formattedMessage the pre-formatted message
+     * @return the created exception
+     */
+    public static ThirdServiceException thirdServiceExceptionWithFormattedMessage(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, String formattedMessage) {
+        return new ThirdServiceException(code, formattedMessage);
     }
 
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {

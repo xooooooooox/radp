@@ -13,6 +13,7 @@
 - docs
   - [x] Add GitHub Issue Templates
 - scaffold
+  - [x] Update scaffold default radpVersion to `2.19.1`
   - [x] Fix `XxxAssert` message formatting issue with placeholders
 
 - feat

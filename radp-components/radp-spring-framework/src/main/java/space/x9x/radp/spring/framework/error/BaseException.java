@@ -34,9 +34,10 @@ public class BaseException extends RuntimeException {
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
-        super(ErrorCodeLoader.getErrMessage(errCode));
+        super(ErrorCodeLoader.getErrMessage(errCode, params));
         this.errCode = errCode;
         this.errMessage = ErrorCodeLoader.getErrMessage(errCode, params);
+        this.params = params;
     }
 
     public BaseException(ErrorCode errorCode) {

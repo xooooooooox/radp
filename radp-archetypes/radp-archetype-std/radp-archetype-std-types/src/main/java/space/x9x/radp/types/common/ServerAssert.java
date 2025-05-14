@@ -31,6 +31,11 @@ public final class ServerAssert extends BaseAssert<ServerException> {
         return ExceptionUtils::serverException;
     }
 
+    @Override
+    protected BiFunction<String, String, ServerException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::serverExceptionWithFormattedMessage;
+    }
+
     /**
      * Assert that the object is not null, throwing a ServerException with the given ErrorCode if it is.
      *

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.Getter;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.json.jackson.exception.JacksonException;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultObjectMapper;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultXmlMapper;
 import space.x9x.radp.commons.lang.StringUtils;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
@@ -33,18 +33,50 @@ public class JacksonUtils {
 
     // =============== to JSONString ===============
 
+    /**
+     * Converts an object to a JSON string using default inclusion settings.
+     *
+     * @param <T>    the type of the object
+     * @param object the object to convert
+     * @return the JSON string representation of the object
+     */
     public static <T> String toJSONString(T object) {
         return toJSONString(object, JsonInclude.Include.USE_DEFAULTS);
     }
 
+    /**
+     * Converts an object to a JSON string with specified inclusion settings.
+     *
+     * @param <T> the type of the object
+     * @param object the object to convert
+     * @param include the inclusion strategy for properties
+     * @return the JSON string representation of the object
+     */
     public static <T> String toJSONString(T object, JsonInclude.Include include) {
         return toJSONString(object, include, getDefaultObjectMapper());
     }
 
+    /**
+     * Converts an XML string to a JSON string using the default settings.
+     *
+     * @param text the XML string to convert
+     * @param cls the class type to bind the XML to
+     * @return the JSON string representation
+     */
     public static String toJSONString(String text, Class<?> cls) {
         return toJSONString(text, cls, JsonInclude.Include.USE_DEFAULTS, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
+    /**
+     * Converts an object to a JSON string with specified inclusion settings and object mapper.
+     *
+     * @param <T> the type of the object
+     * @param object the object to convert
+     * @param include the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for conversion
+     * @return the JSON string representation of the object
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     public static <T> String toJSONString(T object, JsonInclude.Include include, ObjectMapper objectMapper) {
         if (objectMapper == null) {
             objectMapper = getDefaultObjectMapper();
@@ -56,10 +88,29 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Converts an XML string to a JSON string with specified inclusion settings.
+     *
+     * @param text the XML string to convert
+     * @param cls the class type to bind the XML to
+     * @param include the inclusion strategy for properties
+     * @return the JSON string representation
+     */
     public static String toJSONString(String text, Class<?> cls, JsonInclude.Include include) {
         return toJSONString(text, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
+    /**
+     * Converts an XML string to a JSON string with specified inclusion settings and mappers.
+     *
+     * @param text the XML string to convert
+     * @param cls the class type to bind the XML to
+     * @param include the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for JSON conversion
+     * @param xmlMapper the XML mapper to use for XML parsing
+     * @return the JSON string representation
+     * @throws JacksonException if an error occurs during processing
+     */
     public static String toJSONString(String text, Class<?> cls, JsonInclude.Include include,
                                       ObjectMapper objectMapper, XmlMapper xmlMapper) {
         if (objectMapper == null) {
@@ -78,14 +129,39 @@ public class JacksonUtils {
 
     // ============================ to JSONStringPretty ============================
 
+    /**
+     * Converts an object to a pretty-printed JSON string with specified inclusion settings.
+     *
+     * @param <T> the type of the object
+     * @param object the object to convert
+     * @param include the inclusion strategy for properties
+     * @return the pretty-printed JSON string representation
+     */
     public static <T> String toJSONStringPretty(T object, JsonInclude.Include include) {
         return toJSONStringPretty(object, include, getDefaultObjectMapper());
     }
 
+    /**
+     * Converts an object to a pretty-printed JSON string using default inclusion settings.
+     *
+     * @param <T> the type of the object
+     * @param object the object to convert
+     * @return the pretty-printed JSON string representation
+     */
     public static <T> String toJSONStringPretty(T object) {
         return toJSONStringPretty(object, JsonInclude.Include.USE_DEFAULTS);
     }
 
+    /**
+     * Converts an object to a pretty-printed JSON string with specified inclusion settings and object mapper.
+     *
+     * @param <T> the type of the object
+     * @param object the object to convert
+     * @param include the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for conversion
+     * @return the pretty-printed JSON string representation
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     public static <T> String toJSONStringPretty(T object, JsonInclude.Include include, ObjectMapper objectMapper) {
         if (objectMapper == null) {
             objectMapper = getDefaultObjectMapper();
@@ -99,10 +175,28 @@ public class JacksonUtils {
 
     // ============================ jsonString -> T ============================
 
+    /**
+     * Parses a JSON string into an object of the specified type using a TypeReference.
+     *
+     * @param <T> the target type
+     * @param text the JSON string to parse
+     * @param typeReference the type reference describing the target type
+     * @return the parsed object, or null if the input is empty
+     */
     public static <T> T parseObject(String text, TypeReference<T> typeReference) {
         return parseObject(text, typeReference, getDefaultObjectMapper());
     }
 
+    /**
+     * Parses a JSON string into an object of the specified type using a TypeReference and custom object mapper.
+     *
+     * @param <T> the target type
+     * @param text the JSON string to parse
+     * @param typeReference the type reference describing the target type
+     * @param objectMapper the object mapper to use for parsing
+     * @return the parsed object, or null if the input is empty
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     public static <T> T parseObject(String text, TypeReference<T> typeReference, ObjectMapper objectMapper) {
         if (StringUtils.isEmpty(text)) {
             return null;
@@ -114,10 +208,28 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Parses a JSON string into an object of the specified class type.
+     *
+     * @param <T> the target type
+     * @param text the JSON string to parse
+     * @param cls the class of the target type
+     * @return the parsed object, or null if the input is empty
+     */
     public static <T> T parseObject(String text, Class<T> cls) {
         return parseObject(text, cls, getDefaultObjectMapper());
     }
 
+    /**
+     * Parses a JSON string into an object of the specified class type using a custom object mapper.
+     *
+     * @param <T> the target type
+     * @param text the JSON string to parse
+     * @param cls the class of the target type
+     * @param objectMapper the object mapper to use for parsing
+     * @return the parsed object, or null if the input is empty
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     public static <T> T parseObject(String text, Class<T> cls, ObjectMapper objectMapper) {
         if (StringUtils.isEmpty(text)) {
             return null;
@@ -129,10 +241,31 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Converts a Map to an object of the specified class type.
+     *
+     * @param <K> the type of keys in the map
+     * @param <V> the type of values in the map
+     * @param <T> the target type
+     * @param map the map to convert
+     * @param cls the class of the target type
+     * @return the converted object
+     */
     public static <K, V, T> T parseObject(Map<K, V> map, Class<T> cls) {
         return parseObject(map, cls, getDefaultObjectMapper());
     }
 
+    /**
+     * Converts a Map to an object of the specified class type using a custom object mapper.
+     *
+     * @param <K> the type of keys in the map
+     * @param <V> the type of values in the map
+     * @param <T> the target type
+     * @param map the map to convert
+     * @param cls the class of the target type
+     * @param objectMapper the object mapper to use for conversion
+     * @return the converted object
+     */
     public static <K, V, T> T parseObject(Map<K, V> map, Class<T> cls, ObjectMapper objectMapper) {
         return objectMapper.convertValue(map, cls);
     }

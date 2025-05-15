@@ -17,10 +17,29 @@ import java.util.Date;
 @UtilityClass
 public class ReflectionUtils extends ReflectUtil {
 
+    /**
+     * Checks if a method has public access modifier.
+     *
+     * @param method the method to check
+     * @return true if the method is public, false otherwise
+     */
     public static boolean isPublic(@NonNull Method method) {
         return Modifier.isPublic(method.getModifiers());
     }
 
+    /**
+     * Determines if a method is a setter method.
+     * <p>
+     * A method is considered a setter if it:
+     * <ul>
+     *   <li>Has a name that starts with "set"</li>
+     *   <li>Takes exactly one parameter</li>
+     *   <li>Has public access</li>
+     * </ul>
+     *
+     * @param method the method to check
+     * @return true if the method is a setter, false otherwise
+     */
     public static boolean isSetter(Method method) {
         return method.getName().startsWith("set")
                 && method.getParameterTypes().length == 1

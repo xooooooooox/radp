@@ -4,6 +4,9 @@
 
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
+  - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
+  - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
+    replacement
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies

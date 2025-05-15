@@ -3,7 +3,7 @@
 ## 3.20
 
 - docs
-  - [x] Add javadoc for core classes and methods
+  - [x] Add javadoc
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
   - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter

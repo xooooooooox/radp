@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.error;
 
-import space.x9x.radp.commons.lang.format.MessageFormatter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.PropertyKey;
+import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -31,6 +31,33 @@ public class ErrorCodeLoader {
         }
     }
 
+    /**
+     * Get the error message for the given error code without any parameter replacement.
+     * This is useful when you want to get the raw message template without any placeholder replacement.
+     *
+     * @param errCode the error code
+     * @return the error message
+     */
+    public static String getErrMessage(@PropertyKey(resourceBundle = BUNDLE_NAME) String errCode) {
+        if (resourceBundle.containsKey(errCode)) {
+            return resourceBundle.getString(errCode);
+        }
+
+        if (INTERNAL_RESOURCE_BUNDLE.containsKey(errCode)) {
+            return INTERNAL_RESOURCE_BUNDLE.getString(errCode);
+        }
+
+        return errCode;
+    }
+
+    /**
+     * Get the error message for the given error code with parameter replacement.
+     * This will replace placeholders in the message template with the provided parameters.
+     *
+     * @param errCode the error code
+     * @param params  the parameters to replace placeholders in the message template
+     * @return the formatted error message
+     */
     public static String getErrMessage(@PropertyKey(resourceBundle = BUNDLE_NAME) String errCode, Object... params) {
         if (resourceBundle.containsKey(errCode)) {
             String messagePattern = resourceBundle.getString(errCode);

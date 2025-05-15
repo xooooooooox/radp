@@ -19,9 +19,11 @@ public class BaseException extends RuntimeException {
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                          Throwable t) {
-        super(ErrorCodeLoader.getErrMessage(errCode, t.getMessage()));
+        super(ErrorCodeLoader.getErrMessage(errCode), t);
+        // The super constructor takes both message and cause, ensuring the exception's stack trace is preserved
+        // We get the error message without trying to replace placeholders with the exception message
         this.errCode = errCode;
-        this.errMessage = ErrorCodeLoader.getErrMessage(errCode, t.getMessage());
+        this.errMessage = ErrorCodeLoader.getErrMessage(errCode);
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,

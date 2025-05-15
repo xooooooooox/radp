@@ -101,9 +101,10 @@
             <directory/>
             <includes>
                 <include>*.md</include>
-                <include>__gitignore__</include>
+                <include>.gitignore</include>
                 <include>.java-version</include>
                 <include>.tool-versions</include>
+                <include>.gitattributes</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

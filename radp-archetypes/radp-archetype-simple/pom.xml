@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
@@ -13,8 +14,9 @@
         <start-class>space.x9x.radp.Application</start-class>
         <build.jib.enabled>true</build.jib.enabled>
         <build.layers.enabled>true</build.layers.enabled> <!-- 是否激活分层构建 -->
-        <docker.build.image_name />
+        <docker.build.image_name/>
 
+        <maven.javadoc.skip>true</maven.javadoc.skip>
         <maven.install.skip>true</maven.install.skip>
         <maven.deploy.skip>true</maven.deploy.skip>
         <skipPublishing>true</skipPublishing>

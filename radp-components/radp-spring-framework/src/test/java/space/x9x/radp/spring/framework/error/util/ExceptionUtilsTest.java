@@ -24,6 +24,22 @@ class ExceptionUtilsTest {
     }
 
     @Test
+    void test_serverExceptionWithThrowable() {
+        try {
+            try {
+                throw new IllegalArgumentException("aaa");
+            } catch (Exception e) {
+                throw ExceptionUtils.serverException("10000", "world", e);
+            }
+        } catch (ServerException se) {
+            assertEquals("test world", se.getMessage());
+            assertEquals("10000", se.getErrCode());
+            assertEquals(IllegalArgumentException.class, se.getCause().getClass());
+            assertEquals("aaa", se.getCause().getMessage());
+        }
+    }
+
+    @Test
     void test_clientException() {
         try {
             ClientAssert.notNull(null, "10000", "world");

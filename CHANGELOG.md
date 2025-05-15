@@ -2,6 +2,8 @@
 
 ## 3.20
 
+- fix
+  - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies

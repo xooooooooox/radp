@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.framework.error;
 
-import space.x9x.radp.commons.lang.format.MessageFormatter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
+import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 /**
  * @author x9x
@@ -31,6 +31,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errCode;
         this.errMessage = messagePattern;
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
@@ -38,6 +44,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errCode;
         this.errMessage = ErrorCodeLoader.getErrMessage(errCode, params);
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(ErrorCode errorCode) {
@@ -51,6 +63,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errorCode.getCode();
         this.errMessage = errorCode.getMessage();
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(ErrorCode errorCode, Throwable t) {

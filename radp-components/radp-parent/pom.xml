@@ -736,6 +736,7 @@
                     <artifactId>maven-archetype-plugin</artifactId>
                     <configuration>
                         <propertyFile>archetype.properties</propertyFile>
+                        <useDefaultExcludes>false</useDefaultExcludes>
                     </configuration>
                 </plugin>
                 <!-- ====================项目脚手架]==================== -->
@@ -1516,6 +1517,13 @@
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <configuration>
+                            <addDefaultExcludes>false</addDefaultExcludes>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-archetype-plugin</artifactId>

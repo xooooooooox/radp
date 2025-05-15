@@ -1,7 +1,7 @@
 logging:
   level:
     io.modelcontextprotocol.spec.DefaultMcpSession: error
-    # To enable logs the request and response data of the ChatClient
+    # To enable logs the request and response data of the ChatClient,
     # 1) add SimpleLoggerAdvisor to the advisor chain when creating ChatClient
     # 2) see https://docs.spring.io/spring-ai/reference/api/chatclient.html#_logging
     org.springframework.ai.chat.client.advisor: debug

@@ -2,8 +2,12 @@
 
 ## 2.20
 
+- feat
+  - [x] Update Maven plugin configurations to disable default excludes
 - dependencies
-  - [x] Upgrade maven-wrapper-plugin from 3.2.0 to 3.2.2
+  - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.2.2`
+  - [x] Upgrade `maven-resources-plugin.version` from `3.2.0` to `3.3.1`
+  - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `2.20`
   - [x] Optimize `.mvn`

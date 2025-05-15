@@ -24,11 +24,6 @@
         <requiredProperty key="radpVersion">
             <defaultValue>2.20</defaultValue>
         </requiredProperty>
-
-        <!-- 其他 -->
-        <requiredProperty key="gitignore">
-            <defaultValue>.gitignore</defaultValue>
-        </requiredProperty>
     </requiredProperties>
 
     <fileSets>

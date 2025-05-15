@@ -43,11 +43,6 @@
         <requiredProperty key="imageNamespace">
             <defaultValue>xooooooooox</defaultValue>
         </requiredProperty>
-
-        <!-- 其他 -->
-        <requiredProperty key="gitignore">
-            <defaultValue>.gitignore</defaultValue>
-        </requiredProperty>
     </requiredProperties>
 
     <fileSets>

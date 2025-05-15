@@ -21,21 +21,54 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Extended MyBatis-Plus base mapper interface.
+ * This interface extends MPJBaseMapper to provide additional utility methods for
+ * common database operations, including pagination, join queries, simple CRUD operations,
+ * and batch processing. It simplifies database access patterns by providing convenient
+ * default method implementations.
+ *
+ * @param <T> the entity type that this mapper operates on
  * @author x9x
  * @since 2024-12-24 14:38
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
-    // ================================ 分页 ============================== //
+    // ================================ Pagination Methods ============================== //
 
+    /**
+     * Selects a page of records using the provided page parameters and query wrapper.
+     * This method uses the sorting fields from the page parameters for ordering the results.
+     *
+     * @param pageParam    the pagination and sorting parameters
+     * @param queryWrapper the query conditions
+     * @return a page result containing the records and total count
+     */
     default PageResult<T> selectPage(SortablePageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);
     }
 
+    /**
+     * Selects a page of records using the provided page parameters and query wrapper.
+     * This method does not apply any sorting to the results.
+     *
+     * @param pageParam    the pagination parameters
+     * @param queryWrapper the query conditions
+     * @return a page result containing the records and total count
+     */
     default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, null, queryWrapper);
     }
 
+    /**
+     * Selects a page of records using the provided page parameters, sorting fields, and query wrapper.
+     * This is the core pagination method that handles both regular pagination and the special case
+     * where all records are requested (PAGE_SIZE_NONE).
+     *
+     * @param pageParam     the pagination parameters
+     * @param sortingFields the fields to sort by (can be null for no sorting)
+     * @param queryWrapper  the query conditions
+     * @return a page result containing the records and total count
+     */
     default PageResult<T> selectPage(PageParam pageParam, List<SortingField> sortingFields, @Param("ew") Wrapper<T> queryWrapper) {
         if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
             List<T> totalList = selectList(queryWrapper);
@@ -47,47 +80,117 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return PageResult.build(mpPage.getRecords(), mpPage.getTotal());
     }
 
-    // ================================ Join ============================== //
+    // ================================ Join Query Methods ============================== //
 
+    /**
+     * Performs a paginated join query using MyBatis Plus Join.
+     * This method supports retrieving data from multiple tables with a lambda-style wrapper.
+     * It handles both regular pagination and the special case where all records are requested.
+     *
+     * @param <D>           the type of the result objects
+     * @param pageParam     the pagination parameters
+     * @param clazz         the class of the result objects
+     * @param lambdaWrapper the lambda-style join query wrapper
+     * @return a page result containing the joined records and total count
+     */
     default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
         if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
             List<D> totalList = selectJoinList(clazz, lambdaWrapper);
             return PageResult.build(totalList, (long) totalList.size());
         }
 
-        // MyBatis Plus Join 查询
+        // MyBatis Plus Join query
         IPage<D> mpPage = MybatisUtils.buildPage(pageParam);
         mpPage = selectJoinPage(mpPage, clazz, lambdaWrapper);
-        // 转换返回
+        // Convert and return
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
+    /**
+     * Performs a paginated join query using a base join query wrapper.
+     * This method is a more generic version of the join query that works with any
+     * implementation of MPJBaseJoin.
+     *
+     * @param <DTO>            the type of the result objects
+     * @param pageParam        the pagination parameters
+     * @param resultTypeClass  the class of the result objects
+     * @param joinQueryWrapper the join query wrapper
+     * @return a page result containing the joined records and total count
+     */
     @SuppressWarnings("java:S119")
     default <DTO> PageResult<DTO> selectJoinPage(PageParam pageParam, Class<DTO> resultTypeClass, MPJBaseJoin<T> joinQueryWrapper) {
         IPage<DTO> mpPage = MybatisUtils.buildPage(pageParam);
         selectJoinPage(mpPage, resultTypeClass, joinQueryWrapper);
-        // 转换返回
+        // Convert and return
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
-    // ================================ 简单查询 ============================== //
+    // ================================ Simple Query Methods ============================== //
 
+    /**
+     * Selects a single entity by field name and value.
+     * This method creates a query with an equality condition on the specified field.
+     *
+     * @param field the name of the field to filter by
+     * @param value the value to match
+     * @return the matching entity, or null if none found
+     */
     default T selectOne(String field, Object value) {
         return selectOne(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Selects a single entity by field and value using type-safe lambda expressions.
+     * This method creates a lambda query with an equality condition on the specified field.
+     *
+     * @param field the field to filter by, specified as a lambda expression
+     * @param value the value to match
+     * @return the matching entity, or null if none found
+     */
     default T selectOne(SFunction<T, ?> field, Object value) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Selects a single entity by two field names and values.
+     * This method creates a query with equality conditions on both specified fields.
+     *
+     * @param field1 the name of the first field to filter by
+     * @param value1 the value to match for the first field
+     * @param field2 the name of the second field to filter by
+     * @param value2 the value to match for the second field
+     * @return the matching entity, or null if none found
+     */
     default T selectOne(String field1, Object value1, String field2, Object value2) {
         return selectOne(new QueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
+    /**
+     * Selects a single entity by two fields and values using type-safe lambda expressions.
+     * This method creates a lambda query with equality conditions on both specified fields.
+     *
+     * @param field1 the first field to filter by, specified as a lambda expression
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda expression
+     * @param value2 the value to match for the second field
+     * @return the matching entity, or null if none found
+     */
     default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
+    /**
+     * Selects a single entity by three fields and values using type-safe lambda expressions.
+     * This method creates a lambda query with equality conditions on all three specified fields.
+     *
+     * @param field1 the first field to filter by, specified as a lambda expression
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda expression
+     * @param value2 the value to match for the second field
+     * @param field3 the third field to filter by, specified as a lambda expression
+     * @param value3 the value to match for the third field
+     * @return the matching entity, or null if none found
+     */
     default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2,
                         SFunction<T, ?> field3, Object value3) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2)
@@ -138,14 +241,39 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
 
+    /**
+     * Updates all entities that match an empty query wrapper with the provided entity.
+     * This method effectively updates all records in the table with the non-null values
+     * from the provided entity.
+     *
+     * @param update the entity containing the values to update
+     * @return the number of rows affected
+     */
     default int updateBatch(T update) {
         return update(update, new QueryWrapper<>());
     }
 
+    /**
+     * Updates a collection of entities in batch mode.
+     * This method uses MyBatis Plus's batch update functionality to efficiently
+     * update multiple entities by their IDs.
+     *
+     * @param entities the collection of entities to update
+     * @return true if the operation was successful, false otherwise
+     */
     default Boolean updateBatch(Collection<T> entities) {
         return Db.updateBatchById(entities);
     }
 
+    /**
+     * Updates a collection of entities in batch mode with a specified batch size.
+     * This method uses MyBatis Plus's batch update functionality to efficiently
+     * update multiple entities by their IDs, with control over the batch size.
+     *
+     * @param entities the collection of entities to update
+     * @param size     the batch size for the operation
+     * @return true if the operation was successful, false otherwise
+     */
     default Boolean updateBatch(Collection<T> entities, int size) {
         return Db.updateBatchById(entities, size);
     }
@@ -160,11 +288,13 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
     /**
-     * 批量插入
+     * Inserts a collection of entities in batch mode with a specified batch size.
+     * This method uses MyBatis Plus's batch insert functionality to efficiently
+     * insert multiple entities, with control over the batch size.
      *
-     * @param collections 待插入的数据列表
-     * @param size        插入数量, {@link Db#saveBatch} 默认为 1000
-     * @return 操作成功或失败
+     * @param collections the collection of entities to insert
+     * @param size        the batch size for the operation, default is 1000 in {@link Db#saveBatch}
+     * @return true if the operation was successful, false otherwise
      */
     default Boolean insertBatch(Collection<T> collections, int size) {
         return Db.saveBatch(collections, size);

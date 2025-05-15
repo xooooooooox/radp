@@ -8,14 +8,29 @@ import org.springframework.util.StringUtils;
 import java.util.Collection;
 
 /**
- * 拓展 MyBatis Plus QueryWrapper 类，主要增加如下功能
- * <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * Extended MyBatis Plus QueryWrapper class with additional functionality.
+ * <p>
+ * Main enhancements:
+ * <li>Adds conditional methods with {@code xxxIfPresent} naming pattern that only
+ * add conditions to the query when the provided values are not null or empty</li>
+ * <p>
+ * This wrapper simplifies building dynamic queries where conditions should only
+ * be applied when the corresponding values are present.
  *
+ * @param <T> the entity type that this wrapper operates on
  * @author x9x
  * @since 2024-11-20 15:53
  */
 public class QueryWrapperX<T> extends QueryWrapper<T> {
 
+    /**
+     * Adds a LIKE condition to the query only if the value is not null or empty.
+     * This method only applies the condition when the provided string has text.
+     *
+     * @param column the column name to apply the LIKE condition to
+     * @param val    the value to match with LIKE
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> likeIfPresent(String column, String val) {
         if (StringUtils.hasText(val)) {
             return (QueryWrapperX<T>) super.like(column, val);
@@ -23,6 +38,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an IN condition to the query only if the collection of values is not null or empty.
+     * This method only applies the condition when the provided collection contains elements.
+     *
+     * @param column the column name to apply the IN condition to
+     * @param values the collection of values to match with IN
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> inIfPresent(String column, Collection<?> values) {
         if (!CollectionUtils.isEmpty(values)) {
             return (QueryWrapperX<T>) super.in(column, values);
@@ -30,6 +53,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an IN condition to the query only if the array of values is not null or empty.
+     * This method only applies the condition when the provided array contains elements.
+     *
+     * @param column the column name to apply the IN condition to
+     * @param values the array of values to match with IN
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> inIfPresent(String column, Object... values) {
         if (!ArrayUtils.isEmpty(values)) {
             return (QueryWrapperX<T>) super.in(column, values);
@@ -37,6 +68,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an equality (=) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the equality condition to
+     * @param val    the value to match with equality
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> eqIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.eq(column, val);

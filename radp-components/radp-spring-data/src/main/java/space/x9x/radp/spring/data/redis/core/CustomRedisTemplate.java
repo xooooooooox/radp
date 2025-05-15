@@ -10,7 +10,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 自定义 Redis 模板接口
+ * Custom Redis template interface.
+ * This interface defines operations for interacting with Redis cache,
+ * providing methods for key-value operations, hash operations, list operations,
+ * and set operations with type-safe access patterns.
  *
  * @author x9x
  * @since 2024-10-19 16:18
@@ -18,39 +21,42 @@ import java.util.concurrent.TimeUnit;
 public interface CustomRedisTemplate {
 
     /**
-     * 默认过期时间(一天)
+     * Default expiration time (one day) in seconds.
+     * This constant defines the default time-to-live for cached items.
      */
     long DEFAULT_EXPIRE = 86400L;
 
-    // ---------------------------------- RedisObject 操作 ----------------------------------
+    // ---------------------------------- RedisObject Operations ----------------------------------
 
     /**
-     * 判断 key 是否存在
+     * Checks if a key exists in the cache.
      *
-     * @param key 要检查的 key
-     * @return 如果 key 存在返回 true, 否则返回 false
+     * @param key the key to check
+     * @return true if the key exists, false otherwise
      */
     boolean hasKey(String key);
 
     /**
-     * 删除 key
+     * Deletes a key from the cache.
      *
-     * @param key 要删除的 key
+     * @param key the key to delete
+     * @return true if the key was deleted, false otherwise
      */
     boolean delete(String key);
 
     /**
-     * 设置过期时间, 注意元执行操作
+     * Sets an expiration time for a key.
+     * Note: This is a metadata operation that doesn't affect the key's value.
      *
-     * @param key     要设置过期时间的 key
-     * @param timeout 过期时间(单位秒)
+     * @param key     the key to set expiration for
+     * @param timeout the expiration time in seconds
+     * @return true if the expiration was set, false otherwise
      */
     boolean expire(String key, long timeout);
 
-    // ---------------------------------- String 操作 ----------------------------------
+    // ---------------------------------- String Operations ----------------------------------
 
     /**
-     * 根据 key 获取值对象, 并反序列化为对应的类类型
      * Retrieves an object from the cache by its key and deserializes it to the specified class type.
      *
      * @param <T>   the type of the object to be returned
@@ -102,7 +108,7 @@ public interface CustomRedisTemplate {
      */
     <T> void set(String key, T data, long timeout, TimeUnit unit);
 
-    // ---------------------------------- Hash 操作 ----------------------------------
+    // ---------------------------------- Hash Operations ----------------------------------
 
     /**
      * Retrieves a value from a hash map in the cache by its key and hash key,
@@ -159,7 +165,7 @@ public interface CustomRedisTemplate {
      */
     void hDelete(String key, Object... hashKeys);
 
-    // ---------------------------------- List 操作 ----------------------------------
+    // ---------------------------------- List Operations ----------------------------------
 
     /**
      * Retrieves a sublist of elements from a list stored in the cache, within the specified range, and deserializes them to the specified class type.
@@ -182,7 +188,7 @@ public interface CustomRedisTemplate {
      */
     <T> void rightPushAll(String key, List<T> data);
 
-    // ---------------------------------- Set 操作 ----------------------------------
+    // ---------------------------------- Set Operations ----------------------------------
 
     /**
      * Retrieves a set of members associated with the specified key from the cache.

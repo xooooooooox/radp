@@ -21,12 +21,16 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Extended base mapper interface that provides additional utility methods for database operations.
+ * This interface extends MPJBaseMapper to support complex queries including joins,
+ * pagination, and common CRUD operations with simplified syntax.
+ *
  * @author x9x
  * @since 2024-12-24 14:38
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
-    // ================================ 分页 ============================== //
+    // ================================ Pagination Methods ============================== //
 
     default PageResult<T> selectPage(SortablePageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);
@@ -47,7 +51,7 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return PageResult.build(mpPage.getRecords(), mpPage.getTotal());
     }
 
-    // ================================ Join ============================== //
+    // ================================ Join Query Methods ============================== //
 
     default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
         if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
@@ -55,10 +59,10 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
             return PageResult.build(totalList, (long) totalList.size());
         }
 
-        // MyBatis Plus Join 查询
+        // Execute MyBatis Plus Join query
         IPage<D> mpPage = MybatisUtils.buildPage(pageParam);
         mpPage = selectJoinPage(mpPage, clazz, lambdaWrapper);
-        // 转换返回
+        // Convert and return the result
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
@@ -66,11 +70,11 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     default <DTO> PageResult<DTO> selectJoinPage(PageParam pageParam, Class<DTO> resultTypeClass, MPJBaseJoin<T> joinQueryWrapper) {
         IPage<DTO> mpPage = MybatisUtils.buildPage(pageParam);
         selectJoinPage(mpPage, resultTypeClass, joinQueryWrapper);
-        // 转换返回
+        // Convert and return the result
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
-    // ================================ 简单查询 ============================== //
+    // ================================ Simple Query Methods ============================== //
 
     default T selectOne(String field, Object value) {
         return selectOne(new QueryWrapper<T>().eq(field, value));
@@ -160,11 +164,11 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
     /**
-     * 批量插入
+     * Batch inserts a collection of entities into the database.
      *
-     * @param collections 待插入的数据列表
-     * @param size        插入数量, {@link Db#saveBatch} 默认为 1000
-     * @return 操作成功或失败
+     * @param collections the collection of entities to insert
+     * @param size        the batch size for the operation, default is 1000 in {@link Db#saveBatch}
+     * @return true if the operation was successful, false otherwise
      */
     default Boolean insertBatch(Collection<T> collections, int size) {
         return Db.saveBatch(collections, size);

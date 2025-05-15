@@ -145,7 +145,7 @@
         <git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
         <!-- 项目脚手架 -->
         <archetype-packaging.version>3.2.0</archetype-packaging.version>
-        <maven-archetype-plugin.version>3.2.0</maven-archetype-plugin.version>
+        <maven-archetype-plugin.version>3.3.1</maven-archetype-plugin.version>
         <!-- Docker 部署 -->
         <jib-maven-plugin.version>3.4.5</jib-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
@@ -178,6 +178,7 @@
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
         <wagon-maven-plugin.version>2.0.2</wagon-maven-plugin.version>
         <snakeyaml.version>2.3</snakeyaml.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     </properties>
 
     <dependencyManagement>

@@ -8,6 +8,7 @@
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`
   - [x] Add .gitattributes
+  - [x] Add default ApplicationTests
 
 ## 3.19.1
 

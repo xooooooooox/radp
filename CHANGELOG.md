@@ -4,6 +4,7 @@
 
 - feat
   - [x] Update Maven plugin configurations to disable default excludes
+  - [x] Add javadoc
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
   - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter

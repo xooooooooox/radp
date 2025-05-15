@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 3.20
+
+- dependencies
+  - [x] Upgrade maven-wrapper-plugin from 3.2.0 to 3.2.2
+- scaffold
+  - [x] Update scaffold default radpVersion to `3.20`
+  - [x] Optimize `.mvn`
+  - [x] Add .gitattributes
+
 ## 3.19.1
 
 - fix

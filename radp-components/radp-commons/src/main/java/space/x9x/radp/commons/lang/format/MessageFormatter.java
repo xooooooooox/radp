@@ -335,6 +335,15 @@ public class MessageFormatter {
         stringBuilder.append(']');
     }
 
+    /**
+     * Extracts a Throwable from the last element of an array if it is a Throwable.
+     * <p>
+     * This method is useful for message formatting patterns where the last argument
+     * might be an exception that should be handled specially.
+     *
+     * @param argArray the array to check for a Throwable as its last element
+     * @return the last element as a Throwable if it is one, or null otherwise
+     */
     public static Throwable getThrowableCandidate(final Object[] argArray) {
         if (argArray == null || argArray.length == 0) {
             return null;
@@ -348,6 +357,16 @@ public class MessageFormatter {
         return null;
     }
 
+    /**
+     * Creates a copy of an array without its last element.
+     * <p>
+     * This method is typically used in conjunction with {@link #getThrowableCandidate}
+     * to separate the exception from the rest of the arguments for message formatting.
+     *
+     * @param argArray the array to trim (must not be null or empty)
+     * @return a new array containing all elements except the last one
+     * @throws IllegalStateException if the input array is null or empty
+     */
     public static Object[] trimmedCopy(final Object[] argArray) {
         if (argArray == null || argArray.length == 0) {
             throw new IllegalStateException("non-sensical empty or null argument array");

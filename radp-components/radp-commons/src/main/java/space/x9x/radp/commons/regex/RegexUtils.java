@@ -40,15 +40,36 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class RegexUtils {
 
+    /**
+     * Checks if the entire input sequence matches the regex pattern.
+     *
+     * @param regex the regular expression pattern
+     * @param input the character sequence to be matched
+     * @return true if the entire input sequence matches the pattern
+     */
     public static boolean isMatch(@NonNull String regex, @NonNull CharSequence input) {
         return Pattern.matches(regex, input);
     }
 
+    /**
+     * Searches for the first occurrence of the regex pattern in the input sequence.
+     *
+     * @param regex the regular expression pattern
+     * @param input the character sequence to be searched
+     * @return true if the pattern is found in the input sequence
+     */
     public static boolean find(@NonNull String regex, @NonNull CharSequence input) {
         Pattern pattern = RegexCache.get(regex, Pattern.CASE_INSENSITIVE);
         return pattern.matcher(input).find();
     }
 
+    /**
+     * Extracts all capturing groups from the input sequence that match the regex pattern.
+     *
+     * @param regex the regular expression pattern with capturing groups
+     * @param input the character sequence to be searched
+     * @return a list of all captured group values
+     */
     public static List<String> group(@NonNull String regex, @NonNull CharSequence input) {
         List<String> matches = new ArrayList<>();
         Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
@@ -61,10 +82,25 @@ public class RegexUtils {
         return matches;
     }
 
+    /**
+     * Extracts the first capturing group from the first match of the regex pattern in the input sequence.
+     *
+     * @param regex the regular expression pattern with capturing groups
+     * @param input the character sequence to be searched
+     * @return the value of the first capturing group, or null if no match is found
+     */
     public static String groupFirst(@NonNull String regex, @NonNull CharSequence input) {
         return group(regex, input, 1);
     }
 
+    /**
+     * Extracts a specific capturing group from the first match of the regex pattern in the input sequence.
+     *
+     * @param regex      the regular expression pattern with capturing groups
+     * @param input      the character sequence to be searched
+     * @param groupIndex the index of the capturing group to extract
+     * @return the value of the specified capturing group, or null if no match is found
+     */
     public static String group(@NonNull String regex, @NonNull CharSequence input, int groupIndex) {
         Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(input);
@@ -74,10 +110,26 @@ public class RegexUtils {
         return null;
     }
 
+    /**
+     * Replaces all occurrences of the regex pattern in the input sequence with the specified replacement.
+     *
+     * @param regex the regular expression pattern
+     * @param input the character sequence to be processed
+     * @param replacement the string to replace each match with
+     * @return the resulting string after replacement
+     */
     public static String replaceAll(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
         return Pattern.compile(regex).matcher(input).replaceAll(replacement);
     }
 
+    /**
+     * Replaces the first occurrence of the regex pattern in the input sequence with the specified replacement.
+     *
+     * @param regex the regular expression pattern
+     * @param input the character sequence to be processed
+     * @param replacement the string to replace the first match with
+     * @return the resulting string after replacement
+     */
     public static String replaceFirst(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
         Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
         return pattern.matcher(input).replaceFirst(replacement);

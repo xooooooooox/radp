@@ -1,11 +1,11 @@
 package space.x9x.radp.commons.net;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -24,6 +24,13 @@ public class IpConfigUtils {
     private static final String IP_ADDRESS = getIpAddress(null);
     private static final String SUBNET_MASK = "255.255.255.0";
 
+    /**
+     * Returns the IP address of the local machine.
+     * <p>
+     * This method returns a cached IP address that was determined when the class was loaded.
+     *
+     * @return the IP address of the local machine
+     */
     public static String getIpAddress() {
         return IP_ADDRESS;
     }
@@ -75,6 +82,22 @@ public class IpConfigUtils {
         return ipList;
     }
 
+    /**
+     * Extracts the client IP address from an HTTP request.
+     * <p>
+     * This method attempts to find the client IP address by checking various HTTP headers
+     * that might contain the original client IP when the request passes through proxies.
+     * It checks the following headers in order:
+     * <ol>
+     *   <li>X-Forwarded-For</li>
+     *   <li>Proxy-Client-IP</li>
+     *   <li>WL-Proxy-Client-IP</li>
+     * </ol>
+     * If none of these headers contain a valid IP, it falls back to the remote address from the request.
+     *
+     * @param request the HTTP servlet request
+     * @return the client IP address
+     */
     public static String parseIpAddress(@NonNull HttpServletRequest request) {
         String ip = request.getHeader(X_FORWARDED_FOR);
         if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
@@ -89,6 +112,17 @@ public class IpConfigUtils {
         return ip;
     }
 
+    /**
+     * Checks if two IP addresses are in the same subnet using the default subnet mask.
+     * <p>
+     * This method uses the default subnet mask (255.255.255.0) to determine if the
+     * two provided IP addresses belong to the same subnet.
+     *
+     * @param ip1 the first IP address
+     * @param ip2 the second IP address
+     * @return true if both IP addresses are in the same subnet, false otherwise
+     * @throws UnknownHostException if either IP address cannot be resolved
+     */
     public static boolean isSameSubnet(String ip1, String ip2) throws UnknownHostException {
         return isSameSubnet(ip1, ip2, SUBNET_MASK);
     }

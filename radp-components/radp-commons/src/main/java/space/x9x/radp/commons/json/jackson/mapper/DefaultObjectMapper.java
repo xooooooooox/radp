@@ -6,14 +6,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.io.Serial;
+
 /**
  * @author x9x
  * @since 2024-09-23 13:50
  */
 public class DefaultObjectMapper extends ObjectMapper {
 
+    @Serial
     private static final long serialVersionUID = -4849410602482226754L;
 
+    /**
+     * Constructs a new DefaultObjectMapper with pre-configured settings.
+     * <p>
+     * This constructor initializes an ObjectMapper with the following configurations:
+     * <ul>
+     *   <li>Serialization inclusion set to ALWAYS (includes all properties)</li>
+     *   <li>Ignores unknown properties during deserialization</li>
+     *   <li>Disables failure on empty beans during serialization</li>
+     *   <li>Configures dates to be serialized as ISO-8601 strings rather than timestamps</li>
+     *   <li>Registers JavaTimeModule for Java 8 date/time API support</li>
+     * </ul>
+     */
     public DefaultObjectMapper() {
         super();
 

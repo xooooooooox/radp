@@ -13,6 +13,9 @@ import java.util.Map;
 @UtilityClass
 public class ClassLoaderUtils {
 
+    /**
+     * Map of primitive type names to their corresponding Class objects.
+     */
     private static final Map<String, Class<?>> PRIMITIVE_CLASSES;
 
     static {
@@ -29,6 +32,19 @@ public class ClassLoaderUtils {
         PRIMITIVE_CLASSES = Collections.unmodifiableMap(primitives);
     }
 
+    /**
+     * Gets an appropriate ClassLoader based on context.
+     * <p>
+     * This method attempts to find a ClassLoader in the following order:
+     * <ol>
+     *   <li>The current thread's context ClassLoader</li>
+     *   <li>The ClassLoader of the specified class</li>
+     *   <li>The system ClassLoader</li>
+     * </ol>
+     *
+     * @param clazz the class whose ClassLoader should be used if the thread context ClassLoader is unavailable
+     * @return an appropriate ClassLoader
+     */
     public static ClassLoader getClassLoader(Class<?> clazz) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null) {

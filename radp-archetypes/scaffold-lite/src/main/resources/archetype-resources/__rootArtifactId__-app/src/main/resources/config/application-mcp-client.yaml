@@ -1,14 +1,17 @@
-## 二选一
-
---- # 方式一: mcp sse
 logging:
   level:
     io.modelcontextprotocol.spec.DefaultMcpSession: error
+    # To enable logs the request and response data of the ChatClient
+    # 1) add SimpleLoggerAdvisor to the advisor chain when creating ChatClient
+    # 2) see https://docs.spring.io/spring-ai/reference/api/chatclient.html#_logging
+    org.springframework.ai.chat.client.advisor: debug
 
 spring:
   ai:
     mcp:
       client:
+        toolcallback:
+          enabled: true
         enabled: true
         name: ${spring.application.name}
         version: ${spring.application.version}
@@ -16,19 +19,14 @@ spring:
         type: sync
         # MCP 客户端请求超时时长
         request-timeout: 360s
-        sse:
-          connections:
-            # 通过 http://mcp-server-xx:8888/sse 验证服务是否成功启动
-            mcp-server-xx:
-              url: http://mcp-server-xx:8888
-
---- # 方式二: mcp stdio
-#spring:
-#  ai:
-#    toolcallback:
-#      enabled: true
-#    mcp:
-#      client:
+        # 以下为两种模式的最小配置, 根据需要取消注释
+#        # 1) SSE mode
+#        sse:
+#          connections:
+#            # 通过 http://mcp-server-xx:8888/sse 验证服务是否成功启动
+#            mcp-server-xx:
+#              url: http://mcp-server-xx:8888
+#        # 2) Stdio mode
 #        stdio:
 #          servers-configuration: classpath:/config/mcp-servers-config.json
 

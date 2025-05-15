@@ -2,6 +2,8 @@
 
 ## 3.20
 
+- docs
+  - [x] Add javadoc for core classes and methods
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
   - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
@@ -10,13 +12,14 @@
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies
-  - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.2.2`
+  - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`
   - [x] Add .gitattributes
   - [x] Add default ApplicationTests
+  - [X] Add GitHub Issue Templates
 
 ## 3.19.1
 

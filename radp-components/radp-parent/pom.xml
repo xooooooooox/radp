@@ -897,7 +897,7 @@
                     <artifactId>maven-wrapper-plugin</artifactId>
                     <configuration>
                         <mavenVersion>3.9.9</mavenVersion>
-                        <distributionType>source</distributionType>
+                        <distributionType>only-script</distributionType>
                     </configuration>
                 </plugin>
                 <!-- ====================其他]==================== -->

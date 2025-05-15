@@ -2,8 +2,11 @@
 
 ## 3.20
 
+- parent
+  - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies
-  - [x] Upgrade maven-wrapper-plugin from 3.2.0 to 3.2.2
+  - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.2.2`
+  - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`

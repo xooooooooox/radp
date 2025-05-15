@@ -10,16 +10,15 @@ class ServerAssertTest {
 
     @Test
     void test() {
-        String messagePattern = "test {}";
+        String messagePattern = "hello {}";
         Object[] params = {"world"};
         String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
-        assertEquals("test world", message);
+        assertEquals("hello world", message);
 
         try {
             ServerAssert.notNull(null, "10000", "world");
         } catch (Exception e) {
-            e.printStackTrace();
-            assertEquals("test world", e.getMessage());
+            assertEquals("hello world", e.getMessage());
         }
     }
 }

@@ -24,11 +24,6 @@
         <requiredProperty key="radpVersion">
             <defaultValue>3.20</defaultValue>
         </requiredProperty>
-
-        <!-- 其他 -->
-        <requiredProperty key="gitignore">
-            <defaultValue>.gitignore</defaultValue>
-        </requiredProperty>
     </requiredProperties>
 
     <fileSets>
@@ -44,9 +39,10 @@
             <directory/>
             <includes>
                 <include>*.md</include>
-                <include>__gitignore__</include>
+                <include>.gitignore</include>
                 <include>.java-version</include>
                 <include>.tool-versions</include>
+                <include>.gitattributes</include>
             </includes>
         </fileSet>
         <!-- github -->

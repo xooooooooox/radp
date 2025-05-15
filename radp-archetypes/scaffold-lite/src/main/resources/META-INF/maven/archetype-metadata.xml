@@ -16,6 +16,9 @@
         <requiredProperty key="version">
             <defaultValue>1.0-SNAPSHOT</defaultValue>
         </requiredProperty>
+        <requiredProperty key="package">
+            <defaultValue>space.x9x.demo</defaultValue>
+        </requiredProperty>
 
         <!-- radp-parent version -->
         <requiredProperty key="radpVersion">

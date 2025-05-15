@@ -12,5 +12,8 @@
     <name>${project.artifactId}</name>
     <description>冒烟测试</description>
 
+    <modules>
+        <module>radp-smoke-tests-framework</module>
+    </modules>
 
 </project>

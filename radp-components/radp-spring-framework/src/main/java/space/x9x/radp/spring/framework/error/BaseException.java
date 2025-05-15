@@ -19,9 +19,11 @@ public class BaseException extends RuntimeException {
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                          Throwable t) {
-        super(ErrorCodeLoader.getErrMessage(errCode, t.getMessage()));
+        super(ErrorCodeLoader.getErrMessage(errCode), t);
+        // The super constructor takes both message and cause, ensuring the exception's stack trace is preserved
+        // We get the error message without trying to replace placeholders with the exception message
         this.errCode = errCode;
-        this.errMessage = ErrorCodeLoader.getErrMessage(errCode, t.getMessage());
+        this.errMessage = ErrorCodeLoader.getErrMessage(errCode);
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -31,6 +33,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errCode;
         this.errMessage = messagePattern;
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
@@ -38,6 +46,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errCode;
         this.errMessage = ErrorCodeLoader.getErrMessage(errCode, params);
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(ErrorCode errorCode) {
@@ -51,6 +65,12 @@ public class BaseException extends RuntimeException {
         this.errCode = errorCode.getCode();
         this.errMessage = errorCode.getMessage();
         this.params = params;
+
+        // Check if the last parameter is a Throwable and set it as the cause
+        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(params);
+        if (throwableCandidate != null) {
+            this.initCause(throwableCandidate);
+        }
     }
 
     public BaseException(ErrorCode errorCode, Throwable t) {

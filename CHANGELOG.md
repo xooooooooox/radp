@@ -4,6 +4,13 @@
 
 - feat
   - [x] Update Maven plugin configurations to disable default excludes
+- fix
+  - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
+  - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
+  - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
+    replacement
+- parent
+  - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.2.2`
   - [x] Upgrade `maven-resources-plugin.version` from `3.2.0` to `3.3.1`

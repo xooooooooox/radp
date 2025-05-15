@@ -1,20 +1,17 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package ${package}.test;
+package ${package};
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-/**
- * @author x9x
- * @since 2025-04-09 12:34
- */
+
 @SpringBootTest
-class ApiTest {
+public class ApplicationTests {
 
     @Test
-    void test() {
-
+    void contextLoads() {
     }
+
 }

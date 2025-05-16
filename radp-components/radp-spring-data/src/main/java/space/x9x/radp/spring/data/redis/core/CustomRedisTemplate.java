@@ -150,9 +150,9 @@ public interface CustomRedisTemplate {
     /**
      * Sets a value in the hash stored at the specified key and hash key.
      *
-     * @param key the key under which the hash is stored
+     * @param key     the key under which the hash is stored
      * @param hashKey the key within the hash to store the value
-     * @param value the value to be stored in the hash
+     * @param value   the value to be stored in the hash
      */
     void hset(String key, String hashKey, String value);
 
@@ -167,7 +167,7 @@ public interface CustomRedisTemplate {
     /**
      * Deletes one or more hash keys from the hash stored at the specified key in the cache.
      *
-     * @param key the key of the hash map in the cache
+     * @param key      the key of the hash map in the cache
      * @param hashKeys the hash keys to delete from the hash map
      */
     void hDelete(String key, Object... hashKeys);
@@ -209,8 +209,8 @@ public interface CustomRedisTemplate {
      * Adds a list of values associated with the given key in the cache.
      * This method stores the provided list of values in the cache using the specified key.
      *
-     * @param <T>    the type of the values to be added
-     * @param key    the key under which the list of values is to be stored
+     * @param <T>  the type of the values to be added
+     * @param key  the key under which the list of values is to be stored
      * @param data the list of values to be stored in the cache
      */
     <T> void add(String key, List<T> data);
@@ -221,7 +221,8 @@ public interface CustomRedisTemplate {
      * Constructs a Redis key using the provided key name and identifier.
      *
      * @param keyPrefix the base key name to be used in the Redis key
-     * @param key the unique identifier to be appended to the key name
+     * @param key       the unique identifier to be appended to the key name
+     * @param <T>       the type of the key parameter, which will be converted to a string
      * @return a string representing the complete Redis key
      */
     default <T> String buildRedisKey(String keyPrefix, T key) {

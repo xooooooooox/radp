@@ -39,6 +39,18 @@ public class ExtendJasyptProperties extends Properties {
      */
     private static final String CONFIG_FILE_ENV = "JASYPT_CONFIG_FILE";
 
+    /**
+     * Constructs a new ExtendJasyptProperties with an initialized encryptor.
+     * This constructor sets up a Jasypt encryptor with configuration loaded from various sources
+     * in the following priority order:
+     * 1. System properties
+     * 2. Environment variables
+     * 3. External configuration file (if specified)
+     * <p>
+     * The constructor configures a StandardPBEStringEncryptor with the password and algorithm
+     * settings, then initializes EncryptableProperties with this encryptor to enable
+     * transparent decryption of encrypted property values.
+     */
     public ExtendJasyptProperties() {
         // 加载外部配置文件(如果指定)
         Properties externalConfig = loadExternalConfig();

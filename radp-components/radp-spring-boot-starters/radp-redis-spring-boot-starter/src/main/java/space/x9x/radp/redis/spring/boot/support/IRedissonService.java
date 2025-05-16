@@ -13,6 +13,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
+     * @param <T>   the type of the value to be stored
      * @param key   键
      * @param value 值
      */
@@ -21,6 +22,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
+     * @param <T>     the type of the value to be stored
      * @param key     键
      * @param value   值
      * @param expired 过期时间
@@ -30,6 +32,7 @@ public interface IRedissonService {
     /**
      * 获取指定 key 的值
      *
+     * @param <T> the type of the value to be retrieved
      * @param key 键
      * @return 值
      */
@@ -74,6 +77,7 @@ public interface IRedissonService {
      * 获取值
      *
      * @param key key 键
+     * @return the atomic long value associated with the key
      */
     Long getAtomicLong(String key);
 
@@ -88,7 +92,8 @@ public interface IRedissonService {
     /**
      * 指定值，自增 Key 的值；1、2、3、4
      *
-     * @param key 键
+     * @param key   键
+     * @param delta the value to increment by
      * @return 自增后的值
      */
     long incrBy(String key, long delta);
@@ -104,7 +109,8 @@ public interface IRedissonService {
     /**
      * 指定值，自增 Key 的值；1、2、3、4
      *
-     * @param key 键
+     * @param key   键
+     * @param delta the value to decrement by
      * @return 自增后的值
      */
     long decrBy(String key, long delta);
@@ -161,6 +167,8 @@ public interface IRedissonService {
     /**
      * 获取Map
      *
+     * @param <K> the type of keys maintained by this map
+     * @param <V> the type of mapped values
      * @param key 键
      * @return 值
      */
@@ -187,6 +195,8 @@ public interface IRedissonService {
     /**
      * 获取哈希表中指定字段的值
      *
+     * @param <K>   the type of the field
+     * @param <V>   the type of the value to be retrieved
      * @param key   键
      * @param field 字段
      * @return 值

@@ -18,6 +18,11 @@ import java.util.Map;
 public class URL implements Serializable {
     private static final long serialVersionUID = 6346161581235040323L;
 
+    /**
+     * The parameters map containing key-value pairs for configuration.
+     * This map stores all the parameters associated with this URL,
+     * which can be used to configure extension behavior.
+     */
     @Getter
     private final Map<String, String> parameters;
 

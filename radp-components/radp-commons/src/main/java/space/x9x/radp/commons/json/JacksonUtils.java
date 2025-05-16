@@ -294,6 +294,7 @@ public class JacksonUtils {
      * @param <T>           the type of the desired object
      * @param text          the JSON string to parse, may be null or empty
      * @param typeReference the type of the object to create
+     * @param objectMapper  the ObjectMapper to use for parsing
      * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
      * provided {@code text} is empty or null, or if an error occurs during parsing
      */

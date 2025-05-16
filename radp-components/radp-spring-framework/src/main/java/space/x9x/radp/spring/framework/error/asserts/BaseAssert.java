@@ -171,6 +171,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given map is not empty.
+     *
+     * @param map the map to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values for the error message
      */
     public void assertNotEmpty(@NonNull Map<?, ?> map,
                         @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -183,6 +187,11 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given subType is assignable to the given superType.
+     *
+     * @param superType the super type to check against
+     * @param subType the sub type to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values for the error message
      */
     public void assertIsAssignable(Class<?> superType, @NonNull Class<?> subType,
                             @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -195,6 +204,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given expression is true.
+     *
+     * @param expression the boolean expression to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values for the error message
      */
     public void assertState(boolean expression,
                      @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {

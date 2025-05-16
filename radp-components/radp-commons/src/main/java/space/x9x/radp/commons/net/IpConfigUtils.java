@@ -24,6 +24,13 @@ public class IpConfigUtils {
     private static final String IP_ADDRESS = getIpAddress(null);
     private static final String SUBNET_MASK = "255.255.255.0";
 
+    /**
+     * Returns the IP address of the local machine.
+     * <p>
+     * This method returns a cached IP address that was determined when the class was loaded.
+     *
+     * @return the IP address of the local machine
+     */
     public static String getIpAddress() {
         return IP_ADDRESS;
     }
@@ -75,6 +82,16 @@ public class IpConfigUtils {
         return ipList;
     }
 
+    /**
+     * Extracts the client's IP address from an HTTP request.
+     * <p>
+     * This method attempts to find the client IP by checking various HTTP headers
+     * that might contain proxy information, falling back to the remote address
+     * if no valid IP is found in the headers.
+     *
+     * @param request the HTTP servlet request
+     * @return the client's IP address
+     */
     public static String parseIpAddress(@NonNull HttpServletRequest request) {
         String ip = request.getHeader(X_FORWARDED_FOR);
         if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
@@ -89,6 +106,14 @@ public class IpConfigUtils {
         return ip;
     }
 
+    /**
+     * Checks if two IP addresses are in the same subnet using the default subnet mask.
+     *
+     * @param ip1 the first IP address
+     * @param ip2 the second IP address
+     * @return true if both IP addresses are in the same subnet, false otherwise
+     * @throws UnknownHostException if either IP address cannot be resolved
+     */
     public static boolean isSameSubnet(String ip1, String ip2) throws UnknownHostException {
         return isSameSubnet(ip1, ip2, SUBNET_MASK);
     }

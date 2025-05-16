@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>space.x9x.radp</groupId>
+        <artifactId>radp-smoke-tests</artifactId>
+        <version>2.20-SNAPSHOT</version>
+    </parent>
+    <artifactId>radp-smoke-tests-archetype</artifactId>
+    <version>2.20-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <!-- 在 radp-smoke-tests-archetype-xxx 进行脚手架源代码开发 -->
+        <module>radp-smoke-tests-archetype-lite</module>
+        <module>radp-smoke-tests-archetype-simple</module>
+        <module>radp-smoke-tests-archetype-starter</module>
+        <module>radp-smoke-tests-archetype-std</module>
+        <module>radp-smoke-tests-archetype-tiny</module>
+    </modules>
+</project>

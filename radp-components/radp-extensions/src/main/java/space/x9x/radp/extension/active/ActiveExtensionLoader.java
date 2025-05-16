@@ -20,7 +20,18 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ActiveExtensionLoader<T> {
 
+    /**
+     * Prefix used to indicate that an extension should be removed from the activation list.
+     * When a value in the activation list starts with this prefix, the extension with the name
+     * that follows the prefix will be excluded from activation.
+     */
     public static final String REMOVE_VALUE_PREFIX = "-";
+
+    /**
+     * Default key used for extension activation.
+     * This constant is used as a fallback when no specific key is provided,
+     * and for special handling in the activation process.
+     */
     public static final String DEFAULT_KEY = "default";
 
     /**
@@ -30,6 +41,14 @@ public class ActiveExtensionLoader<T> {
 
     private final ExtensionLoader<T> extensionLoader;
 
+    /**
+     * Caches a class with the Activate annotation.
+     * This method checks if the provided class has the Activate annotation,
+     * and if so, stores it in the cache with the specified name.
+     *
+     * @param clazz the class to check for the Activate annotation
+     * @param name  the name under which to cache the class
+     */
     public void cacheActiveClass(Class<?> clazz, String name) {
         Activate activate = clazz.getAnnotation(Activate.class);
         if (activate != null) {
@@ -37,6 +56,18 @@ public class ActiveExtensionLoader<T> {
         }
     }
 
+    /**
+     * Gets a list of activated extensions based on the specified URL, values, and group.
+     * This is the main implementation method that handles the complex logic of extension activation.
+     * It processes the values array to determine which extensions should be activated,
+     * taking into account the group filter and any exclusions indicated by the REMOVE_VALUE_PREFIX.
+     * Extensions are sorted according to their order and returned as a list.
+     *
+     * @param url    the URL containing parameters for extension activation
+     * @param values the array of values to use for extension activation, may contain exclusions
+     * @param group  the group to filter extensions by, can be null for no filtering
+     * @return a list of activated extension instances that match the criteria
+     */
     public List<T> getActivateExtension(URL url, String[] values, String group) {
         List<T> activateExtensions = new ArrayList<>();
         TreeMap<Class<?>, T> activateExtensionsMap = new TreeMap<>(ActivateComparator.COMPARATOR);
@@ -95,6 +126,15 @@ public class ActiveExtensionLoader<T> {
         return activateExtensions;
     }
 
+    /**
+     * Gets a list of activated extensions based on the URL parameter value for the specified key.
+     * This is a convenience method that calls {@link #getActivateExtension(URL, String, String)}
+     * with a null group parameter.
+     *
+     * @param url the URL containing parameters for extension activation
+     * @param key the parameter key to look up in the URL
+     * @return a list of activated extension instances that match the criteria
+     */
     public List<T> getActivateExtension(URL url, String key) {
         return getActivateExtension(url, key, null);
     }
@@ -115,6 +155,15 @@ public class ActiveExtensionLoader<T> {
                 Constants.COMMA_SPLIT_PATTERN.split(value), group);
     }
 
+    /**
+     * Gets a list of activated extensions based on the specified URL and values.
+     * This is a convenience method that calls {@link #getActivateExtension(URL, String[], String)}
+     * with a null group parameter.
+     *
+     * @param url    the URL containing parameters for extension activation
+     * @param values the array of values to use for extension activation
+     * @return a list of activated extension instances that match the criteria
+     */
     public List<T> getActivateExtension(URL url, String[] values) {
         return getActivateExtension(url, values, null);
     }

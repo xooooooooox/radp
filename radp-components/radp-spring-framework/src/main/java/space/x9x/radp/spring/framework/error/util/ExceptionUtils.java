@@ -224,22 +224,66 @@ public class ExceptionUtils {
 
     // ================== ThirdServiceException ==================
 
+    /**
+     * Creates a ThirdServiceException with the specified ErrorCode.
+     * This method creates a new ThirdServiceException using the provided ErrorCode object,
+     * which contains both the error code and message.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @return a new ThirdServiceException with the specified error code and message
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode) {
         return new ThirdServiceException(errorCode);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified ErrorCode and parameters.
+     * This method creates a new ThirdServiceException using the provided ErrorCode object
+     * and parameters for message formatting.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message template
+     * @param params    the parameters to be substituted in the message template
+     * @return a new ThirdServiceException with the specified error code and formatted message
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode, Object... params) {
         return new ThirdServiceException(errorCode, params);
     }
 
+    /**
+     * Creates a ThirdServiceException from a Throwable.
+     * This method creates a new ThirdServiceException with an UNKNOWN error code
+     * and the provided Throwable as the cause.
+     *
+     * @param t the Throwable to wrap in a ThirdServiceException
+     * @return a new ThirdServiceException with an UNKNOWN error code and the specified cause
+     */
     public static ThirdServiceException thirdServiceException(Throwable t) {
         return new ThirdServiceException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified ErrorCode and cause.
+     * This method creates a new ThirdServiceException using the provided ErrorCode object
+     * and the specified Throwable as the cause.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ThirdServiceException with the specified error code, message, and cause
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode, Throwable t) {
         return new ThirdServiceException(errorCode, t);
     }
 
+    /**
+     * Creates a ThirdServiceException with a custom message pattern and parameters.
+     * This method creates a new ThirdServiceException with an UNKNOWN error code
+     * and a message formatted using the provided pattern and parameters.
+     * The '0' suffix in the method name indicates this is a direct message formatting method.
+     *
+     * @param messagePattern the pattern for formatting the error message
+     * @param params the parameters to be substituted in the message pattern
+     * @return a new ThirdServiceException with an UNKNOWN error code and the formatted message
+     */
     public static ThirdServiceException thirdServiceException0(String messagePattern, Object... params) {
         return new ThirdServiceException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
@@ -269,6 +313,15 @@ public class ExceptionUtils {
         return new ThirdServiceException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and cause.
+     * This method creates a new ThirdServiceException using an error code from the resource bundle
+     * and the specified Throwable as the cause.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ThirdServiceException with the specified error code, message, and cause
+     */
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ThirdServiceException(code, t);
     }

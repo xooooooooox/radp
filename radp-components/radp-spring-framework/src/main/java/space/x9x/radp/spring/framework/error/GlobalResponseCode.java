@@ -20,8 +20,18 @@ public enum GlobalResponseCode {
     SUCCESS("0"),
 
     // ========== 4xx ==========
+    /**
+     * Bad Request (HTTP 400).
+     * The server cannot or will not process the request due to a client error,
+     * such as malformed request syntax, invalid request message framing, or deceptive request routing.
+     */
     BAD_REQUEST("400"),
     UNAUTHORIZED("401"),
+    /**
+     * Forbidden (HTTP 403).
+     * The server understood the request but refuses to authorize it.
+     * Unlike 401 Unauthorized, re-authenticating will make no difference.
+     */
     FORBIDDEN("403"),
     NOT_FOUND("404"),
     METHOD_NOT_ALLOWED("405"),
@@ -31,9 +41,19 @@ public enum GlobalResponseCode {
     TOO_MANY_REQUESTS("429"),
 
     // ========== 5xx ==========
+    /**
+     * Internal Server Error (HTTP 500).
+     * The server has encountered a situation it doesn't know how to handle.
+     * This is a generic server error response when no more specific message is suitable.
+     */
     INTERNAL_SERVER_ERROR("500"),
     NOT_IMPLEMENTED("501"),
     SERVICE_UNAVAILABLE("503"),
+    /**
+     * Gateway Timeout (HTTP 504).
+     * The server, while acting as a gateway or proxy, did not receive a timely response
+     * from an upstream server it needed to access in order to complete the request.
+     */
     GATEWAY_TIMEOUT("504"),
 
     UNKNOWN("999")
@@ -62,10 +82,22 @@ public enum GlobalResponseCode {
         this.errorCode = new ErrorCode(errCode, params);
     }
 
+    /**
+     * Returns the code of this response code.
+     * This method provides access to the numeric code associated with this response.
+     *
+     * @return the string representation of the response code
+     */
     public String code() {
         return errorCode.getCode();
     }
 
+    /**
+     * Returns the message of this response code.
+     * This method provides access to the descriptive message associated with this response.
+     *
+     * @return the message describing this response code
+     */
     public String message() {
         return errorCode.getMessage();
     }

@@ -8,5 +8,10 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class DatasourceEnvironment {
+    /**
+     * Property key for the datasource URL.
+     * This constant represents the Spring configuration property that defines
+     * the JDBC URL for connecting to the database.
+     */
     public static final String URL = "spring.datasource.url";
 }

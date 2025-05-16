@@ -8,6 +8,11 @@ package space.x9x.radp.design.framework.tree;
  */
 public interface StrategyHandler<T, D, R> {
 
+    /**
+     * Empty strategy handler implementation that always returns null.
+     * This constant provides a default no-operation handler that can be used
+     * as a fallback when no specific strategy is applicable.
+     */
     StrategyHandler EMPTY = (requestParameter, dynamicContext) -> null;
 
     /**

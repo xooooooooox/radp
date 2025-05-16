@@ -1,13 +1,5 @@
 package space.x9x.radp.spring.boot.bootstrap;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.extension.ExtensionLoader;
-import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
-import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
-import space.x9x.radp.spring.boot.bootstrap.util.SpringBootProfileUtils;
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
-import space.x9x.radp.spring.framework.bootstrap.utils.SpringProfileUtils;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +8,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.extension.ExtensionLoader;
+import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
+import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
+import space.x9x.radp.spring.boot.bootstrap.util.SpringBootProfileUtils;
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
+import space.x9x.radp.spring.framework.bootstrap.utils.SpringProfileUtils;
 
 import java.util.Set;
 
@@ -27,6 +27,18 @@ import java.util.Set;
 @UtilityClass
 public class SpringBootApplicationHelper {
 
+    /**
+     * Runs a Spring Boot application with the specified main class, arguments, and web application type.
+     * This method handles the complete application startup process, including:
+     * - Setting necessary system properties
+     * - Configuring the application with default profiles
+     * - Starting the application context
+     * - Logging application startup information
+     *
+     * @param mainClass          the main application class that serves as the primary configuration source
+     * @param args               the command line arguments passed to the application
+     * @param webApplicationType the type of web application to create (SERVLET, REACTIVE, or NONE)
+     */
     public static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
         setSystemProperties();
         try {

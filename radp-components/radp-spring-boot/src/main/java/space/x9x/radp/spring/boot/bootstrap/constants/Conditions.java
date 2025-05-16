@@ -27,11 +27,27 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Conditions {
 
+    /**
+     * Common property suffix for enabling features.
+     * This constant is used in conditional annotations to check if a feature is enabled.
+     */
     public static final String ENABLED = "enabled";
 
+    /**
+     * String representation of boolean true value.
+     * This constant is used in conditional annotations for property value comparison.
+     */
     public static final String TRUE = "true";
 
+    /**
+     * String representation of boolean false value.
+     * This constant is used in conditional annotations for property value comparison.
+     */
     public static final String FALSE = "false";
 
+    /**
+     * Property suffix for marking a bean as primary.
+     * This constant is used in conditional annotations to check if a bean should be primary.
+     */
     public static final String PRIMARY = "primary";
 }

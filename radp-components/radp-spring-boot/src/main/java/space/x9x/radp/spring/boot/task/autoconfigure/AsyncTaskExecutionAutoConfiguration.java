@@ -1,7 +1,5 @@
 package space.x9x.radp.spring.boot.task.autoconfigure;
 
-import space.x9x.radp.spring.boot.task.TtlThreadPoolTaskExecutor;
-import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
@@ -17,6 +15,8 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import space.x9x.radp.spring.boot.task.TtlThreadPoolTaskExecutor;
+import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
 
 import java.util.concurrent.Executor;
 
@@ -38,12 +38,27 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
     private static final int POOL_SIZE_LIMIT = Runtime.getRuntime().availableProcessors();
     private static final int QUEUE_CAPACITY_LIMIT = 10_000;
 
+    /**
+     * Default bean name for the task executor.
+     * This constant defines the name of the primary task executor bean that will be
+     * created by this auto-configuration. It uses the same name as Spring Boot's
+     * standard application task executor for compatibility.
+     */
     public static final String DEFAULT_TASK_EXECUTOR_BEAN_NAME = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
 
     private final TaskExecutionProperties properties;
     private final ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers;
     private final ObjectProvider<TaskDecorator> taskDecorators;
 
+    /**
+     * Constructs a new AsyncTaskExecutionAutoConfiguration with the specified properties and customizers.
+     * This constructor initializes the auto-configuration with task execution properties and providers
+     * for task executor customizers and decorators, which will be used to configure the task executor.
+     *
+     * @param properties              the task execution properties to use for configuring the executor
+     * @param taskExecutorCustomizers provider for task executor customizers
+     * @param taskDecorators          provider for task decorators
+     */
     public AsyncTaskExecutionAutoConfiguration(TaskExecutionProperties properties,
                                                ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers,
                                                ObjectProvider<TaskDecorator> taskDecorators) {

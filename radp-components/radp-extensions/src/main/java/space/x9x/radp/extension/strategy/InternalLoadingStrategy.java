@@ -8,6 +8,10 @@ package space.x9x.radp.extension.strategy;
  */
 public class InternalLoadingStrategy implements LoadingStrategy {
 
+    /**
+     * Directory path where internal extensions are located.
+     * This path is used to load extension configuration files.
+     */
     public static final String META_INF = "META-INF/internal/";
 
     @Override

@@ -16,7 +16,18 @@ import java.util.ResourceBundle;
 @UtilityClass
 public class ErrorCodeLoader {
 
+    /**
+     * The resource bundle name for internal error messages.
+     * This bundle contains framework-specific error messages and is used as a fallback
+     * when application-specific error messages are not available.
+     */
     public static final String INTERNAL_BUNDLE_NAME = "META-INF.error.internal";
+
+    /**
+     * The resource bundle name for application error messages.
+     * This bundle contains application-specific error messages that can be customized
+     * by the application.
+     */
     public static final String BUNDLE_NAME = "META-INF.error.message";
     private static final ResourceBundle INTERNAL_RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
 

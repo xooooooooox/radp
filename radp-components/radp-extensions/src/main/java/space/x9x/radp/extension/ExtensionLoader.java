@@ -1,5 +1,8 @@
 package space.x9x.radp.extension;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
@@ -14,9 +17,6 @@ import space.x9x.radp.extension.strategy.LoadingStrategyHolder;
 import space.x9x.radp.extension.util.Holder;
 import space.x9x.radp.extension.wrapper.WrapperComparator;
 import space.x9x.radp.extension.wrapper.WrapperExtensionLoader;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -472,6 +472,11 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * Returns all supported extension names for this extension type
+     *
+     * @return a set of supported extension names
+     */
     public Set<String> getSupportedExtensions() {
         Map<String, Class<?>> extensionClasses = getExtensionClasses();
         return Collections.unmodifiableSet(new TreeSet<>(extensionClasses.keySet()));
@@ -500,6 +505,12 @@ public class ExtensionLoader<T> {
         return (T) instance;
     }
 
+    /**
+     * Returns the extension with the given name, or the default extension if no such extension exists
+     *
+     * @param name the name of the extension
+     * @return the extension instance with the given name, or the default extension if no such extension exists
+     */
     public T getOrDefaultExtension(String name) {
         return containsExtension(name) ? getExtension(name) : getDefaultExtension();
     }
@@ -642,6 +653,14 @@ public class ExtensionLoader<T> {
         return getExtensionName(extensionInstance.getClass());
     }
 
+    /**
+     * Returns the already loaded extension with the given name
+     * Unlike {@link #getExtension(String)}, this method does not try to load the extension if it is not already loaded
+     *
+     * @param name the name of the extension
+     * @return the already loaded extension instance, or null if no such extension is loaded
+     * @throws IllegalArgumentException if the name is empty
+     */
     @SuppressWarnings("unchecked")
     public T getLoadedExtension(String name) {
         if (StringUtils.isEmpty(name)) {
@@ -651,10 +670,20 @@ public class ExtensionLoader<T> {
         return (T) holder.get();
     }
 
+    /**
+     * Returns the names of all extensions that have been loaded
+     *
+     * @return an unmodifiable set of names of all loaded extensions
+     */
     public Set<String> getLoadedExtensions() {
         return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
     }
 
+    /**
+     * Returns all extension instances that have been loaded
+     *
+     * @return a list of all loaded extension instances
+     */
     @SuppressWarnings("unchecked")
     public List<T> getLoadedExtensionInstances() {
         List<T> instances = new ArrayList<>();

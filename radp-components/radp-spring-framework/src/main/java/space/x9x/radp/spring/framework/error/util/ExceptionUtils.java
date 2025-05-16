@@ -24,6 +24,13 @@ public class ExceptionUtils {
         return new ServerException(errorCode, params);
     }
 
+    /**
+     * Creates a ServerException with the UNKNOWN error code and the specified cause.
+     * This method is useful when you want to wrap an existing exception as a ServerException.
+     *
+     * @param t the cause of the exception
+     * @return a new ServerException with the UNKNOWN error code and the specified cause
+     */
     public static ServerException serverException(Throwable t) {
         return new ServerException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
@@ -36,6 +43,14 @@ public class ExceptionUtils {
         return new ServerException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and parameters.
+     * The error message is loaded from the resource bundle using the error code and formatted with the parameters.
+     *
+     * @param code   the error code key in the resource bundle
+     * @param params the parameters to be used for message formatting
+     * @return a new ServerException with the specified error code and formatted message
+     */
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ServerException(code, params);
     }
@@ -52,32 +67,87 @@ public class ExceptionUtils {
         return new ServerException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and cause.
+     * The error message is loaded from the resource bundle using the error code.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param code the error code key in the resource bundle
+     * @param t the cause of the exception
+     * @return a new ServerException with the specified error code and cause
+     */
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ServerException(code, t);
     }
 
     // ================== ClientException ==================
 
+    /**
+     * Creates a ClientException with the specified error code.
+     * This method is useful when you want to create a client-side exception with a predefined error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @return a new ClientException with the specified error code
+     */
     public static ClientException clientException(ErrorCode errorCode) {
         return new ClientException(errorCode);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and parameters.
+     * The parameters are used to format the error message associated with the error code.
+     *
+     * @param errorCode the error code object containing code and message template
+     * @param params the parameters to be used for message formatting
+     * @return a new ClientException with the specified error code and formatted message
+     */
     public static ClientException clientException(ErrorCode errorCode, Object... params) {
         return new ClientException(errorCode, params);
     }
 
+    /**
+     * Creates a ClientException with the UNKNOWN error code and the specified cause.
+     * This method is useful when you want to wrap an existing exception as a ClientException.
+     *
+     * @param t the cause of the exception
+     * @return a new ClientException with the UNKNOWN error code and the specified cause
+     */
     public static ClientException clientException(Throwable t) {
         return new ClientException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and cause.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @param t the cause of the exception
+     * @return a new ClientException with the specified error code and cause
+     */
     public static ClientException clientException(ErrorCode errorCode, Throwable t) {
         return new ClientException(errorCode, t);
     }
 
+    /**
+     * Creates a ClientException with the UNKNOWN error code and a custom message pattern.
+     * This method allows direct specification of the message pattern without using a resource bundle.
+     *
+     * @param messagePattern the message pattern to use for the exception message
+     * @param params the parameters to be used for message formatting
+     * @return a new ClientException with the UNKNOWN error code and the formatted message
+     */
     public static ClientException clientException0(String messagePattern, Object... params) {
         return new ClientException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and parameters.
+     * The error message is loaded from the resource bundle using the error code and formatted with the parameters.
+     *
+     * @param code the error code key in the resource bundle
+     * @param params the parameters to be used for message formatting
+     * @return a new ClientException with the specified error code and formatted message
+     */
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ClientException(code, params);
     }
@@ -94,6 +164,15 @@ public class ExceptionUtils {
         return new ClientException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and cause.
+     * The error message is loaded from the resource bundle using the error code.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param code the error code key in the resource bundle
+     * @param t the cause of the exception
+     * @return a new ClientException with the specified error code and cause
+     */
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ClientException(code, t);
     }

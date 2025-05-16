@@ -20,10 +20,20 @@ public class Holder<T> {
     @SuppressWarnings("squid:S3077")
     private volatile T value;
 
+    /**
+     * Returns the value stored in this holder
+     *
+     * @return the stored value, which may be null
+     */
     public T get() {
         return value;
     }
 
+    /**
+     * Sets the value to be stored in this holder
+     *
+     * @param value the value to store, which may be null
+     */
     public void set(T value) {
         this.value = value;
     }

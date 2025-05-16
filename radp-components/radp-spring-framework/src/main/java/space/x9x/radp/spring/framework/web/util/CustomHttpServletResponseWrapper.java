@@ -36,7 +36,13 @@ public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper
         return writer;
     }
 
+    /**
+     * Returns the content of the response as a String.
+     * This method converts the captured response bytes to a String using UTF-8 encoding.
+     *
+     * @return the content of the response as a String
+     */
     public String getContent() {
-        return new String(outputStream.toByteArray(), StandardCharsets.UTF_8);
+        return outputStream.toString(StandardCharsets.UTF_8);
     }
 }

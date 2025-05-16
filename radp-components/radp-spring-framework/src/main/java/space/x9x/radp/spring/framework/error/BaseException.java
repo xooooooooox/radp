@@ -23,6 +23,13 @@ public class BaseException extends RuntimeException {
     private final String errMessage;
     private Object[] params;
 
+    /**
+     * Constructs a new BaseException with the specified error code and throwable cause.
+     * The error message is loaded from the resource bundle using the error code.
+     *
+     * @param errCode the error code that identifies the error message in the resource bundle
+     * @param t       the throwable cause of this exception
+     */
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                          Throwable t) {
         super(ErrorCodeLoader.getErrMessage(errCode), t);
@@ -68,12 +75,26 @@ public class BaseException extends RuntimeException {
         }
     }
 
+    /**
+     * Constructs a new BaseException with the specified ErrorCode object.
+     * The error code and message are extracted from the ErrorCode object.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     */
     public BaseException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errCode = errorCode.getCode();
         this.errMessage = errorCode.getMessage();
     }
 
+    /**
+     * Constructs a new BaseException with the specified ErrorCode object and parameters.
+     * The error code and message are extracted from the ErrorCode object,
+     * and the parameters are used for message formatting.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @param params    the parameters to be substituted in the error message
+     */
     public BaseException(ErrorCode errorCode, Object... params) {
         super(errorCode.getMessage());
         this.errCode = errorCode.getCode();
@@ -87,6 +108,14 @@ public class BaseException extends RuntimeException {
         }
     }
 
+    /**
+     * Constructs a new BaseException with the specified ErrorCode object and throwable cause.
+     * The error code is extracted from the ErrorCode object, and the error message is formatted
+     * with the throwable's message.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message template
+     * @param t         the throwable cause of this exception
+     */
     public BaseException(ErrorCode errorCode, Throwable t) {
         super(MessageFormatter.format(errorCode.getMessage(), t.getMessage()).getMessage());
         this.errCode = errorCode.getCode();

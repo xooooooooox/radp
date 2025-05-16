@@ -1,12 +1,12 @@
 package space.x9x.radp.spring.boot.logging.env;
 
-import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
-import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
+import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
 
 /**
  * @author x9x
@@ -19,6 +19,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = AccessLogProperties.PREFIX)
 public class AccessLogProperties extends AccessLogConfig {
 
+    /**
+     * Configuration properties prefix for access logging.
+     * This constant defines the prefix used for all access logging configuration properties.
+     */
     public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "logging.access";
 
     /**

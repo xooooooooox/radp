@@ -21,6 +21,13 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
     private static final String MSG_ASYNC_EXCEPTION = "AsyncTaskExecutor exec caught exception: {}";
     private final AsyncTaskExecutor executor;
 
+    /**
+     * Constructs a new ExceptionHandlingAsyncTaskExecutor with the specified executor.
+     * This wrapper adds exception handling capabilities to the provided AsyncTaskExecutor,
+     * ensuring that exceptions thrown during asynchronous task execution are properly logged.
+     *
+     * @param executor the AsyncTaskExecutor to be wrapped with exception handling
+     */
     public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {
         this.executor = executor;
     }

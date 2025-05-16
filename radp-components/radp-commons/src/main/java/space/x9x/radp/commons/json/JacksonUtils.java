@@ -272,6 +272,16 @@ public class JacksonUtils {
 
     // ============================ jsonString -> Optional<T> ============================
 
+    /**
+     * Parses a JSON string into an {@link Optional} object of the specified type using a TypeReference.
+     * This method uses the default object mapper for parsing.
+     *
+     * @param <T>           the type of the desired object
+     * @param text          the JSON string to parse, may be null or empty
+     * @param typeReference the type reference describing the target type
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     * provided {@code text} is empty or null, or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseObjectOptional(String text, TypeReference<T> typeReference) {
         return parseObjectOptional(text, typeReference, getDefaultObjectMapper());
     }
@@ -285,6 +295,7 @@ public class JacksonUtils {
      * @param <T>           the type of the desired object
      * @param text          the JSON string to parse, may be null or empty
      * @param typeReference the type of the object to create
+     * @param objectMapper  the object mapper to use for parsing
      * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
      * provided {@code text} is empty or null, or if an error occurs during parsing
      */
@@ -300,10 +311,30 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Parses a JSON string into an {@link Optional} object of the specified class type.
+     * This method uses the default object mapper for parsing.
+     *
+     * @param <T>   the type of the desired object
+     * @param text  the JSON string to parse, may be null or empty
+     * @param clazz the class of the target type
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         provided {@code text} is empty or null, or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseObjectOptional(String text, Class<T> clazz) {
         return parseObjectOptional(text, clazz, getDefaultObjectMapper());
     }
 
+    /**
+     * Parses a JSON string into an {@link Optional} object of the specified class type using a custom object mapper.
+     *
+     * @param <T>          the type of the desired object
+     * @param text         the JSON string to parse, may be null or empty
+     * @param clazz        the class of the target type
+     * @param objectMapper the object mapper to use for parsing
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         provided {@code text} is empty or null, or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseObjectOptional(String text, Class<T> clazz, ObjectMapper objectMapper) {
         if (StringUtils.isEmpty(text)) {
             return Optional.empty();
@@ -318,10 +349,28 @@ public class JacksonUtils {
 
     // ============================ jsonString -> Map ============================
 
+    /**
+     * Parses a JSON string into a Map using the default object mapper.
+     *
+     * @param <K>  the type of keys in the map
+     * @param <V>  the type of values in the map
+     * @param text the JSON string to parse
+     * @return the parsed Map, or an empty Map if the input is empty
+     */
     public static <K, V> Map<K, V> parseMap(String text) {
         return parseMap(text, getDefaultObjectMapper());
     }
 
+    /**
+     * Parses a JSON string into a Map using a custom object mapper.
+     *
+     * @param <K>          the type of keys in the map
+     * @param <V>          the type of values in the map
+     * @param text         the JSON string to parse
+     * @param objectMapper the object mapper to use for parsing
+     * @return the parsed Map, or an empty Map if the input is empty
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> parseMap(String text, ObjectMapper objectMapper) {
         if (StringUtils.isEmpty(text)) {
@@ -336,10 +385,28 @@ public class JacksonUtils {
 
     // ============================ jsonString -> List<T> ============================
 
+    /**
+     * Parses a JSON string into a List of objects of the specified class type using the default object mapper.
+     *
+     * @param <T>  the type of objects in the list
+     * @param text the JSON string to parse
+     * @param cls  the class of the objects in the list
+     * @return the parsed List, or an empty List if the input is empty
+     */
     public static <T> List<T> parseList(String text, Class<T> cls) {
         return parseList(text, cls, getDefaultObjectMapper());
     }
 
+    /**
+     * Parses a JSON string into a List of objects of the specified class type using a custom object mapper.
+     *
+     * @param <T>          the type of objects in the list
+     * @param text         the JSON string to parse
+     * @param cls          the class of the objects in the list
+     * @param objectMapper the object mapper to use for parsing
+     * @return the parsed List, or an empty List if the input is empty
+     * @throws JacksonException if an error occurs during JSON processing
+     */
     public static <T> List<T> parseList(String text, Class<T> cls, ObjectMapper objectMapper) {
         if (StringUtils.isEmpty(text)) {
             return Collections.emptyList();

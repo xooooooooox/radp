@@ -1,9 +1,9 @@
 package space.x9x.radp.spring.test.embedded.redis;
 
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
 import lombok.extern.slf4j.Slf4j;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
+import space.x9x.radp.spring.test.embedded.EmbeddedServer;
 
 import java.io.IOException;
 
@@ -14,14 +14,36 @@ import java.io.IOException;
 @Slf4j
 public class EmbeddedRedisServer implements EmbeddedServer {
 
+    /**
+     * Default bind address for the embedded Redis server.
+     * This constant defines the IP address to which the Redis server will bind.
+     * The value "0.0.0.0" means the server will accept connections on all available network interfaces.
+     */
     public static final String DEFAULT_BIND = "0.0.0.0";
+
+    /**
+     * Default port for the embedded Redis server.
+     * This constant defines the port on which the Redis server will listen for connections.
+     * The value 6379 is the standard port used by Redis servers.
+     */
     public static final int DEFAULT_PORT = 6379;
+
+    /**
+     * Default maximum heap setting for the embedded Redis server.
+     * This constant defines the maximum amount of memory that the Redis server can use.
+     * The value "maxheap 64MB" limits the Redis server to using at most 64MB of memory.
+     */
     public static final String DEFAULT_MAX_HEAP = "maxheap 64MB";
 
     private final RedisServerBuilder redisServerBuilder;
     private RedisServer redisServer;
     private boolean isRunning = false;
 
+    /**
+     * Constructs a new EmbeddedRedisServer with default settings.
+     * This constructor initializes the Redis server builder with the default bind address,
+     * port, and maximum heap size. The server is not started until the startup() method is called.
+     */
     public EmbeddedRedisServer() {
         this.redisServerBuilder = new RedisServerBuilder()
                 .bind(DEFAULT_BIND)

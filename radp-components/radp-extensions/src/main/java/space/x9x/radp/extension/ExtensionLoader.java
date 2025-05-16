@@ -1,5 +1,8 @@
 package space.x9x.radp.extension;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
@@ -14,9 +17,6 @@ import space.x9x.radp.extension.strategy.LoadingStrategyHolder;
 import space.x9x.radp.extension.util.Holder;
 import space.x9x.radp.extension.wrapper.WrapperComparator;
 import space.x9x.radp.extension.wrapper.WrapperExtensionLoader;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -472,6 +472,13 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * Gets all supported extension names for this extension type.
+     * This method returns an unmodifiable set of all extension names that have been loaded
+     * or can be loaded for the current extension type.
+     *
+     * @return an unmodifiable set of all supported extension names
+     */
     public Set<String> getSupportedExtensions() {
         Map<String, Class<?>> extensionClasses = getExtensionClasses();
         return Collections.unmodifiableSet(new TreeSet<>(extensionClasses.keySet()));
@@ -500,6 +507,14 @@ public class ExtensionLoader<T> {
         return (T) instance;
     }
 
+    /**
+     * Gets the extension with the specified name, or the default extension if the specified name doesn't exist.
+     * This method provides a convenient way to get an extension while falling back to the default
+     * when the requested extension is not available.
+     *
+     * @param name the name of the extension to get
+     * @return the extension with the specified name, or the default extension if the specified name doesn't exist
+     */
     public T getOrDefaultExtension(String name) {
         return containsExtension(name) ? getExtension(name) : getDefaultExtension();
     }

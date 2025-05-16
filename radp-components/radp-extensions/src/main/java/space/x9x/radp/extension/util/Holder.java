@@ -20,10 +20,24 @@ public class Holder<T> {
     @SuppressWarnings("squid:S3077")
     private volatile T value;
 
+    /**
+     * Gets the current value stored in this holder.
+     * This method returns the value that was last set in this holder,
+     * or null if no value has been set.
+     *
+     * @return the current value stored in this holder
+     */
     public T get() {
         return value;
     }
 
+    /**
+     * Sets a new value in this holder.
+     * This method updates the value stored in this holder.
+     * The update is visible to all threads due to the volatile modifier on the value field.
+     *
+     * @param value the new value to store in this holder
+     */
     public void set(T value) {
         this.value = value;
     }

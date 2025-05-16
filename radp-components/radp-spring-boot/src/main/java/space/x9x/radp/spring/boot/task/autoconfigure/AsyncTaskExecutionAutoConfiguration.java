@@ -38,12 +38,28 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
     private static final int POOL_SIZE_LIMIT = Runtime.getRuntime().availableProcessors();
     private static final int QUEUE_CAPACITY_LIMIT = 10_000;
 
+    /**
+     * Default bean name for the application task executor.
+     * This constant defines the name of the primary task executor bean that will be created
+     * by this auto-configuration.
+     * It uses the same name as Spring Boot's default task executor
+     * to ensure compatibility with other components that expect this bean name.
+     */
     public static final String DEFAULT_TASK_EXECUTOR_BEAN_NAME = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
 
     private final TaskExecutionProperties properties;
     private final ObjectProvider<ThreadPoolTaskExecutorCustomizer> taskExecutorCustomizers;
     private final ObjectProvider<TaskDecorator> taskDecorators;
 
+    /**
+     * Constructs a new AsyncTaskExecutionAutoConfiguration with the specified properties and providers.
+     * This constructor initializes the auto-configuration with task execution properties and providers
+     * for customizers and decorators that will be applied to the task executor.
+     *
+     * @param properties              the task execution properties to configure the executor
+     * @param taskExecutorCustomizers provider for thread pool task executor customizers
+     * @param taskDecorators          provider for task decorators
+     */
     public AsyncTaskExecutionAutoConfiguration(TaskExecutionProperties properties,
                                                ObjectProvider<ThreadPoolTaskExecutorCustomizer> taskExecutorCustomizers,
                                                ObjectProvider<TaskDecorator> taskDecorators) {

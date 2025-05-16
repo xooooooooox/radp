@@ -13,6 +13,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
+     * @param <T>   值的类型
      * @param key   键
      * @param value 值
      */
@@ -21,6 +22,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
+     * @param <T>     值的类型
      * @param key     键
      * @param value   值
      * @param expired 过期时间
@@ -30,6 +32,7 @@ public interface IRedissonService {
     /**
      * 获取指定 key 的值
      *
+     * @param <T> 返回值的类型
      * @param key 键
      * @return 值
      */
@@ -74,6 +77,7 @@ public interface IRedissonService {
      * 获取值
      *
      * @param key key 键
+     * @return 原子计数器的当前值
      */
     Long getAtomicLong(String key);
 

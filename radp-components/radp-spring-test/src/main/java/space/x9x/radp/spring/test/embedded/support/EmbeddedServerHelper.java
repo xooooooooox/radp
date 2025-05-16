@@ -9,6 +9,15 @@ import space.x9x.radp.spring.test.embedded.EmbeddedServer;
  */
 public class EmbeddedServerHelper {
 
+    /**
+     * Creates and configures an embedded server instance.
+     * This method loads an EmbeddedServer implementation using the extension mechanism,
+     * based on the provided SPI name, and configures it with the specified port.
+     *
+     * @param spi  the SPI name of the embedded server implementation to load
+     * @param port the port on which the embedded server should listen
+     * @return a configured EmbeddedServer instance ready to be started
+     */
     public static EmbeddedServer embeddedServer(String spi, int port) {
         return ExtensionLoader.getExtensionLoader(EmbeddedServer.class).getExtension(spi).port(port);
     }

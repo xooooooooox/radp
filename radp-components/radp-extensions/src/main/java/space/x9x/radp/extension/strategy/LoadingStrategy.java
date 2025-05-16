@@ -11,6 +11,13 @@ package space.x9x.radp.extension.strategy;
  */
 public interface LoadingStrategy extends Prioritized {
 
+    /**
+     * Gets the directory path where extension configuration files are located.
+     * This method returns the base directory path that will be used to load extension configurations.
+     * Each implementation of LoadingStrategy can specify a different directory.
+     *
+     * @return the directory path for loading extension configurations
+     */
     String directory();
 
     /**
@@ -24,10 +31,25 @@ public interface LoadingStrategy extends Prioritized {
         return false;
     }
 
+    /**
+     * Gets an array of package names that should be excluded from extension loading.
+     * Extensions from these packages will not be loaded even if they are found in the extension directory.
+     * The default implementation returns null, meaning no packages are excluded.
+     *
+     * @return an array of package names to exclude, or null if no packages should be excluded
+     */
     default String[] excludedPackages() {
         return null;
     }
 
+    /**
+     * Determines whether extensions loaded by this strategy can override existing ones.
+     * When true, if an extension with the same name already exists, it will be replaced by the one
+     * loaded by this strategy. When false, existing extensions will not be overridden.
+     * The default implementation returns false, meaning existing extensions are not overridden.
+     *
+     * @return true if extensions loaded by this strategy can override existing ones, false otherwise
+     */
     default boolean overridden() {
         return false;
     }

@@ -1,12 +1,12 @@
 package space.x9x.radp.spring.framework.logging.bootstrap.config;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter;
 
 import javax.servlet.*;
@@ -48,10 +48,14 @@ public class BootstrapLogConfiguration {
      * the filter in the servlet container for all URL patterns.
      */
     @WebFilter(filterName = "bootstrapLogHttpFilter", urlPatterns = "/*")
+    @Component
     public static class CustomFilterRegistration implements Filter {
 
-        @Autowired
-        private BootstrapLogHttpFilter bootstrapLogHttpFilter;
+        private final BootstrapLogHttpFilter bootstrapLogHttpFilter;
+
+        public CustomFilterRegistration(BootstrapLogHttpFilter bootstrapLogHttpFilter) {
+            this.bootstrapLogHttpFilter = bootstrapLogHttpFilter;
+        }
 
         @Override
         public void init(FilterConfig filterConfig) throws ServletException {

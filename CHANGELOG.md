@@ -16,9 +16,11 @@
   - [x] Fix ExtensionLoader, replace deprecated newInstance usage
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
+  - [x] Fix profile `code-review`
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
+  - [x] Upgrade `sonar-maven-plugin.version` from `3.9.1.2184` to `5.1.0.4751`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`

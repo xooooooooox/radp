@@ -33,6 +33,7 @@
   - [x] Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException` and
     `ExceptionUtils.thirdServiceException` message formatting issue with placeholders
   - [x] Add unit test for `ExceptionUtils`, `ServerAssert`, `MessageFormatter`, etc.
+  - [x] Fix default value for PageResult.total not work
 - docs
   - [x] Add GitHub Issue Templates
 - scaffold

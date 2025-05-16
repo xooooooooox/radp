@@ -1,10 +1,10 @@
 package space.x9x.radp.extension.adaptive;
 
+import lombok.RequiredArgsConstructor;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.compile.Compiler;
 import space.x9x.radp.extension.util.Holder;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author x9x
@@ -75,7 +75,7 @@ public class AdaptiveExtensionLoader<T> {
      */
     private T createAdaptiveExtension() {
         try {
-            return extensionLoader.injectExtension((T) getAdaptiveExtensionClass().newInstance());
+            return extensionLoader.injectExtension((T) getAdaptiveExtensionClass().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
             throw new IllegalStateException("Can't create adaptive extension " + extensionLoader.getType() + ", cause: " + e.getMessage(), e);
         }

@@ -13,6 +13,7 @@ import java.io.Serial;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
+@SuppressWarnings("java:S1948")
 public class BaseException extends RuntimeException {
 
     @Serial
@@ -46,6 +47,14 @@ public class BaseException extends RuntimeException {
         }
     }
 
+    /**
+     * Constructs a new BaseException with the specified error code and parameters.
+     * The error message is loaded from the resource bundle using the error code,
+     * and the parameters are used for message formatting.
+     *
+     * @param errCode the error code that identifies the error message in the resource bundle
+     * @param params  the parameters to be substituted in the error message
+     */
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
         super(ErrorCodeLoader.getErrMessage(errCode, params));
         this.errCode = errCode;

@@ -25,6 +25,13 @@ public class WebAPIAutoConfiguration implements WebMvcConfigurer {
 
     private final WebAPIProperties properties;
 
+    /**
+     * Constructs a new WebAPIAutoConfiguration with the specified properties.
+     * This constructor initializes the auto-configuration with the provided WebAPIProperties,
+     * which will be used to configure the path prefix for REST controllers.
+     *
+     * @param properties the WebAPIProperties containing configuration for web API endpoints
+     */
     public WebAPIAutoConfiguration(WebAPIProperties properties) {
         log.debug("Autowired webApiConfiguration");
         this.properties = properties;

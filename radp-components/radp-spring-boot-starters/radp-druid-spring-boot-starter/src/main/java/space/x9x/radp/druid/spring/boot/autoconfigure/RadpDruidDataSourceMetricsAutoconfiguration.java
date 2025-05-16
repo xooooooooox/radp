@@ -34,6 +34,12 @@ import space.x9x.radp.druid.spring.boot.jdbc.DruidDatasourcePoolMetadata;
 @AutoConfiguration(after = DruidDataSourceAutoConfigure.class)
 @Slf4j
 public class RadpDruidDataSourceMetricsAutoconfiguration {
+    /**
+     * Property name for Druid datasource configuration.
+     * This constant defines the Spring Boot property prefix used for all Druid-specific
+     * configuration properties. It is used in conditional annotations to determine
+     * whether Druid auto-configuration should be activated.
+     */
     public static final String SPRING_DATASOURCE_DRUID = "spring.datasource.druid";
 
     private static final String AUTOWIRED_DATA_SOURCE_POOL_METADATA_PROVIDER = "Autowired DataSourcePoolMetadataProvider";

@@ -12,8 +12,23 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Order {
+    /**
+     * Constant indicating the highest precedence that can be assigned to an extension.
+     * Extensions with this precedence value will be processed first.
+     */
     int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;
+
+    /**
+     * Constant indicating the lowest precedence that can be assigned to an extension.
+     * Extensions with this precedence value will be processed last.
+     */
     int LOWEST_PRECEDENCE = Integer.MAX_VALUE;
 
+    /**
+     * Specifies the order value for the annotated extension.
+     * Lower values have higher priority. The default value is 0.
+     *
+     * @return the order value
+     */
     int value() default 0;
 }

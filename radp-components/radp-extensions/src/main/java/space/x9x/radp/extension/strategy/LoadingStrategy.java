@@ -13,6 +13,13 @@ public interface LoadingStrategy extends Prioritized {
 
     String directory();
 
+    /**
+     * Determines whether to prefer using the extension class loader.
+     * When true,
+     * the extension will be loaded using the extension class loader instead of the default class loader.
+     *
+     * @return true if the extension class loader should be preferred, false otherwise
+     */
     default boolean preferExtensionClassLoader() {
         return false;
     }

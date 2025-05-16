@@ -8,5 +8,12 @@ import io.swagger.v3.oas.models.OpenAPI;
  */
 public interface SwaggerCustomizer {
 
+    /**
+     * Customizes the OpenAPI specification.
+     * This method allows for programmatic customization of the OpenAPI object
+     * which represents the Swagger/OpenAPI documentation for the application.
+     *
+     * @param openAPI the OpenAPI specification object to customize
+     */
     void customize(OpenAPI openAPI);
 }

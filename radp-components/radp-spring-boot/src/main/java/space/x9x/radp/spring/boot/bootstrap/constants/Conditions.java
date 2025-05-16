@@ -27,11 +27,27 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Conditions {
 
+    /**
+     * Constant representing the 'enabled' property name.
+     * Used in conditional configurations to check if a feature is enabled.
+     */
     public static final String ENABLED = "enabled";
 
+    /**
+     * Constant representing the 'true' string value.
+     * Used in conditional configurations for boolean property comparisons.
+     */
     public static final String TRUE = "true";
 
+    /**
+     * Constant representing the 'false' string value.
+     * Used in conditional configurations for boolean property comparisons.
+     */
     public static final String FALSE = "false";
 
+    /**
+     * Constant representing the 'primary' property name.
+     * Used in bean definitions to mark a bean as primary when multiple candidates exist.
+     */
     public static final String PRIMARY = "primary";
 }

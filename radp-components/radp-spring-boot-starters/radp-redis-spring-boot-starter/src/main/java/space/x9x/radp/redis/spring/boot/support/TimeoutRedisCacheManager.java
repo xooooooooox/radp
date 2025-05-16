@@ -1,13 +1,13 @@
 package space.x9x.radp.redis.spring.boot.support;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.commons.lang.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.math.NumberUtils;
 
 import java.time.Duration;
 
@@ -19,6 +19,14 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 
     private static final String SPLIT = Strings.HASH;
 
+    /**
+     * Constructs a new TimeoutRedisCacheManager with the specified cache writer and configuration.
+     * This cache manager extends the standard RedisCacheManager to support custom cache
+     * expiration times specified in the cache name using a hash (#) delimiter.
+     *
+     * @param cacheWriter             the Redis cache writer to use for cache operations
+     * @param redisCacheConfiguration the default configuration to use for caches
+     */
     public TimeoutRedisCacheManager(RedisCacheWriter cacheWriter,
                                     RedisCacheConfiguration redisCacheConfiguration) {
         super(cacheWriter, redisCacheConfiguration);

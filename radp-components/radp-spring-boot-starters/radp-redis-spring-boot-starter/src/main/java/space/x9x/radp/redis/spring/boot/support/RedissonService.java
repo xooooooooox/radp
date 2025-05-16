@@ -13,6 +13,13 @@ public class RedissonService implements IRedissonService {
 
     private final RedissonClient redissonClient;
 
+    /**
+     * Constructs a new RedissonService with the specified RedissonClient.
+     * This constructor initializes the service with a client that will be used
+     * for all Redis operations.
+     *
+     * @param redissonClient the Redisson client to use for Redis operations
+     */
     public RedissonService(RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
     }

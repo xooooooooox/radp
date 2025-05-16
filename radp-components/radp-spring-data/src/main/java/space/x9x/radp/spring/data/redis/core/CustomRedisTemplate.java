@@ -85,6 +85,14 @@ public interface CustomRedisTemplate {
      */
     <T> Optional<List<T>> getForList(String key, Class<T> clazz);
 
+    /**
+     * Sets a value in the cache with the specified key.
+     * The value will be stored with the default expiration time.
+     *
+     * @param <T>   the type of the value to be stored
+     * @param key   the key under which the value is to be stored
+     * @param value the value to be stored in the cache
+     */
     <T> void set(String key, T value);
 
     /**
@@ -213,6 +221,7 @@ public interface CustomRedisTemplate {
     /**
      * Constructs a Redis key using the provided key name and identifier.
      *
+     * @param <T> the type of the key identifier
      * @param keyPrefix the base key name to be used in the Redis key
      * @param key the unique identifier to be appended to the key name
      * @return a string representing the complete Redis key

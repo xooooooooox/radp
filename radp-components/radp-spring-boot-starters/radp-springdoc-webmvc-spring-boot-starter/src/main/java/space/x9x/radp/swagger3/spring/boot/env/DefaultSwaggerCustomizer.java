@@ -1,12 +1,12 @@
 package space.x9x.radp.swagger3.spring.boot.env;
 
-import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import lombok.Setter;
 import org.springframework.core.Ordered;
+import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
 
 /**
  * @author x9x
@@ -14,6 +14,11 @@ import org.springframework.core.Ordered;
  */
 public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
+    /**
+     * Default order value for this customizer.
+     * This constant defines the default priority of this customizer when multiple
+     * SwaggerCustomizer implementations are present.
+     */
     public static final int DEFAULT_ORDER = 0;
 
     private final SwaggerProperties properties;
@@ -21,6 +26,13 @@ public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
     @Setter
     private int order = DEFAULT_ORDER;
 
+    /**
+     * Constructs a new DefaultSwaggerCustomizer with the specified properties.
+     * This constructor initializes the customizer with the provided SwaggerProperties,
+     * which will be used to configure the OpenAPI documentation.
+     *
+     * @param properties the SwaggerProperties containing configuration for Swagger documentation
+     */
     public DefaultSwaggerCustomizer(SwaggerProperties properties) {
         this.properties = properties;
     }

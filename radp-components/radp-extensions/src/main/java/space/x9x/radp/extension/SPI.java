@@ -15,5 +15,11 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 public @interface SPI {
 
+    /**
+     * Specifies the name of the SPI implementation.
+     * If not specified, the default implementation will be used.
+     *
+     * @return the name of the SPI implementation
+     */
     String value() default "";
 }

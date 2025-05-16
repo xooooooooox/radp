@@ -360,10 +360,29 @@ public class JacksonUtils {
 
     // ============================ to toXMLString ============================
 
+    /**
+     * Converts a JSON string to an XML string with specified class type and inclusion settings.
+     *
+     * @param text    the JSON string to convert
+     * @param cls     the class type to bind the JSON to
+     * @param include the inclusion strategy for properties
+     * @return the XML string representation
+     */
     public static String toXMLString(String text, Class<?> cls, JsonInclude.Include include) {
         return toXMLString(text, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
+    /**
+     * Converts a JSON string to an XML string with specified class type, inclusion settings, and custom mappers.
+     *
+     * @param text         the JSON string to convert
+     * @param cls          the class type to bind the JSON to
+     * @param include      the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for JSON parsing
+     * @param xmlMapper    the XML mapper to use for XML generation
+     * @return the XML string representation
+     * @throws JacksonException if an error occurs during processing
+     */
     public static String toXMLString(String text, Class<?> cls, JsonInclude.Include include,
                                      ObjectMapper objectMapper, XmlMapper xmlMapper) {
         Object object = parseObject(text, cls, objectMapper);
@@ -375,10 +394,24 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Converts an object to an XML string using the default XML mapper.
+     *
+     * @param object the object to convert
+     * @return the XML string representation
+     */
     public static String toXMLString(Object object) {
         return toXMLString(object, getDefaultXmlMapper());
     }
 
+    /**
+     * Converts an object to an XML string using the specified XML mapper.
+     *
+     * @param object the object to convert
+     * @param xmlMapper the XML mapper to use for conversion
+     * @return the XML string representation
+     * @throws JacksonException if an error occurs during XML processing
+     */
     public static String toXMLString(Object object, XmlMapper xmlMapper) {
         try {
             return xmlMapper.writeValueAsString(object);
@@ -387,10 +420,28 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Converts a JSON string to an XML string with specified inclusion settings.
+     *
+     * @param text the JSON string to convert
+     * @param include the inclusion strategy for properties
+     * @return the XML string representation
+     * @throws JsonProcessingException if an error occurs during JSON processing
+     */
     public static String toXMLString(String text, JsonInclude.Include include) throws JsonProcessingException {
         return toXMLString(text, include, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
+    /**
+     * Converts a JSON string to an XML string with specified inclusion settings and custom mappers.
+     *
+     * @param text the JSON string to convert
+     * @param include the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for JSON parsing
+     * @param xmlMapper the XML mapper to use for XML generation
+     * @return the XML string representation
+     * @throws JsonProcessingException if an error occurs during JSON processing
+     */
     public static String toXMLString(String text, JsonInclude.Include include, ObjectMapper objectMapper, XmlMapper xmlMapper) throws JsonProcessingException {
         if (objectMapper == null) {
             objectMapper = getDefaultObjectMapper();
@@ -405,10 +456,24 @@ public class JacksonUtils {
 
     // ============================ to toXMLStringPretty ============================
 
+    /**
+     * Converts an object to a pretty-printed XML string using the default XML mapper.
+     *
+     * @param object the object to convert
+     * @return the pretty-printed XML string representation
+     */
     public static String toXMLStringPretty(Object object) {
         return toXMLStringPretty(object, getDefaultXmlMapper());
     }
 
+    /**
+     * Converts an object to a pretty-printed XML string using the specified XML mapper.
+     *
+     * @param object the object to convert
+     * @param xmlMapper the XML mapper to use for conversion
+     * @return the pretty-printed XML string representation
+     * @throws JacksonException if an error occurs during XML processing
+     */
     public static String toXMLStringPretty(Object object, XmlMapper xmlMapper) {
         if (xmlMapper == null) {
             xmlMapper = getDefaultXmlMapper();
@@ -420,10 +485,29 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Converts a JSON string to a pretty-printed XML string with specified class type and inclusion settings.
+     *
+     * @param text the JSON string to convert
+     * @param cls the class type to bind the JSON to
+     * @param include the inclusion strategy for properties
+     * @return the pretty-printed XML string representation
+     */
     public static String toXMLStringPretty(String text, Class<?> cls, JsonInclude.Include include) {
         return toXMLStringPretty(text, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
+    /**
+     * Converts a JSON string to a pretty-printed XML string with specified class type, inclusion settings, and custom mappers.
+     *
+     * @param text the JSON string to convert
+     * @param cls the class type to bind the JSON to
+     * @param include the inclusion strategy for properties
+     * @param objectMapper the object mapper to use for JSON parsing
+     * @param xmlMapper the XML mapper to use for XML generation
+     * @return the pretty-printed XML string representation
+     * @throws JacksonException if an error occurs during processing
+     */
     public static String toXMLStringPretty(String text, Class<?> cls, JsonInclude.Include include,
                                            ObjectMapper objectMapper, XmlMapper xmlMapper) {
         Object object = parseObject(text, cls, objectMapper);
@@ -437,10 +521,28 @@ public class JacksonUtils {
 
     // ============================ xmlString -> T ============================
 
+    /**
+     * Parses an XML string into an object of the specified type using a TypeReference.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param typeReference the type reference describing the target type
+     * @return the parsed object, or null if the input is empty
+     */
     public static <T> T parseXMLObject(String xml, TypeReference<T> typeReference) {
         return parseXMLObject(xml, typeReference, getDefaultXmlMapper());
     }
 
+    /**
+     * Parses an XML string into an object of the specified type using a TypeReference and custom XML mapper.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param typeReference the type reference describing the target type
+     * @param xmlMapper the XML mapper to use for parsing
+     * @return the parsed object, or null if the input is empty
+     * @throws JacksonException if an error occurs during XML processing
+     */
     public static <T> T parseXMLObject(String xml, TypeReference<T> typeReference, XmlMapper xmlMapper) {
         if (StringUtils.isEmpty(xml)) {
             return null;
@@ -452,10 +554,28 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Parses an XML string into an object of the specified class type.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param cls the class of the target type
+     * @return the parsed object, or null if the input is empty
+     */
     public static <T> T parseXMLObject(String xml, Class<T> cls) {
         return parseXMLObject(xml, cls, getDefaultXmlMapper());
     }
 
+    /**
+     * Parses an XML string into an object of the specified class type using a custom XML mapper.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param cls the class of the target type
+     * @param xmlMapper the XML mapper to use for parsing
+     * @return the parsed object, or null if the input is empty
+     * @throws JacksonException if an error occurs during XML processing
+     */
     public static <T> T parseXMLObject(String xml, Class<T> cls, XmlMapper xmlMapper) {
         if (StringUtils.isEmpty(xml)) {
             return null;
@@ -469,10 +589,29 @@ public class JacksonUtils {
 
     // ============================ xmlString -> Optional<T> ============================
 
+    /**
+     * Parses an XML string into an {@link Optional} object of the specified type using a TypeReference.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param typeReference the type reference describing the target type
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         input is empty or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseXMLObjectOptional(String xml, TypeReference<T> typeReference) {
         return parseXMLObjectOptional(xml, typeReference, getDefaultXmlMapper());
     }
 
+    /**
+     * Parses an XML string into an {@link Optional} object of the specified type using a TypeReference and custom XML mapper.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param typeReference the type reference describing the target type
+     * @param xmlMapper the XML mapper to use for parsing
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         input is empty or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseXMLObjectOptional(String xml, TypeReference<T> typeReference, XmlMapper xmlMapper) {
         if (StringUtils.isEmpty(xml)) {
             return Optional.empty();
@@ -485,10 +624,29 @@ public class JacksonUtils {
         }
     }
 
+    /**
+     * Parses an XML string into an {@link Optional} object of the specified class type.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param clazz the class of the target type
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         input is empty or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseXMLObjectOptional(String xml, Class<T> clazz) {
         return parseXMLObjectOptional(xml, clazz, getDefaultXmlMapper());
     }
 
+    /**
+     * Parses an XML string into an {@link Optional} object of the specified class type using a custom XML mapper.
+     *
+     * @param <T> the target type
+     * @param xml the XML string to parse
+     * @param clazz the class of the target type
+     * @param xmlMapper the XML mapper to use for parsing
+     * @return an {@link Optional} containing the parsed object, or an empty {@link Optional} if the
+     *         input is empty or if an error occurs during parsing
+     */
     public static <T> Optional<T> parseXMLObjectOptional(String xml, Class<T> clazz, XmlMapper xmlMapper) {
         if (StringUtils.isEmpty(xml)) {
             return Optional.empty();

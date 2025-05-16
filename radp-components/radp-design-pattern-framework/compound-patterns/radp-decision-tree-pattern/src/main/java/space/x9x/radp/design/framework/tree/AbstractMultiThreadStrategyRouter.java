@@ -24,6 +24,9 @@ public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends Abstrac
      *
      * @param requestParameter 入参
      * @param dynamicContext   动态上下文
+     * @throws ExecutionException 当异步任务执行过程中发生异常时抛出
+     * @throws InterruptedException 当异步任务被中断时抛出
+     * @throws TimeoutException 当异步任务执行超时时抛出
      */
     protected abstract void multiThread(T requestParameter, D dynamicContext) throws ExecutionException, InterruptedException, TimeoutException;
 
@@ -33,6 +36,7 @@ public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends Abstrac
      * @param requestParameter 入参
      * @param dynamicContext   动态上下文
      * @return 执行结果
+     * @throws Exception 当业务流程处理过程中发生异常时抛出
      */
     protected abstract R doApply(T requestParameter, D dynamicContext) throws Exception;
 }

@@ -89,6 +89,7 @@ public interface IRedissonService {
      * 指定值，自增 Key 的值；1、2、3、4
      *
      * @param key 键
+     * @param delta 增加的值
      * @return 自增后的值
      */
     long incrBy(String key, long delta);
@@ -102,10 +103,11 @@ public interface IRedissonService {
     long decr(String key);
 
     /**
-     * 指定值，自增 Key 的值；1、2、3、4
+     * 指定值，自减 Key 的值；1、2、3、4
      *
      * @param key 键
-     * @return 自增后的值
+     * @param delta 减少的值
+     * @return 自减后的值
      */
     long decrBy(String key, long delta);
 
@@ -161,6 +163,8 @@ public interface IRedissonService {
     /**
      * 获取Map
      *
+     * @param <K> Map的键类型
+     * @param <V> Map的值类型
      * @param key 键
      * @return 值
      */
@@ -187,6 +191,8 @@ public interface IRedissonService {
     /**
      * 获取哈希表中指定字段的值
      *
+     * @param <K> 字段类型
+     * @param <V> 值类型
      * @param key   键
      * @param field 字段
      * @return 值
@@ -261,9 +267,29 @@ public interface IRedissonService {
      */
     <T> RBloomFilter<T> getBloomFilter(String key);
 
+    /**
+     * 设置键的值，只有在键不存在时才会设置成功
+     *
+     * @param key 键
+     * @return 设置成功返回true，否则返回false
+     */
     Boolean setNx(String key);
 
+    /**
+     * 设置键的值，只有在键不存在时才会设置成功，并设置过期时间
+     *
+     * @param key      键
+     * @param expired  过期时间
+     * @param timeUnit 时间单位
+     * @return 设置成功返回true，否则返回false
+     */
     Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
-    RBitSet getBitSet(String key);;
+    /**
+     * 获取位图对象
+     *
+     * @param key 键
+     * @return 位图对象
+     */
+    RBitSet getBitSet(String key);
 }

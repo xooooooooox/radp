@@ -1,14 +1,8 @@
 package space.x9x.radp.swagger3.spring.boot.autoconfigure;
 
-import jakarta.servlet.Servlet;
-import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
-import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
-import space.x9x.radp.swagger3.spring.boot.env.DefaultSwaggerCustomizer;
-import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import jakarta.servlet.Servlet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -22,6 +16,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
 import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.DispatcherServlet;
+import space.x9x.radp.commons.lang.ObjectUtils;
+import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
+import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
+import space.x9x.radp.swagger3.spring.boot.env.DefaultSwaggerCustomizer;
+import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
 
 import java.util.List;
 
@@ -46,8 +46,22 @@ import java.util.List;
 @AutoConfiguration
 @Slf4j
 public class RadpSwaggerAutoConfiguration {
+    /**
+     * Default group name for Swagger documentation.
+     * This constant defines the default group name used for management endpoints.
+     */
     public static final String DEFAULT_GROUP_NAME = "management";
+
+    /**
+     * Log message for when Swagger is autowired.
+     * This constant is used for logging when the Swagger configuration is autowired.
+     */
     public static final String MSG_AUTOWIRED_SWAGGER = "Autowired Swagger";
+
+    /**
+     * Log message template for Swagger startup time.
+     * This constant is used for logging the time taken to start Swagger.
+     */
     public static final String MSG_STARTED_SWAGGER = "Started Swagger in {} ms";
 
     private final SwaggerProperties properties;
@@ -55,6 +69,13 @@ public class RadpSwaggerAutoConfiguration {
     @Value(SpringProperties.NAME_PATTERN)
     private String applicationName;
 
+    /**
+     * Constructs a new RadpSwaggerAutoConfiguration with the specified properties.
+     * This constructor initializes the auto-configuration with the provided SwaggerProperties
+     * and sets the title to the application name if it's not already set.
+     *
+     * @param properties the SwaggerProperties containing configuration for Swagger documentation
+     */
     public RadpSwaggerAutoConfiguration(SwaggerProperties properties) {
         this.properties = properties;
         if (ObjectUtils.isEmpty(properties.getTitle())) {
@@ -62,11 +83,27 @@ public class RadpSwaggerAutoConfiguration {
         }
     }
 
+    /**
+     * Creates and configures a DefaultSwaggerCustomizer bean.
+     * This method provides a customizer that applies the configured SwaggerProperties
+     * to the OpenAPI documentation.
+     *
+     * @return a configured DefaultSwaggerCustomizer instance
+     */
     @Bean
     public DefaultSwaggerCustomizer swaggerCustomizer() {
         return new DefaultSwaggerCustomizer(properties);
     }
 
+    /**
+     * Creates and configures the OpenAPI bean for Swagger documentation.
+     * This method creates a new OpenAPI instance and applies all available
+     * SwaggerCustomizer implementations to it. It also logs the time taken
+     * to initialize Swagger.
+     *
+     * @param swaggerCustomizers the list of SwaggerCustomizer implementations to apply
+     * @return a configured OpenAPI instance
+     */
     @Bean
     @ConditionalOnMissingBean(name = "swaggerOpenAPI")
     public OpenAPI swaggerOpenAPI(List<SwaggerCustomizer> swaggerCustomizers) {

@@ -8,6 +8,10 @@ package space.x9x.radp.design.framework.tree;
  */
 public interface StrategyHandler<T, D, R> {
 
+    /**
+     * 空策略处理器，不执行任何操作，直接返回null
+     * 用作默认策略处理器，当没有找到匹配的策略处理器时使用
+     */
     StrategyHandler EMPTY = (requestParameter, dynamicContext) -> null;
 
     /**

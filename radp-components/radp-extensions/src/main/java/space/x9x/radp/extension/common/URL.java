@@ -3,6 +3,7 @@ package space.x9x.radp.extension.common;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -16,8 +17,13 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 public class URL implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6346161581235040323L;
 
+    /**
+     * The map of parameters associated with this URL.
+     * These parameters are used to configure extensions and their behavior.
+     */
     @Getter
     private final Map<String, String> parameters;
 

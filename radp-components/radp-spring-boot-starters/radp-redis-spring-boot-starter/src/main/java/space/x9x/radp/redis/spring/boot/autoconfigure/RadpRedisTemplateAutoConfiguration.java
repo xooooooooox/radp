@@ -24,6 +24,14 @@ public class RadpRedisTemplateAutoConfiguration {
 
     private static final String AUTOWIRED_RADP_REDIS_TEMPLATE = "Autowired redisTemplate";
 
+    /**
+     * Creates and configures a RedisTemplate bean.
+     * This method sets up a template with string serializers for keys and hash keys,
+     * and JSON serializers for values and hash values.
+     *
+     * @param factory the Redis connection factory to use
+     * @return a configured RedisTemplate instance
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         log.debug(AUTOWIRED_RADP_REDIS_TEMPLATE);
@@ -36,6 +44,13 @@ public class RadpRedisTemplateAutoConfiguration {
         return template;
     }
 
+    /**
+     * Creates a Redis serializer with support for Java 8 date/time types.
+     * This method builds a JSON serializer and enhances its ObjectMapper
+     * with the JavaTimeModule to properly handle Java 8 date and time classes.
+     *
+     * @return a configured RedisSerializer instance
+     */
     public static RedisSerializer<?> buildRedisSerializer() {
         RedisSerializer<Object> json = RedisSerializer.json();
         ObjectMapper objectMapper = (ObjectMapper) ReflectUtil.getFieldValue(json, "mapper");

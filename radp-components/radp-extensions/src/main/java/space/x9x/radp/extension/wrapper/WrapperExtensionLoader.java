@@ -16,10 +16,22 @@ public class WrapperExtensionLoader {
 
     private Set<Class<?>> cachedWrapperClasses;
 
+    /**
+     * Returns the set of cached wrapper classes.
+     * These are classes that have been previously registered with the loader.
+     *
+     * @return the set of cached wrapper classes, may be null if no classes have been cached
+     */
     public Set<Class<?>> getCachedWrapperClasses() {
         return cachedWrapperClasses;
     }
 
+    /**
+     * Adds a wrapper class to the cache.
+     * If the cache doesn't exist yet, it will be initialized.
+     *
+     * @param clazz the wrapper class to cache
+     */
     public void cacheWrapperClass(Class<?> clazz) {
         if (cachedWrapperClasses == null) {
             cachedWrapperClasses = new HashSet<>();

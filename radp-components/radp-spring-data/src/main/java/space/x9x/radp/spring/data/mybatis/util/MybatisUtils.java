@@ -1,7 +1,5 @@
 package space.x9x.radp.spring.data.mybatis.util;
 
-import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserLoader;
 import lombok.experimental.UtilityClass;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.Environment;
@@ -11,6 +9,8 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserLoader;
 
 import javax.sql.DataSource;
 import java.text.DateFormat;
@@ -28,6 +28,14 @@ import java.util.regex.Pattern;
 public class MybatisUtils {
     private static final Pattern PARAMETER_PATTERN = Pattern.compile("\\?");
 
+    /**
+     * Extracts the database URL from a MappedStatement's configuration.
+     * This method retrieves the DataSource from the MappedStatement's environment
+     * and uses the DataSourceUrlParserLoader to parse the URL.
+     *
+     * @param mappedStatement the MappedStatement containing the database configuration
+     * @return the database URL as a string
+     */
     public String getDatabaseUrl(MappedStatement mappedStatement) {
         Configuration configuration = mappedStatement.getConfiguration();
         Environment environment = configuration.getEnvironment();
@@ -35,6 +43,15 @@ public class MybatisUtils {
         return DataSourceUrlParserLoader.parse(dataSource);
     }
 
+    /**
+     * Extracts and formats the SQL query from a MappedStatement and Invocation.
+     * This method retrieves the SQL query with parameter values substituted in place
+     * of the parameter placeholders, making it useful for logging and debugging.
+     *
+     * @param mappedStatement the MappedStatement containing the SQL query
+     * @param invocation      the Invocation containing the parameter values
+     * @return the formatted SQL query with parameter values
+     */
     public String getSql(MappedStatement mappedStatement, Invocation invocation) {
         Object parameter = null;
         if (invocation.getArgs().length > 1) {

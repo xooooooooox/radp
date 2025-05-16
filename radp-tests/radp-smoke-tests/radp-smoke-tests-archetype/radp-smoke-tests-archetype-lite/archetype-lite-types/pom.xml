@@ -4,17 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-tests</artifactId>
+        <artifactId>radp-smoke-tests-archetype-lite</artifactId>
         <version>3.20-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>pom</packaging>
-    <artifactId>radp-smoke-tests</artifactId>
+    <artifactId>archetype-lite-types</artifactId>
     <name>${project.artifactId}</name>
-    <description>冒烟测试</description>
 
-    <modules>
-        <module>radp-smoke-tests-archetype</module>
-        <module>radp-smoke-tests-framework</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>radp-spring-boot</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

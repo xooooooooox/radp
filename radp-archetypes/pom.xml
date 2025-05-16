@@ -11,17 +11,7 @@
     <artifactId>radp-archetypes</artifactId>
     <name>${project.artifactId}</name>
 
-    <!-- 为了加快整个工程的构建速度, radp-archetype-xxx 将不会发布到制品库 -->
-    <!-- 仅需要将 scaffold-xxx 发布到制品库 -->
     <modules>
-        <!-- 在 radp-archetype-xxx 进行脚手架源代码开发 -->
-        <module>radp-archetype-simple</module>
-        <module>radp-archetype-lite</module>
-        <module>radp-archetype-std</module>
-        <module>radp-archetype-tiny</module>
-        <module>radp-archetype-starter</module>
-
-        <!-- 脚手架发布 -->
         <module>scaffold-simple</module>
         <module>scaffold-lite</module>
         <module>scaffold-std</module>

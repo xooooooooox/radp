@@ -1,6 +1,5 @@
 package space.x9x.radp.spring.cloud.dubbo.filter;
 
-import space.x9x.radp.spring.framework.error.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
@@ -8,6 +7,7 @@ import org.apache.dubbo.common.utils.ReflectUtils;
 import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.rpc.*;
 import org.apache.dubbo.rpc.service.GenericService;
+import space.x9x.radp.spring.framework.error.BaseException;
 
 import java.lang.reflect.Method;
 
@@ -21,8 +21,19 @@ import java.lang.reflect.Method;
 @Slf4j
 public class DubboExceptionFilter implements Filter, BaseFilter.Listener {
 
+    /**
+     * Execution order for this filter in the Dubbo filter chain.
+     * The negative value ensures this filter runs before most other filters,
+     * allowing it to handle exceptions early in the processing chain.
+     */
     public static final int ORDER = -1;
 
+    /**
+     * Constructs a new DubboExceptionFilter.
+     * This constructor logs an initialization message to indicate that
+     * the filter has been properly loaded and activated in the Dubbo
+     * filter chain.
+     */
     public DubboExceptionFilter() {
         log.info("Dubbo3 exception filter initialized");
     }

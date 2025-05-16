@@ -15,9 +15,28 @@ import java.util.Properties;
 @Slf4j
 public class ExtendJasyptProperties extends Properties {
 
+    /**
+     * Property key for the Jasypt encryptor password.
+     * This password is used for encryption and decryption operations.
+     */
     private static final String PASSWORD_KEY = "jasypt.encryptor.password";
+
+    /**
+     * Property key for the Jasypt encryption algorithm.
+     * Specifies which algorithm to use for encryption and decryption.
+     */
     private static final String ALGORITHM_KEY = "jasypt.encryptor.algorithm";
+
+    /**
+     * System property name for specifying an external Jasypt configuration file.
+     * If set, the application will load Jasypt configuration from this file.
+     */
     private static final String CONFIG_FILE_PROPERTY = "jasypt.config.file";
+
+    /**
+     * Environment variable name for specifying an external Jasypt configuration file.
+     * Alternative to the system property, used if the system property is not set.
+     */
     private static final String CONFIG_FILE_ENV = "JASYPT_CONFIG_FILE";
 
     public ExtendJasyptProperties() {

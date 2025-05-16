@@ -79,11 +79,25 @@ public class RadpSwaggerAutoConfiguration {
         }
     }
 
+    /**
+     * Creates a DefaultSwaggerCustomizer bean that configures the OpenAPI documentation.
+     * This customizer applies the configured properties to the OpenAPI object.
+     *
+     * @return a DefaultSwaggerCustomizer instance initialized with the configuration properties
+     */
     @Bean
     public DefaultSwaggerCustomizer swaggerCustomizer() {
         return new DefaultSwaggerCustomizer(properties);
     }
 
+    /**
+     * Creates and configures the OpenAPI bean for Swagger documentation.
+     * This method creates a base OpenAPI object and applies all available SwaggerCustomizer
+     * instances to it. It also logs performance metrics for the initialization process.
+     *
+     * @param swaggerCustomizers a list of customizers to apply to the OpenAPI object
+     * @return a fully configured OpenAPI object for Swagger documentation
+     */
     @Bean
     @ConditionalOnMissingBean(name = "swaggerOpenAPI")
     public OpenAPI swaggerOpenAPI(List<SwaggerCustomizer> swaggerCustomizers) {
@@ -100,6 +114,12 @@ public class RadpSwaggerAutoConfiguration {
     }
 
 
+    /**
+     * Creates a new, empty OpenAPI instance.
+     * This method provides a base OpenAPI object that will be customized by SwaggerCustomizer instances.
+     *
+     * @return a new OpenAPI instance
+     */
     private OpenAPI createOpenAPI() {
         return new OpenAPI();
     }

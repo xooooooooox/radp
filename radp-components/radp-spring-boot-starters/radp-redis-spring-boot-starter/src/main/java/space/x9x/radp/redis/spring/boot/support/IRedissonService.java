@@ -261,9 +261,32 @@ public interface IRedissonService {
      */
     <T> RBloomFilter<T> getBloomFilter(String key);
 
+    /**
+     * Sets a key only if it does not already exist (SET if Not eXists).
+     * This is a Redis atomic operation equivalent to SETNX command.
+     *
+     * @param key the key to set
+     * @return true if the key was set, false if the key already exists
+     */
     Boolean setNx(String key);
 
+    /**
+     * Sets a key only if it does not already exist (SET if Not eXists) with an expiration time.
+     * This is a Redis atomic operation equivalent to SETNX command with expiration.
+     *
+     * @param key      the key to set
+     * @param expired  the expiration time
+     * @param timeUnit the time unit of the expiration time
+     * @return true if the key was set, false if the key already exists
+     */
     Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
-    RBitSet getBitSet(String key);;
+    /**
+     * Gets a Redis BitSet object for the specified key.
+     * BitSets are useful for efficiently storing boolean values and performing bit operations.
+     *
+     * @param key the key for the BitSet
+     * @return a Redisson BitSet object
+     */
+    RBitSet getBitSet(String key);
 }

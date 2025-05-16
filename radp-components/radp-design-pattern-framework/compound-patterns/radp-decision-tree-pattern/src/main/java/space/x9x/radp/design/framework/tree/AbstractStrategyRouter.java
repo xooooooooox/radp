@@ -8,6 +8,11 @@ package space.x9x.radp.design.framework.tree;
  */
 public abstract class AbstractStrategyRouter<T, D, R> implements StrategyMapper<T, D, R>, StrategyHandler<T, D, R> {
 
+    /**
+     * Default strategy handler that will be used when no matching strategy is found.
+     * This handler is initialized to an empty implementation that can be overridden
+     * by concrete router implementations.
+     */
     @SuppressWarnings("unchecked")
     protected StrategyHandler<T, D, R> defaultStrategyHandler = StrategyHandler.EMPTY;
 

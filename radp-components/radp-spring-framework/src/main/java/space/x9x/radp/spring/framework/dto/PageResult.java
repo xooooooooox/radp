@@ -28,6 +28,8 @@ public class PageResult<T> extends Result {
     private static final long serialVersionUID = 1L;
 
     private Collection<T> data;
+
+    @Builder.Default
     private Long total = 0L;
 
     public Collection<T> getData() {

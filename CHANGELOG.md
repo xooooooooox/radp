@@ -12,6 +12,7 @@
     replacement
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
+  - [x] Fix BootstrapLogConfiguration
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-resources-plugin.version` from `3.2.0` to `3.3.1`

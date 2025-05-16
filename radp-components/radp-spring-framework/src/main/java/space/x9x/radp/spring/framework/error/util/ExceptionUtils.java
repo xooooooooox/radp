@@ -16,26 +16,79 @@ public class ExceptionUtils {
 
     // ================== ServerException ==================
 
+    /**
+     * Creates a ServerException with the specified ErrorCode.
+     * This method creates a new ServerException using the provided ErrorCode object,
+     * which contains both the error code and message.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @return a new ServerException with the specified error code and message
+     */
     public static ServerException serverException(ErrorCode errorCode) {
         return new ServerException(errorCode);
     }
 
+    /**
+     * Creates a ServerException with the specified ErrorCode and parameters.
+     * This method creates a new ServerException using the provided ErrorCode object
+     * and parameters for message formatting.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message template
+     * @param params    the parameters to be substituted in the message template
+     * @return a new ServerException with the specified error code and formatted message
+     */
     public static ServerException serverException(ErrorCode errorCode, Object... params) {
         return new ServerException(errorCode, params);
     }
 
+    /**
+     * Creates a ServerException from a Throwable.
+     * This method creates a new ServerException with an UNKNOWN error code
+     * and the provided Throwable as the cause.
+     *
+     * @param t the Throwable to wrap in a ServerException
+     * @return a new ServerException with an UNKNOWN error code and the specified cause
+     */
     public static ServerException serverException(Throwable t) {
         return new ServerException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ServerException with the specified ErrorCode and cause.
+     * This method creates a new ServerException using the provided ErrorCode object
+     * and the specified Throwable as the cause.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ServerException with the specified error code, message, and cause
+     */
     public static ServerException serverException(ErrorCode errorCode, Throwable t) {
         return new ServerException(errorCode, t);
     }
 
+    /**
+     * Creates a ServerException with a custom message pattern and parameters.
+     * This method creates a new ServerException with an UNKNOWN error code
+     * and a message formatted using the provided pattern and parameters.
+     * The '0' suffix in the method name indicates this is a direct message formatting method.
+     *
+     * @param messagePattern the pattern for formatting the error message
+     * @param params the parameters to be substituted in the message pattern
+     * @return a new ServerException with an UNKNOWN error code and the formatted message
+     */
     public static ServerException serverException0(String messagePattern, Object... params) {
         return new ServerException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and parameters.
+     * This method creates a new ServerException using an error code from the resource bundle
+     * and parameters for message formatting.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param params the parameters to be substituted in the error message
+     * @return a new ServerException with the specified error code and formatted message
+     */
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ServerException(code, params);
     }
@@ -52,32 +105,94 @@ public class ExceptionUtils {
         return new ServerException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and cause.
+     * This method creates a new ServerException using an error code from the resource bundle
+     * and the specified Throwable as the cause.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ServerException with the specified error code, message, and cause
+     */
     public static ServerException serverException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ServerException(code, t);
     }
 
     // ================== ClientException ==================
 
+    /**
+     * Creates a ClientException with the specified ErrorCode.
+     * This method creates a new ClientException using the provided ErrorCode object,
+     * which contains both the error code and message.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @return a new ClientException with the specified error code and message
+     */
     public static ClientException clientException(ErrorCode errorCode) {
         return new ClientException(errorCode);
     }
 
+    /**
+     * Creates a ClientException with the specified ErrorCode and parameters.
+     * This method creates a new ClientException using the provided ErrorCode object
+     * and parameters for message formatting.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message template
+     * @param params the parameters to be substituted in the message template
+     * @return a new ClientException with the specified error code and formatted message
+     */
     public static ClientException clientException(ErrorCode errorCode, Object... params) {
         return new ClientException(errorCode, params);
     }
 
+    /**
+     * Creates a ClientException from a Throwable.
+     * This method creates a new ClientException with an UNKNOWN error code
+     * and the provided Throwable as the cause.
+     *
+     * @param t the Throwable to wrap in a ClientException
+     * @return a new ClientException with an UNKNOWN error code and the specified cause
+     */
     public static ClientException clientException(Throwable t) {
         return new ClientException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ClientException with the specified ErrorCode and cause.
+     * This method creates a new ClientException using the provided ErrorCode object
+     * and the specified Throwable as the cause.
+     *
+     * @param errorCode the ErrorCode object containing the error code and message
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ClientException with the specified error code, message, and cause
+     */
     public static ClientException clientException(ErrorCode errorCode, Throwable t) {
         return new ClientException(errorCode, t);
     }
 
+    /**
+     * Creates a ClientException with a custom message pattern and parameters.
+     * This method creates a new ClientException with an UNKNOWN error code
+     * and a message formatted using the provided pattern and parameters.
+     * The '0' suffix in the method name indicates this is a direct message formatting method.
+     *
+     * @param messagePattern the pattern for formatting the error message
+     * @param params the parameters to be substituted in the message pattern
+     * @return a new ClientException with an UNKNOWN error code and the formatted message
+     */
     public static ClientException clientException0(String messagePattern, Object... params) {
         return new ClientException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and parameters.
+     * This method creates a new ClientException using an error code from the resource bundle
+     * and parameters for message formatting.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param params the parameters to be substituted in the error message
+     * @return a new ClientException with the specified error code and formatted message
+     */
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ClientException(code, params);
     }
@@ -94,6 +209,15 @@ public class ExceptionUtils {
         return new ClientException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ClientException with the specified error code and cause.
+     * This method creates a new ClientException using an error code from the resource bundle
+     * and the specified Throwable as the cause.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param t the Throwable to set as the cause of the exception
+     * @return a new ClientException with the specified error code, message, and cause
+     */
     public static ClientException clientException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ClientException(code, t);
     }
@@ -120,6 +244,15 @@ public class ExceptionUtils {
         return new ThirdServiceException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and parameters.
+     * This method creates a new ThirdServiceException using an error code from the resource bundle
+     * and parameters for message formatting.
+     *
+     * @param code the error code that identifies the error message in the resource bundle
+     * @param params the parameters to be substituted in the error message
+     * @return a new ThirdServiceException with the specified error code and formatted message
+     */
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ThirdServiceException(code, params);
     }

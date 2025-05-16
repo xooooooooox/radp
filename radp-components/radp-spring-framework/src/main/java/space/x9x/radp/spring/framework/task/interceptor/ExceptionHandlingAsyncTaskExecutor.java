@@ -87,6 +87,13 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
         };
     }
 
+    /**
+     * Handles exceptions that occur during asynchronous task execution.
+     * This method is called when an exception is caught while executing a task.
+     * It logs the exception message and the exception itself using the configured logger.
+     *
+     * @param e the exception that was caught during task execution
+     */
     protected void handle(Exception e) {
         log.error(MSG_ASYNC_EXCEPTION, e.getMessage(), e);
     }

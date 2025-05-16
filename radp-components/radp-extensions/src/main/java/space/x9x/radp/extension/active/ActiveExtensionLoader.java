@@ -1,13 +1,13 @@
 package space.x9x.radp.extension.active;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.Activate;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.common.Constants;
 import space.x9x.radp.extension.common.URL;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -99,6 +99,16 @@ public class ActiveExtensionLoader<T> {
         return getActivateExtension(url, key, null);
     }
 
+    /**
+     * Gets a list of activated extensions based on the URL parameter value for the specified key and group.
+     * This method retrieves the parameter value from the URL using the provided key,
+     * splits it by comma, and then returns the activated extensions that match the criteria.
+     *
+     * @param url   the URL containing parameters for extension activation
+     * @param key   the parameter key to look up in the URL
+     * @param group the group to filter extensions by, can be null for no filtering
+     * @return a list of activated extension instances that match the criteria
+     */
     public List<T> getActivateExtension(URL url, String key, String group) {
         String value = url.getParameter(key);
         return getActivateExtension(url, StringUtils.isEmpty(value) ? null :

@@ -19,6 +19,14 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
 
     private final List<ExtensionFactory> factories;
 
+    /**
+     * Constructs a new AdaptiveExtensionFactory.
+     * This constructor initializes the factory by loading all available ExtensionFactory
+     * implementations using the ExtensionLoader mechanism. It creates an unmodifiable list
+     * of these factories, which will be used to delegate extension lookup requests.
+     * The factories are queried in the order they were loaded, with the first factory
+     * that returns a non-null extension being used.
+     */
     public AdaptiveExtensionFactory() {
         ExtensionLoader<ExtensionFactory> loader = ExtensionLoader.getExtensionLoader(ExtensionFactory.class);
         List<ExtensionFactory> list = new ArrayList<>();

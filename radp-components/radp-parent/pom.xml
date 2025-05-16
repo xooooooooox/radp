@@ -978,6 +978,10 @@
 
         <profile>
             <id>code-review</id>
+            <properties>
+                <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
+                <sonar.token>${user.sonar.token}</sonar.token>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -1665,7 +1669,7 @@
         <profile>
             <id>coding</id>
             <properties>
-                <!-- delpoy -->
+                <!-- deploy -->
                 <user.altSnapshotDeploymentRepository.artifactory>
                     ${setting.altSnapshotDeploymentRepository.artifactory}
                 </user.altSnapshotDeploymentRepository.artifactory>
@@ -1689,6 +1693,9 @@
                 <user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+                <!-- code review -->
+                <user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
+                <user.sonar.token>${setting.sonar.token}</user.sonar.token>
             </properties>
         </profile>
         <!-- 发布到 artifactory -->

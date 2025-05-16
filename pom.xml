@@ -59,6 +59,7 @@
         <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
     </properties>
 
     <developers>
@@ -241,6 +242,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
                     <configuration>
                         <generateBackupPoms>false</generateBackupPoms>
                     </configuration>
@@ -275,6 +277,12 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -302,6 +310,9 @@
                 <user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+                <!-- code review -->
+                <user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
+                <user.sonar.token>${setting.sonar.token}</user.sonar.token>
             </properties>
         </profile>
         <!-- 发布到中央仓库 -->
@@ -366,6 +377,22 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>code-review</id>
+            <properties>
+                <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
+                <sonar.token>${user.sonar.token}</sonar.token>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

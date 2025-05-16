@@ -311,7 +311,7 @@
 
 ### fix
 
-- [x] refine archetype includes and remove redundant entries
+- [x] refine archetype includes and removes redundant entries
 
 ## 0.1.3
 

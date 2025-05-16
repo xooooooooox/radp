@@ -130,7 +130,7 @@
         <!-- 代码覆盖率 -->
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <!-- 代码质量 -->
-        <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
         <!-- 单元测试 -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>

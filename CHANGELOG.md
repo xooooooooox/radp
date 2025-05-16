@@ -10,6 +10,7 @@
   - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
     replacement
   - [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
+  - [x] Add serialVersionUID to improve serialization consistency
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies

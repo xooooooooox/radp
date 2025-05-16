@@ -11,6 +11,8 @@
     replacement
   - [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
   - [x] Add serialVersionUID to improve serialization consistency
+  - [x] Use proper constructor method for adaptive extension instantiation
+  - [x] Simplify instance checks in ExceptionHandlingAsyncTaskExecuto
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
 - dependencies

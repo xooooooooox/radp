@@ -110,6 +110,7 @@ public class ExtensionLoader<T> {
      * 首先检查指定类型是否正确注解，然后从缓存中获取对应的扩展加载器，
      * 如果没有则创建一个新的扩展加载器并放入缓存中
      *
+     * @param <T> 扩展接口的类型参数
      * @param type 扩展接口类型，即需要加载扩展的接口类型
      * @return 返回该类型的扩展加载器实例，通过该实例可以加载并获取该接口的所有实现类
      */
@@ -482,10 +483,24 @@ public class ExtensionLoader<T> {
         return Collections.unmodifiableSet(new TreeSet<>(extensionClasses.keySet()));
     }
 
+    /**
+     * Gets the extension with the given name.
+     *
+     * @param name The name of the extension to get
+     * @return The extension instance
+     */
     public T getExtension(String name) {
         return getExtension(name, true);
     }
 
+    /**
+     * Gets the extension with the given name, with optional wrapping.
+     *
+     * @param name The name of the extension to get
+     * @param wrap Whether to wrap the extension with wrapper classes
+     * @return The extension instance, possibly wrapped
+     * @throws IllegalArgumentException if the name is empty
+     */
     @SuppressWarnings("unchecked")
     public T getExtension(String name, boolean wrap) {
         if (StringUtils.isEmpty(name)) {
@@ -601,6 +616,13 @@ public class ExtensionLoader<T> {
         return holder;
     }
 
+    /**
+     * Gets the extension class with the given name.
+     *
+     * @param name The name of the extension class to get
+     * @return The extension class
+     * @throws IllegalArgumentException if the type or name is null
+     */
     public Class<?> getExtensionClass(String name) {
         if (type == null) {
             throw new IllegalArgumentException("Extension type == null");
@@ -644,11 +666,23 @@ public class ExtensionLoader<T> {
         return false;
     }
 
+    /**
+     * Gets the extension name for the given extension class.
+     *
+     * @param extensionClass The extension class
+     * @return The name of the extension
+     */
     public String getExtensionName(Class<?> extensionClass) {
         this.getExtensionClasses();
         return cachedNames.get(extensionClass);
     }
 
+    /**
+     * Gets the extension name for the given extension instance.
+     *
+     * @param extensionInstance The extension instance
+     * @return The name of the extension
+     */
     public String getExtensionName(T extensionInstance) {
         return getExtensionName(extensionInstance.getClass());
     }
@@ -691,6 +725,11 @@ public class ExtensionLoader<T> {
         return instances;
     }
 
+    /**
+     * Gets the default extension for this type.
+     *
+     * @return The default extension instance, or null if no default is specified
+     */
     public T getDefaultExtension() {
         this.getExtensionClasses();
         if (StringUtils.isBlank(cachedDefaultName)) {

@@ -1,10 +1,10 @@
 package space.x9x.radp.extension.adaptive;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.Adaptive;
 import space.x9x.radp.extension.ExtensionLoader;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -47,6 +47,12 @@ public class AdaptiveClassCodeGenerator {
     private final Class<?> type;
     private final String defaultExtName;
 
+    /**
+     * Generates the code for an adaptive class.
+     *
+     * @return The generated code as a string
+     * @throws IllegalArgumentException if no adaptive method is found on the extension
+     */
     public String generate() {
         if (!hasAdaptiveMethod()) {
             throw new IllegalArgumentException("No adaptive method on extension " + type.getName() + ", refused to create the adaptive class!");

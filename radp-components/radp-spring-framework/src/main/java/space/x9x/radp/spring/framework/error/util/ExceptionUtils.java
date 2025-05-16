@@ -16,10 +16,25 @@ public class ExceptionUtils {
 
     // ================== ServerException ==================
 
+    /**
+     * Creates a ServerException with the specified error code.
+     * This method is useful when you want to create a server-side exception with a predefined error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @return a new ServerException with the specified error code
+     */
     public static ServerException serverException(ErrorCode errorCode) {
         return new ServerException(errorCode);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and parameters.
+     * The parameters are used to format the error message associated with the error code.
+     *
+     * @param errorCode the error code object containing code and message template
+     * @param params    the parameters to be used for message formatting
+     * @return a new ServerException with the specified error code and formatted message
+     */
     public static ServerException serverException(ErrorCode errorCode, Object... params) {
         return new ServerException(errorCode, params);
     }
@@ -35,10 +50,26 @@ public class ExceptionUtils {
         return new ServerException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ServerException with the specified error code and cause.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @param t         the cause of the exception
+     * @return a new ServerException with the specified error code and cause
+     */
     public static ServerException serverException(ErrorCode errorCode, Throwable t) {
         return new ServerException(errorCode, t);
     }
 
+    /**
+     * Creates a ServerException with the UNKNOWN error code and a custom message pattern.
+     * This method allows direct specification of the message pattern without using a resource bundle.
+     *
+     * @param messagePattern the message pattern to use for the exception message
+     * @param params the parameters to be used for message formatting
+     * @return a new ServerException with the UNKNOWN error code and the formatted message
+     */
     public static ServerException serverException0(String messagePattern, Object... params) {
         return new ServerException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
@@ -179,26 +210,72 @@ public class ExceptionUtils {
 
     // ================== ThirdServiceException ==================
 
+    /**
+     * Creates a ThirdServiceException with the specified error code.
+     * This method is useful when you want to create a third-party service exception with a predefined error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @return a new ThirdServiceException with the specified error code
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode) {
         return new ThirdServiceException(errorCode);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and parameters.
+     * The parameters are used to format the error message associated with the error code.
+     *
+     * @param errorCode the error code object containing code and message template
+     * @param params the parameters to be used for message formatting
+     * @return a new ThirdServiceException with the specified error code and formatted message
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode, Object... params) {
         return new ThirdServiceException(errorCode, params);
     }
 
+    /**
+     * Creates a ThirdServiceException with the UNKNOWN error code and the specified cause.
+     * This method is useful when you want to wrap an existing exception as a ThirdServiceException.
+     *
+     * @param t the cause of the exception
+     * @return a new ThirdServiceException with the UNKNOWN error code and the specified cause
+     */
     public static ThirdServiceException thirdServiceException(Throwable t) {
         return new ThirdServiceException(GlobalResponseCode.UNKNOWN.getErrorCode(), t);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and cause.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param errorCode the error code object containing code and message
+     * @param t the cause of the exception
+     * @return a new ThirdServiceException with the specified error code and cause
+     */
     public static ThirdServiceException thirdServiceException(ErrorCode errorCode, Throwable t) {
         return new ThirdServiceException(errorCode, t);
     }
 
+    /**
+     * Creates a ThirdServiceException with the UNKNOWN error code and a custom message pattern.
+     * This method allows direct specification of the message pattern without using a resource bundle.
+     *
+     * @param messagePattern the message pattern to use for the exception message
+     * @param params the parameters to be used for message formatting
+     * @return a new ThirdServiceException with the UNKNOWN error code and the formatted message
+     */
     public static ThirdServiceException thirdServiceException0(String messagePattern, Object... params) {
         return new ThirdServiceException(GlobalResponseCode.UNKNOWN.code(), messagePattern, params);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and parameters.
+     * The error message is loaded from the resource bundle using the error code and formatted with the parameters.
+     *
+     * @param code the error code key in the resource bundle
+     * @param params the parameters to be used for message formatting
+     * @return a new ThirdServiceException with the specified error code and formatted message
+     */
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Object... params) {
         return new ThirdServiceException(code, params);
     }
@@ -215,6 +292,15 @@ public class ExceptionUtils {
         return new ThirdServiceException(code, formattedMessage);
     }
 
+    /**
+     * Creates a ThirdServiceException with the specified error code and cause.
+     * The error message is loaded from the resource bundle using the error code.
+     * This method is useful when you want to wrap an existing exception with a specific error code.
+     *
+     * @param code the error code key in the resource bundle
+     * @param t the cause of the exception
+     * @return a new ThirdServiceException with the specified error code and cause
+     */
     public static ThirdServiceException thirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String code, Throwable t) {
         return new ThirdServiceException(code, t);
     }

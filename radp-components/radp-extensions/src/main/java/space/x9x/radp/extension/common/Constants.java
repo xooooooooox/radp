@@ -11,5 +11,9 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class Constants {
 
+    /**
+     * Pattern used to split strings by comma, ignoring whitespace around the commas.
+     * This pattern matches one or more commas surrounded by zero or more whitespace characters.
+     */
     public static final Pattern COMMA_SPLIT_PATTERN = Pattern.compile("\\s*[,]+\\s*");
 }

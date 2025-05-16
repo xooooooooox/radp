@@ -12,5 +12,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Adaptive {
+    /**
+     * The keys to be used for getting the adaptive extension.
+     *
+     * @return An array of keys
+     */
     String[] value() default {};
 }

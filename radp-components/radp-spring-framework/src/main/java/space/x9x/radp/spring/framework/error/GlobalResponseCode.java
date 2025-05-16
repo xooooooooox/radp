@@ -62,6 +62,11 @@ public enum GlobalResponseCode {
         this.errorCode = new ErrorCode(errCode, params);
     }
 
+    /**
+     * 获取错误代码
+     *
+     * @return 返回当前响应码对应的错误代码字符串
+     */
     public String code() {
         return errorCode.getCode();
     }

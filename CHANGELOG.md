@@ -3,7 +3,7 @@
 ## 3.20
 
 - docs
-  - [x] Add javadoc
+  - [x] Add Javadoc
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
   - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
@@ -11,7 +11,7 @@
     replacement
   - [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
   - [x] Add serialVersionUID to improve serialization consistency
-  - [x] Use proper constructor method for adaptive extension instantiation
+  - [x] Use a proper constructor method for adaptive extension instantiation
   - [x] Simplify instance checks in ExceptionHandlingAsyncTaskExecutor
   - [x] Fix ExtensionLoader, replace deprecated newInstance usage
 - parent
@@ -34,7 +34,7 @@
   - [x] Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException` and
     `ExceptionUtils.thirdServiceException` message formatting issue with placeholders
   - [x] Add unit test for `ExceptionUtils`, `ServerAssert`, `MessageFormatter`, etc.
-  - [x] Fix default value for PageResult.total not work
+  - [x] Fix the default value for PageResult#total not work
 - docs
   - [x] Add GitHub Issue Templates
 - scaffold
@@ -61,7 +61,7 @@
 ## 3.18.1
 
 - dependencies
-  - [x] Override liquibase.version to 4.31.1 
+  - [x] Override liquibase version to 4.31.1
 - scaffold
   - [x] Update scaffold default radpVersion to `3.18.1`
   - [x] Optimize entrypoint.sh
@@ -108,7 +108,7 @@
   - [x] Add profile `publish-artifactory`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.17`
-  - [x] Fix .github/trigger-releases.yml
+  - [x] Fix `.github/trigger-releases.yml`
   - [X] Change the version of the generated project  from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
   - [x] Optimize dev-ops/app
   - [x] Optimize `.mvn/settings.xml`
@@ -284,7 +284,7 @@
 
 ## 0.7
 
-- [x] Support publishing GitLab pages via GitLab CI/CD
+- [x] Support for publishing GitLab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
 - [x] Update archetype, `.mvn`, `.github` actions
 

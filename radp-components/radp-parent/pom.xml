@@ -976,6 +976,7 @@
             </build>
         </profile>
 
+        <!-- mvn clean -Pcoding,code-review verify sonar:sonar -->
         <profile>
             <id>code-review</id>
             <properties>

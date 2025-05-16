@@ -13,8 +13,20 @@ import java.util.Set;
  * @since 2024-09-30 13:50
  */
 public class DataSourceUrlParserLoader {
+    /**
+     * Default URL to be returned when a data source URL cannot be determined.
+     * This constant provides a fallback value for cases where the actual database URL is unavailable.
+     */
     public static final String UNKNOWN_URL = "jdbc:database://host:port/unknown_db";
 
+    /**
+     * Parses the URL from the provided DataSource by using available DataSourceResolver and DataSourceUrlParser extensions.
+     * This method first resolves the DataSource using all available DataSourceResolver extensions,
+     * then attempts to extract the URL using available DataSourceUrlParser extensions.
+     *
+     * @param dataSource the DataSource to parse the URL from
+     * @return the parsed URL string, or UNKNOWN_URL if no parser could extract a valid URL
+     */
     public static String parse(DataSource dataSource) {
         ExtensionLoader<DataSourceResolver> resolverExtensionLoader = ExtensionLoader.getExtensionLoader(DataSourceResolver.class);
         Set<String> resolverExtensions = resolverExtensionLoader.getSupportedExtensions();

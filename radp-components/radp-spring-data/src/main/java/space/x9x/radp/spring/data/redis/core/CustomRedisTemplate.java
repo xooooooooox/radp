@@ -85,6 +85,13 @@ public interface CustomRedisTemplate {
      */
     <T> Optional<List<T>> getForList(String key, Class<T> clazz);
 
+    /**
+     * Sets a value in the cache with the specified key.
+     *
+     * @param <T>   the type of the data to be stored
+     * @param key   the key under which the data is to be stored
+     * @param value the data to be stored in the cache
+     */
     <T> void set(String key, T value);
 
     /**

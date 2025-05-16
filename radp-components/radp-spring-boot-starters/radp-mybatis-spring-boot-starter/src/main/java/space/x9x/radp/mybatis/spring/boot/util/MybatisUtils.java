@@ -20,10 +20,28 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class MybatisUtils {
 
+    /**
+     * Builds a MyBatis-Plus Page object from a PageParam without sorting.
+     * This is a convenience method that delegates to the overloaded version with null sorting fields.
+     *
+     * @param <T>       the type of elements in the page
+     * @param pageParam the pagination parameters
+     * @return a configured MyBatis-Plus Page object
+     */
     public static <T> Page<T> buildPage(PageParam pageParam) {
         return buildPage(pageParam, null);
     }
 
+    /**
+     * Builds a MyBatis-Plus Page object from a PageParam with optional sorting.
+     * This method configures the page with pagination parameters and applies any sorting fields
+     * by converting them to MyBatis-Plus OrderItem objects.
+     *
+     * @param <T> the type of elements in the page
+     * @param pageParam the pagination parameters
+     * @param sortingFields the collection of sorting fields to apply (can be null)
+     * @return a configured MyBatis-Plus Page object with sorting applied if specified
+     */
     @SuppressWarnings("java:S3252")
     public static <T> Page<T> buildPage(PageParam pageParam, Collection<SortingField> sortingFields) {
         // transform to MybatisPlus Page
@@ -39,6 +57,15 @@ public class MybatisUtils {
         return page;
     }
 
+    /**
+     * Transforms a MyBatis-Plus IPage object into a PageResult.
+     * This method extracts the records and total count from the MyBatis-Plus page
+     * and creates a new PageResult with these values.
+     *
+     * @param <T> the type of elements in the page
+     * @param mpPage the MyBatis-Plus page to transform
+     * @return a PageResult containing the records and total count from the MyBatis-Plus page
+     */
     public static <T> PageResult<T> transformPage(IPage<T> mpPage) {
         return PageResult.build(mpPage.getRecords(), mpPage.getTotal());
     }

@@ -46,8 +46,19 @@ import java.util.List;
 @AutoConfiguration
 @Slf4j
 public class RadpSwaggerAutoConfiguration {
+    /**
+     * Default group name for Swagger documentation.
+     */
     public static final String DEFAULT_GROUP_NAME = "management";
+
+    /**
+     * Log message for when Swagger is autowired.
+     */
     public static final String MSG_AUTOWIRED_SWAGGER = "Autowired Swagger";
+
+    /**
+     * Log message template for when Swagger has started, with placeholder for time taken.
+     */
     public static final String MSG_STARTED_SWAGGER = "Started Swagger in {} ms";
 
     private final SwaggerProperties properties;
@@ -55,6 +66,12 @@ public class RadpSwaggerAutoConfiguration {
     @Value(SpringProperties.NAME_PATTERN)
     private String applicationName;
 
+    /**
+     * Constructs a new RadpSwaggerAutoConfiguration with the specified properties.
+     * If the title property is not set, it will be initialized with the application name.
+     *
+     * @param properties the Swagger configuration properties to use
+     */
     public RadpSwaggerAutoConfiguration(SwaggerProperties properties) {
         this.properties = properties;
         if (ObjectUtils.isEmpty(properties.getTitle())) {

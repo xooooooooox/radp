@@ -210,18 +210,49 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
 
+    /**
+     * Selects all entities from the table.
+     * This method creates an empty query wrapper to retrieve all records.
+     *
+     * @return a list of all entities in the table
+     */
     default List<T> selectList() {
         return selectList(new QueryWrapper<>());
     }
 
+    /**
+     * Selects entities by field name and value.
+     * This method creates a query with an equality condition on the specified field.
+     *
+     * @param field the name of the field to filter by
+     * @param value the value to match
+     * @return a list of entities matching the condition
+     */
     default List<T> selectList(String field, Object value) {
         return selectList(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Selects entities by field and value using type-safe lambda expressions.
+     * This method creates a lambda query with an equality condition on the specified field.
+     *
+     * @param field the field to filter by, specified as a lambda expression
+     * @param value the value to match
+     * @return a list of entities matching the condition
+     */
     default List<T> selectList(SFunction<T, ?> field, Object value) {
         return selectList(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Selects entities where a field's value is in a collection of values.
+     * This method creates a query with an IN condition on the specified field.
+     * If the collection is empty, an empty list is returned without querying the database.
+     *
+     * @param field  the name of the field to filter by
+     * @param values the collection of values to match against
+     * @return a list of entities matching the condition, or an empty list if values is empty
+     */
     default List<T> selectList(String field, Collection<?> values) {
         if (CollUtil.isEmpty(values)) {
             return CollUtil.newArrayList();
@@ -229,6 +260,15 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new QueryWrapper<T>().in(field, values));
     }
 
+    /**
+     * Selects entities where a field's value is in a collection of values using type-safe lambda expressions.
+     * This method creates a lambda query with an IN condition on the specified field.
+     * If the collection is empty, an empty list is returned without querying the database.
+     *
+     * @param field the field to filter by, specified as a lambda expression
+     * @param values the collection of values to match against
+     * @return a list of entities matching the condition, or an empty list if values is empty
+     */
     default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
         if (CollUtil.isEmpty(values)) {
             return CollUtil.newArrayList();
@@ -236,6 +276,16 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().in(field, values));
     }
 
+    /**
+     * Selects entities by two fields and values using type-safe lambda expressions.
+     * This method creates a lambda query with equality conditions on both specified fields.
+     *
+     * @param field1 the first field to filter by, specified as a lambda expression
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda expression
+     * @param value2 the value to match for the second field
+     * @return a list of entities matching both conditions
+     */
     default List<T> selectList(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
         return selectList(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }

@@ -4,11 +4,16 @@ import org.jetbrains.annotations.PropertyKey;
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ServerException;
 
+import java.io.Serial;
+
 /**
  * @author x9x
  * @since 2025-01-14 23:18
  */
 public class AppException extends ServerException {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public AppException(@PropertyKey(resourceBundle = "META-INF.error.message") String errCode, Throwable t) {
         super(errCode, t);

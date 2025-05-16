@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import org.springframework.util.StringUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 
+import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -21,6 +22,9 @@ import java.util.Collection;
  * @since 2024-11-20 15:49
  */
 public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * Adds a LIKE condition to the query only if the value is not empty.

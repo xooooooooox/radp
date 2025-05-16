@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,9 @@ import java.util.Collection;
  * @since 2024-11-20 15:53
  */
 public class QueryWrapperX<T> extends QueryWrapper<T> {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * Adds a LIKE condition to the query only if the value is not empty.

@@ -6,6 +6,7 @@ import org.jasypt.properties.EncryptableProperties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Properties;
 
 /**
@@ -14,6 +15,9 @@ import java.util.Properties;
  */
 @Slf4j
 public class ExtendJasyptProperties extends Properties {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private static final String PASSWORD_KEY = "jasypt.encryptor.password";
     private static final String ALGORITHM_KEY = "jasypt.encryptor.algorithm";

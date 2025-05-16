@@ -17,6 +17,7 @@ import org.slf4j.MDC;
 import org.springframework.core.env.Environment;
 
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * @author x9x
@@ -24,6 +25,9 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class BootstrapLogHttpFilter extends HttpFilter {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Setter
     private boolean enabledMdc = false;

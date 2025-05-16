@@ -2,6 +2,8 @@ package space.x9x.radp.spring.data.mybatis.autofill;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
+import java.io.Serial;
+
 /**
  * 继承该类的数据库持久化对象
  * <pre>{@code
@@ -15,4 +17,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @since 2024-10-01 10:02
  */
 public abstract class BasePO<T extends Model<?>> extends AutofillModel<T> {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 }

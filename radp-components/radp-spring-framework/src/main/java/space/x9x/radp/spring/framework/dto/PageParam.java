@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,9 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 public class PageParam implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public static final int DEFAULT_PAGE_INDEX = 1;
     public static final int DEFAULT_PAGE_SIZE = 10;

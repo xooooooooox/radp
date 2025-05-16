@@ -5,6 +5,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,9 @@ import java.util.Objects;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 public class SingleResult<T> extends Result {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private T data;
 

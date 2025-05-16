@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,9 @@ import java.io.Serializable;
 @ToString
 @Getter
 public class Result implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private boolean success;
     private String code;

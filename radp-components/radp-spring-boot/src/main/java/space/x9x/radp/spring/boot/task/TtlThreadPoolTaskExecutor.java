@@ -5,6 +5,7 @@ import com.alibaba.ttl.TtlRunnable;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.concurrent.ListenableFuture;
 
+import java.io.Serial;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -16,6 +17,9 @@ import java.util.concurrent.Future;
  * @since 2024-09-30 12:04
  */
 public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static final String MESSAGE = "Task is not null";
 
     @Override

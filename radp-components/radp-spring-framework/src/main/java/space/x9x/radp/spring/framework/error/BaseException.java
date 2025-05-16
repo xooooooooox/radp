@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
 import space.x9x.radp.commons.lang.format.MessageFormatter;
 
+import java.io.Serial;
+
 /**
  * @author x9x
  * @since 2024-09-26 23:04
@@ -12,6 +14,9 @@ import space.x9x.radp.commons.lang.format.MessageFormatter;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public class BaseException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private final String errCode;
     private final String errMessage;

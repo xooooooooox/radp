@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -20,7 +21,11 @@ import java.util.Collections;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Getter
+@SuppressWarnings("java:S1948")
 public class MultiResult<T> extends Result {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Collection<T> data;
 

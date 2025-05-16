@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.util.List;
 
 /**
@@ -14,6 +15,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class SortablePageParam extends PageParam {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private List<SortingField> sortingFields;
 }

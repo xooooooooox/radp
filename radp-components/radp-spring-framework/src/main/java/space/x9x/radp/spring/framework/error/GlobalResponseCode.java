@@ -17,6 +17,11 @@ import org.jetbrains.annotations.PropertyKey;
 @Getter
 public enum GlobalResponseCode {
 
+    /**
+     * Success (HTTP 200).
+     * Standard response for successful HTTP requests.
+     * The actual response will depend on the request method used.
+     */
     SUCCESS("0"),
 
     // ========== 4xx ==========
@@ -26,6 +31,10 @@ public enum GlobalResponseCode {
      * such as malformed request syntax, invalid request message framing, or deceptive request routing.
      */
     BAD_REQUEST("400"),
+    /**
+     * Unauthorized (HTTP 401).
+     * The request requires user authentication. The client must authenticate to get the requested response.
+     */
     UNAUTHORIZED("401"),
     /**
      * Forbidden (HTTP 403).
@@ -33,11 +42,35 @@ public enum GlobalResponseCode {
      * Unlike 401 Unauthorized, re-authenticating will make no difference.
      */
     FORBIDDEN("403"),
+    /**
+     * Not Found (HTTP 404).
+     * The server cannot find the requested resource. The requested URL was not found on the server.
+     */
     NOT_FOUND("404"),
+    /**
+     * Method Not Allowed (HTTP 405).
+     * The request method is known by the server but is not supported by the target resource.
+     */
     METHOD_NOT_ALLOWED("405"),
+    /**
+     * Not Acceptable (HTTP 406).
+     * The server cannot produce a response matching the list of acceptable values defined in the request's headers.
+     */
     NOT_ACCEPTABLE("406"),
+    /**
+     * Request Timeout (HTTP 408).
+     * The server timed out waiting for the request. The client may repeat the request without modifications.
+     */
     REQUEST_TIMEOUT("408"),
+    /**
+     * Locked (HTTP 423).
+     * The resource that is being accessed is locked. Part of WebDAV protocol.
+     */
     LOCKED("423"),
+    /**
+     * Too Many Requests (HTTP 429).
+     * The user has sent too many requests in a given amount of time ("rate limiting").
+     */
     TOO_MANY_REQUESTS("429"),
 
     // ========== 5xx ==========
@@ -47,7 +80,15 @@ public enum GlobalResponseCode {
      * This is a generic server error response when no more specific message is suitable.
      */
     INTERNAL_SERVER_ERROR("500"),
+    /**
+     * Not Implemented (HTTP 501).
+     * The server does not support the functionality required to fulfill the request.
+     */
     NOT_IMPLEMENTED("501"),
+    /**
+     * Service Unavailable (HTTP 503).
+     * The server is not ready to handle the request. Common causes are a server that is down for maintenance or is overloaded.
+     */
     SERVICE_UNAVAILABLE("503"),
     /**
      * Gateway Timeout (HTTP 504).
@@ -56,6 +97,10 @@ public enum GlobalResponseCode {
      */
     GATEWAY_TIMEOUT("504"),
 
+    /**
+     * Unknown Error (999).
+     * A generic error code used when the specific error condition is unknown or doesn't fit into other categories.
+     */
     UNKNOWN("999")
     ;
 

@@ -3,7 +3,6 @@ package space.x9x.radp.spring.boot.task;
 import com.alibaba.ttl.TtlCallable;
 import com.alibaba.ttl.TtlRunnable;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.io.Serial;
 import java.util.Objects;
@@ -42,13 +41,4 @@ public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
         return super.submit(Objects.requireNonNull(TtlCallable.get(task), MESSAGE));
     }
 
-    @Override
-    public ListenableFuture<?> submitListenable(Runnable task) {
-        return super.submitListenable(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE));
-    }
-
-    @Override
-    public <T> ListenableFuture<T> submitListenable(Callable<T> task) {
-        return super.submitListenable(Objects.requireNonNull(TtlCallable.get(task), MESSAGE));
-    }
 }

@@ -15,7 +15,7 @@
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
   - [x] Fix profile `code-review`
-  - [x] Fix profile `unit-test`
+  - [x] Fix profile `unit-test`, `integration-test`
     - Added maven-jxr-plugin for cross-referencing source code
     - Configured maven-site-plugin and info-reports-plugin for reports
   - [x] Add profile `aggregate-reports`

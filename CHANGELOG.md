@@ -2,8 +2,6 @@
 
 ## 3.20
 
-- docs
-  - [x] Add Javadoc
 - fix
   - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
   - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
@@ -17,16 +15,29 @@
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
   - [x] Fix profile `code-review`
+  - [x] Fix profile `unit-test`
+    - Added maven-jxr-plugin for cross-referencing source code
+    - Configured maven-site-plugin and info-reports-plugin for reports
+  - [x] Add profile `aggregate-reports`
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
   - [x] Upgrade `sonar-maven-plugin.version` from `3.9.1.2184` to `5.1.0.4751`
+  - [x] Upgrade `maven-surefire-plugin' from `3.0.0-M7` to `3.1.2`
+  - [x] Upgrade `maven-failsafe-plugin' from `3.0.0-M3` to `3.1.2`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`
   - [x] Add .gitattributes
   - [x] Add default ApplicationTests
   - [X] Add GitHub Issue Templates
+- docs
+  - [x] Add Javadoc
+- chore
+  - [x] Add aggregate reports generation profile
 
 ## 3.19.1
 

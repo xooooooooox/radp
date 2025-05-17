@@ -451,12 +451,13 @@
                                 <phase>site</phase>
                                 <goals>
                                     <goal>site</goal>
+                                    <goal>stage</goal>
                                 </goals>
                             </execution>
                             <!-- 添加一个新的执行，确保在所有子模块处理完后，再次以非递归方式执行根项目的 stage -->
                             <execution>
                                 <id>stage-root-only</id>
-                                <phase>site</phase>
+                                <phase>post-site</phase>
                                 <goals>
                                     <goal>stage</goal>
                                 </goals>

@@ -64,7 +64,7 @@
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
         <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
     </properties>
 
     <developers>
@@ -436,6 +436,9 @@
                                 <configuration>
                                     <outputDirectory>${session.executionRootDirectory}/target/staging/jacoco-aggregate
                                     </outputDirectory>
+                                    <dataFileIncludes>
+                                        <dataFileInclude>**/jacoco-ut.exec</dataFileInclude>
+                                    </dataFileIncludes>
                                 </configuration>
                             </execution>
                         </executions>

@@ -128,7 +128,7 @@
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
         <!-- 代码覆盖率 -->
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
         <!-- 代码质量 -->
         <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
         <!-- 单元测试 -->

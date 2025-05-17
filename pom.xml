@@ -405,11 +405,15 @@
 
         <profile>
             <id>aggregate-reports</id>
+            <properties>
+                <!-- 定义站点生成目录 -->
+                <site.staging.directory>${session.executionRootDirectory}/target/staging</site.staging.directory>
+            </properties>
             <distributionManagement>
                 <site>
                     <id>site</id>
                     <name>Project Site</name>
-                    <url>file:${session.executionRootDirectory}/target/staging</url>
+                    <url>file:${site.staging.directory}</url>
                 </site>
             </distributionManagement>
             <build>
@@ -427,8 +431,7 @@
                                     <goal>report-aggregate</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${session.executionRootDirectory}/target/staging/jacoco-aggregate
-                                    </outputDirectory>
+                                    <outputDirectory>${site.staging.directory}/jacoco-aggregate</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
@@ -441,7 +444,7 @@
                         <configuration>
                             <skip>false</skip>
                             <!-- ensure all modules stage their site documentation to a single location, preventing the duplicate directory structure -->
-                            <stagingDirectory>${session.executionRootDirectory}/target/staging</stagingDirectory>
+                            <stagingDirectory>${site.staging.directory}</stagingDirectory>
                         </configuration>
                         <executions>
                             <execution>
@@ -451,6 +454,20 @@
                                     <goal>site</goal>
                                     <goal>stage</goal>
                                 </goals>
+                            </execution>
+                            <!-- 添加一个新的执行，确保在所有子模块处理完后，再次以非递归方式执行根项目的 stage -->
+                            <execution>
+                                <id>stage-root-only</id>
+                                <!-- 使用 post-site 阶段确保在所有模块的 site 阶段之后执行 -->
+                                <phase>post-site</phase>
+                                <goals>
+                                    <goal>stage</goal>
+                                </goals>
+                                <!-- 确保该执行不被子模块继承 -->
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <topSiteURL>${project.url}</topSiteURL>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

@@ -1093,7 +1093,7 @@
         </profile>
 
         <profile>
-            <id>aggregates</id>
+            <id>aggregates-reports</id>
             <distributionManagement>
                 <site>
                     <id>site</id>

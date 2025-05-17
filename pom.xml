@@ -60,6 +60,10 @@
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
         <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
+        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
     </properties>
 
     <developers>
@@ -288,6 +292,72 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>aggregate-reports</id>
+            <build>
+                <plugins>
+                    <!-- 生成聚合单元测试报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>aggregate-reports</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                    <goal>report-only</goal>
+                                </goals>
+                                <configuration>
+                                    <aggregate>true</aggregate>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 生成测试报告时链接到测试源代码的交叉引用（XRef） -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <version>${maven-jxr-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>aggregate-jxr</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>aggregate</goal>
+                                    <goal>test-aggregate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 配置 maven-site-plugin 以确保报告生成 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <version>${maven-site-plugin.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-site</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>${maven-project-info-reports-plugin.version}</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>coding</id>
             <properties>

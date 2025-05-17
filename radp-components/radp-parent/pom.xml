@@ -988,13 +988,14 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <skipTests>false</skipTests>
-                            <useModulePath>false</useModulePath>
-                            <useFile>false</useFile>
+                            <!-- 并行执行 -->
                             <parallel>methods</parallel>
                             <threadCount>10</threadCount>
+                            <!-- 出现失败继续生成报告 -->
                             <testFailureIgnore>true</testFailureIgnore>
+                            <!-- 避免某些 Groovy 反射问题 -->
                             <useSystemClassLoader>false</useSystemClassLoader>
+                            <skipTests>false</skipTests>
                             <includes>
                                 <include>**/*Test.java</include>
                                 <include>**/*Spec.groovy</include>
@@ -1005,125 +1006,82 @@
                             </excludes>
                         </configuration>
                     </plugin>
-                    <!-- 生成单元测试报告 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-report-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>aggregate-reports</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <aggregate>true</aggregate>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 生成测试报告时链接到测试源代码的交叉引用（XRef） -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jxr-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-xref</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>jxr</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>generate-test-xref</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>test-jxr</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 配置 maven-site-plugin 以确保 JXR 报告生成 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <configuration>
-                            <skip>false</skip>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-site</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>site</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-project-info-reports-plugin</artifactId>
-                    </plugin>
                     <!-- 收集代码覆盖率并生成报告 -->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <configuration>
-                            <destFile>
-                                ${project.build.directory}/jacoco-ut.exec
-                            </destFile>
-                            <dataFile>
-                                ${project.build.directory}/jacoco-ut.exec
-                            </dataFile>
-                            <rules>
-                                <rule implementation="org.jacoco.maven.RuleConfiguration">
-                                    <element>BUNDLE</element>
-                                    <limits>　　
-                                        <limit implementation="org.jacoco.report.check.Limit">
-                                            <counter>METHOD</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.50</minimum>
-                                        </limit>
-                                        <limit implementation="org.jacoco.report.check.Limit">
-                                            <counter>BRANCH</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.50</minimum>
-                                        </limit>
-                                        <limit implementation="org.jacoco.report.check.Limit">
-                                            <counter>CLASS</counter>
-                                            <value>MISSEDCOUNT</value>
-                                            <maximum>0</maximum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
                         <executions>
                             <execution>
+                                <!-- 初始化时附加 agent -->
                                 <id>prepare-agent</id>
-                                <phase>generate-test-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
+                                <configuration>
+                                    <propertyName>jacoco.ut.arg</propertyName>
+                                    <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+                                </configuration>
                             </execution>
                             <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report-aggregate</id>
+                                <id>report-and-check</id>
                                 <phase>verify</phase>
                                 <goals>
-                                    <goal>report-aggregate</goal>
+                                    <goal>report</goal>
+                                    <goal>check</goal>
                                 </goals>
+                                <configuration>
+                                    <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+                                    <rules>
+                                        <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                            <element>BUNDLE</element>
+                                            <limits>　　
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>METHOD</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.50</minimum>
+                                                </limit>
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>BRANCH</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.50</minimum>
+                                                </limit>
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>CLASS</counter>
+                                                    <value>MISSEDCOUNT</value>
+                                                    <maximum>0</maximum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
+            <reporting>
+                <plugins>
+                    <!-- 生成单元测试报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <configuration>
+                            <aggregate>false</aggregate>
+                        </configuration>
+                    </plugin>
+                    <!-- 交叉应用 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                    </plugin>
+                    <!-- 项目基本信息报告(依赖树,插件清单等) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </reporting>
             <dependencies>
                 <dependency>
                     <groupId>ch.qos.logback</groupId>
@@ -1144,41 +1102,7 @@
             </distributionManagement>
             <build>
                 <plugins>
-                    <!-- 生成聚合单元测试报告 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-report-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>aggregate-reports</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                    <goal>report-only</goal>
-                                </goals>
-                                <configuration>
-                                    <aggregate>true</aggregate>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 生成测试报告时链接到测试源代码的交叉引用（XRef） -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jxr-plugin</artifactId>
-                        <version>${maven-jxr-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>aggregate-jxr</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>aggregate</goal>
-                                    <goal>test-aggregate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 添加 JaCoCo 聚合报告配置 -->
+                    <!-- JaCoCo 聚合报告 -->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -1196,7 +1120,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- 配置 maven-site-plugin 以确保报告生成 -->
+                    <!-- 站点生成(site + stage) -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
@@ -1208,7 +1132,7 @@
                         <executions>
                             <execution>
                                 <id>attach-site</id>
-                                <phase>test</phase>
+                                <phase>site</phase>
                                 <goals>
                                     <goal>site</goal>
                                     <goal>stage</goal>
@@ -1216,13 +1140,38 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
+                    <!-- 生成聚合单元测试报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成测试报告时链接到测试源代码的交叉引用（XRef） -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>aggregate</report>
+                                    <report>test-aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
-                        <version>${maven-project-info-reports-plugin.version}</version>
                     </plugin>
                 </plugins>
-            </build>
+            </reporting>
         </profile>
 
         <profile>

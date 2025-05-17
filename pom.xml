@@ -294,6 +294,14 @@
     <profiles>
         <profile>
             <id>aggregate-reports</id>
+            <distributionManagement>
+                <site>
+                    <id>site</id>
+                    <name>Project Site</name>
+                    <!-- ensure all modules stage their site documentation to a single location, preventing the duplicate directory structure -->
+                    <url>file:${session.executionRootDirectory}/target/staging</url>
+                </site>
+            </distributionManagement>
             <build>
                 <plugins>
                     <!-- 生成聚合单元测试报告 -->
@@ -337,7 +345,8 @@
                         <artifactId>maven-site-plugin</artifactId>
                         <version>${maven-site-plugin.version}</version>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>false</skip>
+                            <stagingDirectory>${session.executionRootDirectory}/target/staging</stagingDirectory>
                         </configuration>
                         <executions>
                             <execution>
@@ -345,6 +354,7 @@
                                 <phase>test</phase>
                                 <goals>
                                     <goal>site</goal>
+                                    <goal>stage</goal>
                                 </goals>
                             </execution>
                         </executions>

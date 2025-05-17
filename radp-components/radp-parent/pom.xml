@@ -1011,11 +1011,14 @@
                         <artifactId>maven-surefire-report-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>site</id>
+                                <id>aggregate-reports</id>
                                 <phase>test</phase>
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <aggregate>true</aggregate>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -1045,7 +1048,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>false</skip>
                         </configuration>
                         <executions>
                             <execution>
@@ -1145,7 +1148,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>aggregate-reports</id>

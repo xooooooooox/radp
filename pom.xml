@@ -293,6 +293,9 @@
     </build>
 
     <profiles>
+
+        <!-- 生成所有报告: jacoco 报告, 单元测试报告, 源码报告 -->
+        <!-- mvn clean verify site -Pcoding,unit-test,aggregate-reports -->
         <profile>
             <id>aggregate-reports</id>
             <distributionManagement>
@@ -316,7 +319,6 @@
                                 <phase>test</phase>
                                 <goals>
                                     <goal>report</goal>
-                                    <goal>report-only</goal>
                                 </goals>
                                 <configuration>
                                     <aggregate>true</aggregate>

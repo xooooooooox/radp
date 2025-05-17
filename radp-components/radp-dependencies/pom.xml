@@ -133,9 +133,9 @@
         <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
         <!-- 单元测试 -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <!-- 集成测试 -->
-        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
         <redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
         <!-- 性能测试 -->
         <gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
@@ -176,6 +176,9 @@
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
         <wagon-maven-plugin.version>2.0.2</wagon-maven-plugin.version>
+        <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
+        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -923,6 +926,21 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>${maven-jxr-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}</version>
                 </plugin>
                 <!-- ====================单元测试]==================== -->
 

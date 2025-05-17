@@ -25,6 +25,7 @@
   - [x] Upgrade `sonar-maven-plugin.version` from `3.9.1.2184` to `5.1.0.4751`
   - [x] Upgrade `maven-surefire-plugin' from `3.0.0-M7` to `3.1.2`
   - [x] Upgrade `maven-failsafe-plugin' from `3.0.0-M3` to `3.1.2`
+  - [x] Upgrade `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`

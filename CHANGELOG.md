@@ -8,11 +8,11 @@
 - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
 - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
   replacement
-- [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
-- [x] Add serialVersionUID to improve serialization consistency
+- [x] Remove deprecated ListenableFuture methods in `TtlThreadPoolTaskExecutor`
+- [x] Add `serialVersionUID` to improve serialization consistency
 - [x] Use a proper constructor method for adaptive extension instantiation
-- [x] Simplify instance checks in ExceptionHandlingAsyncTaskExecutor
-- [x] Fix ExtensionLoader, replace deprecated newInstance usage
+- [x] Simplify instance checks in `ExceptionHandlingAsyncTaskExecutor`
+- [x] Fix `ExtensionLoader`, replace deprecated newInstance usage
 
 ### chore
 
@@ -21,14 +21,14 @@
   - [x] Fix profile `code-review`, `unit-test`, `integration-test`
   - [x] Add profile `aggregate-reports`
     - Integrate sonarqube
-    - Added maven-jxr-plugin for cross-referencing source code
-    - Configure maven-site-plugin and project-info-reports-plugin for reports
+    - Added `maven-jxr-plugin` for cross-referencing source code
+    - Configure `maven-site-plugin` and `project-info-reports-plugin` for reports
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
   - [x] Upgrade `sonar-maven-plugin.version` from `3.9.1.2184` to `5.1.0.4751`
-  - [x] Upgrade `maven-surefire-plugin' from `3.0.0-M7` to `3.1.2`
-  - [x] Upgrade `maven-failsafe-plugin' from `3.0.0-M3` to `3.1.2`
+  - [x] Upgrade `maven-surefire-plugin` from `3.0.0-M7` to `3.1.2`
+  - [x] Upgrade `maven-failsafe-plugin` from `3.0.0-M3` to `3.1.2`
   - [x] Upgrade `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`

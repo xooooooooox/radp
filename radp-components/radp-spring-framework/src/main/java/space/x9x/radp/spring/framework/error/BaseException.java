@@ -39,6 +39,15 @@ public class BaseException extends RuntimeException {
         this.errMessage = ErrorCodeLoader.getErrMessage(errCode);
     }
 
+    /**
+     * Constructs a new BaseException with the specified error code, message pattern, and parameters.
+     * The message pattern is used directly as the error message, and the parameters can be used for
+     * message formatting or to provide a cause for the exception.
+     *
+     * @param errCode        the error code that identifies the error
+     * @param messagePattern the message pattern to use as the error message
+     * @param params         the parameters to be used for message formatting or to provide a cause
+     */
     public BaseException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
                          String messagePattern,
                          Object... params) {

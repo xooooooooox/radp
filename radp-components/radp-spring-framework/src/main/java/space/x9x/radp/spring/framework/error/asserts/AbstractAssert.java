@@ -27,9 +27,14 @@ public abstract class AbstractAssert extends Assert {
     protected static String getErrorMessage(String errCode, Object... placeholders) {
         return ErrorCodeLoader.getErrMessage(errCode, placeholders);
     }
-    
+
     /**
      * Assert that the given string does not contain the given substring.
+     *
+     * @param textToSearch the string to search in
+     * @param substring the substring to search for
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void doesNotContain(@NonNull String textToSearch, String substring, 
                                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -39,6 +44,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given string has length.
+     *
+     * @param expression the string to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void hasLength(@NonNull String expression, 
                                  @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -48,6 +57,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given string has text.
+     *
+     * @param text the string to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void hasText(String text, 
                                @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -57,6 +70,11 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given object is an instance of the given type.
+     *
+     * @param type the type to check against
+     * @param obj the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void isInstanceOf(Class<?> type, @NonNull Object obj, 
                                     @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -66,6 +84,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given object is null.
+     *
+     * @param object the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void isNull(Object object, 
                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -75,6 +97,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given object is not null.
+     *
+     * @param object the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void notNull(Object object, 
                                @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -84,6 +110,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given expression is true.
+     *
+     * @param expression the boolean expression to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void isTrue(boolean expression, 
                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -93,6 +123,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given collection has no null elements.
+     *
+     * @param collection the collection to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void noNullElements(@NonNull Collection<?> collection, 
                                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -102,6 +136,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given array is not empty.
+     *
+     * @param array the array to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void notEmpty(@NonNull Object[] array, 
                                 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -111,6 +149,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given collection is not empty.
+     *
+     * @param collection the collection to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void notEmpty(@NonNull Collection<?> collection, 
                                 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -120,6 +162,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given map is not empty.
+     *
+     * @param map the map to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void notEmpty(@NonNull Map<?, ?> map, 
                                 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -129,6 +175,11 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given subType is assignable to the given superType.
+     *
+     * @param superType the super type to check against
+     * @param subType the sub type to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void isAssignable(Class<?> superType, @NonNull Class<?> subType, 
                                     @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -138,6 +189,10 @@ public abstract class AbstractAssert extends Assert {
 
     /**
      * Assert that the given expression is true.
+     *
+     * @param expression the boolean expression to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholder values to be substituted in the error message
      */
     public static void state(boolean expression, 
                              @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,

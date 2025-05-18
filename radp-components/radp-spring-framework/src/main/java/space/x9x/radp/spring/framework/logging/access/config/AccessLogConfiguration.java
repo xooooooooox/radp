@@ -1,8 +1,5 @@
 package space.x9x.radp.spring.framework.logging.access.config;
 
-import space.x9x.radp.spring.framework.logging.EnableAccessLog;
-import space.x9x.radp.spring.framework.logging.access.aop.AccessLogAdvisor;
-import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -12,6 +9,9 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
+import space.x9x.radp.spring.framework.logging.EnableAccessLog;
+import space.x9x.radp.spring.framework.logging.access.aop.AccessLogAdvisor;
+import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 
 /**
  * @author x9x
@@ -35,11 +35,26 @@ public class AccessLogConfiguration implements ImportAware {
         }
     }
 
+    /**
+     * Creates and configures the AccessLogInterceptor bean.
+     * This interceptor handles the actual logging of method invocations.
+     *
+     * @param configs provider for AccessLogConfig instances
+     * @return configured AccessLogInterceptor instance
+     */
     @Bean
     public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
         return new AccessLogInterceptor(getAccessLogConfig(configs));
     }
 
+    /**
+     * Creates and configures the AccessLogAdvisor bean.
+     * This advisor defines which methods should be intercepted for logging based on the pointcut expression.
+     *
+     * @param configs     provider for AccessLogConfig instances
+     * @param interceptor the interceptor that will be applied to matched methods
+     * @return configured AccessLogAdvisor instance
+     */
     @Bean
     public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
                                                          AccessLogInterceptor interceptor) {

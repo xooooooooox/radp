@@ -53,6 +53,15 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
     // ================================ Join Query Methods ============================== //
 
+    /**
+     * Executes a join query with pagination using a lambda wrapper.
+     *
+     * @param <D>           the type of the result objects
+     * @param pageParam     the pagination parameters
+     * @param clazz         the class of the result objects
+     * @param lambdaWrapper the lambda wrapper for the join query
+     * @return a page result containing the query results
+     */
     default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
         if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
             List<D> totalList = selectJoinList(clazz, lambdaWrapper);
@@ -66,6 +75,15 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
+    /**
+     * Executes a join query with pagination using a base join wrapper.
+     *
+     * @param <DTO> the type of the result objects
+     * @param pageParam the pagination parameters
+     * @param resultTypeClass the class of the result objects
+     * @param joinQueryWrapper the join query wrapper
+     * @return a page result containing the query results
+     */
     @SuppressWarnings("java:S119")
     default <DTO> PageResult<DTO> selectJoinPage(PageParam pageParam, Class<DTO> resultTypeClass, MPJBaseJoin<T> joinQueryWrapper) {
         IPage<DTO> mpPage = MybatisUtils.buildPage(pageParam);
@@ -80,6 +98,13 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectOne(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Retrieves a single record that matches the specified field and value using a lambda function.
+     *
+     * @param field the field to filter by, specified as a lambda function
+     * @param value the value to match
+     * @return the matching record, or null if not found
+     */
     default T selectOne(SFunction<T, ?> field, Object value) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field, value));
     }
@@ -88,41 +113,106 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectOne(new QueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
+    /**
+     * Retrieves a single record that matches both specified field-value pairs using lambda functions.
+     *
+     * @param field1 the first field to filter by, specified as a lambda function
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda function
+     * @param value2 the value to match for the second field
+     * @return the matching record, or null if not found
+     */
     default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
+    /**
+     * Retrieves a single record that matches all three specified field-value pairs using lambda functions.
+     *
+     * @param field1 the first field to filter by, specified as a lambda function
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda function
+     * @param value2 the value to match for the second field
+     * @param field3 the third field to filter by, specified as a lambda function
+     * @param value3 the value to match for the third field
+     * @return the matching record, or null if not found
+     */
     default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2,
                         SFunction<T, ?> field3, Object value3) {
         return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2)
                 .eq(field3, value3));
     }
 
+    /**
+     * Counts all records in the table.
+     *
+     * @return the total count of records
+     */
     default Long selectCount() {
         return selectCount(new QueryWrapper<>());
     }
 
+    /**
+     * Counts records that match the specified field and value.
+     *
+     * @param field the field name to filter by
+     * @param value the value to match
+     * @return the count of matching records
+     */
     default Long selectCount(String field, Object value) {
         return selectCount(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Counts records that match the specified field and value using a lambda function.
+     *
+     * @param field the field to filter by, specified as a lambda function
+     * @param value the value to match
+     * @return the count of matching records
+     */
     default Long selectCount(SFunction<T, ?> field, Object value) {
         return selectCount(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
 
+    /**
+     * Retrieves all records from the table.
+     *
+     * @return a list of all records
+     */
     default List<T> selectList() {
         return selectList(new QueryWrapper<>());
     }
 
+    /**
+     * Retrieves records that match the specified field and value.
+     *
+     * @param field the field name to filter by
+     * @param value the value to match
+     * @return a list of matching records
+     */
     default List<T> selectList(String field, Object value) {
         return selectList(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Retrieves records that match the specified field and value using a lambda function.
+     *
+     * @param field the field to filter by, specified as a lambda function
+     * @param value the value to match
+     * @return a list of matching records
+     */
     default List<T> selectList(SFunction<T, ?> field, Object value) {
         return selectList(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Retrieves records where the specified field matches any value in the collection.
+     *
+     * @param field the field name to filter by
+     * @param values the collection of values to match against
+     * @return a list of matching records, or an empty list if values is empty
+     */
     default List<T> selectList(String field, Collection<?> values) {
         if (CollUtil.isEmpty(values)) {
             return CollUtil.newArrayList();
@@ -130,6 +220,13 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new QueryWrapper<T>().in(field, values));
     }
 
+    /**
+     * Retrieves records where the specified field matches any value in the collection using a lambda function.
+     *
+     * @param field the field to filter by, specified as a lambda function
+     * @param values the collection of values to match against
+     * @return a list of matching records, or an empty list if values is empty
+     */
     default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
         if (CollUtil.isEmpty(values)) {
             return CollUtil.newArrayList();
@@ -137,6 +234,15 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().in(field, values));
     }
 
+    /**
+     * Retrieves records that match both specified field-value pairs using lambda functions.
+     *
+     * @param field1 the first field to filter by, specified as a lambda function
+     * @param value1 the value to match for the first field
+     * @param field2 the second field to filter by, specified as a lambda function
+     * @param value2 the value to match for the second field
+     * @return a list of matching records
+     */
     default List<T> selectList(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
         return selectList(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
@@ -155,10 +261,24 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
 
+    /**
+     * Deletes records that match the specified field and value.
+     *
+     * @param field the field name to filter by
+     * @param value the value to match
+     * @return the number of records deleted
+     */
     default int delete(String field, String value) {
         return delete(new QueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Deletes records that match the specified field and value using a lambda function.
+     *
+     * @param field the field to filter by, specified as a lambda function
+     * @param value the value to match
+     * @return the number of records deleted
+     */
     default int delete(SFunction<T, ?> field, Object value) {
         return delete(new LambdaQueryWrapper<T>().eq(field, value));
     }

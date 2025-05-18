@@ -1,7 +1,7 @@
 package space.x9x.radp.spring.framework.error.http;
 
-import space.x9x.radp.spring.framework.error.BaseException;
 import lombok.EqualsAndHashCode;
+import space.x9x.radp.spring.framework.error.BaseException;
 
 import java.io.Serial;
 
@@ -15,6 +15,12 @@ public class BadRequestException extends BaseException {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructs a new BadRequestException with the specified error message and parameters.
+     *
+     * @param errMessage the error message
+     * @param params     the parameters to be used for message formatting
+     */
     public BadRequestException(String errMessage, Object... params) {
         super("400", errMessage, params);
     }

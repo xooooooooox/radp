@@ -21,11 +21,34 @@ public class PageParam implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Default page index value (1-based indexing).
+     */
     public static final int DEFAULT_PAGE_INDEX = 1;
+
+    /**
+     * Default number of items per page.
+     */
     public static final int DEFAULT_PAGE_SIZE = 10;
+
+    /**
+     * Minimum allowed page index value.
+     */
     public static final int MIN_PAGE_INDEX = 1;
+
+    /**
+     * Minimum allowed page size value.
+     */
     public static final int MIN_PAGE_SIZE = 1;
+
+    /**
+     * Maximum allowed page size value to prevent excessive data loading.
+     */
     public static final int MAX_PAGE_SIZE = 500;
+
+    /**
+     * Special value indicating that pagination should be disabled (return all results).
+     */
     public static final int PAGE_SIZE_NONE = -1;
 
     @Min(value = MIN_PAGE_INDEX, message = "页码最小值为 {value}")

@@ -2,6 +2,10 @@ package space.x9x.radp.spring.framework.logging.access.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.MDC;
 import space.x9x.radp.commons.lang.ObjectUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
@@ -10,10 +14,6 @@ import space.x9x.radp.spring.framework.json.support.JSONHelper;
 import space.x9x.radp.spring.framework.logging.MdcConstants;
 import space.x9x.radp.spring.framework.logging.access.model.AccessLog;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.intercept.MethodInvocation;
-import org.slf4j.MDC;
 
 import java.util.Objects;
 
@@ -143,6 +143,15 @@ public class AccessLogHelper {
         log(accessLog, slowThreshold);
     }
 
+    /**
+     * Logs the access information with appropriate log level based on execution result.
+     * If an exception occurred, logs at ERROR level.
+     * If execution time exceeded the slow threshold, logs at WARN level.
+     * Otherwise, logs at INFO level.
+     *
+     * @param accessLog     the access log object containing execution details
+     * @param slowThreshold the threshold in milliseconds above which a request is considered slow
+     */
     public static void log(AccessLog accessLog, long slowThreshold) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(accessLog.getLocation())

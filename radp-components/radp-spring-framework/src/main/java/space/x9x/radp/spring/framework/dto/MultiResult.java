@@ -29,10 +29,23 @@ public class MultiResult<T> extends Result {
 
     private Collection<T> data;
 
+    /**
+     * Creates a successful MultiResult with an empty collection.
+     *
+     * @param <T> the type of elements in the result collection
+     * @return a new MultiResult instance with success status and empty data
+     */
     public static <T> MultiResult<T> build() {
         return build(Collections.emptyList());
     }
 
+    /**
+     * Creates a successful MultiResult with the specified collection of data.
+     *
+     * @param <T>  the type of elements in the result collection
+     * @param data the collection of data to include in the result
+     * @return a new MultiResult instance with success status and the provided data
+     */
     public static <T> MultiResult<T> build(Collection<T> data) {
         return MultiResult.<T>multiResultBuilder()
                 .success(true)
@@ -42,6 +55,13 @@ public class MultiResult<T> extends Result {
                 .build();
     }
 
+    /**
+     * Creates a failure MultiResult with the specified error code.
+     *
+     * @param <T> the type of elements in the result collection (will be empty for failure)
+     * @param errorCode the error code containing code and message for the failure
+     * @return a new MultiResult instance with failure status and the provided error details
+     */
     public static <T> MultiResult<T> buildFailure(ErrorCode errorCode) {
         return MultiResult.<T>multiResultBuilder()
                 .success(false)

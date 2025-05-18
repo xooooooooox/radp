@@ -6,15 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.io.Serial;
-
 /**
  * @author x9x
  * @since 2024-09-23 13:50
  */
 public class DefaultObjectMapper extends ObjectMapper {
 
-    @Serial
     private static final long serialVersionUID = -4849410602482226754L;
 
     /**

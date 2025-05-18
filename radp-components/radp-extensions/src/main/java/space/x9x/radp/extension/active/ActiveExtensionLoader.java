@@ -20,7 +20,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ActiveExtensionLoader<T> {
 
+    /**
+     * Prefix used to indicate that an extension should be removed from activation.
+     * When a value in the activation list starts with this prefix, the corresponding extension will be excluded.
+     */
     public static final String REMOVE_VALUE_PREFIX = "-";
+
+    /**
+     * Key used to represent the default extension.
+     * When this key is used, it affects the ordering of activated extensions.
+     */
     public static final String DEFAULT_KEY = "default";
 
     /**
@@ -30,6 +39,14 @@ public class ActiveExtensionLoader<T> {
 
     private final ExtensionLoader<T> extensionLoader;
 
+    /**
+     * Caches a class with the Activate annotation.
+     * This method checks if the provided class has the Activate annotation and,
+     * if present, stores it in the cached actives map with the given name as the key.
+     *
+     * @param clazz the class to check for the Activate annotation
+     * @param name  the name to use as the key in the cache
+     */
     public void cacheActiveClass(Class<?> clazz, String name) {
         Activate activate = clazz.getAnnotation(Activate.class);
         if (activate != null) {

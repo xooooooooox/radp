@@ -9,6 +9,7 @@
         <version>2.20-SNAPSHOT</version>
     </parent>
     <artifactId>radp-smoke-tests-archetype</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
 
     <modules>

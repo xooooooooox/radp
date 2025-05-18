@@ -31,10 +31,23 @@ public class SingleResult<T> extends Result {
      */
     private T data;
 
+    /**
+     * Creates a successful result with no data.
+     *
+     * @param <T> the type of the data item
+     * @return a new SingleResult instance with success status and no data
+     */
     public static <T> SingleResult<T> build() {
         return build(null);
     }
 
+    /**
+     * Creates a successful result with the specified data.
+     *
+     * @param <T>  the type of the data item
+     * @param data the data to include in the result
+     * @return a new SingleResult instance with success status and the specified data
+     */
     public static <T> SingleResult<T> build(T data) {
         return SingleResult.<T>singleResultBuilder()
                 .success(true)
@@ -44,6 +57,13 @@ public class SingleResult<T> extends Result {
                 .build();
     }
 
+    /**
+     * Creates a failure result with the specified error code.
+     *
+     * @param <T> the type of the data item
+     * @param errorCode the error code to include in the result
+     * @return a new SingleResult instance with failure status and the specified error code
+     */
     public static <T> SingleResult<T> buildFailure(ErrorCode errorCode) {
         return SingleResult.<T>singleResultBuilder()
                 .success(false)

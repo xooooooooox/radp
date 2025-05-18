@@ -2,12 +2,12 @@ package space.x9x.radp.spring.framework.web.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +38,11 @@ public class ServletUtils {
         return null;
     }
 
+    /**
+     * Gets the current HTTP servlet response from the request context.
+     *
+     * @return the current HTTP servlet response, or null if not available
+     */
     public static HttpServletResponse getResponse() {
         ServletRequestAttributes attributes = getRequestAttributes();
         if (attributes != null) {
@@ -66,6 +71,12 @@ public class ServletUtils {
         return null;
     }
 
+    /**
+     * Gets the body content of the HTTP servlet response.
+     *
+     * @param response the HTTP servlet response
+     * @return the response body as a string, or empty string if not available
+     */
     public static String getResponseBody(HttpServletResponse response) {
         if (response instanceof CustomHttpServletResponseWrapper) {
             return ((CustomHttpServletResponseWrapper) response).getContent();
@@ -77,10 +88,21 @@ public class ServletUtils {
         return Strings.EMPTY;
     }
 
+    /**
+     * Gets the URI of the current HTTP request.
+     *
+     * @return the request URI as a string, or empty string if not available
+     */
     public static String getRequestURI() {
         return getRequestURI(getRequest());
     }
 
+    /**
+     * Gets the URI of the specified HTTP request.
+     *
+     * @param request the HTTP servlet request
+     * @return the request URI as a string, or empty string if not available
+     */
     public static String getRequestURI(HttpServletRequest request) {
         return StringUtils.trimToEmpty(request.getRequestURI());
     }

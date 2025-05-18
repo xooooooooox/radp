@@ -1,10 +1,6 @@
 package space.x9x.radp.spring.framework.expression;
 
 import cn.hutool.extra.spring.SpringUtil;
-import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.collections.MapUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
-import space.x9x.radp.commons.lang.StringUtils;
 import lombok.experimental.UtilityClass;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -15,6 +11,10 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import space.x9x.radp.commons.collections.CollectionUtils;
+import space.x9x.radp.commons.collections.MapUtils;
+import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -39,6 +39,13 @@ public class SpringExpressionUtils {
      */
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
+    /**
+     * Parses a single SpEL expression in the context of a join point.
+     *
+     * @param joinPoint        the join point providing the context for expression evaluation
+     * @param expressionString the SpEL expression to parse
+     * @return the result of evaluating the expression
+     */
     public static Object parseExpression(JoinPoint joinPoint, String expressionString) {
         return parseExpression(joinPoint, Collections.singletonList(expressionString)).get(expressionString);
     }

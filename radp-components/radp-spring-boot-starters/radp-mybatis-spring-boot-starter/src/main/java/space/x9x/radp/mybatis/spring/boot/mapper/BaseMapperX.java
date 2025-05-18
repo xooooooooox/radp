@@ -32,14 +32,36 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
     // ================================ Pagination Methods ============================== //
 
+    /**
+     * Executes a query with pagination and sorting using a sortable page parameter.
+     *
+     * @param pageParam    the pagination and sorting parameters
+     * @param queryWrapper the query wrapper defining the conditions
+     * @return a page result containing the query results
+     */
     default PageResult<T> selectPage(SortablePageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);
     }
 
+    /**
+     * Executes a query with pagination using a page parameter.
+     *
+     * @param pageParam the pagination parameters
+     * @param queryWrapper the query wrapper defining the conditions
+     * @return a page result containing the query results
+     */
     default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, null, queryWrapper);
     }
 
+    /**
+     * Executes a query with pagination and optional sorting.
+     *
+     * @param pageParam the pagination parameters
+     * @param sortingFields the list of sorting fields, can be null for no sorting
+     * @param queryWrapper the query wrapper defining the conditions
+     * @return a page result containing the query results
+     */
     default PageResult<T> selectPage(PageParam pageParam, List<SortingField> sortingFields, @Param("ew") Wrapper<T> queryWrapper) {
         if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
             List<T> totalList = selectList(queryWrapper);
@@ -109,6 +131,15 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectOne(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
+    /**
+     * Retrieves a single record that matches both specified field-value pairs.
+     *
+     * @param field1 the first field name to filter by
+     * @param value1 the value to match for the first field
+     * @param field2 the second field name to filter by
+     * @param value2 the value to match for the second field
+     * @return the matching record, or null if not found
+     */
     default T selectOne(String field1, Object value1, String field2, Object value2) {
         return selectOne(new QueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }

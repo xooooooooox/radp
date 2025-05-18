@@ -19,7 +19,14 @@ public class SortingField implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constant representing ascending sort order.
+     */
     public static final String ASC = "ASC";
+
+    /**
+     * Constant representing descending sort order.
+     */
     public static final String DESC = "DESC";
 
     /**

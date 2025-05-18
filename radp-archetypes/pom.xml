@@ -22,7 +22,6 @@
     <properties>
         <maven.test.skip>true</maven.test.skip>
         <jacoco.skip>true</jacoco.skip>
-        <maven.site.skip>true</maven.site.skip>
     </properties>
 
 </project>

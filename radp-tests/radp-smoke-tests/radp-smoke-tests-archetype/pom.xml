@@ -10,6 +10,7 @@
     </parent>
     <artifactId>radp-smoke-tests-archetype</artifactId>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
 
     <modules>
         <module>radp-smoke-tests-archetype-simple</module>

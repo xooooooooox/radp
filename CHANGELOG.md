@@ -13,6 +13,7 @@
 - Use a proper constructor method for adaptive extension instantiation
 - Simplify instance checks in `ExceptionHandlingAsyncTaskExecutor`
 - Fix `ExtensionLoader`, replace deprecated newInstance usage
+- Fix `AccessLogConfiguration` NPE
 
 ### chore
 

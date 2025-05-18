@@ -1113,6 +1113,26 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- 执行 Checkstyle 检查 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <configuration>
+                            <configLocation>google_checks.xml</configLocation>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>false</failsOnError>
+                            <linkXRef>true</linkXRef>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>checkstyle</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>checkstyle</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <!-- 站点生成(site + stage) -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -1206,8 +1226,10 @@
                         </configuration>
                         <reportSets>
                             <reportSet>
+                                <id>aggregate</id>
+                                <inherited>false</inherited>
                                 <reports>
-                                    <report>checkstyle</report>
+                                    <report>checkstyle-aggregate</report>
                                 </reports>
                             </reportSet>
                         </reportSets>

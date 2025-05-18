@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
@@ -131,6 +132,7 @@
         <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
         <!-- 代码质量 -->
         <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <!-- 单元测试 -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
@@ -911,6 +913,11 @@
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
                 </plugin>
                 <!-- ====================代码质量]==================== -->
 

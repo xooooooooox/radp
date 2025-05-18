@@ -528,7 +528,7 @@
         1. 在 <项目根目录>/target/staging/index.html
         2. 在 <项目根目录>/target/staging/surefire-report.html -->
         <profile>
-            <id>aggregate-reports</id>
+            <id>aggregate</id>
             <distributionManagement>
                 <site>
                     <id>site</id>

@@ -950,7 +950,7 @@
             </build>
         </profile>
 
-        <!-- mvn clean -Pcoding,code-review verify sonar:sonar -->
+        <!-- mvn clean verify sonar:sonar -Pcoding,code-review -->
         <profile>
             <id>code-review</id>
             <properties>

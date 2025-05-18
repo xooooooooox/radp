@@ -853,18 +853,6 @@
                                 <failOnError>false</failOnError>
                             </configuration>
                         </execution>
-                        <!-- 聚合多模块项目的 java doc -->
-                        <execution>
-                            <id>aggregate</id>
-                            <goals>
-                                <goal>aggregate</goal>
-                            </goals>
-                            <configuration>
-                                <!-- Specific configuration for the aggregate report -->
-                                <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-                                <destDir>javadoc</destDir>
-                            </configuration>
-                        </execution>
                     </executions>
                 </plugin>
                 <plugin>
@@ -1184,6 +1172,45 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
+                    </plugin>
+                    <!-- 生成聚合 Javadoc 报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <id>aggregate</id>
+                                <reports>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${javadoc.encoding}</charset>
+                            <docencoding>${javadoc.encoding}</docencoding>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成 Checkstyle 报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
+                        <configuration>
+                            <configLocation>google_checks.xml</configLocation>
+                            <consoleOutput>false</consoleOutput>
+                            <failsOnError>false</failsOnError>
+                            <linkXRef>true</linkXRef>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>checkstyle</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
                     </plugin>
                 </plugins>
             </reporting>

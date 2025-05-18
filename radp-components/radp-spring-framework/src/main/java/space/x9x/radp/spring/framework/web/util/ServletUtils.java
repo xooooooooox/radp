@@ -19,17 +19,35 @@ import java.util.stream.Collectors;
  */
 @UtilityClass
 public class ServletUtils {
+    /**
+     * Constant for the Accept-Ranges header value.
+     */
     public static final String ACCEPT_RANGES = "bytes";
+
+    /**
+     * Constant for the Content-Disposition header value for attachments.
+     * The {0} placeholder will be replaced with the filename.
+     */
     public static final String CONTENT_DISPOSITION_ATTACH = "attachment;filename={0}";
     /**
      * Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的
      */
     public static final String APPLICATION_JSON_UTF8_VALUE = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8";
 
+    /**
+     * Gets the current servlet request attributes from the request context.
+     *
+     * @return the current servlet request attributes, or null if not available
+     */
     public static ServletRequestAttributes getRequestAttributes() {
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 
+    /**
+     * Gets the current HTTP servlet request from the request context.
+     *
+     * @return the current HTTP servlet request, or null if not available
+     */
     public static HttpServletRequest getRequest() {
         ServletRequestAttributes attributes = getRequestAttributes();
         if (attributes != null) {
@@ -51,15 +69,33 @@ public class ServletUtils {
         return null;
     }
 
+    /**
+     * Gets the remote user from the current HTTP request.
+     *
+     * @return the remote user as a string, or empty string if not available
+     */
     public static String getRemoteUser() {
         HttpServletRequest request = getRequest();
         return getRemoteUser(request);
     }
 
+    /**
+     * Gets the remote user from the specified HTTP request.
+     *
+     * @param request the HTTP servlet request
+     * @return the remote user as a string, or empty string if not available
+     */
     public static String getRemoteUser(HttpServletRequest request) {
         return StringUtils.trimToEmpty(request.getRemoteUser());
     }
 
+    /**
+     * Gets the body content of the HTTP servlet request.
+     *
+     * @param request the HTTP servlet request
+     * @return the request body as a string, or null if not available
+     * @throws RuntimeException if an I/O error occurs
+     */
     public static String getRequestBOdy(HttpServletRequest request) {
         try (BufferedReader reader = request.getReader()) {
             if (reader != null) {
@@ -107,10 +143,21 @@ public class ServletUtils {
         return StringUtils.trimToEmpty(request.getRequestURI());
     }
 
+    /**
+     * Gets the local address of the current HTTP request.
+     *
+     * @return the local address as a string, or empty string if not available
+     */
     public static String getLocalAddr() {
         return getLocalAddr(getRequest());
     }
 
+    /**
+     * Gets the local address of the specified HTTP request.
+     *
+     * @param request the HTTP servlet request
+     * @return the local address as a string, or empty string if not available
+     */
     public static String getLocalAddr(HttpServletRequest request) {
         return StringUtils.trimToEmpty(request.getLocalAddr());
     }

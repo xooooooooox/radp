@@ -116,6 +116,13 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
     // ================================ Simple Query Methods ============================== //
 
+    /**
+     * Retrieves a single record that matches the specified field and value.
+     *
+     * @param field the field name to filter by
+     * @param value the value to match
+     * @return the matching record, or null if not found
+     */
     default T selectOne(String field, Object value) {
         return selectOne(new QueryWrapper<T>().eq(field, value));
     }

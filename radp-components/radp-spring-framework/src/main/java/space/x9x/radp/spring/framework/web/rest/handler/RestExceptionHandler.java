@@ -55,6 +55,12 @@ public class RestExceptionHandler {
         return builder.body(response);
     }
 
+    /**
+     * Handles validation exceptions thrown when method arguments fail validation.
+     *
+     * @param ex the validation exception
+     * @return a response entity with validation error details
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> resolveValidationException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
@@ -91,6 +97,12 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
     }
 
+    /**
+     * Handles unauthorized exceptions when a user is not authenticated.
+     *
+     * @param ex the unauthorized exception
+     * @return a response entity with unauthorized error details
+     */
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<?> resolveUnauthorizedException(UnauthorizedException ex) {
         return this.buildResponseEntity(HttpStatus.UNAUTHORIZED, ex);

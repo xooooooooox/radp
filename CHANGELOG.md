@@ -2,25 +2,27 @@
 
 ## 3.20
 
-- fix
-  - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
-  - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
-  - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
-    replacement
-  - [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
-  - [x] Add serialVersionUID to improve serialization consistency
-  - [x] Use a proper constructor method for adaptive extension instantiation
-  - [x] Simplify instance checks in ExceptionHandlingAsyncTaskExecutor
-  - [x] Fix ExtensionLoader, replace deprecated newInstance usage
+### fix
+
+- [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
+- [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
+- [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
+  replacement
+- [x] Remove deprecated ListenableFuture methods in TtlThreadPoolTaskExecutor
+- [x] Add serialVersionUID to improve serialization consistency
+- [x] Use a proper constructor method for adaptive extension instantiation
+- [x] Simplify instance checks in ExceptionHandlingAsyncTaskExecutor
+- [x] Fix ExtensionLoader, replace deprecated newInstance usage
+
+### chore
+
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
-  - [x] Fix profile `code-review`
-  - [x] Fix profile `unit-test`, `integration-test`
-    - Added maven-jxr-plugin for cross-referencing source code
-    - Configured maven-site-plugin and info-reports-plugin for reports
+  - [x] Fix profile `code-review`, `unit-test`, `integration-test`
   - [x] Add profile `aggregate-reports`
-    - [x] project info
-    - [x] project reports: surefire, xref, javadoc, checkstyle, etc.
+    - Integrate sonarqube
+    - Added maven-jxr-plugin for cross-referencing source code
+    - Configure maven-site-plugin and project-info-reports-plugin for reports
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
@@ -35,13 +37,13 @@
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`
-  - [x] Add .gitattributes
+  - [x] Add `.gitattributes`
   - [x] Add default ApplicationTests
   - [X] Add GitHub Issue Templates
-- docs
-  - [x] Add Javadoc
-- chore
-  - [x] Add aggregate reports generation profile
+
+### docs
+
+- [x] Add Javadoc and resolve Javadoc warnings
 
 ## 3.19.1
 
@@ -60,8 +62,12 @@
 
 ## 3.19
 
-- feat
-  - [x] Optimize Assert
+### feat
+
+- [x] Optimize Assert
+
+### chore
+
 - parent
   - [x] Add profile `env-sit`,`o-all-env`
 - dependencies
@@ -77,6 +83,8 @@
 
 ## 3.18.1
 
+### chore
+
 - dependencies
   - [x] Override liquibase version to 4.31.1
 - scaffold
@@ -85,10 +93,13 @@
   - [x] Optimize liquibase
     - Fixed the issue with duplicate initialization caused by inconsistent filenames recognized in changesets
       - see <https://docs.liquibase.com/change-types/includeall.html>
-      - see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
+      -
+      see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
     - Optimized changelog-init.yaml example, migration/20241018 directory structure, and multienvironment support
 
 ## 3.18
+
+### chore
 
 - dependencies
   - [x] Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`
@@ -119,14 +130,17 @@
 
 ## 3.17
 
+### chore
+
 - parent
-  - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar` 不支持 multi platform 引起的构建失败问题
+  - [x] 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar`
+    不支持 multi platform 引起的构建失败问题
   - [x] Add profile `o-release`, `o-tar`, `publish-harbor`
   - [x] Add profile `publish-artifactory`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.17`
   - [x] Fix `.github/trigger-releases.yml`
-  - [X] Change the version of the generated project  from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
+  - [X] Change the version of the generated project from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
   - [x] Optimize dev-ops/app
   - [x] Optimize `.mvn/settings.xml`
 

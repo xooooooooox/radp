@@ -143,6 +143,13 @@ public class AccessLogHelper {
         log(accessLog, slowThreshold);
     }
 
+    /**
+     * Logs the access information with the appropriate log level based on execution result and duration.
+     * Uses ERROR level for exceptions, WARN level for slow executions, and INFO level for normal executions.
+     *
+     * @param accessLog The access log information to be logged
+     * @param slowThreshold The threshold in milliseconds above which an execution is considered slow
+     */
     public static void log(AccessLog accessLog, long slowThreshold) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(accessLog.getLocation())

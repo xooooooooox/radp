@@ -35,11 +35,25 @@ public class AccessLogConfiguration implements ImportAware {
         }
     }
 
+    /**
+     * Creates and configures an AccessLogInterceptor bean.
+     * 
+     * @param configs Provider for AccessLogConfig instances
+     * @return Configured AccessLogInterceptor instance
+     */
     @Bean
     public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
         return new AccessLogInterceptor(getAccessLogConfig(configs));
     }
 
+    /**
+     * Creates and configures an AccessLogAdvisor bean that defines the pointcut
+     * for access logging and associates it with the interceptor.
+     * 
+     * @param configs Provider for AccessLogConfig instances
+     * @param interceptor The AccessLogInterceptor to be used for advice
+     * @return Configured AccessLogAdvisor instance
+     */
     @Bean
     public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
                                                          AccessLogInterceptor interceptor) {
@@ -47,7 +61,7 @@ public class AccessLogConfiguration implements ImportAware {
         String expression = getAccessLogConfig(configs).getExpression();
         accessLogAdvisor.setExpression(expression);
         accessLogAdvisor.setAdvice(interceptor);
-        if (annotationAttributes == null) {
+        if (annotationAttributes != null) {
             accessLogAdvisor.setOrder(annotationAttributes.getNumber("order"));
         }
         return accessLogAdvisor;

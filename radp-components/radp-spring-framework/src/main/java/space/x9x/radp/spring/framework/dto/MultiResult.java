@@ -22,12 +22,28 @@ import java.util.Collections;
 @Getter
 public class MultiResult<T> extends Result {
 
+    /**
+     * The collection of data items in the result.
+     */
     private Collection<T> data;
 
+    /**
+     * Creates a successful MultiResult with an empty collection.
+     * 
+     * @param <T> The type of elements in the collection
+     * @return A successful MultiResult with an empty collection
+     */
     public static <T> MultiResult<T> build() {
         return build(Collections.emptyList());
     }
 
+    /**
+     * Creates a successful MultiResult with the specified collection of data.
+     * 
+     * @param <T> The type of elements in the collection
+     * @param data The collection of data to include in the result
+     * @return A successful MultiResult containing the provided data
+     */
     public static <T> MultiResult<T> build(Collection<T> data) {
         return MultiResult.<T>multiResultBuilder()
                 .success(true)
@@ -37,6 +53,13 @@ public class MultiResult<T> extends Result {
                 .build();
     }
 
+    /**
+     * Creates a failure MultiResult with the specified error code.
+     * 
+     * @param <T> The type of elements in the collection (not used in failure case)
+     * @param errorCode The error code containing code and message for the failure
+     * @return A failure MultiResult with the error information
+     */
     public static <T> MultiResult<T> buildFailure(ErrorCode errorCode) {
         return MultiResult.<T>multiResultBuilder()
                 .success(false)

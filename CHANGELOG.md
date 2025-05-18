@@ -8,7 +8,8 @@
 - Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
 - Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
   replacement
-- Fix BootstrapLogConfiguration
+- Fix `BootstrapLogConfiguration`
+- Fix `AccessLogConfiguration` NPE
 
 ### chore
 

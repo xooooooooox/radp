@@ -53,6 +53,11 @@ public class BootstrapLogConfiguration {
 
         private final BootstrapLogHttpFilter bootstrapLogHttpFilter;
 
+        /**
+         * Constructs a new CustomFilterRegistration with the specified BootstrapLogHttpFilter.
+         * 
+         * @param bootstrapLogHttpFilter The filter to delegate all operations to
+         */
         public CustomFilterRegistration(BootstrapLogHttpFilter bootstrapLogHttpFilter) {
             this.bootstrapLogHttpFilter = bootstrapLogHttpFilter;
         }

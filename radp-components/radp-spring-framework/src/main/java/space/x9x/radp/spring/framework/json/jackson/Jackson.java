@@ -27,6 +27,11 @@ public class Jackson implements JSON {
         return JacksonUtils.parseList(text, clazz);
     }
 
+    /**
+     * Gets the default ObjectMapper instance used for JSON serialization and deserialization.
+     * 
+     * @return The default ObjectMapper instance
+     */
     public ObjectMapper getObjectMapper() {
         return JacksonUtils.getDefaultObjectMapper();
     }

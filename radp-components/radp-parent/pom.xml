@@ -403,7 +403,7 @@
                             </goals>
                         </execution>
                         <execution>
-                            <!-- build and publish image to registry -->
+                            <!-- build and publish image to a registry -->
                             <id>jib-dockerBuild-publish</id>
                             <phase>deploy</phase>
                             <goals>
@@ -1966,7 +1966,7 @@
                 <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
             </properties>
         </profile>
-        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
+        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->
         <profile>
             <id>o-tar</id>
             <properties>

@@ -62,7 +62,7 @@ public class AccessLogConfiguration implements ImportAware {
         String expression = getAccessLogConfig(configs).getExpression();
         accessLogAdvisor.setExpression(expression);
         accessLogAdvisor.setAdvice(interceptor);
-        if (annotationAttributes == null) {
+        if (annotationAttributes != null) {
             accessLogAdvisor.setOrder(annotationAttributes.getNumber("order"));
         }
         return accessLogAdvisor;

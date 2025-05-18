@@ -2,26 +2,43 @@
 
 ## 2.20
 
-- feat
-  - [x] Update Maven plugin configurations to disable default excludes
-  - [x] Add javadoc
-- fix
-  - [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
-  - [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
-  - [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
-    replacement
+### fix
+
+- [x] Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
+- [x] Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
+- [x] Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
+  replacement
+- [x] Fix BootstrapLogConfiguration
+
+### chore
+
 - parent
   - [x] Optimize profile `auto-update-local-catalog` for disable default excludes
-  - [x] Fix BootstrapLogConfiguration
+  - [x] Optimize and fix profile `core-review`, `unit-test`, `integration-test`
+  - [x] Add profile `aggregate-reports`
+    - Add `maven-jxr-plugin` for cross-referencing source code
+    - Configure `maven-site-plugin` and `project-info-reports-plugin` for reports
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-resources-plugin.version` from `3.2.0` to `3.3.1`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
+  - [x] Upgrade `maven-surefire-plugin` from `3.0.0-M7` to `3.1.2`
+  - [x] Upgrade `maven-failsafe-plugin` from `3.0.0-M3` to `3.1.2`
+  - [x] Upgrade `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `2.20`
   - [x] Optimize `.mvn`
-  - [x] Add .gitattributes
+  - [x] Add `.gitattributes`
   - [x] Add default ApplicationTests
+  - [x] Add GitHub Issue Templates
+
+### docs
+
+- [x] Add Javadoc and resolve Javadoc warnings
 
 ## 2.19.1
 

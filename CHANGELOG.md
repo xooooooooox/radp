@@ -74,13 +74,13 @@
 ## 2.18.1
 
 - dependencies
-  - [x] Override liquibase.version to 4.31.1
-  - [x] Override commons-lang3.version to 3.17.0
+  - [x] Override `liquibase.version` to 4.31.1
+  - [x] Override `commons-lang3.version` to 3.17.0
 - scaffold
   - [x] Update scaffold default radpVersion to `2.18.1`
   - [x] Optimize entrypoint.sh
   - [x] Optimize liquibase
-    - Fixed issue with duplicate initialization caused by inconsistent filenames recognized in changesets
+    - Fixed the issue with duplicate initialization caused by inconsistent filenames recognized in changesets
       - see <https://docs.liquibase.com/change-types/includeall.html>
       -
       see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
@@ -122,8 +122,8 @@
     - [x] Add profile `publish-artifactory`
 - scaffold
     - [x] Update scaffold default radpVersion to `2.17`
-    - [x] Fix .github/trigger-releases.yml
-    - [X] Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
+  - [x] Fix `.github/trigger-releases.yml`
+  - [X] Change generated a project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`
     - [x] Optimize `.mvn/settings.xml`
     - [x] Optimize dev-ops/app
 
@@ -173,7 +173,7 @@
     - [x] dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
     - [x] `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
       `spring-boot-dependencies` 中声明的版本
-    - [x] Remove redundant plugin version in `radp-parent`
+  - [x] Remove a redundant plugin version in `radp-parent`
     - [x] 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
     - [x] Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
 - parent
@@ -235,7 +235,7 @@
 
 ## 0.11
 
-- [x] fix archetype auto-release profile not work
+- [x] fix archetype auto-release profile does not work
 - [x] fix archetype import error
 
 ## 0.10
@@ -262,9 +262,9 @@
 
 ## 0.7
 
-- [x] Support publish GitLab pages via GitLab CI/CD
+- [x] Support for publishing GitLab pages via GitLab CI/CD
 - [x] Optimize gitlab ci pipeline, use remote template
-- [x] Update archetype, .mvn, .github actions
+- [x] Update archetype, `.mvn`, `.github` actions
 
 ## 0.6
 
@@ -275,7 +275,7 @@
 
 - [x] dependency management shiro and jwt version
 - [x] add Utility classes for base64 and digest
-- [x] ci/cd supported. Publish packages to github packages and maven central portal
+- [x] ci/cd supported. Publish packages to GitHub packages and maven central portal
 
 ## 0.3
 
@@ -289,11 +289,11 @@
 
 ### fix
 
-- [x] refine archetype includes and remove redundant entries
+- [x] refine archetype includes and removes redundant entries
 
 ## 0.1.3
 
 - [x] 支持发布构件到 central, GitHub packages, self-hosted artifactory
-- [x] Use GitHUb Actions build and publish GitHub Pages
+- [x] Use GitHub Actions to build and publish GitHub Pages
 - [x] DDD 脚手架
 - [x] 基础通用组件

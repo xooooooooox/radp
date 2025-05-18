@@ -1020,7 +1020,6 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <propertyName>jacoco.ut.arg</propertyName>
                                     <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
                                 </configuration>
                             </execution>

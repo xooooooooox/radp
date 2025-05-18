@@ -50,6 +50,11 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given string does not contain the given substring.
+     *
+     * @param textToSearch the string to search
+     * @param substring the substring to find
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertDoesNotContain(@NonNull String textToSearch, String substring,
                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
@@ -63,6 +68,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given string has length.
+     *
+     * @param expression the string to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertHasLength(@NonNull String expression,
                          @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -75,6 +84,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given string has text.
+     *
+     * @param text the string to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertHasText(String text,
                        @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -87,6 +100,11 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given object is an instance of the given type.
+     *
+     * @param type the type to check against
+     * @param obj the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertIsInstanceOf(Class<?> type, @NonNull Object obj,
                             @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -99,6 +117,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given object is null.
+     *
+     * @param object the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertIsNull(Object object,
                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -111,6 +133,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given object is not null.
+     *
+     * @param object the object to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertNotNull(Object object,
                        @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -123,6 +149,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given expression is true.
+     *
+     * @param expression the boolean expression to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertIsTrue(boolean expression,
                       @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -135,6 +165,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given collection has no null elements.
+     *
+     * @param collection the collection to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertNoNullElements(@NonNull Collection<?> collection,
                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -147,6 +181,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given array is not empty.
+     *
+     * @param array the array to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertNotEmpty(@NonNull Object[] array,
                         @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
@@ -159,6 +197,10 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 
     /**
      * Assert that the given collection is not empty.
+     *
+     * @param collection the collection to check
+     * @param errCode the error code to use if the assertion fails
+     * @param placeholders the placeholders to be used in the error message
      */
     public void assertNotEmpty(@NonNull Collection<?> collection,
                         @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {

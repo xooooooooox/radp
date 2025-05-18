@@ -39,22 +39,22 @@ public class Regex {
 
     /**
      * 中国香港移动电话
-     * <br/>中国大陆：+86 Mainland China
-     * <br/>中国香港：+852 Hong Kong
-     * <br/>中国澳门：+853 Macao
-     * <br/>中国台湾：+886 Taiwan
+     * <br>中国大陆：+86 Mainland China
+     * <br>中国香港：+852 Hong Kong
+     * <br>中国澳门：+853 Macao
+     * <br>中国台湾：+886 Taiwan
      */
     public static final String MOBILE_HK = "(?:0|852|\\+852)?\\d{8}";
 
     /**
      * 中国台湾移动电话
-     * <br/>中国台湾：+886 Taiwan
+     * <br>中国台湾：+886 Taiwan
      */
     public static final String MOBILE_TW = "(?:0|886|\\+886)?(?:|-)09\\d{8}";
 
     /**
      * 中国澳门移动电话
-     * <br/>中国澳门 +853 Macao
+     * <br>中国澳门 +853 Macao
      */
     public static final String MOBILE_MO = "(?:0|853|\\+853)?(?:|-)6\\d{7}";
 

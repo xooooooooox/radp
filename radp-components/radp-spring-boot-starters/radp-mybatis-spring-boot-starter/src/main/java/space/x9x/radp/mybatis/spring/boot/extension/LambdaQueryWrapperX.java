@@ -13,8 +13,10 @@ import java.util.Collection;
  * Extended MyBatis Plus LambdaQueryWrapper class with additional functionality.
  * <p>
  * Main enhancements:
+ * <ul>
  * <li>Adds conditional methods with {@code xxxIfPresent} naming pattern that only
  * add conditions to the query when the provided values are not null or empty</li>
+ * </ul>
  * <p>
  * This wrapper simplifies building dynamic queries where conditions should only
  * be applied when the corresponding values are present.
@@ -101,7 +103,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
     }
 
     /**
-     * Adds a greater-than (>) condition to the query only if the value is not null.
+     * Adds a greater-than (&gt;) condition to the query only if the value is not null.
      * This method only applies the condition when the provided value is present.
      *
      * @param column the column to apply the greater-than condition to, specified as a lambda expression
@@ -116,7 +118,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
     }
 
     /**
-     * Adds a greater-than-or-equal (>=) condition to the query only if the value is not null.
+     * Adds a greater-than-or-equal (&gt;=) condition to the query only if the value is not null.
      * This method only applies the condition when the provided value is present.
      *
      * @param column the column to apply the greater-than-or-equal condition to, specified as a lambda expression
@@ -131,7 +133,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
     }
 
     /**
-     * Adds a less-than (<) condition to the query only if the value is not null.
+     * Adds a less-than (&lt;) condition to the query only if the value is not null.
      * This method only applies the condition when the provided value is present.
      *
      * @param column the column to apply the less-than condition to, specified as a lambda expression
@@ -146,7 +148,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
     }
 
     /**
-     * Adds a less-than-or-equal (<=) condition to the query only if the value is not null.
+     * Adds a less-than-or-equal (&lt;=) condition to the query only if the value is not null.
      * This method only applies the condition when the provided value is present.
      *
      * @param column the column to apply the less-than-or-equal condition to, specified as a lambda expression

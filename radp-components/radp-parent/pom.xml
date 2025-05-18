@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-dependencies</artifactId>
-        <version>3.20-SNAPSHOT</version>
+        <version>3.20</version>
         <relativePath>../radp-dependencies/pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>
@@ -20,8 +19,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- 基础属性 -->
-        <spring.profiles.active/>
-        <runtime.env/>
+        <spring.profiles.active />
+        <runtime.env />
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <timestamp>${maven.build.timestamp}</timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,7 +39,7 @@
         <archetype.catalog.upload.serverId>${user.archetype.catalog.upload.serverId}</archetype.catalog.upload.serverId>
 
         <!-- 打包成可执行程序 -->
-        <start-class/>
+        <start-class />
         <build.layers.enabled>true</build.layers.enabled>
         <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
         <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
@@ -54,7 +53,7 @@
         <app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
         <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
         <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
-        <docker.build.image_name/> <!-- to -->
+        <docker.build.image_name /> <!-- to -->
         <docker.build.namespace>${user.docker.build.namespace}</docker.build.namespace>
         <docker.build.image_tag>${project.version}</docker.build.image_tag>
         <app.home>/app</app.home> <!-- 容器内的应用目录 -->
@@ -86,25 +85,25 @@
         <jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
         <liquibase.contexts>local</liquibase.contexts>
         <liquibase.changelog_file>src/main/resources/db/db.changelog-master.yaml</liquibase.changelog_file>
-        <spring.datasource.driver/>
-        <spring.datasource.url/>
-        <spring.datasource.username/>
-        <spring.datasource.password/>
-        <liquibase.output_changeset_author/>
+        <spring.datasource.driver />
+        <spring.datasource.url />
+        <spring.datasource.username />
+        <spring.datasource.password />
+        <liquibase.output_changeset_author />
         <liquibase.output_changelog_file>src/main/resources/db/output/changelog-output-${maven.build.timestamp}.yaml
         </liquibase.output_changelog_file>
         <liquibase.output_file_encoding>UTF-8</liquibase.output_file_encoding>
         <liquibase.output_data_dir>src/main/resources/db/output/data</liquibase.output_data_dir>
-        <liquibase.reference_driver/>
-        <liquibase.reference_url/>
-        <liquibase.reference_username/>
-        <liquibase.reference_password/>
+        <liquibase.reference_driver />
+        <liquibase.reference_url />
+        <liquibase.reference_username />
+        <liquibase.reference_password />
         <liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
         </liquibase.diff_changelog_file>
 
         <!-- OpenAPI 生成工具 -->
-        <openapi-generator-maven-plugin.apiPackage/>
-        <openapi-generator-maven-plugin.modelPackage/>
+        <openapi-generator-maven-plugin.apiPackage />
+        <openapi-generator-maven-plugin.modelPackage />
         <asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
         <asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
         <asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
@@ -112,12 +111,12 @@
         <swagger.input>${server.url}/v2/api-docs</swagger.input>
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
-        <server.url/>
+        <server.url />
 
         <!-- 其他 -->
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
-        <properties-maven-plugin.property_file/>
+        <properties-maven-plugin.property_file />
     </properties>
 
     <build>
@@ -1335,7 +1334,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${app.assembly.file}" tofile="${app.artifact.file}"/>
+                                        <copy file="${app.assembly.file}" tofile="${app.artifact.file}" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -1520,8 +1519,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml"
-                                              tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
+                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -1557,8 +1555,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml"
-                                              tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
+                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
                                     </target>
                                 </configuration>
                             </execution>

@@ -3,8 +3,6 @@ package space.x9x.radp.mybatis.spring.boot.autoconfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
-import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -16,6 +14,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
+import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
+import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
 
 /**
  * @author x9x
@@ -35,10 +35,19 @@ public class RadpMybatisPlusExtensionAutoConfiguration {
 
     private static final String AUTOWIRED_META_OBJECT_HANDLER = "Autowired metaObjectHandler";
 
+    /**
+     * Creates and configures a MetaObjectHandler for automatic field filling.
+     * This bean provides automatic filling of creation and modification timestamp fields
+     * in entity objects during insert and update operations.
+     *
+     * @param properties the configuration properties for MyBatis-Plus extensions
+     * @return a configured MetaObjectHandler that automatically fills timestamp fields
+     */
     @ConditionalOnMissingBean
     @Bean
     public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
         log.debug(AUTOWIRED_META_OBJECT_HANDLER);
-        return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDataFieldName(), properties.getAutoFill().getLastModifiedDateFieldName());
+        return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDataFieldName(),
+                properties.getAutoFill().getLastModifiedDateFieldName());
     }
 }

@@ -27,6 +27,9 @@ public class MultiResult<T> extends Result {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The collection of data items returned in the response
+     */
     private Collection<T> data;
 
     /**

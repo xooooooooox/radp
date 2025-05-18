@@ -12,10 +12,14 @@ import java.util.Collection;
 
 /**
  * 拓展 MyBatis Plus LambdaQueryWrapper 类，主要增加如下功能
- * <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * <ul>
+ *   <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * </ul>
  * <p>
  * Extended version of MyBatis Plus LambdaQueryWrapper with additional features:
- * <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when values are present</li>
+ * <ul>
+ *   <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when values are present</li>
+ * </ul>
  * This wrapper simplifies conditional query building by automatically handling null/empty value checks.
  *
  * @author x9x

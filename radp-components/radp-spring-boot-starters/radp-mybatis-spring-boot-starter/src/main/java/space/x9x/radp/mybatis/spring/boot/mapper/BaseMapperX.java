@@ -248,14 +248,36 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
 
+    /**
+     * Updates all records in the table with the provided entity.
+     * This method applies the same update to all records without any conditions.
+     *
+     * @param update the entity containing the fields to update
+     * @return the number of records updated
+     */
     default int updateBatch(T update) {
         return update(update, new QueryWrapper<>());
     }
 
+    /**
+     * Batch updates a collection of entities by their IDs.
+     * This method uses the default batch size from MyBatis-Plus.
+     *
+     * @param entities the collection of entities to update
+     * @return true if the operation was successful, false otherwise
+     */
     default Boolean updateBatch(Collection<T> entities) {
         return Db.updateBatchById(entities);
     }
 
+    /**
+     * Batch updates a collection of entities by their IDs with a specified batch size.
+     * This method allows controlling the number of entities processed in each batch.
+     *
+     * @param entities the collection of entities to update
+     * @param size     the batch size for the operation
+     * @return true if the operation was successful, false otherwise
+     */
     default Boolean updateBatch(Collection<T> entities, int size) {
         return Db.updateBatchById(entities, size);
     }

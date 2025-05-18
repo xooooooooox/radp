@@ -8,6 +8,10 @@ import space.x9x.radp.commons.lang.format.MessageFormatter;
 import java.io.Serial;
 
 /**
+ * Base exception class for all application-specific exceptions.
+ * This class provides standardized error handling with error codes, messages, and optional parameters.
+ * It serves as the parent class for more specific exception types.
+ *
  * @author x9x
  * @since 2024-09-26 23:04
  */
@@ -19,8 +23,19 @@ public class BaseException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The error code that identifies this exception type
+     */
     private final String errCode;
+
+    /**
+     * The human-readable error message
+     */
     private final String errMessage;
+
+    /**
+     * Optional parameters used for message formatting or additional context
+     */
     private Object[] params;
 
     /**

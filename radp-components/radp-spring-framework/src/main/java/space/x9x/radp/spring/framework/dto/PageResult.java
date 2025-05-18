@@ -12,6 +12,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Result object for paginated data responses that contains a collection of items and total count.
+ * This class extends the base Result class to provide pagination-specific information.
+ *
+ * @param <T> the type of elements in the result collection
  * @author x9x
  * @since 2024-09-26 16:02
  */
@@ -27,8 +31,12 @@ public class PageResult<T> extends Result {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The collection of data items for the current page
+     */
     private Collection<T> data;
 
+    /** The total number of items across all pages */
     @Builder.Default
     private Long total = 0L;
 

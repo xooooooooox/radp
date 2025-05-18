@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
 
 /**
- * Mybatis 分页插件自动装配
+ * Autoconfiguration for MyBatis pagination functionality.
+ * This class automatically configures the MyBatis-Plus pagination interceptor
+ * to enable pagination support in database queries.
  *
  * @author x9x
  * @since 2024-09-30 13:25
@@ -22,6 +24,13 @@ public class RadpMybatisPageHelperAutoConfiguration {
 
     private static final String AUTOWIRED_MYBATIS_PLUS_INTERCEPTOR = "Autowired mybatisPlusInterceptor";
 
+    /**
+     * Creates and configures a MybatisPlusInterceptor with pagination support.
+     * This bean provides automatic pagination functionality for MyBatis queries,
+     * allowing for easy implementation of paged database results.
+     *
+     * @return a configured MybatisPlusInterceptor with pagination capabilities
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         log.debug(AUTOWIRED_MYBATIS_PLUS_INTERCEPTOR);

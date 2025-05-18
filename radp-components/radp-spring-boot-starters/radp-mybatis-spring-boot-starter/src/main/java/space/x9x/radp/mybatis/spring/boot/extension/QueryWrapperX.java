@@ -10,10 +10,14 @@ import java.util.Collection;
 
 /**
  * 拓展 MyBatis Plus QueryWrapper 类，主要增加如下功能
- * <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * <ul>
+ *   <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * </ul>
  * <p>
- * Extended version of MyBatis Plus QueryWrapper with additional features:
- * <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when values are present</li>
+ * The extended version of MyBatis Plus QueryWrapper with additional features:
+ * <ul>
+ *   <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when values are present</li>
+ * </ul>
  * This wrapper simplifies conditional query building by automatically handling null/empty value checks.
  *
  * @author x9x
@@ -161,14 +165,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Adds a between condition to the query based on the presence of values.
-     * If both values are present, adds a BETWEEN condition.
+     * If both values are present, add a BETWEEN condition.
      * If only val1 is present, adds a greater-than-or-equal condition.
      * If only val2 is present, adds a less-than-or-equal condition.
      * If neither value is present, no condition is added.
      *
      * @param column the database column name to compare
-     * @param val1 the lower bound value
-     * @param val2 the upper bound value
+     * @param val1 the lower-bound value
+     * @param val2 the upper-bound value
      * @return this wrapper instance for method chaining
      */
     public QueryWrapperX<T> betweenIfPresent(String column, Object val1, Object val2) {
@@ -210,7 +214,7 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Overridden method to add an equality condition to the query.
-     * This override ensures proper return type for method chaining.
+     * This override ensures a proper return type for method chaining.
      *
      * @param condition whether to add this condition
      * @param column the database column name to compare
@@ -225,7 +229,7 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Overridden method to add an equality condition to the query.
-     * This override ensures proper return type for method chaining.
+     * This override ensures a proper return type for method chaining.
      *
      * @param column the database column name to compare
      * @param val the value to compare with
@@ -239,9 +243,9 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Overridden method to add a descending order by clause to the query.
-     * This override ensures proper return type for method chaining.
+     * This override ensures a proper return type for method chaining.
      *
-     * @param column the database column name to order by
+     * @param column the database columns name to order by
      * @return this wrapper instance for method chaining
      */
     @Override
@@ -252,7 +256,7 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Overridden method to append a custom SQL fragment at the end of the query.
-     * This override ensures proper return type for method chaining.
+     * This override ensures a proper return type for method chaining.
      *
      * @param lastSql the SQL fragment to append
      * @return this wrapper instance for method chaining
@@ -265,7 +269,7 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
 
     /**
      * Overridden method to add an IN condition to the query.
-     * This override ensures proper return type for method chaining.
+     * This override ensures a proper return type for method chaining.
      *
      * @param column the database column name to compare
      * @param coll the collection of values to compare with

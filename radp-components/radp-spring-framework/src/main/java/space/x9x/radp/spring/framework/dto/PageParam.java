@@ -8,6 +8,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
+ * Parameter object for pagination requests that contains page index and page size information.
+ * This class provides default values and validation constraints to ensure proper pagination behavior.
+ *
  * @author x9x
  * @since 2024-09-26 20:35
  */
@@ -51,9 +54,18 @@ public class PageParam implements Serializable {
      */
     public static final int PAGE_SIZE_NONE = -1;
 
+    /**
+     * The current page number (1-based indexing).
+     * Must be at least {@link #MIN_PAGE_INDEX}.
+     */
     @Min(value = MIN_PAGE_INDEX, message = "页码最小值为 {value}")
     private Integer pageIndex = DEFAULT_PAGE_INDEX;
 
+    /**
+     * The number of items to display per page.
+     * Must be between {@link #MIN_PAGE_SIZE} and {@link #MAX_PAGE_SIZE},
+     * or can be {@link #PAGE_SIZE_NONE} to disable pagination.
+     */
     @Min(value = MIN_PAGE_SIZE, message = "每页最小条数为 {value}")
     @Max(value = MAX_PAGE_SIZE, message = "每页最大条数为 {value}")
     private Integer pageSize = DEFAULT_PAGE_SIZE;

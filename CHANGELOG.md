@@ -19,6 +19,8 @@
     - Added maven-jxr-plugin for cross-referencing source code
     - Configured maven-site-plugin and info-reports-plugin for reports
   - [x] Add profile `aggregate-reports`
+    - [x] project info
+    - [x] project reports: surefire, xref, javadoc, checkstyle, etc.
 - dependencies
   - [x] Upgrade `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`
   - [x] Upgrade `maven-archetype-plugin.version` from `3.2.0` to `3.3.1`
@@ -29,6 +31,7 @@
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
   - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`
+  - [x] PluginManagement add plugin `org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1`
 - scaffold
   - [x] Update scaffold default radpVersion to `3.20`
   - [x] Optimize `.mvn`

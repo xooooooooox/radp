@@ -15,5 +15,6 @@
     <modules>
         <module>radp-smoke-tests-archetype</module>
         <module>radp-smoke-tests-framework</module>
+        <module>radp-smoke-tests-redis</module>
     </modules>
 </project>

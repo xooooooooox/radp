@@ -12,6 +12,7 @@
 - Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`
 - Optimize `RedissonService`
   - Update the `setNx` methods in RedissonService.java to use the non-deprecated alternatives
+  - Add `RedissonServiceTest`
 
 ### chore
 

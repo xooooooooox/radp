@@ -1,5 +1,12 @@
 # ChangeLog
 
+## 2.21
+
+### chore
+
+- scaffold
+  - Update scaffold default radpVersion to `2.21`
+
 ## 2.20.2
 
 ### fix

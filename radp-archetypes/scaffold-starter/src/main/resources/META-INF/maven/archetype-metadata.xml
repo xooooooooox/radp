@@ -22,7 +22,7 @@
 
         <!-- radp-parent version -->
         <requiredProperty key="radpVersion">
-            <defaultValue>2.20.2</defaultValue>
+            <defaultValue>2.21</defaultValue>
         </requiredProperty>
     </requiredProperties>
 

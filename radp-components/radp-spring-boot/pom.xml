@@ -35,6 +35,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- FindBugs Annotations -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,6 +58,4 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
-
 </project>

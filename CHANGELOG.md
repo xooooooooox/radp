@@ -18,6 +18,12 @@
 
 - scaffold
   - Update scaffold default radpVersion to `3.21`
+- build
+  - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx module.
+
+### test
+
+- Add module `radp-smoke-tests-redis`
 
 ## 3.20.2
 

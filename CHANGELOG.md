@@ -35,7 +35,7 @@
   - PluginManagement add plugin `org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1`
   - PluginManagement add plugin `org.apache.maven.plugins:archetype-packaging:3.2.0`
 - scaffold
-  - Update scaffold default radpVersion to `2.20`
+  - Update scaffold default radpVersion to `2.20.1`
   - Optimize `.mvn`
   - Add `.gitattributes`
   - Add default ApplicationTests

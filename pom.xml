@@ -18,8 +18,8 @@
         <module>radp-agents</module>
         <module>radp-components</module>
         <module>radp-plugins</module>
-        <module>radp-tests</module>
         <module>radp-archetypes</module>
+        <module>radp-tests</module>
     </modules>
 
     <properties>

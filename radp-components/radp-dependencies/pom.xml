@@ -96,6 +96,7 @@
         <dom4j.version>1.6.1</dom4j.version>
         <objenesis.version>3.3</objenesis.version>
         <jsr305.version>3.0.2</jsr305.version>
+        <findbugs-annotations.version>3.0.1</findbugs-annotations.version>
         <fastjson.version>2.0.22</fastjson.version>
         <fastjson2.version>2.0.22</fastjson2.version>
         <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
@@ -651,6 +652,12 @@
                 <artifactId>jsr305</artifactId>
                 <version>${jsr305.version}</version>
             </dependency>
+            <!-- FindBugs Annotations：提供FindBugs的注解，如SuppressFBWarnings等 -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>annotations</artifactId>
+                <version>${findbugs-annotations.version}</version>
+            </dependency>
             <!-- Fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -982,6 +989,12 @@
                 <!-- ====================版本控制]==================== -->
 
                 <!-- ====================[项目脚手架==================== -->
+                <plugin>
+                    <groupId>org.apache.maven.archetype</groupId>
+                    <artifactId>archetype-packaging</artifactId>
+                    <version>${archetype-packaging.version}</version>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-archetype-plugin</artifactId>

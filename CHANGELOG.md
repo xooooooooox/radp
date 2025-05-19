@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 2.20
+## 2.20.2
 
 ### fix
 
@@ -26,10 +26,12 @@
   - Upgrade `maven-surefire-plugin` from `3.0.0-M7` to `3.1.2`
   - Upgrade `maven-failsafe-plugin` from `3.0.0-M3` to `3.1.2`
   - Upgrade `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`
+  - DependencyManagement add dependency `com.google.code.findbugs:annotations:3.0.1`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1`
+  - PluginManagement add plugin org.apache.maven.plugins:archetype-packaging:3.2.0
 - scaffold
   - Update scaffold default radpVersion to `2.20`
   - Optimize `.mvn`

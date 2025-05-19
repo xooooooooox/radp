@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class AutofillModel<T extends Model<?>> extends Model<T> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 创建时间
      */

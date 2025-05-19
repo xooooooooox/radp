@@ -10,11 +10,31 @@ import java.util.Comparator;
  */
 public interface Prioritized extends Comparable<Prioritized> {
 
+    /**
+     * Constant representing the maximum priority value.
+     * Elements with this priority will be considered last in priority ordering.
+     */
     int MAX_PRIORITY = Integer.MAX_VALUE;
+
+    /**
+     * Constant representing the minimum priority value.
+     * Elements with this priority will be considered first in priority ordering.
+     */
     int MIN_PRIORITY = Integer.MIN_VALUE;
+
+    /**
+     * Constant representing the normal (default) priority value.
+     * Elements with this priority will be considered in the middle of priority ordering.
+     */
     int NORMAL_PRIORITY = 0;
 
-    // 用于比较对象优先级的比较器
+    /**
+     * Comparator for comparing objects based on their priority.
+     * This comparator handles both Prioritized and non-Prioritized objects:
+     * - Prioritized objects are compared using their priority values
+     * - A Prioritized object is considered higher priority than a non-Prioritized object
+     * - Two non-Prioritized objects are considered equal in priority
+     */
     Comparator<Object> COMPARATOR = (one, two) -> {
         // 判断两个对象是否为Prioritized的实例
         boolean b1 = one instanceof Prioritized;

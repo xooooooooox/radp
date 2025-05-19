@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>space.x9x.radp</groupId>
+        <artifactId>radp-smoke-tests-archetype</artifactId>
+        <version>2.20.1-SNAPSHOT</version>
+    </parent>
+    <packaging>pom</packaging>
+    <artifactId>radp-smoke-tests-archetype-std</artifactId>
+    <name>${project.artifactId}</name>
+
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <skipPublishing>true</skipPublishing>
+    </properties>
+
+    <modules>
+        <module>archetype-std-types</module>
+        <module>archetype-std-api</module>
+        <module>archetype-std-domain</module>
+        <module>archetype-std-infrastructure</module>
+        <module>archetype-std-case</module>
+        <module>archetype-std-trigger</module>
+        <module>archetype-std-app</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-types</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-case</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.x9x.radp</groupId>
+                <artifactId>archetype-std-trigger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

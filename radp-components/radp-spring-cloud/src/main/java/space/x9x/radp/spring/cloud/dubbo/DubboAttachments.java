@@ -8,5 +8,10 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class DubboAttachments {
+    /**
+     * Attachment key for the client IP address.
+     * This constant is used to store and retrieve the client IP address
+     * in Dubbo RPC attachments for tracing and logging purposes.
+     */
     public static final String IP = "ip";
 }

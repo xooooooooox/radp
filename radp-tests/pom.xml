@@ -4,7 +4,7 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-parent</artifactId>
-        <version>2.20-SNAPSHOT</version>
+        <version>2.20.1-SNAPSHOT</version>
         <relativePath>../radp-components/radp-parent/pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>
@@ -18,7 +18,4 @@
         <module>radp-smoke-tests</module>
     </modules>
 
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
 </project>

@@ -8,14 +8,33 @@ import org.springframework.util.StringUtils;
 import java.util.Collection;
 
 /**
- * 拓展 MyBatis Plus QueryWrapper 类，主要增加如下功能
- * <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * Extended MyBatis Plus QueryWrapper class with additional functionality.
+ * <p>
+ * Main enhancements:
+ * <ul>
+ * <li>Adds conditional methods with {@code xxxIfPresent} naming pattern that only
+ * add conditions to the query when the provided values are not null or empty</li>
+ * </ul>
+ * <p>
+ * This wrapper simplifies building dynamic queries where conditions should only
+ * be applied when the corresponding values are present.
  *
+ * @param <T> the entity type that this wrapper operates on
  * @author x9x
  * @since 2024-11-20 15:53
  */
 public class QueryWrapperX<T> extends QueryWrapper<T> {
 
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Adds a LIKE condition to the query only if the value is not null or empty.
+     * This method only applies the condition when the provided string has text.
+     *
+     * @param column the column name to apply the LIKE condition to
+     * @param val    the value to match with LIKE
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> likeIfPresent(String column, String val) {
         if (StringUtils.hasText(val)) {
             return (QueryWrapperX<T>) super.like(column, val);
@@ -23,6 +42,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an IN condition to the query only if the collection of values is not null or empty.
+     * This method only applies the condition when the provided collection contains elements.
+     *
+     * @param column the column name to apply the IN condition to
+     * @param values the collection of values to match with IN
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> inIfPresent(String column, Collection<?> values) {
         if (!CollectionUtils.isEmpty(values)) {
             return (QueryWrapperX<T>) super.in(column, values);
@@ -30,6 +57,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an IN condition to the query only if the array of values is not null or empty.
+     * This method only applies the condition when the provided array contains elements.
+     *
+     * @param column the column name to apply the IN condition to
+     * @param values the array of values to match with IN
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> inIfPresent(String column, Object... values) {
         if (!ArrayUtils.isEmpty(values)) {
             return (QueryWrapperX<T>) super.in(column, values);
@@ -37,6 +72,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds an equality (=) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the equality condition to
+     * @param val    the value to match with equality
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> eqIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.eq(column, val);
@@ -44,6 +87,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a not-equal (!=) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the not-equal condition to
+     * @param val    the value to compare with not-equal
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> neIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.ne(column, val);
@@ -51,6 +102,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a greater-than (&gt;) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the greater-than condition to
+     * @param val    the value to compare with greater-than
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> gtIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.gt(column, val);
@@ -58,6 +117,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a greater-than-or-equal (&gt;=) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the greater-than-or-equal condition to
+     * @param val    the value to compare with greater-than-or-equal
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> geIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.ge(column, val);
@@ -65,6 +132,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a less-than (&lt;) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the less-than condition to
+     * @param val    the value to compare with less-than
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> ltIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.lt(column, val);
@@ -72,6 +147,14 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a less-than-or-equal (&lt;=) condition to the query only if the value is not null.
+     * This method only applies the condition when the provided value is present.
+     *
+     * @param column the column name to apply the less-than-or-equal condition to
+     * @param val    the value to compare with less-than-or-equal
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> leIfPresent(String column, Object val) {
         if (val != null) {
             return (QueryWrapperX<T>) super.le(column, val);
@@ -79,6 +162,19 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a BETWEEN condition to the query only if one or both values are not null.
+     * This method intelligently applies different conditions based on which values are present:
+     * - If both values are present, applies a BETWEEN condition
+     * - If only the first value is present, applies a greater-than-or-equal condition
+     * - If only the second value is present, applies a less-than-or-equal condition
+     * - If neither value is present, no condition is applied
+     *
+     * @param column the column name to apply the condition to
+     * @param val1   the lower bound value (can be null)
+     * @param val2   the upper bound value (can be null)
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> betweenIfPresent(String column, Object val1, Object val2) {
         if (val1 != null && val2 != null) {
             return (QueryWrapperX<T>) super.between(column, val1, val2);
@@ -92,6 +188,18 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
+    /**
+     * Adds a BETWEEN condition to the query using an array of values.
+     * This method intelligently applies different conditions based on which array values are present:
+     * - If both array values are present, applies a BETWEEN condition
+     * - If only the first array value is present, applies a greater-than-or-equal condition
+     * - If only the second array value is present, applies a less-than-or-equal condition
+     * - If the array is null, empty, or neither value is present, no condition is applied
+     *
+     * @param column the column name to apply the condition to
+     * @param values an array containing the lower bound at index 0 and upper bound at index 1
+     * @return the current wrapper instance for chaining
+     */
     public QueryWrapperX<T> betweenIfPresent(String column, Object[] values) {
         if (values != null && values.length != 0 && values[0] != null && values[1] != null) {
             return (QueryWrapperX<T>) super.between(column, values[0], values[1]);

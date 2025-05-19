@@ -4,24 +4,14 @@
     <parent>
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-parent</artifactId>
-        <version>2.20-SNAPSHOT</version>
+        <version>2.20.1-SNAPSHOT</version>
         <relativePath>../radp-components/radp-parent/pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>
     <artifactId>radp-archetypes</artifactId>
     <name>${project.artifactId}</name>
 
-    <!-- 为了加快整个工程的构建速度, radp-archetype-xxx 将不会发布到制品库 -->
-    <!-- 仅需要将 scaffold-xxx 发布到制品库 -->
     <modules>
-        <!-- 在 radp-archetype-xxx 进行脚手架源代码开发 -->
-        <module>radp-archetype-simple</module>
-        <module>radp-archetype-lite</module>
-        <module>radp-archetype-std</module>
-        <module>radp-archetype-tiny</module>
-        <module>radp-archetype-starter</module>
-
-        <!-- 脚手架发布 -->
         <module>scaffold-simple</module>
         <module>scaffold-lite</module>
         <module>scaffold-std</module>
@@ -29,5 +19,9 @@
         <module>scaffold-starter</module>
     </modules>
 
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <jacoco.skip>true</jacoco.skip>
+    </properties>
 
 </project>

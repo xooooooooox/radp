@@ -11,16 +11,40 @@ package space.x9x.radp.extension.strategy;
  */
 public interface LoadingStrategy extends Prioritized {
 
+    /**
+     * Gets the directory path for loading resources.
+     * This method defines where the extension loader should look for extension resources.
+     *
+     * @return the directory path string for resource loading
+     */
     String directory();
 
+    /**
+     * Determines whether to prefer using the extension class loader over the current thread's context class loader.
+     * When true, the extension system will prioritize using the extension's own class loader.
+     *
+     * @return true if the extension class loader should be preferred, false otherwise
+     */
     default boolean preferExtensionClassLoader() {
         return false;
     }
 
+    /**
+     * Gets an array of package names that should be excluded from extension loading.
+     * Extensions in these packages will not be loaded by the extension system.
+     *
+     * @return an array of package names to exclude, or null if no packages should be excluded
+     */
     default String[] excludedPackages() {
         return null;
     }
 
+    /**
+     * Determines whether this loading strategy should override existing strategies.
+     * When true, this strategy will take precedence over other strategies with the same directory.
+     *
+     * @return true if this strategy should override others, false otherwise
+     */
     default boolean overridden() {
         return false;
     }

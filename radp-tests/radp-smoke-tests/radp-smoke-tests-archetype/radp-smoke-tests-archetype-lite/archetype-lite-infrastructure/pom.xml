@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>space.x9x.radp</groupId>
+        <artifactId>radp-smoke-tests-archetype-lite</artifactId>
+        <version>2.20.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>archetype-lite-infrastructure</artifactId>
+    <name>${project.artifactId}</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>radp-mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>radp-liquibase-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>radp-redis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 自身模块 -->
+        <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>archetype-lite-domain</artifactId>
+        </dependency>
+    </dependencies>
+
+
+</project>

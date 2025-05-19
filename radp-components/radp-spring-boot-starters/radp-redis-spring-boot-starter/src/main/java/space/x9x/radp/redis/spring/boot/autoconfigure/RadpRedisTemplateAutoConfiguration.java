@@ -22,8 +22,24 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 @Slf4j
 public class RadpRedisTemplateAutoConfiguration {
 
+    /**
+     * Log message used when the Redis template is autowired.
+     * This message is logged at debug level when the template is initialized.
+     */
     private static final String AUTOWIRED_RADP_REDIS_TEMPLATE = "Autowired redisTemplate";
 
+    /**
+     * Creates a Redis template with customized serialization.
+     * This bean configures a RedisTemplate with the following settings:
+     * - String serialization for keys and hash keys
+     * - JSON serialization with Java 8 time support for values and hash values
+     * <p>
+     * The template provides a high-level abstraction for Redis operations,
+     * with properly configured serialization to ensure consistent data handling.
+     *
+     * @param factory the Redis connection factory to use
+     * @return a configured RedisTemplate instance
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         log.debug(AUTOWIRED_RADP_REDIS_TEMPLATE);
@@ -36,6 +52,14 @@ public class RadpRedisTemplateAutoConfiguration {
         return template;
     }
 
+    /**
+     * Creates a Redis serializer with enhanced Java 8 time support.
+     * This method builds a JSON-based Redis serializer and enhances it with
+     * the JavaTimeModule to properly handle Java 8 date and time types (java.time.*).
+     * The serializer is used for both regular values and hash values in Redis operations.
+     *
+     * @return a configured Redis serializer with Java 8 time support
+     */
     public static RedisSerializer<?> buildRedisSerializer() {
         RedisSerializer<Object> json = RedisSerializer.json();
         ObjectMapper objectMapper = (ObjectMapper) ReflectUtil.getFieldValue(json, "mapper");

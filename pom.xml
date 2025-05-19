@@ -8,7 +8,7 @@
     </parent>
     <groupId>space.x9x.radp</groupId>
     <artifactId>radp</artifactId>
-    <version>2.20-SNAPSHOT</version>
+    <version>2.20.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>Rapid Application Development Platform</description>
@@ -59,6 +59,14 @@
         <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
+        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
+        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+        <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
+        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
     </properties>
 
     <developers>
@@ -156,18 +164,6 @@
                                 <failOnError>false</failOnError>
                             </configuration>
                         </execution>
-                        <!-- 聚合多模块项目的 java doc -->
-                        <execution>
-                            <id>aggregate</id>
-                            <goals>
-                                <goal>aggregate</goal>
-                            </goals>
-                            <configuration>
-                                <!-- Specific configuration for the aggregate report -->
-                                <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-                                <destDir>javadoc</destDir>
-                            </configuration>
-                        </execution>
                     </executions>
                 </plugin>
                 <plugin>
@@ -219,7 +215,8 @@
 
                         <!-- scmCommentPrefix: default is [maven-release-plugin] -->
                         <!-- scmReleaseCommitComment: default is @{prefix} prepare release @{releaseLabel} -->
-                        <!-- scmDevelopmentCommitComment: default is @{prefix} prepare for next development iteration -->
+                        <!-- scmDevelopmentCommitComment:
+                        default is @{prefix} prepare for the next development iteration -->
 
                         <!-- 如果为true, 那么 performRelease 将会为 true -->
                         <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
@@ -239,6 +236,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
                     <configuration>
                         <generateBackupPoms>false</generateBackupPoms>
                     </configuration>
@@ -273,6 +271,12 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -300,6 +304,9 @@
                 <user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
                 <!-- jasypt -->
                 <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
+                <!-- code review -->
+                <user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
+                <user.sonar.token>${setting.sonar.token}</user.sonar.token>
             </properties>
         </profile>
         <!-- 发布到中央仓库 -->
@@ -367,6 +374,321 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>code-review</id>
+            <properties>
+                <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
+                <sonar.token>${user.sonar.token}</sonar.token>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>unit-test</id>
+            <build>
+                <plugins>
+                    <!-- 编译 Groovy 代码 -->
+                    <plugin>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
+                        <version>${gmavenplus-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>compile</goal>
+                                    <goal>compileTests</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 运行基于 Junit 或 Spock 等框架的单元测试 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <!-- 并行执行 -->
+                            <parallel>methods</parallel>
+                            <threadCount>10</threadCount>
+                            <!-- 出现失败继续生成报告 -->
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <!-- 避免某些 Groovy 反射问题 -->
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <skipTests>false</skipTests>
+                            <includes>
+                                <include>**/*Test.java</include>
+                                <include>**/*Spec.groovy</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*IT</exclude>
+                                <exclude>**/*ITCase</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <!-- 收集代码覆盖率并生成报告 -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <!-- 初始化时附加 agent -->
+                                <id>prepare-agent</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report-and-check</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+                                    <rules>
+                                        <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                            <element>BUNDLE</element>
+                                            <limits>　　
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>METHOD</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.50</minimum>
+                                                </limit>
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>BRANCH</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.50</minimum>
+                                                </limit>
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>CLASS</counter>
+                                                    <value>MISSEDCOUNT</value>
+                                                    <maximum>0</maximum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <!-- 生成单元测试报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <aggregate>false</aggregate>
+                        </configuration>
+                    </plugin>
+                    <!-- 交叉应用 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <version>${maven-jxr-plugin.version}</version>
+                    </plugin>
+                    <!-- 项目基本信息报告(依赖树,插件清单等) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>${maven-project-info-reports-plugin.version}</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+            <dependencies>
+                <dependency>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!-- 仅供 radp 当前工程使用 -->
+        <!-- mvn clean verify site -Pcoding,unit-test,aggregate -->
+        <!-- 报告位置:
+        1. 在 <项目根目录>/target/staging/index.html
+        2. 在 <项目根目录>/target/staging/surefire-report.html -->
+        <profile>
+            <id>aggregate</id>
+            <distributionManagement>
+                <site>
+                    <id>site</id>
+                    <name>Project Site</name>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>file:${session.executionRootDirectory}/target/staging</url>
+                </site>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <!-- JaCoCo 聚合报告 -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>report-aggregate</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${session.executionRootDirectory}/target/staging/jacoco-aggregate
+                                    </outputDirectory>
+                                    <dataFileIncludes>
+                                        <dataFileInclude>**/jacoco-ut.exec</dataFileInclude>
+                                    </dataFileIncludes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 执行 Checkstyle 检查 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
+                        <configuration>
+                            <configLocation>google_checks.xml</configLocation>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>false</failsOnError>
+                            <linkXRef>true</linkXRef>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>checkstyle</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>checkstyle</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 站点生成(site + stage) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <version>${maven-site-plugin.version}</version>
+                        <configuration>
+                            <skip>false</skip>
+                            <!-- ensure all modules stage their site documentation to a single location, preventing the duplicate directory structure -->
+                            <stagingDirectory>${session.executionRootDirectory}/target/staging</stagingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-site</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>site</goal>
+                                    <goal>stage</goal>
+                                </goals>
+                            </execution>
+                            <!-- 添加一个新的执行，确保在所有子模块处理完后，再次以非递归方式执行根项目的 stage -->
+                            <execution>
+                                <id>stage-root-only</id>
+                                <phase>post-site</phase>
+                                <goals>
+                                    <goal>stage</goal>
+                                </goals>
+                                <!-- 确保该执行不被子模块继承 -->
+                                <inherited>false</inherited>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <!-- 生成聚合单元测试报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成测试报告时链接到测试源代码的交叉引用（XRef） -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <version>${maven-jxr-plugin.version}</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>aggregate</report>
+                                    <report>test-aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>${maven-project-info-reports-plugin.version}</version>
+                    </plugin>
+                    <!-- 生成聚合 Javadoc 报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <reportSets>
+                            <reportSet>
+                                <id>aggregate</id>
+                                <reports>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${javadoc.encoding}</charset>
+                            <docencoding>${javadoc.encoding}</docencoding>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成 Checkstyle 报告 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
+                        <configuration>
+                            <configLocation>google_checks.xml</configLocation>
+                            <consoleOutput>false</consoleOutput>
+                            <failsOnError>false</failsOnError>
+                            <linkXRef>true</linkXRef>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <id>aggregate</id>
+                                <inherited>false</inherited>
+                                <reports>
+                                    <report>checkstyle-aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
         </profile>
     </profiles>
 </project>

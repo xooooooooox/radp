@@ -14,10 +14,26 @@ import java.util.Set;
 @UtilityClass
 public class CollectionUtils {
 
+    /**
+     * Checks if the specified collection is empty.
+     * <p>
+     * This method is a wrapper around Apache Commons Collections' isEmpty method.
+     *
+     * @param coll the collection to check, may be null
+     * @return true if the collection is null or empty
+     */
     public static boolean isEmpty(final Collection<?> coll) {
         return org.apache.commons.collections4.CollectionUtils.isEmpty(coll);
     }
 
+    /**
+     * Checks if the specified collection is not empty.
+     * <p>
+     * This method is a wrapper around Apache Commons Collections' isNotEmpty method.
+     *
+     * @param coll the collection to check, may be null
+     * @return true if the collection is not null and not empty
+     */
     public static boolean isNotEmpty(final Collection<?> coll) {
         return org.apache.commons.collections4.CollectionUtils.isNotEmpty(coll);
     }

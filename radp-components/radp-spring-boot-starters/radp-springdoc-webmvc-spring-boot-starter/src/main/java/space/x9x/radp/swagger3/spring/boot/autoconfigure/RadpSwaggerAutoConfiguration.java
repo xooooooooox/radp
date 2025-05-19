@@ -46,8 +46,19 @@ import java.util.List;
 @AutoConfiguration
 @Slf4j
 public class RadpSwaggerAutoConfiguration {
+    /**
+     * Default group name for Swagger documentation.
+     */
     public static final String DEFAULT_GROUP_NAME = "management";
+
+    /**
+     * Log message for when Swagger is autowired.
+     */
     public static final String MSG_AUTOWIRED_SWAGGER = "Autowired Swagger";
+
+    /**
+     * Log message template for when Swagger has started, with placeholder for time taken.
+     */
     public static final String MSG_STARTED_SWAGGER = "Started Swagger in {} ms";
 
     private final SwaggerProperties properties;
@@ -55,6 +66,12 @@ public class RadpSwaggerAutoConfiguration {
     @Value(SpringProperties.NAME_PATTERN)
     private String applicationName;
 
+    /**
+     * Constructs a new RadpSwaggerAutoConfiguration with the specified properties.
+     * If the title property is not set, it will be initialized with the application name.
+     *
+     * @param properties the Swagger configuration properties to use
+     */
     public RadpSwaggerAutoConfiguration(SwaggerProperties properties) {
         this.properties = properties;
         if (ObjectUtils.isEmpty(properties.getTitle())) {
@@ -62,11 +79,25 @@ public class RadpSwaggerAutoConfiguration {
         }
     }
 
+    /**
+     * Creates a DefaultSwaggerCustomizer bean that configures the OpenAPI documentation.
+     * This customizer applies the configured properties to the OpenAPI object.
+     *
+     * @return a DefaultSwaggerCustomizer instance initialized with the configuration properties
+     */
     @Bean
     public DefaultSwaggerCustomizer swaggerCustomizer() {
         return new DefaultSwaggerCustomizer(properties);
     }
 
+    /**
+     * Creates and configures the OpenAPI bean for Swagger documentation.
+     * This method creates a base OpenAPI object and applies all available SwaggerCustomizer
+     * instances to it. It also logs performance metrics for the initialization process.
+     *
+     * @param swaggerCustomizers a list of customizers to apply to the OpenAPI object
+     * @return a fully configured OpenAPI object for Swagger documentation
+     */
     @Bean
     @ConditionalOnMissingBean(name = "swaggerOpenAPI")
     public OpenAPI swaggerOpenAPI(List<SwaggerCustomizer> swaggerCustomizers) {
@@ -83,6 +114,12 @@ public class RadpSwaggerAutoConfiguration {
     }
 
 
+    /**
+     * Creates a new, empty OpenAPI instance.
+     * This method provides a base OpenAPI object that will be customized by SwaggerCustomizer instances.
+     *
+     * @return a new OpenAPI instance
+     */
     private OpenAPI createOpenAPI() {
         return new OpenAPI();
     }

@@ -1,15 +1,15 @@
 package space.x9x.radp.spring.framework.logging.bootstrap.filter;
 
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.slf4j.MDC;
+import org.springframework.core.env.Environment;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 import space.x9x.radp.spring.framework.logging.MdcConstants;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.slf4j.MDC;
-import org.springframework.core.env.Environment;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,6 +24,8 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class BootstrapLogHttpFilter extends HttpFilter {
+
+    private static final long serialVersionUID = 1L;
 
     @Setter
     private boolean enabledMdc = false;

@@ -4,10 +4,12 @@
 
 ### fix
 
-- Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
-- Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
-- Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
-  replacement
+- Fix `BaseException`
+  - properly set the cause when a `Throwable` is passed as the last parameter in varargs
+  - handle placeholder mismatches when a `Throwable` is passed as a parameter
+- Fix `ErrorCodeLoader`
+  - Add `#getErrMessage(String errCode)` method to get the raw message template without placeholder
+    replacement
 - Fix `BootstrapLogConfiguration`
 - Fix `AccessLogConfiguration` NPE
 

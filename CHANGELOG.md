@@ -4,7 +4,14 @@
 
 ### fix
 
-- fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
+- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
+- Fix and optimize `LocalCallFirstCluster` and `DubboExceptionFilter`
+  - reduce method complexity
+  - refactor the code to improve readability and maintainability
+  - fix any remaining issues with deprecated methods
+- Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`
+- Optimize `RedissonService`
+  - Update the `setNx` methods in RedissonService.java to use the non-deprecated alternatives
 
 ### chore
 

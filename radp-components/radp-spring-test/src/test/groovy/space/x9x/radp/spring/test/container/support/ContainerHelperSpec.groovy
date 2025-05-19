@@ -24,11 +24,15 @@ class ContainerHelperSpec extends Specification {
         container.getDockerImageName().toString().contains(imageName)
 
         where:
-        containerType | containerMethod                          | imageName
-        "Redis"       | { ContainerHelper.redisContainer() }     | "redis"
-        "MySQL8"      | { ContainerHelper.mysql8Container() }    | "mysql"
-        "Zookeeper"   | { ContainerHelper.zookeeperContainer() } | "zookeeper"
-        "Kafka"       | { ContainerHelper.kafkaContainer() }     | "kafka"
+        containerType   | containerMethod                              | imageName
+        "Redis"         | { ContainerHelper.redisContainer() }         | "redis"
+        "MySQL8"        | { ContainerHelper.mysql8Container() }        | "mysql"
+        "Zookeeper"     | { ContainerHelper.zookeeperContainer() }     | "zookeeper"
+        "Kafka"         | { ContainerHelper.kafkaContainer() }         | "kafka"
+        "Elasticsearch" | { ContainerHelper.elasticsearchContainer() } | "elasticsearch"
+        "MongoDB"       | { ContainerHelper.mongoDBContainer() }       | "mongo"
+        "Nginx"         | { ContainerHelper.nginxContainer() }         | "nginx"
+        "MariaDB"       | { ContainerHelper.mariaDBContainer() }       | "mariadb"
     }
 
     def "test create Redis container with custom image"() {
@@ -90,6 +94,106 @@ class ContainerHelperSpec extends Specification {
         then:
         container != null
         container.getDockerImageName().toString().contains(customVersion)
+    }
+
+    def "test create Elasticsearch container with custom image"() {
+        given:
+        def customImage = "docker.elastic.co/elasticsearch/elasticsearch:8.6.0"
+
+        when:
+        def container = ContainerHelper.elasticsearchContainer(customImage)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == customImage
+    }
+
+    def "test create Elasticsearch container with custom image and timeout"() {
+        given:
+        def imageName = DockerImageName.parse("docker.elastic.co/elasticsearch/elasticsearch:8.6.0")
+        def timeout = Duration.ofSeconds(180)
+
+        when:
+        def container = ContainerHelper.elasticsearchContainer(imageName, timeout)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == imageName.toString()
+    }
+
+    def "test create MongoDB container with custom image"() {
+        given:
+        def customImage = "mongo:6.0.0"
+
+        when:
+        def container = ContainerHelper.mongoDBContainer(customImage)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == customImage
+    }
+
+    def "test create MongoDB container with custom image and timeout"() {
+        given:
+        def imageName = DockerImageName.parse("mongo:6.0.0")
+        def timeout = Duration.ofSeconds(90)
+
+        when:
+        def container = ContainerHelper.mongoDBContainer(imageName, timeout)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == imageName.toString()
+    }
+
+    def "test create Nginx container with custom image"() {
+        given:
+        def customImage = "nginx:1.24.0"
+
+        when:
+        def container = ContainerHelper.nginxContainer(customImage)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == customImage
+    }
+
+    def "test create Nginx container with custom image and timeout"() {
+        given:
+        def imageName = DockerImageName.parse("nginx:1.24.0")
+        def timeout = Duration.ofSeconds(45)
+
+        when:
+        def container = ContainerHelper.nginxContainer(imageName, timeout)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == imageName.toString()
+    }
+
+    def "test create MariaDB container with custom image"() {
+        given:
+        def customImage = "mariadb:11.0.0"
+
+        when:
+        def container = ContainerHelper.mariaDBContainer(customImage)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == customImage
+    }
+
+    def "test create MariaDB container with custom image and timeout"() {
+        given:
+        def imageName = DockerImageName.parse("mariadb:11.0.0")
+        def timeout = Duration.ofSeconds(90)
+
+        when:
+        def container = ContainerHelper.mariaDBContainer(imageName, timeout)
+
+        then:
+        container != null
+        container.getDockerImageName().toString() == imageName.toString()
     }
 
     def "test private constructor throws exception"() {

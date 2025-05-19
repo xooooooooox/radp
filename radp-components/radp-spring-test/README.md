@@ -16,6 +16,10 @@ and Kafka.
     - MySQL 8
     - Zookeeper
     - Kafka
+  - Elasticsearch
+  - MongoDB
+  - Nginx
+  - MariaDB
 
 ## Installation
 
@@ -165,6 +169,80 @@ ContainerHelper.
 stopContainer(kafkaContainer);
 ```
 
+#### Elasticsearch
+
+```java
+// Create and start an Elasticsearch container
+ElasticsearchContainer elasticsearchContainer = ContainerHelper.elasticsearchContainer();
+ContainerHelper.
+
+startContainer(elasticsearchContainer);
+
+// Use the Elasticsearch container in your tests
+String httpUrl = elasticsearchContainer.getHttpHostAddress();
+
+// Stop the container when done
+ContainerHelper.
+
+stopContainer(elasticsearchContainer);
+```
+
+#### MongoDB
+
+```java
+// Create and start a MongoDB container
+MongoDBContainer mongoDBContainer = ContainerHelper.mongoDBContainer();
+ContainerHelper.
+
+startContainer(mongoDBContainer);
+
+// Use the MongoDB container in your tests
+String connectionString = mongoDBContainer.getConnectionString();
+
+// Stop the container when done
+ContainerHelper.
+
+stopContainer(mongoDBContainer);
+```
+
+#### Nginx
+
+```java
+// Create and start a Nginx container
+NginxContainer nginxContainer = ContainerHelper.nginxContainer();
+ContainerHelper.
+
+startContainer(nginxContainer);
+
+// Use the Nginx container in your tests
+String httpUrl = nginxContainer.getHttpUrl();
+
+// Stop the container when done
+ContainerHelper.
+
+stopContainer(nginxContainer);
+```
+
+#### MariaDB
+
+```java
+// Create and start a MariaDB container
+MariaDBContainer mariaDBContainer = ContainerHelper.mariaDBContainer();
+ContainerHelper.
+
+startContainer(mariaDBContainer);
+
+// Use the MariaDB container in your tests
+String jdbcUrl = mariaDBContainer.getJdbcConnectionUrl();
+String username = mariaDBContainer.getUsername();
+String password = mariaDBContainer.getPassword();
+
+// Stop the container when done
+ContainerHelper.
+
+stopContainer(mariaDBContainer);
+```
+
 ## Configuration Options
 
 ### Embedded Servers
@@ -196,6 +274,22 @@ stopContainer(kafkaContainer);
 - **Kafka**
     - Image: Default is "confluentinc/cp-kafka:7.4.0"
     - Startup Timeout: Default is 120 seconds
+
+- **Elasticsearch**
+  - Image: Default is "docker.elastic.co/elasticsearch/elasticsearch:8.7.1"
+  - Startup Timeout: Default is 120 seconds
+
+- **MongoDB**
+  - Image: Default is "mongo:6.0.6"
+  - Startup Timeout: Default is 60 seconds
+
+- **Nginx**
+  - Image: Default is "nginx:1.25.1"
+  - Startup Timeout: Default is 30 seconds
+
+- **MariaDB**
+  - Image: Default is "mariadb:11.1.2"
+  - Startup Timeout: Default is 60 seconds
 
 ## Troubleshooting
 

@@ -3,8 +3,12 @@ package space.x9x.radp.spring.test.container.support;
 import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
+import space.x9x.radp.spring.test.container.elasticsearch.ElasticsearchContainer;
 import space.x9x.radp.spring.test.container.kafka.KafkaContainer;
+import space.x9x.radp.spring.test.container.mariadb.MariaDBContainer;
+import space.x9x.radp.spring.test.container.mongodb.MongoDBContainer;
 import space.x9x.radp.spring.test.container.mysql.MySQL8Container;
+import space.x9x.radp.spring.test.container.nginx.NginxContainer;
 import space.x9x.radp.spring.test.container.redis.RedisContainer;
 import space.x9x.radp.spring.test.container.zookeeper.ZookeeperContainer;
 
@@ -13,7 +17,7 @@ import java.time.Duration;
 /**
  * Helper class for working with containers.
  * This class provides utility methods for creating, configuring, and managing containers for testing.
- * It supports various container types including Redis, MySQL, Zookeeper, and Kafka.
+ * It supports various container types including Redis, MySQL, Zookeeper, Kafka, Elasticsearch, MongoDB, Nginx, and MariaDB.
  *
  * @author x9x
  * @since 2024-10-30
@@ -133,6 +137,166 @@ public class ContainerHelper {
      */
     public static KafkaContainer kafkaContainer(DockerImageName dockerImageName, Duration startupTimeout) {
         return new KafkaContainer(dockerImageName, startupTimeout);
+    }
+
+    /**
+     * Creates a new Elasticsearch container with the default image and exposed port.
+     *
+     * @return a new Elasticsearch container
+     */
+    public static ElasticsearchContainer elasticsearchContainer() {
+        return new ElasticsearchContainer();
+    }
+
+    /**
+     * Creates a new Elasticsearch container with the specified image and default exposed port.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new Elasticsearch container
+     */
+    public static ElasticsearchContainer elasticsearchContainer(String dockerImageName) {
+        return new ElasticsearchContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new Elasticsearch container with the specified image name and default startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new Elasticsearch container
+     */
+    public static ElasticsearchContainer elasticsearchContainer(DockerImageName dockerImageName) {
+        return new ElasticsearchContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new Elasticsearch container with the specified image name and startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @param startupTimeout  the startup timeout
+     * @return a new Elasticsearch container
+     */
+    public static ElasticsearchContainer elasticsearchContainer(DockerImageName dockerImageName, Duration startupTimeout) {
+        return new ElasticsearchContainer(dockerImageName, startupTimeout);
+    }
+
+    /**
+     * Creates a new MongoDB container with the default image and exposed port.
+     *
+     * @return a new MongoDB container
+     */
+    public static MongoDBContainer mongoDBContainer() {
+        return new MongoDBContainer();
+    }
+
+    /**
+     * Creates a new MongoDB container with the specified image and default exposed port.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new MongoDB container
+     */
+    public static MongoDBContainer mongoDBContainer(String dockerImageName) {
+        return new MongoDBContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new MongoDB container with the specified image name and default startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new MongoDB container
+     */
+    public static MongoDBContainer mongoDBContainer(DockerImageName dockerImageName) {
+        return new MongoDBContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new MongoDB container with the specified image name and startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @param startupTimeout  the startup timeout
+     * @return a new MongoDB container
+     */
+    public static MongoDBContainer mongoDBContainer(DockerImageName dockerImageName, Duration startupTimeout) {
+        return new MongoDBContainer(dockerImageName, startupTimeout);
+    }
+
+    /**
+     * Creates a new Nginx container with the default image and exposed port.
+     *
+     * @return a new Nginx container
+     */
+    public static NginxContainer nginxContainer() {
+        return new NginxContainer();
+    }
+
+    /**
+     * Creates a new Nginx container with the specified image and default exposed port.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new Nginx container
+     */
+    public static NginxContainer nginxContainer(String dockerImageName) {
+        return new NginxContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new Nginx container with the specified image name and default startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new Nginx container
+     */
+    public static NginxContainer nginxContainer(DockerImageName dockerImageName) {
+        return new NginxContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new Nginx container with the specified image name and startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @param startupTimeout  the startup timeout
+     * @return a new Nginx container
+     */
+    public static NginxContainer nginxContainer(DockerImageName dockerImageName, Duration startupTimeout) {
+        return new NginxContainer(dockerImageName, startupTimeout);
+    }
+
+    /**
+     * Creates a new MariaDB container with the default image and exposed port.
+     *
+     * @return a new MariaDB container
+     */
+    public static MariaDBContainer mariaDBContainer() {
+        return new MariaDBContainer();
+    }
+
+    /**
+     * Creates a new MariaDB container with the specified image and default exposed port.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new MariaDB container
+     */
+    public static MariaDBContainer mariaDBContainer(String dockerImageName) {
+        return new MariaDBContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new MariaDB container with the specified image name and default startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @return a new MariaDB container
+     */
+    public static MariaDBContainer mariaDBContainer(DockerImageName dockerImageName) {
+        return new MariaDBContainer(dockerImageName);
+    }
+
+    /**
+     * Creates a new MariaDB container with the specified image name and startup timeout.
+     *
+     * @param dockerImageName the Docker image name to use
+     * @param startupTimeout  the startup timeout
+     * @return a new MariaDB container
+     */
+    public static MariaDBContainer mariaDBContainer(DockerImageName dockerImageName, Duration startupTimeout) {
+        return new MariaDBContainer(dockerImageName, startupTimeout);
     }
 
     /**

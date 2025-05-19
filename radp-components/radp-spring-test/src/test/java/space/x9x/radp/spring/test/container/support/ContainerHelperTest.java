@@ -2,8 +2,12 @@ package space.x9x.radp.spring.test.container.support;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.utility.DockerImageName;
+import space.x9x.radp.spring.test.container.elasticsearch.ElasticsearchContainer;
 import space.x9x.radp.spring.test.container.kafka.KafkaContainer;
+import space.x9x.radp.spring.test.container.mariadb.MariaDBContainer;
+import space.x9x.radp.spring.test.container.mongodb.MongoDBContainer;
 import space.x9x.radp.spring.test.container.mysql.MySQL8Container;
+import space.x9x.radp.spring.test.container.nginx.NginxContainer;
 import space.x9x.radp.spring.test.container.redis.RedisContainer;
 import space.x9x.radp.spring.test.container.zookeeper.ZookeeperContainer;
 
@@ -100,6 +104,90 @@ class ContainerHelperTest {
     // because they require actual container instances to be started and stopped.
     // These methods are tested indirectly through the container-specific tests
     // in other test classes.
+
+    @Test
+    void testElasticsearchContainer() {
+        // Test creating an Elasticsearch container with default settings
+        ElasticsearchContainer container = ContainerHelper.elasticsearchContainer();
+        assertNotNull(container);
+        assertTrue(container.getDockerImageName().toString().contains("elasticsearch"));
+
+        // Test creating an Elasticsearch container with custom image
+        String customImage = "docker.elastic.co/elasticsearch/elasticsearch:8.6.0";
+        ElasticsearchContainer customContainer = ContainerHelper.elasticsearchContainer(customImage);
+        assertNotNull(customContainer);
+        assertEquals(customImage, customContainer.getDockerImageName().toString());
+
+        // Test creating an Elasticsearch container with custom image and timeout
+        DockerImageName imageName = DockerImageName.parse(customImage);
+        Duration timeout = Duration.ofSeconds(180);
+        ElasticsearchContainer timeoutContainer = ContainerHelper.elasticsearchContainer(imageName, timeout);
+        assertNotNull(timeoutContainer);
+        assertEquals(imageName.toString(), timeoutContainer.getDockerImageName().toString());
+    }
+
+    @Test
+    void testMongoDBContainer() {
+        // Test creating a MongoDB container with default settings
+        MongoDBContainer container = ContainerHelper.mongoDBContainer();
+        assertNotNull(container);
+        assertTrue(container.getDockerImageName().toString().contains("mongo"));
+
+        // Test creating a MongoDB container with custom image
+        String customImage = "mongo:6.0.0";
+        MongoDBContainer customContainer = ContainerHelper.mongoDBContainer(customImage);
+        assertNotNull(customContainer);
+        assertEquals(customImage, customContainer.getDockerImageName().toString());
+
+        // Test creating a MongoDB container with custom image and timeout
+        DockerImageName imageName = DockerImageName.parse(customImage);
+        Duration timeout = Duration.ofSeconds(90);
+        MongoDBContainer timeoutContainer = ContainerHelper.mongoDBContainer(imageName, timeout);
+        assertNotNull(timeoutContainer);
+        assertEquals(imageName.toString(), timeoutContainer.getDockerImageName().toString());
+    }
+
+    @Test
+    void testNginxContainer() {
+        // Test creating a Nginx container with default settings
+        NginxContainer container = ContainerHelper.nginxContainer();
+        assertNotNull(container);
+        assertTrue(container.getDockerImageName().toString().contains("nginx"));
+
+        // Test creating a Nginx container with custom image
+        String customImage = "nginx:1.24.0";
+        NginxContainer customContainer = ContainerHelper.nginxContainer(customImage);
+        assertNotNull(customContainer);
+        assertEquals(customImage, customContainer.getDockerImageName().toString());
+
+        // Test creating a Nginx container with custom image and timeout
+        DockerImageName imageName = DockerImageName.parse(customImage);
+        Duration timeout = Duration.ofSeconds(45);
+        NginxContainer timeoutContainer = ContainerHelper.nginxContainer(imageName, timeout);
+        assertNotNull(timeoutContainer);
+        assertEquals(imageName.toString(), timeoutContainer.getDockerImageName().toString());
+    }
+
+    @Test
+    void testMariaDBContainer() {
+        // Test creating a MariaDB container with default settings
+        MariaDBContainer container = ContainerHelper.mariaDBContainer();
+        assertNotNull(container);
+        assertTrue(container.getDockerImageName().toString().contains("mariadb"));
+
+        // Test creating a MariaDB container with custom image
+        String customImage = "mariadb:11.0.0";
+        MariaDBContainer customContainer = ContainerHelper.mariaDBContainer(customImage);
+        assertNotNull(customContainer);
+        assertEquals(customImage, customContainer.getDockerImageName().toString());
+
+        // Test creating a MariaDB container with custom image and timeout
+        DockerImageName imageName = DockerImageName.parse(customImage);
+        Duration timeout = Duration.ofSeconds(90);
+        MariaDBContainer timeoutContainer = ContainerHelper.mariaDBContainer(imageName, timeout);
+        assertNotNull(timeoutContainer);
+        assertEquals(imageName.toString(), timeoutContainer.getDockerImageName().toString());
+    }
 
     @Test
     void testPrivateConstructor() {

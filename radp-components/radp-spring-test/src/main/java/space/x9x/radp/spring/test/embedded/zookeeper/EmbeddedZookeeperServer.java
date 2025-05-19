@@ -67,7 +67,9 @@ public class EmbeddedZookeeperServer implements EmbeddedServer {
             this.isRunning = true;
             log.info("Embedded Zookeeper server started on port {}", DEFAULT_PORT);
         } catch (Exception e) {
+            this.isRunning = false;
             log.error("Failed to start embedded Zookeeper server", e);
+            throw new RuntimeException("Failed to start embedded Zookeeper server", e);
         }
     }
 
@@ -82,6 +84,7 @@ public class EmbeddedZookeeperServer implements EmbeddedServer {
             log.info("Embedded Zookeeper server stopped");
         } catch (Exception e) {
             log.error("Failed to stop embedded Zookeeper server", e);
+            throw new RuntimeException("Failed to stop embedded Zookeeper server", e);
         }
     }
 

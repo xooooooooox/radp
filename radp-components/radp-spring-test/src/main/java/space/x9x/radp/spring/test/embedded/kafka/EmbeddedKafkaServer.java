@@ -72,7 +72,9 @@ public class EmbeddedKafkaServer implements EmbeddedServer {
             this.isRunning = true;
             log.info("Embedded Kafka server started on port {}", kafkaPort);
         } catch (Exception e) {
+            this.isRunning = false;
             log.error("Failed to start embedded Kafka server", e);
+            throw new RuntimeException("Failed to start embedded Kafka server", e);
         }
     }
 
@@ -87,6 +89,7 @@ public class EmbeddedKafkaServer implements EmbeddedServer {
             log.info("Embedded Kafka server stopped");
         } catch (Exception e) {
             log.error("Failed to stop embedded Kafka server", e);
+            throw new RuntimeException("Failed to stop embedded Kafka server", e);
         }
     }
 

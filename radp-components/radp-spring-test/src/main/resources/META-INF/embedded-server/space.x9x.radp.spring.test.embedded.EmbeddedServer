@@ -1,0 +1,3 @@
+redis=space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer
+kafka=space.x9x.radp.spring.test.embedded.kafka.EmbeddedKafkaServer
+zookeeper=space.x9x.radp.spring.test.embedded.zookeeper.EmbeddedZookeeperServer

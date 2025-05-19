@@ -24,7 +24,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
     /**
      * Default port for the embedded Redis server.
      * This constant defines the port on which the Redis server will listen for connections.
-     * The value 6379 is the standard port used by Redis servers.
+     * Value 6379 is the standard port used by Redis servers.
      */
     public static final int DEFAULT_PORT = 6379;
 
@@ -49,7 +49,8 @@ public class EmbeddedRedisServer implements EmbeddedServer {
         this.redisServerBuilder = new RedisServerBuilder()
                 .bind(DEFAULT_BIND)
                 .port(DEFAULT_PORT)
-                .setting(DEFAULT_MAX_HEAP);
+                .setting(DEFAULT_MAX_HEAP)
+                .setting("daemonize no");
     }
 
 
@@ -74,7 +75,9 @@ public class EmbeddedRedisServer implements EmbeddedServer {
             this.isRunning = true;
             log.info("Embedded Redis server started on port {}", port);
         } catch (IOException e) {
+            this.isRunning = false;
             log.error("Failed to start embedded Redis server on port {}", port, e);
+            throw new RuntimeException("Failed to start embedded Redis server on port " + port, e);
         }
     }
 
@@ -89,6 +92,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
             log.info("Embedded Redis server stopped");
         } catch (IOException e) {
             log.error("Failed to stop embedded Redis server", e);
+            throw new RuntimeException("Failed to stop embedded Redis server", e);
         }
     }
 

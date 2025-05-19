@@ -2,6 +2,10 @@
 
 ## 3.21
 
+### fix
+
+- fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
+
 ### chore
 
 - scaffold

@@ -182,14 +182,31 @@ public class RedissonService implements IRedissonService {
         return redissonClient.getBloomFilter(key);
     }
 
+    /**
+     * 设置键的值，只有在键不存在时才会设置成功
+     * 使用setIfAbsent替代已废弃的trySet方法
+     *
+     * @param key 键
+     * @return 设置成功返回true，否则返回false
+     */
     @Override
     public Boolean setNx(String key) {
-        return redissonClient.getBucket(key).trySet("lock");
+        return redissonClient.getBucket(key).setIfAbsent("lock");
     }
 
+    /**
+     * 设置键的值，只有在键不存在时才会设置成功，并设置过期时间
+     * 使用setIfAbsent替代已废弃的trySet方法
+     *
+     * @param key      键
+     * @param expired  过期时间
+     * @param timeUnit 时间单位
+     * @return 设置成功返回true，否则返回false
+     */
     @Override
     public Boolean setNx(String key, long expired, TimeUnit timeUnit) {
-        return redissonClient.getBucket(key).trySet("lock", expired, timeUnit);
+        Duration duration = Duration.ofMillis(timeUnit.toMillis(expired));
+        return redissonClient.getBucket(key).setIfAbsent("lock", duration);
     }
 
     @Override

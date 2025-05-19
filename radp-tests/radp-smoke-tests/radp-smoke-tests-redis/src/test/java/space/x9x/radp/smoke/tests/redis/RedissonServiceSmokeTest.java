@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
+import space.x9x.radp.spring.test.container.redis.RedisContainer;
+import space.x9x.radp.spring.test.container.support.ContainerHelper;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -25,12 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RedissonServiceSmokeTest {
 
     private static final String TEST_VALUE = "test-value";
-    private static final int REDIS_PORT = 6379; // Default Redis port
-
     @Container
-    private static final GenericContainer<?> redisContainer = new GenericContainer<>(
-            DockerImageName.parse("redis:latest"))
-            .withExposedPorts(REDIS_PORT);
+    private static final RedisContainer redisContainer = ContainerHelper.redisContainer();
 
     private RedissonClient redissonClient;
     private RedissonService redissonService;
@@ -50,14 +46,10 @@ public class RedissonServiceSmokeTest {
 
     @BeforeEach
     void setUp() {
-        // Get the mapped port for Redis
-        Integer mappedPort = redisContainer.getMappedPort(REDIS_PORT);
-        String redisHost = redisContainer.getHost();
-
         // Configure Redisson client to connect to the Redis container
         Config config = new Config();
         config.useSingleServer()
-                .setAddress("redis://" + redisHost + ":" + mappedPort)
+                .setAddress(redisContainer.getRedisConnectionUrl())
                 .setConnectionMinimumIdleSize(1)
                 .setConnectionPoolSize(2)
                 .setConnectTimeout(10000)

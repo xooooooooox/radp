@@ -25,6 +25,8 @@ import java.util.Collection;
  */
 public class QueryWrapperX<T> extends QueryWrapper<T> {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Adds a LIKE condition to the query only if the value is not null or empty.
      * This method only applies the condition when the provided string has text.

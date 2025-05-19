@@ -10,6 +10,8 @@ import org.jetbrains.annotations.PropertyKey;
 @EqualsAndHashCode(callSuper = true)
 public class ThirdServiceException extends BaseException {
 
+    private static final long serialVersionUID = 1L;
+
     public ThirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Throwable t) {
         super(errCode, t);
     }

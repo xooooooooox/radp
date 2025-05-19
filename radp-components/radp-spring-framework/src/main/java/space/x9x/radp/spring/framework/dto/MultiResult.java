@@ -22,6 +22,8 @@ import java.util.Collections;
 @Getter
 public class MultiResult<T> extends Result {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * The collection of data items in the result.
      */

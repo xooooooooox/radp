@@ -15,6 +15,8 @@ import java.util.Properties;
 @Slf4j
 public class ExtendJasyptProperties extends Properties {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Property key for the Jasypt encryptor password.
      * This password is used for encryption and decryption operations.

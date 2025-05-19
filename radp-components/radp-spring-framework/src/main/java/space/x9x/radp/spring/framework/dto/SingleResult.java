@@ -15,7 +15,10 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Getter
+@SuppressWarnings("java:S1948")
 public class SingleResult<T> extends Result {
+
+    private static final long serialVersionUID = 1L;
 
     private T data;
 

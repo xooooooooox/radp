@@ -9,6 +9,9 @@ import space.x9x.radp.spring.framework.error.BaseException;
  */
 @EqualsAndHashCode(callSuper = true)
 public class ForbiddenException extends BaseException {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructs a new ForbiddenException with the specified error message and formatting parameters.
      * This exception represents an HTTP 403 Forbidden error.

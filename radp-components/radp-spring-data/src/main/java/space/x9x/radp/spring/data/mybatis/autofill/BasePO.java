@@ -16,4 +16,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @since 2024-10-01 10:02
  */
 public abstract class BasePO<T extends Model<?>> extends AutofillModel<T> {
+
+    private static final long serialVersionUID = 1L;
 }

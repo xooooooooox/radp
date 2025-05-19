@@ -17,6 +17,8 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 public class PageParam implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Default page index (first page).
      */

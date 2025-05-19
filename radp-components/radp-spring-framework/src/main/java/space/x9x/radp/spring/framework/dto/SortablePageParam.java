@@ -15,5 +15,7 @@ import java.util.List;
 @ToString(callSuper = true)
 public class SortablePageParam extends PageParam {
 
+    private static final long serialVersionUID = 1L;
+
     private List<SortingField> sortingFields;
 }

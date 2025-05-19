@@ -16,6 +16,8 @@ import java.util.concurrent.Future;
  * @since 2024-09-30 12:04
  */
 public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
+
+    private static final long serialVersionUID = 1L;
     private static final String MESSAGE = "Task is not null";
 
     @Override

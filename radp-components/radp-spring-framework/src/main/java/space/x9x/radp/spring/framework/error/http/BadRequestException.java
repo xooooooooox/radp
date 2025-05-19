@@ -1,7 +1,7 @@
 package space.x9x.radp.spring.framework.error.http;
 
-import space.x9x.radp.spring.framework.error.BaseException;
 import lombok.EqualsAndHashCode;
+import space.x9x.radp.spring.framework.error.BaseException;
 
 /**
  * @author x9x
@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 public class BadRequestException extends BaseException {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new BadRequestException with the specified error message and parameters.

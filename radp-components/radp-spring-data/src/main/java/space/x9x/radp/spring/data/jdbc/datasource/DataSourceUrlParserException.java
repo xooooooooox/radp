@@ -8,6 +8,9 @@ package space.x9x.radp.spring.data.jdbc.datasource;
  * @since 2024-09-30 13:52
  */
 public class DataSourceUrlParserException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructs a new DataSourceUrlParserException with the specified detail message and cause.
      *

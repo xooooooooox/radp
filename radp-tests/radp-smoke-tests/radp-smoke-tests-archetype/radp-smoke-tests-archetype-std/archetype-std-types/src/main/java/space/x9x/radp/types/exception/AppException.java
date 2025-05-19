@@ -10,6 +10,8 @@ import space.x9x.radp.spring.framework.error.ServerException;
  */
 public class AppException extends ServerException {
 
+    private static final long serialVersionUID = 1L;
+
     public AppException(@PropertyKey(resourceBundle = "META-INF.error.message") String errCode, Throwable t) {
         super(errCode, t);
     }

@@ -10,6 +10,8 @@ import org.jetbrains.annotations.PropertyKey;
 @EqualsAndHashCode(callSuper = true)
 public class ClientException extends BaseException {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructs a new ClientException with the specified error code and cause.
      *

@@ -15,6 +15,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class SortingField implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     public static final String ASC = "ASC";
     public static final String DESC = "DESC";
 

@@ -12,6 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,9 +35,17 @@ public class RedissonServiceSmokeTest {
     private RedissonClient redissonClient;
     private RedissonService redissonService;
 
-    // Generate a unique key for each test to avoid conflicts
+    /**
+     * Generate a unique key for each test to avoid conflicts.
+     * Uses the RedisKeyProvider to create standardized keys with the test name and a UUID.
+     *
+     * @param testName the name of the test or operation
+     * @return a unique Redis key for the test
+     */
     private String getUniqueKey(String testName) {
-        return "test:" + testName + ":" + System.currentTimeMillis();
+        // Use UUID instead of timestamp for more deterministic and collision-resistant keys
+        String uniqueId = UUID.randomUUID().toString().substring(0, 8); // Use the first 8 chars of UUID for brevity
+        return TestRedisKeys.buildTestKey(testName, uniqueId);
     }
 
     @BeforeEach
@@ -63,7 +72,7 @@ public class RedissonServiceSmokeTest {
 
     @AfterEach
     void tearDown() {
-        // Clean up resources
+        // Cleanup resources
         if (redissonClient != null) {
             redissonClient.shutdown();
         }

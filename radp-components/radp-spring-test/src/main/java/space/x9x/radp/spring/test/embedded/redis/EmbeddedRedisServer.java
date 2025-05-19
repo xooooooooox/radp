@@ -38,6 +38,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
     private final RedisServerBuilder redisServerBuilder;
     private RedisServer redisServer;
     private boolean isRunning = false;
+    private int port = DEFAULT_PORT;
 
     /**
      * Constructs a new EmbeddedRedisServer with default settings.
@@ -60,6 +61,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 
     @Override
     public EmbeddedServer port(int port) {
+        this.port = port;
         this.redisServerBuilder.port(port);
         return this;
     }
@@ -70,8 +72,9 @@ public class EmbeddedRedisServer implements EmbeddedServer {
             this.redisServer = redisServerBuilder.build();
             this.redisServer.start();
             this.isRunning = true;
+            log.info("Embedded Redis server started on port {}", port);
         } catch (IOException e) {
-            log.error("redis server startup failed", e);
+            log.error("Failed to start embedded Redis server on port {}", port, e);
         }
     }
 
@@ -82,8 +85,10 @@ public class EmbeddedRedisServer implements EmbeddedServer {
         }
         try {
             this.redisServer.stop();
+            this.isRunning = false;
+            log.info("Embedded Redis server stopped");
         } catch (IOException e) {
-            log.error("redis server shutdown failed", e);
+            log.error("Failed to stop embedded Redis server", e);
         }
     }
 

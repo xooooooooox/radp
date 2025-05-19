@@ -18,10 +18,4 @@
         <module>radp-smoke-tests</module>
     </modules>
 
-    <properties>
-        <jacoco.skip>true</jacoco.skip>
-        <maven.test.skip>true</maven.test.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-        <skipPublishing>true</skipPublishing>
-    </properties>
 </project>

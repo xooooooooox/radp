@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @TableName("demo")
  * public class DemoPO extends BasePO<DemoPO> {
  *     ... ...
- * }}
- * </pre>
+ * }
+ * }</pre>
  *
  * @author x9x
  * @since 2024-10-01 10:02

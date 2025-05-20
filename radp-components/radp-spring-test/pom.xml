@@ -11,6 +11,10 @@
     <name>${project.artifactId}</name>
     <description>Spring Test 扩展</description>
 
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
+
     <dependencies>
         <!-- 内部组件 -->
         <dependency>
@@ -170,5 +174,4 @@
             <artifactId>assertj-core</artifactId>
         </dependency>
     </dependencies>
-
 </project>

@@ -1,4 +1,4 @@
-package smoketests.framework;
+package space.x9x.radp.smoke.tests.framework;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;

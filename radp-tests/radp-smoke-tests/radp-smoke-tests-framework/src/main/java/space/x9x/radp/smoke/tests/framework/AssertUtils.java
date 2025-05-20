@@ -1,4 +1,4 @@
-package smoketests.framework;
+package space.x9x.radp.smoke.tests.framework;
 
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;

@@ -1,4 +1,4 @@
-package smoketests.framework;
+package space.x9x.radp.smoke.tests.framework;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

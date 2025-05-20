@@ -5,5 +5,5 @@
     <!-- Custom log path -->
     <property name="logHome" value="./logs/classic" />
 
-    <include resource="logback/classic/templates/logback-test.xml"/>
+    <include resource="logback/classic/templates/logback-classic-test.xml"/>
 </configuration>

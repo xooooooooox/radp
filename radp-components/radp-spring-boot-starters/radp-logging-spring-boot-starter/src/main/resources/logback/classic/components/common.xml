@@ -6,4 +6,6 @@
 
 <included>
     <property name="default_pattern_charset" value="UTF-8"/>
+    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
+    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
 </included>

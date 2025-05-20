@@ -11,9 +11,6 @@
 -->
 
 <included>
-    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
-    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
-
     <include resource="logback/classic/components/console.xml"/>
     <include resource="logback/classic/components/file.xml"/>
 

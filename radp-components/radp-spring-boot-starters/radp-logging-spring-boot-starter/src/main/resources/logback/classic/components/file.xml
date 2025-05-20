@@ -12,9 +12,6 @@
 <included>
     <include resource="logback/classic/components/common.xml"/>
 
-    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
-    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
-
     <property name="file_pattern"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
 

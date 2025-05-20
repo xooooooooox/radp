@@ -33,7 +33,6 @@
   - Update scaffold default radpVersion to `3.21`
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx module.
-  - Add `maven.test.skip` property to `radp-spring-tests` module
 - dependencies
   - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`
   - Override `kafka.version` from `3.8.1` to `3.9.0`

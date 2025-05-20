@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+测试环境场景的日志配置
+适用于单元测试和集成测试，配置更加简洁，主要关注控制台输出的可读性。
+
+特点：
+1. 使用Spring Boot的日志扩展（如%clr和%wEx转换模式）
+2. 提供彩色控制台输出
+3. 简化的文件日志配置
+4. 更高的默认日志级别（便于调试）
+-->
+
+<included>
+    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
+    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="logback/components/standard/console.xml"/>
+    <include resource="logback/components/standard/file.xml"/>
+
+    <!-- 测试环境默认使用更高的日志级别，便于调试 -->
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC"/>
+    </root>
+
+    <!-- 常用测试框架的日志级别调整 -->
+    <logger name="org.springframework.test" level="info"/>
+    <logger name="org.junit" level="info"/>
+    <logger name="spock" level="info"/>
+    <logger name="org.testcontainers" level="info"/>
+</included>

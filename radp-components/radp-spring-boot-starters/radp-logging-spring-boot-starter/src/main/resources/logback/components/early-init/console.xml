@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+控制台输出配置 - 早期初始化版本
+使用标准的Logback模式，不依赖Spring Boot的日志扩展
+适用于在Spring Boot完全初始化之前需要记录日志的场景
+-->
+
+<included>
+    <include resource="logback/components/early-init/common.xml"/>
+
+    <!-- 使用标准的Logback模式，不依赖Spring Boot的日志扩展 -->
+    <property name="console_pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${console_pattern}</pattern>
+            <charset>${default_pattern_charset}</charset>
+        </encoder>
+    </appender>
+</included>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+早期初始化场景的通用属性
+用于在Spring Boot完全初始化之前的日志记录
+-->
+
+<included>
+    <property name="default_pattern_charset" value="UTF-8"/>
+</included>

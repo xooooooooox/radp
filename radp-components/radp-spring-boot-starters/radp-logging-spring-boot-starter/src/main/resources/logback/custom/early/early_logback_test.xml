@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+兼容性桥接文件 - 请使用新的配置结构
+此文件仅为向后兼容性而保留，建议使用新的基于场景的配置结构。
+
+新的配置路径：logback/scenarios/early-init/logback-test.xml
+
+使用方法：
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <include resource="logback/scenarios/early-init/logback-test.xml"/>
+</configuration>
+-->
+
+<included>
+    <include resource="logback/scenarios/early-init/logback-test.xml"/>
+</included>

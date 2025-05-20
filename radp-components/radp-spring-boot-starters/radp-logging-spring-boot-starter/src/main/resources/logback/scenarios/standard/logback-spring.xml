@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+标准应用场景的日志配置
+适用于常规的Spring Boot应用，提供完整的日志功能。
+
+特点：
+1. 使用Spring Boot的日志扩展（如%clr和%wEx转换模式）
+2. 提供彩色控制台输出
+3. 支持文件日志输出和滚动策略
+4. 支持按日志级别分类存储
+-->
+
+<included>
+    <springProperty scope="context" name="logHome" source="logging.file.path" defaultValue="${java.io.tmpdir:-/tmp}"/>
+    <springProperty scope="context" name="logNamePrefix" source="spring.application.name" defaultValue="application"/>
+    <springProperty scope="context" name="rawConsolePattern" source="logging.pattern.console"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="logback/components/standard/console.xml"/>
+    <include resource="logback/components/standard/file.xml"/>
+
+    <!-- 根据 logging.pattern.console 属性的值决定控制台日志输出 -->
+    <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
+    <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
+    <!-- 3) logging.pattern.console 未定义: 使用默认的控制台日志格式 -->
+    <if condition='isDefined("rawConsolePattern")'>
+        <then>
+            <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
+            <if condition='!property("rawConsolePattern").isEmpty()'>
+                <then>
+                    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+                    <root level="${logging.level.root:-info}">
+                        <appender-ref ref="CONSOLE"/>
+                        <appender-ref ref="ASYNC"/>
+                    </root>
+                </then>
+                <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
+                <else>
+                    <root level="${logging.level.root:-info}">
+                        <appender-ref ref="ASYNC"/>
+                    </root>
+                </else>
+            </if>
+        </then>
+        <!-- 3) logging.pattern.console 未定义: 使用默认的控制台日志格式 -->
+        <else>
+            <!-- 使用 console_pattern 覆盖SpringBoot默认的控制台格式 -->
+            <property name="CONSOLE_LOG_PATTERN" value="${console_pattern}"/>
+            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+            <root level="${logging.level.root:-info}">
+                <appender-ref ref="CONSOLE"/>
+                <appender-ref ref="ASYNC"/>
+            </root>
+        </else>
+    </if>
+
+    <springProfile name="local">
+        <!-- 根据 logging.pattern.console 属性的值决定控制台日志输出 -->
+        <if condition='isDefined("rawConsolePattern")'>
+            <then>
+                <if condition='!property("rawConsolePattern").isEmpty()'>
+                    <then>
+                        <root level="${logging.level.root:-info}">
+                            <appender-ref ref="CONSOLE"/>
+                            <appender-ref ref="ASYNC"/>
+                            <appender-ref ref="async_filter_debug"/>
+                            <appender-ref ref="async_filter_info"/>
+                            <appender-ref ref="async_filter_warn"/>
+                            <appender-ref ref="async_filter_error"/>
+                        </root>
+                    </then>
+                    <else>
+                        <root level="${logging.level.root:-info}">
+                            <appender-ref ref="ASYNC"/>
+                            <appender-ref ref="async_filter_debug"/>
+                            <appender-ref ref="async_filter_info"/>
+                            <appender-ref ref="async_filter_warn"/>
+                            <appender-ref ref="async_filter_error"/>
+                        </root>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <root level="${logging.level.root:-info}">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="ASYNC"/>
+                    <appender-ref ref="async_filter_debug"/>
+                    <appender-ref ref="async_filter_info"/>
+                    <appender-ref ref="async_filter_warn"/>
+                    <appender-ref ref="async_filter_error"/>
+                </root>
+            </else>
+        </if>
+    </springProfile>
+
+    <springProfile name="dev,test,prod">
+        <!-- 根据 logging.pattern.console 属性的值决定控制台日志输出 -->
+        <if condition='isDefined("rawConsolePattern")'>
+            <then>
+                <if condition='!property("rawConsolePattern").isEmpty()'>
+                    <then>
+                        <root level="${logging.level.root:-info}">
+                            <appender-ref ref="CONSOLE"/>
+                            <appender-ref ref="ASYNC"/>
+                            <appender-ref ref="async_filter_debug"/>
+                            <appender-ref ref="async_filter_info"/>
+                            <appender-ref ref="async_filter_warn"/>
+                            <appender-ref ref="async_filter_error"/>
+                        </root>
+                    </then>
+                    <else>
+                        <root level="${logging.level.root:-info}">
+                            <appender-ref ref="ASYNC"/>
+                            <appender-ref ref="async_filter_debug"/>
+                            <appender-ref ref="async_filter_info"/>
+                            <appender-ref ref="async_filter_warn"/>
+                            <appender-ref ref="async_filter_error"/>
+                        </root>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <root level="${logging.level.root:-info}">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="ASYNC"/>
+                    <appender-ref ref="async_filter_debug"/>
+                    <appender-ref ref="async_filter_info"/>
+                    <appender-ref ref="async_filter_warn"/>
+                    <appender-ref ref="async_filter_error"/>
+                </root>
+            </else>
+        </if>
+    </springProfile>
+</included>

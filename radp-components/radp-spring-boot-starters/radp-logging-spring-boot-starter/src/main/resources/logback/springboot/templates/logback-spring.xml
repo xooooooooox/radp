@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-标准应用场景的日志配置模板
 适用于常规的Spring Boot应用，提供完整的日志功能。
 
 特点：

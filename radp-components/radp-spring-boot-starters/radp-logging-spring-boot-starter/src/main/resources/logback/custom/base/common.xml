@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-所有 sey_xxx_appender.xml 都要用到的内容放到这个文件中
+所有标准组件都要用到的通用属性
 -->
 
 <included>

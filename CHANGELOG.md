@@ -2,7 +2,7 @@
 
 ## 3.21
 
-### feat
+### Features
 
 - Add Redis key management utilities
   - Introduced RedisKeyConstants for standardized key creation
@@ -13,7 +13,7 @@
   - Added helper classes for easier test setup and teardown
   - Added SPI extension mechanism for embedded servers
 
-### fix
+### Bug Fixes
 
 - Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
 - Fix and optimize `LocalCallFirstCluster` and `DubboExceptionFilter`
@@ -27,22 +27,30 @@
 - Fix error handling in embedded servers
   - Improved exception handling in EmbeddedRedisServer, EmbeddedZookeeperServer, EmbeddedKafkaServer
 
-### chore
+### Chore
 
 - scaffold
   - Update scaffold default radpVersion to `3.21`
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx module.
-- Add documentation for `radp-spring-test` module
-  - Create a comprehensive README with usage examples
-  - Added detailed Javadoc comments to all classes
+  - Add `maven.test.skip` property to `radp-spring-tests` module
+- dependencies
+  - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`
+  - Override `kafka.version` from `3.8.1` to `3.9.0`
+    - resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`
 
-### test
+### Test
 
 - Add module `radp-smoke-tests-redis`
 - Add unit tests for embedded servers and containers
   - Added Java tests for all embedded servers and containers
   - Added Groovy/Spock tests for helper classes
+
+### Documents
+
+- Add documentation for `radp-spring-test` module
+  - Create a comprehensive README with usage examples
+  - Added detailed Javadoc comments to all classes
 
 ## 3.20.2
 

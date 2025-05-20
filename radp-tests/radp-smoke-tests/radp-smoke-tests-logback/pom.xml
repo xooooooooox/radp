@@ -18,7 +18,7 @@
 
         <dependency>
             <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-test</artifactId>
+            <artifactId>radp-spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

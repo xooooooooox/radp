@@ -23,12 +23,4 @@
         <module>radp-jasypt-spring-boot-starter</module>
         <module>radp-redis-spring-boot-starter</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-boot</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+测试环境场景的日志配置
+适用于单元测试和集成测试，配置更加简洁，主要关注控制台输出的可读性。
+
+特点：
+1. 提供标准控制台输出
+2. 简化的文件日志配置
+3. 更高的默认日志级别（便于调试）
+-->
+
+<included>
+    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
+    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
+
+    <include resource="logback/classic/components/console.xml"/>
+    <include resource="logback/classic/components/file.xml"/>
+
+    <!-- 由于单元测试中部分日志无法被完全控制 -->
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC"/>
+    </root>
+</included>

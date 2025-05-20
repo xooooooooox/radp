@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+控制台输出配置
+使用标准日志格式
+-->
+
+<included>
+    <include resource="logback/classic/components/common.xml"/>
+
+    <property name="console_pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | [%thread] %-40.40logger{39} | %msg%n%ex"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${console_pattern}</pattern>
+            <charset>${default_pattern_charset}</charset>
+        </encoder>
+    </appender>
+</included>

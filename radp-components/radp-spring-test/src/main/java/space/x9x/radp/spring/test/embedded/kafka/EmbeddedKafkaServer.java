@@ -38,7 +38,7 @@ public class EmbeddedKafkaServer implements EmbeddedServer {
 
     /**
      * Creates a new EmbeddedKafkaServer with default settings.
-     * This constructor initializes the Kafka broker with default configuration.
+     * This constructor initializes the Kafka broker with the default configuration.
      */
     public EmbeddedKafkaServer() {
         embeddedKafka = new EmbeddedKafkaRule(DEFAULT_BROKER_COUNT, true, DEFAULT_PORT);

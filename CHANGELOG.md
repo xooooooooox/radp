@@ -43,10 +43,11 @@
   - Override `kafka.version` from `3.8.1` to `3.9.0`
     - resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`
   - Optimize dependency to resolve module cycles
+  - Remove unused `mongodb.version` property
 
 ### Test
 
-- Add module `radp-smoke-tests-redis`
+- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logback`
 - Add unit tests for embedded servers and containers
   - Added Java tests for all embedded servers and containers
   - Added Groovy/Spock tests for helper classes

@@ -2,6 +2,11 @@
 
 ## 3.21
 
+### Break Changes
+
+- Refactor module `radp-logging-spring-boot-starter`.
+  - Improved logging clarity and extensibility for various use cases
+
 ### Features
 
 - Add Redis key management utilities
@@ -11,7 +16,7 @@
   - Implemented embedded server support for Redis, Zookeeper, and Kafka
   - Implemented container support for Redis, MySQL, Zookeeper, Kafka, Elasticsearch, MongoDB, Nginx, and MariaDB
   - Added helper classes for easier test setup and teardown
-  - Added SPI extension mechanism for embedded servers
+  - Added SPI extension mechanism for embedded server
 
 ### Bug Fixes
 
@@ -37,6 +42,7 @@
   - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`
   - Override `kafka.version` from `3.8.1` to `3.9.0`
     - resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`
+  - Optimize dependency to resolve module cycles
 
 ### Test
 

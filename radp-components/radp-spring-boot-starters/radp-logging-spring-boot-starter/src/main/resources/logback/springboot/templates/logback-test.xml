@@ -10,6 +10,9 @@
 4. 更高的默认日志级别（便于调试）
 -->
 
-<configuration>
-    <include resource="logback/scenarios/testing/logback-config.xml"/>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <!--    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>-->
+    <include resource="logback/springboot/scenarios/testing/logback-config.xml"/>
 </configuration>
+

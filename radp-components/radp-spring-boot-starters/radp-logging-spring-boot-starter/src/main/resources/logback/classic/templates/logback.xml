@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-文件输出配置 - 早期初始化版本
-使用标准的Logback模式，不依赖Spring Boot的日志扩展
-适用于在Spring Boot完全初始化之前需要记录日志的场景
-提供简化的文件日志功能，包括：
-1. 主日志文件（所有级别）
-2. 日志文件滚动策略
-3. 异步写入提升性能
+
 -->
 
-<included>
-    <include resource="logback/components/early-init/common.xml"/>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+    <property name="default_pattern_charset" value="UTF-8"/>
+
+    <property name="console_pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
 
     <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
     <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
 
-    <!-- 使用标准的Logback模式，不依赖Spring Boot的日志扩展 -->
     <property name="file_pattern"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
 
@@ -49,4 +46,16 @@
         <queueSize>256</queueSize>
         <appender-ref ref="FULL_FILE"/>
     </appender>
-</included>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${console_pattern}</pattern>
+            <charset>${default_pattern_charset}</charset>
+        </encoder>
+    </appender>
+
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC"/>
+    </root>
+</configuration>

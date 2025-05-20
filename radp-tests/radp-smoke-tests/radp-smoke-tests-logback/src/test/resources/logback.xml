@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+    <!-- Custom log path -->
+    <property name="logHome" value="./logs/classic" />
+
+    <include resource="logback/classic/templates/logback-test.xml"/>
+</configuration>

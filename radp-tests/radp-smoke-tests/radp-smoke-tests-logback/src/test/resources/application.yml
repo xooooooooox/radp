@@ -1,0 +1,13 @@
+# Configuration for testing radp-logging-spring-boot-starter
+spring:
+  application:
+    name: radp-smoke-tests-logback
+
+# Logging configuration
+logging:
+  config: classpath:logback/springboot/templates/logback-spring.xml
+  file:
+    path: ./logs/springboot
+  level:
+    root: info
+    space.x9x.radp: debug

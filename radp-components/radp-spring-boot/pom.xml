@@ -22,11 +22,6 @@
             <artifactId>radp-spring-data</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-boot-test</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- 开发组件 -->
         <dependency>

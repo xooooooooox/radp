@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-所有标准组件都要用到的通用属性
--->
-
-<included>
-    <property name="default_pattern_charset" value="UTF-8"/>
-</included>

@@ -15,18 +15,12 @@
     <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="logback/components/standard/console.xml"/>
-    <include resource="logback/components/standard/file.xml"/>
+    <include resource="logback/springboot/components/console.xml"/>
+    <include resource="logback/springboot/components/file.xml"/>
 
-    <!-- 测试环境默认使用更高的日志级别，便于调试 -->
+    <!-- 由于单元测试或 以及 @SpringBootTest 集成测试中部分日志无法被 logback-spring.xml 控制 -->
     <root level="${logging.level.root:-info}">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNC"/>
     </root>
-
-    <!-- 常用测试框架的日志级别调整 -->
-    <logger name="org.springframework.test" level="info"/>
-    <logger name="org.junit" level="info"/>
-    <logger name="spock" level="info"/>
-    <logger name="org.testcontainers" level="info"/>
 </included>

@@ -15,7 +15,7 @@
     <properties>
         <!-- ============================================================================== -->
         <!-- [Spring] -->
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
 
         <!-- [效率组件] -->
@@ -39,7 +39,6 @@
         <pagehelper.version>5.3.1</pagehelper.version>
 
         <!-- [NoSQL] -->
-        <mongodb.version>3.12.11</mongodb.version>
         <mongobee.version>0.13</mongobee.version>
         <neo4j.version>2.0.6</neo4j.version>
         <influxdb.version>6.4.0</influxdb.version>

@@ -37,10 +37,10 @@
                 <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
             </if>
         </then>
-        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 customConsolePattern -->
+        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 console_pattern -->
         <else>
-            <!-- 使用 customConsolePattern 覆盖SpringBoot默认的控制台格式 -->
-            <property name="CONSOLE_LOG_PATTERN" value="${customConsolePattern}"/>
+            <!-- 使用 console_pattern 覆盖SpringBoot默认的控制台格式 -->
+            <property name="CONSOLE_LOG_PATTERN" value="${console_pattern}"/>
             <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
             <root level="${logging.level.root:-info}">
                 <appender-ref ref="CONSOLE"/>

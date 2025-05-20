@@ -57,7 +57,7 @@
         </root>
     </springProfile>
     <!-- 其它环境 -->
-    <springProfile name="dev,test,prod">
+    <springProfile name="dev,test,sit,uat,prod">
         <root level="${logging.level.root:-info}">
             <appender-ref ref="ASYNC"/>
             <appender-ref ref="async_filter_debug"/>

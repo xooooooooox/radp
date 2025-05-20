@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+测试环境场景的日志配置模板
+适用于单元测试和集成测试，配置更加简洁，主要关注控制台输出的可读性。
+
+特点：
+1. 使用Spring Boot的日志扩展（如%clr和%wEx转换模式）
+2. 提供彩色控制台输出
+3. 简化的文件日志配置
+4. 更高的默认日志级别（便于调试）
+-->
+
+<configuration>
+    <include resource="logback/scenarios/testing/logback-config.xml"/>
+</configuration>

@@ -27,7 +27,7 @@ options.
   - Support for Spring property placeholders
 
 - **Performance optimized**:
-  - Asynchronous appenders to prevent blocking the application
+  - Asynchronous appends to prevent blocking the application
   - Configurable queue sizes and discard thresholds
   - Efficient log file rotation and archiving
 
@@ -114,7 +114,7 @@ The standard scenario is suitable for regular applications and provides:
 
 - Console output with color support
 - File logging with rotation
-- Log level-based file separation
+- Log-level-based file separation
 - Profile-specific configurations (local, dev, test, prod)
 
 ### Testing Scenario
@@ -150,5 +150,5 @@ logging:
 
 ## License
 
-[GNU General Public License](../../LICENSE) - Copyright (C) 2024 xooooooooox
+[GNU General Public License—](../../LICENSE)Copyright (C) 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

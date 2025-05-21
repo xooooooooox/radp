@@ -22,7 +22,7 @@
               value="${userLogFileName:-${radp_log_file_name}}"/>
 
     <!-- 主日志文件 - 记录所有级别的日志 -->
-    <appender name="FULL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="radp_file_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.log</File>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${fileLogPattern}</pattern>
@@ -42,18 +42,18 @@
         </rollingPolicy>
     </appender>
     <!-- 异步写入日志，提升性能 -->
-    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="radp_file_appender_async" class="ch.qos.logback.classic.AsyncAppender">
         <!-- 不丢失日志。默认的，如果队列的 80% 已满,则会丢弃 TRACT、DEBUG、INFO 级别的日志 -->
         <discardingThreshold>0</discardingThreshold>
         <!-- 更改默认的队列的深度，该值会影响性能。默认值为 256 -->
         <queueSize>256</queueSize>
         <!-- 防止日志记录阻塞应用程序的主线程 -->
         <neverBlock>true</neverBlock>
-        <appender-ref ref="FULL_FILE"/>
+        <appender-ref ref="radp_file_appender"/>
     </appender>
 
     <!-- 以下为按日志级别拆分输出到相应日志文件 -->
-    <appender name="filter_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="radp_file_appender_filter_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.debug.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>debug</level>
@@ -72,7 +72,7 @@
             <charset>${fileLogCharset}</charset>
         </encoder>
     </appender>
-    <appender name="filter_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="radp_file_appender_filter_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.info.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>info</level>
@@ -91,7 +91,7 @@
             <charset>${fileLogCharset}</charset>
         </encoder>
     </appender>
-    <appender name="filter_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="radp_file_appender_filter_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.warn.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>warn</level>
@@ -110,7 +110,7 @@
             <charset>${fileLogCharset}</charset>
         </encoder>
     </appender>
-    <appender name="filter_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="radp_file_appender_filter_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.error.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>
@@ -131,26 +131,26 @@
     </appender>
 
     <!-- 异步写入按级别分类的日志文件 -->
-    <appender name="async_filter_debug" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="filter_debug"/>
+    <appender name="radp_file_appender_filter_debug_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_debug"/>
         <discardingThreshold>0</discardingThreshold>
         <queueSize>256</queueSize>
         <neverBlock>true</neverBlock>
     </appender>
-    <appender name="async_filter_info" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="filter_info"/>
+    <appender name="radp_file_appender_filter_info_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_info"/>
         <discardingThreshold>0</discardingThreshold>
         <queueSize>256</queueSize>
         <neverBlock>true</neverBlock>
     </appender>
-    <appender name="async_filter_warn" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="filter_warn"/>
+    <appender name="radp_file_appender_filter_warn_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_warn"/>
         <discardingThreshold>0</discardingThreshold>
         <queueSize>256</queueSize>
         <neverBlock>true</neverBlock>
     </appender>
-    <appender name="async_filter_error" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="filter_error"/>
+    <appender name="radp_file_appender_filter_error_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_error"/>
         <discardingThreshold>0</discardingThreshold>
         <queueSize>256</queueSize>
         <neverBlock>true</neverBlock>

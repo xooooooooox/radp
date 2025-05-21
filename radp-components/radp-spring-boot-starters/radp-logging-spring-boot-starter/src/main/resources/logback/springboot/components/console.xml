@@ -18,7 +18,7 @@
     <property name="consoleLogCharset"
               value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
+    <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${consolePattern}</pattern>
             <charset>${consoleLogCharset}</charset>

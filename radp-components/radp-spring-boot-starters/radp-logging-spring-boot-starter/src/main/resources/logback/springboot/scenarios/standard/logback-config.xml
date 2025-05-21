@@ -32,9 +32,10 @@
                 <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
             </if>
         </then>
-        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 console_pattern -->
+        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 radpConsoleLogPattern -->
         <else>
-            <!-- 使用 console_pattern 覆盖SpringBoot默认的控制台格式 -->
+            <!-- 使用 radpConsoleLogPattern 覆盖SpringBoot默认的控制台格式 -->
+            <property name="CONSOLE_LOG_PATTERN" value="${radpConsoleLogPattern}"/>
             <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
             <root level="${logging.level.root:-info}">
                 <appender-ref ref="CONSOLE"/>
@@ -42,26 +43,26 @@
         </else>
     </if>
     <root level="${logging.level.root:-info}">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="radp_console_appender"/>
+        <appender-ref ref="radp_file_appender_async"/>
     </root>
     <springProfile name="local">
         <root level="${logging.level.root:-info}">
-            <appender-ref ref="ASYNC"/>
-            <appender-ref ref="async_filter_debug"/>
-            <appender-ref ref="async_filter_info"/>
-            <appender-ref ref="async_filter_warn"/>
-            <appender-ref ref="async_filter_error"/>
+            <appender-ref ref="radp_file_appender_async"/>
+            <appender-ref ref="radp_file_appender_filter_debug_async"/>
+            <appender-ref ref="radp_file_appender_filter_info_async"/>
+            <appender-ref ref="radp_file_appender_filter_warn_async"/>
+            <appender-ref ref="radp_file_appender_filter_error_async"/>
         </root>
     </springProfile>
     <!-- 其它环境 -->
     <springProfile name="dev,test,sit,uat,prod">
         <root level="${logging.level.root:-info}">
-            <appender-ref ref="ASYNC"/>
-            <appender-ref ref="async_filter_debug"/>
-            <appender-ref ref="async_filter_info"/>
-            <appender-ref ref="async_filter_warn"/>
-            <appender-ref ref="async_filter_error"/>
+            <appender-ref ref="radp_file_appender_async"/>
+            <appender-ref ref="radp_file_appender_filter_debug_async"/>
+            <appender-ref ref="radp_file_appender_filter_info_async"/>
+            <appender-ref ref="radp_file_appender_filter_warn_async"/>
+            <appender-ref ref="radp_file_appender_filter_error_async"/>
         </root>
     </springProfile>
 

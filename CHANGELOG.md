@@ -45,6 +45,10 @@
     - resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`
   - Optimize dependency to resolve module cycles
   - Remove unused `mongodb.version` property
+- others
+  - Switch from GNU GPLv3 to Apache 2.0
+  - Optimize .gitignore
+  - Add IDE config for copyright and scope settings
 
 ### Test
 

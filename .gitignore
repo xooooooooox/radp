@@ -15,6 +15,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/maven-wrapper.jar
+logs
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

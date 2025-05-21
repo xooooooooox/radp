@@ -18,5 +18,10 @@
     <root level="${logging.level.root:-info}">
         <appender-ref ref="radp_console_appender"/>
         <appender-ref ref="radp_file_appender_async"/>
+        <appender-ref ref="radp_file_appender_filter_trace_async"/>
+        <appender-ref ref="radp_file_appender_filter_debug_async"/>
+        <appender-ref ref="radp_file_appender_filter_info_async"/>
+        <appender-ref ref="radp_file_appender_filter_warn_async"/>
+        <appender-ref ref="radp_file_appender_filter_error_async"/>
     </root>
 </included>

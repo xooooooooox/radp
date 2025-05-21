@@ -53,6 +53,25 @@
     </appender>
 
     <!-- 以下为按日志级别拆分输出到相应日志文件 -->
+    <appender name="radp_file_appender_filter_trace" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.trace.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>trace</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.trace.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
     <appender name="radp_file_appender_filter_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/${logFileName}.debug.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -131,6 +150,12 @@
     </appender>
 
     <!-- 异步写入按级别分类的日志文件 -->
+    <appender name="radp_file_appender_filter_trace_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_trace"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
     <appender name="radp_file_appender_filter_debug_async" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="radp_file_appender_filter_debug"/>
         <discardingThreshold>0</discardingThreshold>

@@ -12,13 +12,13 @@
 <included>
     <include resource="logback/springboot/components/common.xml"/>
 
-    <proerpty name="fileLogPattern"
+    <property name="fileLogPattern"
               value="${userFileLogPattern:-${radpFileLogPattern}}"/>
-    <proerpty name="fileLogCharset"
+    <property name="fileLogCharset"
               value="${userFileLogCharset:-${radpFileLogCharset}}"/>
-    <proerpty name="logPath"
+    <property name="logPath"
               value="${userLogPath:-${radpLogPath}}"/>
-    <proerpty name="logFileName"
+    <property name="logFileName"
               value="${userLogFileName:-${radp_log_file_name}}"/>
 
     <!-- 主日志文件 - 记录所有级别的日志 -->

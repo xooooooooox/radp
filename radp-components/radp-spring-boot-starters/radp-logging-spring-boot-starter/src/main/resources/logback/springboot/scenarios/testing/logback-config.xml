@@ -15,30 +15,6 @@
     <include resource="logback/springboot/components/file.xml"/>
 
     <!-- 由于单元测试或 以及 @SpringBootTest 集成测试中部分日志无法被 logback-spring.xml 控制 -->
-    <if condition='isDefined("userConsoleLogPattern")'>
-        <then>
-            <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
-            <if condition='!property("userConsoleLogPattern").isEmpty()'>
-                <then>
-                    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-
-                    <root level="${logging.level.root:-info}">
-                        <appender-ref ref="CONSOLE"/>
-                    </root>
-                </then>
-                <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
-            </if>
-        </then>
-        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 radpConsoleLogPattern -->
-        <else>
-            <!-- 使用 radpConsoleLogPattern 覆盖SpringBoot默认的控制台格式 -->
-            <property name="CONSOLE_LOG_PATTERN" value="${radpConsoleLogPattern}"/>
-            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-            <root level="${logging.level.root:-info}">
-                <appender-ref ref="CONSOLE"/>
-            </root>
-        </else>
-    </if>
     <root level="${logging.level.root:-info}">
         <appender-ref ref="radp_console_appender"/>
         <appender-ref ref="radp_file_appender_async"/>

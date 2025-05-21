@@ -17,10 +17,10 @@
     <include resource="logback/springboot/components/file.xml"/>
 
     <!-- 由于单元测试或 以及 @SpringBootTest 集成测试中部分日志无法被 logback-spring.xml 控制 -->
-    <if condition='isDefined("CONSOLE_LOG_PATTERN")'>
+    <if condition='isDefined("userConsoleLogPattern")'>
         <then>
             <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
-            <if condition='!property("CONSOLE_LOG_PATTERN").isEmpty()'>
+            <if condition='!property("userConsoleLogPattern").isEmpty()'>
                 <then>
                     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 

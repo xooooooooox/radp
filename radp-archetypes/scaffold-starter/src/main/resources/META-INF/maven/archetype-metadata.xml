@@ -43,6 +43,7 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
+                <include>.idea</include>
             </includes>
         </fileSet>
         <!-- github -->

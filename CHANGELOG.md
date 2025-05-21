@@ -36,6 +36,7 @@
 
 - scaffold
   - Update scaffold default radpVersion to `3.21`
+  - Update `application-logback.yaml` and `logback-test.xml`
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx module.
 - dependencies

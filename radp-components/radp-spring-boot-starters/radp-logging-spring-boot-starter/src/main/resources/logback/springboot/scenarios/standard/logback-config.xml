@@ -18,52 +18,53 @@
     <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
     <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
     <!-- 3) logging.pattern.console 未定义: 使用默认的控制台日志格式 -->
-    <if condition='isDefined("userConsoleLogPattern")'>
+    <!-- 根据条件选择使用Spring Boot的CONSOLE appender还是自定义的radp_console_appender -->
+    <if condition='isDefined("userConsoleLogPattern") &amp;&amp; !property("userConsoleLogPattern").isEmpty()'>
         <then>
-            <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
-            <if condition='!property("userConsoleLogPattern").isEmpty()'>
-                <then>
-                    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-
-                    <root level="${logging.level.root:-info}">
-                        <appender-ref ref="CONSOLE"/>
-                    </root>
-                </then>
-                <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
-            </if>
-        </then>
-        <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 radpConsoleLogPattern -->
-        <else>
-            <!-- 使用 radpConsoleLogPattern 覆盖SpringBoot默认的控制台格式 -->
-            <property name="CONSOLE_LOG_PATTERN" value="${radpConsoleLogPattern}"/>
+            <!-- 如果用户定义了控制台日志格式，则使用Spring Boot的CONSOLE appender -->
             <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-            <root level="${logging.level.root:-info}">
-                <appender-ref ref="CONSOLE"/>
-            </root>
-        </else>
+        </then>
     </if>
+
+    <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
     <root level="${logging.level.root:-info}">
-        <appender-ref ref="radp_console_appender"/>
+        <!-- 根据条件添加控制台日志 -->
+        <if condition='isDefined("userConsoleLogPattern")'>
+            <then>
+                <if condition='!property("userConsoleLogPattern").isEmpty()'>
+                    <then>
+                        <appender-ref ref="CONSOLE"/>
+                    </then>
+                </if>
+            </then>
+            <else>
+                <appender-ref ref="radp_console_appender"/>
+            </else>
+        </if>
+        <!-- 添加文件日志 -->
         <appender-ref ref="radp_file_appender_async"/>
     </root>
-    <springProfile name="local">
-        <root level="${logging.level.root:-info}">
-            <appender-ref ref="radp_file_appender_async"/>
+
+    <!-- 根据环境配置额外的文件日志 -->
+    <springProfile name="local,dev,test">
+        <!-- 在local环境下添加额外的文件日志 -->
+        <logger name="ROOT" additivity="false">
+            <appender-ref ref="radp_console_appender"/>
             <appender-ref ref="radp_file_appender_filter_debug_async"/>
             <appender-ref ref="radp_file_appender_filter_info_async"/>
             <appender-ref ref="radp_file_appender_filter_warn_async"/>
             <appender-ref ref="radp_file_appender_filter_error_async"/>
-        </root>
+        </logger>
     </springProfile>
     <!-- 其它环境 -->
-    <springProfile name="dev,test,sit,uat,prod">
-        <root level="${logging.level.root:-info}">
-            <appender-ref ref="radp_file_appender_async"/>
+    <springProfile name="sit,uat,prod">
+        <!-- 在其它环境下添加额外的文件日志 -->
+        <logger name="ROOT" additivity="false">
             <appender-ref ref="radp_file_appender_filter_debug_async"/>
             <appender-ref ref="radp_file_appender_filter_info_async"/>
             <appender-ref ref="radp_file_appender_filter_warn_async"/>
             <appender-ref ref="radp_file_appender_filter_error_async"/>
-        </root>
+        </logger>
     </springProfile>
 
 </included>

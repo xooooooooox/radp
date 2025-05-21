@@ -10,12 +10,12 @@ import space.x9x.radp.smoke.tests.logback.LoggingApplication;
  * Test for Spring Boot integration with Logback.
  */
 @SpringBootTest(classes = LoggingApplication.class)
-public class SpringBootLogbackTest {
+class SpringBootLogbackTest {
 
     private static final Logger log = LoggerFactory.getLogger(SpringBootLogbackTest.class);
 
     @Test
-    public void testSpringBootLogging() {
+    void test_springBootLogging() {
         // Log messages at different levels
         log.trace("This is a TRACE message");
         log.debug("This is a DEBUG message");
@@ -23,7 +23,7 @@ public class SpringBootLogbackTest {
         log.warn("This is a WARN message");
         log.error("This is an ERROR message");
 
-        // Verify the log file was created at the expected di
+        // Verify the log file was created at the expected path with the expected filename
         // Verify the log content as expected
     }
 }

@@ -19,7 +19,7 @@ public class ClassicLogbackTest {
     }
 
     @Test
-    public void testClassicLogging() {
+    void test_classicLogging() {
         // Log messages at different levels
         log.trace("This is a TRACE message");
         log.debug("This is a DEBUG message");
@@ -27,7 +27,7 @@ public class ClassicLogbackTest {
         log.warn("This is a WARN message");
         log.error("This is an ERROR message");
 
-        // Verify a log file was created at expected path
+        // Verify the log file was created at the expected path with the expected filename
 
         // Verify the log content as expected
     }

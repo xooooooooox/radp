@@ -8,7 +8,7 @@
         <artifactId>radp-smoke-tests</artifactId>
         <version>3.21-SNAPSHOT</version>
     </parent>
-    <artifactId>radp-smoke-tests-logback</artifactId>
+    <artifactId>radp-smoke-tests-logging</artifactId>
 
     <dependencies>
         <dependency>

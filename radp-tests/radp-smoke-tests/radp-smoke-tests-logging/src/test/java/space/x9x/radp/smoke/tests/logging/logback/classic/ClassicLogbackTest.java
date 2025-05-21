@@ -1,4 +1,4 @@
-package space.x9x.radp.smoke.tests.logback.classic;
+package space.x9x.radp.smoke.tests.logging.logback.classic;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

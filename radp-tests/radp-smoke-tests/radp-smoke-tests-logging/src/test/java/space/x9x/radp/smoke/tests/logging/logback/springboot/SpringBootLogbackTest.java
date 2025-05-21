@@ -1,10 +1,10 @@
-package space.x9x.radp.smoke.tests.logback.springboot;
+package space.x9x.radp.smoke.tests.logging.logback.springboot;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import space.x9x.radp.smoke.tests.logback.LoggingApplication;
+import space.x9x.radp.smoke.tests.logging.logback.LoggingApplication;
 
 /**
  * Test for Spring Boot integration with Logback.

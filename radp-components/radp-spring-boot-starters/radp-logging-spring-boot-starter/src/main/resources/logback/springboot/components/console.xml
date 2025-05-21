@@ -18,10 +18,19 @@
     <property name="consoleLogCharset"
               value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
 
-    <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${consolePattern}</pattern>
-            <charset>${consoleLogCharset}</charset>
-        </encoder>
-    </appender>
+    <!-- Only create a console appender if consolePattern is not empty -->
+    <if condition='!isDefined("userConsoleLogPattern") || !property("userConsoleLogPattern").isEmpty()'>
+        <then>
+            <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <pattern>${consolePattern}</pattern>
+                    <charset>${consoleLogCharset}</charset>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <!-- Create a no-op appender when console logging is disabled -->
+            <appender name="radp_console_appender" class="ch.qos.logback.core.helpers.NOPAppender"/>
+        </else>
+    </if>
 </included>

@@ -26,6 +26,8 @@ public class ClassicLogbackTest {
         log.info("This is an INFO message");
         log.warn("This is a WARN message");
         log.error("This is an ERROR message");
+        log.warn("This is a WARN message with exception", new IllegalArgumentException("Something went wrong"));
+        log.error("This is a ERROR message with exception", new IllegalArgumentException("Something went wrong"));
 
         // Verify the log file was created at the expected path with the expected filename
 

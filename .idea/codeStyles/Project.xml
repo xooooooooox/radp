@@ -5,5 +5,8 @@
     <editorconfig>
       <option name="ENABLED" value="false" />
     </editorconfig>
+    <codeStyleSettings language="JAVA">
+      <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
+    </codeStyleSettings>
   </code_scheme>
 </component>

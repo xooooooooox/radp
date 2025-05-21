@@ -12,22 +12,25 @@
 <included>
     <include resource="logback/springboot/components/common.xml"/>
 
-    <property name="logHome" value="${logHome:-${logging.path:-${logging.file.path:-${java.io.tmpdir:-/tmp}}}}"/>
-    <property name="logNamePrefix" value="${logNamePrefix:-${logging.file:-${spring.application.name:-application}}}"/>
-    <!-- 格式化输出：%d 表示日期，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符 -->
-    <property name="file_pattern"
-              value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <proerpty name="FILE_LOG_PATTERN"
+              value="${userFileLogPattern:-${radp_file_log_pattern:-${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:-} --- %esb(){APPLICATION_NAME}%esb{APPLICATION_GROUP}[%t] ${LOG_CORRELATION_PATTERN:-}%-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}}}"/>
+    <proerpty name="FILE_LOG_CHARSET"
+              value="${userFileLogCharset:-${radp_file_log_charset:-${FILE_LOG_CHARSET:-${file.encoding:-UTF-8}}}"/>
+    <proerpty name="logPath"
+              value="${userLogPath:-${radp_log_path:-${java.io.tmpdir:-/tmp}}}"/>
+    <proerpty name="logFileName"
+              value="${userLogFileName:-${radp_log_file_name:-application}}"/>
 
     <!-- 主日志文件 - 记录所有级别的日志 -->
     <appender name="FULL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logHome}/${logNamePrefix}.log</File>
+        <File>${logHome}/${logFileName}.log</File>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 滚动后的日志文件名 -->
-            <fileNamePattern>${logHome}/archived/%d{yyyyMMdd}/${logNamePrefix}.%d{yyyyMMdd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.%d{yyyyMMdd}.%i.log.gz</fileNamePattern>
             <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
             <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>
             <!-- 日志文件，到达多少容量，进行滚动 -->
@@ -51,79 +54,79 @@
 
     <!-- 以下为按日志级别拆分输出到相应日志文件 -->
     <appender name="filter_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logHome}/${logNamePrefix}.debug.log</File>
+        <File>${logPath}/${logFileName}.debug.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>debug</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logHome}/archived/%d{yyyyMMdd}/${logNamePrefix}.debug.%d{yyyyMMdd}.%i.log.gz
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.debug.%d{yyyyMMdd}.%i.log.gz
             </fileNamePattern>
             <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
             <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
     </appender>
     <appender name="filter_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logHome}/${logNamePrefix}.info.log</File>
+        <File>${logPath}/${logFileName}.info.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>info</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logHome}/archived/%d{yyyyMMdd}/${logNamePrefix}.info.%d{yyyyMMdd}.%i.log.gz
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.info.%d{yyyyMMdd}.%i.log.gz
             </fileNamePattern>
             <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
             <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
     </appender>
     <appender name="filter_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logHome}/${logNamePrefix}.warn.log</File>
+        <File>${logPath}/${logFileName}.warn.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>warn</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logHome}/archived/%d{yyyyMMdd}/${logNamePrefix}.warn.%d{yyyyMMdd}.%i.log.gz
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.warn.%d{yyyyMMdd}.%i.log.gz
             </fileNamePattern>
             <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
             <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
     </appender>
     <appender name="filter_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logHome}/${logNamePrefix}.error.log</File>
+        <File>${logPath}/${logFileName}.error.log</File>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logHome}/archived/%d{yyyyMMdd}/${logNamePrefix}.error.%d{yyyyMMdd}.%i.log.gz
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.error.%d{yyyyMMdd}.%i.log.gz
             </fileNamePattern>
             <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
             <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
             <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${file_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
     </appender>
 

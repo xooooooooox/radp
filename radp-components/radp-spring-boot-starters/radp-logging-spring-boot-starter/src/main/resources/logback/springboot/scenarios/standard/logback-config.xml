@@ -11,10 +11,7 @@
 -->
 
 <included>
-    <springProperty scope="context" name="logHome" source="logging.file.path" defaultValue="${java.io.tmpdir:-/tmp}"/>
-    <springProperty scope="context" name="logNamePrefix" source="spring.application.name" defaultValue="application"/>
-    <springProperty scope="context" name="rawConsolePattern" source="logging.pattern.console"/>
-
+    <include resource="logback/springboot/components/common.xml"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="logback/springboot/components/console.xml"/>
     <include resource="logback/springboot/components/file.xml"/>
@@ -23,10 +20,10 @@
     <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
     <!-- 2) logging.pattern.console 为空字符串: 不输出控制台日志 -->
     <!-- 3) logging.pattern.console 未定义: 使用默认的控制台日志格式 -->
-    <if condition='isDefined("rawConsolePattern")'>
+    <if condition='isDefined("CONSOLE_LOG_PATTERN")'>
         <then>
             <!-- 1) logging.pattern.console 定义了值: 则使用定义的格式输出到控制台 -->
-            <if condition='!property("rawConsolePattern").isEmpty()'>
+            <if condition='!property("CONSOLE_LOG_PATTERN").isEmpty()'>
                 <then>
                     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
@@ -40,13 +37,16 @@
         <!-- 3) logging.pattern.console 未定义: 使用 xml 中定义的默认值 console_pattern -->
         <else>
             <!-- 使用 console_pattern 覆盖SpringBoot默认的控制台格式 -->
-            <property name="CONSOLE_LOG_PATTERN" value="${console_pattern}"/>
             <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
             <root level="${logging.level.root:-info}">
                 <appender-ref ref="CONSOLE"/>
             </root>
         </else>
     </if>
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC"/>
+    </root>
     <springProfile name="local">
         <root level="${logging.level.root:-info}">
             <appender-ref ref="ASYNC"/>

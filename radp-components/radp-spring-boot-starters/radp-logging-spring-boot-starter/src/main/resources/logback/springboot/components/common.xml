@@ -5,20 +5,21 @@
 -->
 
 <included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--
     radp 内置默认值
 
     格式化输出：%d 表示日期，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符
     -->
-    <property name="radp_console_log_charset"
+    <property name="radpConsoleLogCharset"
               value="UTF-8"/>
-    <property name="radp_file_log_charset"
+    <property name="radpFileLogCharset"
               value="UTF-8"/>
-    <property name="radp_console_log_pattern"
+    <property name="radpConsoleLogPattern"
               value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
-    <property name="radp_file_log_pattern"
+    <property name="radpFileLogPattern"
               value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
-    <property name="radp_log_path"
+    <property name="radpLogPath"
               value="${java.io.tmpdir:-/tmp}"/>
     <property name="radp_log_file_name"
               value="application"/>

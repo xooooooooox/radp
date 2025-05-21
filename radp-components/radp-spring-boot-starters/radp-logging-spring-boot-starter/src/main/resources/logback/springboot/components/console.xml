@@ -13,15 +13,15 @@
     radp_console_pattern: radp customize console pattern
     default_value: same as org/springframework/boot/logging/logback/defaults.xml
     -->
-    <property name="CONSOLE_LOG_PATTERN"
-              value="${userConsoleLogPattern:-${radp_console_log_pattern}}"/>
-    <property name="CONSOLE_LOG_CHARSET"
-              value="${userConsoleLogCharset:-${radp_console_log_charset}}"/>
+    <property name="consolePattern"
+              value="${userConsoleLogPattern:-${radpConsoleLogPattern}}"/>
+    <property name="consoleLogCharset"
+              value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>${CONSOLE_LOG_CHARSET}</charset>
+            <pattern>${consolePattern}</pattern>
+            <charset>${consoleLogCharset}</charset>
         </encoder>
     </appender>
 </included>

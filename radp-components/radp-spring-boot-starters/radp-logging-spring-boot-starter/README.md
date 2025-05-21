@@ -18,7 +18,7 @@ options.
 - **Comprehensive logging capabilities**:
   - Console output with customizable patterns and color support
   - File logging with automatic rotation and compression
-  - Log level-based file separation (debug, info, warn, error)
+  - Log-level-based file separation (debug, info, warn, error)
   - Asynchronous logging for improved performance
 
 - **Flexible configuration options**:
@@ -27,7 +27,7 @@ options.
   - Support for Spring property placeholders
 
 - **Performance optimized**:
-  - Asynchronous appends to prevent blocking the application
+  - Asynchronously appends to prevent blocking the application
   - Configurable queue sizes and discard thresholds
   - Efficient log file rotation and archiving
 
@@ -150,5 +150,5 @@ logging:
 
 ## License
 
-[GNU General Public License—](../../LICENSE)Copyright (C) 2024 xooooooooox
+[GNU General Public License—](../../../LICENSE)Copyright © 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

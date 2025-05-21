@@ -15,9 +15,9 @@
     <property name="radpFileLogCharset"
               value="UTF-8"/>
     <property name="radpConsoleLogPattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | [%thread] %-40.40logger{39} | %msg%n%ex"/>
     <property name="radpFileLogPattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %m%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
     <property name="radpLogPath"
               value="${java.io.tmpdir:-/tmp}"/>
     <property name="radp_log_file_name"

@@ -2,19 +2,34 @@
 
 <!--
 控制台输出配置
-使用标准日志格式
+使用标准的彩色日志格式
 -->
 
 <included>
     <include resource="logback/classic/components/common.xml"/>
 
-    <property name="console_pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | [%thread] %-40.40logger{39} | %msg%n%ex"/>
+    <!--
+    user_console_pattern: from system property logging.pattern.console
+    radp_console_pattern: radp customize console pattern
+    -->
+    <property name="consolePattern"
+              value="${userConsoleLogPattern:-${radpConsoleLogPattern}}"/>
+    <property name="consoleLogCharset"
+              value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">　　　　
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${console_pattern}</pattern>
-            <charset>${default_pattern_charset}</charset>
-        </encoder>
-    </appender>
+    <!-- Only create a console appender if consolePattern is not empty -->
+    <if condition='!isDefined("userConsoleLogPattern") || !property("userConsoleLogPattern").isEmpty()'>
+        <then>
+            <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <pattern>${consolePattern}</pattern>
+                    <charset>${consoleLogCharset}</charset>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <!-- Create a no-op appender when console logging is disabled -->
+            <appender name="radp_console_appender" class="ch.qos.logback.core.helpers.NOPAppender"/>
+        </else>
+    </if>
 </included>

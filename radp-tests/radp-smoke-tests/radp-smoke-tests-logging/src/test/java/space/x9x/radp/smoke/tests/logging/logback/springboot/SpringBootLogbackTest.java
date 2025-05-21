@@ -1,8 +1,7 @@
 package space.x9x.radp.smoke.tests.logging.logback.springboot;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import space.x9x.radp.smoke.tests.logging.logback.LoggingApplication;
 
@@ -10,9 +9,9 @@ import space.x9x.radp.smoke.tests.logging.logback.LoggingApplication;
  * Test for Spring Boot integration with Logback.
  */
 @SpringBootTest(classes = LoggingApplication.class)
+@Slf4j
 class SpringBootLogbackTest {
 
-    private static final Logger log = LoggerFactory.getLogger(SpringBootLogbackTest.class);
 
     @Test
     void test_springBootLogging() {

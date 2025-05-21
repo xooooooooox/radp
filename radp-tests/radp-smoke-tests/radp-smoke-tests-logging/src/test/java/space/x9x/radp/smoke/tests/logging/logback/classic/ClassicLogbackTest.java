@@ -1,16 +1,14 @@
 package space.x9x.radp.smoke.tests.logging.logback.classic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Test for classic Logback configuration.
  */
+@Slf4j
 public class ClassicLogbackTest {
-
-    private static final Logger log = LoggerFactory.getLogger(ClassicLogbackTest.class);
 
     @BeforeAll
     public static void setup() {

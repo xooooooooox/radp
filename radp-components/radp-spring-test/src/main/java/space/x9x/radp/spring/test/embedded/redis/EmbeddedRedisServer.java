@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.test.embedded.redis;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,41 +31,42 @@ import java.io.IOException;
 public class EmbeddedRedisServer implements EmbeddedServer {
 
     /**
-     * Default binding address for the embedded Redis server.
-     * This constant defines the network interface that Redis will bind to.
-     * The value "0.0.0.0" means Redis will listen on all available network interfaces.
+     * Default bind address for the embedded Redis server.
+     * This constant defines the IP address to which the Redis server will bind.
+     * The value "0.0.0.0" means the server will accept connections on all available network interfaces.
      */
     public static final String DEFAULT_BIND = "0.0.0.0";
 
     /**
      * Default port for the embedded Redis server.
-     * This constant defines the standard Redis port (6379) that the embedded server
-     * will listen on by default.
+     * This constant defines the port on which the Redis server will listen for connections.
+     * Value 6379 is the standard port used by Redis servers.
      */
     public static final int DEFAULT_PORT = 6379;
 
     /**
      * Default maximum heap setting for the embedded Redis server.
-     * This constant limits the maximum memory usage of the Redis server to 64MB,
-     * which is suitable for most testing scenarios.
+     * This constant defines the maximum amount of memory that the Redis server can use.
+     * The value "maxheap 64MB" limits the Redis server to using at most 64MB of memory.
      */
     public static final String DEFAULT_MAX_HEAP = "maxheap 64MB";
 
     private final RedisServerBuilder redisServerBuilder;
     private RedisServer redisServer;
     private boolean isRunning = false;
+    private int port = DEFAULT_PORT;
 
     /**
      * Constructs a new EmbeddedRedisServer with default settings.
-     * This constructor initializes the Redis server builder with the default
-     * binding address, port, and maximum heap settings. The server is not started
-     * until the {@link #startup()} method is called.
+     * This constructor initializes the Redis server builder with the default bind address,
+     * port, and maximum heap size. The server is not started until the startup() method is called.
      */
     public EmbeddedRedisServer() {
         this.redisServerBuilder = new RedisServerBuilder()
                 .bind(DEFAULT_BIND)
                 .port(DEFAULT_PORT)
-                .setting(DEFAULT_MAX_HEAP);
+                .setting(DEFAULT_MAX_HEAP)
+                .setting("daemonize no");
     }
 
 
@@ -61,6 +78,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 
     @Override
     public EmbeddedServer port(int port) {
+        this.port = port;
         this.redisServerBuilder.port(port);
         return this;
     }
@@ -71,8 +89,11 @@ public class EmbeddedRedisServer implements EmbeddedServer {
             this.redisServer = redisServerBuilder.build();
             this.redisServer.start();
             this.isRunning = true;
+            log.info("Embedded Redis server started on port {}", port);
         } catch (IOException e) {
-            log.error("redis server startup failed", e);
+            this.isRunning = false;
+            log.error("Failed to start embedded Redis server on port {}", port, e);
+            throw new RuntimeException("Failed to start embedded Redis server on port " + port, e);
         }
     }
 
@@ -83,8 +104,11 @@ public class EmbeddedRedisServer implements EmbeddedServer {
         }
         try {
             this.redisServer.stop();
+            this.isRunning = false;
+            log.info("Embedded Redis server stopped");
         } catch (IOException e) {
-            log.error("redis server shutdown failed", e);
+            log.error("Failed to stop embedded Redis server", e);
+            throw new RuntimeException("Failed to stop embedded Redis server", e);
         }
     }
 

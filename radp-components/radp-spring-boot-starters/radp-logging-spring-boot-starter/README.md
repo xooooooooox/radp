@@ -86,6 +86,35 @@ logging.level.com.example: debug
 </configuration>
 ```
 
+2. 如果要覆盖模板文件的默认值 `logback/classic/scenarios/standard/logback-config.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <include resource="logback/classic/templates/logback-classic-test.xml"/>
+
+    <!-- 覆盖 radp-logging-spring-boot-starter 模板默认值 -->
+    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic" />
+    <property name="userLogFileName" value="radp-smoke-tests-logging"/>
+</configuration>
+```
+
+3. 如果要调整日志级别
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <include resource="logback/classic/templates/logback-classic-test.xml"/>
+
+    <!-- 情况一: 调整整体日志级别 -->
+    <property name="logging.level.root" value="trace"/>
+    <!-- 情况二: 指定包日志级别 -->
+    <logger name="space.x9x.radp" level="trace"/>
+</configuration>
+```
+
 ## Configuration Options
 
 ### Common Properties

@@ -86,7 +86,7 @@ logging.level.com.example: debug
 </configuration>
 ```
 
-2. 如果要覆盖模板文件的默认值 `logback/classic/scenarios/standard/logback-config.xml`
+2. To override the default values of the template file `logback/classic/scenarios/standard/logback-config.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -94,13 +94,13 @@ logging.level.com.example: debug
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
     <include resource="logback/classic/templates/logback-classic-test.xml"/>
 
-    <!-- 覆盖 radp-logging-spring-boot-starter 模板默认值 -->
+    <!-- Override radp-logging-spring-boot-starter template default values -->
     <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic" />
     <property name="userLogFileName" value="radp-smoke-tests-logging"/>
 </configuration>
 ```
 
-3. 如果要调整日志级别
+3. To adjust log levels:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -108,9 +108,9 @@ logging.level.com.example: debug
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
     <include resource="logback/classic/templates/logback-classic-test.xml"/>
 
-    <!-- 情况一: 调整整体日志级别 -->
+    <!-- Case 1: Adjust the root log level -->
     <property name="logging.level.root" value="trace"/>
-    <!-- 情况二: 指定包日志级别 -->
+    <!-- Case 2: Specify log level for a specific package -->
     <logger name="space.x9x.radp" level="trace"/>
 </configuration>
 ```
@@ -179,5 +179,5 @@ logging:
 
 ## License
 
-[GNU General Public License—](../../../LICENSE)Copyright © 2024 xooooooooox
+[Apache 2.0 License—](../../../LICENSE)Copyright © 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

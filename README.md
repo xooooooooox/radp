@@ -179,5 +179,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[GNU General Public License—](./LICENSE)Copyright © 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE)Copyright © 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

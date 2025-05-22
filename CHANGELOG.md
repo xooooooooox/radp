@@ -51,6 +51,10 @@
   - Optimize .gitignore
   - Add IDE config for copyright and scope settings
 
+### Refactor
+
+- Relocate ResponseBuilder to dto package
+
 ### Test
 
 - Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`

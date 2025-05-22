@@ -9,17 +9,15 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 
 /**
  * Test for classic Logback configuration.
  */
 @Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ClassicLogbackTest {
+class ClassicLogbackTest {
 
     private LoggerContext loggerCtx;
-    private Path logFile;
 
     @BeforeAll
     void setup() throws IOException, JoranException {

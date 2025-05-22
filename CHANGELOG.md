@@ -9,6 +9,7 @@
 ### Features
 
 - Add embedded server and container tests in `radp-spring-tests`.
+- Optimize Redis key management utilities
 
 ### Chore
 
@@ -23,6 +24,8 @@
   - Optimize `.gitignore`, `.gitattributes`.
   - Add `.idea`.
   - Update `application-logback.yaml` and `logback-test.xml`.
+  - Move assert classes to a new package
+  - Add `RedisKeyProvider` enum
 - Others
   - Switch from GNU GPLv3 to Apache 2.0.
 

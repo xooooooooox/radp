@@ -2,10 +2,37 @@
 
 ## 2.21
 
-### chore
+## Break Changes
 
+- Refactor module `radp-logging-spring-boot-starter`. Improved logging clarity and extensibility for various use cases.
+
+### Features
+
+- Add embedded server and container tests in `radp-spring-tests`.
+
+### Chore
+
+- dependencies
+  - Remove unused `mongodb.version` property.
+  - Override `kafka.version` from `3.1.2` to `3.9.0`.
+  - Optimize dependency to resolve module cycles
+- build
+  - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
 - scaffold
-  - Update scaffold default radpVersion to `2.21`
+  - Update scaffold default radpVersion to `2.21`.
+  - Optimize `.gitignore`, `.gitattributes`.
+  - Add `.idea`.
+  - Update `application-logback.yaml` and `logback-test.xml`.
+- Others
+  - Switch from GNU GPLv3 to Apache 2.0.
+
+### Refactor
+
+- Move `ResponseBuilder` to a new package.
+
+### Tests
+
+- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`.
 
 ## 2.20.2
 

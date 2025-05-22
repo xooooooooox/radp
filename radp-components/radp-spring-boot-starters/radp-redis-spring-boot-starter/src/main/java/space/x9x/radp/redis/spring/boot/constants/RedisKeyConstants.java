@@ -47,7 +47,7 @@ public class RedisKeyConstants {
      * Default implementation of RedisKeyProvider for core RADP functionality.
      * This can be used directly or as a reference for module-specific implementations.
      */
-    public static final RedisKeyProvider DEFAULT_PROVIDER = () -> RADP_PREFIX;
+    public static final IRedisKeyProvider DEFAULT_PROVIDER = () -> RADP_PREFIX;
 
 
     /**

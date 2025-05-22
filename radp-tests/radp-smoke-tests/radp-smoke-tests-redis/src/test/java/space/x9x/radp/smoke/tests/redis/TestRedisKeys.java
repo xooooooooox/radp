@@ -16,7 +16,7 @@
 
 package space.x9x.radp.smoke.tests.redis;
 
-import space.x9x.radp.redis.spring.boot.constants.RedisKeyProvider;
+import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 
 /**
  * Example implementation of RedisKeyProvider for test module.
@@ -27,7 +27,7 @@ import space.x9x.radp.redis.spring.boot.constants.RedisKeyProvider;
  * @author x9x
  * @since 2024-10-30
  */
-public enum TestRedisKeys implements RedisKeyProvider {
+public enum TestRedisKeys implements IRedisKeyProvider {
 
     INSTANCE;
     private static final String PREFIX = "radp:test";

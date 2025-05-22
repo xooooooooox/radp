@@ -25,7 +25,7 @@ package space.x9x.radp.redis.spring.boot.constants;
  * @author x9x
  * @since 2024-10-30
  */
-public interface RedisKeyProvider {
+public interface IRedisKeyProvider {
 
     /**
      * Gets the prefix for all keys managed by this provider.

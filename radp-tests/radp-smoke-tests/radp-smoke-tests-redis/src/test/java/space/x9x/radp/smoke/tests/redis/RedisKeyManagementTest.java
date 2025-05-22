@@ -17,8 +17,8 @@
 package space.x9x.radp.smoke.tests.redis;
 
 import org.junit.jupiter.api.Test;
+import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
-import space.x9x.radp.redis.spring.boot.constants.RedisKeyProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,7 +77,7 @@ class RedisKeyManagementTest {
 
     @Test
     void testRedisKeyProvider() {
-        RedisKeyProvider provider = TestRedisKeys.INSTANCE;
+        IRedisKeyProvider provider = TestRedisKeys.INSTANCE;
 
         // Test building keys with the provider
         assertEquals("radp:test:user:123", provider.buildKey("user", "123"));

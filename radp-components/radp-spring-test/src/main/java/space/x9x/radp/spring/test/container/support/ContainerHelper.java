@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.test.container.support;
 
 import lombok.extern.slf4j.Slf4j;
@@ -6,9 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 import space.x9x.radp.spring.test.container.elasticsearch.ElasticsearchContainer;
 import space.x9x.radp.spring.test.container.kafka.KafkaContainer;
 import space.x9x.radp.spring.test.container.mariadb.MariaDBContainer;
-import space.x9x.radp.spring.test.container.mongodb.MongoDBContainer;
 import space.x9x.radp.spring.test.container.mysql.MySQL8Container;
-import space.x9x.radp.spring.test.container.nginx.NginxContainer;
 import space.x9x.radp.spring.test.container.redis.RedisContainer;
 import space.x9x.radp.spring.test.container.zookeeper.ZookeeperContainer;
 
@@ -180,86 +194,6 @@ public class ContainerHelper {
     }
 
     /**
-     * Creates a new MongoDB container with the default image and exposed port.
-     *
-     * @return a new MongoDB container
-     */
-    public static MongoDBContainer mongoDBContainer() {
-        return new MongoDBContainer();
-    }
-
-    /**
-     * Creates a new MongoDB container with the specified image and default exposed port.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @return a new MongoDB container
-     */
-    public static MongoDBContainer mongoDBContainer(String dockerImageName) {
-        return new MongoDBContainer(dockerImageName);
-    }
-
-    /**
-     * Creates a new MongoDB container with the specified image name and default startup timeout.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @return a new MongoDB container
-     */
-    public static MongoDBContainer mongoDBContainer(DockerImageName dockerImageName) {
-        return new MongoDBContainer(dockerImageName);
-    }
-
-    /**
-     * Creates a new MongoDB container with the specified image name and startup timeout.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @param startupTimeout  the startup timeout
-     * @return a new MongoDB container
-     */
-    public static MongoDBContainer mongoDBContainer(DockerImageName dockerImageName, Duration startupTimeout) {
-        return new MongoDBContainer(dockerImageName, startupTimeout);
-    }
-
-    /**
-     * Creates a new Nginx container with the default image and exposed port.
-     *
-     * @return a new Nginx container
-     */
-    public static NginxContainer nginxContainer() {
-        return new NginxContainer();
-    }
-
-    /**
-     * Creates a new Nginx container with the specified image and default exposed port.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @return a new Nginx container
-     */
-    public static NginxContainer nginxContainer(String dockerImageName) {
-        return new NginxContainer(dockerImageName);
-    }
-
-    /**
-     * Creates a new Nginx container with the specified image name and default startup timeout.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @return a new Nginx container
-     */
-    public static NginxContainer nginxContainer(DockerImageName dockerImageName) {
-        return new NginxContainer(dockerImageName);
-    }
-
-    /**
-     * Creates a new Nginx container with the specified image name and startup timeout.
-     *
-     * @param dockerImageName the Docker image name to use
-     * @param startupTimeout  the startup timeout
-     * @return a new Nginx container
-     */
-    public static NginxContainer nginxContainer(DockerImageName dockerImageName, Duration startupTimeout) {
-        return new NginxContainer(dockerImageName, startupTimeout);
-    }
-
-    /**
      * Creates a new MariaDB container with the default image and exposed port.
      *
      * @return a new MariaDB container
@@ -326,7 +260,7 @@ public class ContainerHelper {
 
     /**
      * Stops the container if it's running.
-     * This method handles exceptions that might occur during container shutdown.
+     * This method handles exceptions that might occur during a container shutdown.
      *
      * @param container the container to stop
      * @param <T>       the container type

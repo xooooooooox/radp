@@ -19,7 +19,7 @@
     <property name="logPath"
               value="${userLogPath:-${radpLogPath}}"/>
     <property name="logFileName"
-              value="${userLogFileName:-${radp_log_file_name}}"/>
+              value="${userLogFileName:-${radpLogFileName}}"/>
 
     <!-- 主日志文件 - 记录所有级别的日志 -->
     <appender name="radp_file_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">

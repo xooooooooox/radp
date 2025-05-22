@@ -40,7 +40,9 @@
 - scaffold
   - Update scaffold default radpVersion to `3.21`
   - Update `application-logback.yaml` and `logback-test.xml`
-  - Add .idea
+  - Add `.idea`
+  - Relocate assert classes to a new package
+  - Add RedisKeyProvider enum
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
     module.

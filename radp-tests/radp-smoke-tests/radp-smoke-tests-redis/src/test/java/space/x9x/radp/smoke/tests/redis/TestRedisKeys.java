@@ -30,29 +30,11 @@ import space.x9x.radp.redis.spring.boot.constants.RedisKeyProvider;
 public enum TestRedisKeys implements RedisKeyProvider {
 
     INSTANCE;
-
     private static final String PREFIX = "radp:test";
-
-    // Module-specific key constants
-    public static final String USER_PROFILE = INSTANCE.buildKey("user:profile");
-    public static final String SESSION_DATA = INSTANCE.buildKey("session");
-    public static final String CACHE_DATA = INSTANCE.buildKey("cache");
 
     @Override
     public String getPrefix() {
         return PREFIX;
     }
 
-    /**
-     * Builds a key for a specific test case.
-     *
-     * @param testName the test name
-     * @param uniqueId a unique identifier (optional)
-     * @return the complete Redis key
-     */
-    public static String buildTestKey(String testName, String uniqueId) {
-        return uniqueId != null
-                ? INSTANCE.buildKey(testName, uniqueId)
-                : INSTANCE.buildKey(testName);
-    }
 }

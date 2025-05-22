@@ -16,6 +16,7 @@
 
 package space.x9x.radp.smoke.tests.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
 import space.x9x.radp.spring.test.container.redis.RedisContainer;
 import space.x9x.radp.spring.test.container.support.ContainerHelper;
@@ -38,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * These tests verify that RedissonService works correctly with a real Redis server.
  */
 @Testcontainers
+@Slf4j
 class RedissonServiceSmokeTest {
 
     private static final String TEST_VALUE = "test-value";
@@ -57,7 +60,7 @@ class RedissonServiceSmokeTest {
     private String getUniqueKey(String testName) {
         // Use UUID instead of timestamp for more deterministic and collision-resistant keys
         String uniqueId = UUID.randomUUID().toString().substring(0, 8); // Use the first 8 chars of UUID for brevity
-        return TestRedisKeys.buildTestKey(testName, uniqueId);
+        return RedisKeyConstants.buildRedisKeyWithDefPrefix("test", testName, uniqueId);
     }
 
     @BeforeEach

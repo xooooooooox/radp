@@ -36,6 +36,15 @@
 ### Tests
 
 - Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`.
+- Add unit tests for embedded servers and containers
+  - Added Java tests for all embedded servers and containers
+  - Added Groovy/Spock tests for helper classes
+
+### Documents
+
+- Add documentation for `radp-spring-test` module
+  - Create a comprehensive README with usage examples
+  - Added detailed Javadoc comments to all classes
 
 ## 2.20.2
 

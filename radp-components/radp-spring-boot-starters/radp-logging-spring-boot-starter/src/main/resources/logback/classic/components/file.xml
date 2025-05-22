@@ -12,14 +12,38 @@
 <included>
     <include resource="logback/classic/components/common.xml"/>
 
-    <property name="fileLogPattern"
-              value="${userFileLogPattern:-${radpFileLogPattern}}"/>
-    <property name="fileLogCharset"
-              value="${userFileLogCharset:-${radpFileLogCharset}}"/>
-    <property name="logPath"
-              value="${userLogPath:-${radpLogPath}}"/>
-    <property name="logFileName"
-              value="${userLogFileName:-${radpLogFileName}}"/>
+    <property name="fileLogPattern" value="${radpFileLogPattern}"/>
+    <property name="fileLogCharset" value="${radpFileLogCharset}"/>
+    <property name="logPath" value="${radpLogPath}"/>
+    <property name="logFileName" value="${radpLogFileName}"/>
+    <if condition='isDefined("userFileLogPattern")
+                &amp;&amp; !property("userFileLogPattern").isEmpty()
+                &amp;&amp; !property("userFileLogPattern").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="fileLogPattern" value="${userFileLogPattern}"/>
+        </then>
+    </if>
+    <if condition='isDefined("userFileLogCharset")
+                &amp;&amp; !property("userFileLogCharset").isEmpty()
+                &amp;&amp; !property("userFileLogCharset").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="fileLogCharset" value="${userFileLogCharset}"/>
+        </then>
+    </if>
+    <if condition='isDefined("userLogPath")
+                &amp;&amp; !property("userLogPath").isEmpty()
+                &amp;&amp; !property("userLogPath").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="logPath" value="${userLogPath}"/>
+        </then>
+    </if>
+    <if condition='isDefined("userLogFileName")
+                &amp;&amp; !property("userLogFileName").isEmpty()
+                &amp;&amp; !property("userLogFileName").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="logFileName" value="${userLogFileName}"/>
+        </then>
+    </if>
 
     <!-- 主日志文件 - 记录所有级别的日志 -->
     <appender name="radp_file_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">

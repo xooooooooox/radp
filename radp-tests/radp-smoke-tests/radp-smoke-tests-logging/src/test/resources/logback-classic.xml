@@ -3,7 +3,8 @@
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
     <!-- Custom log path -->
-    <property name="userLogPath" value="./logs/classic" />
+    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic" />
+    <property name="userLogFileName" value="radp-smoke-tests-logging"/>
 
     <include resource="logback/classic/templates/logback-classic-test.xml"/>
 </configuration>

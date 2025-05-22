@@ -8,28 +8,34 @@
 <included>
     <include resource="logback/classic/components/common.xml"/>
 
-    <!--
-    user_console_pattern: from system property logging.pattern.console
-    radp_console_pattern: radp customize console pattern
-    -->
-    <property name="consolePattern"
-              value="${userConsoleLogPattern:-${radpConsoleLogPattern}}"/>
-    <property name="consoleLogCharset"
-              value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
-
-    <!-- Only create a console appender if consolePattern is not empty -->
-    <if condition='!isDefined("userConsoleLogPattern") || !property("userConsoleLogPattern").isEmpty()'>
+    <property name="consoleLogPattern" value="${radpConsoleLogPattern}"/>
+    <property name="consoleLogCharset" value="${radpConsoleLogCharset}"/>
+    <if condition='isDefined("userConsoleLogPattern")
+                &amp;&amp; !property("userConsoleLogPattern").isEmpty()
+                &amp;&amp; !property("userConsoleLogPattern").contains("_IS_UNDEFINED")'>
         <then>
-            <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
+            <property name="consoleLogPattern" value="${userConsoleLogPattern}"/>
+        </then>
+    </if>
+    <if condition='isDefined("userConsoleLogCharset")
+                &amp;&amp; !property("userConsoleLogCharset").isEmpty()
+                &amp;&amp; !property("userConsoleLogCharset").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="consoleLogCharset" value="${userConsoleLogCharset}"/>
+        </then>
+    </if>
+
+    <if condition='property("userConsoleLogPattern").isEmpty()'>
+        <appender name="radp_console_appender"
+                  class="ch.qos.logback.core.helpers.NOPAppender"/>
+        <else>
+            <appender name="radp_console_appender"
+                      class="ch.qos.logback.core.ConsoleAppender">　　　　
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>${consolePattern}</pattern>
+                    <pattern>${consoleLogPattern}</pattern>
                     <charset>${consoleLogCharset}</charset>
                 </encoder>
             </appender>
-        </then>
-        <else>
-            <!-- Create a no-op appender when console logging is disabled -->
-            <appender name="radp_console_appender" class="ch.qos.logback.core.helpers.NOPAppender"/>
         </else>
     </if>
 </included>

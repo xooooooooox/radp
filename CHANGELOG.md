@@ -43,6 +43,7 @@
   - Add `.idea`
   - Relocate assert classes to a new package
   - Add RedisKeyProvider enum
+  - Optimize `.gitignore`, `.gitattributes`
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
     module.

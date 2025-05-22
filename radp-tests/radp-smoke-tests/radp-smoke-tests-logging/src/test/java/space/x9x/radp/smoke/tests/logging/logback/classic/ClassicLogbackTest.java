@@ -1,19 +1,43 @@
 package space.x9x.radp.smoke.tests.logging.logback.classic;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
 
 /**
  * Test for classic Logback configuration.
  */
 @Slf4j
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ClassicLogbackTest {
 
+    private LoggerContext loggerCtx;
+    private Path logFile;
+
     @BeforeAll
-    public static void setup() {
-        // Set the logback.configurationFile system property to use our custom configuration
-        System.setProperty("logback.configurationFile", "logback-classic.xml");
+    void setup() throws IOException, JoranException {
+        loggerCtx = (LoggerContext) LoggerFactory.getILoggerFactory();
+        loggerCtx.reset();
+
+        URL configUrl = getClass().getClassLoader().getResources("logback-classic.xml").nextElement();
+        Assertions.assertNotNull(configUrl, "无法找到 logback-classic.xml");
+        JoranConfigurator cfg = new JoranConfigurator();
+        cfg.setContext(loggerCtx);
+        cfg.doConfigure(configUrl);
+    }
+
+    @AfterAll
+    void tearDown() {
+        if (loggerCtx != null) {
+            loggerCtx.stop();
+        }
     }
 
     @Test

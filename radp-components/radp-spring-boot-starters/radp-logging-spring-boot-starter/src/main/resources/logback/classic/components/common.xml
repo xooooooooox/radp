@@ -26,11 +26,11 @@
     <!--
     读取用户自定义配置 - 通过系统属性或环境变量
     -->
-    <property name="userLogPath" value="${userLogPath:-${logging.file.path:-${radpLogPath}}}"/>
-    <property name="userLogFileName" value="${userLogFileName:-${logging.file.name:-${radp_log_file_name}}}"/>
-    <property name="userConsoleLogPattern" value="${userConsoleLogPattern:-${logging.pattern.console:-${radpConsoleLogPattern}}}"/>
-    <property name="userFileLogPattern" value="${userFileLogPattern:-${logging.pattern.file:-${radpFileLogPattern}}}"/>
-    <property name="userConsoleLogCharset" value="${userConsoleLogCharset:-${logging.charset.console:-${radpConsoleLogCharset}}}"/>
-    <property name="userFileLogCharset" value="${userFileLogCharset:-${logging.charset.file:-${radpFileLogCharset}}}"/>
+    <property name="userLogPath" value="${userLogPath:-${logging.file.path}}"/>
+    <property name="userLogFileName" value="${userLogFileName:-${logging.file.name}}"/>
+    <property name="userConsoleLogPattern" value="${userConsoleLogPattern:-${logging.pattern.console}}"/>
+    <property name="userFileLogPattern" value="${userFileLogPattern:-${logging.pattern.file}}"/>
+    <property name="userConsoleLogCharset" value="${userConsoleLogCharset:-${logging.charset.console}}"/>
+    <property name="userFileLogCharset" value="${userFileLogCharset:-${logging.charset.file}}"/>
 
 </included>

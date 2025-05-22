@@ -7,7 +7,7 @@ spring:
 logging:
   config: classpath:logback/springboot/templates/logback-spring.xml
   file:
-    path: ./logs/springboot
+    path: ../../../logs/springboot
   level:
     root: info
     space.x9x.radp: debug

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+所有标准组件都要用到的通用属性
+-->
+
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--
+    radp 内置默认值
+
+    格式化输出：%d 表示日期，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符
+    -->
+    <property name="radpConsoleLogCharset"
+              value="UTF-8"/>
+    <property name="radpFileLogCharset"
+              value="UTF-8"/>
+    <property name="radpConsoleLogPattern"
+              value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="radpFileLogPattern"
+              value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="radpLogPath"
+              value="${java.io.tmpdir:-/tmp}"/>
+    <property name="radp_log_file_name"
+              value="application"/>
+
+    <!--
+    读取用户自定义配置
+    -->
+    <springProperty name="userLogPath"
+                    source="logging.file.path"
+                    scope="context"/>
+    <springProperty name="userLogFileName"
+                    source="spring.application.name"
+                    scope="context"/>
+    <springProperty name="userConsoleLogPattern"
+                    source="logging.pattern.console"
+                    scope="context"/>
+    <springProperty name="userFileLogPattern"
+                    source="logging.pattern.file"
+                    scope="context"/>
+    <springProperty name="userConsoleLogCharset"
+                    source="logging.charset.console"
+                    scope="context"/>
+    <springProperty name="userFileLogCharset"
+                    source="logging.charset.file"
+                    scope="context"/>
+
+</included>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+控制台输出配置
+使用标准的彩色日志格式
+-->
+
+<included>
+    <include resource="logback/classic/components/common.xml"/>
+
+    <property name="consoleLogPattern" value="${radpConsoleLogPattern}"/>
+    <property name="consoleLogCharset" value="${radpConsoleLogCharset}"/>
+    <if condition='isDefined("userConsoleLogPattern")
+                &amp;&amp; !property("userConsoleLogPattern").isEmpty()
+                &amp;&amp; !property("userConsoleLogPattern").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="consoleLogPattern" value="${userConsoleLogPattern}"/>
+        </then>
+    </if>
+    <if condition='isDefined("userConsoleLogCharset")
+                &amp;&amp; !property("userConsoleLogCharset").isEmpty()
+                &amp;&amp; !property("userConsoleLogCharset").contains("_IS_UNDEFINED")'>
+        <then>
+            <property name="consoleLogCharset" value="${userConsoleLogCharset}"/>
+        </then>
+    </if>
+
+    <if condition='property("userConsoleLogPattern").isEmpty()'>
+        <appender name="radp_console_appender"
+                  class="ch.qos.logback.core.helpers.NOPAppender"/>
+        <else>
+            <appender name="radp_console_appender"
+                      class="ch.qos.logback.core.ConsoleAppender">　　　　
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <pattern>${consoleLogPattern}</pattern>
+                    <charset>${consoleLogCharset}</charset>
+                </encoder>
+            </appender>
+        </else>
+    </if>
+</included>

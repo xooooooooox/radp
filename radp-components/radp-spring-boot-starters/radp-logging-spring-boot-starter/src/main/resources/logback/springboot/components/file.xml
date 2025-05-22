@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+文件输出配置
+提供完整的文件日志功能，包括：
+1. 主日志文件（所有级别）
+2. 按日志级别分类的文件
+3. 日志文件滚动策略
+4. 异步写入提升性能
+-->
+
+<included>
+    <include resource="logback/springboot/components/common.xml"/>
+
+    <property name="fileLogPattern"
+              value="${userFileLogPattern:-${radpFileLogPattern}}"/>
+    <property name="fileLogCharset"
+              value="${userFileLogCharset:-${radpFileLogCharset}}"/>
+    <property name="logPath"
+              value="${userLogPath:-${radpLogPath}}"/>
+    <property name="logFileName"
+              value="${userLogFileName:-${radp_log_file_name}}"/>
+
+    <!-- 主日志文件 - 记录所有级别的日志 -->
+    <appender name="radp_file_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.log</File>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的日志文件名 -->
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.%d{yyyyMMdd}.%i.log.gz</fileNamePattern>
+            <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
+            <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>
+            <!-- 日志文件，到达多少容量，进行滚动 -->
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <!-- 日志文件的总大小，0 表示不限制 -->
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-1GB}</totalSizeCap>
+            <!-- 日志文件的保留天数 -->
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 异步写入日志，提升性能 -->
+    <appender name="radp_file_appender_async" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志。默认的，如果队列的 80% 已满,则会丢弃 TRACT、DEBUG、INFO 级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度，该值会影响性能。默认值为 256 -->
+        <queueSize>256</queueSize>
+        <!-- 防止日志记录阻塞应用程序的主线程 -->
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="radp_file_appender"/>
+    </appender>
+
+    <!-- 以下为按日志级别拆分输出到相应日志文件 -->
+    <appender name="radp_file_appender_filter_trace" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.trace.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>trace</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.trace.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
+    <appender name="radp_file_appender_filter_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.debug.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.debug.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
+    <appender name="radp_file_appender_filter_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.info.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.info.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
+    <appender name="radp_file_appender_filter_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.warn.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.warn.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
+    <appender name="radp_file_appender_filter_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}/${logFileName}.error.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/archived/%d{yyyyMMdd}/${logFileName}.error.%d{yyyyMMdd}.%i.log.gz
+            </fileNamePattern>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${fileLogPattern}</pattern>
+            <charset>${fileLogCharset}</charset>
+        </encoder>
+    </appender>
+
+    <!-- 异步写入按级别分类的日志文件 -->
+    <appender name="radp_file_appender_filter_trace_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_trace"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+    <appender name="radp_file_appender_filter_debug_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_debug"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+    <appender name="radp_file_appender_filter_info_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_info"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+    <appender name="radp_file_appender_filter_warn_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_warn"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+    <appender name="radp_file_appender_filter_error_async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="radp_file_appender_filter_error"/>
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+</included>

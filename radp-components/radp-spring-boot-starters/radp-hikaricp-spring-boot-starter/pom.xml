@@ -11,6 +11,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>space.x9x.radp</groupId>
+            <artifactId>radp-spring-boot</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>

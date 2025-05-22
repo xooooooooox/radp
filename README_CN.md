@@ -176,5 +176,5 @@ RADP 遵循[语义化版本控制](https://semver.org/)
 
 ## 许可证
 
-[GNU 通用公共许可证](./LICENSE) - 版权所有 (C) 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE) - 版权所有 (C) 2024 xooooooooox
 和[贡献者](https://github.com/xooooooooox/radp/graphs/contributors)

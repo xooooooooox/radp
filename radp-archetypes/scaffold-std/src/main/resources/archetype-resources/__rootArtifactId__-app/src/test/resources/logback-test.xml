@@ -2,7 +2,7 @@
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration debug="false">
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
-    <include resource="logback/custom/custom_logback_test.xml"/>
+    <include resource="logback/springboot/scenarios/testing/logback-config.xml"/>
 </configuration>

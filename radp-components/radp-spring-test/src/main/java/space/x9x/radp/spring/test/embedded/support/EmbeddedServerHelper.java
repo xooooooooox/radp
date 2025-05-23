@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.extension.ExtensionLoader;
+import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
@@ -50,9 +51,7 @@ public class EmbeddedServerHelper {
             return ExtensionLoader.getExtensionLoader(IEmbeddedServer.class).getExtension(spi).port(port);
         } catch (Exception e) {
             log.error("Failed to create embedded server with SPI: {}", spi, e);
-            // TODO 2025/5/23: 调整 ExceptionUtils
-//            throw ExceptionUtils.serverException0("Failed to create embedded server with SPI: {}", spi, e);
-            throw new RuntimeException("Failed to create embedded server with API: " + spi, e);
+            throw ExceptionUtils.serverException0("Failed to create embedded server with SPI: {}", spi, e);
         }
     }
 

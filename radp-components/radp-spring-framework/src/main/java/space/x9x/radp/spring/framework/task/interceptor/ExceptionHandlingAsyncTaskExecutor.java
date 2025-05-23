@@ -57,15 +57,15 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 
     @Override
     public void destroy() throws Exception {
-        if (executor instanceof DisposableBean bean) {
-            bean.destroy();
+        if (executor instanceof DisposableBean) {
+            ((DisposableBean) executor).destroy();
         }
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (executor instanceof InitializingBean bean) {
-            bean.afterPropertiesSet();
+        if (executor instanceof InitializingBean) {
+            ((InitializingBean) executor).afterPropertiesSet();
         }
     }
 
@@ -79,7 +79,7 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
      * @deprecated 此方法在AsyncTaskExecutor接口中已被弃用，建议使用其他方法替代
      */
     @Override
-    @Deprecated(since = "6.0", forRemoval = true)
+    @Deprecated
     public void execute(@NotNull Runnable task, long startTimeout) {
         executor.execute(createWrappedRunnable(task), startTimeout);
     }

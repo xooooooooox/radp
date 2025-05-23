@@ -57,6 +57,10 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>mariadb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.redis</groupId>
+            <artifactId>testcontainers-redis</artifactId>
+        </dependency>
 
         <!-- 嵌入式组件 -->
         <dependency>

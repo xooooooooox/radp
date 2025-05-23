@@ -9,14 +9,23 @@
 ### Features
 
 - Add embedded server and container tests in `radp-spring-tests`.
-- Optimize Redis key management utilities
+- Optimize Redis key management utilities.
+- Optimize `RedissonService`, update the `#setNx(key, expired, timeUnit)` methods to use the non-deprecated
+  alternatives.
+- Optimize `RedissonService`, update the `#setNx(key, expired, timeUnit)` methods to use the non-deprecated
+  alternatives.
+- Optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`
+
+### Bug Fixes
+
+- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
 
 ### Chore
 
 - dependencies
   - Remove unused `mongodb.version` property.
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
-  - Optimize dependency to resolve module cycles
+  - Optimize dependency to resolve module cycles.
 - build
   - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
 - scaffold
@@ -24,27 +33,32 @@
   - Optimize `.gitignore`, `.gitattributes`.
   - Add `.idea`.
   - Update `application-logback.yaml` and `logback-test.xml`.
-  - Move assert classes to a new package
-  - Add `RedisKeyProvider` enum
+  - Move assert classes to a new package.
+  - Add `RedisKeyProvider` enum.
 - Others
   - Switch from GNU GPLv3 to Apache 2.0.
 
 ### Refactor
 
 - Move `ResponseBuilder` to a new package.
+- Refactor `LocalCallFirstCluster` and `DubboExceptionFilter`
+  - reduce method complexity
+  - refactor the code to improve readability and maintainability
+  - refactor any remaining issues with deprecated methods
 
 ### Tests
 
 - Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`.
-- Add unit tests for embedded servers and containers
-  - Added Java tests for all embedded servers and containers
-  - Added Groovy/Spock tests for helper classes
+- Add unit tests for embedded servers and containers.
+  - Added Java tests for all embedded servers and containers.
+  - Added Groovy/Spock tests for helper classes.
+- Add `RedissonServiceTest`.
 
 ### Documents
 
-- Add documentation for `radp-spring-test` module
-  - Create a comprehensive README with usage examples
-  - Added detailed Javadoc comments to all classes
+- Add documentation for `radp-spring-test` module.
+  - Create a comprehensive README with usage examples.
+  - Added detailed Javadoc comments to all classes.
 
 ## 2.20.2
 
@@ -168,7 +182,7 @@
 
 - parent
   - 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar`
-      不支持 multi platform 引起的构建失败问题
+    不支持 multi platform 引起的构建失败问题
   - Add profile `o-release`, `o-tar`, `publish-harbor`
   - Add profile `publish-artifactory`
 - scaffold
@@ -223,7 +237,7 @@
 - dependencies
   - dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
   - `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
-      `spring-boot-dependencies` 中声明的版本
+    `spring-boot-dependencies` 中声明的版本
   - Remove a redundant plugin version in `radp-parent`
     - 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
     - Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
@@ -241,15 +255,15 @@
   - Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
   - Add module `radp-springdoc-webflux-spring-boot-starter`
   - Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`,
-      `WebAPIAutoConfiguration`
+    `WebAPIAutoConfiguration`
   - Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
 - dependencies
   - Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin
-      configuration
+    configuration
   - Optimize radp-dependencies, use `springdoc-openapi` bom instead`
 - parent
   - `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`,
-      `project.build.sourceEncoding` 等
+    `project.build.sourceEncoding` 等
 - doc
   - writerside update `about.md`
 - scaffold
@@ -306,10 +320,10 @@
 - Update archetype
 - Optimize GitHub Actions
 - 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
-    - 决策树设计模式抽象
+  - 决策树设计模式抽象
 - archetype
-    - assembly 优化
-    - 分层构建优化
+  - assembly 优化
+  - 分层构建优化
 
 ## 0.7
 

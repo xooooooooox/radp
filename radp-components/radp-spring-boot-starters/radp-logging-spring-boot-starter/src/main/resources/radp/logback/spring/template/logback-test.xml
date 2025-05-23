@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+说明
+1. 在运行测试类的时候,
+你会发现控制台日志顶部(banner之前, spring context 初始化之前),
+这部分日志格式与 logback-spring.xml 定义的格式不一致,
+之所以会有这个现象, 是因为这部分日志是先于 springboot 初始化日志前就已经打印了,
+所以如果要控制这部分日志, 需要定义 src/test/resources/logback-test.xml.
+
+2. 按如下定义后, 控制台日志格式就统一了
+
+3. 默认情况下, banner 之前的日志, 并不会输出到 logback-spring.xml 定义的日志目录下,
+而是输出到 ${java.io.tmpdir:-/tmp}
+之所以会这样是因为,
+file-appender.xml -> logPath=${userLogPath:-${logging.file.path:-${radpLogPath}}},
+由于 spring context 未被初始化, 所以无法从 application.yaml 中读取 logging.file.path,
+以至于 logPath=${radpLogPath}, 而 radpLogPath=${java.io.tmpdir:-/tmp},
+所以, banner 之前的日志会输出到  ${java.io.tmpdir:-/tmp}
+
+4. 按照如下方式, 控制 banner 之前日志文件(需要在 include base.xml 之前)
+    <property name="userLogPath" value="./logs"/>
+    <property name="userLogFileName" value="application"/>
+    <include resource="radp/logback/spring/base.xml"/>
+
+5. 支持覆盖
+    <property name="userLogPath" value="./logs"/>
+    <property name="userLogFileName" value="application"/>
+    <property name="userConsoleLogPattern" value=".."/>
+    <property name="userConsoleLogCharset" value=".."/>
+    <property name="userFileLogPattern" value=".."/>
+    <property name="userFileLogCharset" value=".."/>
+-->
+
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <include resource="radp/logback/spring/base.xml"/>
+</configuration>

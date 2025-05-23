@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+说明:
+1) 使用 logback 支持的默认标签, 不要使用 springboot 才支持的标签, 比如 springProperty
+2) xx_yy_zz: 供自定义 appender 使用
+3) userXxYy: application.yaml 中读取的值, 或者通过 logback-test.xml 中设置
+
+格式化输出：%d 表示日期，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符
+-->
+
+<included>
+    <property name="radpConsoleLogCharset" value="UTF-8"/>
+    <property name="radpFileLogCharset" value="UTF-8"/>
+    <property name="radpConsoleLogPattern" value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="radpFileLogPattern" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="radpLogPath" value="${java.io.tmpdir:-/tmp}"/>
+    <property name="radpLogFileName" value="application"/>
+
+    <property name="log_path" value="${userLogPath:-${radpLogPath}}"/>
+    <property name="log_file_name" value="${userLogFileName:-${radpLogFileName}}"/>
+    <property name="console_log_pattern" value="${userConsoleLogPattern:-${radpConsoleLogPattern}}"/>
+    <property name="console_log_charset" value="${userConsoleLogCharset:-${radpConsoleLogCharset}}"/>
+    <property name="file_log_pattern" value="${userFileLogPattern:-${radpFileLogPattern}}"/>
+    <property name="file_log_charset" value="${userFileLogCharset:-${radpFileLogCharset}}"/>
+</included>

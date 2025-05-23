@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.redis.spring.boot.support;
 
 import org.redisson.api.*;
@@ -13,7 +29,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
-     * @param <T>   the type of the value to be stored
+     * @param <T>   值的类型
      * @param key   键
      * @param value 值
      */
@@ -22,7 +38,7 @@ public interface IRedissonService {
     /**
      * 设置指定 key 的值
      *
-     * @param <T>     the type of the value to be stored
+     * @param <T>     值的类型
      * @param key     键
      * @param value   值
      * @param expired 过期时间
@@ -32,7 +48,7 @@ public interface IRedissonService {
     /**
      * 获取指定 key 的值
      *
-     * @param <T> the type of the value to be retrieved
+     * @param <T> 返回值的类型
      * @param key 键
      * @return 值
      */
@@ -77,7 +93,7 @@ public interface IRedissonService {
      * 获取值
      *
      * @param key key 键
-     * @return the atomic long value associated with the key
+     * @return 原子计数器的当前值
      */
     Long getAtomicLong(String key);
 
@@ -92,8 +108,8 @@ public interface IRedissonService {
     /**
      * 指定值，自增 Key 的值；1、2、3、4
      *
-     * @param key   键
-     * @param delta the value to increment by
+     * @param key 键
+     * @param delta 增加的值
      * @return 自增后的值
      */
     long incrBy(String key, long delta);
@@ -107,11 +123,11 @@ public interface IRedissonService {
     long decr(String key);
 
     /**
-     * 指定值，自增 Key 的值；1、2、3、4
+     * 指定值，自减 Key 的值；1、2、3、4
      *
-     * @param key   键
-     * @param delta the value to decrement by
-     * @return 自增后的值
+     * @param key 键
+     * @param delta 减少的值
+     * @return 自减后的值
      */
     long decrBy(String key, long delta);
 
@@ -167,8 +183,8 @@ public interface IRedissonService {
     /**
      * 获取Map
      *
-     * @param <K> the type of keys maintained by this map
-     * @param <V> the type of mapped values
+     * @param <K> Map的键类型
+     * @param <V> Map的值类型
      * @param key 键
      * @return 值
      */
@@ -195,8 +211,8 @@ public interface IRedissonService {
     /**
      * 获取哈希表中指定字段的值
      *
-     * @param <K>   the type of the field
-     * @param <V>   the type of the value to be retrieved
+     * @param <K> 字段类型
+     * @param <V> 值类型
      * @param key   键
      * @param field 字段
      * @return 值
@@ -272,31 +288,28 @@ public interface IRedissonService {
     <T> RBloomFilter<T> getBloomFilter(String key);
 
     /**
-     * Sets a key only if it does not already exist (SET if Not eXists).
-     * This is a Redis atomic operation equivalent to SETNX command.
+     * 设置键的值，只有在键不存在时才会设置成功
      *
-     * @param key the key to set
-     * @return true if the key was set, false if the key already exists
+     * @param key 键
+     * @return 设置成功返回true，否则返回false
      */
     Boolean setNx(String key);
 
     /**
-     * Sets a key only if it does not already exist (SET if Not eXists) with an expiration time.
-     * This is a Redis atomic operation equivalent to SETNX command with expiration.
+     * 设置键的值，只有在键不存在时才会设置成功，并设置过期时间
      *
-     * @param key      the key to set
-     * @param expired  the expiration time
-     * @param timeUnit the time unit of the expiration time
-     * @return true if the key was set, false if the key already exists
+     * @param key      键
+     * @param expired  过期时间
+     * @param timeUnit 时间单位
+     * @return 设置成功返回true，否则返回false
      */
     Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
     /**
-     * Gets a Redis BitSet object for the specified key.
-     * BitSets are useful for efficiently storing boolean values and performing bit operations.
+     * 获取位图对象
      *
-     * @param key the key for the BitSet
-     * @return a Redisson BitSet object
+     * @param key 键
+     * @return 位图对象
      */
     RBitSet getBitSet(String key);
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension.active;
 
 import lombok.RequiredArgsConstructor;
@@ -21,14 +37,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActiveExtensionLoader<T> {
 
     /**
-     * Prefix used to indicate that an extension should be removed from activation.
-     * When a value in the activation list starts with this prefix, the corresponding extension will be excluded.
+     * Prefix used to indicate that an extension should be removed from the activation list.
+     * When a value in the activation list starts with this prefix, the extension with the name
+     * that follows the prefix will be excluded from activation.
      */
     public static final String REMOVE_VALUE_PREFIX = "-";
 
     /**
-     * Key used to represent the default extension.
-     * When this key is used, it affects the ordering of activated extensions.
+     * Default key used for extension activation.
+     * This constant is used as a fallback when no specific key is provided,
+     * and for special handling in the activation process.
      */
     public static final String DEFAULT_KEY = "default";
 
@@ -41,11 +59,11 @@ public class ActiveExtensionLoader<T> {
 
     /**
      * Caches a class with the Activate annotation.
-     * This method checks if the provided class has the Activate annotation and,
-     * if present, stores it in the cached actives map with the given name as the key.
+     * This method checks if the provided class has the Activate annotation,
+     * and if so, stores it in the cache with the specified name.
      *
      * @param clazz the class to check for the Activate annotation
-     * @param name  the name to use as the key in the cache
+     * @param name  the name under which to cache the class
      */
     public void cacheActiveClass(Class<?> clazz, String name) {
         Activate activate = clazz.getAnnotation(Activate.class);
@@ -55,12 +73,16 @@ public class ActiveExtensionLoader<T> {
     }
 
     /**
-     * Gets activated extensions that match the given group.
+     * Gets a list of activated extensions based on the specified URL, values, and group.
+     * This is the main implementation method that handles the complex logic of extension activation.
+     * It processes the values array to determine which extensions should be activated,
+     * taking into account the group filter and any exclusions indicated by the REMOVE_VALUE_PREFIX.
+     * Extensions are sorted according to their order and returned as a list.
      *
-     * @param url    The URL containing parameters for activation
-     * @param values The extension names to be activated
-     * @param group  The group to match against extension's groups
-     * @return A list of activated extensions
+     * @param url    the URL containing parameters for extension activation
+     * @param values the array of values to use for extension activation, may contain exclusions
+     * @param group  the group to filter extensions by, can be null for no filtering
+     * @return a list of activated extension instances that match the criteria
      */
     public List<T> getActivateExtension(URL url, String[] values, String group) {
         List<T> activateExtensions = new ArrayList<>();
@@ -121,23 +143,27 @@ public class ActiveExtensionLoader<T> {
     }
 
     /**
-     * Gets activated extensions for the given URL and key.
+     * Gets a list of activated extensions based on the URL parameter value for the specified key.
+     * This is a convenience method that calls {@link #getActivateExtension(URL, String, String)}
+     * with a null group parameter.
      *
-     * @param url The URL containing parameters for activation
-     * @param key The key to get extension names from URL parameters
-     * @return A list of activated extensions
+     * @param url the URL containing parameters for extension activation
+     * @param key the parameter key to look up in the URL
+     * @return a list of activated extension instances that match the criteria
      */
     public List<T> getActivateExtension(URL url, String key) {
         return getActivateExtension(url, key, null);
     }
 
     /**
-     * Gets activated extensions for the given URL, key, and group.
+     * Gets a list of activated extensions based on the URL parameter value for the specified key and group.
+     * This method retrieves the parameter value from the URL using the provided key,
+     * splits it by comma, and then returns the activated extensions that match the criteria.
      *
-     * @param url   The URL containing parameters for activation
-     * @param key   The key to get extension names from URL parameters
-     * @param group The group to match against extension's groups
-     * @return A list of activated extensions
+     * @param url   the URL containing parameters for extension activation
+     * @param key   the parameter key to look up in the URL
+     * @param group the group to filter extensions by, can be null for no filtering
+     * @return a list of activated extension instances that match the criteria
      */
     public List<T> getActivateExtension(URL url, String key, String group) {
         String value = url.getParameter(key);
@@ -146,11 +172,13 @@ public class ActiveExtensionLoader<T> {
     }
 
     /**
-     * Gets activated extensions for the given URL and values.
+     * Gets a list of activated extensions based on the specified URL and values.
+     * This is a convenience method that calls {@link #getActivateExtension(URL, String[], String)}
+     * with a null group parameter.
      *
-     * @param url    The URL containing parameters for activation
-     * @param values The extension names to be activated
-     * @return A list of activated extensions
+     * @param url    the URL containing parameters for extension activation
+     * @param values the array of values to use for extension activation
+     * @return a list of activated extension instances that match the criteria
      */
     public List<T> getActivateExtension(URL url, String[] values) {
         return getActivateExtension(url, values, null);

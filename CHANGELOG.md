@@ -31,6 +31,8 @@
   - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
   - Remove redundant dependency in `radp-integration-test`
   - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`
+- parent
+  - Remove redundant profile `code-review`
 - build
   - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
 - scaffold

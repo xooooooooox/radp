@@ -30,6 +30,7 @@
   - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`
   - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
   - Remove redundant dependency in `radp-integration-test`
+  - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`
 - build
   - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
 - scaffold

@@ -8,7 +8,7 @@
     <requiredProperties>
         <!-- project gav -->
         <requiredProperty key="groupId">
-            <defaultValue>space.x9x</defaultValue>
+            <defaultValue>space.x9x.demo</defaultValue>
         </requiredProperty>
         <requiredProperty key="artifactId">
             <defaultValue>scaffold-lite-demo</defaultValue>
@@ -101,6 +101,7 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
+                <include>.idea</include>
             </includes>
         </fileSet>
         <!-- github -->

@@ -18,7 +18,7 @@
 
 ### Bug Fixes
 
-- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
+- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
 
 ### Chore
 
@@ -26,6 +26,7 @@
   - Remove unused `mongodb.version` property.
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
   - Optimize dependency to resolve module cycles.
+  - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`
 - build
   - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
 - scaffold

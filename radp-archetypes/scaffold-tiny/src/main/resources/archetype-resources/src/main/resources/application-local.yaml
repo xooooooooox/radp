@@ -1,13 +1,3 @@
---- # log
-debug: false
-logging:
-  file:
-    path: ../logs/${spring.application.name}
-  level:
-    space.x9x.radp: debug
-    space.x9x: debug
-    com.zaxxer.hikari.HikariConfig: debug
-    org.springframework.boot.context.config: trace
 --- # webmvc
 server:
   port: 7080
@@ -37,4 +27,13 @@ spring:
   datasource:
     username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
     password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
-
+--- # log
+debug: false
+logging:
+  file:
+    path: ../logs/${spring.application.name}
+  level:
+    space.x9x.radp: debug
+    space.x9x: debug
+    com.zaxxer.hikari.HikariConfig: debug
+#    org.springframework.boot.context.config: trace

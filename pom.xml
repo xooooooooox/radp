@@ -376,11 +376,13 @@
             </build>
         </profile>
 
+        <!-- mvn clean verify sonar:sonar -Pcoding,code-review -->
         <profile>
             <id>code-review</id>
             <properties>
                 <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
                 <sonar.token>${user.sonar.token}</sonar.token>
+                <!-- Java 17 is the required JRE to run the scanner in SonarQube v10.4+ -->
             </properties>
             <build>
                 <plugins>

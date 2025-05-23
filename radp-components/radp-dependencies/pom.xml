@@ -59,6 +59,7 @@
 
         <!-- [消息队列] -->
         <rocketmq-spring-boot.version>2.3.1</rocketmq-spring-boot.version>
+        <kafka.version>3.9.0</kafka.version>
 
         <!-- [分布式组件] -->
         <apache.dubbo.version>3.2.14</apache.dubbo.version>
@@ -110,7 +111,6 @@
         <testcontainers.version>1.21.0</testcontainers.version>
         <testcontainers-redis.version>2.2.2</testcontainers-redis.version>
         <embedded-redis.version>0.11.0</embedded-redis.version>
-        <kafka.version>3.9.0</kafka.version>
         <!-- ============================================================================== -->
 
         <!-- ============================================================================== -->

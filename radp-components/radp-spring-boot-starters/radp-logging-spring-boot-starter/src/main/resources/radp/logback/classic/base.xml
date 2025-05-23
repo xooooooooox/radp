@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-标准应用场景的日志配置
-适用于常规的非Spring Boot应用，提供完整的日志功能。
 
-特点：
-1. 提供彩色控制台输出
-2. 支持文件日志输出和滚动策略
-3. 支持按日志级别分类存储
 -->
 
 <included>
-    <include resource="logback/classic/components/console.xml"/>
-    <include resource="logback/classic/components/file.xml"/>
+    <include resource="radp/logback/classic/log-pattern.xml"/>
+    <include resource="radp/logback/defaults.xml"/>
+    <include resource="radp/logback/console-appender.xml"/>
+    <include resource="radp/logback/file-appender.xml"/>
 
+    <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
     <root level="${logging.level.root:-info}">
         <appender-ref ref="radp_console_appender"/>
         <appender-ref ref="radp_file_appender_async"/>

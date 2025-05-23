@@ -5,9 +5,10 @@
 
 <included>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="radp/logback/spring/defaults.xml"/>
-    <include resource="radp/logback/spring/console-appender.xml"/>
-    <include resource="radp/logback/spring/file-appender.xml"/>
+    <include resource="radp/logback/spring/log-pattern.xml"/>
+    <include resource="radp/logback/defaults.xml"/>
+    <include resource="radp/logback/console-appender.xml"/>
+    <include resource="radp/logback/file-appender.xml"/>
 
     <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
     <root level="${logging.level.root:-info}">

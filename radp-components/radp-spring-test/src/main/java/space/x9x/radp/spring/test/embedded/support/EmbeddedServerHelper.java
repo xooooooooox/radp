@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.extension.ExtensionLoader;
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
 /**
@@ -45,9 +45,9 @@ public class EmbeddedServerHelper {
      * @param port the port on which the embedded server should listen
      * @return a configured EmbeddedServer instance ready to be started
      */
-    public static EmbeddedServer embeddedServer(String spi, int port) {
+    public static IEmbeddedServer embeddedServer(String spi, int port) {
         try {
-            return ExtensionLoader.getExtensionLoader(EmbeddedServer.class).getExtension(spi).port(port);
+            return ExtensionLoader.getExtensionLoader(IEmbeddedServer.class).getExtension(spi).port(port);
         } catch (Exception e) {
             log.error("Failed to create embedded server with SPI: {}", spi, e);
             // TODO 2025/5/23: 调整 ExceptionUtils
@@ -56,7 +56,7 @@ public class EmbeddedServerHelper {
         }
     }
 
-    public static EmbeddedServer embeddedServer(EmbeddedServerType type) {
+    public static IEmbeddedServer embeddedServer(EmbeddedServerType type) {
         return embeddedServer(type.getSpi(), type.port);
     }
 

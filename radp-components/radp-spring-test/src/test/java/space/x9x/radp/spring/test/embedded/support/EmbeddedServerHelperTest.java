@@ -17,7 +17,7 @@
 package space.x9x.radp.spring.test.embedded.support;
 
 import org.junit.jupiter.api.Test;
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -50,7 +50,7 @@ class EmbeddedServerHelperTest {
     void testEmbeddedServer() {
         // Test creating an embedded server using the extension mechanism
         // Note: This requires the "redis" SPI to be properly registered
-        EmbeddedServer server = embeddedServer("redis", 6380);
+        IEmbeddedServer server = embeddedServer("redis", 6380);
         assertNotNull(server);
     }
 }

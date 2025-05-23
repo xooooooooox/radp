@@ -19,7 +19,7 @@ package space.x9x.radp.spring.test.embedded.redis;
 import lombok.extern.slf4j.Slf4j;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ import java.io.IOException;
  * @since 2024-09-23 15:02
  */
 @Slf4j
-public class EmbeddedRedisServer implements EmbeddedServer {
+public class EmbeddedRedisServer implements IEmbeddedServer {
 
     /**
      * Default bind address for the embedded Redis server.
@@ -71,13 +71,13 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 
 
     @Override
-    public EmbeddedServer password(String password) {
+    public IEmbeddedServer password(String password) {
         this.redisServerBuilder.setting("requirepass " + password);
         return this;
     }
 
     @Override
-    public EmbeddedServer port(int port) {
+    public IEmbeddedServer port(int port) {
         this.port = port;
         this.redisServerBuilder.port(port);
         return this;

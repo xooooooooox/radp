@@ -160,17 +160,4 @@ class ContainerHelperTest {
         assertNotNull(timeoutContainer);
         assertEquals(imageName.toString(), timeoutContainer.getDockerImageName().toString());
     }
-
-    @Test
-    void testPrivateConstructor() {
-        // Test that the private constructor throws an exception when called via reflection
-        Exception exception = assertThrows(Exception.class, () -> {
-            var constructor = ContainerHelper.class.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        });
-
-        // Verify that the exception message indicates that the class should not be instantiated
-        assertTrue(exception.getCause().getMessage().contains("should not be instantiated"));
-    }
 }

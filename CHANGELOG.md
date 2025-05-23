@@ -60,6 +60,7 @@
   - Added Java tests for all embedded servers and containers.
   - Added Groovy/Spock tests for helper classes.
 - Add `RedissonServiceTest`.
+- Update `logback-test.xml`
 
 ### Documents
 

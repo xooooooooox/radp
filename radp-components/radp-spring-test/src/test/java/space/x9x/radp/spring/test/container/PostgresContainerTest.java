@@ -34,7 +34,7 @@ class PostgresContainerTest {
 
     @Container // TestContainers 会自动启动和停止它
     PostgreSQLContainer postgres = new PostgreSQLContainer<>("postgres:15")
-            .withDatabaseName("testdb")
+            .withDatabaseName("test")
             .withUsername("postgres")
             .withPassword("password");
 

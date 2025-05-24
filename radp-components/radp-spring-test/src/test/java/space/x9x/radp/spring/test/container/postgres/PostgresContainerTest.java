@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container;
+package space.x9x.radp.spring.test.container.postgres;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PostgresContainerTest {
 
     @Container // TestContainers 会自动启动和停止它
-    PostgreSQLContainer postgres = new PostgreSQLContainer<>("postgres:15")
+    private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("test")
             .withUsername("postgres")
             .withPassword("password");

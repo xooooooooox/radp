@@ -40,8 +40,9 @@ class DockerfileContainerTest {
     @Container
     private GenericContainer<?> nginx = new GenericContainer<>(
             new ImageFromDockerfile("custom-nginx") // 从指定Dockerfile构建镜像
-                    .withFileFromClasspath("Dockerfile", "docker/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
-                    .withFileFromClasspath("custom.html", "docker/custom.html"))
+                    .withFileFromClasspath("Dockerfile", "docker/case1/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
+                    .withFileFromClasspath("custom.html", "docker/case1/custom.html")
+                    .withFileFromClasspath("custom.conf", "docker/case1/custom.conf"))
             .withExposedPorts(80);
 
     @Test

@@ -24,11 +24,11 @@
 
 - dependencies
   - Remove unused `mongodb.version` property.
+  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
   - Optimize dependency to resolve module cycles.
   - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`
   - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`
-  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
   - Remove redundant dependency in `radp-integration-test`
   - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`
 - parent

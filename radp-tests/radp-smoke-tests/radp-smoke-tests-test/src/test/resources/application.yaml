@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: radp-smoke-tests-test
+
+logging:
+  config: classpath:radp/logback/template/logback-spring.xml
+  file:
+    path: ../../../logs/radp-smoke-tests-test/springboot
+    name: ${spring.application.name}

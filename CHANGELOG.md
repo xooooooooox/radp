@@ -55,7 +55,7 @@
 
 ### Tests
 
-- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`.
+- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`, `radp-smoke-tests-test`
 - Add unit tests for embedded servers and containers.
   - Added Java tests for all embedded servers and containers.
   - Added Groovy/Spock tests for helper classes.

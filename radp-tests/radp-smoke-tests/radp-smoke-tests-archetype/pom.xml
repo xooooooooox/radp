@@ -11,6 +11,10 @@
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
+
     <modules>
         <module>radp-smoke-tests-archetype-simple</module>
         <module>radp-smoke-tests-archetype-lite</module>

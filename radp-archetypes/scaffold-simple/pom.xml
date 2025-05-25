@@ -5,6 +5,7 @@
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-archetypes</artifactId>
         <version>3.21-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>scaffold-simple</artifactId>
     <name>${project.artifactId}</name>

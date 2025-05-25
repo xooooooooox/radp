@@ -5,6 +5,7 @@
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-spring-boot-starters</artifactId>
         <version>3.21-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>radp-druid-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>

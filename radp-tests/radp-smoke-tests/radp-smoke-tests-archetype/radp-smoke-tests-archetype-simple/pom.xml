@@ -5,6 +5,7 @@
         <groupId>space.x9x.radp</groupId>
         <artifactId>radp-smoke-tests-archetype</artifactId>
         <version>3.21-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>radp-smoke-tests-archetype-simple</artifactId>
     <name>${project.artifactId}</name>

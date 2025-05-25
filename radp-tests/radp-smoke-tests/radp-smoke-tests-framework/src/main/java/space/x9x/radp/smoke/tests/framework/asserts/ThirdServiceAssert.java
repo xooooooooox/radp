@@ -1,10 +1,25 @@
-package space.x9x.radp.smoke.tests.framework;
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package space.x9x.radp.smoke.tests.framework.asserts;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
-import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
-import space.x9x.radp.spring.framework.error.ServerException;
+import space.x9x.radp.spring.framework.error.ThirdServiceException;
 import space.x9x.radp.spring.framework.error.asserts.BaseAssert;
 import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 
@@ -13,41 +28,27 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
- * Server assertion utility class that provides static methods for assertions.
+ * Third-party service assertion utility class that provides static methods for assertions.
  *
  * @author x9x
- * @since 2024-10-24 21:54
+ * @since 2024-10-24 23:46
  */
-public final class ServerAssert extends BaseAssert<ServerException> {
+public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {
 
-    private ServerAssert() {
-
+    private ThirdServiceAssert() {
     }
 
-    private static final ServerAssert INSTANCE = new ServerAssert();
+    private static final ThirdServiceAssert INSTANCE = new ThirdServiceAssert();
+
 
     @Override
-    protected BiFunction<String, String, ServerException> getExceptionCreator() {
-        return ExceptionUtils::serverException;
+    protected BiFunction<String, String, ThirdServiceException> getExceptionCreator() {
+        return ExceptionUtils::thirdServiceException;
     }
 
     @Override
-    protected BiFunction<String, String, ServerException> getFormattedMessageExceptionCreator() {
-        return ExceptionUtils::serverExceptionWithFormattedMessage;
-    }
-
-    /**
-     * Assert that the object is not null, throwing a ServerException with the given ErrorCode if it is.
-     *
-     * @param object    the object to check
-     * @param errorCode the error code to use in the exception
-     */
-    public static void notNull(Object object, ErrorCode errorCode) {
-        try {
-            AssertUtils.notNull(object, errorCode);
-        } catch (IllegalArgumentException e) {
-            throw new ServerException(errorCode);
-        }
+    protected BiFunction<String, String, ThirdServiceException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::thirdServiceExceptionWithFormattedMessage;
     }
 
     public static void doesNotContain(@NotNull String textToSearch, String substring,

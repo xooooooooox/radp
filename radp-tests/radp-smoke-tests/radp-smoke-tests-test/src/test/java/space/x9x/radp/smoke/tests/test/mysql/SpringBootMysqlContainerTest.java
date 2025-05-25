@@ -38,6 +38,7 @@ import java.sql.Statement;
 @Testcontainers
 public class SpringBootMysqlContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
             .withDatabaseName("test")

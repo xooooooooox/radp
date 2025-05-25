@@ -61,6 +61,7 @@ class ElasticsearchKibanaTest {
                     .forStatusCode(200)
                     .withStartupTimeout(Duration.ofMinutes(2)));
 
+    @SuppressWarnings("resource")
     @Container
     public final GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
             .withNetwork(NETWORK)

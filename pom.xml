@@ -392,6 +392,7 @@
             <properties>
                 <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
                 <sonar.token>${user.sonar.token}</sonar.token>
+                <maven.test.skip>false</maven.test.skip>
             </properties>
             <build>
                 <plugins>

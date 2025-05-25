@@ -1,5 +1,7 @@
 # Redis Key Management System
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp-logging-spring-boot-starter?style=for-the-badge)](https://central.sonatype.com/artifact/space.x9x.radp/radp-logging-spring-boot-starter)
+
 This document describes the Redis key management system in the RADP Redis Spring Boot Starter, including recent
 optimizations and enhancements.
 
@@ -117,3 +119,8 @@ The Redis key management system is thoroughly tested in the `RedisKeyManagementT
 2. **Define Constants**: Define constants for commonly used keys to avoid duplication and ensure consistency
 3. **Validate Keys**: Use the validation methods to ensure keys follow the standardized format
 4. **Use Extraction Methods**: Use the extraction methods to parse keys and extract relevant parts
+
+## License
+
+[Apache 2.0 License—](../../../LICENSE)Copyright © 2024 xooooooooox
+and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

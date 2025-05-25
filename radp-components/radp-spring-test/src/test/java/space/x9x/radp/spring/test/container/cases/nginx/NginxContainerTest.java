@@ -14,42 +14,42 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.docker;
+package space.x9x.radp.spring.test.container.cases.nginx;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * 从 Dockerfile 创建容器
- *
  * @author x9x
- * @since 2025-05-24 17:04
+ * @since 2025-05-24 16:52
  */
 @Testcontainers
-class DockerfileContainerTest {
+public class NginxContainerTest {
 
     @Container
-    private GenericContainer<?> nginx = new GenericContainer<>(
-            new ImageFromDockerfile("custom-nginx") // 从指定Dockerfile构建镜像
-                    .withFileFromClasspath("Dockerfile", "docker/case1/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
-                    .withFileFromClasspath("custom.html", "docker/case1/custom.html")
-                    .withFileFromClasspath("custom.conf", "docker/case1/custom.conf"))
-            .withExposedPorts(80);
+    private GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6")
+            .withExposedPorts(80)
+            .withCopyFileToContainer(
+                    MountableFile.forClasspathResource("volumes/nginx/index.html"),
+                    "/usr/share/nginx/html/index.html"
+            );
 
     @Test
-    void testCustomNginx() throws Exception {
+    void testNginxServersCustomPage() throws IOException {
         String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestMethod("GET");
-        assertEquals(200, connection.getResponseCode());
+        int responseCode = connection.getResponseCode();
+        assertEquals(200, responseCode); // 验证 Nginx 返回 200 OK
     }
+
 }

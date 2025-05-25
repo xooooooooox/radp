@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.postgres;
+package space.x9x.radp.spring.test.container.cases.postgres;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;

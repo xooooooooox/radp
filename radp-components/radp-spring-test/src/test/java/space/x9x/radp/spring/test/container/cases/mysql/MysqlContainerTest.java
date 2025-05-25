@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.mysql;
+package space.x9x.radp.spring.test.container.cases.mysql;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.MySQLContainer;

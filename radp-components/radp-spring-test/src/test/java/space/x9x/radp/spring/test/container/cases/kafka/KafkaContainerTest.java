@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.kafka;
+package space.x9x.radp.spring.test.container.cases.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

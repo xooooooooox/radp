@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.elasticsearch;
+package space.x9x.radp.spring.test.container.cases.elasticsearch;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.index.IndexRequest;

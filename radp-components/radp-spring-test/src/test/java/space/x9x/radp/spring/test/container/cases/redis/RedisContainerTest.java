@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.test.container.redis;
+package space.x9x.radp.spring.test.container.cases.redis;
 
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;

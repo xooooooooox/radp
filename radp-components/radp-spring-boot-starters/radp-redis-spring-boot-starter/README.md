@@ -97,11 +97,9 @@ public enum MyModuleKeys implements RedisKeyProvider {
 The Redis key management system has been enhanced with the following optimizations:
 
 1. **Improved Key Validation**: Added robust validation to ensure keys follow the standardized format
-2. **Key Normalization**: Added methods to normalize keys by removing leading/trailing delimiters and replacing
-   consecutive delimiters
-3. **Enhanced Key Generation**: Improved the performance and robustness of key generation methods
-4. **Flexible Entity and ID Extraction**: Enhanced extraction methods to work with different prefix formats
-5. **Additional Utility Methods**: Added convenience methods for common key operations
+2. **Enhanced Key Generation**: Improved the performance and robustness of key generation methods
+3. **Flexible Entity and ID Extraction**: Enhanced extraction methods to work with different prefix formats
+4. **Additional Utility Methods**: Added convenience methods for common key operations
 
 ## Testing
 

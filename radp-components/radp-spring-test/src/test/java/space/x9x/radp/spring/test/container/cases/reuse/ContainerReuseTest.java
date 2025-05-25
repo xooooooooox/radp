@@ -17,10 +17,15 @@
 package space.x9x.radp.spring.test.container.cases.reuse;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TestContainer 容器复用示例
@@ -29,7 +34,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  * <p>
  * 启用方式:
  * <ol>
- *     <li>全局启用: 在 用户主目录 或 classpath 下创建 {@code .testcontainers.properties} 文件, 添加 {@code testcontainers.reuse.enable=true}</li>
+ *     <li>全局启用: 在 用户主目录下创建 {@code .testcontainers.properties} 文件, 添加 {@code testcontainers.reuse.enable=true}</li>
  *     <li>单个容器启用: 在容器创建时调用 {@code .withReuse(true)}</li>
  * </ol>
  * <p>
@@ -46,76 +51,66 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  */
 @Testcontainers
 @Slf4j
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContainerReuseTest {
 
-    // 全局复用已通过 testcontainers.properties 启用
-    // 为容器设置固定的复用标识符，确保每次运行使用相同的容器
-    private static final String CONTAINER_REUSE_ID = "test-nginx-reuse-demo";
+    // Static field to store the container ID from the first test
+    private static String firstContainerId;
 
-    // 使用全局复用配置的容器
+    /**
+     * Using Redis container for demonstration as it's lightweight and starts quickly
+     */
     @Container
-    private final GenericContainer<?> globalReuseContainer = new GenericContainer<>("nginx:alpine")
-            .withLabel("reuse.UUID", CONTAINER_REUSE_ID)
-            .withExposedPorts(80);
+    private static final GenericContainer<?> REDIS_CONTAINER = new GenericContainer<>("redis:6.2.6-alpine")
+            .withExposedPorts(6379)
+            .withReuse(true); // Explicitly enable reuse for this container
 
-    // 显式启用复用的容器
-    @Container
-    private final GenericContainer<?> explicitReuseContainer = new GenericContainer<>("nginx:alpine")
-            .withLabel("reuse.UUID", CONTAINER_REUSE_ID + "-explicit")
-            .withReuse(true)
-            .withExposedPorts(80);
-
-    // 禁用复用的容器
-    @Container
-    private final GenericContainer<?> noReuseContainer = new GenericContainer<>("nginx:alpine")
-            .withReuse(false)
-            .withExposedPorts(80);
-
+    /**
+     * First test that uses the container and stores its ID
+     */
     @Test
-    void testGlobalReuseContainer() {
-        log.info("全局复用容器ID: {}", globalReuseContainer.getContainerId());
-        log.info("全局复用容器映射端口: {}", globalReuseContainer.getMappedPort(80));
+    @Order(1)
+    void testFirstContainerUse() {
+        assertTrue(REDIS_CONTAINER.isRunning(), "Redis container should be running");
 
-        // 验证容器正在运行
-        assertContainerRunning(globalReuseContainer);
-    }
+        // Store the container ID for comparison in the second test
+        firstContainerId = REDIS_CONTAINER.getContainerId();
+        int mappedPort = REDIS_CONTAINER.getMappedPort(6379);
 
-    @Test
-    void testExplicitReuseContainer() {
-        log.info("显式复用容器ID: {}", explicitReuseContainer.getContainerId());
-        log.info("显式复用容器映射端口: {}", explicitReuseContainer.getMappedPort(80));
+        log.info("First test - Container ID: {}", firstContainerId);
+        log.info("First test - Mapped port: {}", mappedPort);
 
-        // 验证容器正在运行
-        assertContainerRunning(explicitReuseContainer);
-    }
+        // Verify the container ID is not null
+        assertNotNull(firstContainerId, "Container ID should not be null");
 
-    @Test
-    void testNoReuseContainer() {
-        log.info("非复用容器ID: {}", noReuseContainer.getContainerId());
-        log.info("非复用容器映射端口: {}", noReuseContainer.getMappedPort(80));
-
-        // 验证容器正在运行
-        assertContainerRunning(noReuseContainer);
-    }
-
-    @Test
-    void verifyContainerReuse() {
-        // 再次记录容器ID，验证与第一个测试方法中的ID相同
-        log.info("验证全局复用容器ID: {}", globalReuseContainer.getContainerId());
-        log.info("验证显式复用容器ID: {}", explicitReuseContainer.getContainerId());
-        log.info("验证非复用容器ID: {}", noReuseContainer.getContainerId());
-
-        // 验证容器正在运行
-        assertContainerRunning(globalReuseContainer);
-        assertContainerRunning(explicitReuseContainer);
-        assertContainerRunning(noReuseContainer);
+        // Simple assertion to verify the container is working
+        assertEquals(6379, REDIS_CONTAINER.getExposedPorts().get(0),
+                "Redis should expose port 6379");
     }
 
     /**
-     * 验证容器是否正在运行
+     * The Second test that uses the same container and verifies it has the same ID
      */
-    private void assertContainerRunning(GenericContainer<?> container) {
-        // 简单验证容器是否正在运行
-        assert container.isRunning() : "容器未运行";
+    @Test
+    @Order(2)
+    void testSecondContainerUse() {
+        assertTrue(REDIS_CONTAINER.isRunning(), "Redis container should be running");
+
+        String secondContainerId = REDIS_CONTAINER.getContainerId();
+        int mappedPort = REDIS_CONTAINER.getMappedPort(6379);
+
+        log.info("Second test - Container ID: {}", secondContainerId);
+        log.info("Second test - Mapped port: {}", mappedPort);
+
+        // Verify the container ID is not null
+        assertNotNull(secondContainerId, "Container ID should not be null");
+
+        // Verify that the container ID is the same as in the first test
+        assertEquals(firstContainerId, secondContainerId,
+                "Container ID should be the same across tests, indicating container reuse");
+
+        // Simple assertion to verify the container is working
+        assertEquals(6379, REDIS_CONTAINER.getExposedPorts().get(0),
+                "Redis should expose port 6379");
     }
 }

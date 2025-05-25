@@ -931,6 +931,12 @@
 
         <profile>
             <id>unit-test</id>
+            <activation>
+                <property>
+                    <name>maven.test.skip</name>
+                    <value>false</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <!-- 编译 Groovy 代码 -->

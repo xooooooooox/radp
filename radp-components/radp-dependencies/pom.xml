@@ -19,8 +19,8 @@
         <spring-cloud.version>2024.0.0</spring-cloud.version>
 
         <!-- [效率组件] -->
-        <mapstruct.version>1.6.2</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
+        <mapstruct.version>1.6.2</mapstruct.version>
         <jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
         <arthas.version>3.6.7</arthas.version>
         <common-beanutils.version>1.9.4</common-beanutils.version>
@@ -57,6 +57,7 @@
 
         <!-- [消息队列] -->
         <rocketmq-spring-boot.version>2.3.1</rocketmq-spring-boot.version>
+        <kafka.version>3.9.0</kafka.version>
 
         <!-- [分布式组件] -->
         <apache.dubbo.version>3.2.14</apache.dubbo.version>
@@ -64,7 +65,7 @@
         <zookeeper.version>3.8.4</zookeeper.version>
         <xxl-job.version>2.4.0</xxl-job.version>
 
-        <!-- 授权认证组件 -->
+        <!-- [授权认证组件] -->
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <jjwt.version>0.11.2</jjwt.version>
         <shiro.version>1.12.0</shiro.version>
@@ -105,10 +106,9 @@
         <gatling.version>3.2.1</gatling.version>
         <groovy4.version>4.0.6</groovy4.version>
         <jmh.version>1.36</jmh.version>
-        <testcontainers.version>1.17.6</testcontainers.version>
+        <testcontainers.version>1.21.0</testcontainers.version>
+        <testcontainers-redis.version>2.2.2</testcontainers-redis.version>
         <embedded-redis.version>0.11.0</embedded-redis.version>
-        <embedded-mongo.version>2.2.0</embedded-mongo.version>
-        <kafka.version>3.9.0</kafka.version>
         <!-- ============================================================================== -->
 
 
@@ -749,6 +749,11 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.redis</groupId>
+                <artifactId>testcontainers-redis</artifactId>
+                <version>${testcontainers-redis.version}</version>
             </dependency>
             <!-- Embedded Redis -->
             <dependency>

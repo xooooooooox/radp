@@ -1,9 +1,26 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.test.embedded.redis;
 
 import lombok.extern.slf4j.Slf4j;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
+import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 
 import java.io.IOException;
 
@@ -12,7 +29,7 @@ import java.io.IOException;
  * @since 2024-09-23 15:02
  */
 @Slf4j
-public class EmbeddedRedisServer implements EmbeddedServer {
+public class EmbeddedRedisServer implements IEmbeddedServer {
 
     /**
      * Default bind address for the embedded Redis server.
@@ -55,13 +72,13 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 
 
     @Override
-    public EmbeddedServer password(String password) {
+    public IEmbeddedServer password(String password) {
         this.redisServerBuilder.setting("requirepass " + password);
         return this;
     }
 
     @Override
-    public EmbeddedServer port(int port) {
+    public IEmbeddedServer port(int port) {
         this.port = port;
         this.redisServerBuilder.port(port);
         return this;
@@ -92,7 +109,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
             log.info("Embedded Redis server stopped");
         } catch (IOException e) {
             log.error("Failed to stop embedded Redis server", e);
-            throw new RuntimeException("Failed to stop embedded Redis server", e);
+            throw ExceptionUtils.serverException0("Failed to stop embedded Redis server", e);
         }
     }
 

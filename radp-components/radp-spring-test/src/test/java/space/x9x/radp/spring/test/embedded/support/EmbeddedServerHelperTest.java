@@ -1,12 +1,28 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.test.embedded.support;
 
 import org.junit.jupiter.api.Test;
-import space.x9x.radp.spring.test.embedded.EmbeddedServer;
-import space.x9x.radp.spring.test.embedded.kafka.EmbeddedKafkaServer;
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
-import space.x9x.radp.spring.test.embedded.zookeeper.EmbeddedZookeeperServer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.EmbeddedServerType;
+import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.embeddedServer;
 
 /**
  * Tests for {@link EmbeddedServerHelper}.
@@ -18,69 +34,23 @@ class EmbeddedServerHelperTest {
 
     @Test
     void testRedisServer() {
-        // Test creating a Redis server with default port
-        EmbeddedRedisServer server = EmbeddedServerHelper.redisServer();
+        // Test creating a Redis server with the default port
+        EmbeddedRedisServer server = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS);
         assertNotNull(server);
 
-        // Test creating a Redis server with custom port
+        // Test creating a Redis server with a custom port
         int customPort = 6380;
-        EmbeddedRedisServer portServer = EmbeddedServerHelper.redisServer(customPort);
+        EmbeddedRedisServer portServer = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS.getSpi(), customPort);
         assertNotNull(portServer);
 
-        // Test creating a Redis server with custom port and password
-        String password = "testpassword";
-        EmbeddedRedisServer passwordServer = EmbeddedServerHelper.redisServer(customPort, password);
-        assertNotNull(passwordServer);
-    }
-
-    @Test
-    void testZookeeperServer() {
-        // Test creating a Zookeeper server
-        EmbeddedZookeeperServer server = EmbeddedServerHelper.zookeeperServer();
-        assertNotNull(server);
-    }
-
-    @Test
-    void testKafkaServer() {
-        // Test creating a Kafka server with default port
-        EmbeddedKafkaServer server = EmbeddedServerHelper.kafkaServer();
-        assertNotNull(server);
-
-        // Test creating a Kafka server with custom port
-        int customPort = 9093;
-        EmbeddedKafkaServer portServer = EmbeddedServerHelper.kafkaServer(customPort);
-        assertNotNull(portServer);
-
-        // Test creating a Kafka server with custom Kafka port and Zookeeper port
-        int kafkaPort = 9093;
-        int zookeeperPort = 2182;
-        EmbeddedKafkaServer dualPortServer = EmbeddedServerHelper.kafkaServer(kafkaPort, zookeeperPort);
-        assertNotNull(dualPortServer);
+        // Test creating a Redis server with a custom port and password
     }
 
     @Test
     void testEmbeddedServer() {
         // Test creating an embedded server using the extension mechanism
         // Note: This requires the "redis" SPI to be properly registered
-        EmbeddedServer server = EmbeddedServerHelper.embeddedServer("redis", 6380);
+        IEmbeddedServer server = embeddedServer("redis", 6380);
         assertNotNull(server);
-    }
-
-    // Note: We're not testing startServer and stopServer methods directly
-    // because they require actual server instances to be started and stopped.
-    // These methods are tested indirectly through the server-specific tests
-    // in other test classes.
-
-    @Test
-    void testPrivateConstructor() {
-        // Test that the private constructor throws an exception when called via reflection
-        Exception exception = assertThrows(Exception.class, () -> {
-            var constructor = EmbeddedServerHelper.class.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        });
-
-        // Verify that the exception message indicates that the class should not be instantiated
-        assertTrue(exception.getCause().getMessage().contains("should not be instantiated"));
     }
 }

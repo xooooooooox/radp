@@ -1,9 +1,7 @@
 package space.x9x.radp.spring.test.embedded.support
 
-import space.x9x.radp.spring.test.embedded.EmbeddedServer
-import space.x9x.radp.spring.test.embedded.kafka.EmbeddedKafkaServer
+import space.x9x.radp.spring.test.embedded.IEmbeddedServer
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer
-import space.x9x.radp.spring.test.embedded.zookeeper.EmbeddedZookeeperServer
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -78,42 +76,6 @@ class EmbeddedServerHelperSpec extends Specification {
         server instanceof EmbeddedRedisServer
     }
 
-    /**
-     * 测试使用自定义端口创建Kafka服务器
-     *
-     * 这个测试方法验证EmbeddedServerHelper能够使用自定义端口成功创建Kafka服务器，
-     * 并检查创建的服务器是否为正确的类型。
-     */
-    def "test create Kafka server with custom port"() {
-        given: "准备自定义端口"
-        def customPort = 9093
-
-        when: "使用自定义端口创建Kafka服务器"
-        def server = EmbeddedServerHelper.kafkaServer(customPort)
-
-        then: "验证服务器创建成功且类型正确"
-        server != null
-        server instanceof EmbeddedKafkaServer
-    }
-
-    /**
-     * 测试使用自定义Kafka端口和Zookeeper端口创建Kafka服务器
-     *
-     * 这个测试方法验证EmbeddedServerHelper能够使用自定义Kafka端口和Zookeeper端口成功创建Kafka服务器，
-     * 并检查创建的服务器是否为正确的类型。
-     */
-    def "test create Kafka server with custom Kafka port and Zookeeper port"() {
-        given: "准备自定义Kafka端口和Zookeeper端口"
-        def kafkaPort = 9093
-        def zookeeperPort = 2182
-
-        when: "使用自定义Kafka端口和Zookeeper端口创建Kafka服务器"
-        def server = EmbeddedServerHelper.kafkaServer(kafkaPort, zookeeperPort)
-
-        then: "验证服务器创建成功且类型正确"
-        server != null
-        server instanceof EmbeddedKafkaServer
-    }
 
     /**
      * 测试使用扩展机制创建嵌入式服务器
@@ -127,7 +89,7 @@ class EmbeddedServerHelperSpec extends Specification {
 
         then: "验证服务器创建成功且类型正确"
         server != null
-        server instanceof EmbeddedServer
+        server instanceof IEmbeddedServer
     }
 
     /**

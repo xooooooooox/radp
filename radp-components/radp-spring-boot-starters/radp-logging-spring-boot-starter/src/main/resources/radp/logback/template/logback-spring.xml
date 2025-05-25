@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-标准应用场景的日志配置
 适用于常规的Spring Boot应用，提供完整的日志功能。
 
-特点：
-1. 使用Spring Boot的日志扩展（如%clr和%wEx转换模式）
+1. 使用Spring Boot的日志扩展
 2. 提供彩色控制台输出
 3. 支持文件日志输出和滚动策略
 4. 支持按日志级别分类存储
 -->
 
-<included>
-    <include resource="logback/springboot/components/console.xml"/>
-    <include resource="logback/springboot/components/file.xml"/>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
-    <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
-    <root level="${logging.level.root:-info}">
-        <appender-ref ref="radp_console_appender"/>
-        <appender-ref ref="radp_file_appender_async"/>
-        <appender-ref ref="radp_file_appender_filter_trace_async"/>
-        <appender-ref ref="radp_file_appender_filter_debug_async"/>
-        <appender-ref ref="radp_file_appender_filter_info_async"/>
-        <appender-ref ref="radp_file_appender_filter_warn_async"/>
-        <appender-ref ref="radp_file_appender_filter_error_async"/>
-    </root>
+    <!-- 从 application.yaml 中读取配置 -->
+    <springProperty name="userLogPath" source="logging.file.path" scope="context"/>
+    <springProperty name="userLogFileName" source="spring.application.name" scope="context"/>
+    <springProperty name="userConsoleLogPattern" source="logging.pattern.console" scope="context"/>
+    <springProperty name="userConsoleLogCharset" source="logging.charset.console" scope="context"/>
+    <springProperty name="userFileLogPattern" source="logging.pattern.file" scope="context"/>
+    <springProperty name="userFileLogCharset" source="logging.charset.file" scope="context"/>
+
+    <include resource="radp/logback/spring/base.xml"/>
 
     <!-- 根据环境配置额外的文件日志 -->
     <springProfile name="local,dev,test">
@@ -45,5 +41,4 @@
             <appender-ref ref="radp_file_appender_filter_error_async"/>
         </logger>
     </springProfile>
-
-</included>
+</configuration>

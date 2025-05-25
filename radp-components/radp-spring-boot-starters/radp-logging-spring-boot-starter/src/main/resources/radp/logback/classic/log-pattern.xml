@@ -1,0 +1,4 @@
+<included>
+    <property name="radpConsoleLogPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %boldYellow([%thread]) %boldGreen(%-40.40logger{39}) | %msg%n%ex"/>
+    <property name="radpFileLogPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread %-40.40logger{39} | %msg%n%ex"/>
+</included>

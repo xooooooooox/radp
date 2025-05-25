@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-测试环境场景的日志配置
-适用于单元测试和集成测试，配置更加简洁，主要关注控制台输出的可读性。
 
-特点：
-1. 提供彩色控制台输出
-2. 简化的文件日志配置
-3. 更高的默认日志级别（便于调试）
 -->
 
 <included>
-    <include resource="logback/classic/components/console.xml"/>
-    <include resource="logback/classic/components/file.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="radp/logback/spring/log-pattern.xml"/>
+    <include resource="radp/logback/defaults.xml"/>
+    <include resource="radp/logback/console-appender.xml"/>
+    <include resource="radp/logback/file-appender.xml"/>
 
+    <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
     <root level="${logging.level.root:-info}">
         <appender-ref ref="radp_console_appender"/>
         <appender-ref ref="radp_file_appender_async"/>

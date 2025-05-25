@@ -33,11 +33,6 @@ options.
 
 ## Getting Started
 
-### Prerequisites
-
-- Java 17 or later
-- Spring Boot 3.x
-
 ### Installation
 
 Add the dependency to your Maven project:
@@ -95,7 +90,7 @@ logging.level.com.example: debug
     <include resource="logback/classic/templates/logback-classic-test.xml"/>
 
     <!-- Override radp-logging-spring-boot-starter template default values -->
-    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic" />
+    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic"/>
     <property name="userLogFileName" value="radp-smoke-tests-logging"/>
 </configuration>
 ```

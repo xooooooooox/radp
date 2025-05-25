@@ -19,6 +19,7 @@
 - Fix error handling in embedded servers
   - Improved exception handling in EmbeddedRedisServer, EmbeddedZookeeperServer,
     EmbeddedKafkaServer.
+- Fix `Unable to find a URL to the parent project. The parent menu will NOT be added.`
 - Resolve issues with transitive dependencies
 
 ### Chore
@@ -31,22 +32,25 @@
   - Override `kafka.version` from `3.8.1` to `3.9.0`. Resolve
     `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
   - Optimize dependency to resolve module cycles.
-  - Remove unused `mongodb.version` property.
+  - Remove property `mongodb.version`.
+  - Remove property `maven-surefire-plugin.version`.
   - Exclude `spring-boot-starter-loggin` in `radp-spring-boot-test`.
   - Remove unused radp-spring-test dependency from radp-spring-framework.
   - Remove redundant dependency from `radp-integration-test`.
-- parent
+- build
   - Remove redundant profile `code-review`.
   - Move the `git-commit-id-maven-plugin` from the submodule POM to the root POM for resolve `Missing blame information error`, this may lead to missing/broken features in SonarQube
-  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better  management.
+  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better management.
   - Optimize the `code-review` profile
     - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
     - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
   - Optimize the `unit-test` profile
-    - Added activation properties to the unit-test profile to ensure tests are not skipped when this profile is used.
-- build
+    - Move the `unit-test` profile to the root POM 
+    - Add property `maven.test.skip` to `false`
+  - Add relativePath to POM parent configuration
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
     module.
+  - Add the `maven.test.skip` property to `radp-smoke-tests-archetype`
 - scaffold
   - Update scaffold default radpVersion to `3.21`
   - Update `application-logback.yaml` and `logback-test.xml`

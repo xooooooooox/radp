@@ -19,12 +19,14 @@
 - Fix error handling in embedded servers
   - Improved exception handling in EmbeddedRedisServer, EmbeddedZookeeperServer,
     EmbeddedKafkaServer.
+- Resolve issues with transitive dependencies
 
 ### Chore
 
 - dependencies
   - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`.
   - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
+  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`
   - DependencyManagement Add `com.redis:testcontainers-redis:2.2.2`.
   - Override `kafka.version` from `3.8.1` to `3.9.0`. Resolve
     `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
@@ -35,6 +37,13 @@
   - Remove redundant dependency from `radp-integration-test`.
 - parent
   - Remove redundant profile `code-review`.
+  - Move the `git-commit-id-maven-plugin` from the submodule POM to the root POM for resolve `Missing blame information error`, this may lead to missing/broken features in SonarQube
+  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better  management.
+  - Optimize the `code-review` profile
+    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
+    - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
+  - Optimize the `unit-test` profile
+    - Added activation properties to the unit-test profile to ensure tests are not skipped when this profile is used.
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
     module.

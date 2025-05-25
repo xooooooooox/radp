@@ -16,6 +16,7 @@
 
 package space.x9x.radp.smoke.tests.redis;
 
+import com.redis.testcontainers.RedisContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +24,10 @@ import org.junit.jupiter.api.Test;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
-import space.x9x.radp.spring.test.container.redis.RedisContainer;
-import space.x9x.radp.spring.test.container.support.ContainerHelper;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +43,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RedissonServiceSmokeTest {
 
     private static final String TEST_VALUE = "test-value";
-    @Container
-    private static final RedisContainer redisContainer = ContainerHelper.redisContainer();
+
+    private static final RedisContainer redisContainer = new RedisContainer(DockerImageName.parse("redis:6.2.6"));
 
     private RedissonClient redissonClient;
     private RedissonService redissonService;
@@ -68,7 +67,7 @@ class RedissonServiceSmokeTest {
         // Configure Redisson client to connect to the Redis container
         Config config = new Config();
         config.useSingleServer()
-                .setAddress(redisContainer.getRedisConnectionUrl())
+                .setAddress(redisContainer.getRedisURI())
                 .setConnectionMinimumIdleSize(1)
                 .setConnectionPoolSize(2)
                 .setConnectTimeout(10000)

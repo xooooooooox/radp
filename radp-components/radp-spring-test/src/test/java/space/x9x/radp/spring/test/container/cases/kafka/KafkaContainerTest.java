@@ -17,6 +17,9 @@
 package space.x9x.radp.spring.test.container.cases.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -59,6 +62,15 @@ class KafkaContainerTest {
     void testProducerAndConsumer() throws Exception {
         String bootstrapServers = kafka.getBootstrapServers();
         String topic = "orders";
+
+        // 创建主题
+        Properties adminProps = new Properties();
+        adminProps.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        try (AdminClient adminClient = AdminClient.create(adminProps)) {
+            NewTopic newTopic = new NewTopic(topic, 1, (short) 1); // 创建一个分区，一个副本的主题
+            adminClient.createTopics(Collections.singleton(newTopic)).all().get();
+            log.info("Topic {} created successfully", topic);
+        }
 
         // 配置生产者
         Properties producerProperties = new Properties();

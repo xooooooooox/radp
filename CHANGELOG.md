@@ -4,56 +4,52 @@
 
 ### Break Changes
 
-- Refactor module `radp-logging-spring-boot-starter`.
-  - Improved logging clarity and extensibility for various use cases
+- Refactor module `radp-logging-spring-boot-starter`. Improved logging clarity and extensibility for various use cases.
 
 ### Features
 
 - Add Redis key management utilities
-  - Introduced RedisKeyConstants for standardized key creation
-  - Added RedisKeyProvider interface for modular key management
-- Add a comprehensive testing framework in `radp-spring-test`
-  - Implemented embedded server support for Redis, Zookeeper, and Kafka
-  - Implemented container support for Redis, MySQL, Zookeeper, Kafka, Elasticsearch,
-    MongoDB, Nginx, and MariaDB
-  - Added helper classes for easier test setup and teardown
-  - Added SPI extension mechanism for embedded server
+  - Introduced RedisKeyConstants for standardized key creation.
+  - Added RedisKeyProvider interface for modular key management.
+- Add a comprehensive testing framework in `radp-spring-test`.
+  - Implemented embedded server support for Redis, Zookeeper, and Kafka.
+  - Added SPI extension mechanism for embedded server.
 
 ### Bug Fixes
 
-- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`
-- Fix and optimize `LocalCallFirstCluster` and `DubboExceptionFilter`
-  - reduce method complexity
-  - refactor the code to improve readability and maintainability
-  - fix any remaining issues with deprecated methods
-- Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`
-- Optimize `RedissonService`
-  - Update the `setNx` methods in RedissonService.java to use the non-deprecated
-    alternatives
-  - Add `RedissonServiceTest`
+- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
+- Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`.
 - Fix error handling in embedded servers
   - Improved exception handling in EmbeddedRedisServer, EmbeddedZookeeperServer,
-    EmbeddedKafkaServer
+    EmbeddedKafkaServer.
 
 ### Chore
 
-- scaffold
-  - Update scaffold default radpVersion to `3.21`
-  - Update `application-logback.yaml` and `logback-test.xml`
-  - Add `.idea`
-  - Relocate assert classes to a new package
-  - Add RedisKeyProvider enum
-  - Optimize `.gitignore`, `.gitattributes`
+- dependencies
+  - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`.
+  - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
+  - DependencyManagement Add `com.redis:testcontainers-redis:2.2.2`.
+  - Override `kafka.version` from `3.8.1` to `3.9.0`. Resolve
+    `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
+  - Optimize dependency to resolve module cycles.
+  - Remove unused `mongodb.version` property.
+  - Exclude `spring-boot-starter-loggin` in `radp-spring-boot-test`.
+  - Remove unused radp-spring-test dependency from radp-spring-framework.
+  - Remove redundant dependency from `radp-integration-test`.
+- parent
+  - Remove redundant profile `code-review`.
 - build
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
     module.
-- dependencies
-  - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`
-  - Override `kafka.version` from `3.8.1` to `3.9.0`
-    - resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`
-  - Optimize dependency to resolve module cycles
-  - Remove unused `mongodb.version` property
-- others
+- scaffold
+  - Update scaffold default radpVersion to `3.21`
+  - Update `application-logback.yaml` and `logback-test.xml`
+  - Update `.gitlab-ci.yml`
+  - Add `.idea`
+  - Add `RedisKeyProvider` enum
+  - Optimize `.gitignore`, `.gitattributes`
+  - Relocate assert classes to a new package
+- malicious
   - Switch from GNU GPLv3 to Apache 2.0
   - Optimize .gitignore
   - Add IDE config for copyright and scope settings
@@ -61,19 +57,24 @@
 ### Refactor
 
 - Relocate ResponseBuilder to dto package
+- Refactor `LocalCallFirstCluster` and `DubboExceptionFilter`
+  - reduce method complexity
+  - refactor the code to improve readability and maintainability
+  - refactor any remaining issues with deprecated methods
+- Optimize `RedissonService`
+  - Update the `setNx` methods in RedissonService.java to use the non-deprecated
+    alternatives
 
 ### Test
 
-- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`
-- Add unit tests for embedded servers and containers
-  - Added Java tests for all embedded servers and containers
-  - Added Groovy/Spock tests for helper classes
+- Add module `radp-smoke-tests-redis`,
+- Add module`radp-smoke-tests-logging`
+- Add module `radp-smoke-tests-test`
+  - Add test cases for TestContainers
+  - Add test cases for EmbeddedServers
+- Add RedissonServiceTest for radp-redis-spring-boot-starter
 
-### Documents
-
-- Add documentation for `radp-spring-test` module
-  - Create a comprehensive README with usage examples
-  - Added detailed Javadoc comments to all classes
+### Documentation
 
 ## 3.20.2
 

@@ -25,6 +25,9 @@ import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 /**
  * Helper class for working with embedded servers.
  * This class provides utility methods for creating, configuring, and managing embedded servers for testing.
@@ -55,8 +58,25 @@ public class EmbeddedServerHelper {
         }
     }
 
+    public static IEmbeddedServer embeddedServer(String spi) {
+        return embeddedServer(spi, findAvailablePort(10000, 30000));
+    }
+
     public static IEmbeddedServer embeddedServer(EmbeddedServerType type) {
         return embeddedServer(type.getSpi(), type.port);
+    }
+
+
+    public static int findAvailablePort(int min, int max) {
+        for (int port = min; port <= max; port++) {
+            try (ServerSocket socket = new ServerSocket(port)) {
+                socket.setReuseAddress(true);
+                return port;
+            } catch (IOException ignored) {
+                // Port is not available, try the next one
+            }
+        }
+        throw new RuntimeException("No available ports found in range $min-$max");
     }
 
     @RequiredArgsConstructor

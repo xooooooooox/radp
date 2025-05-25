@@ -22,7 +22,7 @@ class EmbeddedServerSpec extends Specification {
      */
     def "test embedded server startup and shutdown"() {
         given: "创建指定类型和端口的嵌入式服务器"
-        IEmbeddedServer embeddedServer = EmbeddedServerHelper.embeddedServer(spi, port)
+        IEmbeddedServer embeddedServer = EmbeddedServerHelper.embeddedServer(spi)
 
         when: "启动服务器"
         embeddedServer.startup()
@@ -37,7 +37,7 @@ class EmbeddedServerSpec extends Specification {
         !embeddedServer.isRunning()
 
         where: "测试不同类型的服务器"
-        spi         | port | expectedRunningState
-        "redis"     | 6379 | true
+        spi     | expectedRunningState
+        "redis" | true
     }
 }

@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 2025-05-24 16:52
  */
 @Testcontainers
-public class NginxContainerTest {
+class NginxContainerTest {
 
     @Container
     private GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6")

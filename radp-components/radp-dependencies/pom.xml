@@ -136,7 +136,6 @@
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <!-- 单元测试 -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <!-- 集成测试 -->
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
         <redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>

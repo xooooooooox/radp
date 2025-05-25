@@ -937,23 +937,6 @@
             </build>
         </profile>
 
-        <!-- mvn clean verify sonar:sonar -Pcoding,code-review -->
-        <profile>
-            <id>code-review</id>
-            <properties>
-                <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
-                <sonar.token>${user.sonar.token}</sonar.token>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>unit-test</id>
             <build>
@@ -1795,7 +1778,7 @@
                 <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
             </properties>
         </profile>
-        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
+        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->
         <profile>
             <id>o-tar</id>
             <properties>

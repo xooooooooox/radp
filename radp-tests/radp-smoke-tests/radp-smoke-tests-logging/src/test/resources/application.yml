@@ -2,12 +2,17 @@
 spring:
   application:
     name: radp-smoke-tests-logging
+#  main:
+#    banner-mode: off
 
 # Logging configuration
 logging:
-  config: classpath:logback/springboot/templates/logback-spring.xml
+  config: classpath:radp/logback/template/logback-spring.xml
   file:
     path: ../../../logs/radp-smoke-tests-logging/springboot
   level:
     root: info
     space.x9x.radp: debug
+
+#  pattern:
+#    console:

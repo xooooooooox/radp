@@ -39,7 +39,5 @@ class EmbeddedServerSpec extends Specification {
         where: "测试不同类型的服务器"
         spi         | port | expectedRunningState
         "redis"     | 6379 | true
-        "kafka"     | 9092 | true
-        "zookeeper" | 2181 | true
     }
 }

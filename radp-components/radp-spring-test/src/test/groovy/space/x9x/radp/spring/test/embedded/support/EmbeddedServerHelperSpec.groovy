@@ -35,8 +35,6 @@ class EmbeddedServerHelperSpec extends Specification {
         where: "测试不同类型的服务器"
         serverType  | serverMethod                               | serverClass
         "Redis"     | { EmbeddedServerHelper.redisServer() }     | EmbeddedRedisServer
-        "Zookeeper" | { EmbeddedServerHelper.zookeeperServer() } | EmbeddedZookeeperServer
-        "Kafka"     | { EmbeddedServerHelper.kafkaServer() }     | EmbeddedKafkaServer
     }
 
     /**

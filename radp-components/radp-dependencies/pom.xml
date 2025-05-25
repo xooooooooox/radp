@@ -761,12 +761,6 @@
                 <artifactId>embedded-redis</artifactId>
                 <version>${embedded-redis.version}</version>
             </dependency>
-            <!-- Embedded MongoDB -->
-            <dependency>
-                <groupId>de.flapdoodle.embed</groupId>
-                <artifactId>de.flapdoodle.embed.mongo</artifactId>
-                <version>${embedded-mongo.version}</version>
-            </dependency>
             <!-- ====================测试组件]==================== -->
         </dependencies>
     </dependencyManagement>

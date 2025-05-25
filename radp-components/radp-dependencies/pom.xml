@@ -742,24 +742,24 @@
                 <artifactId>jmh-generator-annprocess</artifactId>
                 <version>${jmh.version}</version>
             </dependency>
+            <!-- Embedded Redis -->
+            <dependency>
+                <groupId>com.github.codemonstur</groupId>
+                <artifactId>embedded-redis</artifactId>
+                <version>${embedded-redis.version}</version>
+            </dependency>
             <!-- Testcontainers -->
+            <dependency>
+                <groupId>com.redis</groupId>
+                <artifactId>testcontainers-redis</artifactId>
+                <version>${testcontainers-redis.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.redis</groupId>
-                <artifactId>testcontainers-redis</artifactId>
-                <version>${testcontainers-redis.version}</version>
-            </dependency>
-            <!-- Embedded Redis -->
-            <dependency>
-                <groupId>com.github.codemonstur</groupId>
-                <artifactId>embedded-redis</artifactId>
-                <version>${embedded-redis.version}</version>
             </dependency>
             <!-- ====================测试组件]==================== -->
         </dependencies>

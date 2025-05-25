@@ -108,7 +108,7 @@
         <jmh.version>1.36</jmh.version>
         <testcontainers.version>1.21.0</testcontainers.version>
         <testcontainers-redis.version>2.2.2</testcontainers-redis.version>
-        <embedded-redis.version>0.11.0</embedded-redis.version>
+        <embedded-redis.version>1.4.3</embedded-redis.version>
         <!-- ============================================================================== -->
 
 

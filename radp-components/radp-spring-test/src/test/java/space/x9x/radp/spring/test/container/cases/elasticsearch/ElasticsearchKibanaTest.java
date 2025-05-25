@@ -47,6 +47,7 @@ class ElasticsearchKibanaTest {
 
     private static final Network NETWORK = Network.newNetwork();
 
+    @SuppressWarnings("resource")
     @Container
     public final GenericContainer<?> elasticsearch = new GenericContainer<>("docker.elastic.co/elasticsearch/elasticsearch:7.17.9")
             .withNetwork(NETWORK)

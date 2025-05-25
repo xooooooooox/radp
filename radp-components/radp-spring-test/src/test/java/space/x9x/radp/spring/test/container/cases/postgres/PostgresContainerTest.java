@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers // 管理容器生命周期
 class PostgresContainerTest {
 
+    @SuppressWarnings("resource")
     @Container // TestContainers 会自动启动和停止它
     private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("test")

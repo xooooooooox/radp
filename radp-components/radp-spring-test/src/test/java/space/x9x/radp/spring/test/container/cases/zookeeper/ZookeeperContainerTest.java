@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class ZookeeperContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> zookeeper = new GenericContainer<>("zookeeper:3.7.0")
             .withExposedPorts(2181)

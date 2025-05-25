@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class DockerfileContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> nginx = new GenericContainer<>(
             new ImageFromDockerfile("custom-nginx") // 从指定Dockerfile构建镜像

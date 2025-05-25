@@ -60,6 +60,7 @@ class ContainerReuseTest {
     /**
      * Using Redis container for demonstration as it's lightweight and starts quickly
      */
+    @SuppressWarnings("resource")
     @Container
     private static final GenericContainer<?> REDIS_CONTAINER = new GenericContainer<>("redis:6.2.6-alpine")
             .withExposedPorts(6379)

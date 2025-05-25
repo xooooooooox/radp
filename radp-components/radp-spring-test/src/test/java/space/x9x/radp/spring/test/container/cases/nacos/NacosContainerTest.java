@@ -41,6 +41,7 @@ class NacosContainerTest {
      * 8848：HTTP/REST
      * 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
      */
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
                     .withExposedPorts(8848, 9848)

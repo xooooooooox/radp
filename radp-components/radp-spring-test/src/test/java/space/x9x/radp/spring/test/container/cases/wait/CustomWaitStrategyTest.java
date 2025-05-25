@@ -122,18 +122,21 @@ class CustomWaitStrategyTest {
     }
 
     // 使用内置的HTTP等待策略的容器
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> nginxContainer = new GenericContainer<>("nginx:1.21.6")
             .withExposedPorts(80)
             .waitingFor(Wait.forHttp("/").forStatusCode(200).withStartupTimeout(Duration.ofSeconds(30)));
 
     // 使用自定义简单等待策略的容器
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> customWaitContainer = new GenericContainer<>("nginx:1.21.6")
             .withExposedPorts(80)
             .waitingFor(new SimpleCustomWaitStrategy(80));
 
     // 使用组合等待策略的容器
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> compositeWaitContainer = new GenericContainer<>("nginx:1.21.6")
             .withExposedPorts(80)

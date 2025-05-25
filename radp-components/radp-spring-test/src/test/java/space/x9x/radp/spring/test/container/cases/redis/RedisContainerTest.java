@@ -52,6 +52,7 @@ class RedisContainerTest {
             .withNetworkAliases("redis") // 为 Redis 设置网络别名, 别的容器可以通过这个别名访问它
             .withExposedPorts(6379);
 
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> api = new GenericContainer<>(
             new ImageFromDockerfile("my-api") // 从指定Dockerfile构建镜像

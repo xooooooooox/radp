@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class MariadbContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private final MariaDBContainer<?> mariadb = new MariaDBContainer<>("mariadb:10.11")
             .withDatabaseName("test")

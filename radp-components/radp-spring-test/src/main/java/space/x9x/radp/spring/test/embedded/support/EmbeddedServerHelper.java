@@ -58,15 +58,40 @@ public class EmbeddedServerHelper {
         }
     }
 
+    /**
+     * Creates and configures an embedded server instance using the extension mechanism with an automatically assigned port.
+     * This method delegates to {@link #embeddedServer(String, int)} with a randomly selected available port.
+     *
+     * @param spi the SPI name of the embedded server implementation to load
+     * @return a configured EmbeddedServer instance ready to be started
+     */
     public static IEmbeddedServer embeddedServer(String spi) {
         return embeddedServer(spi, findAvailablePort(10000, 30000));
     }
 
+    /**
+     * Creates and configures an embedded server instance based on a predefined server type.
+     * This method delegates to {@link #embeddedServer(String, int)} using the SPI name and port
+     * defined in the specified EmbeddedServerType.
+     *
+     * @param type the predefined server type from the EmbeddedServerType enum
+     * @return a configured EmbeddedServer instance ready to be started
+     */
     public static IEmbeddedServer embeddedServer(EmbeddedServerType type) {
         return embeddedServer(type.getSpi(), type.port);
     }
 
 
+    /**
+     * Finds an available port within the specified range.
+     * This method iterates through the ports in the given range and attempts to create a ServerSocket
+     * on each port. The first port that can be successfully bound is returned.
+     *
+     * @param min the lower bound of the port range (inclusive)
+     * @param max the upper bound of the port range (inclusive)
+     * @return an available port within the specified range
+     * @throws RuntimeException if no available ports are found in the specified range
+     */
     public static int findAvailablePort(int min, int max) {
         for (int port = min; port <= max; port++) {
             try (ServerSocket socket = new ServerSocket(port)) {
@@ -79,9 +104,16 @@ public class EmbeddedServerHelper {
         throw new RuntimeException("No available ports found in range $min-$max");
     }
 
+    /**
+     * Enumeration of supported embedded server types.
+     * Each server type is defined with its SPI name and default port.
+     * This enum is used with the {@link #embeddedServer(EmbeddedServerType)} method
+     * to create preconfigured embedded server instances.
+     */
     @RequiredArgsConstructor
     @Getter
     public enum EmbeddedServerType {
+        /** Redis embedded server with default configuration */
         REDIS("redis", EmbeddedRedisServer.DEFAULT_PORT),
         ;
 

@@ -8,12 +8,9 @@
 
 ### Features
 
-- Add Redis key management utilities
-  - Introduced RedisKeyConstants for standardized key creation.
-  - Added RedisKeyProvider interface for modular key management.
+- Add Redis key management utilities provides a standardized approach to creating, validation. Ensures the keys follow a
+  consistent format.
 - Add a comprehensive testing framework in `radp-spring-test`.
-  - Implemented embedded server support for Redis, Zookeeper, and Kafka.
-  - Added SPI extension mechanism for embedded server.
 
 ### Bug Fixes
 
@@ -44,15 +41,12 @@
 - scaffold
   - Update scaffold default radpVersion to `3.21`
   - Update `application-logback.yaml` and `logback-test.xml`
-  - Update `.gitlab-ci.yml`
-  - Add `.idea`
   - Add `RedisKeyProvider` enum
-  - Optimize `.gitignore`, `.gitattributes`
   - Relocate assert classes to a new package
+  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`
+  - Add `.idea`. Add IDE config for copyright and scope settings
 - malicious
   - Switch from GNU GPLv3 to Apache 2.0
-  - Optimize .gitignore
-  - Add IDE config for copyright and scope settings
 
 ### Refactor
 

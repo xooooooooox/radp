@@ -74,19 +74,19 @@ class ElasticsearchKibanaTest {
 
     @Test
     void testElasticsearchKibana() throws Exception {
-        // 创建 Elasticsearch 客户端
+        // Create Elasticsearch client
         RestClient restClient = RestClient.builder(
                 new HttpHost("localhost", elasticsearch.getMappedPort(9200), "http"))
                 .build();
 
-        // 创建传输层
+        // Create a transport layer
         ElasticsearchTransport transport = new RestClientTransport(
                 restClient, new JacksonJsonpMapper());
 
-        // 创建 API 客户端
+        // Create API client
         ElasticsearchClient client = new ElasticsearchClient(transport);
 
-        // 索引数据
+        // Index data
         Map<String, Object> document = new HashMap<>();
         document.put("message", "Test log");
         document.put("level", "INFO");
@@ -94,10 +94,10 @@ class ElasticsearchKibanaTest {
                 .index("logs")
                 .document(document));
 
-        // 等待索引刷新
-        client.indices().refresh();
+        // Wait for index refresh
+        client.indices().refresh(r -> r.index("logs"));
 
-        // 搜索数据
+        // Search data
         SearchResponse<JsonData> response = client.search(s -> s
                 .index("logs")
                 .query(q -> q
@@ -111,7 +111,7 @@ class ElasticsearchKibanaTest {
         Assertions.assertNotNull(response.hits().total());
         assertEquals(1, response.hits().total().value());
 
-        // 关闭客户端
+        // Close client
         transport.close();
     }
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.swagger3.spring.boot.env;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -16,7 +32,8 @@ public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
     /**
      * Default order value for this customizer.
-     * This ensures the customizer is applied in a predictable order relative to other customizers.
+     * This constant defines the default priority of this customizer when multiple
+     * SwaggerCustomizer implementations are present.
      */
     public static final int DEFAULT_ORDER = 0;
 
@@ -27,9 +44,10 @@ public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
     /**
      * Constructs a new DefaultSwaggerCustomizer with the specified properties.
-     * This customizer uses the provided properties to configure the OpenAPI documentation.
+     * This constructor initializes the customizer with the provided SwaggerProperties,
+     * which will be used to configure the OpenAPI documentation.
      *
-     * @param properties the Swagger configuration properties to use
+     * @param properties the SwaggerProperties containing configuration for Swagger documentation
      */
     public DefaultSwaggerCustomizer(SwaggerProperties properties) {
         this.properties = properties;

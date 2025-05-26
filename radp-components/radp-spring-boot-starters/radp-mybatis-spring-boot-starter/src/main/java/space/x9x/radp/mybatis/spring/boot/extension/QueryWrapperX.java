@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.mybatis.spring.boot.extension;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -213,32 +229,71 @@ public class QueryWrapperX<T> extends QueryWrapper<T> {
         return this;
     }
 
-    // ========== 重写父类方法，方便链式调用 ==========
+    // ========== Overridden Parent Methods for Method Chaining ==========
 
+    /**
+     * Overridden method to add an equality condition to the query.
+     * This override ensures a proper return type for method chaining.
+     *
+     * @param condition whether to add this condition
+     * @param column    the database column name to compare
+     * @param val       the value to compare with
+     * @return this wrapper instance for method chaining
+     */
     @Override
     public QueryWrapperX<T> eq(boolean condition, String column, Object val) {
         super.eq(condition, column, val);
         return this;
     }
 
+    /**
+     * Overridden method to add an equality condition to the query.
+     * This override ensures a proper return type for method chaining.
+     *
+     * @param column the database column name to compare
+     * @param val the value to compare with
+     * @return this wrapper instance for method chaining
+     */
     @Override
     public QueryWrapperX<T> eq(String column, Object val) {
         super.eq(column, val);
         return this;
     }
 
+    /**
+     * Overridden method to add a descending order by clause to the query.
+     * This override ensures a proper return type for method chaining.
+     *
+     * @param column the database columns name to order by
+     * @return this wrapper instance for method chaining
+     */
     @Override
     public QueryWrapperX<T> orderByDesc(String column) {
         super.orderByDesc(true, column);
         return this;
     }
 
+    /**
+     * Overridden method to append a custom SQL fragment at the end of the query.
+     * This override ensures a proper return type for method chaining.
+     *
+     * @param lastSql the SQL fragment to append
+     * @return this wrapper instance for method chaining
+     */
     @Override
     public QueryWrapperX<T> last(String lastSql) {
         super.last(lastSql);
         return this;
     }
 
+    /**
+     * Overridden method to add an IN condition to the query.
+     * This override ensures a proper return type for method chaining.
+     *
+     * @param column the database column name to compare
+     * @param coll the collection of values to compare with
+     * @return this wrapper instance for method chaining
+     */
     @Override
     public QueryWrapperX<T> in(String column, Collection<?> coll) {
         super.in(column, coll);

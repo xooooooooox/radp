@@ -61,6 +61,8 @@
   - Add `.idea`. Add IDE config for copyright and scope settings
 - malicious
   - Switch from GNU GPLv3 to Apache 2.0.
+  - Optimize CheckStyle-IDEA plugin, Integrate spring checks
+  - Optimize IDEA CodeStyle configuration
 
 ### Refactor
 

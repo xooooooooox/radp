@@ -38,20 +38,24 @@
   - Remove unused radp-spring-test dependency from radp-spring-framework.
   - Remove redundant dependency in `radp-integration-test`
 - build
+  - PluginManagement add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`
   - Remove redundant profile `code-review`
-  - Move the `git-commit-id-plugin` from the submodule POM to the root POM for resolve
-    `Missing blame information error`, this may lead to missing/broken features in SonarQube
-  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better management.
-  - Optimize the `code-review` profile
+  - Move plugins from the `radp-parent` to the root POM
+    - `git-commit-id-plugin`
+    - `versions-maven-plugin`. To resolve`Missing blame information error`, this may lead to missing/broken features in
+      SonarQube
+  - Optimize profile `code-review`
     - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
-    - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
-  - Optimize the `unit-test` profile
+    - Add plugin `spring-javaformat-maven-plugin`
+  - Optimize profile `unit-test`
     - Move the `unit-test` profile to the root POM
     - Add property `maven.test.skip` to `false`
+  - Optimize profile `aggregate-reports`
+    - Use `src/checkstyle/checkstyle.xml` (Spring Checks) as the configuration file of `maven-checkstyle-plugin`
   - Add missing relativePath to POM parent configuration
-  - Optimize `radp-smoke-tests-archetype`
+  - Optimize module `radp-smoke-tests-archetype`
     - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
-    - Add the `maven.test.skip` property to `radp-smoke-tests-archetype`
+    - Add property `maven.test.skip` to `radp-smoke-tests-archetype`
 - scaffold
   - Update scaffold default radpVersion to `2.21`.
   - Update `application-logback.yaml` and `logback-test.xml`.

@@ -48,7 +48,7 @@
   - Optimize the `unit-test` profile
     - Move the `unit-test` profile to the root POM
     - Add property `maven.test.skip` to `false`
-  - Add relativePath to POM parent configuration
+  - Add missing relativePath to POM parent configuration
   - Optimize `radp-smoke-tests-archetype`
     - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
     - Add the `maven.test.skip` property to `radp-smoke-tests-archetype`

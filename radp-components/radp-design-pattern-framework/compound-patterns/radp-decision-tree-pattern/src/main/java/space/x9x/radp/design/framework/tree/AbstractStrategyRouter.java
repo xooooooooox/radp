@@ -19,7 +19,7 @@ package space.x9x.radp.design.framework.tree;
 /**
  * 策略路由抽象类
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-14 14:36
  */
 public abstract class AbstractStrategyRouter<T, D, R> implements StrategyMapper<T, D, R>, StrategyHandler<T, D, R> {

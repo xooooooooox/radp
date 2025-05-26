@@ -25,7 +25,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * This class defines settings for MyBatis-Plus extensions, particularly for
  * automatic field filling functionality like creation and modification timestamps.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:25
  */
 @ConfigurationProperties(prefix = MybatisPlusExtensionProperties.PREFIX)

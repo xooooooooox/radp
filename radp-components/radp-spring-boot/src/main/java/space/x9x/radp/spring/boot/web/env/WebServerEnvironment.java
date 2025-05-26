@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * This utility class provides string constants for common web server configuration
  * properties used in Spring Boot applications.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:28
  */
 @UtilityClass

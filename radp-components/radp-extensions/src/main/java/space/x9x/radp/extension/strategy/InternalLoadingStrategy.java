@@ -19,7 +19,7 @@ package space.x9x.radp.extension.strategy;
 /**
  * 内部扩展点加载策略
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 19:54
  */
 public class InternalLoadingStrategy implements LoadingStrategy {

@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * This class provides helper methods for common MyBatis operations,
  * particularly for pagination and result transformation.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 15:29
  */
 @UtilityClass

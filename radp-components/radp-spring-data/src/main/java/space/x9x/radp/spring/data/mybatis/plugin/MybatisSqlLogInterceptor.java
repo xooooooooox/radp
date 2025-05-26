@@ -34,7 +34,7 @@ import java.time.Duration;
 /**
  * Mybatis SQL 日志拦截器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:38
  */
 @Intercepts({

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-25 16:42
  */
 @Testcontainers

@@ -28,7 +28,7 @@ import space.x9x.radp.commons.lang.math.NumberUtils;
 import java.time.Duration;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:53
  */
 public class TimeoutRedisCacheManager extends RedisCacheManager {

@@ -23,7 +23,7 @@ import java.lang.annotation.*;
  * This annotation can be applied to methods (typically setter methods) to indicate
  * that the parameter should be injected with an extension instance.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 16:32
  */
 @Documented

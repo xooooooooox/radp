@@ -31,7 +31,7 @@ import space.x9x.radp.spring.data.redis.core.CustomRedisTemplate;
 import space.x9x.radp.spring.data.redis.core.CustomRedisTemplateImpl;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-19 20:57
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

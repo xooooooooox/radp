@@ -23,7 +23,7 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 20:19
  */
 public class ResultBuilder implements ResponseBuilder<Result> {

@@ -23,7 +23,7 @@ import org.springframework.context.annotation.AutoProxyRegistrar;
 
 /**
  * 访问日志切面装配选择器
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:56
  */
 public class AccessLogImportSelector extends AdviceModeImportSelector<EnableAccessLog> {

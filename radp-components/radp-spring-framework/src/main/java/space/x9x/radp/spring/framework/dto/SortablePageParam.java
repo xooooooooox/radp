@@ -26,7 +26,7 @@ import java.util.List;
  * Extended pagination parameter object that adds sorting capabilities.
  * This class extends PageParam to allow specifying sort fields and directions.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 14:23
  */
 @Data

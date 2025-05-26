@@ -19,7 +19,7 @@ package space.x9x.radp.dubbo.spring.cloud.env;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 23:41
  */
 @UtilityClass

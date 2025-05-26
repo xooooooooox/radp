@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  * extracting database URLs and resolving SQL queries with parameters.
  * It's particularly useful for logging and debugging MyBatis operations.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:48
  */
 @UtilityClass

@@ -21,7 +21,7 @@ import org.springframework.core.env.Environment;
 import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:04
  */
 @UtilityClass

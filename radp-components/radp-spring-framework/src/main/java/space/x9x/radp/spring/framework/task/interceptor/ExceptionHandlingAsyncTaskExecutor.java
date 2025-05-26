@@ -35,7 +35,7 @@ import java.util.concurrent.Future;
  * 该类同时实现了InitializingBean和DisposableBean接口，
  * 以确保被包装的执行器的生命周期方法被正确调用。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 11:43
  */
 @Slf4j

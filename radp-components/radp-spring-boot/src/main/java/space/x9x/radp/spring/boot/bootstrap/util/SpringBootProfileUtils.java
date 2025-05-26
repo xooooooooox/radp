@@ -29,7 +29,7 @@ import java.util.Map;
  * This class provides methods to configure default profiles for Spring Boot applications,
  * making it easier to set up development environments consistently.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:37
  */
 @UtilityClass

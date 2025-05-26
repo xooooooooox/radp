@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 14:24
  */
 @Data

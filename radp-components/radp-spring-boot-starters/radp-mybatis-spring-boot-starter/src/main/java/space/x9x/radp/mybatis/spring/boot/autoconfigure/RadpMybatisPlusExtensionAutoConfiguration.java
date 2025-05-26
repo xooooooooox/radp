@@ -34,7 +34,7 @@ import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
 import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 14:45
  */
 @Slf4j

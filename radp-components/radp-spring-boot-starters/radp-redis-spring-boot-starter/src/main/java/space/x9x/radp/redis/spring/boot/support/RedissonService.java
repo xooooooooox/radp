@@ -22,7 +22,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-28 15:41
  */
 public class RedissonService implements IRedissonService {

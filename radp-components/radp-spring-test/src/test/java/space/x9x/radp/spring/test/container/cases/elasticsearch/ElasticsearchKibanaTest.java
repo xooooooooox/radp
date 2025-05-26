@@ -38,7 +38,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-25 14:36
  */
 @Testcontainers

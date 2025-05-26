@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * These tests verify that the Redis key management system works correctly
  * with the new validation, normalization, and utility methods.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 class RedisKeyManagementTest {

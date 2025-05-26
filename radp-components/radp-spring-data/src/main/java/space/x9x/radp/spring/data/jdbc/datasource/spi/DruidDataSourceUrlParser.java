@@ -22,7 +22,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParser;
 import javax.sql.DataSource;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 14:33
  */
 public class DruidDataSourceUrlParser implements DataSourceUrlParser {

@@ -29,7 +29,7 @@ import java.net.URL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 16:52
  */
 @Testcontainers

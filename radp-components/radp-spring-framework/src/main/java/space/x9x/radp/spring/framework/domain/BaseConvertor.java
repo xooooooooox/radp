@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  *
  * @param <S> source type to convert from
  * @param <T> target type to convert to
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-27 10:53
  */
 @MapperConfig

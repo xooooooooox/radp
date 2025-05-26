@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-03 01:20
  */
 public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser {

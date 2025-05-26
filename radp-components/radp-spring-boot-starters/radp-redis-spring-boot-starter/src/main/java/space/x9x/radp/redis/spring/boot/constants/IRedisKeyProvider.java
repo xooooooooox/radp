@@ -22,7 +22,7 @@ package space.x9x.radp.redis.spring.boot.constants;
  * Implementing this interface allows different modules to define their own Redis key formats
  * while maintaining a consistent approach to key generation throughout the application.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 public interface IRedisKeyProvider {

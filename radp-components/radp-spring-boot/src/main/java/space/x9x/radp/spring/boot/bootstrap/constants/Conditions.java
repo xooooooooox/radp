@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 自动转配条件常量定义
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:15
  */
 @UtilityClass

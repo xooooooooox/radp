@@ -39,7 +39,7 @@ import space.x9x.radp.redis.spring.boot.support.TimeoutRedisCacheManager;
 import java.util.Objects;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:37
  */
 @EnableConfigurationProperties({CacheProperties.class, ExtendedCacheProperties.class})

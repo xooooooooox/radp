@@ -39,7 +39,7 @@ import java.io.IOException;
  * for logging purposes. This filter enriches logs with contextual information such as application name,
  * active profile, request URI, and IP addresses.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 11:10
  */
 @RequiredArgsConstructor

@@ -24,7 +24,7 @@ import lombok.ToString;
 /**
  * 日志切面配置
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:45
  */
 @EqualsAndHashCode

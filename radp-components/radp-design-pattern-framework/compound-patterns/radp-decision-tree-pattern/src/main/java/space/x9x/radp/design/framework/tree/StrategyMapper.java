@@ -22,7 +22,7 @@ package space.x9x.radp.design.framework.tree;
  * @param <T> 入参
  * @param <D> 动态上下文
  * @param <R> 返参
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-14 14:25
  */
 public interface StrategyMapper<T, D, R> {

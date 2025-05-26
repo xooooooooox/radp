@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 13:25
  */
 public class Gson implements JSON {

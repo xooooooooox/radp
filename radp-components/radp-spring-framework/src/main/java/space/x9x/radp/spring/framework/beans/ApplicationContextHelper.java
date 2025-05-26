@@ -31,7 +31,7 @@ import org.springframework.context.ApplicationContextAware;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-27 00:07
  */
 public class ApplicationContextHelper implements ApplicationContextAware, BeanFactoryPostProcessor {

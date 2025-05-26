@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Role;
 import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-27 21:14
  */
 @Slf4j

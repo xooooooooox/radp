@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
  * This class extends AbstractAssert and adds exception handling functionality.
  *
  * @param <E> the type of exception to be thrown
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:47
  */
 public abstract class BaseAssert<E extends RuntimeException> extends AbstractAssert {

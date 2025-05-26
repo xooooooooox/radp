@@ -26,7 +26,7 @@ import java.io.Serializable;
  * Parameter object for pagination requests that contains page index and page size information.
  * This class provides default values and validation constraints to ensure proper pagination behavior.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 20:35
  */
 @Data

@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 /**
  * Tests for {@link EmbeddedRedisServer}.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 class EmbeddedRedisServerTest {

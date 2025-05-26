@@ -30,7 +30,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:00
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

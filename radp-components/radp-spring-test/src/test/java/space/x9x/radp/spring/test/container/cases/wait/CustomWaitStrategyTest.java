@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *     <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
  * </ul>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 23:03
  */
 @Testcontainers

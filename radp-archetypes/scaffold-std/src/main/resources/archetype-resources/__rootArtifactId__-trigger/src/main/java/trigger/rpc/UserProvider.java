@@ -4,7 +4,7 @@
 package ${package}.trigger.rpc;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 21:33
  */
 public class UserProvider {

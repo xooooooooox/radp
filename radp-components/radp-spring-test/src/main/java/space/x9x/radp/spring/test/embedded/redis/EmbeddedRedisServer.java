@@ -25,7 +25,7 @@ import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import java.io.IOException;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 15:02
  */
 @Slf4j

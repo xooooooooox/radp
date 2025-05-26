@@ -33,7 +33,7 @@ import java.net.ServerSocket;
  * This class provides utility methods for creating, configuring, and managing embedded servers for testing.
  * It supports various server types including Redis, Zookeeper, and Kafka.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-13 17:52
  */
 @Slf4j

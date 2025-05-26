@@ -25,7 +25,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:44
  */
 @EqualsAndHashCode(callSuper = true)

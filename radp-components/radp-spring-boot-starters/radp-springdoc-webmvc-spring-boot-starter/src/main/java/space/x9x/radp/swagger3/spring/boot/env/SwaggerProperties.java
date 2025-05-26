@@ -22,7 +22,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 16:36
  */
 @Getter

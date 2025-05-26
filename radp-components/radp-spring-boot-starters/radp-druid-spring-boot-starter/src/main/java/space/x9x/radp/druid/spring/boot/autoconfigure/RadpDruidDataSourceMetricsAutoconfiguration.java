@@ -41,7 +41,7 @@ import space.x9x.radp.druid.spring.boot.jdbc.DruidDatasourcePoolMetadata;
  * It is activated when the 'spring.datasource.druid' property is set
  * and the Druid data source class is available on the classpath.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 01:13
  */
 @ConditionalOnProperty(RadpDruidDataSourceMetricsAutoconfiguration.SPRING_DATASOURCE_DRUID)

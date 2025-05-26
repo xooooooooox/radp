@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-16 03:02
  */
 class ErrorCodeLoaderTest {

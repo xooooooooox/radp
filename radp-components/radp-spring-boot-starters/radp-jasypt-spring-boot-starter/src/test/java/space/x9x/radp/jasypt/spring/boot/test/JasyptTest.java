@@ -26,7 +26,7 @@ import space.x9x.radp.jasypt.spring.boot.TestApplication;
 import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-04-09 11:41
  */
 @SpringBootTest(classes = TestApplication.class)

@@ -30,7 +30,7 @@ import space.x9x.radp.spring.framework.logging.access.aop.AccessLogAdvisor;
 import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:50
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

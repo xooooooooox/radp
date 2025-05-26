@@ -27,7 +27,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * }
  * </pre>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 10:02
  */
 public abstract class BasePO<T extends Model<?>> extends AutofillModel<T> {

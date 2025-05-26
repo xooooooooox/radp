@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 13:50
  */
 public class DefaultObjectMapper extends ObjectMapper {

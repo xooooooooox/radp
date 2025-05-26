@@ -31,7 +31,7 @@ import java.util.List;
  * This class extends the base Result class to provide pagination-specific information.
  *
  * @param <T> the type of elements in the result collection
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 16:02
  */
 @SuperBuilder(builderMethodName = "pageResultBuilder")

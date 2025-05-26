@@ -44,7 +44,7 @@ import java.util.List;
  * default method implementations.
  *
  * @param <T> the entity type that this mapper operates on
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 14:38
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {

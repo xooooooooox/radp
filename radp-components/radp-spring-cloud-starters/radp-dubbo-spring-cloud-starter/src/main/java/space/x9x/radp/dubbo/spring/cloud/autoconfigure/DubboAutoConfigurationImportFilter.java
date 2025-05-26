@@ -25,7 +25,7 @@ import org.springframework.core.env.Environment;
 import java.util.Arrays;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 23:41
  */
 public class DubboAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {

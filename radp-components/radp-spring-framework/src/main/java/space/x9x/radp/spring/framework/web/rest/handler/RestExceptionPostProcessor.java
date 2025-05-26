@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Rest 异常后置处理
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-27 10:44
  */
 @SPI

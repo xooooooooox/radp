@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 19:24
  */
 @Getter

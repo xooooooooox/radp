@@ -31,7 +31,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-25 15:54
  */
 @Testcontainers

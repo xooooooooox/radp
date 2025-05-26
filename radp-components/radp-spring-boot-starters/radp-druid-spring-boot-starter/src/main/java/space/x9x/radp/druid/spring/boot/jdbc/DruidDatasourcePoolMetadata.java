@@ -20,7 +20,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 01:10
  */
 public class DruidDatasourcePoolMetadata extends AbstractDataSourcePoolMetadata<DruidDataSource> {

@@ -19,7 +19,7 @@ package space.x9x.radp.design.framework.tree;
 /**
  * 策略受理器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-14 14:29
  */
 public interface StrategyHandler<T, D, R> {

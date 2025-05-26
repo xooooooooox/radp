@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * 基于 @Wrapper 的扩展点加速器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 14:00
  */
 @RequiredArgsConstructor

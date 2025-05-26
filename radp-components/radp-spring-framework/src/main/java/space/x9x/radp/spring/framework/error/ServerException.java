@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:46
  */
 @EqualsAndHashCode(callSuper = true)

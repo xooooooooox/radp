@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * 从 Dockerfile 创建容器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 17:04
  */
 @Testcontainers

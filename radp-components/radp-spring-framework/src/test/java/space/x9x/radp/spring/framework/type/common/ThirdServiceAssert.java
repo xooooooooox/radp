@@ -30,7 +30,7 @@ import java.util.function.BiFunction;
 /**
  * Third-party service assertion utility class that provides static methods for assertions.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 23:46
  */
 public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {

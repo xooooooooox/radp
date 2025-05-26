@@ -19,7 +19,7 @@ package space.x9x.radp.spring.test.embedded;
 import space.x9x.radp.extension.SPI;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 15:03
  */
 @SPI

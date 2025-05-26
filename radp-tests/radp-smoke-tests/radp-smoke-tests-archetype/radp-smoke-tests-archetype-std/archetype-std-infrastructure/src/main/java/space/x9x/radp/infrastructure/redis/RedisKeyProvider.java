@@ -19,7 +19,7 @@ package space.x9x.radp.infrastructure.redis;
 import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-22 23:04
  */
 public enum RedisKeyProvider implements IRedisKeyProvider {

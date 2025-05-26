@@ -29,7 +29,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * 全局日志环境解析后置处理
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-27 21:16
  */
 public class BootstrapLogEnvironmentPostProcessor implements EnvironmentPostProcessor {

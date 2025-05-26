@@ -31,7 +31,7 @@ import java.util.function.BiFunction;
 /**
  * Server assertion utility class that provides static methods for assertions.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 21:54
  */
 public final class ServerAssert extends BaseAssert<ServerException> {

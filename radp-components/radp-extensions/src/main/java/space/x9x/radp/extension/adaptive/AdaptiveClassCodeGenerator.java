@@ -34,7 +34,7 @@ import java.util.stream.IntStream;
 /**
  * 基于 @Adaptive 的代码生成器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 14:05
  */
 @RequiredArgsConstructor

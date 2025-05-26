@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Role;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 11:37
  */
 @ConditionalOnProperty(

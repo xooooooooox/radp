@@ -25,7 +25,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
 import org.springframework.core.env.Environment;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-03 01:15
  */
 public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {

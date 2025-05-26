@@ -19,7 +19,7 @@ package space.x9x.radp.extension.context;
 /**
  * 组件生命周期
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 23:16
  */
 public interface Lifecycle {

@@ -23,7 +23,7 @@ import space.x9x.radp.spring.framework.json.JSON;
 import java.util.List;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 11:37
  */
 public class Jackson implements JSON {

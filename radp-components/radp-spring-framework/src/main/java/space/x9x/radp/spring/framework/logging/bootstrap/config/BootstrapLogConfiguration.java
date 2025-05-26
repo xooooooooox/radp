@@ -32,7 +32,7 @@ import java.io.IOException;
 /**
  * 引导日志配置
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 11:09
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

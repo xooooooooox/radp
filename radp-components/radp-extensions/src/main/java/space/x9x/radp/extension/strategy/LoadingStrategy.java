@@ -22,7 +22,7 @@ package space.x9x.radp.extension.strategy;
  * 以及提供一些默认的加载行为配置选项。
  * 该接口扩展了Prioritized接口，意味着加载策略也可以被赋予一定的优先级。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 19:40
  */
 public interface LoadingStrategy extends Prioritized {

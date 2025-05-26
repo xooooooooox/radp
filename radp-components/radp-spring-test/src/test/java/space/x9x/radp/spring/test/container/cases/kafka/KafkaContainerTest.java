@@ -42,7 +42,7 @@ import java.util.Properties;
 /**
  * 假设你正在开发一个订单处理系统，订单通过 Kafka 消息队列传递给下游服务。你需要测试生产者和消费者的正确性。
  *
- * @author x9x
+ * @author IO x9x
  * @see <a href="https://java.testcontainers.org/modules/kafka/">Kafka Module for Java</a>
  * @since 2025-05-25 12:41
  */

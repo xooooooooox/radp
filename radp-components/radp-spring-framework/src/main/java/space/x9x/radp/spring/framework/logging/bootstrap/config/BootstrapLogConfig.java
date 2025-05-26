@@ -23,7 +23,7 @@ import lombok.ToString;
 /**
  * 引导日志配置
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 20:48
  */
 @EqualsAndHashCode

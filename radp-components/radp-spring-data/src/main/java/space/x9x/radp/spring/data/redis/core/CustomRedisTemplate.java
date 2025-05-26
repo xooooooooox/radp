@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * providing methods for key-value operations, hash operations, list operations,
  * and set operations with type-safe access patterns.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-19 16:18
  */
 public interface CustomRedisTemplate {

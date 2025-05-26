@@ -27,7 +27,7 @@ import java.io.Serializable;
  * This class includes status, code, and message fields to indicate the outcome of an operation.
  * It serves as the parent class for more specific result types like SingleResult and MultiResult.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 15:53
  */
 @SuperBuilder

@@ -25,7 +25,7 @@ import org.springframework.core.Ordered;
 import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 18:14
  */
 public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {

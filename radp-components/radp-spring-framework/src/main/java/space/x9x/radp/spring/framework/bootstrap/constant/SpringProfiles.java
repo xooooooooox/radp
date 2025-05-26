@@ -19,7 +19,7 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:39
  */
 @UtilityClass

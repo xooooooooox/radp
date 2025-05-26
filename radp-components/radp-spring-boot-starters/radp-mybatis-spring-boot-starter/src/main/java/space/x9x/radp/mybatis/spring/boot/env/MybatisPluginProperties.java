@@ -26,7 +26,7 @@ import java.time.Duration;
  * Configuration properties for MyBatis plugins.
  * This class defines settings for various MyBatis plugins, particularly SQL logging functionality.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:24
  */
 @Data

@@ -25,7 +25,7 @@ import lombok.experimental.UtilityClass;
  * This utility class provides a centralized repository of string constants
  * to avoid duplication and ensure consistency.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:00
  */
 @UtilityClass

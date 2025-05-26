@@ -51,7 +51,7 @@ import java.util.regex.Pattern;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author IO x9x
  * @see space.x9x.radp.commons.regex.pattern.Regex
  * @since 2024-12-27 12:50
  */

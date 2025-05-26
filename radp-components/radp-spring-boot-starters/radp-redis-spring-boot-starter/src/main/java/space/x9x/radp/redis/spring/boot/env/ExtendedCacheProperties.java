@@ -21,7 +21,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:45
  */
 @Data

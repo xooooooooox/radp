@@ -36,7 +36,7 @@ import java.util.Collection;
  * be applied when the corresponding values are present.
  *
  * @param <T> the entity type that this wrapper operates on
- * @author x9x
+ * @author IO x9x
  * @since 2024-11-20 15:53
  */
 public class QueryWrapperX<T> extends QueryWrapper<T> {

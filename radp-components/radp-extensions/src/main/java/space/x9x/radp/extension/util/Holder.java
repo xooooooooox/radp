@@ -24,7 +24,7 @@ package space.x9x.radp.extension.util;
  * 使用了 volatile 关键字以确保在多线程环境中的可见性
  *
  * @param <T> 任意类型，表示该持有者可以持有任何类型的对象
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 11:33
  */
 public class Holder<T> {

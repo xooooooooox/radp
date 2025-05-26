@@ -26,7 +26,7 @@ import space.x9x.radp.commons.lang.format.MessageFormatter;
  * This class provides standardized error handling with error codes, messages, and optional parameters.
  * It serves as the parent class for more specific exception types.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:04
  */
 @Getter

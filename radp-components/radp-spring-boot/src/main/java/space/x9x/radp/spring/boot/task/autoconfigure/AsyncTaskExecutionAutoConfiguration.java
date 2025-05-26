@@ -39,7 +39,7 @@ import java.util.concurrent.Executor;
 /**
  * 异步任务执行器自动装配
  *
- * @author x9x
+ * @author IO x9x
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
  * @since 2024-09-30 11:52

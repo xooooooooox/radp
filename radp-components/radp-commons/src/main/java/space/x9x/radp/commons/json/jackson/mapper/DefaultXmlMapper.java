@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 13:53
  */
 public class DefaultXmlMapper extends XmlMapper {

@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-03-18 13:16
  */
 @SuperBuilder(builderMethodName = "multiResultBuilder")

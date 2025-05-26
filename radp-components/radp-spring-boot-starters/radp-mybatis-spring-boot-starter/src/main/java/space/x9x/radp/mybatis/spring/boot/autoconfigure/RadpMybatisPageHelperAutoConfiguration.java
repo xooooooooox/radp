@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Role;
  * This class automatically configures the MyBatis-Plus pagination interceptor
  * to enable pagination support in database queries.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:25
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

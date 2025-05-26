@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-17 11:13
  */
 @Data

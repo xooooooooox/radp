@@ -6,7 +6,7 @@
 
 RADP Logging Spring Boot Starter provides pre-configured Logback configurations for both Spring Boot applications and
 classic Java applications. It offers a comprehensive logging solution with sensible defaults and flexible configuration
-options.
+options. The module has been refactored to improve logging clarity and extensibility for various use cases.
 
 ## Features
 
@@ -25,11 +25,13 @@ options.
   - Environment-specific logging (dev, test, prod)
   - Configurable log file locations, names, and rotation policies
   - Support for Spring property placeholders
+  - Enhanced template system for different logging scenarios
 
 - **Performance optimized**:
   - Asynchronously appends to prevent blocking the application
   - Configurable queue sizes and discard thresholds
   - Efficient log file rotation and archiving
+  - Improved status listener configuration
 
 ## Getting Started
 
@@ -57,7 +59,7 @@ Add the dependency to your Maven project:
 ```yaml
 # Basic configuration
 spring.application.name: myapp
-logging.config: classpath:logback/springboot/templates/logback-spring.xml
+logging.config: classpath:radp/logback/templates/logback-spring.xml
 logging.file.path: /var/log
 
 # Optional: Configure log levels
@@ -77,21 +79,21 @@ logging.level.com.example: debug
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
-    <include resource="logback/classic/scenarios/standard/logback-config.xml"/>
+    <include resource="radp/logback/classic/base.xml"/>
 </configuration>
 ```
 
-2. To override the default values of the template file `logback/classic/scenarios/standard/logback-config.xml`:
+2. To override the default values of the template file `radp/logback/classic/base.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
-    <include resource="logback/classic/templates/logback-classic-test.xml"/>
-
     <!-- Override radp-logging-spring-boot-starter template default values -->
-    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic"/>
-    <property name="userLogFileName" value="radp-smoke-tests-logging"/>
+    <property name="userLogPath" value="/path/to/log"/>
+    <property name="userLogFileName" value="your logfile name"/>
+
+    <include resource="radp/logback/classic/base.xml"/>
 </configuration>
 ```
 
@@ -101,7 +103,7 @@ logging.level.com.example: debug
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
-    <include resource="logback/classic/templates/logback-classic-test.xml"/>
+    <include resource="radp/logback/classic/base.xml"/>
 
     <!-- Case 1: Adjust the root log level -->
     <property name="logging.level.root" value="trace"/>
@@ -130,24 +132,32 @@ logging.level.com.example: debug
 | `LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP`         | Total size cap for all log files          | `1GB`         |
 | `LOGBACK_ROLLINGPOLICY_MAX_HISTORY`            | Number of days to keep log files          | `30`          |
 
-## Scenarios
+## Enhanced Template System
 
-### Standard Scenario
+The enhanced template system provides a more flexible way to configure logging for different scenarios:
 
-The standard scenario is suitable for regular applications and provides:
+### Available Templates
 
-- Console output with color support
-- File logging with rotation
-- Log-level-based file separation
-- Profile-specific configurations (local, dev, test, prod)
+#### Spring Boot Templates
 
-### Testing Scenario
+- `radp/logback/template/logback-spring.xml` - Main template for Spring Boot applications
+- `radp/logback/template/logback-test.xml` - Optimized template for Spring Boot test environments
 
-The testing scenario is optimized for unit and integration tests:
+#### Classic Java Templates
 
-- Simplified configuration focused on console output
-- Higher default log levels for debugging
-- Minimal file logging
+- `radp/logback/template/logback-classic.xml` - Main template for classic Java applications
+
+### Status Listener Configuration
+
+The improved status listener configuration helps reduce noise in logs and provides better error reporting:
+
+```xml
+
+<statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+```
+
+This configuration prevents Logback from outputting its internal status messages, which can be useful in production
+environments.
 
 ## Advanced Usage
 

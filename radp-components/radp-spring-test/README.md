@@ -1,29 +1,42 @@
 # RADP Spring Test
 
-RADP Spring Test is a testing library that provides utilities for creating and managing test environments for Spring
-applications. It supports both embedded servers and Docker containers for various services like Redis, MySQL, Zookeeper,
-and Kafka.
+[![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp-spring-test?style=for-the-badge)](https://central.sonatype.com/artifact/space.x9x.radp/radp-spring-test)
+
+## Introduction
+
+RADP Spring Test provides enhanced testing capabilities for Spring applications, with a focus on container-based and
+embedded testing. It offers a comprehensive solution for testing Spring applications with various databases and services
+using both TestContainers and embedded components.
 
 ## Features
 
-- **Embedded Servers**: Run lightweight embedded servers for testing without external dependencies
-  - Redis
-  - Zookeeper
-  - Kafka
+- **TestContainers Integration**:
+  - Support for various databases: PostgreSQL, MySQL, MariaDB, MongoDB
+  - Support for messaging systems: Kafka
+  - Support for caching: Redis
+  - Support for search engines: Elasticsearch
+  - Support for service discovery: Zookeeper, Nacos
+  - Support for web servers: Nginx
 
-- **Docker Containers**: Run services in Docker containers for more realistic testing environments
-  - Redis
-  - MySQL 8
-  - Zookeeper
-  - Kafka
-  - Elasticsearch
-  - MongoDB
-  - Nginx
-  - MariaDB
+- **Container Management**:
+  - Container reuse capabilities for faster test execution
+  - Custom wait strategies for container readiness
+  - Simplified container configuration and setup
 
-## Installation
+- **Embedded Testing**:
+  - Embedded Redis for in-memory cache testing
+  - Integration with Spring's testing framework
 
-Add the following dependency to your `pom.xml`:
+- **Testing Utilities**:
+  - JUnit 5 integration
+  - Spock Framework support for behavior-driven testing
+  - AssertJ for fluent assertions
+
+## Getting Started
+
+### Installation
+
+Add the dependency to your Maven project:
 
 ```xml
 
@@ -35,278 +48,122 @@ Add the following dependency to your `pom.xml`:
 </dependency>
 ```
 
-## Usage
+### Usage
 
-### Embedded Servers
+#### TestContainers Example
 
-#### Redis
-
-```java
-// Create and start a Redis server with default settings
-EmbeddedServer redisServer = EmbeddedServerHelper.redisServer();
-EmbeddedServerHelper.
-
-startServer(redisServer);
-
-// Use the Redis server in your tests
-// ...
-
-// Stop the server when done
-EmbeddedServerHelper.
-
-stopServer(redisServer);
-```
-
-#### Zookeeper
+Here's an example of using TestContainers with container reuse for Redis:
 
 ```java
-// Create and start a Zookeeper server
-EmbeddedServer zookeeperServer = EmbeddedServerHelper.zookeeperServer();
-EmbeddedServerHelper.
 
-startServer(zookeeperServer);
+@Testcontainers
+class RedisContainerTest {
 
-// Use the Zookeeper server in your tests
-// ...
+    @Container
+    private static final GenericContainer<?> REDIS_CONTAINER = new GenericContainer<>("redis:6.2.6-alpine")
+            .withExposedPorts(6379)
+            .withReuse(true); // Enable container reuse
 
-// Stop the server when done
-EmbeddedServerHelper.
+    @Test
+    void testRedisConnection() {
+        assertTrue(REDIS_CONTAINER.isRunning(), "Redis container should be running");
+        int mappedPort = REDIS_CONTAINER.getMappedPort(6379);
 
-stopServer(zookeeperServer);
+        // Use the container for testing
+        // ...
+    }
+}
 ```
 
-#### Kafka
+#### Container Reuse
+
+TestContainers supports container reuse to improve test execution speed and reduce resource consumption:
+
+1. **Global Enablement**: Create a `.testcontainers.properties` file in your home directory with
+   `testcontainers.reuse.enable=true`
+2. **Per-Container Enablement**: Call `.withReuse(true)` when creating a container
+
+Important considerations:
+
+- Set a unique identifier for reused containers with `.withLabel("reuse.UUID", "xxxx")`
+- Reused containers are not automatically stopped after tests
+- Reuse is best for read-only tests, as state modifications may affect subsequent tests
+
+#### Custom Wait Strategies
+
+You can define custom wait strategies to ensure containers are fully ready before tests begin:
 
 ```java
-// Create and start a Kafka server with custom ports
-EmbeddedKafkaServer kafkaServer = EmbeddedServerHelper.kafkaServer(9093, 2182);
-EmbeddedServerHelper.
 
-startServer(kafkaServer);
-
-// Use the Kafka server in your tests
-String brokerAddresses = kafkaServer.getBrokerAddresses();
-
-// Stop the server when done
-EmbeddedServerHelper.
-
-stopServer(kafkaServer);
+@Container
+private final GenericContainer<?> customWaitContainer = new GenericContainer<>("nginx:1.21.6")
+        .withExposedPorts(80)
+        .waitingFor(Wait.forHttp("/")
+                .forStatusCode(200)
+                .withStartupTimeout(Duration.ofSeconds(30)));
 ```
 
-### Docker Containers
+## Advanced Usage
 
-#### Redis
+### Database Container Example
+
+Testing with a MySQL database container:
 
 ```java
-// Create and start a Redis container
-RedisContainer redisContainer = ContainerHelper.redisContainer();
-ContainerHelper.
 
-startContainer(redisContainer);
+@Testcontainers
+class MysqlContainerTest {
 
-// Use the Redis container in your tests
-String redisUrl = redisContainer.getRedisConnectionUrl();
+    @Container
+    private static final MySQLContainer<?> MYSQL_CONTAINER = new MySQLContainer<>("mysql:8.0")
+            .withDatabaseName("testdb")
+            .withUsername("test")
+            .withPassword("test");
 
-// Stop the container when done
-ContainerHelper.
+    @Test
+    void testDatabaseConnection() {
+        assertTrue(MYSQL_CONTAINER.isRunning(), "MySQL container should be running");
 
-stopContainer(redisContainer);
+        // Use JDBC URL from container for connection
+        String jdbcUrl = MYSQL_CONTAINER.getJdbcUrl();
+
+        // Test database operations
+        // ...
+    }
+}
 ```
 
-#### MySQL 8
+### Embedded Redis Example
+
+Using embedded Redis for testing:
 
 ```java
-// Create and start a MySQL 8 container
-MySQL8Container mysqlContainer = ContainerHelper.mysql8Container();
-ContainerHelper.
+class EmbeddedRedisTest {
 
-startContainer(mysqlContainer);
+    private RedisServer redisServer;
 
-// Use the MySQL container in your tests
-String jdbcUrl = mysqlContainer.getJdbcConnectionUrl();
-String username = mysqlContainer.getUsername();
-String password = mysqlContainer.getPassword();
+    @BeforeEach
+    void setup() {
+        redisServer = new RedisServer(6379);
+        redisServer.start();
+    }
 
-// Stop the container when done
-ContainerHelper.
+    @AfterEach
+    void tearDown() {
+        if (redisServer != null && redisServer.isActive()) {
+            redisServer.stop();
+        }
+    }
 
-stopContainer(mysqlContainer);
+    @Test
+    void testWithEmbeddedRedis() {
+        // Test with embedded Redis
+        // ...
+    }
+}
 ```
-
-#### Zookeeper
-
-```java
-// Create and start a Zookeeper container
-ZookeeperContainer zookeeperContainer = ContainerHelper.zookeeperContainer();
-ContainerHelper.
-
-startContainer(zookeeperContainer);
-
-// Use the Zookeeper container in your tests
-String connectionString = zookeeperContainer.getConnectionString();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(zookeeperContainer);
-```
-
-#### Kafka
-
-```java
-// Create and start a Kafka container
-KafkaContainer kafkaContainer = ContainerHelper.kafkaContainer();
-ContainerHelper.
-
-startContainer(kafkaContainer);
-
-// Use the Kafka container in your tests
-String bootstrapServers = kafkaContainer.getBootstrapServers();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(kafkaContainer);
-```
-
-#### Elasticsearch
-
-```java
-// Create and start an Elasticsearch container
-ElasticsearchContainer elasticsearchContainer = ContainerHelper.elasticsearchContainer();
-ContainerHelper.
-
-startContainer(elasticsearchContainer);
-
-// Use the Elasticsearch container in your tests
-String httpUrl = elasticsearchContainer.getHttpHostAddress();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(elasticsearchContainer);
-```
-
-#### MongoDB
-
-```java
-// Create and start a MongoDB container
-MongoDBContainer mongoDBContainer = ContainerHelper.mongoDBContainer();
-ContainerHelper.
-
-startContainer(mongoDBContainer);
-
-// Use the MongoDB container in your tests
-String connectionString = mongoDBContainer.getConnectionString();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(mongoDBContainer);
-```
-
-#### Nginx
-
-```java
-// Create and start a Nginx container
-NginxContainer nginxContainer = ContainerHelper.nginxContainer();
-ContainerHelper.
-
-startContainer(nginxContainer);
-
-// Use the Nginx container in your tests
-String httpUrl = nginxContainer.getHttpUrl();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(nginxContainer);
-```
-
-#### MariaDB
-
-```java
-// Create and start a MariaDB container
-MariaDBContainer mariaDBContainer = ContainerHelper.mariaDBContainer();
-ContainerHelper.
-
-startContainer(mariaDBContainer);
-
-// Use the MariaDB container in your tests
-String jdbcUrl = mariaDBContainer.getJdbcConnectionUrl();
-String username = mariaDBContainer.getUsername();
-String password = mariaDBContainer.getPassword();
-
-// Stop the container when done
-ContainerHelper.
-
-stopContainer(mariaDBContainer);
-```
-
-## Configuration Options
-
-### Embedded Servers
-
-- **Redis**
-  - Port: Default is 6379
-  - Password: Optional
-
-- **Zookeeper**
-  - Port: Default is 2181
-
-- **Kafka**
-  - Kafka Port: Default is 9092
-  - Zookeeper Port: Default is 2181
-
-### Docker Containers
-
-- **Redis**
-  - Image: Default is "redis:latest"
-
-- **MySQL 8**
-  - Image: Default is "mysql:8.0.33"
-  - Startup Timeout: Default is 60 seconds
-
-- **Zookeeper**
-  - Image: Default is "zookeeper:3.8.1"
-  - Startup Timeout: Default is 60 seconds
-
-- **Kafka**
-  - Image: Default is "confluentinc/cp-kafka:7.4.0"
-  - Startup Timeout: Default is 120 seconds
-
-- **Elasticsearch**
-  - Image: Default is "docker.elastic.co/elasticsearch/elasticsearch:8.7.1"
-  - Startup Timeout: Default is 120 seconds
-
-- **MongoDB**
-  - Image: Default is "mongo:6.0.6"
-  - Startup Timeout: Default is 60 seconds
-
-- **Nginx**
-  - Image: Default is "nginx:1.25.1"
-  - Startup Timeout: Default is 30 seconds
-
-- **MariaDB**
-  - Image: Default is "mariadb:11.1.2"
-  - Startup Timeout: Default is 60 seconds
-
-## Troubleshooting
-
-### Common Issues
-
-- **Port conflicts**: If you encounter port conflicts, you can specify custom ports when creating servers or containers.
-
-- **Docker not available**: Ensure Docker is installed and running on your machine when using container-based tests.
-
-- **Memory issues**: Embedded servers and containers can consume significant memory. Adjust your JVM memory settings if
-  needed.
-
-### Logging
-
-Both embedded servers and containers log their status to the console. You can adjust the log level in your logging
-configuration to see more or less information.
 
 ## License
 
-This project is licensed under the terms of the license provided with the RADP framework.
+[Apache 2.0 License—](../../LICENSE)Copyright © 2024 xooooooooox
+and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

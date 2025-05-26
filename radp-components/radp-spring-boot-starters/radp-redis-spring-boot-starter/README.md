@@ -1,5 +1,7 @@
 # Redis Key Management System
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/space.x9x.radp/radp-logging-spring-boot-starter?style=for-the-badge)](https://central.sonatype.com/artifact/space.x9x.radp/radp-logging-spring-boot-starter)
+
 This document describes the Redis key management system in the RADP Redis Spring Boot Starter, including recent
 optimizations and enhancements.
 
@@ -95,11 +97,9 @@ public enum MyModuleKeys implements RedisKeyProvider {
 The Redis key management system has been enhanced with the following optimizations:
 
 1. **Improved Key Validation**: Added robust validation to ensure keys follow the standardized format
-2. **Key Normalization**: Added methods to normalize keys by removing leading/trailing delimiters and replacing
-   consecutive delimiters
-3. **Enhanced Key Generation**: Improved the performance and robustness of key generation methods
-4. **Flexible Entity and ID Extraction**: Enhanced extraction methods to work with different prefix formats
-5. **Additional Utility Methods**: Added convenience methods for common key operations
+2. **Enhanced Key Generation**: Improved the performance and robustness of key generation methods
+3. **Flexible Entity and ID Extraction**: Enhanced extraction methods to work with different prefix formats
+4. **Additional Utility Methods**: Added convenience methods for common key operations
 
 ## Testing
 
@@ -117,3 +117,8 @@ The Redis key management system is thoroughly tested in the `RedisKeyManagementT
 2. **Define Constants**: Define constants for commonly used keys to avoid duplication and ensure consistency
 3. **Validate Keys**: Use the validation methods to ensure keys follow the standardized format
 4. **Use Extraction Methods**: Use the extraction methods to parse keys and extract relevant parts
+
+## License
+
+[Apache 2.0 License—](../../../LICENSE)Copyright © 2024 xooooooooox
+and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

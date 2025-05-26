@@ -8,41 +8,58 @@
 
 ### Features
 
-- Add embedded server and container tests in `radp-spring-tests`.
-- Optimize Redis key management utilities.
-- Optimize `RedissonService`, update the `#setNx(key, expired, timeUnit)` methods to use the non-deprecated
-  alternatives.
-- Optimize `RedissonService`, update the `#setNx(key, expired, timeUnit)` methods to use the non-deprecated
-  alternatives.
-- Optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`
+- Add Redis key management utility provides a standardized approach to creating validation.
+  Ensures the keys follow a consistent format.
+- Add a comprehensive testing framework in `radp-spring-test`.
 
 ### Bug Fixes
 
 - Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
+- Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`.
+- Fix error handling in embedded servers
+- Fix `Unable to find a URL to the parent project. The parent menu will NOT be added.`
+- Resolve issues with transitive dependencies
+- Fix dubbo filter SPI META-INF
 
 ### Chore
 
 - dependencies
-  - Remove unused `mongodb.version` property.
-  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
-  - Override `kafka.version` from `3.1.2` to `3.9.0`.
-  - Optimize dependency to resolve module cycles.
-  - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`
   - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`
-  - Remove redundant dependency in `radp-integration-test`
+  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`
   - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`
-- parent
-  - Remove redundant profile `code-review`
+  - Override `kafka.version` from `3.1.2` to `3.9.0`.
+    Resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
+  - Optimize dependency to resolve module cycles.
+  - Remove unused `mongodb.version` property.
+  - Remove property `maven-surefire-plugin.version`.
+  - Remove property `maven-antrun-plugin.version`
+  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
+  - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`
+  - Remove unused radp-spring-test dependency from radp-spring-framework.
+  - Remove redundant dependency in `radp-integration-test`
 - build
-  - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
+  - Remove redundant profile `code-review`
+  - Move the `git-commit-id-plugin` from the submodule POM to the root POM for resolve
+    `Missing blame information error`, this may lead to missing/broken features in SonarQube
+  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better management.
+  - Optimize the `code-review` profile
+    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
+    - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
+  - Optimize the `unit-test` profile
+    - Move the `unit-test` profile to the root POM
+    - Add property `maven.test.skip` to `false`
+  - Add relativePath to POM parent configuration
+  - Optimize `radp-smoke-tests-archetype`
+    - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
+    - Add the `maven.test.skip` property to `radp-smoke-tests-archetype`
 - scaffold
   - Update scaffold default radpVersion to `2.21`.
-  - Optimize `.gitignore`, `.gitattributes`.
-  - Add `.idea`.
   - Update `application-logback.yaml` and `logback-test.xml`.
-  - Move assert classes to a new package.
   - Add `RedisKeyProvider` enum.
-- Others
+  - Move assert classes to a new package.
+  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`
+  - Add `.idea`. Add IDE config for copyright and scope settings
+- malicious
   - Switch from GNU GPLv3 to Apache 2.0.
 
 ### Refactor
@@ -52,21 +69,18 @@
   - reduce method complexity
   - refactor the code to improve readability and maintainability
   - refactor any remaining issues with deprecated methods
+- Optimize `RedissonService`
+  - Update the `setNx` methods in RedissonService.java to use the non-deprecated
+    alternatives
 
 ### Tests
 
-- Add module `radp-smoke-tests-redis`, `radp-smoke-tests-logging`, `radp-smoke-tests-test`
-- Add unit tests for embedded servers and containers.
-  - Added Java tests for all embedded servers and containers.
-  - Added Groovy/Spock tests for helper classes.
-- Add `RedissonServiceTest`.
-- Update `logback-test.xml`
-
-### Documents
-
-- Add documentation for `radp-spring-test` module.
-  - Create a comprehensive README with usage examples.
-  - Added detailed Javadoc comments to all classes.
+- Add module `radp-smoke-tests-redis`,
+- Add module`radp-smoke-tests-logging`
+- Add module `radp-smoke-tests-test`
+  - Add test cases for TestContainers
+  - Add test cases for EmbeddedServers
+- Add `RedissonServiceTest`
 
 ## 2.20.2
 

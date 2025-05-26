@@ -29,37 +29,41 @@ import lombok.experimental.UtilityClass;
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 	/**
-	 * Converts a camel case string to a string with a specified separator. For example,
-	 * "camelCase" with a separator of "-" becomes "camel-case".
+	 * Converts camel-case text to lower-case words separated by {@code split}.
+	 * <p>
+	 * Examples:
+	 * <ul>
+	 * <li>{@code "camelCase" → "camel-case"}</li>
+	 * <li>{@code "camelCaseURL" → "camel-case-url"}</li>
+	 * <li>{@code "CamelCase" → "camel-case"}</li>
+	 * </ul>
 	 * @param camelName the camel case string to convert
 	 * @param split the separator to use between words
 	 * @return the converted string, or the original string if it's empty or has no
 	 * uppercase letters
 	 */
 	public static String camelToSplitName(String camelName, String split) {
-		if (isEmpty(camelName)) {
+		if (isEmpty(camelName) || split == null) {
 			return camelName;
 		}
-		StringBuilder buf = null;
-		for (int i = 0; i < camelName.length(); i++) {
-			char ch = camelName.charAt(i);
-			if (ch >= 'A' && ch <= 'Z') {
-				if (buf == null) {
-					buf = new StringBuilder();
-					if (i > 0) {
-						buf.append(camelName, 0, i);
-					}
+
+		StringBuilder out = new StringBuilder(camelName.length() + 8);
+		boolean prevWasLowerOrDigit = false; // tracks lowercase / digit just seen
+
+		for (char ch : camelName.toCharArray()) {
+			if (Character.isUpperCase(ch)) {
+				if (prevWasLowerOrDigit && out.length() > 0) {
+					out.append(split); // add separator only at a true word boundary
 				}
-				if (i > 0) {
-					buf.append(split);
-				}
-				buf.append(Character.toLowerCase(ch));
+				out.append(Character.toLowerCase(ch));
+				prevWasLowerOrDigit = false; // consecutive caps belong to same acronym
 			}
-			else if (buf != null) {
-				buf.append(ch);
+			else {
+				out.append(ch);
+				prevWasLowerOrDigit = Character.isLowerCase(ch) || Character.isDigit(ch);
 			}
 		}
-		return buf == null ? camelName : buf.toString();
+		return out.toString();
 	}
 
 }

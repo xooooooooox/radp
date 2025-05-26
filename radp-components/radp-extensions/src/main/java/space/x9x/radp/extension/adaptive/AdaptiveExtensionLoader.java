@@ -1,10 +1,26 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension.adaptive;
 
+import lombok.RequiredArgsConstructor;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.compile.Compiler;
 import space.x9x.radp.extension.util.Holder;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author x9x
@@ -75,7 +91,7 @@ public class AdaptiveExtensionLoader<T> {
      */
     private T createAdaptiveExtension() {
         try {
-            return extensionLoader.injectExtension((T) getAdaptiveExtensionClass().newInstance());
+            return extensionLoader.injectExtension((T) getAdaptiveExtensionClass().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
             throw new IllegalStateException("Can't create adaptive extension " + extensionLoader.getType() + ", cause: " + e.getMessage(), e);
         }

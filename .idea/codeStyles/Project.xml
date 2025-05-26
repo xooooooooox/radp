@@ -7,6 +7,21 @@
       </value>
     </option>
     <option name="RIGHT_MARGIN" value="120" />
+    <JavaCodeStyleSettings>
+      <option name="IMPORT_LAYOUT_TABLE">
+        <value>
+          <package name="" withSubpackages="true" static="false" module="true" />
+          <emptyLine />
+          <package name="java" withSubpackages="true" static="false" />
+          <emptyLine />
+          <package name="javax" withSubpackages="true" static="false" />
+          <emptyLine />
+          <package name="" withSubpackages="true" static="false" />
+          <emptyLine />
+          <package name="" withSubpackages="true" static="true" />
+        </value>
+      </option>
+    </JavaCodeStyleSettings>
     <editorconfig>
       <option name="ENABLED" value="false" />
     </editorconfig>
@@ -21,6 +36,11 @@
         <option name="USE_TAB_CHARACTER" value="true" />
       </indentOptions>
     </codeStyleSettings>
+    <codeStyleSettings language="JSON">
+      <indentOptions>
+        <option name="TAB_SIZE" value="2" />
+      </indentOptions>
+    </codeStyleSettings>
     <codeStyleSettings language="Markdown">
       <indentOptions>
         <option name="INDENT_SIZE" value="2" />
@@ -28,6 +48,11 @@
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="XML">
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="kotlin">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />
       </indentOptions>

@@ -1,19 +1,35 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /**
  * 值对象；
  * <p>
- * 1. 用于描述对象属性的值，如一个库表中有json后者一个字段多个属性信息的枚举对象 <br/>
- * 2. 对象名称如；<code>XxxVO</code> <br/>
+ * 1. 用于描述对象属性的值，如一个库表中有json后者一个字段多个属性信息的枚举对象 <br>
+ * 2. 对象名称如；<code>XxxVO</code> <br>
  * <p>
  * 值对象（Value Object）在领域服务方法的生命周期过程中是不可变的对象，也没有唯一标识。它通常与实体对象配合使用，
  * 例如为实体对象提供属性值的描述，如一个公司雇员的级别值对象，或一个下单商品的四级地址信息对象。
  * 因此，在开发值对象时，通常不会提供 setter 方法，而是通过构造函数或 Builder 方法来实例化对象。
  * 这个对象通常不会独立作为方法的入参对象，但可以独立作为出参对象使用。
  * <p>
- * <h4>概念</h4>
+ * <h3>概念</h3>
  * <p><strong>值对象</strong>是由一组属性组成的，它们共同描述了一个领域概念。与实体（Entity）不同，值对象不需要有一个唯一的标识符来区分它们。
  * 值对象通常是不可变的，这意味着一旦创建，它们的状态就不应该改变。</p>
  *
- * <h4>特征</h4>
+ * <h3>特征</h3>
  * <ul>
  *   <li><strong>不可变性 (Immutability)：</strong>值对象一旦被创建，其状态就不应该发生变化。这有助于保证领域模型的一致性和线程安全性。</li>
  *   <li><strong>等价性 (Equality)：</strong>值对象的等价性不是基于身份或引用，而是基于对象的属性值。如果两个值对象的所有属性值都相等，那么这两个对象就被认为是等价的。</li>
@@ -22,7 +38,7 @@
  *   <li><strong>可复用性 (Reusability)：</strong>值对象可以在不同的领域实体或其他值对象中重复使用。</li>
  * </ul>
  *
- * <h4>用途</h4>
+ * <h3>用途</h3>
  * <ul>
  *   <li>金额和货币（如价格、工资、费用等）</li>
  *   <li>度量和数据（如重量、长度、体积等）</li>
@@ -31,7 +47,7 @@
  *   <li>任何其它需要封装的属性集合</li>
  * </ul>
  *
- * <h4>实现手段</h4>
+ * <h3>实现手段</h3>
  * <ul>
  *   <li><strong>定义不可变类：</strong>确保类的所有属性都是私有的，并且只能通过构造函数（或 Builder）来设置。</li>
  *   <li><strong>重写 equals 或 hashCode 方法：</strong>这样可以确保值对象的等价性是基于它们的属性值，而不是对象的引用。</li>

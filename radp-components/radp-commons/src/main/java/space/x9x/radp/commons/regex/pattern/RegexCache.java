@@ -58,22 +58,22 @@ public class RegexCache {
 
     /**
      * 中国香港移动电话
-     * <br/>中国大陆：+86 Mainland China
-     * <br/>中国香港：+852 Hong Kong
-     * <br/>中国澳门：+853 Macao
-     * <br/>中国台湾：+886 Taiwan
+     * <br>中国大陆：+86 Mainland China
+     * <br>中国香港：+852 Hong Kong
+     * <br>中国澳门：+853 Macao
+     * <br>中国台湾：+886 Taiwan
      */
     public static final Pattern MOBILE_HK = Pattern.compile(Regex.MOBILE_HK);
 
     /**
      * 中国台湾移动电话
-     * <br/>中国台湾：+886 Taiwan
+     * <br>中国台湾：+886 Taiwan
      */
     public static final Pattern MOBILE_TW = Pattern.compile(Regex.MOBILE_TW);
 
     /**
      * 中国澳门移动电话
-     * <br/>中国澳门 +853 Macao
+     * <br>中国澳门 +853 Macao
      */
     public static final Pattern MOBILE_MO = Pattern.compile(Regex.MOBILE_MO);
 

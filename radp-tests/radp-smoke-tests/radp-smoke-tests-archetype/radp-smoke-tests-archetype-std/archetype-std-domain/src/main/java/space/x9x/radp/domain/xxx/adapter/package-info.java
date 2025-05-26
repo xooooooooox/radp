@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /**
  * 外部接口适配器层(仓储和适配器): 当需要调用外部接口时，则创建出这一层，并定义接口，之后由基础设施层的 adapter 层具体实现
  *
@@ -6,7 +22,7 @@
  * 通常在 `Service + 数据模型` 的设计中, 会在 Service 中引入 Redis, RPC, 配置中心等各类其他外部服务。
  * 但在 DDD 中, 通过仓储和适配器以及基础设施层的定义, 解耦了这部分内容。
  *
- * <h4>特征 (Features)</h4>
+ * <h3>特征 (Features)</h3>
  * <ul>
  *   <li>
  *     <b>封装持久化操作 (Encapsulation of persistence operations)</b>:
@@ -25,7 +41,7 @@
  *   </li>
  * </ul>
  *
- * <h4>用途 (Usage)</h4>
+ * <h3>用途 (Usage)</h3>
  * <ul>
  *   <li>
  *     <b>数据访问抽象 (Data access abstraction)</b>:
@@ -46,7 +62,7 @@
  *   </li>
  * </ul>
  *
- * <h4>实现手段 (Implementation)</h4>
+ * <h3>实现手段 (Implementation)</h3>
  * <ul>
  *   <li>
  *     <b>定义 Repository 接口 (Define Repository interface)</b>:
@@ -73,8 +89,8 @@
  * <strong>Repository 模式是 DDD (领域驱动设计) 中的一个核心概念</strong>:
  * 它有助于保持领域模型的聚焦和清晰, 同时提供了灵活, 可测试和可维护的数据访问策略。
  * <p>
- * 仓储解耦的手段使用了依赖倒置的设计, 所有领域需要的外部服务, 不再直接引入外部的服务, 而是通过定义接口的方式, 让基础设施层实现领域层接口(仓储/适配器) 的方式来处理. <br/>
- * 那么也就是基础设施层负责对接 数据库, 缓存, 配置中心, RPC接口, HTTP接口, MQ推送等各项资源, 并承接领域服务的接口调用各项服务为领域层提供数据能力. <br/>
- * 同时这也会体现出, 领域层的实现是具有业务语义的, 而到了基础设施层则没有业务语义, 都是原子的方法, 通过原子方法的组合为领域业务语义提供支撑. <br/>
+ * 仓储解耦的手段使用了依赖倒置的设计, 所有领域需要的外部服务, 不再直接引入外部的服务, 而是通过定义接口的方式, 让基础设施层实现领域层接口(仓储/适配器) 的方式来处理. <br>
+ * 那么也就是基础设施层负责对接 数据库, 缓存, 配置中心, RPC接口, HTTP接口, MQ推送等各项资源, 并承接领域服务的接口调用各项服务为领域层提供数据能力. <br>
+ * 同时这也会体现出, 领域层的实现是具有业务语义的, 而到了基础设施层则没有业务语义, 都是原子的方法, 通过原子方法的组合为领域业务语义提供支撑. <br>
  */
 package space.x9x.radp.domain.xxx.adapter;

@@ -8,6 +8,8 @@
     </option>
     <option name="RIGHT_MARGIN" value="120" />
     <JavaCodeStyleSettings>
+      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="50" />
+      <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="30" />
       <option name="IMPORT_LAYOUT_TABLE">
         <value>
           <package name="" withSubpackages="true" static="false" module="true" />
@@ -32,6 +34,8 @@
     </codeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="ELSE_ON_NEW_LINE" value="true" />
+      <option name="CATCH_ON_NEW_LINE" value="true" />
+      <option name="FINALLY_ON_NEW_LINE" value="true" />
       <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />

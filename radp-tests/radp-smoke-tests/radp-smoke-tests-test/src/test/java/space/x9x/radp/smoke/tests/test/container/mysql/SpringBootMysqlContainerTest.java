@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.smoke.tests.test.mysql;
+package space.x9x.radp.smoke.tests.test.container.mysql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

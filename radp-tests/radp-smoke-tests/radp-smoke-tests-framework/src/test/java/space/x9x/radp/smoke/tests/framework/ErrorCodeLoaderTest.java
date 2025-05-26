@@ -18,6 +18,7 @@ package space.x9x.radp.smoke.tests.framework;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import space.x9x.radp.smoke.tests.framework.asserts.ServerAssert;
 import space.x9x.radp.spring.framework.error.ServerException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

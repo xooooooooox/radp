@@ -246,7 +246,7 @@ public class MessageFormatter {
 			String oAsString = o.toString();
 			stringBuilder.append(oAsString);
 		}
-		catch (Throwable t) {
+		catch (Throwable th) {
 			stringBuilder.append("[FAILED toString()]");
 		}
 

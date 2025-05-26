@@ -285,7 +285,11 @@
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>${maven-checkstyle-plugin.version}</version>
 				</plugin>
-				<!-- https://github.com/spring-io/spring-javaformat/?tab=readme-ov-file#enable-the-plugin -->
+				<!--
+				NOTES:
+				Documents: https://github.com/spring-io/spring-javaformat/?tab=readme-ov-file#enable-the-plugin
+				Download IDEA Plugin: https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin/0.0.45/
+				-->
 				<plugin>
 					<groupId>io.spring.javaformat</groupId>
 					<artifactId>spring-javaformat-maven-plugin</artifactId>

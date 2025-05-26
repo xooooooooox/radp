@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.smoke.tests.framework;
+package space.x9x.radp.smoke.tests.framework.asserts;
 
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.smoke.tests.framework;
+package space.x9x.radp.smoke.tests.framework.asserts;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
-import space.x9x.radp.spring.framework.error.ClientException;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
+import space.x9x.radp.spring.framework.error.ThirdServiceException;
 import space.x9x.radp.spring.framework.error.asserts.BaseAssert;
 import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 
@@ -28,28 +28,27 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
- * Client assertion utility class that provides static methods for assertions.
+ * Third-party service assertion utility class that provides static methods for assertions.
  *
  * @author x9x
  * @since 2024-10-24 23:46
  */
-public final class ClientAssert extends BaseAssert<ClientException> {
+public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {
 
-    private ClientAssert() {
-
+    private ThirdServiceAssert() {
     }
 
-    private static final ClientAssert INSTANCE = new ClientAssert();
+    private static final ThirdServiceAssert INSTANCE = new ThirdServiceAssert();
 
 
     @Override
-    protected BiFunction<String, String, ClientException> getExceptionCreator() {
-        return ExceptionUtils::clientException;
+    protected BiFunction<String, String, ThirdServiceException> getExceptionCreator() {
+        return ExceptionUtils::thirdServiceException;
     }
 
     @Override
-    protected BiFunction<String, String, ClientException> getFormattedMessageExceptionCreator() {
-        return ExceptionUtils::clientExceptionWithFormattedMessage;
+    protected BiFunction<String, String, ThirdServiceException> getFormattedMessageExceptionCreator() {
+        return ExceptionUtils::thirdServiceExceptionWithFormattedMessage;
     }
 
     public static void doesNotContain(@NotNull String textToSearch, String substring,
@@ -68,7 +67,7 @@ public final class ClientAssert extends BaseAssert<ClientException> {
         INSTANCE.assertHasText(text, errCode, placeholders);
     }
 
-    public static void isInstanceOf(Class<?> type, Object obj,
+    public static void isInstanceOf(Class<?> type, @NotNull Object obj,
                                     @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
         INSTANCE.assertIsInstanceOf(type, obj, errCode, placeholders);
     }

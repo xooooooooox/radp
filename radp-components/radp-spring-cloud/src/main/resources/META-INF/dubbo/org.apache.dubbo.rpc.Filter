@@ -1,1 +1,1 @@
-exception=filter.dubbo.space.x9x.radp.spring.cloud.DubboExceptionFilter
+exception=space.x9x.radp.spring.cloud.dubbo.filter.DubboExceptionFilter

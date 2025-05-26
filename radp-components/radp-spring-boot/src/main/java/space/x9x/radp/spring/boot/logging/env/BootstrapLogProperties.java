@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.boot.logging.env;
 
 import lombok.EqualsAndHashCode;
@@ -20,13 +36,13 @@ import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConf
 public class BootstrapLogProperties extends BootstrapLogConfig {
 
     /**
-     * Configuration prefix for bootstrap logging properties.
+     * Configuration properties prefix for bootstrap logging.
      * This constant defines the prefix used for all bootstrap logging configuration properties.
      */
     public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "logging.bootstrap";
 
     /**
-     * Configuration property key for enabling bootstrap logging.
+     * Property name for enabling/disabling bootstrap logging.
      * This property controls whether bootstrap logging is enabled or disabled.
      */
     public static final String ENABLED = PREFIX + ".enabled";

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,26 +28,26 @@ import lombok.experimental.UtilityClass;
 public class Conditions {
 
     /**
-     * Common property suffix for enabling features.
-     * This constant is used in conditional annotations to check if a feature is enabled.
+     * Constant representing the 'enabled' property name.
+     * Used in conditional configurations to check if a feature is enabled.
      */
     public static final String ENABLED = "enabled";
 
     /**
-     * String representation of boolean true value.
-     * This constant is used in conditional annotations for property value comparison.
+     * Constant representing the 'true' string value.
+     * Used in conditional configurations for boolean property comparisons.
      */
     public static final String TRUE = "true";
 
     /**
-     * String representation of boolean false value.
-     * This constant is used in conditional annotations for property value comparison.
+     * Constant representing the 'false' string value.
+     * Used in conditional configurations for boolean property comparisons.
      */
     public static final String FALSE = "false";
 
     /**
-     * Property suffix for marking a bean as primary.
-     * This constant is used in conditional annotations to check if a bean should be primary.
+     * Constant representing the 'primary' property name.
+     * Used in bean definitions to mark a bean as primary when multiple candidates exist.
      */
     public static final String PRIMARY = "primary";
 }

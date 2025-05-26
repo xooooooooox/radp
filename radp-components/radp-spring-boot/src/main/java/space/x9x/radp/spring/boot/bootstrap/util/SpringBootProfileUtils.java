@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.boot.bootstrap.util;
 
 import lombok.experimental.UtilityClass;
@@ -19,11 +35,11 @@ import java.util.Map;
 @UtilityClass
 public class SpringBootProfileUtils {
     /**
-     * Adds the development profile as the default profile for a Spring Boot application.
-     * This method sets the "spring.profiles.default" property to the development profile,
-     * ensuring that the application runs in development mode by default if no other profile is specified.
+     * Adds a default profile to a Spring Boot application.
+     * This method sets the default Spring profile to the development profile
+     * if no profile is explicitly specified when the application starts.
      *
-     * @param application the Spring Boot application to configure with the default profile
+     * @param application the Spring Boot application to configure
      */
     public static void addDefaultProfile(SpringApplication application) {
         Map<String, Object> defaultProperties = new HashMap<>();

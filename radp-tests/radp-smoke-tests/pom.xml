@@ -19,5 +19,4 @@
         <module>radp-smoke-tests-logging</module>
         <module>radp-smoke-tests-test</module>
     </modules>
-
 </project>

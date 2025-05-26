@@ -18,7 +18,7 @@
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
 
-        <!-- [效率工具] -->
+        <!-- [效率组件] -->
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.6.2</mapstruct.version>
         <jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
@@ -51,7 +51,7 @@
         <t-digest.version>3.2</t-digest.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
 
-        <!-- [缓存] -->
+        <!-- [缓存组件] -->
         <ehcache.version>2.10.4</ehcache.version>
         <redisson.version>3.32.0</redisson.version>
         <caffeine.version>2.9.3</caffeine.version>
@@ -67,7 +67,7 @@
         <zookeeper.version>3.8.4</zookeeper.version>
         <xxl-job.version>2.4.0</xxl-job.version>
 
-        <!-- [授权认证] -->
+        <!-- [授权认证组件] -->
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <jjwt.version>0.11.2</jjwt.version>
         <shiro.version>1.12.0</shiro.version>
@@ -75,12 +75,12 @@
         <!-- [云原生组件] -->
         <docker-java.version>3.2.14</docker-java.version>
 
-        <!-- [监控] -->
-        <!--        <micrometer.version>1.9.1</micrometer.version>-->
-
         <!-- [通讯组件] -->
         <netty.version>4.1.105.Final
         </netty.version> <!-- 解决 DNS TCP fallback on UDP query timeout disabled. Upgrade Netty to 4.1.105 or higher. -->
+
+        <!-- [监控组件] -->
+        <!--        <micrometer.version>1.9.1</micrometer.version>-->
 
         <!-- TODO: [链路组件] -->
 
@@ -110,8 +110,9 @@
         <jmh.version>1.36</jmh.version>
         <testcontainers.version>1.21.0</testcontainers.version>
         <testcontainers-redis.version>2.2.2</testcontainers-redis.version>
-        <embedded-redis.version>0.11.0</embedded-redis.version>
+        <embedded-redis.version>1.4.3</embedded-redis.version>
         <!-- ============================================================================== -->
+
 
         <!-- ============================================================================== -->
         <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
@@ -137,7 +138,6 @@
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <!-- 单元测试 -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <!-- 集成测试 -->
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
         <redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
@@ -176,7 +176,6 @@
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
-        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
         <wagon-maven-plugin.version>2.0.2</wagon-maven-plugin.version>
@@ -189,25 +188,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- ====================[Spring==================== -->
-            <!-- Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- Spring Cloud -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- ====================Spring]==================== -->
-
             <!-- ====================[radp==================== -->
             <!-- radp 基础组件 -->
             <dependency>
@@ -260,6 +240,7 @@
                 <artifactId>radp-spring-cloud</artifactId>
                 <version>2.21-SNAPSHOT</version>
             </dependency>
+
             <!-- 设计模式框架 -->
             <dependency>
                 <groupId>space.x9x.radp</groupId>
@@ -269,7 +250,7 @@
 
             <!-- TODO: radp solutions -->
 
-            <!-- radp-xx-spring-boot-starters -->
+            <!-- radp-xx-spring-boot-starter -->
             <dependency>
                 <groupId>space.x9x.radp</groupId>
                 <artifactId>radp-jasypt-spring-boot-starter</artifactId>
@@ -325,6 +306,7 @@
 
             <!-- ====================radp]==================== -->
 
+
             <!-- ====================[效率工具==================== -->
             <!-- MapStruct：用于简化 Java Bean 之间映射的工具 -->
             <dependency>
@@ -337,7 +319,7 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <!-- JetBrains 注解：提供常用的注解，如 @NotNull 等 -->
+            <!-- JetBrains：提供常用的注解，如 @NotNull 等 -->
             <dependency>
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
@@ -371,7 +353,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!-- ====================接口文档组件]==================== -->
 
             <!-- ====================[关系型数据库==================== -->
@@ -391,7 +372,7 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot.version}</version>
             </dependency>
-            <!-- MyBatis-Plus -->
+            <!-- mybatis-plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -458,7 +439,7 @@
             </dependency>
             <!-- ====================缓存]==================== -->
 
-            <!-- ====================[消息队列]=================== -->
+            <!-- ====================[消息队列==================== -->
             <!-- kafka -->
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
@@ -472,6 +453,7 @@
                 <version>${rocketmq-spring-boot.version}</version>
             </dependency>
             <!-- ====================消息队列]==================== -->
+
 
             <!-- ====================[分布式组件==================== -->
             <!-- Apache Dubbo -->
@@ -535,7 +517,7 @@
             </dependency>
             <!-- ====================分布式组件]==================== -->
 
-            <!-- ====================[授权认证==================== -->
+            <!-- ====================[授权认证组件==================== -->
             <!-- shiro -->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
@@ -568,11 +550,13 @@
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${spring-security-jwt.version}</version>
             </dependency>
-            <!-- ====================授权认证]==================== -->
+            <!-- ====================授权认证组件]==================== -->
 
             <!-- TODO: ====================[监控==================== -->
             <!-- TODO: ====================监控]==================== -->
 
+            <!-- TODO: ====================[链路组件==================== -->
+            <!-- TODO: ====================链路组件]==================== -->
 
             <!-- ====================[工具集==================== -->
             <!-- Spring Shell Starter：用于构建交互式命令行应用的工具 -->
@@ -732,6 +716,12 @@
                 <artifactId>jmh-generator-annprocess</artifactId>
                 <version>${jmh.version}</version>
             </dependency>
+            <!-- Embedded Redis -->
+            <dependency>
+                <groupId>com.github.codemonstur</groupId>
+                <artifactId>embedded-redis</artifactId>
+                <version>${embedded-redis.version}</version>
+            </dependency>
             <!-- Testcontainers -->
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -745,18 +735,33 @@
                 <artifactId>testcontainers-redis</artifactId>
                 <version>${testcontainers-redis.version}</version>
             </dependency>
-            <!-- Embedded Redis -->
-            <dependency>
-                <groupId>com.github.codemonstur</groupId>
-                <artifactId>embedded-redis</artifactId>
-                <version>${embedded-redis.version}</version>
-            </dependency>
             <!-- ====================测试组件]==================== -->
+
+
+            <!-- ====================[Spring==================== -->
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- ====================Spring]==================== -->
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
+            <!-- 相同的 phase 按引入顺序执行 -->
             <plugins>
                 <!-- ====================[清理==================== -->
                 <plugin>
@@ -1000,7 +1005,6 @@
                     <artifactId>archetype-packaging</artifactId>
                     <version>${archetype-packaging.version}</version>
                 </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-archetype-plugin</artifactId>

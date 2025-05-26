@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
+import lombok.experimental.UtilityClass;
 import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
@@ -29,6 +30,7 @@ import space.x9x.radp.commons.lang.ArrayUtils;
  * @author IO x9x
  * @since 2024-09-24 19:56
  */
+@UtilityClass
 public class LoadingStrategyHolder {
 
 	/**

@@ -78,6 +78,7 @@
 - Optimize `RedissonService`
   - Update the `setNx` methods in RedissonService.java to use the non-deprecated
     alternatives
+- Refactor `StringUtils`. Add unit tests and reduce `#camelToSplitName` method complexity
 
 ### Tests
 

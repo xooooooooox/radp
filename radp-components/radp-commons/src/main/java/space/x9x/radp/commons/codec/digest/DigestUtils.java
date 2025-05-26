@@ -24,4 +24,5 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class DigestUtils extends org.apache.commons.codec.digest.DigestUtils {
+
 }

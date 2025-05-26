@@ -27,23 +27,24 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  */
 public class DefaultXmlMapper extends XmlMapper {
 
-    private static final long serialVersionUID = -1966898079622236116L;
+	private static final long serialVersionUID = -1966898079622236116L;
 
-    /**
-     * Constructs a new DefaultXmlMapper with pre-configured settings.
-     * <p>
-     * This constructor initializes an XmlMapper with the following configurations:
-     * <ul>
-     *   <li>Serialization inclusion set to ALWAYS (includes all properties)</li>
-     *   <li>Ignores unknown properties during deserialization</li>
-     *   <li>Disables failure on empty beans during serialization</li>
-     * </ul>
-     */
-    public DefaultXmlMapper() {
-        super();
+	/**
+	 * Constructs a new DefaultXmlMapper with pre-configured settings.
+	 * <p>
+	 * This constructor initializes an XmlMapper with the following configurations:
+	 * <ul>
+	 * <li>Serialization inclusion set to ALWAYS (includes all properties)</li>
+	 * <li>Ignores unknown properties during deserialization</li>
+	 * <li>Disables failure on empty beans during serialization</li>
+	 * </ul>
+	 */
+	public DefaultXmlMapper() {
+		super();
 
-        this.setSerializationInclusion(JsonInclude.Include.ALWAYS);
-        this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-    }
+		this.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+	}
+
 }

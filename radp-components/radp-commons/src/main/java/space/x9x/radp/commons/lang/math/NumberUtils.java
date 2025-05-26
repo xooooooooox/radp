@@ -24,4 +24,5 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
+
 }

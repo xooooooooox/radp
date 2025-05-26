@@ -33,27 +33,27 @@ public class StringUtilsTest {
 	void testCamelToSplitName() {
 		// Test with an empty string
 		assertEquals("", StringUtils.camelToSplitName("", "-"));
-		
+
 		// Test with null
 		assertNull(StringUtils.camelToSplitName(null, "-"));
-		
+
 		// Test with no uppercase letters
 		assertEquals("lowercase", StringUtils.camelToSplitName("lowercase", "-"));
-		
+
 		// Test with uppercase letters
 		assertEquals("camel-case", StringUtils.camelToSplitName("camelCase", "-"));
-		
+
 		// Test with uppercase letters at the beginning
 		assertEquals("camel-case", StringUtils.camelToSplitName("CamelCase", "-"));
-		
+
 		// Test with multiple uppercase letters
-		assertEquals("camel-case-with-multiple-words", 
-				StringUtils.camelToSplitName("camelCaseWithMultipleWords", "-"));
-		
+		assertEquals("camel-case-with-multiple-words", StringUtils.camelToSplitName("camelCaseWithMultipleWords", "-"));
+
 		// Test with different separator
 		assertEquals("camel_case", StringUtils.camelToSplitName("camelCase", "_"));
-		
+
 		// Test with consecutive uppercase letters
 		assertEquals("camel-case-url", StringUtils.camelToSplitName("camelCaseURL", "-"));
 	}
+
 }

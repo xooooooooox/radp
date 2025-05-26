@@ -24,4 +24,5 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
+
 }

@@ -16,10 +16,10 @@
 
 package space.x9x.radp.commons.id;
 
-import lombok.experimental.UtilityClass;
-
 import java.security.SecureRandom;
 import java.util.Random;
+
+import lombok.experimental.UtilityClass;
 
 /**
  * @author IO x9x
@@ -28,74 +28,76 @@ import java.util.Random;
 @UtilityClass
 public class NanoIdGenerator {
 
-    /**
-     * The default secure random number generator used for ID generation.
-     * This provides cryptographically strong random numbers.
-     */
-    public static final SecureRandom DEFAULT_NUMBER_GENERATOR = new SecureRandom();
-    private static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    /**
-     * The default size (length) of generated NanoIDs.
-     * A length of 21 provides a good balance between uniqueness and size.
-     */
-    public static final int DEFAULT_SIZE = 21;
+	/**
+	 * The default secure random number generator used for ID generation. This provides
+	 * cryptographically strong random numbers.
+	 */
+	public static final SecureRandom DEFAULT_NUMBER_GENERATOR = new SecureRandom();
 
-    /**
-     * Generates a random NanoID using default settings.
-     * <p>
-     * This method uses the default random number generator, alphabet, and size
-     * to create a secure, URL-friendly, unique identifier.
-     *
-     * @return a randomly generated NanoID string
-     */
-    public static String randomNanoId() {
-        return randomNanoId(DEFAULT_NUMBER_GENERATOR, DEFAULT_ALPHABET, DEFAULT_SIZE);
-    }
+	private static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		.toCharArray();
 
-    /**
-     * Generates a random NanoID with custom parameters.
-     * <p>
-     * This method allows customization of the random number generator, alphabet,
-     * and size of the generated ID. It implements the NanoID algorithm to create
-     * collision-resistant, unique identifiers.
-     *
-     * @param random   the random number generator to use
-     * @param alphabet the characters to use for the ID
-     * @param size     the length of the ID to generate
-     * @return a randomly generated NanoID string
-     * @throws IllegalArgumentException if any parameter is invalid
-     */
-    @SuppressWarnings("t")
-    public static String randomNanoId(final Random random, final char[] alphabet, final int size) {
-        if (random == null) {
-            throw new IllegalArgumentException("random cannot be null.");
-        }
-        if (alphabet == null) {
-            throw new IllegalArgumentException("alphabet cannot be null.");
-        }
-        if (alphabet.length == 0 || alphabet.length >= 256) {
-            throw new IllegalArgumentException("alphabet must contain between 1 and 255 symbols.");
-        }
-        if (size <= 0) {
-            throw new IllegalArgumentException("size must be greater than zero.");
-        }
+	/**
+	 * The default size (length) of generated NanoIDs. A length of 21 provides a good
+	 * balance between uniqueness and size.
+	 */
+	public static final int DEFAULT_SIZE = 21;
 
-        final int mask = (2 << (int) Math.floor(Math.log(alphabet.length - 1) / Math.log(2))) - 1;
-        final int step = (int) Math.ceil(1.6 * mask * size / alphabet.length);
+	/**
+	 * Generates a random NanoID using default settings.
+	 * <p>
+	 * This method uses the default random number generator, alphabet, and size to create
+	 * a secure, URL-friendly, unique identifier.
+	 * @return a randomly generated NanoID string
+	 */
+	public static String randomNanoId() {
+		return randomNanoId(DEFAULT_NUMBER_GENERATOR, DEFAULT_ALPHABET, DEFAULT_SIZE);
+	}
 
-        final StringBuilder idBuilder = new StringBuilder();
-        while (true) {
-            final byte[] bytes = new byte[step];
-            random.nextBytes(bytes);
-            for (int i = 0; i < step; i++) {
-                final int alphabetIndex = bytes[i] & mask;
-                if (alphabetIndex < alphabet.length) {
-                    idBuilder.append(alphabet[alphabetIndex]);
-                    if (idBuilder.length() == size) {
-                        return idBuilder.toString();
-                    }
-                }
-            }
-        }
-    }
+	/**
+	 * Generates a random NanoID with custom parameters.
+	 * <p>
+	 * This method allows customization of the random number generator, alphabet, and size
+	 * of the generated ID. It implements the NanoID algorithm to create
+	 * collision-resistant, unique identifiers.
+	 * @param random the random number generator to use
+	 * @param alphabet the characters to use for the ID
+	 * @param size the length of the ID to generate
+	 * @return a randomly generated NanoID string
+	 * @throws IllegalArgumentException if any parameter is invalid
+	 */
+	@SuppressWarnings("t")
+	public static String randomNanoId(final Random random, final char[] alphabet, final int size) {
+		if (random == null) {
+			throw new IllegalArgumentException("random cannot be null.");
+		}
+		if (alphabet == null) {
+			throw new IllegalArgumentException("alphabet cannot be null.");
+		}
+		if (alphabet.length == 0 || alphabet.length >= 256) {
+			throw new IllegalArgumentException("alphabet must contain between 1 and 255 symbols.");
+		}
+		if (size <= 0) {
+			throw new IllegalArgumentException("size must be greater than zero.");
+		}
+
+		final int mask = (2 << (int) Math.floor(Math.log(alphabet.length - 1) / Math.log(2))) - 1;
+		final int step = (int) Math.ceil(1.6 * mask * size / alphabet.length);
+
+		final StringBuilder idBuilder = new StringBuilder();
+		while (true) {
+			final byte[] bytes = new byte[step];
+			random.nextBytes(bytes);
+			for (int i = 0; i < step; i++) {
+				final int alphabetIndex = bytes[i] & mask;
+				if (alphabetIndex < alphabet.length) {
+					idBuilder.append(alphabet[alphabetIndex]);
+					if (idBuilder.length() == size) {
+						return idBuilder.toString();
+					}
+				}
+			}
+		}
+	}
+
 }

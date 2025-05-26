@@ -1,10 +1,22 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.expression;
 
 import cn.hutool.extra.spring.SpringUtil;
-import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.collections.MapUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
-import space.x9x.radp.commons.lang.StringUtils;
 import lombok.experimental.UtilityClass;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -15,6 +27,10 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import space.x9x.radp.commons.collections.CollectionUtils;
+import space.x9x.radp.commons.collections.MapUtils;
+import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -39,6 +55,13 @@ public class SpringExpressionUtils {
      */
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
+    /**
+     * Parses a single SpEL expression in the context of a join point.
+     *
+     * @param joinPoint        the join point providing the context for expression evaluation
+     * @param expressionString the SpEL expression to parse
+     * @return the result of evaluating the expression
+     */
     public static Object parseExpression(JoinPoint joinPoint, String expressionString) {
         return parseExpression(joinPoint, Collections.singletonList(expressionString)).get(expressionString);
     }

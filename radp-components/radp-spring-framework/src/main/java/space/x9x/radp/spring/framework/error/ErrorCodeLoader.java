@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.error;
 
 import lombok.experimental.UtilityClass;
@@ -17,16 +33,18 @@ import java.util.ResourceBundle;
 public class ErrorCodeLoader {
 
     /**
-     * The resource bundle name for internal error messages.
-     * This bundle contains framework-specific error messages and is used as a fallback
-     * when application-specific error messages are not available.
+     * Resource bundle name for internal error messages.
+     * This constant defines the path to the internal resource bundle that contains
+     * framework-provided error messages used as a fallback when application-specific
+     * error messages are not available.
      */
     public static final String INTERNAL_BUNDLE_NAME = "META-INF.error.internal";
 
     /**
-     * The resource bundle name for application error messages.
-     * This bundle contains application-specific error messages that can be customized
-     * by the application.
+     * Resource bundle name for application error messages.
+     * This constant defines the path to the resource bundle that contains
+     * application-specific error messages. If this bundle cannot be loaded,
+     * the system will fall back to using the internal bundle.
      */
     public static final String BUNDLE_NAME = "META-INF.error.message";
     private static final ResourceBundle INTERNAL_RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);

@@ -1,5 +1,25 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.logging.access.util;
 
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.MDC;
 import space.x9x.radp.commons.lang.ObjectUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
@@ -8,10 +28,6 @@ import space.x9x.radp.spring.framework.json.support.JSONHelper;
 import space.x9x.radp.spring.framework.logging.MdcConstants;
 import space.x9x.radp.spring.framework.logging.access.model.AccessLog;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.intercept.MethodInvocation;
-import org.slf4j.MDC;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -144,11 +160,13 @@ public class AccessLogHelper {
     }
 
     /**
-     * Logs the access information with the appropriate log level based on execution result and duration.
-     * Uses ERROR level for exceptions, WARN level for slow executions, and INFO level for normal executions.
+     * Logs the access information with appropriate log level based on execution result.
+     * If an exception occurred, logs at ERROR level.
+     * If execution time exceeded the slow threshold, logs at WARN level.
+     * Otherwise, logs at INFO level.
      *
-     * @param accessLog The access log information to be logged
-     * @param slowThreshold The threshold in milliseconds above which an execution is considered slow
+     * @param accessLog     the access log object containing execution details
+     * @param slowThreshold the threshold in milliseconds above which a request is considered slow
      */
     public static void log(AccessLog accessLog, long slowThreshold) {
         StringBuilder stringBuilder = new StringBuilder();

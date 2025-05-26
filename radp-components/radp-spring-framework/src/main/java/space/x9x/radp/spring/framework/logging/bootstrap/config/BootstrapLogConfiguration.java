@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.logging.bootstrap.config;
 
 import org.springframework.beans.factory.ObjectProvider;
@@ -25,10 +41,9 @@ public class BootstrapLogConfiguration {
 
     /**
      * Creates and configures a BootstrapLogHttpFilter bean.
-     * This filter is responsible for logging HTTP requests and responses during application bootstrap.
-     * It can also populate the MDC (Mapped Diagnostic Context) with request information for logging.
+     * This filter is used to log HTTP requests and responses during application bootstrap.
      *
-     * @param environment         the Spring environment, used to access configuration properties
+     * @param environment         the Spring environment for configuration properties
      * @param bootstrapLogConfigs provider for bootstrap log configuration
      * @return a configured BootstrapLogHttpFilter instance
      */
@@ -42,10 +57,9 @@ public class BootstrapLogConfiguration {
     }
 
     /**
-     * Servlet filter registration for the bootstrap log HTTP filter.
-     * This class acts as a wrapper around the BootstrapLogHttpFilter, delegating all filter
-     * operations to it. It's annotated with @WebFilter to automatically register
-     * the filter in the servlet container for all URL patterns.
+     * Filter registration class for the BootstrapLogHttpFilter.
+     * This class implements the Filter interface and delegates all filter operations
+     * to the autowired BootstrapLogHttpFilter instance.
      */
     @WebFilter(filterName = "bootstrapLogHttpFilter", urlPatterns = "/*")
     @Component

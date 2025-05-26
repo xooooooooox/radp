@@ -53,6 +53,12 @@ import java.util.Set;
 public class RestExceptionHandler {
     private static final String EXCEPTION_HANDLER_CATCH = "@RestControllerAdvice catch exception: {}";
 
+    /**
+     * Handles general exceptions that are not caught by more specific handlers.
+     *
+     * @param ex the exception
+     * @return a response entity with error details
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> resolveException(Exception ex) {
         log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
@@ -70,6 +76,12 @@ public class RestExceptionHandler {
         return builder.body(response);
     }
 
+    /**
+     * Handles validation exceptions thrown when method arguments fail validation.
+     *
+     * @param ex the validation exception
+     * @return a response entity with validation error details
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> resolveValidationException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
@@ -79,6 +91,12 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
     }
 
+    /**
+     * Handles exceptions thrown when method argument types don't match the expected types.
+     *
+     * @param ex the method argument type mismatch exception
+     * @return a response entity with error details
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<?> resolveMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
@@ -86,6 +104,12 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
     }
 
+    /**
+     * Handles exceptions thrown when an HTTP request method is not supported.
+     *
+     * @param ex the HTTP request method didn't support exception
+     * @return a response entity with a method didn't allow error details
+     */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
@@ -93,21 +117,45 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, response);
     }
 
+    /**
+     * Handles bad request exceptions when the client sends an invalid request.
+     *
+     * @param ex the bad request exception
+     * @return a response entity with bad request error details
+     */
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<?> resolveBadRequestException(BadRequestException ex) {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
     }
 
+    /**
+     * Handles unauthorized exceptions when a user is not authenticated.
+     *
+     * @param ex the unauthorized exception
+     * @return a response entity with unauthorized error details
+     */
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<?> resolveUnauthorizedException(UnauthorizedException ex) {
         return this.buildResponseEntity(HttpStatus.UNAUTHORIZED, ex);
     }
 
+    /**
+     * Handles forbidden exceptions when a user is not authorized to access a resource.
+     *
+     * @param ex the forbidden exception
+     * @return a response entity with forbidden error details
+     */
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<?> resolveForbiddenException(ForbiddenException ex) {
         return this.buildResponseEntity(HttpStatus.FORBIDDEN, ex);
     }
 
+    /**
+     * Handles client exceptions for errors caused by client-side issues.
+     *
+     * @param ex the client exception
+     * @return a response entity with bad request error details
+     */
     @ExceptionHandler(ClientException.class)
     public ResponseEntity<?> resolveClientException(ClientException ex) {
         log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
@@ -115,6 +163,12 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
     }
 
+    /**
+     * Handles server exceptions for errors caused by server-side issues.
+     *
+     * @param ex the server exception
+     * @return a response entity with internal server error details
+     */
     @ExceptionHandler(ServerException.class)
     public ResponseEntity<?> resolveServerException(ServerException ex) {
         log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
@@ -122,6 +176,12 @@ public class RestExceptionHandler {
         return this.buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex);
     }
 
+    /**
+     * Handles exceptions related to third-party service failures.
+     *
+     * @param ex the third service exception
+     * @return a response entity with internal server error details
+     */
     @ExceptionHandler(ThirdServiceException.class)
     public ResponseEntity<?> resolveThirdServiceException(ThirdServiceException ex) {
         log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);

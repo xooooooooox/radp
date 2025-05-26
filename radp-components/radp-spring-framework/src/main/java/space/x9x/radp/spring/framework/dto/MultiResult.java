@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.dto;
 
 import lombok.EqualsAndHashCode;
@@ -20,20 +36,21 @@ import java.util.Collections;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Getter
+@SuppressWarnings("java:S1948")
 public class MultiResult<T> extends Result {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * The collection of data items in the result.
+     * The collection of data items returned in the response
      */
     private Collection<T> data;
 
     /**
      * Creates a successful MultiResult with an empty collection.
-     * 
-     * @param <T> The type of elements in the collection
-     * @return A successful MultiResult with an empty collection
+     *
+     * @param <T> the type of elements in the result collection
+     * @return a new MultiResult instance with success status and empty data
      */
     public static <T> MultiResult<T> build() {
         return build(Collections.emptyList());
@@ -41,10 +58,10 @@ public class MultiResult<T> extends Result {
 
     /**
      * Creates a successful MultiResult with the specified collection of data.
-     * 
-     * @param <T> The type of elements in the collection
-     * @param data The collection of data to include in the result
-     * @return A successful MultiResult containing the provided data
+     *
+     * @param <T>  the type of elements in the result collection
+     * @param data the collection of data to include in the result
+     * @return a new MultiResult instance with success status and the provided data
      */
     public static <T> MultiResult<T> build(Collection<T> data) {
         return MultiResult.<T>multiResultBuilder()
@@ -57,10 +74,10 @@ public class MultiResult<T> extends Result {
 
     /**
      * Creates a failure MultiResult with the specified error code.
-     * 
-     * @param <T> The type of elements in the collection (not used in failure case)
-     * @param errorCode The error code containing code and message for the failure
-     * @return A failure MultiResult with the error information
+     *
+     * @param <T> the type of elements in the result collection (will be empty for failure)
+     * @param errorCode the error code containing code and message for the failure
+     * @return a new MultiResult instance with failure status and the provided error details
      */
     public static <T> MultiResult<T> buildFailure(ErrorCode errorCode) {
         return MultiResult.<T>multiResultBuilder()

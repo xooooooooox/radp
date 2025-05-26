@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension.util;
 
 /**
@@ -21,18 +37,22 @@ public class Holder<T> {
     private volatile T value;
 
     /**
-     * Returns the value stored in this holder
+     * Gets the current value stored in this holder.
+     * This method returns the value that was last set in this holder,
+     * or null if no value has been set.
      *
-     * @return the stored value, which may be null
+     * @return the current value stored in this holder
      */
     public T get() {
         return value;
     }
 
     /**
-     * Sets the value to be stored in this holder
+     * Sets a new value in this holder.
+     * This method updates the value stored in this holder.
+     * The update is visible to all threads due to the volatile modifier on the value field.
      *
-     * @param value the value to store, which may be null
+     * @param value the new value to store in this holder
      */
     public void set(T value) {
         this.value = value;

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.commons.net;
 
 import lombok.NonNull;
@@ -83,14 +99,20 @@ public class IpConfigUtils {
     }
 
     /**
-     * Extracts the client's IP address from an HTTP request.
+     * Extracts the client IP address from an HTTP request.
      * <p>
-     * This method attempts to find the client IP by checking various HTTP headers
-     * that might contain proxy information, falling back to the remote address
-     * if no valid IP is found in the headers.
+     * This method attempts to find the client IP address by checking various HTTP headers
+     * that might contain the original client IP when the request passes through proxies.
+     * It checks the following headers in order:
+     * <ol>
+     *   <li>X-Forwarded-For</li>
+     *   <li>Proxy-Client-IP</li>
+     *   <li>WL-Proxy-Client-IP</li>
+     * </ol>
+     * If none of these headers contain a valid IP, it falls back to the remote address from the request.
      *
      * @param request the HTTP servlet request
-     * @return the client's IP address
+     * @return the client IP address
      */
     public static String parseIpAddress(@NonNull HttpServletRequest request) {
         String ip = request.getHeader(X_FORWARDED_FOR);
@@ -108,6 +130,9 @@ public class IpConfigUtils {
 
     /**
      * Checks if two IP addresses are in the same subnet using the default subnet mask.
+     * <p>
+     * This method uses the default subnet mask (255.255.255.0) to determine if the
+     * two provided IP addresses belong to the same subnet.
      *
      * @param ip1 the first IP address
      * @param ip2 the second IP address

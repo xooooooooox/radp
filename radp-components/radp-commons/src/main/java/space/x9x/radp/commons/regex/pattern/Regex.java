@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.commons.regex.pattern;
 
 import lombok.experimental.UtilityClass;
@@ -39,22 +55,22 @@ public class Regex {
 
     /**
      * 中国香港移动电话
-     * <br>中国大陆：+86 Mainland China
-     * <br>中国香港：+852 Hong Kong
-     * <br>中国澳门：+853 Macao
-     * <br>中国台湾：+886 Taiwan
+     * <br/>中国大陆：+86 Mainland China
+     * <br/>中国香港：+852 Hong Kong
+     * <br/>中国澳门：+853 Macao
+     * <br/>中国台湾：+886 Taiwan
      */
     public static final String MOBILE_HK = "(?:0|852|\\+852)?\\d{8}";
 
     /**
      * 中国台湾移动电话
-     * <br>中国台湾：+886 Taiwan
+     * <br/>中国台湾：+886 Taiwan
      */
     public static final String MOBILE_TW = "(?:0|886|\\+886)?(?:|-)09\\d{8}";
 
     /**
      * 中国澳门移动电话
-     * <br>中国澳门 +853 Macao
+     * <br/>中国澳门 +853 Macao
      */
     public static final String MOBILE_MO = "(?:0|853|\\+853)?(?:|-)6\\d{7}";
 

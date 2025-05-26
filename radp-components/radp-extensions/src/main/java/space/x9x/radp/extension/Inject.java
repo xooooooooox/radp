@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension;
 
 import java.lang.annotation.*;
@@ -15,30 +31,36 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Inject {
     /**
-     * Controls whether injection is enabled for the annotated element.
+     * Controls whether dependency injection is enabled for the annotated element.
+     * When set to true (default), the dependency will be injected.
+     * When set to false, the dependency will not be injected.
      *
      * @return true if injection is enabled, false otherwise
      */
     boolean enable() default true;
 
     /**
-     * Specifies the type of injection to be used.
+     * Specifies the type of injection to use.
+     * This determines how dependencies are matched and injected.
      *
-     * @return the injection type, default is BY_NAME
+     * @return the type of injection to use
      */
     InjectType type() default InjectType.BY_NAME;
 
     /**
-     * Enum defining the types of injection that can be used.
+     * Defines the available types of dependency injection.
+     * This enum specifies how dependencies should be matched and injected.
      */
     enum InjectType {
         /**
-         * Inject by name, using the property name to look up the extension.
+         * Indicates that dependencies should be injected by matching their names.
+         * This is the default injection type.
          */
         BY_NAME,
 
         /**
-         * Inject by type, using only the parameter type to look up the extension.
+         * Indicates that dependencies should be injected by matching their types.
+         * This injection type ignores names and matches solely based on the type.
          */
         BY_TYPE
     }

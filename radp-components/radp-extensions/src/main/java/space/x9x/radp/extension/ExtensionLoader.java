@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension;
 
 import lombok.Getter;
@@ -110,7 +126,7 @@ public class ExtensionLoader<T> {
      * 首先检查指定类型是否正确注解，然后从缓存中获取对应的扩展加载器，
      * 如果没有则创建一个新的扩展加载器并放入缓存中
      *
-     * @param <T> 扩展接口的类型参数
+     * @param <T> 扩展点类型参数，表示要加载的扩展点接口类型
      * @param type 扩展接口类型，即需要加载扩展的接口类型
      * @return 返回该类型的扩展加载器实例，通过该实例可以加载并获取该接口的所有实现类
      */
@@ -474,9 +490,11 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Returns all supported extension names for this extension type
+     * Gets all supported extension names for this extension type.
+     * This method returns an unmodifiable set of all extension names that have been loaded
+     * or can be loaded for the current extension type.
      *
-     * @return a set of supported extension names
+     * @return an unmodifiable set of all supported extension names
      */
     public Set<String> getSupportedExtensions() {
         Map<String, Class<?>> extensionClasses = getExtensionClasses();
@@ -484,22 +502,28 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Gets the extension with the given name.
+     * Gets the extension with the specified name.
+     * This method is a convenience method that calls {@link #getExtension(String, boolean)}
+     * with wrapping enabled.
      *
-     * @param name The name of the extension to get
-     * @return The extension instance
+     * @param name the name of the extension to get
+     * @return the extension with the specified name
+     * @throws IllegalArgumentException if the name is null or empty
      */
     public T getExtension(String name) {
         return getExtension(name, true);
     }
 
     /**
-     * Gets the extension with the given name, with optional wrapping.
+     * Gets the extension with the specified name, with optional wrapping.
+     * This method retrieves an extension instance by its name. If the extension
+     * has not been loaded yet, it will be created and initialized.
+     * If wrapping is enabled, the extension will be wrapped with any applicable wrapper classes.
      *
-     * @param name The name of the extension to get
-     * @param wrap Whether to wrap the extension with wrapper classes
-     * @return The extension instance, possibly wrapped
-     * @throws IllegalArgumentException if the name is empty
+     * @param name the name of the extension to get
+     * @param wrap whether to wrap the extension with wrapper classes
+     * @return the extension with the specified name
+     * @throws IllegalArgumentException if the name is null or empty
      */
     @SuppressWarnings("unchecked")
     public T getExtension(String name, boolean wrap) {
@@ -521,10 +545,12 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Returns the extension with the given name, or the default extension if no such extension exists
+     * Gets the extension with the specified name, or the default extension if the specified name doesn't exist.
+     * This method provides a convenient way to get an extension while falling back to the default
+     * when the requested extension is not available.
      *
-     * @param name the name of the extension
-     * @return the extension instance with the given name, or the default extension if no such extension exists
+     * @param name the name of the extension to get
+     * @return the extension with the specified name, or the default extension if the specified name doesn't exist
      */
     public T getOrDefaultExtension(String name) {
         return containsExtension(name) ? getExtension(name) : getDefaultExtension();
@@ -543,7 +569,7 @@ public class ExtensionLoader<T> {
         try {
             T instance = (T) EXTENSION_INSTANCES.get(clazz);
             if (instance == null) {
-                EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
+                EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.getConstructor().newInstance());
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             }
             injectExtension(instance);
@@ -617,11 +643,13 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Gets the extension class with the given name.
+     * Gets the extension class with the specified name.
+     * This method returns the Class object for the extension with the given name.
+     * It can be used to inspect the extension class without instantiating it.
      *
-     * @param name The name of the extension class to get
-     * @return The extension class
-     * @throws IllegalArgumentException if the type or name is null
+     * @param name the name of the extension class to get
+     * @return the Class object for the extension with the specified name, or null if not found
+     * @throws IllegalArgumentException if the extension type or name is null
      */
     public Class<?> getExtensionClass(String name) {
         if (type == null) {
@@ -667,10 +695,12 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Gets the extension name for the given extension class.
+     * Gets the extension name for the specified extension class.
+     * This method returns the name that was used to register the extension class.
+     * It ensures that extension classes are loaded before attempting to get the name.
      *
-     * @param extensionClass The extension class
-     * @return The name of the extension
+     * @param extensionClass the extension class to get the name for
+     * @return the name of the extension class, or null if the class is not registered
      */
     public String getExtensionName(Class<?> extensionClass) {
         this.getExtensionClasses();
@@ -678,22 +708,25 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Gets the extension name for the given extension instance.
+     * Gets the extension name for the specified extension instance.
+     * This is a convenience method that calls {@link #getExtensionName(Class)}
+     * with the class of the provided instance.
      *
-     * @param extensionInstance The extension instance
-     * @return The name of the extension
+     * @param extensionInstance the extension instance to get the name for
+     * @return the name of the extension instance's class, or null if the class is not registered
      */
     public String getExtensionName(T extensionInstance) {
         return getExtensionName(extensionInstance.getClass());
     }
 
     /**
-     * Returns the already loaded extension with the given name
-     * Unlike {@link #getExtension(String)}, this method does not try to load the extension if it is not already loaded
+     * Gets an already loaded extension with the specified name.
+     * Unlike {@link #getExtension(String)}, this method only returns extensions
+     * that have already been loaded and does not attempt to create new instances.
      *
-     * @param name the name of the extension
-     * @return the already loaded extension instance, or null if no such extension is loaded
-     * @throws IllegalArgumentException if the name is empty
+     * @param name the name of the extension to get
+     * @return the loaded extension with the specified name, or null if not loaded
+     * @throws IllegalArgumentException if the name is null or empty
      */
     @SuppressWarnings("unchecked")
     public T getLoadedExtension(String name) {
@@ -705,16 +738,20 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Returns the names of all extensions that have been loaded
+     * Gets the names of all extensions that have been loaded.
+     * This method returns an unmodifiable set of the names of all extensions
+     * that have been loaded for the current extension type.
      *
-     * @return an unmodifiable set of names of all loaded extensions
+     * @return an unmodifiable set of loaded extension names
      */
     public Set<String> getLoadedExtensions() {
         return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
     }
 
     /**
-     * Returns all extension instances that have been loaded
+     * Gets all extension instances that have been loaded.
+     * This method returns a list of all extension instances that have been loaded
+     * for the current extension type.
      *
      * @return a list of all loaded extension instances
      */
@@ -726,9 +763,12 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Gets the default extension for this type.
+     * Gets the default extension for this extension type.
+     * The default extension is specified by the {@link SPI} annotation on the extension interface.
+     * If no default is specified, or if the specified default extension cannot be found,
+     * this method returns null.
      *
-     * @return The default extension instance, or null if no default is specified
+     * @return the default extension, or null if no default is specified or found
      */
     public T getDefaultExtension() {
         this.getExtensionClasses();

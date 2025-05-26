@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension.adaptive;
 
 import lombok.RequiredArgsConstructor;
@@ -48,10 +64,17 @@ public class AdaptiveClassCodeGenerator {
     private final String defaultExtName;
 
     /**
-     * Generates the code for an adaptive class.
+     * Generates the Java source code for an adaptive class implementation.
+     * This method creates a complete Java class that implements the extension interface
+     * and delegates method calls to the appropriate extension implementation based on
+     * runtime parameters. The generated code includes:
+     * - Package declaration
+     * - Import statements
+     * - Class declaration
+     * - Method implementations that route calls to the appropriate extension
      *
-     * @return The generated code as a string
-     * @throws IllegalArgumentException if no adaptive method is found on the extension
+     * @return the complete Java source code for the adaptive class as a string
+     * @throws IllegalArgumentException if the extension type has no adaptive methods
      */
     public String generate() {
         if (!hasAdaptiveMethod()) {

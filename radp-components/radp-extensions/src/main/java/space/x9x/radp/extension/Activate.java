@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension;
 
 import java.lang.annotation.*;
@@ -13,24 +29,29 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Activate {
     /**
-     * The groups to which this extension belongs.
+     * Specifies the groups to which this extension belongs.
+     * Extensions can be activated based on their group membership.
+     * If not specified, the extension does not belong to any group.
      *
-     * @return an array of group names
+     * @return an array of group names this extension belongs to
      */
     String[] groups() default {};
 
     /**
-     * The values used for activation matching.
+     * Specifies the keys or values for conditional activation.
+     * Extensions can be activated when certain keys or values are present in the URL.
+     * If not specified, the extension will be activated regardless of URL parameters.
      *
-     * @return an array of activation values
+     * @return an array of keys or values for conditional activation
      */
     String[] value() default {};
 
     /**
-     * The priority order of the extension when multiple extensions are found.
-     * Extensions with lower order values have higher priority.
+     * Specifies the order in which extensions should be executed.
+     * Extensions with lower order values are executed before those with higher values.
+     * The default order is 0.
      *
-     * @return the order value
+     * @return the order value for this extension
      */
     int order() default 0;
 }

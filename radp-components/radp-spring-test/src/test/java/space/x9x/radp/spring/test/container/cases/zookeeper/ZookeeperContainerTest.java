@@ -33,8 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 * @since 2025-05-25 15:48
 */
 @Testcontainers
-public class ZookeeperContainerTest {
+class ZookeeperContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private final GenericContainer<?> zookeeper = new GenericContainer<>("zookeeper:3.7.0")
             .withExposedPorts(2181)
@@ -42,7 +43,7 @@ public class ZookeeperContainerTest {
 
     @Test
     void testZookeeperConnection() throws IOException {
-        // Get the mapped port for Zookeeper
+        // Get the mapped port for RZookeeper
         String host = zookeeper.getHost();
         Integer port = zookeeper.getMappedPort(2181);
 
@@ -54,7 +55,7 @@ public class ZookeeperContainerTest {
             assertTrue(socket.isConnected(), "Should be able to connect to Zookeeper");
         }
 
-        // Verify logs contain expected startup message
+        // Verify logs contain the expected startup message
         String logs = zookeeper.getLogs();
         assertTrue(logs.contains("binding to port") || logs.contains("started"), 
                 "Zookeeper logs should indicate successful startup");

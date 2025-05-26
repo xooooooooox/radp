@@ -1,4 +1,3 @@
-
 # 从 Dockerfile 构建容器
 
 ## 如何编写 Dockerfile
@@ -12,6 +11,7 @@ EXPOSE 80
 ```
 
 这个简单的 Dockerfile 做了以下几件事：
+
 1. 使用官方 Nginx 1.21.6 镜像作为基础
 2. 复制本地的 index.html 文件到容器的 `/usr/share/nginx/html/index.html` 路径
 3. 暴露 80 端口
@@ -28,9 +28,10 @@ EXPOSE 80
 使用 TestContainers 的 `ImageFromDockerfile` 类可以从 Dockerfile 构建容器。以下是完整的示例代码：
 
 ```java
+
 @Testcontainers
 public class DockerfileContainerTest {
-    
+
     @Container
     private GenericContainer<?> nginx = new GenericContainer<>(
             new ImageFromDockerfile("custom-nginx")
@@ -38,12 +39,12 @@ public class DockerfileContainerTest {
                     .withFileFromClasspath("Dockerfile", "docker/nginx/Dockerfile")
                     // 复制其他需要的文件到构建上下文
                     .withFileFromClasspath("index.html", "volumes/nginx/index.html")
-                    
-                    // 方法二：从文件系统路径读取 Dockerfile
-                    // .withFileFromPath("Dockerfile", Paths.get("src/test/resources/docker/nginx/Dockerfile"))
-                    // .withFileFromPath("index.html", Paths.get("src/test/resources/volumes/nginx/index.html"))
+
+            // 方法二：从文件系统路径读取 Dockerfile
+            // .withFileFromPath("Dockerfile", Paths.get("src/test/resources/docker/nginx/Dockerfile"))
+            // .withFileFromPath("index.html", Paths.get("src/test/resources/volumes/nginx/index.html"))
     ).withExposedPorts(80);
-    
+
     @Test
     void testCustomNginxContainer() throws IOException {
         String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
@@ -60,12 +61,14 @@ public class DockerfileContainerTest {
 1. **`new ImageFromDockerfile(String imageName)`**：创建一个新的 Docker 镜像构建器，指定镜像名称
 
 2. **`withFileFromClasspath(String path, String resourcePath)`**：
-   - `path`：文件在构建上下文中的路径
-   - `resourcePath`：类路径中资源的路径
+
+- `path`：文件在构建上下文中的路径
+- `resourcePath`：类路径中资源的路径
 
 3. **`withFileFromPath(String path, Path localPath)`**：
-   - `path`：文件在构建上下文中的路径
-   - `localPath`：本地文件系统中文件的路径
+
+- `path`：文件在构建上下文中的路径
+- `localPath`：本地文件系统中文件的路径
 
 4. **`withExposedPorts(int... ports)`**：指定容器暴露的端口
 

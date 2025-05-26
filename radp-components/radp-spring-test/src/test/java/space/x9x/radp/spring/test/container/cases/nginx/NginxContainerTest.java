@@ -35,8 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class NginxContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
-    private GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6")
+    private final GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6")
             .withExposedPorts(80)
             .withCopyFileToContainer(
                     MountableFile.forClasspathResource("volumes/nginx/index.html"),

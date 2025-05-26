@@ -36,8 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class DockerfileContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
-    private GenericContainer<?> nginx = new GenericContainer<>(
+    private final GenericContainer<?> nginx = new GenericContainer<>(
             new ImageFromDockerfile("custom-nginx") // 从指定Dockerfile构建镜像
                     .withFileFromClasspath("Dockerfile", "docker/case1/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
                     .withFileFromClasspath("custom.html", "docker/case1/custom.html")

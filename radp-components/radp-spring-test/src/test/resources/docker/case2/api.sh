@@ -9,7 +9,7 @@ echo "Starting API service with Redis connection to $REDIS_HOST:$REDIS_PORT"
 # Test Redis connection
 while true; do
   # Try to ping Redis
-  if redis-cli -h $REDIS_HOST -p $REDIS_PORT ping > /dev/null 2>&1; then
+  if redis-cli -h $REDIS_HOST -p $REDIS_PORT ping >/dev/null 2>&1; then
     echo "Successfully connected to Redis at $REDIS_HOST:$REDIS_PORT"
     break
   else

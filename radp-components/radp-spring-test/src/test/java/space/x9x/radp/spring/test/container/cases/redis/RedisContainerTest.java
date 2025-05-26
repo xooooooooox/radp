@@ -16,6 +16,7 @@
 
 package space.x9x.radp.spring.test.container.cases.redis;
 
+import com.redis.testcontainers.RedisContainer;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -23,6 +24,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -45,13 +47,14 @@ class RedisContainerTest {
     private static final Network NETWORK = Network.newNetwork();
 
     @Container
-    public GenericContainer<?> redis = new GenericContainer<>("redis:6.2")
+    private final GenericContainer<?> redis = new RedisContainer(DockerImageName.parse("redis:6.2.6"))
             .withNetwork(NETWORK) // 将容器加入网络 NETWORK
             .withNetworkAliases("redis") // 为 Redis 设置网络别名, 别的容器可以通过这个别名访问它
             .withExposedPorts(6379);
 
+    @SuppressWarnings("resource")
     @Container
-    public GenericContainer<?> api = new GenericContainer<>(
+    private final GenericContainer<?> api = new GenericContainer<>(
             new ImageFromDockerfile("my-api") // 从指定Dockerfile构建镜像
                     .withFileFromClasspath("Dockerfile", "docker/case2/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
                     .withFileFromClasspath("nginx.conf", "docker/case2/nginx.conf")

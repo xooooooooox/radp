@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @since 2025-05-25 16:42
  */
 @Testcontainers
-public class MongodbContainerTest {
+class MongodbContainerTest {
 
     @Container
     private final MongoDBContainer mongodb = new MongoDBContainer("mongo:4.4.10");

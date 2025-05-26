@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class MysqlContainerTest {
 
+    @SuppressWarnings("resource")
     @Container
     private final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.32")
             .withDatabaseName("test")

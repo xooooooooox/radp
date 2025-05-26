@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.commons.regex;
 
 import lombok.NonNull;
@@ -10,6 +26,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Utility class for regular expression operations.
+ *
  * <p><strong>使用示例：</strong></p>
  * <pre>{@code
  * public class Demo {
@@ -113,8 +131,8 @@ public class RegexUtils {
     /**
      * Replaces all occurrences of the regex pattern in the input sequence with the specified replacement.
      *
-     * @param regex the regular expression pattern
-     * @param input the character sequence to be processed
+     * @param regex       the regular expression pattern
+     * @param input       the character sequence to be processed
      * @param replacement the string to replace each match with
      * @return the resulting string after replacement
      */
@@ -125,8 +143,8 @@ public class RegexUtils {
     /**
      * Replaces the first occurrence of the regex pattern in the input sequence with the specified replacement.
      *
-     * @param regex the regular expression pattern
-     * @param input the character sequence to be processed
+     * @param regex       the regular expression pattern
+     * @param input       the character sequence to be processed
      * @param replacement the string to replace the first match with
      * @return the resulting string after replacement
      */

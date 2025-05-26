@@ -29,6 +29,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * Utility class for IP address operations and network-related functionality.
+ *
  * @author x9x
  * @since 2024-09-28 21:12
  */
@@ -42,8 +44,8 @@ public class IpConfigUtils {
 
     /**
      * Returns the IP address of the local machine.
-     * <p>
-     * This method returns a cached IP address that was determined when the class was loaded.
+     *
+     * <p>This method returns a cached IP address that was determined when the class was loaded.
      *
      * @return the IP address of the local machine
      */
@@ -52,7 +54,7 @@ public class IpConfigUtils {
     }
 
     /**
-     * 根据网卡名称获取 IP 地址
+     * 根据网卡名称获取 IP 地址.
      *
      * @param interfaceName 网卡名称
      * @return IP 地址
@@ -67,7 +69,7 @@ public class IpConfigUtils {
     }
 
     /**
-     * 获取已激活网卡的 IP 地址
+     * 获取已激活网卡的 IP 地址.
      *
      * @param interfaceName 网卡名称
      * @return 已激活网卡的 IP 地址
@@ -100,8 +102,8 @@ public class IpConfigUtils {
 
     /**
      * Extracts the client IP address from an HTTP request.
-     * <p>
-     * This method attempts to find the client IP address by checking various HTTP headers
+     *
+     * <p>This method attempts to find the client IP address by checking various HTTP headers
      * that might contain the original client IP when the request passes through proxies.
      * It checks the following headers in order:
      * <ol>
@@ -130,8 +132,8 @@ public class IpConfigUtils {
 
     /**
      * Checks if two IP addresses are in the same subnet using the default subnet mask.
-     * <p>
-     * This method uses the default subnet mask (255.255.255.0) to determine if the
+     *
+     * <p>This method uses the default subnet mask (255.255.255.0) to determine if the
      * two provided IP addresses belong to the same subnet.
      *
      * @param ip1 the first IP address
@@ -145,7 +147,7 @@ public class IpConfigUtils {
 
 
     /**
-     * 判断两个 IP 是否在同一网段
+     * 判断两个 IP 是否在同一网段.
      *
      * @param ip1        第一个IP
      * @param ip2        第二个IP

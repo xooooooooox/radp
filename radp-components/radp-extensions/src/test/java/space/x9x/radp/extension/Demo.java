@@ -22,5 +22,7 @@ package space.x9x.radp.extension;
  */
 @SPI("demo2")
 public interface Demo {
-    void echo();
+
+	void echo();
+
 }

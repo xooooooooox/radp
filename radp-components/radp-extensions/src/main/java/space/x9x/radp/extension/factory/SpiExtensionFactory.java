@@ -28,14 +28,15 @@ import space.x9x.radp.extension.SPI;
  */
 public class SpiExtensionFactory implements ExtensionFactory {
 
-    @Override
-    public <T> T getExtension(Class<T> type, String name) {
-        if (type.isInterface() && type.isAnnotationPresent(SPI.class)) {
-            ExtensionLoader<T> extensionLoader = ExtensionLoader.getExtensionLoader(type);
-            if (!extensionLoader.getSupportedExtensions().isEmpty()) {
-                return extensionLoader.getAdaptiveExtension();
-            }
-        }
-        return null;
-    }
+	@Override
+	public <T> T getExtension(Class<T> type, String name) {
+		if (type.isInterface() && type.isAnnotationPresent(SPI.class)) {
+			ExtensionLoader<T> extensionLoader = ExtensionLoader.getExtensionLoader(type);
+			if (!extensionLoader.getSupportedExtensions().isEmpty()) {
+				return extensionLoader.getAdaptiveExtension();
+			}
+		}
+		return null;
+	}
+
 }

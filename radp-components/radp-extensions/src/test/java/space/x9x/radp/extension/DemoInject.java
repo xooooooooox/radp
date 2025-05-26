@@ -22,5 +22,7 @@ package space.x9x.radp.extension;
  */
 @SPI("injection")
 public interface DemoInject {
-    void echo();
+
+	void echo();
+
 }

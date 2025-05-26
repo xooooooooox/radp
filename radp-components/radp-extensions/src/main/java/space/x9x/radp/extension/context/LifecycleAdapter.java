@@ -23,18 +23,20 @@ package space.x9x.radp.extension.context;
  * @since 2024-09-24 23:17
  */
 public class LifecycleAdapter implements Lifecycle {
-    @Override
-    public void initialize() throws IllegalStateException {
 
-    }
+	@Override
+	public void initialize() throws IllegalStateException {
 
-    @Override
-    public void start() throws IllegalStateException {
+	}
 
-    }
+	@Override
+	public void start() throws IllegalStateException {
 
-    @Override
-    public void destroy() throws IllegalStateException {
+	}
 
-    }
+	@Override
+	public void destroy() throws IllegalStateException {
+
+	}
+
 }

@@ -147,7 +147,7 @@ public class AdaptiveClassCodeGenerator {
 		String returnStatement = method.getReturnType().equals(void.class) ? "" : "return ";
 
 		String args = IntStream.range(0, method.getParameters().length)
-			.mapToObj((i) -> String.format(FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT, i))
+			.mapToObj(i -> String.format(FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT, i))
 			.collect(Collectors.joining(", "));
 
 		return returnStatement + String.format("extension.%s(%s);%n", method.getName(), args);
@@ -221,15 +221,15 @@ public class AdaptiveClassCodeGenerator {
 	private String generateInvocationArgumentNullCheck(Method method) {
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		return IntStream.range(0, parameterTypes.length)
-			.filter((i) -> parameterTypes[i].getName().equals(CLASSNAME_INVOCATION))
-			.mapToObj((i) -> String.format(FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK, i, i))
+			.filter(i -> parameterTypes[i].getName().equals(CLASSNAME_INVOCATION))
+			.mapToObj(i -> String.format(FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK, i, i))
 			.findFirst()
 			.orElse("");
 	}
 
 	private boolean hasInvocationArgument(Method method) {
 		Class<?>[] parameterTypes = method.getParameterTypes();
-		return Arrays.stream(parameterTypes).anyMatch((p) -> CLASSNAME_INVOCATION.equals(p.getName()));
+		return Arrays.stream(parameterTypes).anyMatch(p -> CLASSNAME_INVOCATION.equals(p.getName()));
 	}
 
 	private String[] getMethodAdaptiveValue(Adaptive adaptiveAnnotation) {
@@ -312,7 +312,7 @@ public class AdaptiveClassCodeGenerator {
 	private String generateMethodArguments(Method method) {
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		return IntStream.range(0, parameterTypes.length)
-			.mapToObj((i) -> String.format(FORMAT_CODE_METHOD_ARGUMENT, parameterTypes[i].getCanonicalName(), i))
+			.mapToObj(i -> String.format(FORMAT_CODE_METHOD_ARGUMENT, parameterTypes[i].getCanonicalName(), i))
 			.collect(Collectors.joining(", "));
 	}
 
@@ -329,7 +329,7 @@ public class AdaptiveClassCodeGenerator {
 	}
 
 	private boolean hasAdaptiveMethod() {
-		return Arrays.stream(this.type.getMethods()).anyMatch((method) -> method.isAnnotationPresent(Adaptive.class));
+		return Arrays.stream(this.type.getMethods()).anyMatch(method -> method.isAnnotationPresent(Adaptive.class));
 	}
 
 }

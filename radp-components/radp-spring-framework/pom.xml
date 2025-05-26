@@ -101,15 +101,9 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Spock 测试组件 -->
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-spring</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -118,6 +112,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
 </project>

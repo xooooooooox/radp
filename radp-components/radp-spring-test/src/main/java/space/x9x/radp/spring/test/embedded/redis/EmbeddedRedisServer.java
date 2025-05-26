@@ -19,6 +19,7 @@ package space.x9x.radp.spring.test.embedded.redis;
 import lombok.extern.slf4j.Slf4j;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
+import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 
 import java.io.IOException;
@@ -45,11 +46,11 @@ public class EmbeddedRedisServer implements IEmbeddedServer {
     public static final int DEFAULT_PORT = 6379;
 
     /**
-     * Default maximum heap setting for the embedded Redis server.
+     * Default maximum memory setting for the embedded Redis server.
      * This constant defines the maximum amount of memory that the Redis server can use.
-     * The value "maxheap 64MB" limits the Redis server to using at most 64MB of memory.
+     * The value "max-memory 64mb" limits the Redis server to using at most 64MB of memory.
      */
-    public static final String DEFAULT_MAX_HEAP = "maxheap 64MB";
+    public static final String DEFAULT_MAX_MEMORY = "maxmemory 64mb";
 
     private final RedisServerBuilder redisServerBuilder;
     private RedisServer redisServer;
@@ -59,13 +60,13 @@ public class EmbeddedRedisServer implements IEmbeddedServer {
     /**
      * Constructs a new EmbeddedRedisServer with default settings.
      * This constructor initializes the Redis server builder with the default bind address,
-     * port, and maximum heap size. The server is not started until the startup() method is called.
+     * port, and maximum memory size. The server is not started until the startup() method is called.
      */
     public EmbeddedRedisServer() {
         this.redisServerBuilder = new RedisServerBuilder()
                 .bind(DEFAULT_BIND)
                 .port(DEFAULT_PORT)
-                .setting(DEFAULT_MAX_HEAP)
+                .setting(DEFAULT_MAX_MEMORY)
                 .setting("daemonize no");
     }
 
@@ -108,7 +109,7 @@ public class EmbeddedRedisServer implements IEmbeddedServer {
             log.info("Embedded Redis server stopped");
         } catch (IOException e) {
             log.error("Failed to stop embedded Redis server", e);
-            throw new RuntimeException("Failed to stop embedded Redis server", e);
+            throw ExceptionUtils.serverException0("Failed to stop embedded Redis server", e);
         }
     }
 

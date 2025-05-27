@@ -147,8 +147,8 @@ public class LocalCallFirstCluster implements Cluster {
 				try {
 					return IpConfigUtils.isSameSubnet(host, localHost);
 				}
-				catch (UnknownHostException e) {
-					log.warn("判断子网时发生异常: {}", e.getMessage());
+				catch (UnknownHostException ex) {
+					log.warn("判断子网时发生异常: {}", ex.getMessage());
 					return false; // 发生异常时默认不在同一子网
 				}
 			}

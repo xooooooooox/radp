@@ -16,36 +16,60 @@
 
 package space.x9x.radp.spring.framework.logging.access.aop;
 
-import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
-import space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper;
-import lombok.RequiredArgsConstructor;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.springframework.aop.support.AopUtils;
-
 import java.time.Duration;
 import java.time.Instant;
 
+import org.springframework.aop.support.AopUtils;
+
+import lombok.RequiredArgsConstructor;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
+import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
+import space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper;
+
 /**
+ * a method interceptor that logs method access information for monitoring and debugging
+ * purposes. this interceptor captures method execution details including execution time,
+ * parameters, return values, and exceptions.
+ *
+ * <p>
+ * the interceptor uses sampling to control the volume of logs generated and can be
+ * configured to highlight slow method executions. it integrates with MDC (Mapped
+ * Diagnostic Context) for correlating log entries across threads.
+ *
  * @author IO x9x
  * @since 2024-09-30 09:52
  */
 @RequiredArgsConstructor
 public class AccessLogInterceptor implements MethodInterceptor {
 
+	/**
+	 * the configuration for access logging behavior.
+	 */
 	private final AccessLogConfig accessLogConfig;
 
+	/**
+	 * intercepts method invocations to log access information. this method captures
+	 * execution time, parameters, return values, and exceptions if they occur.
+	 *
+	 * <p>
+	 * the method uses sampling based on the configured sample rate to determine whether
+	 * to log a particular invocation. it also detects and highlights slow method
+	 * executions based on the configured threshold.
+	 * @param invocation the method invocation being intercepted
+	 * @return the result of the method invocation
+	 * @throws Throwable if the intercepted method throws an exception
+	 */
 	@Override
-	public @Nullable Object invoke(@NotNull MethodInvocation invocation) throws Throwable {
+	public Object invoke(MethodInvocation invocation) throws Throwable {
 		// 排除代理类
 		if (AopUtils.isAopProxy(invocation.getThis())) {
 			return invocation.proceed();
 		}
 
 		// 判断是否需要输出日志
-		if (AccessLogHelper.shouldLog(accessLogConfig.getSampleRate())) {
+		if (AccessLogHelper.shouldLog(this.accessLogConfig.getSampleRate())) {
 			return invocation.proceed();
 		}
 
@@ -56,14 +80,14 @@ public class AccessLogInterceptor implements MethodInterceptor {
 			result = invocation.proceed();
 			return result;
 		}
-		catch (Throwable t) {
-			throwable = t;
+		catch (Throwable th) {
+			throwable = th;
 			throw throwable;
 		}
 		finally {
 			long duration = Duration.between(start, Instant.now()).toMillis();
-			AccessLogHelper.log(invocation, result, throwable, duration, accessLogConfig.isEnabledMdc(),
-					accessLogConfig.getMaxLength(), accessLogConfig.getSlowThreshold());
+			AccessLogHelper.log(invocation, result, throwable, duration, this.accessLogConfig.isEnabledMdc(),
+					this.accessLogConfig.getMaxLength(), this.accessLogConfig.getSlowThreshold());
 		}
 	}
 

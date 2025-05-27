@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.framework.type.common;
+package space.x9x.radp.spring.framework.type.exception.asserts;
 
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;

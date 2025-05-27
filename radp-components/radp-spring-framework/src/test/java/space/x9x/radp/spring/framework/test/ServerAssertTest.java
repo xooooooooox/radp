@@ -17,8 +17,9 @@
 package space.x9x.radp.spring.framework.test;
 
 import org.junit.jupiter.api.Test;
+
 import space.x9x.radp.commons.lang.format.MessageFormatter;
-import space.x9x.radp.spring.framework.type.common.ServerAssert;
+import space.x9x.radp.spring.framework.type.exception.asserts.ServerAssert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

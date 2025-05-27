@@ -17,23 +17,29 @@
 package space.x9x.radp.spring.boot.bootstrap.env;
 
 import org.springframework.core.env.Environment;
+
 import space.x9x.radp.extension.SPI;
 
 /**
- * Spring Boot 运行环境出站解析器
+ * Interface for parsing outbound information from Spring Boot environment. This interface
+ * defines methods for extracting and formatting outbound connection information from the
+ * Spring environment, such as database connections, messaging systems, and external
+ * service endpoints. Implementations can provide specific parsers for different types of
+ * outbound connections.
+ *
  * @author IO x9x
  * @since 2024-09-28 21:47
  */
 @SPI
 public interface EnvironmentOutboundParser {
 
-    /**
-     * Converts the Spring Environment to a string representation.
-     * This method is used to transform environment properties into a string format
-     * suitable for outbound communication or logging.
-     *
-     * @param env the Spring Environment to convert
-     * @return a string representation of the environment
-     */
-    String toString(Environment env);
+	/**
+	 * Converts the Spring Environment to a string representation. This method is used to
+	 * transform environment properties into a string format suitable for outbound
+	 * communication or logging.
+	 * @param env the Spring Environment to convert
+	 * @return a string representation of the environment
+	 */
+	String toString(Environment env);
+
 }

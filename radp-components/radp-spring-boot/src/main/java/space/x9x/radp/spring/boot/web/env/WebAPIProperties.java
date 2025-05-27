@@ -16,15 +16,22 @@
 
 package space.x9x.radp.spring.boot.web.env;
 
-import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
-import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
+import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;
 
 /**
+ * Configuration properties for web API functionality. This class defines properties that
+ * can be set in application configuration files to customize web API behavior. It extends
+ * ApiConfig to inherit common API configuration properties and adds additional properties
+ * specific to the RADP framework.
+ *
  * @author IO x9x
  * @since 2024-09-30 23:03
  */
@@ -35,5 +42,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "web")
 public class WebAPIProperties extends ApiConfig {
 
-    private boolean enabled = false;
+	/**
+	 * Flag to enable or disable the web API functionality. When set to true, web API
+	 * features will be activated for the application.
+	 */
+	private boolean enabled = false;
+
 }

@@ -16,11 +16,16 @@
 
 package space.x9x.radp.spring.boot.bootstrap.env;
 
-import space.x9x.radp.extension.SPI;
 import org.springframework.core.env.Environment;
 
+import space.x9x.radp.extension.SPI;
+
 /**
- * Spring Boot 运行环境入站解析器
+ * Interface for parsing inbound information from Spring Boot environment. This interface
+ * defines methods for extracting and formatting inbound connection information from the
+ * Spring environment, such as server ports, hostnames, and endpoint paths.
+ * Implementations can provide specific parsers for different types of inbound
+ * connections.
  *
  * @author IO x9x
  * @since 2024-09-28 21:46
@@ -28,11 +33,13 @@ import org.springframework.core.env.Environment;
 @SPI
 public interface EnvironmentInboundParser {
 
-    /**
-     * 返回解析内容
-     *
-     * @param env 运行环境
-     * @return 解析内容
-     */
-    String toString(Environment env);
+	/**
+	 * Converts environment information to a string representation. This method extracts
+	 * relevant inbound connection information from the Spring environment and formats it
+	 * as a human-readable string.
+	 * @param env the Spring environment containing configuration properties
+	 * @return a formatted string with inbound connection information
+	 */
+	String toString(Environment env);
+
 }

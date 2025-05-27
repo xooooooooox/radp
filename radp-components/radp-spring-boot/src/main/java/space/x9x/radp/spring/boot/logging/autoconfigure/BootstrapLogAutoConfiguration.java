@@ -16,28 +16,33 @@
 
 package space.x9x.radp.spring.boot.logging.autoconfigure;
 
-import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
-import space.x9x.radp.spring.boot.logging.env.BootstrapLogProperties;
-import space.x9x.radp.spring.framework.logging.EnableBootstrapLog;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Role;
 
+import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
+import space.x9x.radp.spring.boot.logging.env.BootstrapLogProperties;
+import space.x9x.radp.spring.framework.logging.EnableBootstrapLog;
+
 /**
+ * Auto-configuration for bootstrap logging. This configuration class automatically
+ * enables bootstrap logging in the application when the appropriate property is set. It
+ * uses the BootstrapLogProperties for configuration and applies the @EnableBootstrapLog
+ * annotation to activate the bootstrap logging functionality. The configuration is
+ * activated when the 'radp.bootstrap-log.enabled' property is set to 'true', or by
+ * default if the property is not specified (matchIfMissing = true).
+ *
  * @author IO x9x
  * @since 2024-09-30 11:37
  */
-@ConditionalOnProperty(
-        prefix = BootstrapLogProperties.PREFIX,
-        name = Conditions.ENABLED,
-        havingValue = Conditions.TRUE,
-        matchIfMissing = true
-)
+@ConditionalOnProperty(prefix = BootstrapLogProperties.PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE,
+		matchIfMissing = true)
 @EnableConfigurationProperties(BootstrapLogProperties.class)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @AutoConfiguration
 @EnableBootstrapLog
 public class BootstrapLogAutoConfiguration {
+
 }

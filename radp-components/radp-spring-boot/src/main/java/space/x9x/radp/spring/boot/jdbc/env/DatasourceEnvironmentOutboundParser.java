@@ -16,30 +16,50 @@
 
 package space.x9x.radp.spring.boot.jdbc.env;
 
+import org.springframework.core.env.Environment;
+
 import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
-import org.springframework.core.env.Environment;
 
 /**
+ * Parser for datasource environment configuration. This class implements the
+ * EnvironmentOutboundParser interface to provide a string representation of the
+ * datasource configuration, extracting the JDBC URL from the Spring environment and
+ * formatting it for display in logs or monitoring tools.
+ *
  * @author IO x9x
  * @since 2024-09-30 09:38
  */
 public class DatasourceEnvironmentOutboundParser implements EnvironmentOutboundParser {
 
-    private static final String TEMPLATE = "Outbound Datasource: \t{}";
+	/**
+	 * Message template for the datasource information. This template includes a
+	 * placeholder for the JDBC URL.
+	 */
+	private static final String TEMPLATE = "Outbound Datasource: \t{}";
 
-    @Override
-    public String toString(Environment env) {
-        if (!env.containsProperty(DatasourceEnvironment.URL)) {
-            return Strings.EMPTY;
-        }
+	/**
+	 * Converts the datasource configuration from the environment to a string
+	 * representation. This method extracts the JDBC URL from the environment and formats
+	 * it into a human-readable string. If the URL contains placeholders, they are
+	 * removed.
+	 * @param env the Spring environment containing the configuration properties
+	 * @return a formatted string with the datasource URL, or an empty string if the
+	 * datasource URL is not configured
+	 */
+	@Override
+	public String toString(Environment env) {
+		if (!env.containsProperty(DatasourceEnvironment.URL)) {
+			return Strings.EMPTY;
+		}
 
-        String url = env.getProperty(DatasourceEnvironment.URL);
-        if (StringUtils.isNotBlank(url) && url.contains(Strings.PLACEHOLDER)) {
-            url = url.substring(0, url.indexOf(Strings.PLACEHOLDER));
-        }
-        return MessageFormatUtils.format(TEMPLATE, url);
-    }
+		String url = env.getProperty(DatasourceEnvironment.URL);
+		if (StringUtils.isNotBlank(url) && url.contains(Strings.PLACEHOLDER)) {
+			url = url.substring(0, url.indexOf(Strings.PLACEHOLDER));
+		}
+		return MessageFormatUtils.format(TEMPLATE, url);
+	}
+
 }

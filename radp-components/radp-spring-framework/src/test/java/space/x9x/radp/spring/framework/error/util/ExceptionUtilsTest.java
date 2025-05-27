@@ -16,15 +16,16 @@
 
 package space.x9x.radp.spring.framework.error.util;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
+
 import space.x9x.radp.spring.framework.error.ClientException;
 import space.x9x.radp.spring.framework.error.ServerException;
 import space.x9x.radp.spring.framework.error.ThirdServiceException;
-import space.x9x.radp.spring.framework.type.common.ClientAssert;
-import space.x9x.radp.spring.framework.type.common.ServerAssert;
-import space.x9x.radp.spring.framework.type.common.ThirdServiceAssert;
-
-import java.io.IOException;
+import space.x9x.radp.spring.framework.type.exception.asserts.ClientAssert;
+import space.x9x.radp.spring.framework.type.exception.asserts.ServerAssert;
+import space.x9x.radp.spring.framework.type.exception.asserts.ThirdServiceAssert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

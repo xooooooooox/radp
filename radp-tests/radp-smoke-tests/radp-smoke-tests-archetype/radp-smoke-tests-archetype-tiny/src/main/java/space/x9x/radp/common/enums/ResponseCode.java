@@ -16,39 +16,63 @@
 
 package space.x9x.radp.common.enums;
 
-import space.x9x.radp.spring.framework.error.ErrorCode;
-import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
+
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
- * 业务返回码枚举
+ * Enumeration of business response codes. This enum provides standardized response codes
+ * for business operations.
  *
  * @author IO x9x
- * @see GlobalResponseCode
  * @since 2024-10-24 14:08
+ * @see GlobalResponseCode
  */
 @Getter
 public enum ResponseCode {
 
-    ;
+	;
 
-    private final ErrorCode errorCode;
+	/**
+	 * The error code associated with this response code.
+	 */
+	private final ErrorCode errorCode;
 
-    ResponseCode(String code, String message) {
-        this.errorCode = new ErrorCode(code, message);
-    }
+	/**
+	 * Constructs a ResponseCode with the specified code and message.
+	 * @param code the error code
+	 * @param message the error message
+	 */
+	ResponseCode(String code, String message) {
+		this.errorCode = new ErrorCode(code, message);
+	}
 
-    ResponseCode(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
-        this.errorCode = new ErrorCode(errCode, params);
-    }
+	/**
+	 * Constructs a ResponseCode with the specified error code and parameters.
+	 * @param errCode the error code from the resource bundle
+	 * @param params the parameters to be used in the error message
+	 */
+	ResponseCode(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
+		this.errorCode = new ErrorCode(errCode, params);
+	}
 
-    public String code() {
-        return errorCode.getCode();
-    }
+	/**
+	 * Returns the code of this response code.
+	 * @return the code as a String
+	 */
+	public String code() {
+		return this.errorCode.getCode();
+	}
 
-    public String msg() {
-        return errorCode.getMessage();
-    }
+	/**
+	 * Returns the message of this response code.
+	 * @return the message as a String
+	 */
+	public String msg() {
+		return this.errorCode.getMessage();
+	}
+
 }

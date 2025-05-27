@@ -88,10 +88,12 @@ public class ExtendJasyptProperties extends Properties {
 	}
 
 	/**
-	 * 按照优先级获取属性值 (系统属性 > 环境变量 > 外部配置文件) 一旦获取到就不会再去读取低优先级的值.
-	 * @param key 属性键
-	 * @param externalConfig 外部配置文件的 Properties 对象
-	 * @return 属性值, 若不存在则返回 null
+	 * Retrieves a property value according to priority order. The priority order is:
+	 * system properties > environment variables > external configuration file. Once a
+	 * value is found, lower priority sources are not checked.
+	 * @param key the property key to look up
+	 * @param externalConfig the Properties object from the external configuration file
+	 * @return the property value, or null if not found
 	 */
 	private String getPropertyValue(String key, Properties externalConfig) {
 		// 1. 系统属性
@@ -113,8 +115,10 @@ public class ExtendJasyptProperties extends Properties {
 	}
 
 	/**
-	 * 加载外部配置文件. (如果通过系统属性或环境变量指定了配置文件路径)
-	 * @return 外部配置文件的 Properties 对象,如果未指定则返回空的 Properties 对象
+	 * Loads an external configuration file if specified through system properties or
+	 * environment variables.
+	 * @return a Properties object containing the external configuration, or an empty
+	 * Properties object if not specified
 	 */
 	private static Properties loadExternalConfig() {
 		Properties config = new Properties();
@@ -134,6 +138,14 @@ public class ExtendJasyptProperties extends Properties {
 		return config;
 	}
 
+	/**
+	 * Puts a key-value pair into the properties. This method overrides the standard
+	 * Properties put method to ensure values are stored in the encryptable properties
+	 * object rather than the main properties object.
+	 * @param key the key to be placed into this property list
+	 * @param value the value corresponding to key
+	 * @return the previous value of the specified key, or null if it did not have one
+	 */
 	@Override
 	public synchronized Object put(Object key, Object value) {
 		return super.defaults.put(key, value);

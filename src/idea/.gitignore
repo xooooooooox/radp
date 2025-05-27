@@ -1,5 +1,5 @@
-#*.name
-#*.xml
+*.name
+*.xml
 # Default ignored files
 /shelf/
 /workspace.xml

@@ -38,57 +38,56 @@ import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 @Slf4j
 public class AccessLogConfiguration implements ImportAware {
 
-    private static final String IMPORTING_META_NOT_FOUND = "@EnableAccessLog is not present on importing class";
-    private AnnotationAttributes annotationAttributes;
+	private static final String IMPORTING_META_NOT_FOUND = "@EnableAccessLog is not present on importing class";
 
-    @Override
-    public void setImportMetadata(AnnotationMetadata importMetadata) {
-        this.annotationAttributes = AnnotationAttributes.fromMap(
-                importMetadata.getAnnotationAttributes(EnableAccessLog.class.getName(), false)
-        );
-        if (this.annotationAttributes == null) {
-            log.warn(IMPORTING_META_NOT_FOUND);
-        }
-    }
+	private AnnotationAttributes annotationAttributes;
 
-    /**
-     * Creates and configures the AccessLogInterceptor bean.
-     * This interceptor handles the actual logging of method invocations.
-     *
-     * @param configs provider for AccessLogConfig instances
-     * @return configured AccessLogInterceptor instance
-     */
-    @Bean
-    public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
-        return new AccessLogInterceptor(getAccessLogConfig(configs));
-    }
+	@Override
+	public void setImportMetadata(AnnotationMetadata importMetadata) {
+		this.annotationAttributes = AnnotationAttributes
+			.fromMap(importMetadata.getAnnotationAttributes(EnableAccessLog.class.getName(), false));
+		if (this.annotationAttributes == null) {
+			log.warn(IMPORTING_META_NOT_FOUND);
+		}
+	}
 
-    /**
-     * Creates and configures the AccessLogAdvisor bean.
-     * This advisor defines which methods should be intercepted for logging based on the pointcut expression.
-     *
-     * @param configs     provider for AccessLogConfig instances
-     * @param interceptor the interceptor that will be applied to matched methods
-     * @return configured AccessLogAdvisor instance
-     */
-    @Bean
-    public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
-                                                         AccessLogInterceptor interceptor) {
-        AccessLogAdvisor accessLogAdvisor = new AccessLogAdvisor();
-        String expression = getAccessLogConfig(configs).getExpression();
-        accessLogAdvisor.setExpression(expression);
-        accessLogAdvisor.setAdvice(interceptor);
-        if (annotationAttributes != null) {
-            accessLogAdvisor.setOrder(annotationAttributes.getNumber("order"));
-        }
-        return accessLogAdvisor;
-    }
+	/**
+	 * Creates and configures the AccessLogInterceptor bean. This interceptor handles the
+	 * actual logging of method invocations.
+	 * @param configs provider for AccessLogConfig instances
+	 * @return configured AccessLogInterceptor instance
+	 */
+	@Bean
+	public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
+		return new AccessLogInterceptor(getAccessLogConfig(configs));
+	}
 
-    private AccessLogConfig getAccessLogConfig(ObjectProvider<AccessLogConfig> accessLogConfigs) {
-        return accessLogConfigs.getIfUnique(() -> {
-            AccessLogConfig config = new AccessLogConfig();
-            config.setExpression(annotationAttributes.getString("expression"));
-            return config;
-        });
-    }
+	/**
+	 * Creates and configures the AccessLogAdvisor bean. This advisor defines which
+	 * methods should be intercepted for logging based on the pointcut expression.
+	 * @param configs provider for AccessLogConfig instances
+	 * @param interceptor the interceptor that will be applied to matched methods
+	 * @return configured AccessLogAdvisor instance
+	 */
+	@Bean
+	public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
+			AccessLogInterceptor interceptor) {
+		AccessLogAdvisor accessLogAdvisor = new AccessLogAdvisor();
+		String expression = getAccessLogConfig(configs).getExpression();
+		accessLogAdvisor.setExpression(expression);
+		accessLogAdvisor.setAdvice(interceptor);
+		if (annotationAttributes != null) {
+			accessLogAdvisor.setOrder(annotationAttributes.getNumber("order"));
+		}
+		return accessLogAdvisor;
+	}
+
+	private AccessLogConfig getAccessLogConfig(ObjectProvider<AccessLogConfig> accessLogConfigs) {
+		return accessLogConfigs.getIfUnique(() -> {
+			AccessLogConfig config = new AccessLogConfig();
+			config.setExpression(annotationAttributes.getString("expression"));
+			return config;
+		});
+	}
+
 }

@@ -26,16 +26,17 @@ import space.x9x.radp.spring.framework.error.BaseException;
 @EqualsAndHashCode(callSuper = true)
 public class ForbiddenException extends BaseException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructs a new ForbiddenException with the specified error message and parameters.
-     * This exception is used to indicate that the server understood the request but refuses to authorize it (HTTP 403).
-     *
-     * @param errMessage the error message pattern
-     * @param params     the parameters to be substituted in the error message
-     */
-    public ForbiddenException(String errMessage, Object... params) {
-        super("403", errMessage, params);
-    }
+	/**
+	 * Constructs a new ForbiddenException with the specified error message and
+	 * parameters. This exception is used to indicate that the server understood the
+	 * request but refuses to authorize it (HTTP 403).
+	 * @param errMessage the error message pattern
+	 * @param params the parameters to be substituted in the error message
+	 */
+	public ForbiddenException(String errMessage, Object... params) {
+		super("403", errMessage, params);
+	}
+
 }

@@ -24,17 +24,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ServerAssertTest {
 
-    @Test
-    void test() {
-        String messagePattern = "hello {}";
-        Object[] params = {"world"};
-        String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
-        assertEquals("hello world", message);
+	@Test
+	void test() {
+		String messagePattern = "hello {}";
+		Object[] params = { "world" };
+		String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
+		assertEquals("hello world", message);
 
-        try {
-            ServerAssert.notNull(null, "10000", "world");
-        } catch (Exception e) {
-            assertEquals("hello world", e.getMessage());
-        }
-    }
+		try {
+			ServerAssert.notNull(null, "10000", "world");
+		}
+		catch (Exception e) {
+			assertEquals("hello world", e.getMessage());
+		}
+	}
+
 }

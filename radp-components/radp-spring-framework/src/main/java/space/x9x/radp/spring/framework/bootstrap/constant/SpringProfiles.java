@@ -24,33 +24,35 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class SpringProfiles {
-    /**
-     * 本地环境
-     */
-    public static final String SPRING_PROFILE_LOCALHOST = "local";
 
-    /**
-     * 开发环境
-     */
-    public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+	/**
+	 * 本地环境
+	 */
+	public static final String SPRING_PROFILE_LOCALHOST = "local";
 
-    /**
-     * 生产环境
-     */
-    public static final String SPRING_PROFILE_PRODUCTION = "prod";
+	/**
+	 * 开发环境
+	 */
+	public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
 
-    /**
-     * 预发布环境
-     */
-    public static final String SPRING_PROFILE_STAGING = "staging";
+	/**
+	 * 生产环境
+	 */
+	public static final String SPRING_PROFILE_PRODUCTION = "prod";
 
-    /**
-     * 测试环境
-     */
-    public static final String SPRING_PROFILE_TEST = "test";
+	/**
+	 * 预发布环境
+	 */
+	public static final String SPRING_PROFILE_STAGING = "staging";
 
-    /**
-     * 演示环境
-     */
-    public static final String SPRING_PROFILE_DEMO = "demo";
+	/**
+	 * 测试环境
+	 */
+	public static final String SPRING_PROFILE_TEST = "test";
+
+	/**
+	 * 演示环境
+	 */
+	public static final String SPRING_PROFILE_DEMO = "demo";
+
 }

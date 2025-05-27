@@ -25,7 +25,8 @@ import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;
  */
 public class AssertUtils extends AbstractAssert {
 
-    public static void notNull(Object object, ErrorCode errorCode) {
-        notNull(object, errorCode.getMessage());
-    }
+	public static void notNull(Object object, ErrorCode errorCode) {
+		notNull(object, errorCode.getMessage());
+	}
+
 }

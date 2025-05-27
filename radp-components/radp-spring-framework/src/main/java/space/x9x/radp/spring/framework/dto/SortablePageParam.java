@@ -23,8 +23,8 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * Extended pagination parameter object that adds sorting capabilities.
- * This class extends PageParam to allow specifying sort fields and directions.
+ * Extended pagination parameter object that adds sorting capabilities. This class extends
+ * PageParam to allow specifying sort fields and directions.
  *
  * @author IO x9x
  * @since 2024-12-24 14:23
@@ -34,10 +34,11 @@ import java.util.List;
 @ToString(callSuper = true)
 public class SortablePageParam extends PageParam {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * List of fields to sort by, with their respective sort directions
-     */
-    private List<SortingField> sortingFields;
+	/**
+	 * List of fields to sort by, with their respective sort directions
+	 */
+	private List<SortingField> sortingFields;
+
 }

@@ -31,36 +31,37 @@ import java.util.Set;
  * @since 2024-09-26 13:21
  */
 public class Fastjson2 implements JSON {
-    @Override
-    public <T> String toJSONString(T object) {
-        Filter[] filters = loadFilters();
-        return ArrayUtils.isNotEmpty(filters) ?
-                com.alibaba.fastjson2.JSON.toJSONString(object, filters) :
-                com.alibaba.fastjson2.JSON.toJSONString(object);
-    }
 
-    @Override
-    public <T> T parseObject(String text, Class<T> clazz) {
-        return com.alibaba.fastjson2.JSON.parseObject(text, clazz);
-    }
+	@Override
+	public <T> String toJSONString(T object) {
+		Filter[] filters = loadFilters();
+		return ArrayUtils.isNotEmpty(filters) ? com.alibaba.fastjson2.JSON.toJSONString(object, filters)
+				: com.alibaba.fastjson2.JSON.toJSONString(object);
+	}
 
-    @Override
-    public <T> List<T> parseList(String text, Class<T> clazz) {
-        return com.alibaba.fastjson2.JSON.parseArray(text, clazz);
-    }
+	@Override
+	public <T> T parseObject(String text, Class<T> clazz) {
+		return com.alibaba.fastjson2.JSON.parseObject(text, clazz);
+	}
 
-    private Filter[] loadFilters() {
-        ExtensionLoader<Fastjson2Filter> extensionLoader = ExtensionLoader.getExtensionLoader(Fastjson2Filter.class);
-        Set<String> extensions = extensionLoader.getSupportedExtensions();
-        if (CollectionUtils.isEmpty(extensions)) {
-            return null;
-        }
-        List<Filter> filters = Lists.newArrayList();
-        for (String extension : extensions) {
-            Fastjson2Filter filter = extensionLoader.getExtension(extension);
-            filters.add(filter);
-        }
+	@Override
+	public <T> List<T> parseList(String text, Class<T> clazz) {
+		return com.alibaba.fastjson2.JSON.parseArray(text, clazz);
+	}
 
-        return filters.toArray(new Filter[0]);
-    }
+	private Filter[] loadFilters() {
+		ExtensionLoader<Fastjson2Filter> extensionLoader = ExtensionLoader.getExtensionLoader(Fastjson2Filter.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		if (CollectionUtils.isEmpty(extensions)) {
+			return null;
+		}
+		List<Filter> filters = Lists.newArrayList();
+		for (String extension : extensions) {
+			Fastjson2Filter filter = extensionLoader.getExtension(extension);
+			filters.add(filter);
+		}
+
+		return filters.toArray(new Filter[0]);
+	}
+
 }

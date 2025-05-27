@@ -29,11 +29,19 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccessLog {
-    private String location;
-    private String arguments;
-    private String returnValue;
-    private Throwable throwable;
-    private long duration;
-    private transient Instant start;
-    private transient Instant end;
+
+	private String location;
+
+	private String arguments;
+
+	private String returnValue;
+
+	private Throwable throwable;
+
+	private long duration;
+
+	private transient Instant start;
+
+	private transient Instant end;
+
 }

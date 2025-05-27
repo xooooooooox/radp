@@ -25,8 +25,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Globals {
 
-    /**
-     * radp-xxx-spring-boot-starter {@code ConfigurationProperties} global prefix
-     */
-    public static final String RADP_CONFIGURATION_PROPERTIES_PREFIX = "radp.";
+	/**
+	 * radp-xxx-spring-boot-starter {@code ConfigurationProperties} global prefix
+	 */
+	public static final String RADP_CONFIGURATION_PROPERTIES_PREFIX = "radp.";
+
 }

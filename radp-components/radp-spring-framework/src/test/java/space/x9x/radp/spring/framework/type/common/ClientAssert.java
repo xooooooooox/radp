@@ -35,86 +35,85 @@ import java.util.function.BiFunction;
  */
 public final class ClientAssert extends BaseAssert<ClientException> {
 
-    private ClientAssert() {
+	private ClientAssert() {
 
-    }
+	}
 
-    private static final ClientAssert INSTANCE = new ClientAssert();
+	private static final ClientAssert INSTANCE = new ClientAssert();
 
+	@Override
+	protected BiFunction<String, String, ClientException> getExceptionCreator() {
+		return ExceptionUtils::clientException;
+	}
 
-    @Override
-    protected BiFunction<String, String, ClientException> getExceptionCreator() {
-        return ExceptionUtils::clientException;
-    }
+	@Override
+	protected BiFunction<String, String, ClientException> getFormattedMessageExceptionCreator() {
+		return ExceptionUtils::clientExceptionWithFormattedMessage;
+	}
 
-    @Override
-    protected BiFunction<String, String, ClientException> getFormattedMessageExceptionCreator() {
-        return ExceptionUtils::clientExceptionWithFormattedMessage;
-    }
+	public static void doesNotContain(@NotNull String textToSearch, String substring,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertDoesNotContain(textToSearch, substring, errCode, placeholders);
+	}
 
-    public static void doesNotContain(@NotNull String textToSearch, String substring,
-                                      @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-                                      Object... placeholders) {
-        INSTANCE.assertDoesNotContain(textToSearch, substring, errCode, placeholders);
-    }
+	public static void hasLength(@NotNull String expression,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertHasLength(expression, errCode, placeholders);
+	}
 
-    public static void hasLength(@NotNull String expression,
-                                 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertHasLength(expression, errCode, placeholders);
-    }
+	public static void hasText(String text, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			Object... placeholders) {
+		INSTANCE.assertHasText(text, errCode, placeholders);
+	}
 
-    public static void hasText(String text,
-                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertHasText(text, errCode, placeholders);
-    }
+	public static void isInstanceOf(Class<?> type, Object obj,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertIsInstanceOf(type, obj, errCode, placeholders);
+	}
 
-    public static void isInstanceOf(Class<?> type, Object obj,
-                                    @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertIsInstanceOf(type, obj, errCode, placeholders);
-    }
+	public static void isNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			Object... placeholders) {
+		INSTANCE.assertIsNull(object, errCode, placeholders);
+	}
 
-    public static void isNull(Object object,
-                              @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertIsNull(object, errCode, placeholders);
-    }
+	public static void notNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			Object... placeholders) {
+		INSTANCE.assertNotNull(object, errCode, placeholders);
+	}
 
-    public static void notNull(Object object,
-                               @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertNotNull(object, errCode, placeholders);
-    }
+	public static void isTrue(boolean expression,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertIsTrue(expression, errCode, placeholders);
+	}
 
-    public static void isTrue(boolean expression,
-                              @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertIsTrue(expression, errCode, placeholders);
-    }
+	public static void noNullElements(@NotNull Collection<?> collection,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertNoNullElements(collection, errCode, placeholders);
+	}
 
-    public static void noNullElements(@NotNull Collection<?> collection,
-                                      @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertNoNullElements(collection, errCode, placeholders);
-    }
+	public static void notEmpty(Object[] array,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertNotEmpty(array, errCode, placeholders);
+	}
 
-    public static void notEmpty(Object[] array,
-                                @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertNotEmpty(array, errCode, placeholders);
-    }
+	public static void notEmpty(@NotNull Collection<?> collection,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertNotEmpty(collection, errCode, placeholders);
+	}
 
-    public static void notEmpty(@NotNull Collection<?> collection,
-                                @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertNotEmpty(collection, errCode, placeholders);
-    }
+	public static void notEmpty(@NotNull Map<?, ?> map,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertNotEmpty(map, errCode, placeholders);
+	}
 
-    public static void notEmpty(@NotNull Map<?, ?> map,
-                                @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertNotEmpty(map, errCode, placeholders);
-    }
+	public static void isAssignable(Class<?> superType, @NotNull Class<?> subType,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertIsAssignable(superType, subType, errCode, placeholders);
+	}
 
-    public static void isAssignable(Class<?> superType, @NotNull Class<?> subType,
-                                    @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertIsAssignable(superType, subType, errCode, placeholders);
-    }
+	public static void state(boolean expression,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		INSTANCE.assertState(expression, errCode, placeholders);
+	}
 
-    public static void state(boolean expression,
-                             @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-        INSTANCE.assertState(expression, errCode, placeholders);
-    }
 }

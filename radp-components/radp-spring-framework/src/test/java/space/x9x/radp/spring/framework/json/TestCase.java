@@ -29,7 +29,11 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class TestCase {
-    private Long id;
-    private String username;
-    private Boolean active;
+
+	private Long id;
+
+	private String username;
+
+	private Boolean active;
+
 }

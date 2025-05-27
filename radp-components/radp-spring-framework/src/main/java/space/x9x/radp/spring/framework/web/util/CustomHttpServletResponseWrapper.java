@@ -31,33 +31,33 @@ import java.nio.charset.StandardCharsets;
  */
 public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
-    private final ByteArrayOutputStream outputStream;
-    private final PrintWriter writer;
+	private final ByteArrayOutputStream outputStream;
 
-    /**
-     * Constructs a response adaptor wrapping the given response.
-     *
-     * @param response the {@link HttpServletResponse} to be wrapped.
-     * @throws IllegalArgumentException if the response is null
-     */
-    public CustomHttpServletResponseWrapper(HttpServletResponse response) {
-        super(response);
-        outputStream = new ByteArrayOutputStream();
-        writer = new PrintWriter(outputStream, true);
-    }
+	private final PrintWriter writer;
 
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        return writer;
-    }
+	/**
+	 * Constructs a response adaptor wrapping the given response.
+	 * @param response the {@link HttpServletResponse} to be wrapped.
+	 * @throws IllegalArgumentException if the response is null
+	 */
+	public CustomHttpServletResponseWrapper(HttpServletResponse response) {
+		super(response);
+		outputStream = new ByteArrayOutputStream();
+		writer = new PrintWriter(outputStream, true);
+	}
 
-    /**
-     * Returns the content of the response as a String.
-     * This method converts the captured response bytes to a String using UTF-8 encoding.
-     *
-     * @return the content of the response as a String
-     */
-    public String getContent() {
-        return new String(outputStream.toByteArray(), StandardCharsets.UTF_8);
-    }
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		return writer;
+	}
+
+	/**
+	 * Returns the content of the response as a String. This method converts the captured
+	 * response bytes to a String using UTF-8 encoding.
+	 * @return the content of the response as a String
+	 */
+	public String getContent() {
+		return new String(outputStream.toByteArray(), StandardCharsets.UTF_8);
+	}
+
 }

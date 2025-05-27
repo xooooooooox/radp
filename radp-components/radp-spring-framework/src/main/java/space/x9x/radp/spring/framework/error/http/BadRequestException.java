@@ -26,15 +26,16 @@ import space.x9x.radp.spring.framework.error.BaseException;
 @EqualsAndHashCode(callSuper = true)
 public class BadRequestException extends BaseException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructs a new BadRequestException with the specified error message and parameters.
-     *
-     * @param errMessage the error message
-     * @param params     the parameters to be used for message formatting
-     */
-    public BadRequestException(String errMessage, Object... params) {
-        super("400", errMessage, params);
-    }
+	/**
+	 * Constructs a new BadRequestException with the specified error message and
+	 * parameters.
+	 * @param errMessage the error message
+	 * @param params the parameters to be used for message formatting
+	 */
+	public BadRequestException(String errMessage, Object... params) {
+		super("400", errMessage, params);
+	}
+
 }

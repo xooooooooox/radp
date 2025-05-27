@@ -30,8 +30,10 @@ import lombok.ToString;
 @ToString
 @Data
 public class BootstrapLogConfig {
-    /**
-     * 是否保存到 MDC
-     */
-    private boolean enabledMdc = true;
+
+	/**
+	 * 是否保存到 MDC
+	 */
+	private boolean enabledMdc = true;
+
 }

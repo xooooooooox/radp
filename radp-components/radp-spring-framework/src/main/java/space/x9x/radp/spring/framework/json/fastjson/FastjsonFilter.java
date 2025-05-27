@@ -25,4 +25,5 @@ import space.x9x.radp.extension.SPI;
  */
 @SPI
 public interface FastjsonFilter extends SerializeFilter {
+
 }

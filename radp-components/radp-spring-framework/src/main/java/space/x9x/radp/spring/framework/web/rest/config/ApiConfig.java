@@ -30,9 +30,10 @@ import lombok.ToString;
 @Setter
 @Getter
 public class ApiConfig {
-    /**
-     * API 前缀
-     * 实现所有 Controller 提供的 RESTFul API 的统一前缀
-     */
-    private String prefix;
+
+	/**
+	 * API 前缀 实现所有 Controller 提供的 RESTFul API 的统一前缀
+	 */
+	private String prefix;
+
 }

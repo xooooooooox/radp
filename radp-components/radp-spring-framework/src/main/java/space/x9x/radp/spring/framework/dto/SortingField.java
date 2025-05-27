@@ -31,25 +31,26 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class SortingField implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Constant representing ascending sort order.
-     */
-    public static final String ASC = "ASC";
+	/**
+	 * Constant representing ascending sort order.
+	 */
+	public static final String ASC = "ASC";
 
-    /**
-     * Constant representing descending sort order.
-     */
-    public static final String DESC = "DESC";
+	/**
+	 * Constant representing descending sort order.
+	 */
+	public static final String DESC = "DESC";
 
-    /**
-     * 字段
-     */
-    private String field;
+	/**
+	 * 字段
+	 */
+	private String field;
 
-    /**
-     * 排序
-     */
-    private String order;
+	/**
+	 * 排序
+	 */
+	private String order;
+
 }

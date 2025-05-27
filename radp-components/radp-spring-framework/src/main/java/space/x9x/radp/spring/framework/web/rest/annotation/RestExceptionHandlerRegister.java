@@ -29,9 +29,10 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 public class RestExceptionHandlerRegister implements ImportBeanDefinitionRegistrar {
 
-    @Override
-    public void registerBeanDefinitions(@NotNull AnnotationMetadata importingClassMetadata,
-                                        @NotNull BeanDefinitionRegistry registry) {
-        ApplicationContextHelper.registerBean(RestExceptionHandler.class, registry);
-    }
+	@Override
+	public void registerBeanDefinitions(@NotNull AnnotationMetadata importingClassMetadata,
+			@NotNull BeanDefinitionRegistry registry) {
+		ApplicationContextHelper.registerBean(RestExceptionHandler.class, registry);
+	}
+
 }

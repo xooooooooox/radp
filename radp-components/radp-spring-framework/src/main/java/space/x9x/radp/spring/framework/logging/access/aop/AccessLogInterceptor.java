@@ -35,32 +35,36 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class AccessLogInterceptor implements MethodInterceptor {
 
-    private final AccessLogConfig accessLogConfig;
+	private final AccessLogConfig accessLogConfig;
 
-    @Override
-    public @Nullable Object invoke(@NotNull MethodInvocation invocation) throws Throwable {
-        // 排除代理类
-        if (AopUtils.isAopProxy(invocation.getThis())) {
-            return invocation.proceed();
-        }
+	@Override
+	public @Nullable Object invoke(@NotNull MethodInvocation invocation) throws Throwable {
+		// 排除代理类
+		if (AopUtils.isAopProxy(invocation.getThis())) {
+			return invocation.proceed();
+		}
 
-        // 判断是否需要输出日志
-        if (AccessLogHelper.shouldLog(accessLogConfig.getSampleRate())) {
-            return invocation.proceed();
-        }
+		// 判断是否需要输出日志
+		if (AccessLogHelper.shouldLog(accessLogConfig.getSampleRate())) {
+			return invocation.proceed();
+		}
 
-        Instant start = Instant.now();
-        Object result = null;
-        Throwable throwable = null;
-        try {
-            result = invocation.proceed();
-            return result;
-        } catch (Throwable t) {
-            throwable = t;
-            throw throwable;
-        } finally {
-            long duration = Duration.between(start, Instant.now()).toMillis();
-            AccessLogHelper.log(invocation, result, throwable, duration, accessLogConfig.isEnabledMdc(), accessLogConfig.getMaxLength(), accessLogConfig.getSlowThreshold());
-        }
-    }
+		Instant start = Instant.now();
+		Object result = null;
+		Throwable throwable = null;
+		try {
+			result = invocation.proceed();
+			return result;
+		}
+		catch (Throwable t) {
+			throwable = t;
+			throw throwable;
+		}
+		finally {
+			long duration = Duration.between(start, Instant.now()).toMillis();
+			AccessLogHelper.log(invocation, result, throwable, duration, accessLogConfig.isEnabledMdc(),
+					accessLogConfig.getMaxLength(), accessLogConfig.getSlowThreshold());
+		}
+	}
+
 }

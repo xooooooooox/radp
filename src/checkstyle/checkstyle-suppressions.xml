@@ -37,4 +37,7 @@
 			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 
+	<!-- radp-spring-cloud -->
+	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="EmbeddedServerHelper\.java" checks="HideUtilityClassConstructor"/>
 </suppressions>

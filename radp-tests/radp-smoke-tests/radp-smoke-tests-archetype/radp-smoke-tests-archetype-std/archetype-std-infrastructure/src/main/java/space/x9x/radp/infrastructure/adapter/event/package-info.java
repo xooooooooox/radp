@@ -15,13 +15,12 @@
  */
 
 /**
- * 配置发送消息,比如 kafka
- * <pre>{@code
- * @Slf4j
- * @Component
+ * 配置发送消息. 比如 kafka <pre>{@code
+ * &#64;Slf4j
+ * &#64;Component
  * public class EventPublisher {
  *
- *     @Resource
+ *     &#64;Resource
  *     private KafkaTemplate<String, String> kafkaTemplate;
  *
  *     public void publish(String topic, BaseEvent.EventMessage<?> eventMessage) {

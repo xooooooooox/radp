@@ -81,12 +81,14 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 使用启动超时执行Runnable任务.
+	 * Executes a Runnable task with a startup timeout.
 	 * <p>
-	 * 将任务包装为异常处理任务，并委托给底层执行器执行
-	 * @param task 要执行的任务
-	 * @param startTimeout 启动超时时间（毫秒）
-	 * @deprecated 此方法在AsyncTaskExecutor接口中已被弃用，建议使用其他方法替代
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
+	 * @param startTimeout the startup timeout in milliseconds
+	 * @deprecated this method is deprecated in the AsyncTaskExecutor interface, use
+	 * alternative methods instead
 	 */
 	@Override
 	@Deprecated
@@ -95,11 +97,12 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 提交Runnable任务.
+	 * Submits a Runnable task for execution.
 	 * <p>
-	 * 将任务包装为异常处理任务，并委托给底层执行器执行
-	 * @param task 要执行的任务
-	 * @return 表示任务挂起完成的Future
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @return a Future representing pending completion of the task
 	 */
 	@Override
 	public @NotNull Future<?> submit(@NotNull Runnable task) {
@@ -107,12 +110,13 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 提交Callable任务.
+	 * Submits a Callable task for execution.
 	 * <p>
-	 * 将任务包装为异常处理任务，并委托给底层执行器执行
-	 * @param task 要执行的任务
-	 * @param <T> 结果类型
-	 * @return 表示任务挂起完成的Future
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @param <T> the result type
+	 * @return a Future representing pending completion of the task
 	 */
 	@Override
 	public <T> @NotNull Future<T> submit(@NotNull Callable<T> task) {
@@ -120,10 +124,11 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 执行Runnable任务.
+	 * Executes a Runnable task.
 	 * <p>
-	 * 将任务包装为异常处理任务，并委托给底层执行器执行
-	 * @param task 要执行的任务
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
 	 */
 	@Override
 	public void execute(@NotNull Runnable task) {
@@ -131,12 +136,12 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 创建带有异常处理的Callable任务.
+	 * Creates a Callable task with exception handling.
 	 * <p>
-	 * 包装原始Callable任务，添加异常处理逻辑
-	 * @param task 原始任务
-	 * @param <T> 结果类型
-	 * @return 包装后的Callable任务
+	 * Wraps the original Callable task with exception handling logic.
+	 * @param task the original task
+	 * @param <T> the result type
+	 * @return the wrapped Callable task
 	 */
 	private <T> Callable<T> createCallable(final Callable<T> task) {
 		return () -> {
@@ -151,11 +156,11 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 创建带有异常处理的Runnable任务.
+	 * Creates a Runnable task with exception handling.
 	 * <p>
-	 * 包装原始Runnable任务，添加异常处理逻辑
-	 * @param task 原始任务
-	 * @return 包装后的Runnable任务
+	 * Wraps the original Runnable task with exception handling logic.
+	 * @param task the original task
+	 * @return the wrapped Runnable task
 	 */
 	private Runnable createWrappedRunnable(final Runnable task) {
 		return () -> {
@@ -169,13 +174,14 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 	}
 
 	/**
-	 * 处理异步任务执行过程中发生的异常.
+	 * Handles exceptions caught during asynchronous task execution.
 	 * <p>
-	 * 当执行任务时捕获到异常时，会调用此方法。 它使用配置的日志记录器记录异常消息和异常本身。
-	 * @param e 任务执行过程中捕获的异常
+	 * When an exception is caught during task execution, this method is called. It uses
+	 * the configured logger to log the exception message and the exception itself.
+	 * @param ex the exception caught during task execution
 	 */
-	protected void handle(Exception e) {
-		log.error(MSG_ASYNC_EXCEPTION, e.getMessage(), e);
+	protected void handle(Exception ex) {
+		log.error(MSG_ASYNC_EXCEPTION, ex.getMessage(), ex);
 	}
 
 }

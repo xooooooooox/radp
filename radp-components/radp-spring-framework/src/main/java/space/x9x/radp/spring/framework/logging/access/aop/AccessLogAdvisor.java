@@ -24,5 +24,6 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
  */
 public class AccessLogAdvisor extends AspectJExpressionPointcutAdvisor {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+
 }

@@ -247,4 +247,3 @@ public final class ServerAssert extends BaseAssert<ServerException> {
 	}
 
 }
-

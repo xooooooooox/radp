@@ -29,7 +29,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-25 15:48
  */
 @Testcontainers

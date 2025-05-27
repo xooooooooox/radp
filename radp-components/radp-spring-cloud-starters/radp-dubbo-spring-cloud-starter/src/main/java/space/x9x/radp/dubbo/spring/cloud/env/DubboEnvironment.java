@@ -56,4 +56,5 @@ public class DubboEnvironment {
 	 * ZooKeeper) that Dubbo will use for service discovery.
 	 */
 	public static final String REGISTRY_ADDRESS = "dubbo.registry.address";
+
 }

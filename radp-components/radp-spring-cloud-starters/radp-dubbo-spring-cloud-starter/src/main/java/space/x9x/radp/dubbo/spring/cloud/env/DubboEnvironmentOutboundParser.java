@@ -60,4 +60,5 @@ public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser
 		String registryAddress = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.REGISTRY_ADDRESS));
 		return MessageFormatUtils.format(TEMPLATE, registryAddress);
 	}
+
 }

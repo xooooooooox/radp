@@ -60,4 +60,5 @@ public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {
 		int port = NumberUtils.toInt(env.getProperty(DubboEnvironment.PORT));
 		return MessageFormatUtils.format(TEMPLATE, protocol, port, protocol);
 	}
+
 }

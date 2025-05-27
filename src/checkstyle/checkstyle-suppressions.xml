@@ -39,5 +39,14 @@
 
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-test -->
 	<suppress files="EmbeddedServerHelper\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-boot -->
+	<suppress files="ManagementServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Conditions\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringBootProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="DatasourceEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="WebServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
 </suppressions>

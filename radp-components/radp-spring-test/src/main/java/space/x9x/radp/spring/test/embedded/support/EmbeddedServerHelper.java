@@ -32,7 +32,7 @@ import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 /**
  * Helper class for working with embedded servers. This class provides utility methods for
  * creating, configuring, and managing embedded servers for testing. It supports various
- * server types including Redis, Zookeeper, and Kafka.
+ * server types, including Redis, Zookeeper, and Kafka.
  *
  * @author IO x9x
  * @since 2024-10-13 17:52
@@ -43,10 +43,10 @@ public class EmbeddedServerHelper {
 
 	/**
 	 * Creates and configures an embedded server instance using the extension mechanism.
-	 * This method loads an EmbeddedServer implementation based on the provided SPI name,
+	 * This method loads an EmbeddedServer implementation based on the provided SPI name
 	 * and configures it with the specified port.
 	 * @param spi the SPI name of the embedded server implementation to load
-	 * @param port the port on which the embedded server should listen
+	 * @param port the port on which the embedded server should listen to
 	 * @return a configured EmbeddedServer instance ready to be started
 	 */
 	public static IEmbeddedServer embeddedServer(String spi, int port) {

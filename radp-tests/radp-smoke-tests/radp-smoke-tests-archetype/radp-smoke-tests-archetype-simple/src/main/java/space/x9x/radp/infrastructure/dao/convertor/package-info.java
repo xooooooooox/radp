@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2025 the original author or authors.
  *
@@ -15,13 +16,10 @@
  */
 
 /**
- * 1. 在这里定义 PO <-> DomainObject 转换器
- * 2. 命名 {@code IXxxPOConvertor}
- * 3. 示例
- * <pre>{@code
+ * 1. 在这里定义 PO <-> DomainObject 转换器 2. 命名 {@code IXxxPOConvertor} 3. 示例 <pre>{@code
  * import org.mapstruct.Mapper;
  *
- * @Mapper(componentModel = "spring")
+ * &#64;Mapper(componentModel = "spring")
  * public interface IStrategyConvertor extends BaseConvertor<StrategyPO,StrategyEntity> {
  * }
  * }

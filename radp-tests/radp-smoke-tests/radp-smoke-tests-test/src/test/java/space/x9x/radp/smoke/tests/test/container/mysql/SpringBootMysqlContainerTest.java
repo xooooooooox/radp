@@ -16,19 +16,21 @@
 
 package space.x9x.radp.smoke.tests.test.container.mysql;
 
-import org.junit.jupiter.api.Test;
+import java.sql.Connection;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Statement;
 
 /**
  * @author IO x9x
@@ -38,33 +40,37 @@ import java.sql.Statement;
 @Testcontainers
 public class SpringBootMysqlContainerTest {
 
-    @Container
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
-            .withDatabaseName("test")
-            .withCreateContainerCmdModifier(cmd -> cmd.withPlatform("linux/arm64"));
-//            .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String())); // testContainer 调试技巧: 容器日志
+	@Container
+	private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
+		.withDatabaseName("test")
+		.withCreateContainerCmdModifier(cmd -> cmd.withPlatform("linux/arm64"));
 
-    @Configuration
-    static class TestConfig {
-        @Bean
-        public DataSource dataSource() {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setUrl(MY_SQL_CONTAINER.getJdbcUrl());
-            dataSource.setUsername(MY_SQL_CONTAINER.getUsername());
-            dataSource.setPassword(MY_SQL_CONTAINER.getPassword());
-            return dataSource;
-        }
-    }
+	// .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String()));
+	// // testContainer 调试技巧: 容器日志
 
-    @Autowired
-    private DataSource dataSource;
+	@Configuration
+	static class TestConfig {
 
-    @Test
-    void testSpringDataSource() throws Exception {
-        try (Connection conn = dataSource.getConnection();
-             Statement statement = conn.createStatement()) {
+		@Bean
+		public DataSource dataSource() {
+			DriverManagerDataSource dataSource = new DriverManagerDataSource();
+			dataSource.setUrl(MY_SQL_CONTAINER.getJdbcUrl());
+			dataSource.setUsername(MY_SQL_CONTAINER.getUsername());
+			dataSource.setPassword(MY_SQL_CONTAINER.getPassword());
+			return dataSource;
+		}
 
-            statement.execute("CREATE TABLE test(id INT)");
-        }
-    }
+	}
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Test
+	void testSpringDataSource() throws Exception {
+		try (Connection conn = dataSource.getConnection(); Statement statement = conn.createStatement()) {
+
+			statement.execute("CREATE TABLE test(id INT)");
+		}
+	}
+
 }

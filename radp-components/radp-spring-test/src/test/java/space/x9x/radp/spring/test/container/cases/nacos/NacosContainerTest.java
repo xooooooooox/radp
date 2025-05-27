@@ -16,19 +16,20 @@
 
 package space.x9x.radp.spring.test.container.cases.nacos;
 
+import java.time.Duration;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author IO x9x
@@ -37,45 +38,38 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 class NacosContainerTest {
 
-    /**
-     * 8848：HTTP/REST
-     * 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
-     */
-    @Container
-    private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
-                    .withExposedPorts(8848, 9848)
-                    .withEnv("MODE", "standalone")
-                    // 直接用 HTTP 健康端点做等待策略，避免“端口已开但服务未完全就绪”的假阳性
-                    .waitingFor(Wait.forHttp("/nacos/v1/console/health/liveness")
-                            .forStatusCode(200)
-                            .withStartupTimeout(Duration.ofMinutes(3)));
+	/**
+	 * 8848：HTTP/REST 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
+	 */
+	@Container
+	private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
+		.withExposedPorts(8848, 9848)
+		.withEnv("MODE", "standalone")
+		// 直接用 HTTP 健康端点做等待策略，避免“端口已开但服务未完全就绪”的假阳性
+		.waitingFor(Wait.forHttp("/nacos/v1/console/health/liveness")
+			.forStatusCode(200)
+			.withStartupTimeout(Duration.ofMinutes(3)));
 
-    @Test
-    void should_report_healthy_status() throws Exception {
-        // 取得映射后的主机和端口
-        String host = nacos.getHost();
-        int port = nacos.getMappedPort(8848);
+	@Test
+	void should_report_healthy_status() throws Exception {
+		// 取得映射后的主机和端口
+		String host = nacos.getHost();
+		int port = nacos.getMappedPort(8848);
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .callTimeout(Duration.ofSeconds(10))
-                .build();
+		OkHttpClient client = new OkHttpClient.Builder().callTimeout(Duration.ofSeconds(10)).build();
 
-        String url = String.format("http://%s:%d/nacos/v1/console/health/liveness", host, port);
+		String url = String.format("http://%s:%d/nacos/v1/console/health/liveness", host, port);
 
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .build();
+		Request request = new Request.Builder().url(url).get().build();
 
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
+		try (Response response = client.newCall(request).execute()) {
+			assertEquals(200, response.code());
 
-            assertNotNull(response.body());
-            String responseBody = response.body().string();
-            assertTrue(responseBody.contains("\"status\":\"UP\"")
-                            || responseBody.contains("\"healthy\":true")
-                            || "OK".equals(responseBody.trim()),
-                    () -> "Unexpected health payload: " + responseBody);
-        }
-    }
+			assertNotNull(response.body());
+			String responseBody = response.body().string();
+			assertTrue(responseBody.contains("\"status\":\"UP\"") || responseBody.contains("\"healthy\":true")
+					|| "OK".equals(responseBody.trim()), () -> "Unexpected health payload: " + responseBody);
+		}
+	}
+
 }

@@ -16,12 +16,16 @@
 
 package space.x9x.radp.spring.test.container.cases.postgres;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,24 +36,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers // 管理容器生命周期
 class PostgresContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container // TestContainers 会自动启动和停止它
-    private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
-            .withDatabaseName("test")
-            .withUsername("postgres")
-            .withPassword("password");
+	@SuppressWarnings("resource")
+	@Container // TestContainers 会自动启动和停止它
+	private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15").withDatabaseName("test")
+		.withUsername("postgres")
+		.withPassword("password");
 
+	@Test
+	void testSimpleQuery() throws SQLException {
+		// 链接数据库并执行查询
+		Connection connection = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(),
+				postgres.getPassword());
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery("SELECT 1");
+		resultSet.next();
+		int result = resultSet.getInt(1);
+		assertEquals(1, result);
+	}
 
-    @Test
-    void testSimpleQuery() throws SQLException {
-        // 链接数据库并执行查询
-        Connection connection = DriverManager.getConnection(postgres.getJdbcUrl(),
-                postgres.getUsername(),
-                postgres.getPassword());
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT 1");
-        resultSet.next();
-        int result = resultSet.getInt(1);
-        assertEquals(1, result);
-    }
 }

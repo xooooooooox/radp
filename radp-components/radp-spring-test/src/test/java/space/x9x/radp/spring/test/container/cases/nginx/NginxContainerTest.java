@@ -16,15 +16,15 @@
 
 package space.x9x.radp.spring.test.container.cases.nginx;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,22 +35,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class NginxContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6")
-            .withExposedPorts(80)
-            .withCopyFileToContainer(
-                    MountableFile.forClasspathResource("volumes/nginx/index.html"),
-                    "/usr/share/nginx/html/index.html"
-            );
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> nginx = new GenericContainer<>("nginx:1.21.6").withExposedPorts(80)
+		.withCopyFileToContainer(MountableFile.forClasspathResource("volumes/nginx/index.html"),
+				"/usr/share/nginx/html/index.html");
 
-    @Test
-    void testNginxServersCustomPage() throws IOException {
-        String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-        int responseCode = connection.getResponseCode();
-        assertEquals(200, responseCode); // 验证 Nginx 返回 200 OK
-    }
+	@Test
+	void testNginxServersCustomPage() throws IOException {
+		String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+		int responseCode = connection.getResponseCode();
+		assertEquals(200, responseCode); // 验证 Nginx 返回 200 OK
+	}
 
 }

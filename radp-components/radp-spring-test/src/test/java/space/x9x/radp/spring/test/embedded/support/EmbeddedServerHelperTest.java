@@ -17,6 +17,7 @@
 package space.x9x.radp.spring.test.embedded.support;
 
 import org.junit.jupiter.api.Test;
+
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
@@ -32,25 +33,27 @@ import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.e
  */
 class EmbeddedServerHelperTest {
 
-    @Test
-    void testRedisServer() {
-        // Test creating a Redis server with the default port
-        EmbeddedRedisServer server = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS);
-        assertNotNull(server);
+	@Test
+	void testRedisServer() {
+		// Test creating a Redis server with the default port
+		EmbeddedRedisServer server = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS);
+		assertNotNull(server);
 
-        // Test creating a Redis server with a custom port
-        int customPort = 6380;
-        EmbeddedRedisServer portServer = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS.getSpi(), customPort);
-        assertNotNull(portServer);
+		// Test creating a Redis server with a custom port
+		int customPort = 6380;
+		EmbeddedRedisServer portServer = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS.getSpi(),
+				customPort);
+		assertNotNull(portServer);
 
-        // Test creating a Redis server with a custom port and password
-    }
+		// Test creating a Redis server with a custom port and password
+	}
 
-    @Test
-    void testEmbeddedServer() {
-        // Test creating an embedded server using the extension mechanism
-        // Note: This requires the "redis" SPI to be properly registered
-        IEmbeddedServer server = embeddedServer("redis", 6380);
-        assertNotNull(server);
-    }
+	@Test
+	void testEmbeddedServer() {
+		// Test creating an embedded server using the extension mechanism
+		// Note: This requires the "redis" SPI to be properly registered
+		IEmbeddedServer server = embeddedServer("redis", 6380);
+		assertNotNull(server);
+	}
+
 }

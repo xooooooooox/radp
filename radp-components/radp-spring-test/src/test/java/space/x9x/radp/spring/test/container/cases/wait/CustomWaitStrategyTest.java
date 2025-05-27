@@ -16,6 +16,11 @@
 
 package space.x9x.radp.spring.test.container.cases.wait;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Duration;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
@@ -24,11 +29,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.containers.wait.strategy.WaitStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,9 +42,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * <p>
  * 内置等待策略:
  * <ul>
- *     <li>端口就绪: {@code Wait.forListeningPort}</li>
- *     <li>HTTP就绪: {@code Wait.forHttp("/health")}</li>
- *     <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
+ * <li>端口就绪: {@code Wait.forListeningPort}</li>
+ * <li>HTTP就绪: {@code Wait.forHttp("/health")}</li>
+ * <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
  * </ul>
  *
  * @author IO x9x
@@ -54,128 +54,130 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Slf4j
 class CustomWaitStrategyTest {
 
-    /**
-     * 自定义等待策略实现
-     * 继承 AbstractWaitStrategy 并实现 waitUntilReady 方法
-     */
-    static class SimpleCustomWaitStrategy extends AbstractWaitStrategy {
-        private final int targetPort;
+	/**
+	 * 自定义等待策略实现 继承 AbstractWaitStrategy 并实现 waitUntilReady 方法
+	 */
+	static class SimpleCustomWaitStrategy extends AbstractWaitStrategy {
 
-        public SimpleCustomWaitStrategy(int targetPort) {
-            this.targetPort = targetPort;
-        }
+		private final int targetPort;
 
-        @Override
-        protected void waitUntilReady() {
-            // 自定义检查逻辑, 例如通过 API 调用确认服务就绪
-            log.info("等待容器在端口 {} 就绪...", targetPort);
+		public SimpleCustomWaitStrategy(int targetPort) {
+			this.targetPort = targetPort;
+		}
 
-            int attempts = 0;
-            boolean ready = false;
+		@Override
+		protected void waitUntilReady() {
+			// 自定义检查逻辑, 例如通过 API 调用确认服务就绪
+			log.info("等待容器在端口 {} 就绪...", targetPort);
 
-            while (!ready && attempts < 30) {
-                try {
-                    Thread.sleep(500);
-                    ready = isServiceReady();
-                    attempts++;
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException("等待容器就绪时被中断", e);
-                }
-            }
+			int attempts = 0;
+			boolean ready = false;
 
-            if (!ready) {
-                throw new RuntimeException("容器未能在预期时间内就绪");
-            }
+			while (!ready && attempts < 30) {
+				try {
+					Thread.sleep(500);
+					ready = isServiceReady();
+					attempts++;
+				}
+				catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					throw new RuntimeException("等待容器就绪时被中断", e);
+				}
+			}
 
-            log.info("容器已就绪");
-        }
+			if (!ready) {
+				throw new RuntimeException("容器未能在预期时间内就绪");
+			}
 
-        private boolean isServiceReady() {
-            // 这里可以实现具体的检查逻辑
-            // 示例: 检查容器是否已经启动并监听端口
-            return waitStrategyTarget.isRunning();
-        }
-    }
+			log.info("容器已就绪");
+		}
 
-    /**
-     * 组合多个等待策略的自定义策略
-     */
-    static class CompositeWaitStrategy extends AbstractWaitStrategy {
-        private final WaitStrategy[] strategies;
+		private boolean isServiceReady() {
+			// 这里可以实现具体的检查逻辑
+			// 示例: 检查容器是否已经启动并监听端口
+			return waitStrategyTarget.isRunning();
+		}
 
-        public CompositeWaitStrategy(WaitStrategy... strategies) {
-            this.strategies = strategies;
-        }
+	}
 
-        @Override
-        protected void waitUntilReady() {
-            for (WaitStrategy strategy : strategies) {
-                // 为每个策略设置相同的目标容器
-                strategy.withStartupTimeout(this.startupTimeout);
+	/**
+	 * 组合多个等待策略的自定义策略
+	 */
+	static class CompositeWaitStrategy extends AbstractWaitStrategy {
 
-                // 应用每个等待策略
-                log.info("应用等待策略: {}", strategy.getClass().getSimpleName());
-                strategy.waitUntilReady(this.waitStrategyTarget);
-            }
-        }
-    }
+		private final WaitStrategy[] strategies;
 
-    // 使用内置的HTTP等待策略的容器
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> nginxContainer = new GenericContainer<>("nginx:1.21.6")
-            .withExposedPorts(80)
-            .waitingFor(Wait.forHttp("/").forStatusCode(200).withStartupTimeout(Duration.ofSeconds(30)));
+		public CompositeWaitStrategy(WaitStrategy... strategies) {
+			this.strategies = strategies;
+		}
 
-    // 使用自定义简单等待策略的容器
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> customWaitContainer = new GenericContainer<>("nginx:1.21.6")
-            .withExposedPorts(80)
-            .waitingFor(new SimpleCustomWaitStrategy(80));
+		@Override
+		protected void waitUntilReady() {
+			for (WaitStrategy strategy : strategies) {
+				// 为每个策略设置相同的目标容器
+				strategy.withStartupTimeout(this.startupTimeout);
 
-    // 使用组合等待策略的容器
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> compositeWaitContainer = new GenericContainer<>("nginx:1.21.6")
-            .withExposedPorts(80)
-            .waitingFor(new CompositeWaitStrategy(
-                    Wait.forListeningPort(),
-                    Wait.forHttp("/").forStatusCode(200)
-            ));
+				// 应用每个等待策略
+				log.info("应用等待策略: {}", strategy.getClass().getSimpleName());
+				strategy.waitUntilReady(this.waitStrategyTarget);
+			}
+		}
 
-    @Test
-    void testBuiltInWaitStrategy() throws IOException {
-        // 测试内置的HTTP等待策略
-        String url = String.format("http://%s:%s", nginxContainer.getHost(), nginxContainer.getMappedPort(80));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
+	}
 
-        assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
-    }
+	// 使用内置的HTTP等待策略的容器
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> nginxContainer = new GenericContainer<>("nginx:1.21.6").withExposedPorts(80)
+		.waitingFor(Wait.forHttp("/").forStatusCode(200).withStartupTimeout(Duration.ofSeconds(30)));
 
-    @Test
-    void testCustomWaitStrategy() throws IOException {
-        // 测试自定义等待策略
-        assertTrue(customWaitContainer.isRunning(), "容器应该处于运行状态");
+	// 使用自定义简单等待策略的容器
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> customWaitContainer = new GenericContainer<>("nginx:1.21.6").withExposedPorts(80)
+		.waitingFor(new SimpleCustomWaitStrategy(80));
 
-        String url = String.format("http://%s:%s", customWaitContainer.getHost(), customWaitContainer.getMappedPort(80));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
+	// 使用组合等待策略的容器
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> compositeWaitContainer = new GenericContainer<>("nginx:1.21.6")
+		.withExposedPorts(80)
+		.waitingFor(new CompositeWaitStrategy(Wait.forListeningPort(), Wait.forHttp("/").forStatusCode(200)));
 
-        assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
-    }
+	@Test
+	void testBuiltInWaitStrategy() throws IOException {
+		// 测试内置的HTTP等待策略
+		String url = String.format("http://%s:%s", nginxContainer.getHost(), nginxContainer.getMappedPort(80));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
 
-    @Test
-    void testCompositeWaitStrategy() throws IOException {
-        // 测试组合等待策略
-        assertTrue(compositeWaitContainer.isRunning(), "容器应该处于运行状态");
+		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+	}
 
-        String url = String.format("http://%s:%s", compositeWaitContainer.getHost(), compositeWaitContainer.getMappedPort(80));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
+	@Test
+	void testCustomWaitStrategy() throws IOException {
+		// 测试自定义等待策略
+		assertTrue(customWaitContainer.isRunning(), "容器应该处于运行状态");
 
-        assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
-    }
+		String url = String.format("http://%s:%s", customWaitContainer.getHost(),
+				customWaitContainer.getMappedPort(80));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+
+		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+	}
+
+	@Test
+	void testCompositeWaitStrategy() throws IOException {
+		// 测试组合等待策略
+		assertTrue(compositeWaitContainer.isRunning(), "容器应该处于运行状态");
+
+		String url = String.format("http://%s:%s", compositeWaitContainer.getHost(),
+				compositeWaitContainer.getMappedPort(80));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+
+		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+	}
+
 }

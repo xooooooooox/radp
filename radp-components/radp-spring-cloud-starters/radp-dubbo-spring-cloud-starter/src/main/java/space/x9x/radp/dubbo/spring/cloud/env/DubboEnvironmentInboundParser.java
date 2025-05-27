@@ -16,29 +16,48 @@
 
 package space.x9x.radp.dubbo.spring.cloud.env;
 
+import org.springframework.core.env.Environment;
+
 import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
-import org.springframework.core.env.Environment;
 
 /**
+ * Parser for Dubbo environment information to be displayed in inbound connection logs.
+ * This class implements the EnvironmentInboundParser interface to provide formatted
+ * information about Dubbo provider connections, including protocol and port details. When
+ * Dubbo is disabled, it returns an empty string.
+ *
  * @author IO x9x
  * @since 2024-10-03 01:15
  */
 public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {
-    private static final String TEMPLATE = "Inbound Dubbo Provider: \t{}://{}:{}";
 
-    @Override
-    public String toString(Environment env) {
-        boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
-        if (disabled) {
-            return Strings.EMPTY;
-        }
-        String protocol = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
-        int port = NumberUtils.toInt(env.getProperty(DubboEnvironment.PORT));
-        return MessageFormatUtils.format(TEMPLATE, protocol, port, protocol);
-    }
+	/**
+	 * Template string for formatting Dubbo provider information. The placeholders are
+	 * replaced with protocol, port, and protocol again.
+	 */
+	private static final String TEMPLATE = "Inbound Dubbo Provider: \t{}://{}:{}";
+
+	/**
+	 * Converts Dubbo environment configuration to a formatted string representation. If
+	 * Dubbo is disabled, returns an empty string. Otherwise, returns a formatted string
+	 * containing the protocol and port information.
+	 * @param env the Spring environment containing Dubbo configuration properties
+	 * @return a formatted string with Dubbo provider information or empty string if
+	 * disabled
+	 */
+	@Override
+	public String toString(Environment env) {
+		boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
+		if (disabled) {
+			return Strings.EMPTY;
+		}
+		String protocol = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
+		int port = NumberUtils.toInt(env.getProperty(DubboEnvironment.PORT));
+		return MessageFormatUtils.format(TEMPLATE, protocol, port, protocol);
+	}
 }

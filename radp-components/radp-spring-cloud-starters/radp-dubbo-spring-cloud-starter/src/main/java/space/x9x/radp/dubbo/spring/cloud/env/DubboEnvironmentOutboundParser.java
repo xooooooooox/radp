@@ -16,29 +16,48 @@
 
 package space.x9x.radp.dubbo.spring.cloud.env;
 
+import org.springframework.core.env.Environment;
+
+import org.apache.commons.lang3.StringUtils;
+
 import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.env.Environment;
 
 /**
+ * Parser for Dubbo environment information to be displayed in outbound connection logs.
+ * This class implements the EnvironmentOutboundParser interface to provide formatted
+ * information about Dubbo registry connections. When Dubbo is disabled, it returns an
+ * empty string.
+ *
  * @author IO x9x
  * @since 2024-10-03 01:20
  */
 public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser {
 
-    private static final String TEMPLATE = "Outbound Dubbo Registry: \t{}";
+	/**
+	 * Template string for formatting Dubbo registry information. The placeholder is
+	 * replaced with the registry address.
+	 */
+	private static final String TEMPLATE = "Outbound Dubbo Registry: \t{}";
 
-    @Override
-    public String toString(Environment env) {
-        boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
-        if (disabled) {
-            return Strings.EMPTY;
-        }
+	/**
+	 * Converts Dubbo environment configuration to a formatted string representation. If
+	 * Dubbo is disabled, returns an empty string. Otherwise, returns a formatted string
+	 * containing the registry address information.
+	 * @param env the Spring environment containing Dubbo configuration properties
+	 * @return a formatted string with Dubbo registry information or empty string if
+	 * disabled
+	 */
+	@Override
+	public String toString(Environment env) {
+		boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
+		if (disabled) {
+			return Strings.EMPTY;
+		}
 
-        String registryAddress = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.REGISTRY_ADDRESS));
-        return MessageFormatUtils.format(TEMPLATE, registryAddress);
-    }
+		String registryAddress = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.REGISTRY_ADDRESS));
+		return MessageFormatUtils.format(TEMPLATE, registryAddress);
+	}
 }

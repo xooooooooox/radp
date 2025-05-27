@@ -16,18 +16,17 @@
 
 package space.x9x.radp.spring.test.container.cases.mariadb;
 
-import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.MariaDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.MariaDBContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author IO x9x
@@ -36,21 +35,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class MariadbContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container
-    private final MariaDBContainer<?> mariadb = new MariaDBContainer<>("mariadb:10.11")
-            .withDatabaseName("test")
-            .withUsername("root")
-            .withPassword("password");
+	@SuppressWarnings("resource")
+	@Container
+	private final MariaDBContainer<?> mariadb = new MariaDBContainer<>("mariadb:10.11").withDatabaseName("test")
+		.withUsername("root")
+		.withPassword("password");
 
-    @Test
-    void testCreateTable() throws SQLException {
-        String sql = "CREATE TABLE users (id INT, name VARCHAR(255))";
-        String jdbcUrl = mariadb.getJdbcUrl();
-        try (Connection connection = DriverManager.getConnection(jdbcUrl, mariadb.getUsername(), mariadb.getPassword())) {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            assertTrue(true);
-        }
-    }
+	@Test
+	void testCreateTable() throws SQLException {
+		String sql = "CREATE TABLE users (id INT, name VARCHAR(255))";
+		String jdbcUrl = mariadb.getJdbcUrl();
+		try (Connection connection = DriverManager.getConnection(jdbcUrl, mariadb.getUsername(),
+				mariadb.getPassword())) {
+			Statement statement = connection.createStatement();
+			statement.execute(sql);
+			assertTrue(true);
+		}
+	}
+
 }

@@ -16,6 +16,9 @@
 
 package space.x9x.radp.smoke.tests.redis;
 
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import com.redis.testcontainers.RedisContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -26,226 +29,232 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
 
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Smoke tests for {@link RedissonService} using Testcontainers.
- * These tests verify that RedissonService works correctly with a real Redis server.
+ * Smoke tests for {@link RedissonService} using Testcontainers. These tests verify that
+ * RedissonService works correctly with a real Redis server.
  */
 @Testcontainers
 @Slf4j
 class RedissonServiceSmokeTest {
 
-    private static final String TEST_VALUE = "test-value";
+	private static final String TEST_VALUE = "test-value";
 
-    private static final RedisContainer redisContainer = new RedisContainer(DockerImageName.parse("redis:6.2.6"));
+	private static final RedisContainer redisContainer = new RedisContainer(DockerImageName.parse("redis:6.2.6"));
 
-    private RedissonClient redissonClient;
-    private RedissonService redissonService;
+	private RedissonClient redissonClient;
 
-    /**
-     * Generate a unique key for each test to avoid conflicts.
-     * Uses the RedisKeyProvider to create standardized keys with the test name and a UUID.
-     *
-     * @param testName the name of the test or operation
-     * @return a unique Redis key for the test
-     */
-    private String getUniqueKey(String testName) {
-        // Use UUID instead of timestamp for more deterministic and collision-resistant keys
-        String uniqueId = UUID.randomUUID().toString().substring(0, 8); // Use the first 8 chars of UUID for brevity
-        return RedisKeyConstants.buildRedisKeyWithDefPrefix("test", testName, uniqueId);
-    }
+	private RedissonService redissonService;
 
-    @BeforeEach
-    void setUp() {
-        // Configure Redisson client to connect to the Redis container
-        Config config = new Config();
-        config.useSingleServer()
-                .setAddress(redisContainer.getRedisURI())
-                .setConnectionMinimumIdleSize(1)
-                .setConnectionPoolSize(2)
-                .setConnectTimeout(10000)
-                .setTimeout(3000);
+	/**
+	 * Generate a unique key for each test to avoid conflicts. Uses the RedisKeyProvider
+	 * to create standardized keys with the test name and a UUID.
+	 * @param testName the name of the test or operation
+	 * @return a unique Redis key for the test
+	 */
+	private String getUniqueKey(String testName) {
+		// Use UUID instead of timestamp for more deterministic and collision-resistant
+		// keys
+		String uniqueId = UUID.randomUUID().toString().substring(0, 8); // Use the first 8
+																		// chars of UUID
+																		// for brevity
+		return RedisKeyConstants.buildRedisKeyWithDefPrefix("test", testName, uniqueId);
+	}
 
-        redissonClient = Redisson.create(config);
-        redissonService = new RedissonService(redissonClient);
+	@BeforeEach
+	void setUp() {
+		// Configure Redisson client to connect to the Redis container
+		Config config = new Config();
+		config.useSingleServer()
+			.setAddress(redisContainer.getRedisURI())
+			.setConnectionMinimumIdleSize(1)
+			.setConnectionPoolSize(2)
+			.setConnectTimeout(10000)
+			.setTimeout(3000);
 
-        // Clear the Redis database before each test
-        redissonClient.getKeys().flushall();
-    }
+		redissonClient = Redisson.create(config);
+		redissonService = new RedissonService(redissonClient);
 
-    @AfterEach
-    void tearDown() {
-        // Cleanup resources
-        if (redissonClient != null) {
-            redissonClient.shutdown();
-        }
-    }
+		// Clear the Redis database before each test
+		redissonClient.getKeys().flushall();
+	}
 
-    @Test
-    void testSetAndGetValue() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("setValue");
+	@AfterEach
+	void tearDown() {
+		// Cleanup resources
+		if (redissonClient != null) {
+			redissonClient.shutdown();
+		}
+	}
 
-        // Set a value
-        redissonService.setValue(testKey, TEST_VALUE);
+	@Test
+	void testSetAndGetValue() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("setValue");
 
-        // Get the value and verify it matches what was set
-        String retrievedValue = redissonService.getValue(testKey);
-        assertEquals(TEST_VALUE, retrievedValue);
-    }
+		// Set a value
+		redissonService.setValue(testKey, TEST_VALUE);
 
-    @Test
-    void testSetValueWithExpiration() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("setValueWithExpiration");
+		// Get the value and verify it matches what was set
+		String retrievedValue = redissonService.getValue(testKey);
+		assertEquals(TEST_VALUE, retrievedValue);
+	}
 
-        // Set a value with a short expiration time
-        redissonService.setValue(testKey, TEST_VALUE, 100);
+	@Test
+	void testSetValueWithExpiration() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("setValueWithExpiration");
 
-        // Verify the value exists immediately after setting
-        assertTrue(redissonService.isExists(testKey));
+		// Set a value with a short expiration time
+		redissonService.setValue(testKey, TEST_VALUE, 100);
 
-        // Wait for the value to expire
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+		// Verify the value exists immediately after setting
+		assertTrue(redissonService.isExists(testKey));
 
-        // Verify the value no longer exists after expiration
-        assertFalse(redissonService.isExists(testKey));
-    }
+		// Wait for the value to expire
+		try {
+			Thread.sleep(200);
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 
-    @Test
-    void testRemoveValue() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("removeValue");
+		// Verify the value no longer exists after expiration
+		assertFalse(redissonService.isExists(testKey));
+	}
 
-        // Set a value
-        redissonService.setValue(testKey, TEST_VALUE);
+	@Test
+	void testRemoveValue() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("removeValue");
 
-        // Verify the value exists
-        assertTrue(redissonService.isExists(testKey));
+		// Set a value
+		redissonService.setValue(testKey, TEST_VALUE);
 
-        // Remove the value
-        redissonService.remove(testKey);
+		// Verify the value exists
+		assertTrue(redissonService.isExists(testKey));
 
-        // Verify the value no longer exists
-        assertFalse(redissonService.isExists(testKey));
-    }
+		// Remove the value
+		redissonService.remove(testKey);
 
-    @Test
-    void testAtomicOperations() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("atomicOperations");
+		// Verify the value no longer exists
+		assertFalse(redissonService.isExists(testKey));
+	}
 
-        // Set an atomic long value
-        redissonService.setAtomicLong(testKey, 100L);
+	@Test
+	void testAtomicOperations() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("atomicOperations");
 
-        // Get the value and verify it matches what was set
-        Long value = redissonService.getAtomicLong(testKey);
-        assertEquals(100L, value);
+		// Set an atomic long value
+		redissonService.setAtomicLong(testKey, 100L);
 
-        // Increment the value
-        long incrResult = redissonService.incr(testKey);
-        assertEquals(101L, incrResult);
+		// Get the value and verify it matches what was set
+		Long value = redissonService.getAtomicLong(testKey);
+		assertEquals(100L, value);
 
-        // Increment by a specific amount
-        long incrByResult = redissonService.incrBy(testKey, 10L);
-        assertEquals(111L, incrByResult);
+		// Increment the value
+		long incrResult = redissonService.incr(testKey);
+		assertEquals(101L, incrResult);
 
-        // Decrement the value
-        long decrResult = redissonService.decr(testKey);
-        assertEquals(110L, decrResult);
+		// Increment by a specific amount
+		long incrByResult = redissonService.incrBy(testKey, 10L);
+		assertEquals(111L, incrByResult);
 
-        // Decrement by a specific amount
-        long decrByResult = redissonService.decrBy(testKey, 10L);
-        assertEquals(100L, decrByResult);
-    }
+		// Decrement the value
+		long decrResult = redissonService.decr(testKey);
+		assertEquals(110L, decrResult);
 
-    @Test
-    void testSetOperations() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("setOperations");
+		// Decrement by a specific amount
+		long decrByResult = redissonService.decrBy(testKey, 10L);
+		assertEquals(100L, decrByResult);
+	}
 
-        // Add a value to a set
-        redissonService.addToSet(testKey, TEST_VALUE);
+	@Test
+	void testSetOperations() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("setOperations");
 
-        // Verify the value is a member of the set
-        boolean isMember = redissonService.isSetMember(testKey, TEST_VALUE);
-        assertTrue(isMember);
+		// Add a value to a set
+		redissonService.addToSet(testKey, TEST_VALUE);
 
-        // Verify a different value is not a member of the set
-        boolean isNotMember = redissonService.isSetMember(testKey, "non-existent-value");
-        assertFalse(isNotMember);
-    }
+		// Verify the value is a member of the set
+		boolean isMember = redissonService.isSetMember(testKey, TEST_VALUE);
+		assertTrue(isMember);
 
-    @Test
-    void testListOperations() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("listOperations");
+		// Verify a different value is not a member of the set
+		boolean isNotMember = redissonService.isSetMember(testKey, "non-existent-value");
+		assertFalse(isNotMember);
+	}
 
-        // Add a value to a list
-        redissonService.addToList(testKey, TEST_VALUE);
+	@Test
+	void testListOperations() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("listOperations");
 
-        // Get the value from the list and verify it matches what was added
-        String retrievedValue = redissonService.getFromList(testKey, 0);
-        assertEquals(TEST_VALUE, retrievedValue);
-    }
+		// Add a value to a list
+		redissonService.addToList(testKey, TEST_VALUE);
 
-    @Test
-    void testMapOperations() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("mapOperations");
+		// Get the value from the list and verify it matches what was added
+		String retrievedValue = redissonService.getFromList(testKey, 0);
+		assertEquals(TEST_VALUE, retrievedValue);
+	}
 
-        // Add a value to a map
-        String field = "field";
-        redissonService.addToMap(testKey, field, TEST_VALUE);
+	@Test
+	void testMapOperations() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("mapOperations");
 
-        // Get the value from the map and verify it matches what was added
-        String retrievedValue = redissonService.getFromMap(testKey, field);
-        assertEquals(TEST_VALUE, retrievedValue);
-    }
+		// Add a value to a map
+		String field = "field";
+		redissonService.addToMap(testKey, field, TEST_VALUE);
 
-    @Test
-    void testSetNx() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("setNx");
+		// Get the value from the map and verify it matches what was added
+		String retrievedValue = redissonService.getFromMap(testKey, field);
+		assertEquals(TEST_VALUE, retrievedValue);
+	}
 
-        // Set a value using setNx (only if not exists)
-        Boolean result = redissonService.setNx(testKey);
-        assertTrue(result);
+	@Test
+	void testSetNx() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("setNx");
 
-        // Try to set the value again
-        Boolean secondResult = redissonService.setNx(testKey);
-        assertFalse(secondResult);
-    }
+		// Set a value using setNx (only if not exists)
+		Boolean result = redissonService.setNx(testKey);
+		assertTrue(result);
 
-    @Test
-    void testSetNxWithExpiration() {
-        // Generate a unique key for this test
-        String testKey = getUniqueKey("setNxWithExpiration");
+		// Try to set the value again
+		Boolean secondResult = redissonService.setNx(testKey);
+		assertFalse(secondResult);
+	}
 
-        // Set a value using setNx with expiration
-        Boolean result = redissonService.setNx(testKey, 100, TimeUnit.MILLISECONDS);
-        assertTrue(result);
+	@Test
+	void testSetNxWithExpiration() {
+		// Generate a unique key for this test
+		String testKey = getUniqueKey("setNxWithExpiration");
 
-        // Wait for the value to expire
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+		// Set a value using setNx with expiration
+		Boolean result = redissonService.setNx(testKey, 100, TimeUnit.MILLISECONDS);
+		assertTrue(result);
 
-        // Try to set the value again after expiration
-        Boolean secondResult = redissonService.setNx(testKey);
-        assertTrue(secondResult);
-    }
+		// Wait for the value to expire
+		try {
+			Thread.sleep(200);
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+
+		// Try to set the value again after expiration
+		Boolean secondResult = redissonService.setNx(testKey);
+		assertTrue(secondResult);
+	}
+
 }

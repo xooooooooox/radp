@@ -16,24 +16,33 @@
 
 package space.x9x.radp.spring.data.jdbc.datasource.spi;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParser;
-
 import javax.sql.DataSource;
 
+import com.alibaba.druid.pool.DruidDataSource;
+
+import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParser;
+
 /**
+ * Implementation of DataSourceUrlParser for Druid datasource. This class extracts the
+ * JDBC URL from Druid datasource by checking the class type and casting to
+ * DruidDataSource when applicable.
+ *
  * @author IO x9x
  * @since 2024-09-30 14:33
  */
 public class DruidDataSourceUrlParser implements DataSourceUrlParser {
 
-    private static final String CLASS_NAME = "com.alibaba.druid.pool.DruidDataSource";
+	/**
+	 * The fully qualified class name of DruidDataSource.
+	 */
+	private static final String CLASS_NAME = "com.alibaba.druid.pool.DruidDataSource";
 
-    @Override
-    public String getDatasourceUrl(DataSource dataSource) {
-        if (CLASS_NAME.equalsIgnoreCase(dataSource.getClass().getName())) {
-            return ((DruidDataSource) dataSource).getUrl();
-        }
-        return null;
-    }
+	@Override
+	public String getDatasourceUrl(DataSource dataSource) {
+		if (CLASS_NAME.equalsIgnoreCase(dataSource.getClass().getName())) {
+			return ((DruidDataSource) dataSource).getUrl();
+		}
+		return null;
+	}
+
 }

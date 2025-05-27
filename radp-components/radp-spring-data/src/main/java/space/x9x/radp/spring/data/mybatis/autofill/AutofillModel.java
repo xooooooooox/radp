@@ -16,34 +16,42 @@
 
 package space.x9x.radp.spring.data.mybatis.autofill;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
+ * Base model class with automatic field filling capabilities. This class extends MyBatis
+ * Plus's Model class and adds fields for tracking creation and modification dates, which
+ * are automatically filled by the AutofillMetaObjectHandler.
+ *
  * @author IO x9x
  * @since 2024-09-30 14:55
+ * @param <T> the type of the model extending this class
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AutofillModel<T extends Model<?>> extends Model<T> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createdDate;
+	/**
+	 * Creation date of the entity. This field is automatically filled when the entity is
+	 * inserted.
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private LocalDateTime createdDate;
 
-    /**
-     * 最后修改时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime lastModifiedDate;
+	/**
+	 * Last modification date of the entity. This field is automatically filled when the
+	 * entity is inserted or updated.
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime lastModifiedDate;
+
 }

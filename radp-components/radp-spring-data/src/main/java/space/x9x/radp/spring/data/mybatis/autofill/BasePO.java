@@ -19,18 +19,23 @@ package space.x9x.radp.spring.data.mybatis.autofill;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
- * 继承该类的数据库持久化对象
- * <pre>
+ * Base Persistent Object class for database entities. This abstract class extends
+ * AutofillModel to provide automatic field filling capabilities for database entities.
+ *
+ * <p>
+ * Example usage: <pre>
  * {@literal @}TableName("demo")
  * public class DemoPO extends BasePO&lt;DemoPO&gt; {
- *     ... ...
+ *     // Entity fields and methods
  * }
  * </pre>
  *
  * @author IO x9x
  * @since 2024-10-01 10:02
+ * @param <T> the type of the entity extending this class
  */
 public abstract class BasePO<T extends Model<?>> extends AutofillModel<T> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+
 }

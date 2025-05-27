@@ -16,12 +16,14 @@
 
 package space.x9x.radp.spring.data.jdbc.datasource;
 
-import space.x9x.radp.extension.SPI;
-
 import javax.sql.DataSource;
 
+import space.x9x.radp.extension.SPI;
+
 /**
- * 数据源地址解析器
+ * Data Source URL Parser interface. This interface defines methods for extracting the
+ * JDBC URL from different types of data sources. Implementations of this interface handle
+ * specific data source types like Druid, HikariCP, and MyBatis.
  *
  * @author IO x9x
  * @since 2024-09-30 13:50
@@ -29,11 +31,11 @@ import javax.sql.DataSource;
 @SPI
 public interface DataSourceUrlParser {
 
-    /**
-     * 获取数据源地址
-     *
-     * @param dataSource 数据源
-     * @return 数据源地址
-     */
-    String getDatasourceUrl(DataSource dataSource);
+	/**
+	 * Gets the URL from a data source.
+	 * @param dataSource the data source to extract the URL from
+	 * @return the URL of the data source, or null if not applicable
+	 */
+	String getDatasourceUrl(DataSource dataSource);
+
 }

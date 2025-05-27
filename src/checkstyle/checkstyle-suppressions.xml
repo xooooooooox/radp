@@ -49,4 +49,7 @@
 	<suppress files="SpringBootProfileUtils\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="DatasourceEnvironment\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="WebServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
 </suppressions>

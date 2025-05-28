@@ -3,7 +3,7 @@ package space.x9x.radp.extension
 import spock.lang.Specification
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-25 18:42
  */
 class ExtensionLoaderSpec extends Specification {

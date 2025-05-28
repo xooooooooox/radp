@@ -9,7 +9,7 @@ import spock.lang.Specification
  * 这个测试类用于验证不同类型的嵌入式服务器（Redis、Kafka、Zookeeper）
  * 能够正确启动和关闭。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-13 17:51
  */
 class EmbeddedServerSpec extends Specification {

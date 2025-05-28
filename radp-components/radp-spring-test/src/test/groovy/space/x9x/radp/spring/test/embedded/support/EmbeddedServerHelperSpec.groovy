@@ -15,7 +15,7 @@ import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.e
  * 测试包括使用默认设置和自定义设置创建各种类型的嵌入式服务器，如Redis、Kafka、Zookeeper等。
  * 同时也测试了私有构造函数的异常抛出情况。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 class EmbeddedServerHelperSpec extends Specification {

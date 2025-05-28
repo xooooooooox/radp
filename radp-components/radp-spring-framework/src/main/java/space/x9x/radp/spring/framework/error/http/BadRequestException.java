@@ -23,6 +23,10 @@ import lombok.EqualsAndHashCode;
 import space.x9x.radp.spring.framework.error.BaseException;
 
 /**
+ * Exception representing a 400 Bad Request HTTP error, indicating that the server cannot
+ * process the request due to client error (e.g., malformed request syntax, invalid
+ * request message framing, or deceptive request routing).
+ *
  * @author IO x9x
  * @since 2024-09-27 11:08
  */

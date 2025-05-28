@@ -62,4 +62,17 @@
 	<suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-framework -->
+	<suppress files="Globals\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfiles\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProperties\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ExceptionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ErrorCodeLoader\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringExpressionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JSONHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AccessLogHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ServletUtils\.java" checks="HideUtilityClassConstructor"/>
+
 </suppressions>

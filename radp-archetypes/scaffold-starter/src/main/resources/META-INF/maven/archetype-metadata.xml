@@ -43,9 +43,20 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
-                <include>.idea</include>
             </includes>
         </fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>config</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
         <!-- github -->
         <fileSet encoding="UTF-8">
             <directory>.github</directory>

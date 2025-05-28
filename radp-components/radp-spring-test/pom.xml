@@ -107,7 +107,6 @@
 			<optional>true</optional>
 		</dependency>
 
-
 		<!-- 嵌入式组件 -->
 		<dependency>
 			<groupId>com.github.codemonstur</groupId>

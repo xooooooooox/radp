@@ -25,7 +25,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 从 Dockerfile 创建容器
@@ -36,20 +36,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class DockerfileContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> nginx = new GenericContainer<>(
-            new ImageFromDockerfile("custom-nginx") // 从指定Dockerfile构建镜像
-                    .withFileFromClasspath("Dockerfile", "docker/case1/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
-                    .withFileFromClasspath("custom.html", "docker/case1/custom.html")
-                    .withFileFromClasspath("custom.conf", "docker/case1/custom.conf"))
-            .withExposedPorts(80);
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> nginx = new GenericContainer<>(new ImageFromDockerfile("custom-nginx")
+		// 基于 Dockerfile 构建镜像
+		.withFileFromClasspath("Dockerfile", "docker/case1/Dockerfile")
+		// 将 resource 文件添加到 Docker 构建上下文
+		.withFileFromClasspath("custom.html", "docker/case1/custom.html")
+		.withFileFromClasspath("custom.conf", "docker/case1/custom.conf")).withExposedPorts(80);
 
-    @Test
-    void testCustomNginx() throws Exception {
-        String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-        assertEquals(200, connection.getResponseCode());
-    }
+	@Test
+	void testCustomNginx() throws Exception {
+		String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+		assertThat(connection.getResponseCode()).isEqualTo(200);
+	}
+
 }

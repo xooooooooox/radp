@@ -61,12 +61,14 @@ public class DockerfileContainerTest {
 1. **`new ImageFromDockerfile(String imageName)`**：创建一个新的 Docker 镜像构建器，指定镜像名称
 
 2. **`withFileFromClasspath(String path, String resourcePath)`**：
-  - `path`：文件在构建上下文中的路径
-  - `resourcePath`：类路径中资源的路径
+
+- `path`：文件在构建上下文中的路径
+- `resourcePath`：类路径中资源的路径
 
 3. **`withFileFromPath(String path, Path localPath)`**：
-  - `path`：文件在构建上下文中的路径
-  - `localPath`：本地文件系统中文件的路径
+
+- `path`：文件在构建上下文中的路径
+- `localPath`：本地文件系统中文件的路径
 
 4. **`withExposedPorts(int... ports)`**：指定容器暴露的端口
 

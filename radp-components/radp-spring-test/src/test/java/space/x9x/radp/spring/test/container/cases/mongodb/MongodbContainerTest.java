@@ -26,8 +26,7 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -36,41 +35,41 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Testcontainers
 class MongodbContainerTest {
 
-    @Container
-    private final MongoDBContainer mongodb = new MongoDBContainer("mongo:4.4.10");
+	@Container
+	private final MongoDBContainer mongodb = new MongoDBContainer("mongo:4.4.10");
 
-    @Test
-    void testMongoDbConnection() {
-        // Get the connection string from the container
-        String connectionString = mongodb.getConnectionString();
+	@Test
+	void testMongoDbConnection() {
+		// Get the connection string from the container
+		String connectionString = mongodb.getConnectionString();
 
-        // Create a MongoDB client
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            // Get the database
-            MongoDatabase database = mongoClient.getDatabase("test");
+		// Create a MongoDB client
+		try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+			// Get the database
+			MongoDatabase database = mongoClient.getDatabase("test");
 
-            // Create a collection
-            database.createCollection("users");
+			// Create a collection
+			database.createCollection("users");
 
-            // Get the collection
-            MongoCollection<Document> collection = database.getCollection("users");
+			// Get the collection
+			MongoCollection<Document> collection = database.getCollection("users");
 
-            // Create a document
-            Document document = new Document("name", "John Doe")
-                    .append("age", 30)
-                    .append("email", "john.doe@example.com");
+			// Create a document
+			Document document = new Document("name", "John Doe").append("age", 30)
+				.append("email", "john.doe@example.com");
 
-            // Insert the document
-            collection.insertOne(document);
+			// Insert the document
+			collection.insertOne(document);
 
-            // Find the document
-            Document foundDocument = collection.find(new Document("name", "John Doe")).first();
+			// Find the document
+			Document foundDocument = collection.find(new Document("name", "John Doe")).first();
 
-            // Verify the document was inserted correctly
-            assertNotNull(foundDocument);
-            assertEquals("John Doe", foundDocument.getString("name"));
-            assertEquals(30, foundDocument.getInteger("age"));
-            assertEquals("john.doe@example.com", foundDocument.getString("email"));
-        }
-    }
+			// Verify the document was inserted correctly
+			assertThat(foundDocument).isNotNull();
+			assertThat(foundDocument.getString("name")).isEqualTo("John Doe");
+			assertThat(foundDocument.getInteger("age")).isEqualTo(30);
+			assertThat(foundDocument.getString("email")).isEqualTo("john.doe@example.com");
+		}
+	}
+
 }

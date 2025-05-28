@@ -28,8 +28,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -38,53 +37,49 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class NacosContainerTest {
 
-    /**
-     * 8848：HTTP/REST
-     * 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
-     */
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
-                    .withExposedPorts(8848, 9848)
-                    .withEnv("MODE", "standalone")
-                    // 直接用 HTTP 健康端点做等待策略，避免“端口已开但服务未完全就绪”的假阳性
-                    .waitingFor(Wait.forHttp("/nacos/v1/console/health/liveness")
-                            .forStatusCode(200)
-                            .withStartupTimeout(Duration.ofMinutes(3)));
+	/**
+	 * 8848：HTTP/REST 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
+	 */
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
+		.withExposedPorts(8848, 9848)
+		.withEnv("MODE", "standalone")
+		// 直接用 HTTP 健康端点做等待策略，避免“端口已开但服务未完全就绪”的假阳性
+		.waitingFor(Wait.forHttp("/nacos/v1/console/health/liveness")
+			.forStatusCode(200)
+			.withStartupTimeout(Duration.ofMinutes(3)));
 
-    @Test
-    void should_report_healthy_status() throws Exception {
-        // 取得映射后的主机和端口
-        String host = nacos.getHost();
-        int port = nacos.getMappedPort(8848);
+	@Test
+	void should_report_healthy_status() throws Exception {
+		// 取得映射后的主机和端口
+		String host = nacos.getHost();
+		int port = nacos.getMappedPort(8848);
 
-        String url = String.format(
-                "http://%s:%d/nacos/v1/console/health/liveness",
-                host, port);
+		String url = String.format("http://%s:%d/nacos/v1/console/health/liveness", host, port);
 
-        // --- JDK HttpClient ---
-        HttpClient client = HttpClient.newBuilder()
-                // 整体请求超时（含连接及读取）
-                .connectTimeout(Duration.ofSeconds(10))
-                .build();
+		// --- JDK HttpClient ---
+		HttpClient client = HttpClient.newBuilder()
+			// 整体请求超时（含连接及读取）
+			.connectTimeout(Duration.ofSeconds(10))
+			.build();
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofSeconds(10))
-                .GET()
-                .build();
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create(url))
+			.timeout(Duration.ofSeconds(10))
+			.GET()
+			.build();
 
-        HttpResponse<String> response =
-                client.send(request, HttpResponse.BodyHandlers.ofString());
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // --- 断言 ---
-        assertEquals(200, response.statusCode());
+		// --- 断言 ---
+		assertThat(response.statusCode()).isEqualTo(200);
 
-        String body = response.body();
-        assertNotNull(body);
-        assertTrue(body.contains("\"status\":\"UP\"")
-                        || body.contains("\"healthy\":true")
-                        || "OK".equals(body.trim()),
-                () -> "Unexpected health payload: " + body);
-    }
+		String body = response.body();
+		assertThat(body).isNotNull();
+		assertThat(body.contains("\"status\":\"UP\"") || body.contains("\"healthy\":true") || "OK".equals(body.trim()))
+			.as("Unexpected health payload: %s", body)
+			.isTrue();
+	}
+
 }

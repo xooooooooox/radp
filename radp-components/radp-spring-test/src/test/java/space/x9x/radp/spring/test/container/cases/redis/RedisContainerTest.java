@@ -29,7 +29,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 在微服务架构中, 多个服务需要通过网络通信. TestContainers 支持创建自定义网络, 让容器之间可以相互访问.
@@ -42,35 +42,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class RedisContainerTest {
 
-    // 创建一个自定义网络
-    private static final Network NETWORK = Network.newNetwork();
+	// 创建一个自定义网络
+	private static final Network NETWORK = Network.newNetwork();
 
-    @Container
-    private final GenericContainer<?> redis = new RedisContainer(DockerImageName.parse("redis:6.2.6"))
-            .withNetwork(NETWORK) // 将容器加入网络 NETWORK
-            .withNetworkAliases("redis") // 为 Redis 设置网络别名, 别的容器可以通过这个别名访问它
-            .withExposedPorts(6379);
+	@Container
+	private final GenericContainer<?> redis = new RedisContainer(DockerImageName.parse("redis:6.2.6"))
+		.withNetwork(NETWORK) // 将容器加入网络 NETWORK
+		.withNetworkAliases("redis") // 为 Redis 设置网络别名, 别的容器可以通过这个别名访问它
+		.withExposedPorts(6379);
 
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> api = new GenericContainer<>(
-            new ImageFromDockerfile("my-api") // 从指定Dockerfile构建镜像
-                    .withFileFromClasspath("Dockerfile", "docker/case2/Dockerfile") // 将 resource 文件添加到 Docker 构建上下文
-                    .withFileFromClasspath("nginx.conf", "docker/case2/nginx.conf")
-                    .withFileFromClasspath("api.sh", "docker/case2/api.sh")
-                    .withFileFromClasspath("health.sh", "docker/case2/health.sh"))
-            .withNetwork(NETWORK) // 将容器加入网络 NETWORK
-            .withEnv("REDIS_HOST", "redis") // 使用别名连接 Redis
-            .withEnv("REDIS_PORT", "6379")
-            .withExposedPorts(8080)
-            .waitingFor(Wait.forHttp("/health"));   // 等待 API 就绪
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> api = new GenericContainer<>(new ImageFromDockerfile("my-api") // 从指定Dockerfile构建镜像
+		// 基于 Dockerfile 构建镜像
+		.withFileFromClasspath("Dockerfile", "docker/case2/Dockerfile")
+		.withFileFromClasspath("nginx.conf", "docker/case2/nginx.conf")
+		.withFileFromClasspath("api.sh", "docker/case2/api.sh")
+		.withFileFromClasspath("health.sh", "docker/case2/health.sh"))
+		// 将容器加入网络 NETWORK
+		.withNetwork(NETWORK)
+		// 使用别名连接 Redis
+		.withEnv("REDIS_HOST", "redis")
+		.withEnv("REDIS_PORT", "6379")
+		.withExposedPorts(8080)
+		// 等待 API 就绪
+		.waitingFor(Wait.forHttp("/health"));
 
-    @Test
-    void testApiWithRedis() throws Exception {
-        String url = String.format("http://%s:%s", api.getHost(), api.getMappedPort(8080));
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-        assertEquals(200, connection.getResponseCode());
-    }
+	@Test
+	void testApiWithRedis() throws Exception {
+		String url = String.format("http://%s:%s", api.getHost(), api.getMappedPort(8080));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+		assertThat(connection.getResponseCode()).isEqualTo(200);
+	}
 
 }

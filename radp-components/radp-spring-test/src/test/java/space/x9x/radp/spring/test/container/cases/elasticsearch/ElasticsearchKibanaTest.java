@@ -28,7 +28,6 @@ import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -36,7 +35,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -45,75 +44,64 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class ElasticsearchKibanaTest {
 
-    private static final Network NETWORK = Network.newNetwork();
+	private static final Network NETWORK = Network.newNetwork();
 
-    @SuppressWarnings("resource")
-    @Container
-    public final GenericContainer<?> elasticsearch = new GenericContainer<>("docker.elastic.co/elasticsearch/elasticsearch:7.17.9")
-            .withNetwork(NETWORK)
-            .withNetworkAliases("elasticsearch")
-            .withExposedPorts(9200)
-            .withEnv("discovery.type", "single-node")
-            .withEnv("xpack.security.enabled", "false")
-            .withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
-            .waitingFor(Wait.forHttp("/_cluster/health?wait_for_status=yellow")
-                    .forPort(9200)
-                    .forStatusCode(200)
-                    .withStartupTimeout(Duration.ofMinutes(2)));
+	@SuppressWarnings("resource")
+	@Container
+	public final GenericContainer<?> elasticsearch = new GenericContainer<>(
+			"docker.elastic.co/elasticsearch/elasticsearch:7.17.9")
+		.withNetwork(NETWORK)
+		.withNetworkAliases("elasticsearch")
+		.withExposedPorts(9200)
+		.withEnv("discovery.type", "single-node")
+		.withEnv("xpack.security.enabled", "false")
+		.withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
+		.waitingFor(Wait.forHttp("/_cluster/health?wait_for_status=yellow")
+			.forPort(9200)
+			.forStatusCode(200)
+			.withStartupTimeout(Duration.ofMinutes(2)));
 
-    @SuppressWarnings("resource")
-    @Container
-    public final GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
-            .withNetwork(NETWORK)
-            .withNetworkAliases("kibana")
-            .withExposedPorts(5601)
-            .withEnv("ELASTICSEARCH_HOSTS", "http://elasticsearch:9200")
-            .dependsOn(elasticsearch)
-            .waitingFor(Wait.forHttp("/api/status")
-                    .forPort(5601)
-                    .forStatusCode(200)
-                    .withStartupTimeout(Duration.ofMinutes(2)));
+	@SuppressWarnings("resource")
+	@Container
+	public final GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
+		.withNetwork(NETWORK)
+		.withNetworkAliases("kibana")
+		.withExposedPorts(5601)
+		.withEnv("ELASTICSEARCH_HOSTS", "http://elasticsearch:9200")
+		.dependsOn(elasticsearch)
+		.waitingFor(
+				Wait.forHttp("/api/status").forPort(5601).forStatusCode(200).withStartupTimeout(Duration.ofMinutes(2)));
 
-    @Test
-    void testElasticsearchKibana() throws Exception {
-        // Create Elasticsearch client
-        RestClient restClient = RestClient.builder(
-                new HttpHost("localhost", elasticsearch.getMappedPort(9200), "http"))
-                .build();
+	@Test
+	void testElasticsearchKibana() throws Exception {
+		// Create Elasticsearch client
+		RestClient restClient = RestClient.builder(new HttpHost("localhost", elasticsearch.getMappedPort(9200), "http"))
+			.build();
 
-        // Create a transport layer
-        ElasticsearchTransport transport = new RestClientTransport(
-                restClient, new JacksonJsonpMapper());
+		// Create a transport layer
+		ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
 
-        // Create API client
-        ElasticsearchClient client = new ElasticsearchClient(transport);
+		// Create API client
+		ElasticsearchClient client = new ElasticsearchClient(transport);
 
-        // Index data
-        Map<String, Object> document = new HashMap<>();
-        document.put("message", "Test log");
-        document.put("level", "INFO");
-        client.index(i -> i
-                .index("logs")
-                .document(document));
+		// Index data
+		Map<String, Object> document = new HashMap<>();
+		document.put("message", "Test log");
+		document.put("level", "INFO");
+		client.index(i -> i.index("logs").document(document));
 
-        // Wait for index refresh
-        client.indices().refresh(r -> r.index("logs"));
+		// Wait for index refresh
+		client.indices().refresh(r -> r.index("logs"));
 
-        // Search data
-        SearchResponse<JsonData> response = client.search(s -> s
-                .index("logs")
-                .query(q -> q
-                    .match(m -> m
-                        .field("message")
-                        .query("Test")
-                    )
-                ),
-                JsonData.class);
+		// Search data
+		SearchResponse<JsonData> response = client
+			.search(s -> s.index("logs").query(q -> q.match(m -> m.field("message").query("Test"))), JsonData.class);
 
-        Assertions.assertNotNull(response.hits().total());
-        assertEquals(1, response.hits().total().value());
+		assertThat(response.hits().total()).isNotNull();
+		assertThat(response.hits().total().value()).isEqualTo(1);
 
-        // Close client
-        transport.close();
-    }
+		// Close client
+		transport.close();
+	}
+
 }

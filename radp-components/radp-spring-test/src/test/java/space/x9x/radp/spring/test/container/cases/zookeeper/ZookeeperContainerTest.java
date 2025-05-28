@@ -16,48 +16,49 @@
 
 package space.x9x.radp.spring.test.container.cases.zookeeper;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
-* @author x9x
-* @since 2025-05-25 15:48
-*/
+ * @author IO x9x
+ * @since 2025-05-25 15:48
+ */
 @Testcontainers
 class ZookeeperContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container
-    private final GenericContainer<?> zookeeper = new GenericContainer<>("zookeeper:3.7.0")
-            .withExposedPorts(2181)
-            .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(60)));
+	@SuppressWarnings("resource")
+	@Container
+	private final GenericContainer<?> zookeeper = new GenericContainer<>("zookeeper:3.7.0").withExposedPorts(2181)
+		.waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(60)));
 
-    @Test
-    void testZookeeperConnection() throws IOException {
-        // Get the mapped port for RZookeeper
-        String host = zookeeper.getHost();
-        Integer port = zookeeper.getMappedPort(2181);
+	@Test
+	void testZookeeperConnection() throws IOException {
+		// Get the mapped port for RZookeeper
+		String host = zookeeper.getHost();
+		Integer port = zookeeper.getMappedPort(2181);
 
-        // Verify container is running
-        assertTrue(zookeeper.isRunning(), "Zookeeper container should be running");
+		// Verify container is running
+		assertThat(zookeeper.isRunning()).as("Zookeeper container should be running").isTrue();
 
-        // Test connection to Zookeeper port
-        try (Socket socket = new Socket(host, port)) {
-            assertTrue(socket.isConnected(), "Should be able to connect to Zookeeper");
-        }
+		// Test connection to Zookeeper port
+		try (Socket socket = new Socket(host, port)) {
+			assertThat(socket.isConnected()).as("Should be able to connect to Zookeeper").isTrue();
+		}
 
-        // Verify logs contain the expected startup message
-        String logs = zookeeper.getLogs();
-        assertTrue(logs.contains("binding to port") || logs.contains("started"), 
-                "Zookeeper logs should indicate successful startup");
-    }
+		// Verify logs contain the expected startup message
+		String logs = zookeeper.getLogs();
+		assertThat(logs.contains("binding to port") || logs.contains("started"))
+			.as("Zookeeper logs should indicate successful startup")
+			.isTrue();
+	}
+
 }

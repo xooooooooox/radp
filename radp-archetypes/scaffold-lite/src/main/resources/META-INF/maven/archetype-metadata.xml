@@ -101,10 +101,20 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
-                <include>.idea</include>
-				<include>src</include>
             </includes>
         </fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>src</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
         <!-- github -->
         <fileSet encoding="UTF-8">
             <directory>.github</directory>

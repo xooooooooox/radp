@@ -5,6 +5,7 @@
 ## 顶层配置
 
 ```xml
+
 <module name="com.puppycrawl.tools.checkstyle.Checker">
 ```
 
@@ -13,6 +14,7 @@
 ## 抑制过滤器
 
 ```xml
+
 <module name="SuppressionFilter">
 	<property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
 </module>
@@ -30,47 +32,47 @@ checkstyle-suppressions.xml 文件定义了哪些文件或代码可以忽略特�
    ```xml
    <suppress files="[\\/]build[\\/]generated[\\/]sources[\\/]" checks=".*"/>
    ```
-   - 忽略所有生成的源代码文件的所有检查
+  - 忽略所有生成的源代码文件的所有检查
 
 2. **package-info.java 文件**：
    ```xml
    <suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
    ```
-   - 对非主源代码目录和框架文档相关的文件忽略 JavadocPackage 检查
+  - 对非主源代码目录和框架文档相关的文件忽略 JavadocPackage 检查
 
 3. **测试和测试固件**：
    ```xml
    <suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"
              checks="AnnotationLocation|AnnotationUseStyle|AtclauseOrder|AvoidNestedBlocks|FinalClass|HideUtilityClassConstructor|InnerTypeLast|JavadocStyle|JavadocType|JavadocVariable|LeftCurly|MultipleVariableDeclarations|NeedBraces|OneTopLevelClass|OuterTypeFilename|RequireThis|SpringCatch|SpringJavadoc|SpringNoThis"/>
    ```
-   - 对测试和测试固件目录下的文件忽略多种检查，包括注解位置、Javadoc 样式、代码块等
+  - 对测试和测试固件目录下的文件忽略多种检查，包括注解位置、Javadoc 样式、代码块等
 
 4. **应用程序类**：
    ```xml
    <suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
    ```
-   - 对应用程序类忽略工具类构造函数检查
+  - 对应用程序类忽略工具类构造函数检查
 
 5. **特定组件的特定文件**：
-   - radp-spring-cloud 组件：
-     ```xml
-     <suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
-     ```
-   - radp-spring-test 组件：
-     ```xml
-     <suppress files="EmbeddedServerHelper\.java" checks="HideUtilityClassConstructor"/>
-     ```
-   - radp-spring-boot 组件：
-     ```xml
-     <suppress files="ManagementServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="Conditions\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="SpringBootProfileUtils\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="DatasourceEnvironment\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="WebServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
-     <suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
-     ```
+  - radp-spring-cloud 组件：
+    ```xml
+    <suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
+    ```
+  - radp-spring-test 组件：
+    ```xml
+    <suppress files="EmbeddedServerHelper\.java" checks="HideUtilityClassConstructor"/>
+    ```
+  - radp-spring-boot 组件：
+    ```xml
+    <suppress files="ManagementServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="Conditions\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="SpringBootProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="DatasourceEnvironment\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="WebServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
+    <suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
+    ```
 
 这些抑制规则确保了特定文件或目录可以忽略某些检查，从而避免不必要的警告或错误。
 

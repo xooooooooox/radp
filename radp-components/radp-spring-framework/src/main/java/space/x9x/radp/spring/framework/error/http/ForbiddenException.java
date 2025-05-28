@@ -23,6 +23,11 @@ import lombok.EqualsAndHashCode;
 import space.x9x.radp.spring.framework.error.BaseException;
 
 /**
+ * Exception representing a 403 Forbidden HTTP error, indicating that the server
+ * understood the request but refuses to authorize it. This is typically used when a
+ * client has valid credentials but not enough permissions to access the requested
+ * resource.
+ *
  * @author IO x9x
  * @since 2024-09-27 11:18
  */

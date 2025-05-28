@@ -39,13 +39,14 @@
   - Remove redundant dependency from `radp-integration-test`.
 - build
   - Remove redundant profile `code-review`.
-  - Move the `git-commit-id-maven-plugin` from the submodule POM to the root POM for resolve `Missing blame information error`, this may lead to missing/broken features in SonarQube
+  - Move the `git-commit-id-maven-plugin` from the submodule POM to the root POM for resolve
+    `Missing blame information error`, this may lead to missing/broken features in SonarQube
   - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better management.
   - Optimize the `code-review` profile
     - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
     - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
   - Optimize the `unit-test` profile
-    - Move the `unit-test` profile to the root POM 
+    - Move the `unit-test` profile to the root POM
     - Add property `maven.test.skip` to `false`
   - Add relativePath to POM parent configuration
   - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx

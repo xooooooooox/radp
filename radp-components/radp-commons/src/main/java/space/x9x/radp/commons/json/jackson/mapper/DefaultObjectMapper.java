@@ -1,15 +1,15 @@
 package space.x9x.radp.commons.json.jackson.mapper;
 
+import java.io.Serial;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.io.Serial;
-
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 13:50
  */
 public class DefaultObjectMapper extends ObjectMapper {

@@ -6,11 +6,11 @@ import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 /**
- * Utility class for Jasypt encryption and decryption operations.
- * This class provides methods for encrypting and decrypting text using various
- * Password-Based Encryption (PBE) algorithms supported by Jasypt.
+ * Utility class for Jasypt encryption and decryption operations. This class provides
+ * methods for encrypting and decrypting text using various Password-Based Encryption
+ * (PBE) algorithms supported by Jasypt.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-17 10:30
  */
 @Slf4j

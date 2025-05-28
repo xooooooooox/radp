@@ -1,9 +1,14 @@
 package space.x9x.radp.spring.framework.json;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 11:49
  */
 @Data

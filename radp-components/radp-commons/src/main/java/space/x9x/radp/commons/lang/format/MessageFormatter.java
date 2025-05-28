@@ -1,15 +1,17 @@
 package space.x9x.radp.commons.lang.format;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.experimental.UtilityClass;
+
 /**
- * 用于格式化消息模板的工具类。该类提供了多种方法来将消息模板中的占位符替换为实际的参数值，
- * 并返回一个包含格式化后的消息字符串、原始参数数组以及可能的异常对象的 {@link FormattingTuple}。
+ * 用于格式化消息模板的工具类。该类提供了多种方法来将消息模板中的占位符替换为实际的参数值， 并返回一个包含格式化后的消息字符串、原始参数数组以及可能的异常对象的
+ * {@link FormattingTuple}。
  *
- * <p>以下是几个使用示例：</p>
+ * <p>
+ * 以下是几个使用示例：
+ * </p>
  *
  * <pre>{@code
  * // 示例 1：单个参数
@@ -39,7 +41,7 @@ import java.util.Map;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 16:27
  */
 @UtilityClass

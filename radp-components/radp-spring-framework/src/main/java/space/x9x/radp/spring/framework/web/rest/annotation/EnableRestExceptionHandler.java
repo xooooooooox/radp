@@ -1,13 +1,17 @@
 package space.x9x.radp.spring.framework.web.rest.annotation;
 
-import org.springframework.context.annotation.Import;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.lang.annotation.*;
+import org.springframework.context.annotation.Import;
 
 /**
  * 用于开启 REST 接口异常解析器自动装配
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:52
  */
 @Import(RestExceptionHandlerRegister.class)

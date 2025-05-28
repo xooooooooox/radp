@@ -1,25 +1,24 @@
 package space.x9x.radp.spring.framework.task.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.task.AsyncTaskExecutor;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 异步任务执行异常处理类
  * <p>
- * 该类包装了AsyncTaskExecutor，为异步任务执行添加了异常处理功能。
- * 当异步任务执行过程中抛出异常时，会通过handle方法进行处理，
+ * 该类包装了AsyncTaskExecutor，为异步任务执行添加了异常处理功能。 当异步任务执行过程中抛出异常时，会通过handle方法进行处理，
  * 确保异常被正确记录而不会被静默吞噬。
  * <p>
- * 该类同时实现了InitializingBean和DisposableBean接口，
- * 以确保被包装的执行器的生命周期方法被正确调用。
+ * 该类同时实现了InitializingBean和DisposableBean接口， 以确保被包装的执行器的生命周期方法被正确调用。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 11:43
  */
 @Slf4j

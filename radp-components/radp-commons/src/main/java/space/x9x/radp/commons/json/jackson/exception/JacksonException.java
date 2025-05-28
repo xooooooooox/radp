@@ -3,7 +3,7 @@ package space.x9x.radp.commons.json.jackson.exception;
 import java.io.Serial;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 13:54
  */
 public class JacksonException extends RuntimeException {

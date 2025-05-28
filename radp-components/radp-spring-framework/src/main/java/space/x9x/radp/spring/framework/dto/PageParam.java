@@ -1,17 +1,22 @@
 package space.x9x.radp.spring.framework.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import lombok.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
- * Parameter object for pagination requests that contains page index and page size information.
- * This class provides default values and validation constraints to ensure proper pagination behavior.
+ * Parameter object for pagination requests that contains page index and page size
+ * information. This class provides default values and validation constraints to ensure
+ * proper pagination behavior.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 20:35
  */
 @Data

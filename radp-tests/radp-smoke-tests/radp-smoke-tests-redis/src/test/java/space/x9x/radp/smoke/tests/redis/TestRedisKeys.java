@@ -21,10 +21,10 @@ import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 /**
  * Example implementation of RedisKeyProvider for test module.
  * <p>
- * This class demonstrates how scaffold projects can implement their own
- * Redis key management strategy while leveraging the centralized utilities.
+ * This class demonstrates how scaffold projects can implement their own Redis key
+ * management strategy while leveraging the centralized utilities.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 public enum TestRedisKeys implements IRedisKeyProvider {

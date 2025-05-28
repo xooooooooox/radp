@@ -1,6 +1,7 @@
 package space.x9x.radp.spring.boot.task.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.concurrent.Executor;
+
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -15,15 +16,16 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.spring.boot.task.TtlThreadPoolTaskExecutor;
 import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
-
-import java.util.concurrent.Executor;
 
 /**
  * 异步任务执行器自动装配
  *
- * @author x9x
+ * @author IO x9x
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
  * @since 2024-09-30 11:52

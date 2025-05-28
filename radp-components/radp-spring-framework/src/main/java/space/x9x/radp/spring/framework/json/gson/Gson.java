@@ -1,13 +1,14 @@
 package space.x9x.radp.spring.framework.json.gson;
 
-import com.google.common.reflect.TypeToken;
-import space.x9x.radp.spring.framework.json.JSON;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.common.reflect.TypeToken;
+
+import space.x9x.radp.spring.framework.json.JSON;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 13:25
  */
 public class Gson implements JSON {

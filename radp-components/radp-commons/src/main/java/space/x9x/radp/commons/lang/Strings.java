@@ -5,11 +5,11 @@ import lombok.experimental.UtilityClass;
 /**
  * 字符串常量
  * <p>
- * String constants for common use throughout the application.
- * This utility class provides a centralized repository of string constants
- * to avoid duplication and ensure consistency.
+ * String constants for common use throughout the application. This utility class provides
+ * a centralized repository of string constants to avoid duplication and ensure
+ * consistency.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:00
  */
 @UtilityClass

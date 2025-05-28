@@ -19,7 +19,7 @@ package space.x9x.radp.smoke.tests;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 13:14
  */
 @SpringBootApplication

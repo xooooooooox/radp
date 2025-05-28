@@ -1,15 +1,17 @@
 package space.x9x.radp.mybatis.spring.boot.env;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
+
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
- * Configuration properties for MyBatis-Plus extensions.
- * This class defines settings for MyBatis-Plus extensions, particularly for
- * automatic field filling functionality like creation and modification timestamps.
+ * Configuration properties for MyBatis-Plus extensions. This class defines settings for
+ * MyBatis-Plus extensions, particularly for automatic field filling functionality like
+ * creation and modification timestamps.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:25
  */
 @ConfigurationProperties(prefix = MybatisPlusExtensionProperties.PREFIX)

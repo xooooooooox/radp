@@ -1,15 +1,17 @@
 package space.x9x.radp.spring.boot.logging.env;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfig;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 20:47
  */
 @EqualsAndHashCode(callSuper = true)

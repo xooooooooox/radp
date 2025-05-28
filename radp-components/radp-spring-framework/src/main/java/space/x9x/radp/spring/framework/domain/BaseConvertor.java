@@ -1,16 +1,16 @@
 package space.x9x.radp.spring.framework.domain;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.MapperConfig;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 /**
  * @param <S> source
  * @param <T> target
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-27 10:53
  */
 @MapperConfig

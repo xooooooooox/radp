@@ -8,10 +8,11 @@ import org.jetbrains.annotations.PropertyKey;
  * <p>
  * 使用 0-999 错误码段，和 HTTP 响应状态码 (opens new window)对应 <br/>
  * 对于项目组自定义错误码, 建议单独定义一个枚举类 {@code xx/types/enum/ResponseCode},且使用的错误码不要与这里的全局错误码重复 <br/>
- * 在定义错误码时, 你可以像 {@code GlobalResponseCode} 这样, 定义在 {@code META-INF/error/message.properties}中,
- * 也可以不定义在 {@code META-INF/error/message.properties}, 直接定义在枚举类中
+ * 在定义错误码时, 你可以像 {@code GlobalResponseCode} 这样, 定义在
+ * {@code META-INF/error/message.properties}中, 也可以不定义在
+ * {@code META-INF/error/message.properties}, 直接定义在枚举类中
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 13:27
  */
 @Getter

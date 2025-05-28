@@ -1,16 +1,19 @@
 package space.x9x.radp.commons.regex;
 
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
-import space.x9x.radp.commons.regex.pattern.RegexCache;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
+
+import space.x9x.radp.commons.regex.pattern.RegexCache;
+
 /**
- * <p><strong>使用示例：</strong></p>
+ * <p>
+ * <strong>使用示例：</strong>
+ * </p>
  * <pre>{@code
  * public class Demo {
  *     public static void main(String[] args) {
@@ -33,7 +36,7 @@ import java.util.regex.Pattern;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author IO x9x
  * @see space.x9x.radp.commons.regex.pattern.Regex
  * @since 2024-12-27 12:50
  */

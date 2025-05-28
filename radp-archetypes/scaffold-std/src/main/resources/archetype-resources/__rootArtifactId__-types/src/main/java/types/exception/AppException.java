@@ -8,7 +8,7 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ServerException;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-14 23:18
  */
 public class AppException extends ServerException {

@@ -1,14 +1,14 @@
 package space.x9x.radp.extension.active;
 
 
-import space.x9x.radp.extension.Activate;
-
 import java.util.Comparator;
+
+import space.x9x.radp.extension.Activate;
 
 /**
  * 激活比较器类，实现了Comparator接口，用于比较具有@Activate注解的对象激活顺序
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 12:56
  */
 public class ActivateComparator implements Comparator<Object> {

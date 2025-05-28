@@ -1,16 +1,18 @@
 package space.x9x.radp.mybatis.spring.boot.env;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
-
 import java.time.Duration;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
+
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
+
 /**
- * Configuration properties for MyBatis plugins.
- * This class defines settings for various MyBatis plugins, particularly SQL logging functionality.
+ * Configuration properties for MyBatis plugins. This class defines settings for various
+ * MyBatis plugins, particularly SQL logging functionality.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:24
  */
 @Data

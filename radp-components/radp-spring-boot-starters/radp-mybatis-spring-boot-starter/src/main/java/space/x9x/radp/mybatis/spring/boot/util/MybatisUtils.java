@@ -1,24 +1,24 @@
 package space.x9x.radp.mybatis.spring.boot.util;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.spring.framework.dto.PageParam;
 import space.x9x.radp.spring.framework.dto.PageResult;
 import space.x9x.radp.spring.framework.dto.SortingField;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 /**
- * Utility class for MyBatis operations.
- * This class provides helper methods for common MyBatis operations,
- * particularly for pagination and result transformation.
+ * Utility class for MyBatis operations. This class provides helper methods for common
+ * MyBatis operations, particularly for pagination and result transformation.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 15:29
  */
 @UtilityClass

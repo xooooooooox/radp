@@ -1,22 +1,44 @@
 package space.x9x.radp.redis.spring.boot.support;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.redisson.api.*;
+import org.redisson.api.RAtomicLong;
+import org.redisson.api.RBitSet;
+import org.redisson.api.RBlockingQueue;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RBucket;
+import org.redisson.api.RCountDownLatch;
+import org.redisson.api.RDelayedQueue;
+import org.redisson.api.RList;
+import org.redisson.api.RLock;
+import org.redisson.api.RMap;
+import org.redisson.api.RPermitExpirableSemaphore;
+import org.redisson.api.RQueue;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RSemaphore;
+import org.redisson.api.RSet;
+import org.redisson.api.RSortedSet;
+import org.redisson.api.RedissonClient;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for {@link RedissonService}.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-28 15:41
  */
 class RedissonServiceTest {

@@ -16,17 +16,21 @@
 
 package space.x9x.radp.spring.test.container.cases.postgres;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-23 15:44
  */
 @Testcontainers // 管理容器生命周期

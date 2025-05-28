@@ -16,6 +16,10 @@
 
 package space.x9x.radp.spring.test.container.cases.elasticsearch;
 
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.json.JsonData;
@@ -32,14 +36,10 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-25 14:36
  */
 @Testcontainers

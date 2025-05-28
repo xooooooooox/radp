@@ -16,21 +16,23 @@
 
 package space.x9x.radp.smoke.tests.framework.asserts;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.function.BiFunction;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
+
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.error.ThirdServiceException;
 import space.x9x.radp.spring.framework.error.asserts.BaseAssert;
 import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.function.BiFunction;
-
 /**
- * Third-party service assertion utility class that provides static methods for assertions.
+ * Third-party service assertion utility class that provides static methods for
+ * assertions.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 23:46
  */
 public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> {

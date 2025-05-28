@@ -1,15 +1,17 @@
 package space.x9x.radp.spring.boot.bootstrap.util;
 
-import lombok.experimental.UtilityClass;
-import org.springframework.boot.SpringApplication;
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProfiles;
-import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.boot.SpringApplication;
+
+import lombok.experimental.UtilityClass;
+
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProfiles;
+import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:37
  */
 @UtilityClass

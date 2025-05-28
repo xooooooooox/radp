@@ -1,13 +1,15 @@
 package space.x9x.radp.spring.framework.logging.access.config;
 
-import space.x9x.radp.spring.framework.logging.EnableAccessLog;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
 
+import space.x9x.radp.spring.framework.logging.EnableAccessLog;
+
 /**
  * 访问日志切面装配选择器
- * @author x9x
+ *
+ * @author IO x9x
  * @since 2024-09-30 09:56
  */
 public class AccessLogImportSelector extends AdviceModeImportSelector<EnableAccessLog> {

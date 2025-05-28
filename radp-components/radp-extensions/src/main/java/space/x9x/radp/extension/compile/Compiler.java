@@ -3,7 +3,7 @@ package space.x9x.radp.extension.compile;
 import space.x9x.radp.extension.SPI;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 21:33
  */
 @SPI("javassist")

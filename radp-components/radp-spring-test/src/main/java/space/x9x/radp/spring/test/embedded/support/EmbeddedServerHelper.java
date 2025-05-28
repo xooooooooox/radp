@@ -16,24 +16,25 @@
 
 package space.x9x.radp.spring.test.embedded.support;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
 /**
- * Helper class for working with embedded servers.
- * This class provides utility methods for creating, configuring, and managing embedded servers for testing.
- * It supports various server types including Redis, Zookeeper, and Kafka.
+ * Helper class for working with embedded servers. This class provides utility methods for
+ * creating, configuring, and managing embedded servers for testing. It supports various
+ * server types including Redis, Zookeeper, and Kafka.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-13 17:52
  */
 @Slf4j

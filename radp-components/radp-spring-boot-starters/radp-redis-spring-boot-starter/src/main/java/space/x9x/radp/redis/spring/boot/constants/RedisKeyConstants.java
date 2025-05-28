@@ -22,12 +22,12 @@ import space.x9x.radp.commons.lang.Strings;
 /**
  * Redis key constants and utilities for standardized key management.
  * <p>
- * This class provides a centralized location for defining Redis keys used throughout the application.
- * Keys follow the format: application:module:entity:identifier
+ * This class provides a centralized location for defining Redis keys used throughout the
+ * application. Keys follow the format: application:module:entity:identifier
  * <p>
  * Example: "radp:user:profile:123"
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-20 18:45
  */
 @UtilityClass

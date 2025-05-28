@@ -7,13 +7,11 @@ import lombok.Synchronized;
 /**
  * Twitter 雪花算法生成器
  * <p>
- * 共 64 位, 0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号
- * <pre>
+ * 共 64 位, 0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号 <pre>
  * ┌─────────────── 41 bits ────────────────┐┌──── 10 bits ────┐┌─ 12 bits ─┐
  * │         时间戳(毫秒数) offset            ││数据中心ID+机器ID  ││  序列号    │
  * └────────────────────────────────────────┘└─────────────────┘└───────────┘
- * </pre>
- * <pre>{@code
+ * </pre> <pre>{@code
  * public class SnowflakeDemo {
  *     public static void main(String[] args) {
  *         // 1) 直接 new 一个默认的 SnowflakeGenerator（dataCenterId=1, workerId=1）
@@ -30,7 +28,7 @@ import lombok.Synchronized;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-27 12:36
  */
 @NoArgsConstructor

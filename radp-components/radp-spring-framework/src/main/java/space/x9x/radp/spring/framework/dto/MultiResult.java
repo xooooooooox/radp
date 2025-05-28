@@ -1,19 +1,20 @@
 package space.x9x.radp.spring.framework.dto;
 
+import java.io.Serial;
+import java.util.Collection;
+import java.util.Collections;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
-import java.io.Serial;
-import java.util.Collection;
-import java.util.Collections;
-
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-03-18 13:16
  */
 @SuperBuilder(builderMethodName = "multiResultBuilder")

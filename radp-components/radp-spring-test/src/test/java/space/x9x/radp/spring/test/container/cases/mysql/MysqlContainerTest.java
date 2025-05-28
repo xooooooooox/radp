@@ -16,21 +16,21 @@
 
 package space.x9x.radp.spring.test.container.cases.mysql;
 
-import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 12:32
  */
 @Testcontainers

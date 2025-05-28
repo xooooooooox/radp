@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 23:20
  */
 @EqualsAndHashCode

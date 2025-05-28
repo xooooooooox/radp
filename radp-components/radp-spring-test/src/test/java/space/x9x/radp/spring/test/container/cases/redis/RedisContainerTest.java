@@ -16,6 +16,9 @@
 
 package space.x9x.radp.spring.test.container.cases.redis;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import com.redis.testcontainers.RedisContainer;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
@@ -26,18 +29,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * 在微服务架构中, 多个服务需要通过网络通信.
- * TestContainers 支持创建自定义网络, 让容器之间可以相互访问.
+ * 在微服务架构中, 多个服务需要通过网络通信. TestContainers 支持创建自定义网络, 让容器之间可以相互访问.
  * <p>
  * 假设你有一个简单的 API 服务依赖 Redis, 我们可以使用 TestContainers 模拟这种依赖关系
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 22:30
  */
 @Testcontainers

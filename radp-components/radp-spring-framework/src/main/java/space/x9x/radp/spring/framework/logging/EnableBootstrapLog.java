@@ -1,12 +1,17 @@
 package space.x9x.radp.spring.framework.logging;
 
-import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.springframework.context.annotation.Import;
 
-import java.lang.annotation.*;
+import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:53
  */
 @Import(BootstrapLogConfiguration.class)

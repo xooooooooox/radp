@@ -16,21 +16,21 @@
 
 package space.x9x.radp.spring.test.container.cases.docker;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * 从 Dockerfile 创建容器
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 17:04
  */
 @Testcontainers

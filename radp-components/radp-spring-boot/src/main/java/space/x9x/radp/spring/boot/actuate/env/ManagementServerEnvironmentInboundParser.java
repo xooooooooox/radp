@@ -1,15 +1,16 @@
 package space.x9x.radp.spring.boot.actuate.env;
 
+import org.springframework.core.env.Environment;
+
 import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
-import org.springframework.core.env.Environment;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:21
  */
 public class ManagementServerEnvironmentInboundParser implements EnvironmentInboundParser {

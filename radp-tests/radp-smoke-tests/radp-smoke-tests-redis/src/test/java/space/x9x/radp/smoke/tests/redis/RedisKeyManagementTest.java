@@ -17,18 +17,23 @@
 package space.x9x.radp.smoke.tests.redis;
 
 import org.junit.jupiter.api.Test;
+
 import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for the enhanced Redis key management system.
  * <p>
- * These tests verify that the Redis key management system works correctly
- * with the new validation, normalization, and utility methods.
+ * These tests verify that the Redis key management system works correctly with the new
+ * validation, normalization, and utility methods.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-30
  */
 class RedisKeyManagementTest {

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.PropertyKey;
 import java.io.Serial;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:31
  */
 @EqualsAndHashCode(callSuper = true)

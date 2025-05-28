@@ -1,28 +1,32 @@
 package space.x9x.radp.mybatis.spring.boot.extension;
 
+import java.io.Serial;
+import java.util.Collection;
+
+import org.springframework.util.StringUtils;
+
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import org.springframework.util.StringUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
 
-import java.io.Serial;
-import java.util.Collection;
+import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
  * 拓展 MyBatis Plus LambdaQueryWrapper 类，主要增加如下功能
  * <ul>
- *   <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
+ * <li>拼接条件的方法, 增加 {@code xxxIfPresent} 方法, 用于判断值不存在的时候, 不要拼接到查询条件中</li>
  * </ul>
  * <p>
  * Extended version of MyBatis Plus LambdaQueryWrapper with additional features:
  * <ul>
- *   <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when values are present</li>
+ * <li>Adds {@code xxxIfPresent} methods that only include conditions in the query when
+ * values are present</li>
  * </ul>
- * This wrapper simplifies conditional query building by automatically handling null/empty value checks.
+ * This wrapper simplifies conditional query building by automatically handling null/empty
+ * value checks.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-11-20 15:49
  */
 public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {

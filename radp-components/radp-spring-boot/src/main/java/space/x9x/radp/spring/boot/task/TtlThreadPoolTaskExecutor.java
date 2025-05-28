@@ -1,25 +1,25 @@
 package space.x9x.radp.spring.boot.task;
 
-import com.alibaba.ttl.TtlCallable;
-import com.alibaba.ttl.TtlRunnable;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
 import java.io.Serial;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import com.alibaba.ttl.TtlCallable;
+import com.alibaba.ttl.TtlRunnable;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * TTL 线程池执行器
  * <p>
  * 该执行器扩展了Spring的ThreadPoolTaskExecutor，并使用阿里巴巴的TTL（TransmittableThreadLocal）
- * 来确保ThreadLocal变量能够在线程池中正确传递。这对于需要在异步执行上下文中
- * 保持上下文信息（如用户身份、请求跟踪ID等）的应用程序非常重要。
+ * 来确保ThreadLocal变量能够在线程池中正确传递。这对于需要在异步执行上下文中 保持上下文信息（如用户身份、请求跟踪ID等）的应用程序非常重要。
  * <p>
  * 该类重写了所有任务提交方法，确保每个任务都被TTL包装，从而实现ThreadLocal值的传递。
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 12:04
  */
 public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {

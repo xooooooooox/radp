@@ -1,16 +1,16 @@
 package space.x9x.radp.types.event;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
  * 定义 MQ 消息结构
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-11-28 14:43
  */
 @Data

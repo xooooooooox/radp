@@ -1,18 +1,24 @@
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
-
 import java.io.Serial;
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
+
 /**
- * Base class for API response objects that provides common result information.
- * This class includes status, code, and message fields to indicate the outcome of an operation.
- * It serves as the parent class for more specific result types like SingleResult and MultiResult.
+ * Base class for API response objects that provides common result information. This class
+ * includes status, code, and message fields to indicate the outcome of an operation. It
+ * serves as the parent class for more specific result types like SingleResult and
+ * MultiResult.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 15:53
  */
 @SuperBuilder

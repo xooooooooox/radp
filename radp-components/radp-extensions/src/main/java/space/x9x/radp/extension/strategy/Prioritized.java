@@ -1,11 +1,11 @@
 package space.x9x.radp.extension.strategy;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Comparator;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 19:41
  */
 public interface Prioritized extends Comparable<Prioritized> {

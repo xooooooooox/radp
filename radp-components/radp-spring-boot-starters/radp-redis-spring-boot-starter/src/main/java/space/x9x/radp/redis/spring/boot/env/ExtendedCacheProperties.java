@@ -1,11 +1,13 @@
 package space.x9x.radp.redis.spring.boot.env;
 
-import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import lombok.Data;
+
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:45
  */
 @Data

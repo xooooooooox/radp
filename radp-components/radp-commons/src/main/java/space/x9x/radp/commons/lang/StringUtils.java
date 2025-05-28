@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * Utility class for string operations, extending Apache Commons Lang StringUtils.
  * Provides additional string manipulation methods not available in the parent class.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-23 13:57
  */
 @UtilityClass

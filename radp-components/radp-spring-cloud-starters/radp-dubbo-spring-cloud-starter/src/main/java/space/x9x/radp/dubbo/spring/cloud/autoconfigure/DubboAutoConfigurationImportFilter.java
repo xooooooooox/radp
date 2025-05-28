@@ -1,15 +1,16 @@
 package space.x9x.radp.dubbo.spring.cloud.autoconfigure;
 
-import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
+import java.util.Arrays;
+
 import org.springframework.boot.autoconfigure.AutoConfigurationImportFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
-import java.util.Arrays;
+import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-01 23:41
  */
 public class DubboAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {

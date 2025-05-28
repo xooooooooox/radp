@@ -1,17 +1,17 @@
 package space.x9x.radp.extension.factory;
 
-import space.x9x.radp.extension.Adaptive;
-import space.x9x.radp.extension.ExtensionFactory;
-import space.x9x.radp.extension.ExtensionLoader;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import space.x9x.radp.extension.Adaptive;
+import space.x9x.radp.extension.ExtensionFactory;
+import space.x9x.radp.extension.ExtensionLoader;
+
 /**
  * 自适应扩展点实例工厂
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-25 10:30
  */
 @Adaptive

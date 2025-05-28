@@ -16,22 +16,24 @@
 
 package space.x9x.radp.smoke.tests.test.container.mysql;
 
-import org.junit.jupiter.api.Test;
+import java.sql.Connection;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Statement;
-
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 13:00
  */
 @SpringBootTest

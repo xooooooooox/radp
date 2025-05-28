@@ -6,7 +6,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * 多线程异步资源加载 + 策略路由的抽象类
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-01-14 21:53
  */
 public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends AbstractStrategyRouter<T, D, R> {

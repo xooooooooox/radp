@@ -25,7 +25,9 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * TestContainer 容器复用示例
@@ -34,19 +36,20 @@ import static org.junit.jupiter.api.Assertions.*;
  * <p>
  * 启用方式:
  * <ol>
- *     <li>全局启用: 在 用户主目录下创建 {@code .testcontainers.properties} 文件, 添加 {@code testcontainers.reuse.enable=true}</li>
- *     <li>单个容器启用: 在容器创建时调用 {@code .withReuse(true)}</li>
+ * <li>全局启用: 在 用户主目录下创建 {@code .testcontainers.properties} 文件, 添加
+ * {@code testcontainers.reuse.enable=true}</li>
+ * <li>单个容器启用: 在容器创建时调用 {@code .withReuse(true)}</li>
  * </ol>
  * <p>
  * 注意事项:
  * <ol>
- *     <li>复用容器需要为容器设置唯一标识符, 通过 {@code .withLabel("reuse.UUID", "xxxx")} 设置</li>
- *     <li>如果不设置标识符, TestContainers 会自动生成, 但每次运行可能不同</li>
- *     <li>复用容器在测试结束后不会自动停止, 需要手动停止或等待 Docker 自动清理</li>
- *     <li>复用容器适合只读测试, 如果测试会修改容器状态, 可能导致后续测试失败</li>
+ * <li>复用容器需要为容器设置唯一标识符, 通过 {@code .withLabel("reuse.UUID", "xxxx")} 设置</li>
+ * <li>如果不设置标识符, TestContainers 会自动生成, 但每次运行可能不同</li>
+ * <li>复用容器在测试结束后不会自动停止, 需要手动停止或等待 Docker 自动清理</li>
+ * <li>复用容器适合只读测试, 如果测试会修改容器状态, 可能导致后续测试失败</li>
  * </ol>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 23:30
  */
 @Testcontainers

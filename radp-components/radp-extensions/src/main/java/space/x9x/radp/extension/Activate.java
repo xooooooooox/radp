@@ -1,11 +1,15 @@
 package space.x9x.radp.extension;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 激活扩展点
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 12:49
  */
 @Documented

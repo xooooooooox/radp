@@ -1,16 +1,18 @@
 package space.x9x.radp.jasypt.spring.boot.test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+
 import space.x9x.radp.jasypt.spring.boot.TestApplication;
 import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-04-09 11:41
  */
 @SpringBootTest(classes = TestApplication.class)

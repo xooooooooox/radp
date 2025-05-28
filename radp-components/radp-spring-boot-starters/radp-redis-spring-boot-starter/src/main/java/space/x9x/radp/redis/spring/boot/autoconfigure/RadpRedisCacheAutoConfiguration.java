@@ -1,7 +1,7 @@
 package space.x9x.radp.redis.spring.boot.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
+import java.util.Objects;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,15 +15,17 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RedissonClient;
+
 import space.x9x.radp.redis.spring.boot.env.ExtendedCacheProperties;
 import space.x9x.radp.redis.spring.boot.support.IRedissonService;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
 import space.x9x.radp.redis.spring.boot.support.TimeoutRedisCacheManager;
 
-import java.util.Objects;
-
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-21 11:37
  */
 @EnableConfigurationProperties({CacheProperties.class, ExtendedCacheProperties.class})

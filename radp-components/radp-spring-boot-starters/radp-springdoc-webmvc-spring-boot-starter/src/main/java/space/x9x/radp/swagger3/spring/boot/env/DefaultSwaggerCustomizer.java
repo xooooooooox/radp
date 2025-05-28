@@ -1,15 +1,17 @@
 package space.x9x.radp.swagger3.spring.boot.env;
 
+import org.springframework.core.Ordered;
+
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import lombok.Setter;
-import org.springframework.core.Ordered;
+
 import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 18:14
  */
 public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {

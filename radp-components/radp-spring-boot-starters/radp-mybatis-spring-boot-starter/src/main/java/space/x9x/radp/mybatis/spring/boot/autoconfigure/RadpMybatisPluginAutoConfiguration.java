@@ -1,8 +1,5 @@
 package space.x9x.radp.mybatis.spring.boot.autoconfigure;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,15 +8,20 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import space.x9x.radp.mybatis.spring.boot.env.MybatisPluginProperties;
 import space.x9x.radp.spring.data.mybatis.plugin.MybatisSqlLogInterceptor;
 
 /**
- * Autoconfiguration for MyBatis plugins.
- * This class automatically configures MyBatis plugins, particularly
- * the SQL logging interceptor that provides SQL execution monitoring.
+ * Autoconfiguration for MyBatis plugins. This class automatically configures MyBatis
+ * plugins, particularly the SQL logging interceptor that provides SQL execution
+ * monitoring.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 13:34
  */
 @ConditionalOnMissingBean(SqlSessionFactory.class)

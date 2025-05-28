@@ -1,17 +1,17 @@
 package space.x9x.radp.extension.wrapper;
 
-import space.x9x.radp.extension.active.ActivateComparator;
-
 import java.util.Comparator;
+
+import space.x9x.radp.extension.active.ActivateComparator;
 
 /**
  * 针对 @Wrapper 排序
  * <p>
- * Comparator for sorting elements annotated with @Wrapper.
- * This class extends ActivateComparator to provide specialized sorting
- * for extension points that use the Wrapper annotation.
+ * Comparator for sorting elements annotated with @Wrapper. This class extends
+ * ActivateComparator to provide specialized sorting for extension points that use the
+ * Wrapper annotation.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 13:59
  */
 public class WrapperComparator extends ActivateComparator {

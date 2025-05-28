@@ -3,7 +3,7 @@ package space.x9x.radp.spring.framework.logging;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:08
  */
 @UtilityClass

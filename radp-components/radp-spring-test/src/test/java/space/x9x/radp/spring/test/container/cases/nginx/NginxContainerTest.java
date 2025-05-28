@@ -16,20 +16,20 @@
 
 package space.x9x.radp.spring.test.container.cases.nginx;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 16:52
  */
 @Testcontainers

@@ -1,5 +1,8 @@
 package space.x9x.radp.mybatis.spring.boot.mapper;
 
+import java.util.Collection;
+import java.util.List;
+
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -11,21 +14,19 @@ import com.github.yulichang.base.MPJBaseMapper;
 import com.github.yulichang.interfaces.MPJBaseJoin;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.apache.ibatis.annotations.Param;
+
 import space.x9x.radp.mybatis.spring.boot.util.MybatisUtils;
 import space.x9x.radp.spring.framework.dto.PageParam;
 import space.x9x.radp.spring.framework.dto.PageResult;
 import space.x9x.radp.spring.framework.dto.SortablePageParam;
 import space.x9x.radp.spring.framework.dto.SortingField;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
- * Extended base mapper interface that provides additional utility methods for database operations.
- * This interface extends MPJBaseMapper to support complex queries including joins,
- * pagination, and common CRUD operations with simplified syntax.
+ * Extended base mapper interface that provides additional utility methods for database
+ * operations. This interface extends MPJBaseMapper to support complex queries including
+ * joins, pagination, and common CRUD operations with simplified syntax.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-12-24 14:38
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {

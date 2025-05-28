@@ -1,11 +1,14 @@
 package space.x9x.radp.spring.framework.logging.access.model;
 
-import lombok.*;
-
 import java.time.Instant;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 09:54
  */
 @Builder

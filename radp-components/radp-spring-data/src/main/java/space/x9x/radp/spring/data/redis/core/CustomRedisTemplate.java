@@ -1,21 +1,20 @@
 package space.x9x.radp.spring.data.redis.core;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
+
 /**
- * Custom Redis template interface.
- * This interface defines operations for interacting with Redis cache,
- * providing methods for key-value operations, hash operations, list operations,
- * and set operations with type-safe access patterns.
+ * Custom Redis template interface. This interface defines operations for interacting with
+ * Redis cache, providing methods for key-value operations, hash operations, list
+ * operations, and set operations with type-safe access patterns.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-19 16:18
  */
 public interface CustomRedisTemplate {

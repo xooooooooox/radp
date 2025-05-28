@@ -1,6 +1,5 @@
 package space.x9x.radp.spring.boot.web.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -9,10 +8,13 @@ import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.spring.boot.web.env.WebAPIProperties;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 23:08
  */
 @AutoConfiguration

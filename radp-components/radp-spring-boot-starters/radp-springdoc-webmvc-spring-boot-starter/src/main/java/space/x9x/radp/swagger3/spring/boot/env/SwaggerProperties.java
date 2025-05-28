@@ -1,12 +1,14 @@
 package space.x9x.radp.swagger3.spring.boot.env;
 
-import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 16:36
  */
 @Getter

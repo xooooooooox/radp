@@ -1,18 +1,18 @@
 package space.x9x.radp.extension.common;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
- * Represents a URL with parameters for extension loading and configuration.
- * This class is used in the extension system to pass configuration parameters
- * to extension implementations.
+ * Represents a URL with parameters for extension loading and configuration. This class is
+ * used in the extension system to pass configuration parameters to extension
+ * implementations.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-25 00:29
  */
 @RequiredArgsConstructor

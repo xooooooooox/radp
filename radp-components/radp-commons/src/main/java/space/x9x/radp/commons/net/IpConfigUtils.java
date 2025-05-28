@@ -1,19 +1,24 @@
 package space.x9x.radp.commons.net;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
-import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-
-import java.net.*;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
+
+import space.x9x.radp.commons.collections.CollectionUtils;
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-28 21:12
  */
 @UtilityClass

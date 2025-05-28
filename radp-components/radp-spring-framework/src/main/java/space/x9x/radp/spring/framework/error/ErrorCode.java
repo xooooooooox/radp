@@ -5,7 +5,7 @@ import lombok.Data;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 10:31
  */
 @Data

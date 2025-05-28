@@ -1,12 +1,12 @@
 package space.x9x.radp.spring.framework.error;
 
+import java.io.Serial;
+
 import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.PropertyKey;
 
-import java.io.Serial;
-
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-26 23:49
  */
 @EqualsAndHashCode(callSuper = true)

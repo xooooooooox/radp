@@ -16,6 +16,11 @@
 
 package space.x9x.radp.spring.test.container.cases.wait;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Duration;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
@@ -24,11 +29,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.containers.wait.strategy.WaitStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,12 +42,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * <p>
  * 内置等待策略:
  * <ul>
- *     <li>端口就绪: {@code Wait.forListeningPort}</li>
- *     <li>HTTP就绪: {@code Wait.forHttp("/health")}</li>
- *     <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
+ * <li>端口就绪: {@code Wait.forListeningPort}</li>
+ * <li>HTTP就绪: {@code Wait.forHttp("/health")}</li>
+ * <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
  * </ul>
  *
- * @author x9x
+ * @author IO x9x
  * @since 2025-05-24 23:03
  */
 @Testcontainers

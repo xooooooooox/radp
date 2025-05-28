@@ -1,12 +1,13 @@
 package space.x9x.radp.spring.framework.error.http;
 
-import lombok.EqualsAndHashCode;
-import space.x9x.radp.spring.framework.error.BaseException;
-
 import java.io.Serial;
 
+import lombok.EqualsAndHashCode;
+
+import space.x9x.radp.spring.framework.error.BaseException;
+
 /**
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-27 11:08
  */
 @EqualsAndHashCode(callSuper = true)

@@ -174,7 +174,6 @@
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
-        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
         <wagon-maven-plugin.version>2.0.2</wagon-maven-plugin.version>
@@ -343,6 +342,7 @@
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+            <!-- SpringDoc OpenAPI UI：自动生成 OpenAPI 文档的工具 -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi</artifactId>
@@ -407,7 +407,7 @@
             </dependency>
             <!-- ====================关系型数据库]==================== -->
 
-            <!-- ====================[接口文档组件==================== -->
+            <!-- ====================[NoSQL==================== -->
             <!-- MongoDB -->
             <dependency>
                 <groupId>org.mongodb</groupId>
@@ -419,10 +419,10 @@
                 <artifactId>mongodb-driver</artifactId>
                 <version>${mongodb.version}</version>
             </dependency>
-            <!-- ====================接口文档组件]==================== -->
+            <!-- ====================NoSQL]==================== -->
 
-            <!-- TODO ====================[搜索引擎==================== -->
-            <!-- TODO ====================搜索引擎]==================== -->
+            <!-- TODO: ====================[搜索引擎==================== -->
+            <!-- TODO: ====================搜索引擎]==================== -->
 
             <!-- ====================[缓存==================== -->
             <!-- Redisson Spring Boot Starter：基于 Redis 的分布式 Java 库 -->
@@ -741,6 +741,8 @@
                 <version>${testcontainers-redis.version}</version>
             </dependency>
             <!-- ====================测试组件]==================== -->
+
+
             <!-- ====================[Spring==================== -->
             <!-- Spring Boot -->
             <dependency>

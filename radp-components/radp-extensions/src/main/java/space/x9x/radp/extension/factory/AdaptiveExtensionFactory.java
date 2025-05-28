@@ -26,6 +26,11 @@ import space.x9x.radp.extension.ExtensionLoader;
 
 /**
  * 自适应扩展点实例工厂.
+ * <p>
+ * Adaptive extension instance factory. This factory implements the ExtensionFactory
+ * interface and delegates to other extension factories to find and create extension
+ * instances. It uses the SPI mechanism to discover all available extension factories and
+ * tries each one in sequence until an extension is found.
  *
  * @author IO x9x
  * @since 2024-09-25 10:30
@@ -33,6 +38,12 @@ import space.x9x.radp.extension.ExtensionLoader;
 @Adaptive
 public class AdaptiveExtensionFactory implements ExtensionFactory {
 
+	/**
+	 * List of extension factories that this adaptive factory delegates to. This list is
+	 * initialized during construction and contains all available ExtensionFactory
+	 * implementations discovered through the SPI mechanism. The list is unmodifiable to
+	 * ensure thread safety.
+	 */
 	private final List<ExtensionFactory> factories;
 
 	/**
@@ -51,6 +62,16 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
 		this.factories = Collections.unmodifiableList(list);
 	}
 
+	/**
+	 * Gets an extension instance of the specified type and name. This method delegates to
+	 * each of the available extension factories in sequence, returning the first non-null
+	 * extension found. If no factory can provide the requested extension, this method
+	 * returns null.
+	 * @param type the class type of the extension to get
+	 * @param name the name of the extension to get
+	 * @param <T> the type parameter of the extension
+	 * @return the extension instance, or null if no matching extension is found
+	 */
 	@Override
 	public <T> T getExtension(Class<T> type, String name) {
 		for (ExtensionFactory factory : this.factories) {

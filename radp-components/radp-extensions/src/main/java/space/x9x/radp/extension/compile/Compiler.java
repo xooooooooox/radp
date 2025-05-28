@@ -19,6 +19,12 @@ package space.x9x.radp.extension.compile;
 import space.x9x.radp.extension.SPI;
 
 /**
+ * 编译器接口，用于动态编译Java源代码.
+ * <p>
+ * Compiler interface for dynamically compiling Java source code. This interface defines
+ * methods for compiling Java source code into Class objects at runtime. It is used by the
+ * extension system to generate and compile adaptive classes dynamically.
+ *
  * @author IO x9x
  * @since 2024-09-24 21:33
  */

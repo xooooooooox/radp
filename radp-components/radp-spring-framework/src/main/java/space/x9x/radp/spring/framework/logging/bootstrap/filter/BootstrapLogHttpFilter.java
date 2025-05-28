@@ -62,6 +62,16 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 	 */
 	private final Environment env;
 
+	/**
+	 * Filters HTTP requests to add application and request information to the MDC. This
+	 * method extracts information from the request and environment, then adds it to the
+	 * MDC context for use in logging statements.
+	 * @param req the HTTP servlet request being processed
+	 * @param res the HTTP servlet response being generated
+	 * @param chain the filter chain for invoking the next filter
+	 * @throws IOException if an I/O error occurs during request processing
+	 * @throws ServletException if a servlet error occurs during request processing
+	 */
 	@Override
 	protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -85,6 +95,13 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 		chain.doFilter(req, res);
 	}
 
+	/**
+	 * Gets the active profiles from the Spring environment. If no active profiles are
+	 * set, returns the default profiles.
+	 * @param env the Spring environment to get profiles from
+	 * @return an array of active profile names, or default profiles if no active profiles
+	 * are set
+	 */
 	private static String[] getActiveProfiles(Environment env) {
 		String[] profiles = env.getActiveProfiles();
 		if (profiles.length == 0) {

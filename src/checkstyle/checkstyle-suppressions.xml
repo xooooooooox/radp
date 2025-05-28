@@ -17,12 +17,31 @@
 			  id="systemOutErrPrint"/>
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="SpringJUnit5"
 			  message="should not be public"/>
-	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].+(Tests|Suite)"
+	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].*[\\/].+(Test|Tests|Suite)"
 			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 
 	<!-- GLobal: -->
 	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-commons -->
+	<suppress files="CollectionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Charsets\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="NanoIdGenerator\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JacksonUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatter\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ClassLoaderUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Strings\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfig\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfigUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Regex\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexCache\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SnowflakeGenerator\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+	<suppress files="MessageFormatter\.java"
+			  checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable|NeedBraces"/>
+	<suppress files="ReflectionUtils\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
 
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>

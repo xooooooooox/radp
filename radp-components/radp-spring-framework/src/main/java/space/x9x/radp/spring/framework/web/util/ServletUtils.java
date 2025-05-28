@@ -32,6 +32,11 @@ import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
 
 /**
+ * Utility class providing helper methods for working with HTTP servlet requests and
+ * responses. This class offers convenient methods for accessing request/response objects,
+ * extracting information from them, and handling request/response content in a web
+ * application context.
+ *
  * @author IO x9x
  * @since 2024-09-27 10:54
  */

@@ -42,6 +42,10 @@ import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 
 /**
+ * Utility class for working with Spring Expression Language (SpEL). Provides methods to
+ * parse and evaluate SpEL expressions in different contexts, including within AOP join
+ * points and from the Spring bean factory.
+ *
  * @author IO x9x
  * @since 2024-10-23 14:40
  */

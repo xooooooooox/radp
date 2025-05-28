@@ -20,12 +20,23 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;
 
 /**
+ * utility class that provides assertion methods for validating arguments and state. this
+ * class extends AbstractAssert to provide common assertion functionality.
+ *
  * @author IO x9x
  * @since 2024-10-24 22:17
  */
 public class AssertUtils extends AbstractAssert {
 
-    public static void notNull(Object object, ErrorCode errorCode) {
-        notNull(object, errorCode.getMessage());
-    }
+	/**
+	 * asserts that the specified object is not null, throwing an IllegalArgumentException
+	 * with the message from the specified error code if it is.
+	 * @param object the object to check
+	 * @param errorCode the error code to use for the exception message
+	 * @throws IllegalArgumentException if the object is null
+	 */
+	public static void notNull(Object object, ErrorCode errorCode) {
+		notNull(object, errorCode.getMessage());
+	}
+
 }

@@ -29,12 +29,13 @@ import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
  */
 public enum TestRedisKeys implements IRedisKeyProvider {
 
-    INSTANCE;
-    private static final String PREFIX = "radp:test";
+	INSTANCE;
 
-    @Override
-    public String getPrefix() {
-        return PREFIX;
-    }
+	private static final String PREFIX = "radp:test";
+
+	@Override
+	public String getPrefix() {
+		return PREFIX;
+	}
 
 }

@@ -38,36 +38,40 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  */
 @SpringBootTest
 @Testcontainers
-public class SpringBootMysqlContainerTest {
+class SpringBootMysqlContainerTest {
 
-    @SuppressWarnings("resource")
-    @Container
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
-            .withDatabaseName("test")
-            .withCreateContainerCmdModifier(cmd -> cmd.withPlatform("linux/arm64"));
-//            .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String())); // testContainer 调试技巧: 容器日志
+	@SuppressWarnings("resource")
+	@Container
+	private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
+		.withDatabaseName("test")
+		.withCreateContainerCmdModifier(cmd -> cmd.withPlatform("linux/arm64"));
 
-    @Configuration
-    static class TestConfig {
-        @Bean
-        public DataSource dataSource() {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setUrl(MY_SQL_CONTAINER.getJdbcUrl());
-            dataSource.setUsername(MY_SQL_CONTAINER.getUsername());
-            dataSource.setPassword(MY_SQL_CONTAINER.getPassword());
-            return dataSource;
-        }
-    }
+	// .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String()));
+	// // testContainer 调试技巧: 容器日志
 
-    @Autowired
-    private DataSource dataSource;
+	@Configuration
+	static class TestConfig {
 
-    @Test
-    void testSpringDataSource() throws Exception {
-        try (Connection conn = dataSource.getConnection();
-             Statement statement = conn.createStatement()) {
+		@Bean
+		public DataSource dataSource() {
+			DriverManagerDataSource dataSource = new DriverManagerDataSource();
+			dataSource.setUrl(MY_SQL_CONTAINER.getJdbcUrl());
+			dataSource.setUsername(MY_SQL_CONTAINER.getUsername());
+			dataSource.setPassword(MY_SQL_CONTAINER.getPassword());
+			return dataSource;
+		}
 
-            statement.execute("CREATE TABLE test(id INT)");
-        }
-    }
+	}
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Test
+	void testSpringDataSource() throws Exception {
+		try (Connection conn = dataSource.getConnection(); Statement statement = conn.createStatement()) {
+
+			statement.execute("CREATE TABLE test(id INT)");
+		}
+	}
+
 }

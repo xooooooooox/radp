@@ -1510,8 +1510,7 @@
 				</user.altSnapshotDeploymentRepository.artifactory>
 				<user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}
 				</user.altReleaseDeploymentRepository.artifactory>
-				<user.altSnapshotDeploymentRepository.central>
-					${setting.altSnapshotDeploymentRepository.central}
+				<user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}
 				</user.altSnapshotDeploymentRepository.central>
 				<!-- archetype -->
 				<user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>

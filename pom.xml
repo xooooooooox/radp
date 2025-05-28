@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -40,14 +41,14 @@
         <flattened.filename>.flatten-pom-xml</flattened.filename>
         <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
         <central.server.id>central-portal</central.server.id>
-        <user.archetype.catalog.upload.url />
-        <user.archetype.catalog.upload.serverId />
-        <user.gpg.keyname />
-        <user.minio.alias />
-        <user.minio.bucket.path />
-        <user.docker.build.registry />
-        <user.docker.build.base_image />
-        <user.jasypt.encryptor.password />
+        <user.archetype.catalog.upload.url/>
+        <user.archetype.catalog.upload.serverId/>
+        <user.gpg.keyname/>
+        <user.minio.alias/>
+        <user.minio.bucket.path/>
+        <user.docker.build.registry/>
+        <user.docker.build.base_image/>
+        <user.jasypt.encryptor.password/>
 
         <!-- plugin version -->
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -67,6 +68,7 @@
         <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
         <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+        <spring-javaformat-maven-plugin.version>0.0.45</spring-javaformat-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
     </properties>
 
@@ -278,6 +280,21 @@
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar-maven-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                </plugin>
+                <!--
+				NOTES:
+				Documents: https://github.com/spring-io/spring-javaformat/?tab=readme-ov-file#enable-the-plugin
+				Download IDEA Plugin: https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin/0.0.45/
+				-->
+                <plugin>
+                    <groupId>io.spring.javaformat</groupId>
+                    <artifactId>spring-javaformat-maven-plugin</artifactId>
+                    <version>${spring-javaformat-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -297,9 +314,13 @@
             <id>coding</id>
             <properties>
                 <!-- deploy -->
-                <user.altSnapshotDeploymentRepository.artifactory>${setting.altSnapshotDeploymentRepository.artifactory}</user.altSnapshotDeploymentRepository.artifactory>
-                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}</user.altReleaseDeploymentRepository.artifactory>
-                <user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}</user.altSnapshotDeploymentRepository.central>
+                <user.altSnapshotDeploymentRepository.artifactory>
+                    ${setting.altSnapshotDeploymentRepository.artifactory}
+                </user.altSnapshotDeploymentRepository.artifactory>
+                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}
+                </user.altReleaseDeploymentRepository.artifactory>
+                <user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}
+                </user.altSnapshotDeploymentRepository.central>
                 <!-- archetype -->
                 <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
                 <user.minio.alias>${setting.minio.alias}</user.minio.alias>
@@ -400,6 +421,19 @@
                     <plugin>
                         <groupId>org.sonarsource.scanner.maven</groupId>
                         <artifactId>sonar-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.spring.javaformat</groupId>
+                        <artifactId>spring-javaformat-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>spring checks</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>validate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

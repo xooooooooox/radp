@@ -43,6 +43,11 @@
 			  checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable|NeedBraces"/>
 	<suppress files="ReflectionUtils\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
 
+	<!-- radp-extensions -->
+	<suppress files="Constants\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+	<suppress files="AdaptiveClassCodeGenerator\.java" checks="JavadocVariable"/>
+	<suppress files="LoadingStrategyHolder\.java" checks="HideUtilityClassConstructor"/>
+
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
 

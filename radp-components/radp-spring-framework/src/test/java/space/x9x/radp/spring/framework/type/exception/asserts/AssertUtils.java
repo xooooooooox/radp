@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.framework.web.rest.annotation;
+package space.x9x.radp.spring.framework.type.exception.asserts;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import org.springframework.context.annotation.Import;
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;
 
 /**
- * 用于开启 REST 接口异常解析器自动装配.
- *
  * @author IO x9x
- * @since 2024-09-26 23:52
+ * @since 2024-10-24 22:17
  */
-@Import(RestExceptionHandlerRegister.class)
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface EnableRestExceptionHandler {
+public class AssertUtils extends AbstractAssert {
+
+	public static void notNull(Object object, ErrorCode errorCode) {
+		notNull(object, errorCode.getMessage());
+	}
 
 }

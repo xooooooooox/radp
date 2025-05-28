@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.task.interceptor;
 
 import java.util.concurrent.Callable;
@@ -11,12 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 异步任务执行异常处理类
+ * exception handling wrapper for asynchronous task executors.
  * <p>
- * 该类包装了AsyncTaskExecutor，为异步任务执行添加了异常处理功能。 当异步任务执行过程中抛出异常时，会通过handle方法进行处理，
- * 确保异常被正确记录而不会被静默吞噬。
+ * this class wraps an AsyncTaskExecutor and adds exception handling functionality for
+ * asynchronous task execution. when exceptions are thrown during task execution, they are
+ * processed through the handle method, ensuring exceptions are properly logged rather
+ * than silently swallowed.
  * <p>
- * 该类同时实现了InitializingBean和DisposableBean接口， 以确保被包装的执行器的生命周期方法被正确调用。
+ * this class also implements InitializingBean and DisposableBean interfaces to ensure the
+ * wrapped executor's lifecycle methods are properly called.
  *
  * @author IO x9x
  * @since 2024-09-30 11:43
@@ -24,135 +43,145 @@ import org.jetbrains.annotations.NotNull;
 @Slf4j
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, InitializingBean, DisposableBean {
 
-    private static final String MSG_ASYNC_EXCEPTION = "AsyncTaskExecutor exec caught exception: {}";
-    private final AsyncTaskExecutor executor;
+	/**
+	 * log message template for async exceptions. this constant defines the message format
+	 * used when logging exceptions caught during asynchronous task execution.
+	 */
+	private static final String MSG_ASYNC_EXCEPTION = "AsyncTaskExecutor exec caught exception: {}";
 
-    /**
-     * Constructs a new ExceptionHandlingAsyncTaskExecutor with the specified executor.
-     * This wrapper adds exception handling capabilities to the provided AsyncTaskExecutor,
-     * ensuring that exceptions thrown during asynchronous task execution are properly logged.
-     *
-     * @param executor the AsyncTaskExecutor to be wrapped with exception handling
-     */
-    public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {
-        this.executor = executor;
-    }
+	/**
+	 * the wrapped async task executor. this is the underlying executor that will actually
+	 * execute the tasks after they've been wrapped with exception handling.
+	 */
+	private final AsyncTaskExecutor executor;
 
-    @Override
-    public void destroy() throws Exception {
-        if (executor instanceof DisposableBean bean) {
-            bean.destroy();
-        }
-    }
+	/**
+	 * Constructs a new ExceptionHandlingAsyncTaskExecutor with the specified executor.
+	 * This wrapper adds exception handling capabilities to the provided
+	 * AsyncTaskExecutor, ensuring that exceptions thrown during asynchronous task
+	 * execution are properly logged.
+	 * @param executor the AsyncTaskExecutor to be wrapped with exception handling
+	 */
+	public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {
+		this.executor = executor;
+	}
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (executor instanceof InitializingBean bean) {
-            bean.afterPropertiesSet();
-        }
-    }
+	@Override
+	public void destroy() throws Exception {
+		if (this.executor instanceof DisposableBean bean) {
+			bean.destroy();
+		}
+	}
 
-    /**
-     * 使用启动超时执行Runnable任务
-     * <p>
-     * 将任务包装为异常处理任务，并委托给底层执行器执行
-     *
-     * @param task         要执行的任务
-     * @param startTimeout 启动超时时间（毫秒）
-     * @deprecated 此方法在AsyncTaskExecutor接口中已被弃用，建议使用其他方法替代
-     */
-    @Override
-    @Deprecated(since = "6.0", forRemoval = true)
-    public void execute(@NotNull Runnable task, long startTimeout) {
-        executor.execute(createWrappedRunnable(task), startTimeout);
-    }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (this.executor instanceof InitializingBean bean) {
+			bean.afterPropertiesSet();
+		}
+	}
 
-    /**
-     * 提交Runnable任务
-     * <p>
-     * 将任务包装为异常处理任务，并委托给底层执行器执行
-     *
-     * @param task 要执行的任务
-     * @return 表示任务挂起完成的Future
-     */
-    @Override
-    public @NotNull Future<?> submit(@NotNull Runnable task) {
-        return executor.submit(createWrappedRunnable(task));
-    }
+	/**
+	 * Executes a Runnable task with a startup timeout.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
+	 * @param startTimeout the startup timeout in milliseconds
+	 * @deprecated this method is deprecated in the AsyncTaskExecutor interface, use
+	 * alternative methods instead
+	 */
+	@Override
+	@Deprecated(since = "6.0", forRemoval = true)
+	public void execute(@NotNull Runnable task, long startTimeout) {
+		this.executor.execute(createWrappedRunnable(task), startTimeout);
+	}
 
-    /**
-     * 提交Callable任务
-     * <p>
-     * 将任务包装为异常处理任务，并委托给底层执行器执行
-     *
-     * @param task 要执行的任务
-     * @param <T>  结果类型
-     * @return 表示任务挂起完成的Future
-     */
-    @Override
-    public <T> @NotNull Future<T> submit(@NotNull Callable<T> task) {
-        return executor.submit(createCallable(task));
-    }
+	/**
+	 * Submits a Runnable task for execution.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @return a Future representing pending completion of the task
+	 */
+	@Override
+	public @NotNull Future<?> submit(@NotNull Runnable task) {
+		return this.executor.submit(createWrappedRunnable(task));
+	}
 
-    /**
-     * 执行Runnable任务
-     * <p>
-     * 将任务包装为异常处理任务，并委托给底层执行器执行
-     *
-     * @param task 要执行的任务
-     */
-    @Override
-    public void execute(@NotNull Runnable task) {
-        executor.execute(createWrappedRunnable(task));
-    }
+	/**
+	 * Submits a Callable task for execution.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @param <T> the result type
+	 * @return a Future representing pending completion of the task
+	 */
+	@Override
+	public <T> @NotNull Future<T> submit(@NotNull Callable<T> task) {
+		return this.executor.submit(createCallable(task));
+	}
 
-    /**
-     * 创建带有异常处理的Callable任务
-     * <p>
-     * 包装原始Callable任务，添加异常处理逻辑
-     *
-     * @param task 原始任务
-     * @param <T>  结果类型
-     * @return 包装后的Callable任务
-     */
-    private <T> Callable<T> createCallable(final Callable<T> task) {
-        return () -> {
-            try {
-                return task.call();
-            } catch (Exception e) {
-                handle(e);
-                throw e;
-            }
-        };
-    }
+	/**
+	 * Executes a Runnable task.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
+	 */
+	@Override
+	public void execute(@NotNull Runnable task) {
+		this.executor.execute(createWrappedRunnable(task));
+	}
 
-    /**
-     * 创建带有异常处理的Runnable任务
-     * <p>
-     * 包装原始Runnable任务，添加异常处理逻辑
-     *
-     * @param task 原始任务
-     * @return 包装后的Runnable任务
-     */
-    private Runnable createWrappedRunnable(final Runnable task) {
-        return () -> {
-            try {
-                task.run();
-            } catch (Exception e) {
-                handle(e);
-            }
-        };
-    }
+	/**
+	 * Creates a Callable task with exception handling.
+	 * <p>
+	 * Wraps the original Callable task with exception handling logic.
+	 * @param task the original task
+	 * @param <T> the result type
+	 * @return the wrapped Callable task
+	 */
+	private <T> Callable<T> createCallable(final Callable<T> task) {
+		return () -> {
+			try {
+				return task.call();
+			}
+			catch (Exception ex) {
+				handle(ex);
+				throw ex;
+			}
+		};
+	}
 
-    /**
-     * 处理异步任务执行过程中发生的异常
-     * <p>
-     * 当执行任务时捕获到异常时，会调用此方法。
-     * 它使用配置的日志记录器记录异常消息和异常本身。
-     *
-     * @param e 任务执行过程中捕获的异常
-     */
-    protected void handle(Exception e) {
-        log.error(MSG_ASYNC_EXCEPTION, e.getMessage(), e);
-    }
+	/**
+	 * Creates a Runnable task with exception handling.
+	 * <p>
+	 * Wraps the original Runnable task with exception handling logic.
+	 * @param task the original task
+	 * @return the wrapped Runnable task
+	 */
+	private Runnable createWrappedRunnable(final Runnable task) {
+		return () -> {
+			try {
+				task.run();
+			}
+			catch (Exception ex) {
+				handle(ex);
+			}
+		};
+	}
+
+	/**
+	 * Handles exceptions caught during asynchronous task execution.
+	 * <p>
+	 * When an exception is caught during task execution, this method is called. It uses
+	 * the configured logger to log the exception message and the exception itself.
+	 * @param ex the exception caught during task execution
+	 */
+	protected void handle(Exception ex) {
+		log.error(MSG_ASYNC_EXCEPTION, ex.getMessage(), ex);
+	}
+
 }

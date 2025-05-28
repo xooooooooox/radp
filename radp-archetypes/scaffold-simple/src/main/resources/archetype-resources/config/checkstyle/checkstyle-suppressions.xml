@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright 2012-2025 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE suppressions PUBLIC
+		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+
+	<!-- Global: generated sources -->
+	<suppress files="[\\/]build[\\/]generated[\\/]sources[\\/]" checks=".*"/>
+
+	<!-- Global: package-info.java -->
+	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
+
+	<!-- Global: tests and test fixtures -->
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"
+			  checks="AnnotationLocation|AnnotationUseStyle|AtclauseOrder|AvoidNestedBlocks|FinalClass|HideUtilityClassConstructor|InnerTypeLast|JavadocStyle|JavadocType|JavadocVariable|LeftCurly|MultipleVariableDeclarations|NeedBraces|OneTopLevelClass|OuterTypeFilename|RequireThis|SpringCatch|SpringJavadoc|SpringNoThis"/>
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="RegexpSinglelineJava"
+			  id="systemOutErrPrint"/>
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="SpringJUnit5"
+			  message="should not be public"/>
+	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].+(Tests|Suite)"
+			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
+	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
+
+	<!-- GLobal: -->
+	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
+
+</suppressions>

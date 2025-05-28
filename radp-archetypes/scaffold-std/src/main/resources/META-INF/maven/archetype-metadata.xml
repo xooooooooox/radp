@@ -102,6 +102,7 @@
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
                 <include>.idea</include>
+                <include>src</include>
             </includes>
         </fileSet>
         <!-- github -->

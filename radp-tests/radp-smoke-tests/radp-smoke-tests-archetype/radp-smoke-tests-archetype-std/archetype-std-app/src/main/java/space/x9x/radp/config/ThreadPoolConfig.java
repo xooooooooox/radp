@@ -59,24 +59,12 @@ public class ThreadPoolConfig {
 	@ConditionalOnMissingBean(ThreadPoolExecutor.class)
 	public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties properties) {
 		// Initialize rejection strategy
-		RejectedExecutionHandler handler;
-		switch (properties.getPolicy()) {
-			case ABORT_POLICY:
-				handler = new ThreadPoolExecutor.AbortPolicy();
-				break;
-			case DISCARD_POLICY:
-				handler = new ThreadPoolExecutor.DiscardPolicy();
-				break;
-			case DISCARD_OLDEST_POLICY:
-				handler = new ThreadPoolExecutor.DiscardOldestPolicy();
-				break;
-			case CALLER_RUNS_POLICY:
-				handler = new ThreadPoolExecutor.CallerRunsPolicy();
-				break;
-			default:
-				handler = new ThreadPoolExecutor.AbortPolicy();
-				break;
-		}
+		RejectedExecutionHandler handler = switch (properties.getPolicy()) {
+			case ABORT_POLICY -> new ThreadPoolExecutor.AbortPolicy();
+			case DISCARD_POLICY -> new ThreadPoolExecutor.DiscardPolicy();
+			case DISCARD_OLDEST_POLICY -> new ThreadPoolExecutor.DiscardOldestPolicy();
+			case CALLER_RUNS_POLICY -> new ThreadPoolExecutor.CallerRunsPolicy();
+		};
 
 		// Create a thread pool
 		return new ThreadPoolExecutor(properties.getCorePoolSize(), properties.getMaxPoolSize(),

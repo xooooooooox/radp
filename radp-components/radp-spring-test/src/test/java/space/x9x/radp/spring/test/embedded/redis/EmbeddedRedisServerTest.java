@@ -18,7 +18,7 @@ package space.x9x.radp.spring.test.embedded.redis;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link EmbeddedRedisServer}.
@@ -37,7 +37,7 @@ class EmbeddedRedisServerTest {
 	@Test
 	void testInitialization() {
 		EmbeddedRedisServer server = new EmbeddedRedisServer();
-		assertFalse(server.isRunning());
+		assertThat(server.isRunning()).isFalse();
 	}
 
 	/**
@@ -47,7 +47,7 @@ class EmbeddedRedisServerTest {
 	void testPortSetting() {
 		EmbeddedRedisServer server = new EmbeddedRedisServer();
 		server.port(TEST_PORT);
-		assertFalse(server.isRunning());
+		assertThat(server.isRunning()).isFalse();
 	}
 
 	/**
@@ -57,7 +57,7 @@ class EmbeddedRedisServerTest {
 	void testPasswordSetting() {
 		EmbeddedRedisServer server = new EmbeddedRedisServer();
 		server.password("testpassword");
-		assertFalse(server.isRunning());
+		assertThat(server.isRunning()).isFalse();
 	}
 
 	/**
@@ -66,7 +66,7 @@ class EmbeddedRedisServerTest {
 	@Test
 	void testIsRunning() {
 		EmbeddedRedisServer server = new EmbeddedRedisServer();
-		assertFalse(server.isRunning());
+		assertThat(server.isRunning()).isFalse();
 	}
 
 }

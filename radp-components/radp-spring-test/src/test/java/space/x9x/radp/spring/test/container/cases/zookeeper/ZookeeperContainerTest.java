@@ -26,7 +26,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -47,17 +47,18 @@ class ZookeeperContainerTest {
 		Integer port = zookeeper.getMappedPort(2181);
 
 		// Verify container is running
-		assertTrue(zookeeper.isRunning(), "Zookeeper container should be running");
+		assertThat(zookeeper.isRunning()).as("Zookeeper container should be running").isTrue();
 
 		// Test connection to Zookeeper port
 		try (Socket socket = new Socket(host, port)) {
-			assertTrue(socket.isConnected(), "Should be able to connect to Zookeeper");
+			assertThat(socket.isConnected()).as("Should be able to connect to Zookeeper").isTrue();
 		}
 
 		// Verify logs contain the expected startup message
 		String logs = zookeeper.getLogs();
-		assertTrue(logs.contains("binding to port") || logs.contains("started"),
-				"Zookeeper logs should indicate successful startup");
+		assertThat(logs.contains("binding to port") || logs.contains("started"))
+			.as("Zookeeper logs should indicate successful startup")
+			.isTrue();
 	}
 
 }

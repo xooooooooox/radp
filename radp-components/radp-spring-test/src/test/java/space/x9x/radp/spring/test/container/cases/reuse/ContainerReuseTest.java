@@ -25,9 +25,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * TestContainer 容器复用示例
@@ -75,7 +73,7 @@ class ContainerReuseTest {
 	@Test
 	@Order(1)
 	void testFirstContainerUse() {
-		assertTrue(REDIS_CONTAINER.isRunning(), "Redis container should be running");
+		assertThat(REDIS_CONTAINER.isRunning()).as("Redis container should be running").isTrue();
 
 		// Store the container ID for comparison in the second test
 		firstContainerId = REDIS_CONTAINER.getContainerId();
@@ -85,10 +83,10 @@ class ContainerReuseTest {
 		log.info("First test - Mapped port: {}", mappedPort);
 
 		// Verify the container ID is not null
-		assertNotNull(firstContainerId, "Container ID should not be null");
+		assertThat(firstContainerId).as("Container ID should not be null").isNotNull();
 
 		// Simple assertion to verify the container is working
-		assertEquals(6379, REDIS_CONTAINER.getExposedPorts().get(0), "Redis should expose port 6379");
+		assertThat(REDIS_CONTAINER.getExposedPorts().get(0)).as("Redis should expose port 6379").isEqualTo(6379);
 	}
 
 	/**
@@ -97,7 +95,7 @@ class ContainerReuseTest {
 	@Test
 	@Order(2)
 	void testSecondContainerUse() {
-		assertTrue(REDIS_CONTAINER.isRunning(), "Redis container should be running");
+		assertThat(REDIS_CONTAINER.isRunning()).as("Redis container should be running").isTrue();
 
 		String secondContainerId = REDIS_CONTAINER.getContainerId();
 		int mappedPort = REDIS_CONTAINER.getMappedPort(6379);
@@ -106,14 +104,14 @@ class ContainerReuseTest {
 		log.info("Second test - Mapped port: {}", mappedPort);
 
 		// Verify the container ID is not null
-		assertNotNull(secondContainerId, "Container ID should not be null");
+		assertThat(secondContainerId).as("Container ID should not be null").isNotNull();
 
 		// Verify that the container ID is the same as in the first test
-		assertEquals(firstContainerId, secondContainerId,
-				"Container ID should be the same across tests, indicating container reuse");
+		assertThat(secondContainerId).as("Container ID should be the same across tests, indicating container reuse")
+			.isEqualTo(firstContainerId);
 
 		// Simple assertion to verify the container is working
-		assertEquals(6379, REDIS_CONTAINER.getExposedPorts().get(0), "Redis should expose port 6379");
+		assertThat(REDIS_CONTAINER.getExposedPorts().get(0)).as("Redis should expose port 6379").isEqualTo(6379);
 	}
 
 }

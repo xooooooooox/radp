@@ -30,8 +30,7 @@ import org.testcontainers.containers.wait.strategy.WaitStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 自定义等待策略
@@ -151,33 +150,33 @@ class CustomWaitStrategyTest {
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
 
-		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+		assertThat(connection.getResponseCode()).as("Nginx应该返回200状态码").isEqualTo(200);
 	}
 
 	@Test
 	void testCustomWaitStrategy() throws IOException {
 		// 测试自定义等待策略
-		assertTrue(customWaitContainer.isRunning(), "容器应该处于运行状态");
+		assertThat(customWaitContainer.isRunning()).as("容器应该处于运行状态").isTrue();
 
 		String url = String.format("http://%s:%s", customWaitContainer.getHost(),
 				customWaitContainer.getMappedPort(80));
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
 
-		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+		assertThat(connection.getResponseCode()).as("Nginx应该返回200状态码").isEqualTo(200);
 	}
 
 	@Test
 	void testCompositeWaitStrategy() throws IOException {
 		// 测试组合等待策略
-		assertTrue(compositeWaitContainer.isRunning(), "容器应该处于运行状态");
+		assertThat(compositeWaitContainer.isRunning()).as("容器应该处于运行状态").isTrue();
 
 		String url = String.format("http://%s:%s", compositeWaitContainer.getHost(),
 				compositeWaitContainer.getMappedPort(80));
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
 
-		assertEquals(200, connection.getResponseCode(), "Nginx应该返回200状态码");
+		assertThat(connection.getResponseCode()).as("Nginx应该返回200状态码").isEqualTo(200);
 	}
 
 }

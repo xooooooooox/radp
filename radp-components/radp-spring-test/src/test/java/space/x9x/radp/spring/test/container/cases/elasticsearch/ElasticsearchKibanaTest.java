@@ -34,7 +34,7 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -45,8 +45,9 @@ class ElasticsearchKibanaTest {
 
 	private static final Network NETWORK = Network.newNetwork();
 
+	@SuppressWarnings("resource")
 	@Container
-	public GenericContainer<?> elasticsearch = new GenericContainer<>(
+	public final GenericContainer<?> elasticsearch = new GenericContainer<>(
 			"docker.elastic.co/elasticsearch/elasticsearch:7.17.9")
 		.withNetwork(NETWORK)
 		.withNetworkAliases("elasticsearch")
@@ -54,8 +55,9 @@ class ElasticsearchKibanaTest {
 		.withEnv("discovery.type", "single-node")
 		.withEnv("xpack.security.enabled", "false");
 
+	@SuppressWarnings("resource")
 	@Container
-	public GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
+	public final GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
 		.withNetwork(NETWORK)
 		.withNetworkAliases("kibana")
 		.withExposedPorts(5601)
@@ -80,7 +82,7 @@ class ElasticsearchKibanaTest {
 		searchRequest.source(searchSourceBuilder);
 
 		SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-		assertEquals(1, Objects.requireNonNull(response.getHits().getTotalHits()).value);
+		assertThat(Objects.requireNonNull(response.getHits().getTotalHits()).value).isEqualTo(1);
 
 		client.close();
 	}

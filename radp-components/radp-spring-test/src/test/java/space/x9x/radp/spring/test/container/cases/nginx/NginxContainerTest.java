@@ -26,7 +26,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -47,7 +47,7 @@ class NginxContainerTest {
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
 		int responseCode = connection.getResponseCode();
-		assertEquals(200, responseCode); // 验证 Nginx 返回 200 OK
+		assertThat(responseCode).isEqualTo(200); // 验证 Nginx 返回 200 OK
 	}
 
 }

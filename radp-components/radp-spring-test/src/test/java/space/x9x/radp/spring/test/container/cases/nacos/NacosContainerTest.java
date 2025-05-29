@@ -27,9 +27,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -41,6 +39,7 @@ class NacosContainerTest {
 	/**
 	 * 8848：HTTP/REST 9848：gRPC（Spring Cloud Alibaba ≥2021.x 客户端会用到，可选）
 	 */
+	@SuppressWarnings("resource")
 	@Container
 	private final GenericContainer<?> nacos = new GenericContainer<>("nacos/nacos-server:v2.5.1")
 		.withExposedPorts(8848, 9848)
@@ -63,12 +62,14 @@ class NacosContainerTest {
 		Request request = new Request.Builder().url(url).get().build();
 
 		try (Response response = client.newCall(request).execute()) {
-			assertEquals(200, response.code());
+			assertThat(response.code()).isEqualTo(200);
 
-			assertNotNull(response.body());
-			String responseBody = response.body().string();
-			assertTrue(responseBody.contains("\"status\":\"UP\"") || responseBody.contains("\"healthy\":true")
-					|| "OK".equals(responseBody.trim()), () -> "Unexpected health payload: " + responseBody);
+			assertThat(response.body()).isNotNull();
+			String body = response.body().string();
+			assertThat(
+					body.contains("\"status\":\"UP\"") || body.contains("\"healthy\":true") || "OK".equals(body.trim()))
+				.as("Unexpected health payload: %s", body)
+				.isTrue();
 		}
 	}
 

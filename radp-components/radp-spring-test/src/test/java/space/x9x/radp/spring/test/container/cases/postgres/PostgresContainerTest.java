@@ -27,7 +27,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -51,7 +51,7 @@ class PostgresContainerTest {
 		ResultSet resultSet = statement.executeQuery("SELECT 1");
 		resultSet.next();
 		int result = resultSet.getInt(1);
-		assertEquals(1, result);
+		assertThat(result).isEqualTo(1);
 	}
 
 }

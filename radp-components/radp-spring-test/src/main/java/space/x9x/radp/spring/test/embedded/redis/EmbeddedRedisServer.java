@@ -26,9 +26,11 @@ import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 
 /**
- * An implementation of IEmbeddedServer that provides an embedded Redis server for
- * testing. This class wraps the embedded-redis library to provide a simple interface for
- * starting and stopping a Redis server within the test environment.
+ * Implementation of an embedded Redis server for testing purposes. This class provides a
+ * lightweight Redis server that can be started and stopped programmatically within test
+ * environments, eliminating the need for an external Redis installation. It supports
+ * configuration of port, password, and other Redis settings, and manages the lifecycle of
+ * the embedded server instance.
  *
  * @author IO x9x
  * @since 2024-09-23 15:02

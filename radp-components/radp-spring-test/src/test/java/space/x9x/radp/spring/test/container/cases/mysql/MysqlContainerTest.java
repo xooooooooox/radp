@@ -26,7 +26,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -48,7 +48,7 @@ class MysqlContainerTest {
 		try (Connection connection = DriverManager.getConnection(jdbcUrl, mysql.getUsername(), mysql.getPassword())) {
 			Statement statement = connection.createStatement();
 			statement.execute(sql);
-			assertTrue(true);
+			assertThat(true).isTrue();
 		}
 	}
 

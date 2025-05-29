@@ -26,8 +26,7 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -66,10 +65,10 @@ class MongodbContainerTest {
 			Document foundDocument = collection.find(new Document("name", "John Doe")).first();
 
 			// Verify the document was inserted correctly
-			assertNotNull(foundDocument);
-			assertEquals("John Doe", foundDocument.getString("name"));
-			assertEquals(30, foundDocument.getInteger("age"));
-			assertEquals("john.doe@example.com", foundDocument.getString("email"));
+			assertThat(foundDocument).isNotNull();
+			assertThat(foundDocument.getString("name")).isEqualTo("John Doe");
+			assertThat(foundDocument.getInteger("age")).isEqualTo(30);
+			assertThat(foundDocument.getString("email")).isEqualTo("john.doe@example.com");
 		}
 	}
 

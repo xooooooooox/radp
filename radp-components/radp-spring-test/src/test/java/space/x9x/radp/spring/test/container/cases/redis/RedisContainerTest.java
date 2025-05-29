@@ -29,7 +29,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 在微服务架构中, 多个服务需要通过网络通信. TestContainers 支持创建自定义网络, 让容器之间可以相互访问.
@@ -73,7 +73,7 @@ class RedisContainerTest {
 		String url = String.format("http://%s:%s", api.getHost(), api.getMappedPort(8080));
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
-		assertEquals(200, connection.getResponseCode());
+		assertThat(connection.getResponseCode()).isEqualTo(200);
 	}
 
 }

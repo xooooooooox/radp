@@ -25,7 +25,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 从 Dockerfile 创建容器
@@ -50,7 +50,7 @@ class DockerfileContainerTest {
 		String url = String.format("http://%s:%s", nginx.getHost(), nginx.getMappedPort(80));
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
-		assertEquals(200, connection.getResponseCode());
+		assertThat(connection.getResponseCode()).isEqualTo(200);
 	}
 
 }

@@ -32,12 +32,13 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.kafka.ConfluentKafkaContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 假设你正在开发一个订单处理系统，订单通过 Kafka 消息队列传递给下游服务。你需要测试生产者和消费者的正确性。
@@ -103,7 +104,7 @@ class KafkaContainerTest {
 		ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
 		consumer.close();
 
-		Assertions.assertEquals(1, records.count());
+		assertThat(records.count()).isEqualTo(1);
 	}
 
 }

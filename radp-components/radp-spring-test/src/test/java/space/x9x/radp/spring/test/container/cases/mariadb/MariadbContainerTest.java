@@ -26,7 +26,7 @@ import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -49,7 +49,7 @@ class MariadbContainerTest {
 				mariadb.getPassword())) {
 			Statement statement = connection.createStatement();
 			statement.execute(sql);
-			assertTrue(true);
+			assertThat(true).isTrue();
 		}
 	}
 

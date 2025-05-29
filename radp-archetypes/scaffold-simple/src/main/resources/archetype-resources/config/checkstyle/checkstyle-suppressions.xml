@@ -22,7 +22,7 @@
 	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 
 	<!-- GLobal: -->
-	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor|JavadocStyle"/>
 
 	<!-- radp-commons -->
 	<suppress files="CollectionUtils\.java" checks="HideUtilityClassConstructor"/>

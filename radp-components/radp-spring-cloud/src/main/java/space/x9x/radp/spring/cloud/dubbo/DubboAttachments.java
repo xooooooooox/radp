@@ -19,6 +19,13 @@ package space.x9x.radp.spring.cloud.dubbo;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class that defines constants for attachment keys used in Dubbo RPC context.
+ *
+ * <p>
+ * Attachments in Dubbo are used to pass metadata between service consumers and providers
+ * during RPC calls. This class centralizes the definition of these attachment keys to
+ * ensure consistency across the application.
+ *
  * @author IO x9x
  * @since 2024-10-01 22:06
  */

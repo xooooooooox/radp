@@ -23,8 +23,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
-import org.jetbrains.annotations.NotNull;
-
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 
 /**
@@ -86,7 +84,7 @@ public class DubboAutoConfigurationImportFilter implements AutoConfigurationImpo
 	 * @param environment the Spring Environment
 	 */
 	@Override
-	public void setEnvironment(@NotNull Environment environment) {
+	public void setEnvironment(Environment environment) {
 		this.environment = environment;
 	}
 

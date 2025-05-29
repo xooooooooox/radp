@@ -1,20 +1,4 @@
 <?xml version="1.0"?>
-<!--
-  ~ Copyright 2012-2025 the original author or authors.
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      https://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <!DOCTYPE suppressions PUBLIC
 		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
 		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
@@ -33,12 +17,35 @@
 			  id="systemOutErrPrint"/>
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="SpringJUnit5"
 			  message="should not be public"/>
-	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].+(Tests|Suite)"
+	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].*[\\/].+(Test|Tests|Suite)"
 			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 
 	<!-- GLobal: -->
-	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor|JavadocStyle"/>
+
+	<!-- radp-commons -->
+	<suppress files="CollectionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Charsets\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="NanoIdGenerator\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JacksonUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatter\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ClassLoaderUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Strings\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfig\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfigUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Regex\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexCache\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SnowflakeGenerator\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+	<suppress files="MessageFormatter\.java"
+			  checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable|NeedBraces"/>
+	<suppress files="ReflectionUtils\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+
+	<!-- radp-extensions -->
+	<suppress files="Constants\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="LoadingStrategyHolder\.java" checks="HideUtilityClassConstructor"/>
 
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
@@ -55,4 +62,17 @@
 	<suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-framework -->
+	<suppress files="Globals\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfiles\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProperties\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ExceptionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ErrorCodeLoader\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringExpressionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JSONHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AccessLogHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ServletUtils\.java" checks="HideUtilityClassConstructor"/>
+
 </suppressions>

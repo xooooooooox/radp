@@ -27,12 +27,18 @@ import java.util.stream.IntStream;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.Adaptive;
 import space.x9x.radp.extension.ExtensionLoader;
 
 /**
  * 基于 @Adaptive 的代码生成器.
+ * <p>
+ * Code generator based on @Adaptive annotation. This class is responsible for dynamically
+ * generating Java source code for adaptive extension implementations. It creates classes
+ * that can route method calls to the appropriate extension implementation based on
+ * runtime parameters.
  *
  * @author IO x9x
  * @since 2024-09-24 14:05
@@ -58,9 +64,8 @@ public class AdaptiveClassCodeGenerator {
 
 	private static final String FORMAT_CODE_URL_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"url == null\");\n%s url = arg%d;\n";
 
-	private static final String CLASSNAME_INVOCATION = "org.apache.dubbo.rpc.Invocation"; // TODO
-																							// 2024/9/24:
-																							// 为什么是这个
+	// TODO 2024/9/24: 为什么是这个
+	private static final String CLASSNAME_INVOCATION = "org.apache.dubbo.rpc.Invocation";
 
 	private static final String FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"invocation == null\"); "
 			+ "String methodName = arg%d.getMethodName();\n";

@@ -1,5 +1,4 @@
 
-
 /**
  * 1. 在这里定义 Entity <-> DTO 转换器 2. 命名 {@code IXxxEntityConvertor} 3. 示例 <pre>{@code
  * import org.mapstruct.Mapper;

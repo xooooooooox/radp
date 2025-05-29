@@ -23,7 +23,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 扩展点顺序, 相同扩展点名称根据 {@code Order} 优先排序
+ * 扩展点顺序. 相同扩展点名称根据 {@code Order} 优先排序
+ * <p>
+ * Extension point ordering annotation. When multiple extensions have the same name, they
+ * are prioritized according to their {@code Order} value. Extensions with lower order
+ * values have higher priority and will be processed first.
  *
  * @author IO x9x
  * @since 2024-09-24 23:47

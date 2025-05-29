@@ -21,6 +21,12 @@ import java.util.Comparator;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * 优先级接口，用于定义对象的优先级顺序.
+ * <p>
+ * Priority interface used to define the priority order of objects. This interface extends
+ * Comparable to allow objects to be sorted based on their priority values. Lower priority
+ * values indicate higher precedence in processing order.
+ *
  * @author IO x9x
  * @since 2024-09-24 19:41
  */
@@ -72,17 +78,26 @@ public interface Prioritized extends Comparable<Prioritized> {
 	};
 
 	/**
-	 * 获取当前对象的优先级 默认实现返回NORMAL_PRIORITY，意味着未特殊指定优先级的默认为正常优先级
-	 * @return 当前对象的优先级
+	 * 获取当前对象的优先级. 默认实现返回NORMAL_PRIORITY，意味着未特殊指定优先级的默认为正常优先级.
+	 * <p>
+	 * Gets the priority of the current object. The default implementation returns
+	 * NORMAL_PRIORITY, meaning that objects without a specifically assigned priority will
+	 * have normal priority.
+	 * @return the priority of the current object
 	 */
 	default int getPriority() {
 		return NORMAL_PRIORITY;
 	}
 
 	/**
-	 * 比较当前对象与另一个Prioritized对象的优先级 重写了Comparable接口的compareTo方法，基于优先级进行比较
-	 * @param that 要比较的Prioritized对象
-	 * @return 比较结果，-1表示this优先级较低，0表示优先级相同，1表示this优先级较高
+	 * 比较当前对象与另一个Prioritized对象的优先级. 重写了Comparable接口的compareTo方法，基于优先级进行比较.
+	 * <p>
+	 * Compares the priority of this object with another Prioritized object. This method
+	 * overrides the compareTo method from the Comparable interface and performs
+	 * comparison based on priority values.
+	 * @param that the Prioritized object to compare with
+	 * @return the comparison result: -1 if this object has lower priority, 0 if
+	 * priorities are equal, 1 if this object has higher priority
 	 */
 	@Override
 	default int compareTo(@NotNull Prioritized that) {

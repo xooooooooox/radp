@@ -22,10 +22,15 @@ import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
  * LoadingStrategy 容器
+ * <p>
+ * Loading strategy container. This utility class holds and manages the loading strategies
+ * used by the extension system. It provides methods to load, get, and set the strategies
+ * that determine how extensions are discovered and loaded.
  *
  * @author IO x9x
  * @since 2024-09-24 19:56
@@ -34,7 +39,11 @@ import space.x9x.radp.commons.lang.ArrayUtils;
 public class LoadingStrategyHolder {
 
 	/**
-	 * 策略数组，存储所有加载策略
+	 * 策略数组. 存储所有加载策略
+	 * <p>
+	 * Strategy array. Stores all loading strategies that are currently active in the
+	 * extension system. These strategies determine how and from where extensions are
+	 * loaded.
 	 */
 	public static volatile LoadingStrategy[] strategies = loadLoadingStrategies();
 

@@ -23,7 +23,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 基于 @Wrapper 的扩展点加速器
+ * 基于 @Wrapper 的扩展点加速器.
+ * <p>
+ * Extension loader based on the @Wrapper annotation. This class is responsible for
+ * loading and managing extension implementations that are annotated with @Wrapper, which
+ * allows extensions to wrap or enhance other extensions.
  *
  * @author IO x9x
  * @since 2024-09-24 14:00
@@ -31,6 +35,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WrapperExtensionLoader {
 
+	/**
+	 * Cache for wrapper classes. This set stores all classes that have been identified as
+	 * wrapper classes (classes annotated with @Wrapper) during the extension loading
+	 * process.
+	 */
 	@Getter
 	private Set<Class<?>> cachedWrapperClasses;
 
@@ -40,10 +49,10 @@ public class WrapperExtensionLoader {
 	 * @param clazz the wrapper class to cache
 	 */
 	public void cacheWrapperClass(Class<?> clazz) {
-		if (cachedWrapperClasses == null) {
-			cachedWrapperClasses = new HashSet<>();
+		if (this.cachedWrapperClasses == null) {
+			this.cachedWrapperClasses = new HashSet<>();
 		}
-		cachedWrapperClasses.add(clazz);
+		this.cachedWrapperClasses.add(clazz);
 	}
 
 }

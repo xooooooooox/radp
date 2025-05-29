@@ -17,7 +17,11 @@
 package space.x9x.radp.extension.strategy;
 
 /**
- * 内部扩展点加载策略
+ * 内部扩展点加载策略.
+ * <p>
+ * Internal extension loading strategy. This class implements the LoadingStrategy
+ * interface to provide a strategy for loading internal extensions from a specific
+ * directory. Internal extensions are those that are bundled with the framework itself.
  *
  * @author IO x9x
  * @since 2024-09-24 19:54

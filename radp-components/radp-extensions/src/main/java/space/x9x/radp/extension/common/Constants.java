@@ -21,6 +21,12 @@ import java.util.regex.Pattern;
 import lombok.experimental.UtilityClass;
 
 /**
+ * 常量类，用于存储扩展系统中使用的常量值.
+ * <p>
+ * The Constants class for storing constant values used in the extension system. This
+ * utility class provides common constants that are used throughout the extension
+ * framework to ensure consistency and avoid duplication.
+ *
  * @author IO x9x
  * @since 2024-09-24 19:31
  */

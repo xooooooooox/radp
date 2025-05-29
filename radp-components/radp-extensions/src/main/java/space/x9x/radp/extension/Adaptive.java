@@ -23,7 +23,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 默认扩展实现标记
+ * 默认扩展实现标记.
+ * <p>
+ * Adaptive extension implementation marker. This annotation marks a class or method as an
+ * adaptive implementation of an extension point, which means it can adapt its behavior
+ * based on runtime parameters. It allows the framework to dynamically select the
+ * appropriate implementation based on the context.
  *
  * @author IO x9x
  * @since 2024-09-24 13:57

@@ -21,7 +21,7 @@ import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.SPI;
 
 /**
- * SPI 扩展点实例工厂
+ * SPI 扩展点实例工厂.
  *
  * @author IO x9x
  * @since 2024-09-25 10:30

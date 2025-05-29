@@ -35,8 +35,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
@@ -53,72 +53,104 @@ import space.x9x.radp.extension.wrapper.WrapperComparator;
 import space.x9x.radp.extension.wrapper.WrapperExtensionLoader;
 
 /**
+ * 扩展点加载器，负责加载和管理扩展点实现.
+ * <p>
+ * Extension loader responsible for loading and managing extension implementations. This
+ * class provides the core functionality for the SPI (Service Provider Interface)
+ * mechanism, allowing dynamic loading of extension implementations based on
+ * configuration. It supports features like adaptive extensions, wrapper extensions, and
+ * dependency injection for extensions.
+ *
  * @author IO x9x
  * @since 2024-09-24 11:28
+ * @param <T> the type of extension this loader handles
  */
-@RequiredArgsConstructor
 @Slf4j
 public class ExtensionLoader<T> {
 
 	/**
-	 * 扩展点加载器(延迟加载)
+	 * 扩展点加载器(延迟加载).
+	 * <p>
+	 * extension loaders (lazy loading).
 	 */
 	private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>(64);
 
 	/**
-	 * 扩展点实例(延迟加载)
+	 * 扩展点实例(延迟加载).
+	 * <p>
+	 * extension instances (lazy loading).
 	 */
 	private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>(64);
 
 	/**
-	 * 缓存扩展点名称
+	 * 缓存扩展点名称.
+	 * <p>
+	 * cache for extension names.
 	 */
 	private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<>();
 
 	/**
-	 * 缓存扩展点 Class (重点)
+	 * 缓存扩展点 Class (重点).
+	 * <p>
+	 * cache for extension classes (important).
 	 */
 	private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 
 	/**
-	 * 缓存扩展点实例
+	 * 缓存扩展点实例.
+	 * <p>
+	 * cache for extension instances.
 	 */
 	private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
 
 	/**
-	 * 缓存异常信息
+	 * 缓存异常信息.
+	 * <p>
+	 * cache for exception information.
 	 */
 	private final Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<>();
 
 	/**
-	 * 处理 @Active 扩展点
+	 * 处理 @Active 扩展点.
+	 * <p>
+	 * handles @Active extension points.
 	 */
 	private final ActiveExtensionLoader<T> activeExtensionLoader = new ActiveExtensionLoader<>(this);
 
 	/**
-	 * 处理 @Wrapper 扩展点
+	 * 处理 @Wrapper 扩展点.
+	 * <p>
+	 * handles @Wrapper extension points.
 	 */
 	private final WrapperExtensionLoader wrapperExtensionLoader = new WrapperExtensionLoader();
 
 	/**
-	 * 处理 @Adaptive 扩展点
+	 * 处理 @Adaptive 扩展点.
+	 * <p>
+	 * handles @Adaptive extension points.
 	 */
 	private final AdaptiveExtensionLoader<T> adaptiveExtensionLoader = new AdaptiveExtensionLoader<>(this);
 
 	/**
-	 * 缓存默认的扩展点名称
+	 * 缓存默认的扩展点名称.
+	 * <p>
+	 * cache for the default extension name.
 	 */
 	@Getter
 	private String cachedDefaultName;
 
 	/**
-	 * 扩展点类型
+	 * 扩展点类型.
+	 * <p>
+	 * extension point type.
 	 */
 	@Getter
 	private final Class<?> type;
 
 	/**
-	 * 扩展点实例工厂
+	 * 扩展点实例工厂.
+	 * <p>
+	 * extension instance factory.
 	 */
 	private final ExtensionFactory objectFactory;
 
@@ -128,12 +160,26 @@ public class ExtensionLoader<T> {
 				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
 	}
 
+	public ExtensionLoader(Class<?> type, ExtensionFactory objectFactory) {
+		this.type = type;
+		this.objectFactory = objectFactory;
+	}
+
 	/**
-	 * 获取指定类型的扩展加载器 该方法用于获取一个扩展加载器实例，该实例负责根据指定类型（接口）加载其实现类
+	 * 获取指定类型的扩展加载器. 该方法用于获取一个扩展加载器实例，该实例负责根据指定类型（接口）加载其实现类
 	 * 首先检查指定类型是否正确注解，然后从缓存中获取对应的扩展加载器， 如果没有则创建一个新的扩展加载器并放入缓存中
-	 * @param <T> 扩展点类型参数，表示要加载的扩展点接口类型
-	 * @param type 扩展接口类型，即需要加载扩展的接口类型
-	 * @return 返回该类型的扩展加载器实例，通过该实例可以加载并获取该接口的所有实现类
+	 * <p>
+	 * Gets an extension loader for the specified type. This method is used to get an
+	 * extension loader instance that is responsible for loading implementations of the
+	 * specified type (interface). It first checks if the specified type is properly
+	 * annotated, then retrieves the corresponding extension loader from the cache. If not
+	 * found, it creates a new extension loader and puts it into the cache.
+	 * @param <T> the extension type parameter, representing the extension interface type
+	 * to be loaded
+	 * @param type the extension interface type, i.e., the interface type for which
+	 * extensions need to be loaded
+	 * @return an extension loader instance for the specified type, through which all
+	 * implementations of the interface can be loaded and retrieved
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
@@ -149,10 +195,17 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 检查扩展类型是否符合规范 此方法用于确保传入的扩展类型（接口）符合特定的规则：非空、为接口类型且带有SPI注解
+	 * 检查扩展类型是否符合规范. 此方法用于确保传入的扩展类型（接口）符合特定的规则：非空、为接口类型且带有SPI注解
 	 * 它是为了保证扩展机制的正确性而设计的，对于不符合规范的类型，会抛出异常，阻止其被用作扩展
-	 * @param type 扩展类型，必须是一个带有SPI注解的接口
-	 * @throws IllegalArgumentException 如果扩展类型为null、不是接口或者没有SPI注解，则抛出此异常
+	 * <p>
+	 * Checks if the extension type meets the specification. This method ensures that the
+	 * provided extension type (interface) meets specific rules: non-null, is an interface
+	 * type, and has the SPI annotation. It is designed to ensure the correctness of the
+	 * extension mechanism. For types that do not meet the specification, an exception
+	 * will be thrown to prevent them from being used as extensions.
+	 * @param type the extension type must be an interface with the SPI annotation
+	 * @throws IllegalArgumentException if the extension type is null, not an interface,
+	 * or does not have the SPI annotation
 	 */
 	private static <T> void checkExtensionAnnotation(Class<T> type) {
 		if (type == null) {
@@ -168,21 +221,25 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 获取自适应扩展实例
-	 * @return 自适应扩展的实例
+	 * 获取自适应扩展实例.
+	 * <p>
+	 * gets the adaptive extension instance.
+	 * @return the adaptive extension instance
 	 */
 	public T getAdaptiveExtension() {
-		return adaptiveExtensionLoader.getAdaptiveExtension();
+		return this.adaptiveExtensionLoader.getAdaptiveExtension();
 	}
 
 	/**
-	 * 为给定实例中的字段注入扩展
-	 * @param instance 要注入扩展的实例
-	 * @return 注入扩展后的实例
+	 * 为给定实例中的字段注入扩展.
+	 * <p>
+	 * injects extensions into fields of the given instance.
+	 * @param instance the instance to inject extensions into
+	 * @return the instance after extension injection
 	 */
 	public T injectExtension(T instance) {
 		// 如果对象工厂为空, 则直接返回实例
-		if (objectFactory == null) {
+		if (this.objectFactory == null) {
 			return instance;
 		}
 
@@ -231,7 +288,7 @@ public class ExtensionLoader<T> {
 	}
 
 	private void injectValue(T instance, Method method, Class<?> parameterType, String property) {
-		Object object = objectFactory.getExtension(parameterType, property);
+		Object object = this.objectFactory.getExtension(parameterType, property);
 		if (object != null) {
 			try {
 				method.invoke(instance, object);
@@ -244,20 +301,23 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 获取所有扩展类的映射
-	 * @return 包含所有扩展类的映射，其中键是扩展名，值是对应的类
+	 * 获取所有扩展类的映射.
+	 * <p>
+	 * gets a mapping of all extension classes.
+	 * @return a map containing all extension classes, where the key is the extension name
+	 * and the value is the corresponding class
 	 */
 	public Map<String, Class<?>> getExtensionClasses() {
-		Map<String, Class<?>> classes = cachedClasses.get();
+		Map<String, Class<?>> classes = this.cachedClasses.get();
 		if (classes == null) {
-			synchronized (cachedClasses) {
-				classes = cachedClasses.get();
+			synchronized (this.cachedClasses) {
+				classes = this.cachedClasses.get();
 				if (classes == null) {
 					// 缓存默认的扩展点名称
 					this.cacheDefaultExtensionName();
 					// 遍历 LoadingStrategy, 获取扩展点 classes
 					classes = this.loadExtensionClasses();
-					cachedClasses.set(classes);
+					this.cachedClasses.set(classes);
 				}
 			}
 		}
@@ -265,10 +325,12 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 缓存默认的扩展点名称
+	 * 缓存默认的扩展点名称.
+	 * <p>
+	 * caches the default extension name from the SPI annotation on the extension type.
 	 */
 	private void cacheDefaultExtensionName() {
-		final SPI defaultAnnotation = type.getAnnotation(SPI.class);
+		final SPI defaultAnnotation = this.type.getAnnotation(SPI.class);
 		if (defaultAnnotation == null) {
 			return;
 		}
@@ -276,8 +338,8 @@ public class ExtensionLoader<T> {
 		if (!value.isEmpty()) {
 			String[] names = Constants.COMMA_SPLIT_PATTERN.split(value);
 			if (names.length > 1) {
-				throw new IllegalArgumentException("More than 1 default extension name on extension " + type.getName()
-						+ ": " + Arrays.toString(names));
+				throw new IllegalArgumentException("More than 1 default extension name on extension "
+						+ this.type.getName() + ": " + Arrays.toString(names));
 			}
 			if (names.length == 1) {
 				this.cachedDefaultName = names[0];
@@ -288,14 +350,14 @@ public class ExtensionLoader<T> {
 	private Map<String, Class<?>> loadExtensionClasses() {
 		Map<String, Class<?>> extensionClasses = new HashMap<>();
 		for (LoadingStrategy strategy : LoadingStrategyHolder.strategies) {
-			loadDirectory(extensionClasses, strategy.directory(), type.getName(), strategy.preferExtensionClassLoader(),
-					strategy.overridden(), strategy.excludedPackages());
+			loadDirectory(extensionClasses, strategy.directory(), this.type.getName(),
+					strategy.preferExtensionClassLoader(), strategy.overridden(), strategy.excludedPackages());
 		}
 		return extensionClasses;
 	}
 
 	/**
-	 * 加载指定目录下的扩展类
+	 * 加载指定目录下的扩展类.
 	 * @param extensionClasses 扩展类的映射表，键为扩展类的名称，值为扩展类的Class对象
 	 * @param directory 扩展类文件所在的目录
 	 * @param type 扩展类的类型（通常为接口的名称）
@@ -345,7 +407,7 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 加载扩展类资源
+	 * 加载扩展类资源.
 	 * @param extensionClasses 保存扩展类的Map，键为扩展类的名称，值为扩展类的Class对象
 	 * @param classLoader 类加载器，用于加载类
 	 * @param resourceURL 资源文件的URL，指向包含类信息的配置文件
@@ -383,37 +445,37 @@ public class ExtensionLoader<T> {
 					}
 					catch (Exception ex) {
 						IllegalStateException illegalStateException = new IllegalStateException(
-								"Failed to load extension class (interface: " + type + ", class line: " + line + ") in "
-										+ resourceURL + ", cause: " + ex.getMessage(),
+								"Failed to load extension class (interface: " + this.type + ", class line: " + line
+										+ ") in " + resourceURL + ", cause: " + ex.getMessage(),
 								ex);
-						exceptions.put(line, illegalStateException);
+						this.exceptions.put(line, illegalStateException);
 					}
 				}
 			}
 		}
 		catch (Exception ex) {
-			log.error("Exception occurred when loading extension class (interface: {}, class file: {}) in {}", type,
-					resourceURL, resourceURL, ex);
+			log.error("Exception occurred when loading extension class (interface: {}, class file: {}) in {}",
+					this.type, resourceURL, resourceURL, ex);
 		}
 	}
 
 	private void loadClass(Map<String, Class<?>> extensionClasses, URL resourceURL, Class<?> clazz, String name,
 			boolean overridden) throws NoSuchMethodException {
-		if (!type.isAssignableFrom(clazz)) {
+		if (!this.type.isAssignableFrom(clazz)) {
 			throw new IllegalArgumentException(
-					"Error occurred when loading extension class (interface: " + type + ", class line: "
+					"Error occurred when loading extension class (interface: " + this.type + ", class line: "
 							+ clazz.getName() + "), class " + clazz.getName() + " is not subtype of interface.");
 		}
 
 		// 处理 @Adaptive 注解
 		if (isAdaptiveClass(clazz)) {
-			adaptiveExtensionLoader.cachedAdaptiveClass(clazz, overridden);
+			this.adaptiveExtensionLoader.cachedAdaptiveClass(clazz, overridden);
 			return;
 		}
 
 		// 处理 @Wrapper 注解
 		if (isWrapperClass(clazz)) {
-			wrapperExtensionLoader.cacheWrapperClass(clazz);
+			this.wrapperExtensionLoader.cacheWrapperClass(clazz);
 			return;
 		}
 
@@ -432,7 +494,7 @@ public class ExtensionLoader<T> {
 		// 根据名称缓存扩展类
 		String[] names = Constants.COMMA_SPLIT_PATTERN.split(name);
 		if (ArrayUtils.isNotEmpty(names)) {
-			activeExtensionLoader.cacheActiveClass(clazz, names[0]);
+			this.activeExtensionLoader.cacheActiveClass(clazz, names[0]);
 			for (String n : names) {
 				saveInCacheName(clazz, n);
 				saveInExtensionClass(extensionClasses, clazz, n, overridden);
@@ -441,16 +503,16 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 缓存扩展类名称
+	 * 缓存扩展类名称.
 	 * @param clazz 扩展类类型
 	 * @param name 扩展类名称
 	 */
 	private void saveInCacheName(Class<?> clazz, String name) {
-		cachedNames.computeIfAbsent(clazz, k -> name);
+		this.cachedNames.computeIfAbsent(clazz, k -> name);
 	}
 
 	/**
-	 * 保存扩展类到扩展类映射中 如果存在相同名称的扩展类，默认情况下优先使用已存在的类除非允许覆盖 如果两个类都有Order注解，优先使用Order值较小的类
+	 * 保存扩展类到扩展类映射中. 如果存在相同名称的扩展类，默认情况下优先使用已存在的类除非允许覆盖 如果两个类都有Order注解，优先使用Order值较小的类
 	 * @param extensionClasses 扩展类映射
 	 * @param clazz 待保存的扩展类
 	 * @param name 扩展类名
@@ -473,18 +535,18 @@ public class ExtensionLoader<T> {
 				int srcValue = srcOrder != null ? srcOrder.value() : 0;
 				// 如果当前类的Order值小于已存在类的Order值，则优先使用当前类
 				if (srcValue > destValue) {
-					log.debug("Compare extension {} name {} use {} instead of {}", type.getName(), name,
+					log.debug("Compare extension {} name {} use {} instead of {}", this.type.getName(), name,
 							clazz.getName(), c.getName());
 					extensionClasses.put(name, clazz);
 				}
 				// 否则，优先使用已存在类
-				log.debug("Compare extension {} name {} use {} instead of {}", type.getName(), name, c.getName(),
+				log.debug("Compare extension {} name {} use {} instead of {}", this.type.getName(), name, c.getName(),
 						clazz.getName());
 				return;
 			}
 
 			// 如果到达这里，说明有重复的扩展类名，抛出异常
-			String duplicateMsg = "Duplicate extension " + type.getName() + " name " + name + " on " + c.getName()
+			String duplicateMsg = "Duplicate extension " + this.type.getName() + " name " + name + " on " + c.getName()
 					+ " and " + clazz.getName();
 			log.error(duplicateMsg);
 			throw new IllegalStateException(duplicateMsg);
@@ -575,8 +637,8 @@ public class ExtensionLoader<T> {
 
 			if (wrap) {
 				List<Class<?>> wrapperClassesList = new ArrayList<>();
-				if (wrapperExtensionLoader.getCachedWrapperClasses() != null) {
-					wrapperClassesList.addAll(wrapperExtensionLoader.getCachedWrapperClasses());
+				if (this.wrapperExtensionLoader.getCachedWrapperClasses() != null) {
+					wrapperClassesList.addAll(this.wrapperExtensionLoader.getCachedWrapperClasses());
 					wrapperClassesList.sort(WrapperComparator.COMPARATOR);
 					Collections.reverse(wrapperClassesList);
 				}
@@ -585,7 +647,8 @@ public class ExtensionLoader<T> {
 						Wrapper wrapper = wrapperClass.getAnnotation(Wrapper.class);
 						if (wrapper == null || (ArrayUtils.contains(wrapper.matches(), name)
 								&& !ArrayUtils.contains(wrapper.mismatches(), name))) {
-							instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
+							instance = injectExtension(
+									(T) wrapperClass.getConstructor(this.type).newInstance(instance));
 						}
 					}
 				}
@@ -595,7 +658,7 @@ public class ExtensionLoader<T> {
 			return instance;
 		}
 		catch (Exception ex) {
-			throw new IllegalStateException("Extension instance (name: " + name + ", class: " + type
+			throw new IllegalStateException("Extension instance (name: " + name + ", class: " + this.type
 					+ ") couldn't be instantiated: " + ex.getMessage(), ex);
 		}
 	}
@@ -609,10 +672,10 @@ public class ExtensionLoader<T> {
 	}
 
 	private IllegalStateException findException(String name) {
-		StringBuilder buf = new StringBuilder("No such extension " + type.getName() + " by name " + name);
+		StringBuilder buf = new StringBuilder("No such extension " + this.type.getName() + " by name " + name);
 
 		int i = 1;
-		for (Map.Entry<String, IllegalStateException> entry : exceptions.entrySet()) {
+		for (Map.Entry<String, IllegalStateException> entry : this.exceptions.entrySet()) {
 			if (entry.getKey().toLowerCase().startsWith(name.toLowerCase())) {
 				if (i == 1) {
 					buf.append(", possible causes: ");
@@ -633,11 +696,11 @@ public class ExtensionLoader<T> {
 	}
 
 	private Holder<Object> getOrCreateHolder(String name) {
-		Holder<Object> holder = cachedInstances.get(name);
+		Holder<Object> holder = this.cachedInstances.get(name);
 		if (holder == null) {
 			// 如果持有者为空, 这创建一个对象并放入缓存
-			cachedInstances.putIfAbsent(name, new Holder<>());
-			holder = cachedInstances.get(name);
+			this.cachedInstances.putIfAbsent(name, new Holder<>());
+			holder = this.cachedInstances.get(name);
 		}
 		return holder;
 	}
@@ -652,7 +715,7 @@ public class ExtensionLoader<T> {
 	 * @throws IllegalArgumentException if the extension type or name is null
 	 */
 	public Class<?> getExtensionClass(String name) {
-		if (type == null) {
+		if (this.type == null) {
 			throw new IllegalArgumentException("Extension type == null");
 		}
 		if (name == null) {
@@ -663,8 +726,8 @@ public class ExtensionLoader<T> {
 
 	private String findExtensionName(Class<?> clazz) {
 		String name = clazz.getSimpleName();
-		if (name.endsWith(type.getSimpleName())) {
-			name = name.substring(0, name.length() - type.getSimpleName().length());
+		if (name.endsWith(this.type.getSimpleName())) {
+			name = name.substring(0, name.length() - this.type.getSimpleName().length());
 		}
 		return name.toLowerCase();
 	}
@@ -675,7 +738,7 @@ public class ExtensionLoader<T> {
 
 	private boolean isWrapperClass(Class<?> clazz) {
 		try {
-			clazz.getConstructor(type);
+			clazz.getConstructor(this.type);
 			return true;
 		}
 		catch (NoSuchMethodException ex) {
@@ -696,14 +759,14 @@ public class ExtensionLoader<T> {
 
 	/**
 	 * Gets the extension name for the specified extension class. This method returns the
-	 * name that was used to register the extension class. It ensures that extension
-	 * classes are loaded before attempting to get the name.
+	 * name used to register the extension class. It ensures that extension classes are
+	 * loaded before attempting to get the name.
 	 * @param extensionClass the extension class to get the name for
 	 * @return the name of the extension class, or null if the class is not registered
 	 */
 	public String getExtensionName(Class<?> extensionClass) {
 		this.getExtensionClasses();
-		return cachedNames.get(extensionClass);
+		return this.cachedNames.get(extensionClass);
 	}
 
 	/**
@@ -753,7 +816,7 @@ public class ExtensionLoader<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> getLoadedExtensionInstances() {
 		List<T> instances = new ArrayList<>();
-		cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
+		this.cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
 		return instances;
 	}
 
@@ -766,10 +829,10 @@ public class ExtensionLoader<T> {
 	 */
 	public T getDefaultExtension() {
 		this.getExtensionClasses();
-		if (StringUtils.isBlank(cachedDefaultName)) {
+		if (StringUtils.isBlank(this.cachedDefaultName)) {
 			return null;
 		}
-		return getExtension(cachedDefaultName);
+		return getExtension(this.cachedDefaultName);
 	}
 
 }

@@ -17,19 +17,29 @@
 package space.x9x.radp.extension.util;
 
 /**
- * 通用类型持有者类
+ * 通用类型持有者类.
  * <p>
  * 该类用于存储任意类型的对象，并提供设置和获取该对象的方法 主要应用场景是在需要传递一个类型安全的值容器时使用，特别是当该容器需要在多线程环境中被访问时 使用了
  * volatile 关键字以确保在多线程环境中的可见性
+ * <p>
+ * Generic type holder class. This class is used to store objects of any type and provides
+ * methods to set and get the object. It is primarily used when a type-safe value
+ * container needs to be passed, especially when the container needs to be accessed in a
+ * multi-threaded environment. It uses the volatile keyword to ensure visibility across
+ * threads.
  *
- * @param <T> 任意类型，表示该持有者可以持有任何类型的对象
  * @author IO x9x
  * @since 2024-09-24 11:33
+ * @param <T> any type, indicating that this holder can hold objects of any type
  */
 public class Holder<T> {
 
 	/**
-	 * 存储的值，使用 volatile 关键字修饰以保证多线程间的可见性 volatile 变量不会被线程本地缓存，对 volatile 变量的读写都是直接从主内存中进行
+	 * 存储的值. 使用 volatile 关键字修饰以保证多线程间的可见性 volatile 变量不会被线程本地缓存，对 volatile 变量的读写都是直接从主内存中进行
+	 * <p>
+	 * The stored value. Modified with the volatile keyword to ensure visibility between
+	 * threads. Volatile variables are not cached by thread local memory; reads and writes
+	 * to volatile variables are performed directly from main memory.
 	 */
 	@SuppressWarnings("squid:S3077")
 	private volatile T value;
@@ -40,7 +50,7 @@ public class Holder<T> {
 	 * @return the current value stored in this holder
 	 */
 	public T get() {
-		return value;
+		return this.value;
 	}
 
 	/**

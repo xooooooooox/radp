@@ -23,8 +23,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 这是一个用于标识SPI（Service Provider Interface）的注解。
+ * 这是一个用于标识SPI（Service Provider Interface）的注解.
  * 它的主要作用是标记一个接口为SPI接口，以便于Java运行时环境可以找到并加载相应的实现类。 该注解会被文档工具记录，并在运行时保留，允许通过反射机制获取。
+ * <p>
+ * This is an annotation used to identify a Service Provider Interface (SPI). Its main
+ * purpose is to mark an interface as an SPI interface, allowing the Java runtime
+ * environment to find and load the corresponding implementation classes. This annotation
+ * is documented by documentation tools and retained at runtime, allowing it to be
+ * accessed through reflection.
  *
  * @author IO x9x
  * @since 2024-09-24 11:20

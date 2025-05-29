@@ -49,7 +49,7 @@ public class URL implements Serializable {
 	 * @return the value of the parameter, or null if the parameter does not exist
 	 */
 	public String getParameter(String key) {
-		return parameters.get(key);
+		return this.parameters.get(key);
 	}
 
 }

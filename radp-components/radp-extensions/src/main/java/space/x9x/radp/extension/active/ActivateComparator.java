@@ -21,7 +21,10 @@ import java.util.Comparator;
 import space.x9x.radp.extension.Activate;
 
 /**
- * 激活比较器类，实现了Comparator接口，用于比较具有@Activate注解的对象激活顺序
+ * 激活比较器类. 实现了Comparator接口，用于比较具有@Activate注解的对象激活顺序
+ * <p>
+ * Activation comparator class. Implements the Comparator interface to compare the
+ * activation order of objects with the @Activate annotation.
  *
  * @author IO x9x
  * @since 2024-09-24 12:56
@@ -29,16 +32,25 @@ import space.x9x.radp.extension.Activate;
 public class ActivateComparator implements Comparator<Object> {
 
 	/**
-	 * 静态比较器实例，用于快速获取ActivateComparator实例进行比较
+	 * 静态比较器实例. 用于快速获取ActivateComparator实例进行比较
+	 * <p>
+	 * static comparator instance. used to quickly obtain an ActivateComparator instance
+	 * for comparison.
 	 */
 	public static final Comparator<Object> COMPARATOR = new ActivateComparator();
 
 	/**
-	 * 比较两个对象的激活顺序 如果对象上有@Activate注解，则根据注解中的order值进行比较；否则，默认为0
+	 * 比较两个对象的激活顺序. 如果对象上有@Activate注解，则根据注解中的order值进行比较；否则，默认为0
 	 * 如果对象为null，则按照Java中null的比较规则进行比较
-	 * @param o1 第一个对象
-	 * @param o2 第二个对象
-	 * @return 比较结果，-1表示o1应该在o2之前，1表示o1应该在o2之后，0表示两者相等
+	 * <p>
+	 * compares the activation order of two objects. if the objects have the @Activate
+	 * annotation, they are compared based on the order value in the annotation;
+	 * otherwise, the default is 0. if an object is null, it follows Java's null
+	 * comparison rules.
+	 * @param o1 the first object
+	 * @param o2 the second object
+	 * @return the comparison result, -1 means o1 should come before o2, 1 means o1 should
+	 * come after o2, 0 means they are equal
 	 */
 	@Override
 	public int compare(Object o1, Object o2) {
@@ -59,9 +71,12 @@ public class ActivateComparator implements Comparator<Object> {
 	}
 
 	/**
-	 * 获取对象类上的激活顺序 通过检查对象类是否具有@Activate注解来决定激活顺序
-	 * @param clazz 对象的类
-	 * @return 激活顺序值，如果没有@Activate注解，则为0
+	 * 获取对象类上的激活顺序. 通过检查对象类是否具有@Activate注解来决定激活顺序
+	 * <p>
+	 * gets the activation order on the object class. determines the activation order by
+	 * checking if the object class has the @Activate annotation.
+	 * @param clazz the class of the object
+	 * @return the activation order value, or 0 if there is no @Activate annotation
 	 */
 	private int getOrder(Class<?> clazz) {
 		if (clazz.isAnnotationPresent(Activate.class)) {

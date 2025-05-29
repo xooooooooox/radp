@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.Activate;
@@ -34,8 +35,16 @@ import space.x9x.radp.extension.common.Constants;
 import space.x9x.radp.extension.common.URL;
 
 /**
+ * 激活扩展点加载器，负责加载和管理带有 @Activate 注解的扩展点.
+ * <p>
+ * Active extension loader responsible for loading and managing extensions with
+ * the @Activate annotation. This class provides functionality to activate extensions
+ * based on specified criteria such as groups and values, and to sort them according to
+ * their activation order.
+ *
  * @author IO x9x
  * @since 2024-09-24 12:46
+ * @param <T> the type of extension this loader handles
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -55,10 +64,17 @@ public class ActiveExtensionLoader<T> {
 	public static final String DEFAULT_KEY = "default";
 
 	/**
-	 * 缓存激活的扩展点
+	 * 缓存激活的扩展点.
+	 * <p>
+	 * cache for activated extensions.
 	 */
 	private final Map<String, Object> cachedActives = new ConcurrentHashMap<>();
 
+	/**
+	 * The extension loader instance that this active extension loader works with. This
+	 * field holds a reference to the parent extension loader that manages all extensions
+	 * of type T.
+	 */
 	private final ExtensionLoader<T> extensionLoader;
 
 	/**
@@ -71,7 +87,7 @@ public class ActiveExtensionLoader<T> {
 	public void cacheActiveClass(Class<?> clazz, String name) {
 		Activate activate = clazz.getAnnotation(Activate.class);
 		if (activate != null) {
-			cachedActives.put(name, activate);
+			this.cachedActives.put(name, activate);
 		}
 	}
 
@@ -94,8 +110,8 @@ public class ActiveExtensionLoader<T> {
 		Set<String> loadedNames = new HashSet<>();
 		Set<String> names = CollectionUtils.ofSet(values);
 		if (!names.contains(REMOVE_VALUE_PREFIX + DEFAULT_KEY)) {
-			extensionLoader.getExtensionClasses();
-			for (Map.Entry<String, Object> entry : cachedActives.entrySet()) {
+			this.extensionLoader.getExtensionClasses();
+			for (Map.Entry<String, Object> entry : this.cachedActives.entrySet()) {
 				String name = entry.getKey();
 				Object activate = entry.getValue();
 				String[] activateGroup;
@@ -110,8 +126,8 @@ public class ActiveExtensionLoader<T> {
 				if (isMatchGroup(group, activateGroup) && !names.contains(name)
 						&& !names.contains(REMOVE_VALUE_PREFIX + name) && isActive(activateValue, url)
 						&& !loadedNames.contains(name)) {
-					activateExtensionsMap.put(extensionLoader.getExtensionClass(name),
-							extensionLoader.getExtension(name));
+					activateExtensionsMap.put(this.extensionLoader.getExtensionClass(name),
+							this.extensionLoader.getExtension(name));
 					loadedNames.add(name);
 				}
 			}
@@ -130,13 +146,13 @@ public class ActiveExtensionLoader<T> {
 						}
 					}
 					else {
-						loadedExtensions.add(extensionLoader.getExtension(name));
+						loadedExtensions.add(this.extensionLoader.getExtension(name));
 					}
 					loadedNames.add(name);
 				}
 			}
 			else {
-				String simpleName = extensionLoader.getExtensionClass(name).getSimpleName();
+				String simpleName = this.extensionLoader.getExtensionClass(name).getSimpleName();
 				log.warn(
 						"Catch duplicated filter, ExtensionLoader will ignore one of them. Please check. Filter Name: {}, Ignored Class Name: {}",
 						name, simpleName);

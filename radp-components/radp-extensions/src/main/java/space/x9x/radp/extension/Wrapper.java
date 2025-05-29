@@ -20,7 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 扩展点包装器
+ * 扩展点包装器.
  * <p>
  * Extension point wrapper annotation. This annotation is used to mark classes that wrap
  * or extend other extension points. It allows specifying which extension points should be

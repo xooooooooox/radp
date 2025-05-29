@@ -23,7 +23,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 激活扩展点
+ * 激活扩展点.
+ * <p>
+ * Activation annotation for extension points. This annotation is used to mark extensions
+ * that should be activated under specific conditions, such as belonging to certain groups
+ * or when specific configuration parameters are present.
  *
  * @author IO x9x
  * @since 2024-09-24 12:49

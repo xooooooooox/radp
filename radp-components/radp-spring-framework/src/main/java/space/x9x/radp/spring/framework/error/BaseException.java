@@ -19,6 +19,7 @@ package space.x9x.radp.spring.framework.error;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
+
 import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 /**
@@ -37,19 +38,19 @@ public class BaseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The error code that identifies this exception type
+	 * The error code that identifies this exception type.
 	 */
 	private final String errCode;
 
 	/**
-	 * The human-readable error message
+	 * The human-readable error message.
 	 */
 	private final String errMessage;
 
 	/**
-	 * Optional parameters used for message formatting or additional context
+	 * Optional parameters used for message formatting or additional context.
 	 */
-	private Object[] params;
+	private final Object[] params;
 
 	/**
 	 * Constructs a new BaseException with the specified error code and throwable cause.
@@ -66,6 +67,7 @@ public class BaseException extends RuntimeException {
 		// exception message
 		this.errCode = errCode;
 		this.errMessage = ErrorCodeLoader.getErrMessage(errCode);
+		this.params = null;
 	}
 
 	/**
@@ -122,6 +124,7 @@ public class BaseException extends RuntimeException {
 		super(errorCode.getMessage());
 		this.errCode = errorCode.getCode();
 		this.errMessage = errorCode.getMessage();
+		this.params = null;
 	}
 
 	/**
@@ -156,6 +159,7 @@ public class BaseException extends RuntimeException {
 		super(MessageFormatter.format(errorCode.getMessage(), t.getMessage()).getMessage());
 		this.errCode = errorCode.getCode();
 		this.errMessage = MessageFormatter.format(errorCode.getMessage(), t.getMessage()).getMessage();
+		this.params = null;
 	}
 
 }

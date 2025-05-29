@@ -45,6 +45,12 @@ import space.x9x.radp.swagger3.spring.boot.env.DefaultSwaggerCustomizer;
 import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
 
 /**
+ * Autoconfiguration for Swagger/OpenAPI documentation in Spring Boot applications. This
+ * class provides automatic configuration for Swagger documentation based on application
+ * properties. It creates and configures the necessary beans for generating OpenAPI
+ * documentation, including customizers that apply the configured properties to the
+ * OpenAPI specification.
+ *
  * @author IO x9x
  * @since 2024-09-30 16:40
  */
@@ -76,8 +82,18 @@ public class RadpSwaggerAutoConfiguration {
 	 */
 	public static final String MSG_STARTED_SWAGGER = "Started Swagger in {} ms";
 
+	/**
+	 * The SwaggerProperties containing configuration for OpenAPI documentation. This
+	 * field stores the properties that define how the Swagger documentation is generated,
+	 * including title, description, and contact information.
+	 */
 	private final SwaggerProperties properties;
 
+	/**
+	 * The name of the application, injected from Spring properties. This field is used as
+	 * the default title for the Swagger documentation if no title is explicitly set in
+	 * the properties.
+	 */
 	@Value(SpringProperties.NAME_PATTERN)
 	private String applicationName;
 
@@ -91,7 +107,7 @@ public class RadpSwaggerAutoConfiguration {
 	public RadpSwaggerAutoConfiguration(SwaggerProperties properties) {
 		this.properties = properties;
 		if (ObjectUtils.isEmpty(properties.getTitle())) {
-			properties.setTitle(applicationName);
+			properties.setTitle(this.applicationName);
 		}
 	}
 
@@ -103,7 +119,7 @@ public class RadpSwaggerAutoConfiguration {
 	 */
 	@Bean
 	public DefaultSwaggerCustomizer swaggerCustomizer() {
-		return new DefaultSwaggerCustomizer(properties);
+		return new DefaultSwaggerCustomizer(this.properties);
 	}
 
 	/**

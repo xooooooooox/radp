@@ -68,6 +68,12 @@ public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 		this.properties = properties;
 	}
 
+	/**
+	 * Customizes the OpenAPI documentation with information from SwaggerProperties. This
+	 * method configures the Info object with title, description, version, contact
+	 * information, and license details from the properties.
+	 * @param openAPI the OpenAPI instance to customize
+	 */
 	@Override
 	public void customize(OpenAPI openAPI) {
 		Info info = new Info().title(this.properties.getTitle())
@@ -81,6 +87,10 @@ public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 		openAPI.info(info);
 	}
 
+	/**
+	 * Returns the order value of this customizer.
+	 * @return the order value that determines the execution priority of this customizer
+	 */
 	@Override
 	public int getOrder() {
 		return this.order;

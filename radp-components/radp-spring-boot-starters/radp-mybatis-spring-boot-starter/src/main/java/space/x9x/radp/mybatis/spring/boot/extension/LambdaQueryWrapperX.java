@@ -227,30 +227,64 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 
 	// ========== Overridden Parent Methods for Method Chaining ==========
 
+	/**
+	 * Overridden method to add an equality condition to the query. This override ensures
+	 * proper return type for method chaining.
+	 * @param condition whether to add this condition
+	 * @param column the entity field to compare
+	 * @param val the value to compare with
+	 * @return this wrapper instance for method chaining
+	 */
 	@Override
 	public LambdaQueryWrapperX<T> eq(boolean condition, SFunction<T, ?> column, Object val) {
 		super.eq(condition, column, val);
 		return this;
 	}
 
+	/**
+	 * Overridden method to add an equality condition to the query. This override ensures
+	 * proper return type for method chaining.
+	 * @param column the entity field to compare
+	 * @param val the value to compare with
+	 * @return this wrapper instance for method chaining
+	 */
 	@Override
 	public LambdaQueryWrapperX<T> eq(SFunction<T, ?> column, Object val) {
 		super.eq(column, val);
 		return this;
 	}
 
+	/**
+	 * Overridden method to add a descending order by clause to the query. This override
+	 * ensures proper return type for method chaining.
+	 * @param column the entity field to order by
+	 * @return this wrapper instance for method chaining
+	 */
 	@Override
 	public LambdaQueryWrapperX<T> orderByDesc(SFunction<T, ?> column) {
 		super.orderByDesc(true, column);
 		return this;
 	}
 
+	/**
+	 * Overridden method to append a custom SQL fragment at the end of the query. This
+	 * override ensures proper return type for method chaining.
+	 * @param lastSql the SQL fragment to append
+	 * @return this wrapper instance for method chaining
+	 */
 	@Override
 	public LambdaQueryWrapperX<T> last(String lastSql) {
 		super.last(lastSql);
 		return this;
 	}
 
+	/**
+	 * Overridden method to add an IN condition to the query. This override ensures proper
+	 * return type for method chaining.
+	 * @param column the entity field to compare
+	 * @param coll the collection of values to compare with
+	 * @return this wrapper instance for method chaining
+	 */
 	@Override
 	public LambdaQueryWrapperX<T> in(SFunction<T, ?> column, Collection<?> coll) {
 		super.in(column, coll);

@@ -113,10 +113,10 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 			return PageResult.build(totalList, (long) totalList.size());
 		}
 
-		// MyBatis Plus Join query
+		// Execute MyBatis Plus Join query
 		IPage<D> mpPage = MybatisUtils.buildPage(pageParam);
 		mpPage = selectJoinPage(mpPage, clazz, lambdaWrapper);
-		// Convert and return
+		// Convert and return the result
 		return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
 	}
 
@@ -135,7 +135,7 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 			MPJBaseJoin<T> joinQueryWrapper) {
 		IPage<DTO> mpPage = MybatisUtils.buildPage(pageParam);
 		selectJoinPage(mpPage, resultTypeClass, joinQueryWrapper);
-		// Convert and return
+		// Convert and return the result
 		return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
 	}
 

@@ -29,13 +29,13 @@ import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
 import space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper;
 
 /**
- * a method interceptor that logs method access information for monitoring and debugging
- * purposes. this interceptor captures method execution details including execution time,
+ * A method interceptor that logs method access information for monitoring and debugging
+ * purposes. This interceptor captures method execution details including execution time,
  * parameters, return values, and exceptions.
  *
  * <p>
- * the interceptor uses sampling to control the volume of logs generated and can be
- * configured to highlight slow method executions. it integrates with MDC (Mapped
+ * The interceptor uses sampling to control the volume of logs generated and can be
+ * configured to highlight slow method executions. It integrates with MDC (Mapped
  * Diagnostic Context) for correlating log entries across threads.
  *
  * @author IO x9x
@@ -45,17 +45,18 @@ import space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper;
 public class AccessLogInterceptor implements MethodInterceptor {
 
 	/**
-	 * the configuration for access logging behavior.
+	 * The configuration for access logging behavior. This holds settings that control
+	 * what and how information is logged.
 	 */
 	private final AccessLogConfig accessLogConfig;
 
 	/**
-	 * intercepts method invocations to log access information. this method captures
+	 * Intercepts method invocations to log access information. This method captures
 	 * execution time, parameters, return values, and exceptions if they occur.
 	 *
 	 * <p>
-	 * the method uses sampling based on the configured sample rate to determine whether
-	 * to log a particular invocation. it also detects and highlights slow method
+	 * The method uses sampling based on the configured sample rate to determine whether
+	 * to log a particular invocation. It also detects and highlights slow method
 	 * executions based on the configured threshold.
 	 * @param invocation the method invocation being intercepted
 	 * @return the result of the method invocation

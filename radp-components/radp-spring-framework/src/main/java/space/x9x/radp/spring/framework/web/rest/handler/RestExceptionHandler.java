@@ -16,7 +16,12 @@
 
 package space.x9x.radp.spring.framework.web.rest.handler;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,22 +34,28 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
-import space.x9x.radp.spring.framework.error.*;
+import space.x9x.radp.spring.framework.error.BaseException;
+import space.x9x.radp.spring.framework.error.ClientException;
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
+import space.x9x.radp.spring.framework.error.ServerException;
+import space.x9x.radp.spring.framework.error.ThirdServiceException;
 import space.x9x.radp.spring.framework.error.http.BadRequestException;
 import space.x9x.radp.spring.framework.error.http.ForbiddenException;
 import space.x9x.radp.spring.framework.error.http.UnauthorizedException;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Set;
-
 /**
+ * Global exception handler for REST controllers. This class provides centralized
+ * exception handling across all REST controllers in the application, converting various
+ * exceptions into appropriate HTTP responses with standardized error formats.
+ *
  * @author IO x9x
  * @since 2024-09-26 23:52
  */
@@ -52,6 +63,10 @@ import java.util.Set;
 @Slf4j
 public class RestExceptionHandler {
 
+	/**
+	 * Log message template used when catching exceptions in the handler methods. The
+	 * placeholder {} will be replaced with the exception message.
+	 */
 	private static final String EXCEPTION_HANDLER_CATCH = "@RestControllerAdvice catch exception: {}";
 
 	/**

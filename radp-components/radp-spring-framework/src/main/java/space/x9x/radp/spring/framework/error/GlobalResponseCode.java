@@ -20,7 +20,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
- * 全局响应码
+ * 全局响应码.
  * <p>
  * 使用 0-999 错误码段，和 HTTP 响应状态码 (opens new window)对应 <br>
  * 对于项目组自定义错误码, 建议单独定义一个枚举类 {@code xx/types/enum/ResponseCode},且使用的错误码不要与这里的全局错误码重复 <br>
@@ -53,7 +53,7 @@ public enum GlobalResponseCode {
 	 */
 	UNAUTHORIZED("401"),
 	/**
-	 * Forbidden (HTTP 403). The server understood the request but refuses to authorize
+	 * Forbidden (HTTP 403). The server understood the request but refused to authorize
 	 * it. Unlike 401 Unauthorized, re-authenticating will make no difference.
 	 */
 	FORBIDDEN("403"),
@@ -107,21 +107,25 @@ public enum GlobalResponseCode {
 	SERVICE_UNAVAILABLE("503"),
 	/**
 	 * Gateway Timeout (HTTP 504). The server, while acting as a gateway or proxy, did not
-	 * receive a timely response from an upstream server it needed to access in order to
-	 * complete the request.
+	 * receive a timely response from an upstream server it needed to access to complete
+	 * the request.
 	 */
 	GATEWAY_TIMEOUT("504"),
 
 	/**
-	 * Unknown Error (999). A generic error code used when the specific error condition is
-	 * unknown or doesn't fit into other categories.
+	 * Unknown Error (999). A generic error code is used when the specific error condition
+	 * is unknown or doesn't fit into other categories.
 	 */
 	UNKNOWN("999");
 
+	/**
+	 * The error code object associated with this response code. Contains both the code
+	 * and message for the error.
+	 */
 	private final ErrorCode errorCode;
 
 	/**
-	 * 构造函数，用于创建带有指定错误代码和消息的GlobalResponseCode对象
+	 * 用于创建带有指定错误代码和消息的GlobalResponseCode对象.
 	 * @param code 错误代码字符串
 	 * @param message 错误消息字符串
 	 */
@@ -130,7 +134,7 @@ public enum GlobalResponseCode {
 	}
 
 	/**
-	 * 构造函数，用于创建带有参数化消息的GlobalResponseCode对象
+	 * 用于创建带有参数化消息的GlobalResponseCode对象.
 	 * @param errCode 错误代码，通过资源文件加载对应的错误消息
 	 * @param params 可变参数数组，用于格式化错误消息
 	 */
@@ -144,7 +148,7 @@ public enum GlobalResponseCode {
 	 * @return the string representation of the response code
 	 */
 	public String code() {
-		return errorCode.getCode();
+		return this.errorCode.getCode();
 	}
 
 	/**
@@ -153,7 +157,7 @@ public enum GlobalResponseCode {
 	 * @return the message describing this response code
 	 */
 	public String message() {
-		return errorCode.getMessage();
+		return this.errorCode.getMessage();
 	}
 
 }

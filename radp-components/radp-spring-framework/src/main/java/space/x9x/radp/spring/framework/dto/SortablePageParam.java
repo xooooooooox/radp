@@ -16,11 +16,11 @@
 
 package space.x9x.radp.spring.framework.dto;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.List;
 
 /**
  * Extended pagination parameter object that adds sorting capabilities. This class extends
@@ -37,7 +37,7 @@ public class SortablePageParam extends PageParam {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * List of fields to sort by, with their respective sort directions
+	 * List of fields to sort by, with their respective sort directions.
 	 */
 	private List<SortingField> sortingFields;
 

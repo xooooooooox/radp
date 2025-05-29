@@ -17,6 +17,7 @@
 package space.x9x.radp.spring.framework.error.http;
 
 import lombok.EqualsAndHashCode;
+
 import space.x9x.radp.spring.framework.error.BaseException;
 
 /**

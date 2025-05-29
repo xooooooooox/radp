@@ -16,20 +16,27 @@
 
 package space.x9x.radp.spring.framework.dto;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
-import java.util.Collection;
-import java.util.Collections;
-
 /**
+ * A specialized Result class that contains a collection of data items. This class extends
+ * the base Result class to provide support for returning multiple items in an API
+ * response. It includes methods for building successful and failure responses with
+ * collections of data.
+ *
  * @author IO x9x
  * @since 2025-03-18 13:16
+ * @param <T> the type of elements in the result collection
  */
 @SuperBuilder(builderMethodName = "multiResultBuilder")
 @NoArgsConstructor
@@ -42,7 +49,7 @@ public class MultiResult<T> extends Result {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The collection of data items returned in the response
+	 * The collection of data items returned in the response.
 	 */
 	private Collection<T> data;
 

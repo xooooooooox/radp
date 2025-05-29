@@ -19,8 +19,30 @@ package space.x9x.radp.spring.framework.logging;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Constants for MDC (Mapped Diagnostic Context) keys used in logging. This utility class
+ * defines standard key names for storing contextual information in the logging MDC, which
+ * allows for enriched log entries with application, request, and method execution
+ * details.
+ *
+ * <p>
+ * MDC is a feature provided by logging frameworks like SLF4J and Log4j that allows
+ * storing diagnostic context data by thread. This data can then be included in log
+ * messages to provide additional context for troubleshooting and monitoring.
+ *
+ * <p>
+ * The constants defined in this class are used by various logging components in the
+ * framework, including:
+ * <ul>
+ * <li>Bootstrap logging for application startup information</li>
+ * <li>Access logging for HTTP request details</li>
+ * <li>Method execution logging for performance monitoring</li>
+ * </ul>
+ *
  * @author IO x9x
  * @since 2024-09-28 21:08
+ * @see org.slf4j.MDC
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter
+ * @see space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper
  */
 @UtilityClass
 public class MdcConstants {
@@ -86,7 +108,7 @@ public class MdcConstants {
 	public static final String REMOTE_ADDR = "remoteAddr";
 
 	/**
-	 * MDC key for a local address. Used to record the local IP address that received the
+	 * MDC key for local address. Used to record the local IP address that received the
 	 * request that generated the log entry.
 	 */
 	public static final String LOCAL_ADDR = "localAddr";

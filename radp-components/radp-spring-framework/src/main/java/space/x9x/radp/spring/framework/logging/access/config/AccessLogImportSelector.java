@@ -16,19 +16,29 @@
 
 package space.x9x.radp.spring.framework.logging.access.config;
 
-import space.x9x.radp.spring.framework.logging.EnableAccessLog;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
 
+import space.x9x.radp.spring.framework.logging.EnableAccessLog;
+
 /**
- * 访问日志切面装配选择器
+ * Import selector for access log aspect configuration. This class determines which
+ * configuration classes to import based on the advice mode specified in the
+ * EnableAccessLog annotation.
  *
  * @author IO x9x
  * @since 2024-09-30 09:56
  */
 public class AccessLogImportSelector extends AdviceModeImportSelector<EnableAccessLog> {
 
+	/**
+	 * Selects which configuration classes to import based on the specified advice mode.
+	 * For PROXY mode, imports both AutoProxyRegistrar and AccessLogConfiguration. For
+	 * ASPECTJ mode, imports only AccessLogConfiguration.
+	 * @param adviceMode the advice mode specified in the EnableAccessLog annotation
+	 * @return an array of fully qualified class names to import
+	 */
 	@Override
 	protected String[] selectImports(AdviceMode adviceMode) {
 		switch (adviceMode) {

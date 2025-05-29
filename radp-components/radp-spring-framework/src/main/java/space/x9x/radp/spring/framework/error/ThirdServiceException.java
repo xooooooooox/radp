@@ -20,6 +20,11 @@ import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
+ * Exception class for errors that occur when interacting with third-party services. This
+ * exception represents failures in external service calls, API integrations, or other
+ * interactions with systems outside the application's control. It extends BaseException
+ * to provide standardized error handling.
+ *
  * @author IO x9x
  * @since 2024-09-26 23:49
  */

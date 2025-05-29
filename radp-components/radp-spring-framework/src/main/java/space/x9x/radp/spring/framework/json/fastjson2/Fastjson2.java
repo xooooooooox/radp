@@ -16,17 +16,23 @@
 
 package space.x9x.radp.spring.framework.json.fastjson2;
 
+import java.util.List;
+import java.util.Set;
+
 import com.alibaba.fastjson2.filter.Filter;
 import com.google.common.collect.Lists;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.json.JSON;
 
-import java.util.List;
-import java.util.Set;
-
 /**
+ * Implementation of the JSON interface using the Alibaba Fastjson2 library. This class
+ * provides methods for serializing objects to JSON strings and deserializing JSON strings
+ * back to objects using Fastjson2, which is the next generation of Fastjson with improved
+ * performance and features.
+ *
  * @author IO x9x
  * @since 2024-09-26 13:21
  */
@@ -53,7 +59,7 @@ public class Fastjson2 implements JSON {
 		ExtensionLoader<Fastjson2Filter> extensionLoader = ExtensionLoader.getExtensionLoader(Fastjson2Filter.class);
 		Set<String> extensions = extensionLoader.getSupportedExtensions();
 		if (CollectionUtils.isEmpty(extensions)) {
-			return null;
+			return new Filter[0];
 		}
 		List<Filter> filters = Lists.newArrayList();
 		for (String extension : extensions) {

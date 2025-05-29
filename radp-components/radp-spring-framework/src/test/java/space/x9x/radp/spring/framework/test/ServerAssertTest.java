@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import space.x9x.radp.commons.lang.format.MessageFormatter;
 import space.x9x.radp.spring.framework.type.exception.asserts.ServerAssert;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ServerAssertTest {
 
@@ -30,13 +30,12 @@ class ServerAssertTest {
 		String messagePattern = "hello {}";
 		Object[] params = { "world" };
 		String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
-		assertEquals("hello world", message);
-
+		assertThat(message).isEqualTo("hello world");
 		try {
 			ServerAssert.notNull(null, "10000", "world");
 		}
 		catch (Exception e) {
-			assertEquals("hello world", e.getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello world");
 		}
 	}
 

@@ -16,23 +16,29 @@
 
 package space.x9x.radp.spring.framework.web.util;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
 /**
- * HttpServletResponse 包装器
+ * HttpServletResponse 包装器.
  *
  * @author IO x9x
  * @since 2024-09-27 20:55
  */
 public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
+	/**
+	 * The output stream that captures the response content.
+	 */
 	private final ByteArrayOutputStream outputStream;
 
+	/**
+	 * The writer that writes to the output stream.
+	 */
 	private final PrintWriter writer;
 
 	/**
@@ -42,13 +48,13 @@ public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper
 	 */
 	public CustomHttpServletResponseWrapper(HttpServletResponse response) {
 		super(response);
-		outputStream = new ByteArrayOutputStream();
-		writer = new PrintWriter(outputStream, true);
+		this.outputStream = new ByteArrayOutputStream();
+		this.writer = new PrintWriter(this.outputStream, true);
 	}
 
 	@Override
-	public PrintWriter getWriter() throws IOException {
-		return writer;
+	public PrintWriter getWriter() {
+		return this.writer;
 	}
 
 	/**
@@ -57,7 +63,7 @@ public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper
 	 * @return the content of the response as a String
 	 */
 	public String getContent() {
-		return new String(outputStream.toByteArray(), StandardCharsets.UTF_8);
+		return new String(this.outputStream.toByteArray(), StandardCharsets.UTF_8);
 	}
 
 }

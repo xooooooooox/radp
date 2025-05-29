@@ -16,10 +16,13 @@
 
 package space.x9x.radp.spring.framework.expression;
 
-import cn.hutool.extra.spring.SpringUtil;
-import lombok.experimental.UtilityClass;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -27,18 +30,22 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+
+import cn.hutool.extra.spring.SpringUtil;
+import lombok.experimental.UtilityClass;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.collections.MapUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 
-import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
+ * Utility class for working with Spring Expression Language (SpEL). Provides methods to
+ * parse and evaluate SpEL expressions in different contexts, including within AOP join
+ * points and from the Spring bean factory.
+ *
  * @author IO x9x
  * @since 2024-10-23 14:40
  */
@@ -46,12 +53,12 @@ import java.util.Map;
 public class SpringExpressionUtils {
 
 	/**
-	 * SpEL 表达式解析器
+	 * SpEL 表达式解析器.
 	 */
 	private static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
 
 	/**
-	 * 参数名发现器
+	 * 参数名发现器.
 	 */
 	private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
@@ -66,9 +73,9 @@ public class SpringExpressionUtils {
 	}
 
 	/**
-	 * 从切面中, 批量解析 SpEL 表达式的结果
+	 * 从切面中, 批量解析 SpEL 表达式的结果.
 	 * @param joinPoint 切面点
-	 * @param expressionStringList SpEL 表达式数组
+	 * @param expressionStringList spEL 表达式数组
 	 * @return 解析结果. key-表达式, value-表达式结果
 	 */
 	public static Map<String, Object> parseExpression(JoinPoint joinPoint, List<String> expressionStringList) {
@@ -88,7 +95,7 @@ public class SpringExpressionUtils {
 		// 给上下文赋值
 		if (ArrayUtils.isNotEmpty(parameterNames)) {
 			Object[] args = joinPoint.getArgs();
-			for (int i = 0; i < parameterNames.length; i++) {
+			for (int i = 0; i < Objects.requireNonNull(parameterNames).length; i++) {
 				context.setVariable(parameterNames[i], args[i]);
 			}
 		}
@@ -104,8 +111,8 @@ public class SpringExpressionUtils {
 	}
 
 	/**
-	 * 从 Spring Bean 工厂, 解析 SpEL 表达式的结果
-	 * @param expressionString SpEL 表达式
+	 * 从 Spring Bean 工厂, 解析 SpEL 表达式的结果.
+	 * @param expressionString spEL 表达式
 	 * @return 执行结果
 	 */
 	public static Object parseExpression(String expressionString) {

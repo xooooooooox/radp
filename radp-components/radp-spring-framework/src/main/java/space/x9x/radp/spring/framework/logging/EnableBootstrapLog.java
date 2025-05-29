@@ -16,14 +16,48 @@
 
 package space.x9x.radp.spring.framework.logging;
 
-import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.springframework.context.annotation.Import;
 
-import java.lang.annotation.*;
+import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
 
 /**
+ * Annotation that enables bootstrap logging for a Spring application. When applied to a
+ * configuration class, this annotation sets up the necessary infrastructure for logging
+ * application context information during startup and HTTP request processing.
+ *
+ * <p>
+ * Bootstrap logging adds contextual information to logs, such as:
+ * <ul>
+ * <li>Application name</li>
+ * <li>Active Spring profiles</li>
+ * <li>Request URI</li>
+ * <li>Remote user and IP address</li>
+ * <li>Local server address</li>
+ * </ul>
+ *
+ * <p>
+ * This information is added to the MDC (Mapped Diagnostic Context) and is available to
+ * all logging statements, making it easier to trace and debug application behavior.
+ *
+ * <p>
+ * Example usage: <pre>
+ * &#64;Configuration
+ * &#64;EnableBootstrapLog
+ * public class AppConfig {
+ *     // configuration details
+ * }
+ * </pre>
+ *
  * @author IO x9x
  * @since 2024-09-30 09:53
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter
  */
 @Import(BootstrapLogConfiguration.class)
 @Documented

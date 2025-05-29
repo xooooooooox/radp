@@ -17,6 +17,7 @@
 package space.x9x.radp.spring.framework.dto.extension;
 
 import org.jetbrains.annotations.PropertyKey;
+
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.SPI;
 import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
@@ -24,14 +25,19 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 
 /**
+ * Interface for building standardized API responses. This interface defines methods for
+ * creating success and failure responses with various parameters. It supports extension
+ * through the SPI mechanism and can be integrated with Spring's application context.
+ *
  * @author IO x9x
  * @since 2024-09-26 16:11
+ * @param <T> the type of response object this builder creates
  */
 @SPI("response")
 public interface ResponseBuilder<T> {
 
 	/**
-	 * Factory method to obtain a ResponseBuilder instance. First tries to get a bean from
+	 * Factory method to get a ResponseBuilder instance. First tries to get a bean from
 	 * the application context, then falls back to the extension loader.
 	 * @return a ResponseBuilder instance
 	 */

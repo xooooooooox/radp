@@ -16,7 +16,6 @@
 
 package space.x9x.radp.spring.framework.logging.access.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -25,11 +24,19 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
+
+import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.spring.framework.logging.EnableAccessLog;
 import space.x9x.radp.spring.framework.logging.access.aop.AccessLogAdvisor;
 import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 
 /**
+ * Configuration class for access logging functionality. This class sets up the necessary
+ * beans for aspect-oriented access logging, including the interceptor and pointcut
+ * advisor. It processes the settings from the EnableAccessLog annotation to configure the
+ * logging behavior.
+ *
  * @author IO x9x
  * @since 2024-09-30 09:50
  */
@@ -38,10 +45,24 @@ import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
 @Slf4j
 public class AccessLogConfiguration implements ImportAware {
 
+	/**
+	 * Error message used when the EnableAccessLog annotation is not found on the
+	 * importing class.
+	 */
 	private static final String IMPORTING_META_NOT_FOUND = "@EnableAccessLog is not present on importing class";
 
+	/**
+	 * Attributes extracted from the EnableAccessLog annotation on the importing class.
+	 * These attributes are used to configure the access logging behavior.
+	 */
 	private AnnotationAttributes annotationAttributes;
 
+	/**
+	 * Processes the import metadata to extract EnableAccessLog annotation attributes.
+	 * This method is called by Spring during the configuration import process. It
+	 * extracts and stores the annotation attributes for later use in bean configuration.
+	 * @param importMetadata metadata about the importing class, containing annotations
+	 */
 	@Override
 	public void setImportMetadata(AnnotationMetadata importMetadata) {
 		this.annotationAttributes = AnnotationAttributes
@@ -76,16 +97,24 @@ public class AccessLogConfiguration implements ImportAware {
 		String expression = getAccessLogConfig(configs).getExpression();
 		accessLogAdvisor.setExpression(expression);
 		accessLogAdvisor.setAdvice(interceptor);
-		if (annotationAttributes != null) {
-			accessLogAdvisor.setOrder(annotationAttributes.getNumber("order"));
+		if (this.annotationAttributes != null) {
+			accessLogAdvisor.setOrder(this.annotationAttributes.getNumber("order"));
 		}
 		return accessLogAdvisor;
 	}
 
+	/**
+	 * Retrieves or creates an AccessLogConfig instance. If a unique AccessLogConfig bean
+	 * is available in the application context, it will be used. Otherwise, a new instance
+	 * is created with the expression from the annotation attributes.
+	 * @param accessLogConfigs provider for AccessLogConfig instances from the application
+	 * context
+	 * @return the AccessLogConfig instance to use for configuring access logging
+	 */
 	private AccessLogConfig getAccessLogConfig(ObjectProvider<AccessLogConfig> accessLogConfigs) {
 		return accessLogConfigs.getIfUnique(() -> {
 			AccessLogConfig config = new AccessLogConfig();
-			config.setExpression(annotationAttributes.getString("expression"));
+			config.setExpression(this.annotationAttributes.getString("expression"));
 			return config;
 		});
 	}

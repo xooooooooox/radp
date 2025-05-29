@@ -17,9 +17,14 @@
 package space.x9x.radp.spring.framework.json.fastjson;
 
 import com.alibaba.fastjson.serializer.SerializeFilter;
+
 import space.x9x.radp.extension.SPI;
 
 /**
+ * Interface for Fastjson filters that can be used to customize JSON serialization. This
+ * interface extends Fastjson's SerializeFilter interface and is marked with the SPI
+ * annotation to enable dynamic loading of filter implementations.
+ *
  * @author IO x9x
  * @since 2024-09-26 13:04
  */

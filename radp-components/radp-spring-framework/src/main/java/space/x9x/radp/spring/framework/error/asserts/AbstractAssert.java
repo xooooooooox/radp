@@ -16,13 +16,14 @@
 
 package space.x9x.radp.spring.framework.error.asserts;
 
-import lombok.NonNull;
-import org.jetbrains.annotations.PropertyKey;
-import org.springframework.util.Assert;
-import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
-
 import java.util.Collection;
 import java.util.Map;
+
+import org.springframework.util.Assert;
+
+import org.jetbrains.annotations.PropertyKey;
+
+import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 
 /**
  * Abstract base class for all assertion classes with common static assertion methods.
@@ -50,7 +51,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void doesNotContain(@NonNull String textToSearch, String substring,
+	public static void doesNotContain(String textToSearch, String substring,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		doesNotContain(textToSearch, substring, getErrorMessage(errCode, placeholders));
 	}
@@ -61,7 +62,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void hasLength(@NonNull String expression,
+	public static void hasLength(String expression,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		hasLength(expression, getErrorMessage(errCode, placeholders));
 	}
@@ -84,7 +85,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void isInstanceOf(Class<?> type, @NonNull Object obj,
+	public static void isInstanceOf(Class<?> type, Object obj,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		isInstanceOf(type, obj, getErrorMessage(errCode, placeholders));
 	}
@@ -128,7 +129,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void noNullElements(@NonNull Collection<?> collection,
+	public static void noNullElements(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		noNullElements(collection, getErrorMessage(errCode, placeholders));
 	}
@@ -139,7 +140,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void notEmpty(@NonNull Object[] array,
+	public static void notEmpty(Object[] array,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		notEmpty(array, getErrorMessage(errCode, placeholders));
 	}
@@ -150,7 +151,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void notEmpty(@NonNull Collection<?> collection,
+	public static void notEmpty(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		notEmpty(collection, getErrorMessage(errCode, placeholders));
 	}
@@ -161,7 +162,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void notEmpty(@NonNull Map<?, ?> map,
+	public static void notEmpty(Map<?, ?> map,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		notEmpty(map, getErrorMessage(errCode, placeholders));
 	}
@@ -173,7 +174,7 @@ public abstract class AbstractAssert extends Assert {
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType,
+	public static void isAssignable(Class<?> superType, Class<?> subType,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		isAssignable(superType, subType, getErrorMessage(errCode, placeholders));
 	}

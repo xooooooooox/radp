@@ -19,6 +19,14 @@ package space.x9x.radp.spring.framework.logging.access.aop;
 import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
 
 /**
+ * Advisor for access logging that uses AspectJ expression pointcuts. This advisor
+ * connects the AccessLogInterceptor with the methods that should be logged, based on the
+ * pointcut expression configured in the AccessLogConfig.
+ *
+ * <p>
+ * It extends AspectJExpressionPointcutAdvisor to leverage Spring's AOP infrastructure for
+ * method interception based on AspectJ pointcut expressions.
+ *
  * @author IO x9x
  * @since 2024-09-30 09:52
  */

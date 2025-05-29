@@ -16,11 +16,18 @@
 
 package space.x9x.radp.spring.framework.logging.access.model;
 
-import lombok.*;
-
 import java.time.Instant;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
+ * Model class for storing access log information. This class captures details about
+ * method invocations or HTTP requests, including location (method or URI), arguments,
+ * return values, execution time, and any exceptions that occurred during execution.
+ *
  * @author IO x9x
  * @since 2024-09-30 09:54
  */
@@ -30,18 +37,46 @@ import java.time.Instant;
 @AllArgsConstructor
 public class AccessLog {
 
+	/**
+	 * The location where the access occurred. For method invocations, this is the class
+	 * and method name. For HTTP requests, this is the request URI.
+	 */
 	private String location;
 
+	/**
+	 * The arguments passed to the method or the request body. This may be truncated if it
+	 * exceeds the configured maximum length.
+	 */
 	private String arguments;
 
+	/**
+	 * The return value from the method or the response body. This may be truncated if it
+	 * exceeds the configured maximum length.
+	 */
 	private String returnValue;
 
+	/**
+	 * The exception that was thrown during execution, if any. This is null if the
+	 * execution completed successfully.
+	 */
 	private Throwable throwable;
 
+	/**
+	 * The execution time in milliseconds. This is the time taken to execute the method or
+	 * process the HTTP request.
+	 */
 	private long duration;
 
+	/**
+	 * The start time of the execution. This is transient and not included in serialized
+	 * forms of this object.
+	 */
 	private transient Instant start;
 
+	/**
+	 * The end time of the execution. This is transient and not included in serialized
+	 * forms of this object.
+	 */
 	private transient Instant end;
 
 }

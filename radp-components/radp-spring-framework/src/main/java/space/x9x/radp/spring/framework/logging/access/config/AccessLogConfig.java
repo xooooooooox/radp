@@ -22,7 +22,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 日志切面配置
+ * Configuration class for access logging aspects. This class defines various settings
+ * that control the behavior of access logging, including what to log, how to log it, and
+ * when to log it. It can be customized by providing a bean of this type in the
+ * application context.
  *
  * @author IO x9x
  * @since 2024-09-30 09:45
@@ -34,42 +37,52 @@ import lombok.ToString;
 public class AccessLogConfig {
 
 	/**
-	 * 是否保存到 MDC
+	 * Flag indicating whether to store logging information in MDC (Mapped Diagnostic
+	 * Context). When enabled, logging information is available to all logging statements.
+	 * Default is true.
 	 */
 	private boolean enabledMdc = true;
 
 	/**
-	 * 需要输出日志的包名
+	 * Pointcut expression that defines which methods should be logged. This is typically
+	 * a Spring AOP expression that matches specific packages, classes, or methods.
 	 */
 	private String expression;
 
 	/**
-	 * 日志输出采样率
+	 * Sampling rate for log output, between 0.0 and 1.0. This controls what percentage of
+	 * method invocations are logged. Default is 1.0 (log all invocations).
 	 */
 	private double sampleRate = 1.0;
 
 	/**
-	 * 是否输出入参
+	 * Flag indicating whether to log method arguments. When enabled, the values of method
+	 * parameters are included in the log. Default is true.
 	 */
 	private boolean logArguments = true;
 
 	/**
-	 * 是否输出返回值
+	 * Flag indicating whether to log method return values. When enabled, the return value
+	 * of the method is included in the log. Default is true.
 	 */
 	private boolean logReturnValue = true;
 
 	/**
-	 * 是否输出方法执行耗时
+	 * Flag indicating whether to log method execution time. When enabled, the time taken
+	 * to execute the method is included in the log. Default is true.
 	 */
 	private boolean logExecutionTime = true;
 
 	/**
-	 * 最大长度
+	 * Maximum length for logged values (arguments and return values). Values longer than
+	 * this will be truncated to prevent excessive log sizes. Default is 500 characters.
 	 */
 	private int maxLength = 500;
 
 	/**
-	 * 慢日志
+	 * Threshold in milliseconds for identifying slow method executions. Methods that take
+	 * longer than this threshold are logged with a warning level. Default is 1000
+	 * milliseconds (1 second).
 	 */
 	private long slowThreshold = 1000;
 

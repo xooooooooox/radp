@@ -16,11 +16,16 @@
 
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
-
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
  * Base class for API response objects that provides common result information. This class
@@ -42,16 +47,18 @@ public class Result implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Indicates whether the operation was successful
+	 * Indicates whether the operation was successful.
 	 */
 	private boolean success;
 
 	/**
-	 * The response code, typically used for error identification
+	 * The response code. Typically used for error identification
 	 */
 	private String code;
 
-	/** The human-readable message describing the result */
+	/**
+	 * The human-readable message describing the result.
+	 */
 	private String msg;
 
 	/**

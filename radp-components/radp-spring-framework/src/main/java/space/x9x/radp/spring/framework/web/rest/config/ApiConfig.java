@@ -22,6 +22,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * Configuration class for API settings, providing properties to configure RESTful API
+ * behavior.
+ *
  * @author IO x9x
  * @since 2024-09-30 23:20
  */
@@ -32,7 +35,7 @@ import lombok.ToString;
 public class ApiConfig {
 
 	/**
-	 * API 前缀 实现所有 Controller 提供的 RESTFul API 的统一前缀
+	 * API 前缀 实现所有 Controller 提供的 RESTFul API 的统一前缀.
 	 */
 	private String prefix;
 

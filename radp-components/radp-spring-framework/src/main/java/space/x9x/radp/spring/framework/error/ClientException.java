@@ -20,6 +20,10 @@ import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
+ * Exception class for client-side errors. This exception represents errors that are
+ * caused by client requests, such as invalid input, authentication failures, or
+ * permission issues. It extends BaseException to provide standardized error handling.
+ *
  * @author IO x9x
  * @since 2024-09-26 23:31
  */

@@ -16,13 +16,16 @@
 
 package space.x9x.radp.spring.framework.dto;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
+ * Represents a field to sort by and its sort direction. This class is used in conjunction
+ * with SortablePageParam to specify sorting criteria for paginated queries.
+ *
  * @author IO x9x
  * @since 2024-12-24 14:24
  */
@@ -44,12 +47,13 @@ public class SortingField implements Serializable {
 	public static final String DESC = "DESC";
 
 	/**
-	 * 字段
+	 * The name of the field to sort by. This corresponds to a property name in the entity
+	 * being sorted.
 	 */
 	private String field;
 
 	/**
-	 * 排序
+	 * The sort direction for the field. Should be one of the constants ASC or DESC.
 	 */
 	private String order;
 

@@ -16,11 +16,16 @@
 
 package space.x9x.radp.spring.framework.bootstrap.utils;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.core.env.Environment;
+
+import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
+ * Utility class for working with Spring profiles. This class provides helper methods for
+ * accessing and manipulating Spring environment profiles in a consistent way.
+ *
  * @author IO x9x
  * @since 2024-09-28 21:04
  */

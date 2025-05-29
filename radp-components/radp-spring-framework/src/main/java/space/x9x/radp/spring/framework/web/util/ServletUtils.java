@@ -16,20 +16,28 @@
 
 package space.x9x.radp.spring.framework.web.util;
 
-import lombok.experimental.UtilityClass;
-import org.springframework.http.MediaType;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import lombok.experimental.UtilityClass;
+
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.Strings;
+
 /**
+ * Utility class providing helper methods for working with HTTP servlet requests and
+ * responses. This class offers convenient methods for accessing request/response objects,
+ * extracting information from them, and handling request/response content in a web
+ * application context.
+ *
  * @author IO x9x
  * @since 2024-09-27 10:54
  */
@@ -48,7 +56,7 @@ public class ServletUtils {
 	public static final String CONTENT_DISPOSITION_ATTACH = "attachment;filename={0}";
 
 	/**
-	 * Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的
+	 * Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的.
 	 */
 	public static final String APPLICATION_JSON_UTF8_VALUE = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8";
 
@@ -114,8 +122,8 @@ public class ServletUtils {
 				return reader.lines().collect(Collectors.joining(System.lineSeparator()));
 			}
 		}
-		catch (IOException e) {
-			throw new RuntimeException(e);
+		catch (IOException ex) {
+			throw new RuntimeException(ex);
 		}
 		return null;
 	}

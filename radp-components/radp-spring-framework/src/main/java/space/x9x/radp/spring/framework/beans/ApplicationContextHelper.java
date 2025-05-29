@@ -16,7 +16,6 @@
 
 package space.x9x.radp.spring.framework.beans;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -28,9 +27,17 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultBeanNameGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+
+import org.jetbrains.annotations.NotNull;
+
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 
 /**
+ * Helper class for accessing the Spring application context and bean factory. This class
+ * implements both ApplicationContextAware and BeanFactoryPostProcessor to capture the
+ * application context and bean factory during application startup. It provides utility
+ * methods for registering beans and retrieving beans from the context.
+ *
  * @author IO x9x
  * @since 2024-09-27 00:07
  */
@@ -42,17 +49,41 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 */
 	public static final String SPRING_APPLICATION_NAME = SpringProperties.SPRING_APPLICATION_NAME;
 
+	/**
+	 * Bean name generator used to generate bean names when registering beans. This uses
+	 * the default Spring bean name generation strategy.
+	 */
 	private static final BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
 
+	/**
+	 * Reference to the Spring application context. This is set by the
+	 * setApplicationContext method when the application starts.
+	 */
 	private static ApplicationContext applicationContext;
 
+	/**
+	 * Reference to the Spring bean factory. This is set by the postProcessBeanFactory
+	 * method when the application starts.
+	 */
 	private static ConfigurableListableBeanFactory beanFactory;
 
+	/**
+	 * Callback method from the BeanFactoryPostProcessor interface. This method captures a
+	 * reference to the bean factory during application startup.
+	 * @param beanFactory the bean factory used by the application context
+	 * @throws BeansException if an error occurs during bean factory processing
+	 */
 	@Override
 	public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		ApplicationContextHelper.beanFactory = beanFactory;
 	}
 
+	/**
+	 * Callback method from the ApplicationContextAware interface. This method captures a
+	 * reference to the application context during application startup.
+	 * @param applicationContext the application context that this object runs in
+	 * @throws BeansException if an error occurs during application context processing
+	 */
 	@Override
 	public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
 		ApplicationContextHelper.applicationContext = applicationContext;

@@ -20,6 +20,10 @@ import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
+ * Exception class for server-side errors. This exception represents errors that occur on
+ * the server side, such as database failures, service unavailability, or internal
+ * processing errors. It extends BaseException to provide standardized error handling.
+ *
  * @author IO x9x
  * @since 2024-09-26 23:46
  */

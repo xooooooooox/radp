@@ -16,24 +16,30 @@
 
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-import space.x9x.radp.spring.framework.error.ErrorCode;
-import space.x9x.radp.spring.framework.error.GlobalResponseCode;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
  * Result object for paginated data responses that contains a collection of items and
  * total count. This class extends the base Result class to provide pagination-specific
  * information.
  *
- * @param <T> the type of elements in the result collection
  * @author IO x9x
  * @since 2024-09-26 16:02
+ * @param <T> the type of elements in the result collection
  */
 @SuperBuilder(builderMethodName = "pageResultBuilder")
 @NoArgsConstructor
@@ -47,12 +53,12 @@ public class PageResult<T> extends Result {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The collection of data items for the current page
+	 * The collection of data items for the current page.
 	 */
 	private Collection<T> data;
 
 	/**
-	 * The total number of items across all pages
+	 * The total number of items across all pages.
 	 */
 	@Builder.Default
 	private Long total = 0L;
@@ -63,13 +69,13 @@ public class PageResult<T> extends Result {
 	 * @return the collection of data items, never null
 	 */
 	public Collection<T> getData() {
-		if (data == null) {
+		if (this.data == null) {
 			return Collections.emptyList();
 		}
-		if (data instanceof List) {
-			return data;
+		if (this.data instanceof List) {
+			return this.data;
 		}
-		return new ArrayList<>(data);
+		return new ArrayList<>(this.data);
 	}
 
 	/**

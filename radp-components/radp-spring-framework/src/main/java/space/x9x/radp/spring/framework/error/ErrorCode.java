@@ -21,6 +21,11 @@ import lombok.Data;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
+ * Represents an error code and its associated message for standardized error handling.
+ * This class encapsulates error information that can be used throughout the application
+ * to provide consistent error responses. It supports loading error messages from resource
+ * bundles and formatting them with parameters.
+ *
  * @author IO x9x
  * @since 2024-10-24 10:31
  */
@@ -28,8 +33,16 @@ import org.jetbrains.annotations.PropertyKey;
 @AllArgsConstructor
 public class ErrorCode {
 
+	/**
+	 * The unique identifier for this error code. This code is used to look up error
+	 * messages and identify specific error conditions.
+	 */
 	private final String code;
 
+	/**
+	 * The human-readable error message associated with this error code. This message can
+	 * be displayed to users or logged for troubleshooting.
+	 */
 	private final String message;
 
 	/**

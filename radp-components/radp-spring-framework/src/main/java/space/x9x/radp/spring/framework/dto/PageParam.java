@@ -16,11 +16,16 @@
 
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.*;
+import java.io.Serializable;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Parameter object for pagination requests that contains page index and page size

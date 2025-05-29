@@ -16,12 +16,16 @@
 
 package space.x9x.radp.spring.framework.web.rest.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.springframework.context.annotation.Import;
 
-import java.lang.annotation.*;
-
 /**
- * 用于开启 REST 接口异常解析器自动装配
+ * 用于开启 REST 接口异常解析器自动装配.
  *
  * @author IO x9x
  * @since 2024-09-26 23:52

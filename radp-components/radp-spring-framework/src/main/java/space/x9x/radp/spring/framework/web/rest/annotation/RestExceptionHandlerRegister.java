@@ -16,14 +16,20 @@
 
 package space.x9x.radp.spring.framework.web.rest.annotation;
 
-import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
-import space.x9x.radp.spring.framework.web.rest.handler.RestExceptionHandler;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
+import org.jetbrains.annotations.NotNull;
+
+import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
+import space.x9x.radp.spring.framework.web.rest.handler.RestExceptionHandler;
+
 /**
+ * A Spring bean definition registrar that automatically registers the
+ * RestExceptionHandler in the application context. This class implements
+ * ImportBeanDefinitionRegistrar to programmatically register the exception handler bean.
+ *
  * @author IO x9x
  * @since 2024-09-27 00:05
  */

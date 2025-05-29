@@ -27,8 +27,7 @@ import space.x9x.radp.spring.framework.type.exception.asserts.ClientAssert;
 import space.x9x.radp.spring.framework.type.exception.asserts.ServerAssert;
 import space.x9x.radp.spring.framework.type.exception.asserts.ThirdServiceAssert;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExceptionUtilsTest {
 
@@ -38,10 +37,10 @@ class ExceptionUtilsTest {
 			ServerAssert.notNull(null, "10000", "world");
 		}
 		catch (Exception e) {
-			assertEquals("hello world", e.getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello world");
 		}
 		ServerException serverException = ExceptionUtils.serverException("10000", "world");
-		assertEquals("hello world", serverException.getMessage());
+		assertThat(serverException.getMessage()).isEqualTo("hello world");
 	}
 
 	@Test
@@ -55,10 +54,10 @@ class ExceptionUtilsTest {
 			}
 		}
 		catch (ServerException se) {
-			assertEquals("hello world", se.getMessage());
-			assertEquals("10000", se.getErrCode());
-			assertEquals(IllegalArgumentException.class, se.getCause().getClass());
-			assertEquals("aaa", se.getCause().getMessage());
+			assertThat(se.getMessage()).isEqualTo("hello world");
+			assertThat(se.getErrCode()).isEqualTo("10000");
+			assertThat(se.getCause().getClass()).isEqualTo(IllegalArgumentException.class);
+			assertThat(se.getCause().getMessage()).isEqualTo("aaa");
 		}
 		try {
 			try {
@@ -69,10 +68,10 @@ class ExceptionUtilsTest {
 			}
 		}
 		catch (ServerException e) {
-			assertEquals("hello world !!!", e.getMessage());
-			assertEquals("10002", e.getErrCode());
-			assertEquals(IOException.class, e.getCause().getClass());
-			assertEquals("bbb", e.getCause().getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello world !!!");
+			assertThat(e.getErrCode()).isEqualTo("10002");
+			assertThat(e.getCause().getClass()).isEqualTo(IOException.class);
+			assertThat(e.getCause().getMessage()).isEqualTo("bbb");
 		}
 		try {
 			try {
@@ -83,10 +82,10 @@ class ExceptionUtilsTest {
 			}
 		}
 		catch (ServerException e) {
-			assertEquals("test", e.getMessage());
-			assertEquals("10001", e.getErrCode());
-			assertEquals(IOException.class, e.getCause().getClass());
-			assertEquals("ccc", e.getCause().getMessage());
+			assertThat(e.getMessage()).isEqualTo("test");
+			assertThat(e.getErrCode()).isEqualTo("10001");
+			assertThat(e.getCause().getClass()).isEqualTo(IOException.class);
+			assertThat(e.getCause().getMessage()).isEqualTo("ccc");
 		}
 		try {
 			try {
@@ -97,10 +96,10 @@ class ExceptionUtilsTest {
 			}
 		}
 		catch (ServerException e) {
-			assertEquals("hello {}", e.getMessage());
-			assertEquals("10000", e.getErrCode());
-			assertEquals(IOException.class, e.getCause().getClass());
-			assertEquals("ddd", e.getCause().getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello {}");
+			assertThat(e.getErrCode()).isEqualTo("10000");
+			assertThat(e.getCause().getClass()).isEqualTo(IOException.class);
+			assertThat(e.getCause().getMessage()).isEqualTo("ddd");
 		}
 		try {
 			try {
@@ -111,10 +110,10 @@ class ExceptionUtilsTest {
 			}
 		}
 		catch (ServerException e) {
-			assertEquals("hello {}", e.getMessage());
-			assertEquals("10000", e.getErrCode());
+			assertThat(e.getMessage()).isEqualTo("hello {}");
+			assertThat(e.getErrCode()).isEqualTo("10000");
 			// No cause should be set since we didn't pass the exception
-			assertNull(e.getCause());
+			assertThat(e.getCause()).isNull();
 		}
 	}
 
@@ -124,10 +123,10 @@ class ExceptionUtilsTest {
 			ClientAssert.notNull(null, "10000", "world");
 		}
 		catch (Exception e) {
-			assertEquals("hello world", e.getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello world");
 		}
 		ClientException clientException = ExceptionUtils.clientException("10000", "world");
-		assertEquals("hello world", clientException.getMessage());
+		assertThat(clientException.getMessage()).isEqualTo("hello world");
 	}
 
 	@Test
@@ -136,10 +135,10 @@ class ExceptionUtilsTest {
 			ThirdServiceAssert.notNull(null, "10000", "world");
 		}
 		catch (Exception e) {
-			assertEquals("hello world", e.getMessage());
+			assertThat(e.getMessage()).isEqualTo("hello world");
 		}
 		ThirdServiceException thirdServiceException = ExceptionUtils.thirdServiceException("10000", "world");
-		assertEquals("hello world", thirdServiceException.getMessage());
+		assertThat(thirdServiceException.getMessage()).isEqualTo("hello world");
 	}
 
 }

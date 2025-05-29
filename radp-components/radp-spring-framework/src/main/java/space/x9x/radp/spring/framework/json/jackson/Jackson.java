@@ -16,13 +16,17 @@
 
 package space.x9x.radp.spring.framework.json.jackson;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import space.x9x.radp.commons.json.JacksonUtils;
 import space.x9x.radp.spring.framework.json.JSON;
 
-import java.util.List;
-
 /**
+ * Jackson implementation of the JSON interface that provides JSON serialization and
+ * deserialization functionality using the Jackson library.
+ *
  * @author IO x9x
  * @since 2024-09-26 11:37
  */

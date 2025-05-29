@@ -21,10 +21,15 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * 引导日志配置
+ * Configuration class for bootstrap logging functionality. This class defines settings
+ * that control the behavior of bootstrap logging, such as whether to store logging
+ * information in MDC (Mapped Diagnostic Context). It can be customized by providing a
+ * bean of this type in the application context.
  *
  * @author IO x9x
  * @since 2024-09-28 20:48
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter
  */
 @EqualsAndHashCode
 @ToString
@@ -32,7 +37,10 @@ import lombok.ToString;
 public class BootstrapLogConfig {
 
 	/**
-	 * 是否保存到 MDC
+	 * Flag indicating whether to store logging information in MDC (Mapped Diagnostic
+	 * Context). When enabled, contextual information like application name, active
+	 * profiles, and request details are added to the MDC and available to all logging
+	 * statements. Default is true.
 	 */
 	private boolean enabledMdc = true;
 

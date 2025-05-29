@@ -16,6 +16,16 @@
 
 package space.x9x.radp.spring.framework.logging.bootstrap.config;
 
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +33,32 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+
 import space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import java.io.IOException;
-
 /**
- * 引导日志配置
+ * Configuration class for bootstrap logging functionality. This class sets up the
+ * necessary beans for HTTP request logging during application bootstrap and runtime. It
+ * configures a servlet filter that adds contextual information to the logging MDC (Mapped
+ * Diagnostic Context).
+ *
+ * <p>
+ * The configuration includes:
+ * <ul>
+ * <li>A BootstrapLogHttpFilter bean that captures and logs HTTP request information</li>
+ * <li>A filter registration component that integrates the filter into the servlet
+ * container</li>
+ * </ul>
+ *
+ * <p>
+ * This configuration is automatically imported when the
+ * {@link space.x9x.radp.spring.framework.logging.EnableBootstrapLog} annotation is used
+ * on a Spring configuration class.
  *
  * @author IO x9x
  * @since 2024-09-30 11:09
+ * @see space.x9x.radp.spring.framework.logging.EnableBootstrapLog
+ * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
@@ -64,12 +89,16 @@ public class BootstrapLogConfiguration {
 	@Component
 	public static class CustomFilterRegistration implements Filter {
 
+		/**
+		 * The BootstrapLogHttpFilter instance to which all filter operations are
+		 * delegated. This field is initialized through constructor injection.
+		 */
 		private final BootstrapLogHttpFilter bootstrapLogHttpFilter;
 
 		/**
 		 * Constructs a new CustomFilterRegistration with the specified
 		 * BootstrapLogHttpFilter.
-		 * @param bootstrapLogHttpFilter The filter to delegate all operations to
+		 * @param bootstrapLogHttpFilter the filter to delegate all operations to
 		 */
 		public CustomFilterRegistration(BootstrapLogHttpFilter bootstrapLogHttpFilter) {
 			this.bootstrapLogHttpFilter = bootstrapLogHttpFilter;
@@ -77,18 +106,18 @@ public class BootstrapLogConfiguration {
 
 		@Override
 		public void init(FilterConfig filterConfig) throws ServletException {
-			bootstrapLogHttpFilter.init(filterConfig);
+			this.bootstrapLogHttpFilter.init(filterConfig);
 		}
 
 		@Override
 		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 				throws IOException, ServletException {
-			bootstrapLogHttpFilter.doFilter(request, response, chain);
+			this.bootstrapLogHttpFilter.doFilter(request, response, chain);
 		}
 
 		@Override
 		public void destroy() {
-			bootstrapLogHttpFilter.destroy();
+			this.bootstrapLogHttpFilter.destroy();
 		}
 
 	}

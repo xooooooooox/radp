@@ -19,6 +19,10 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Constants for Spring property keys used in the RADP framework. This utility class
+ * defines standard property names for Spring configuration to ensure consistent property
+ * naming across the application.
+ *
  * @author IO x9x
  * @since 2024-09-28 20:57
  */
@@ -26,32 +30,38 @@ import lombok.experimental.UtilityClass;
 public class SpringProperties {
 
 	/**
-	 * Spring Boot 读取应用程序名称
+	 * Property key for Spring Boot application name. This property is used to identify
+	 * the application in various contexts.
 	 */
 	public static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
 	/**
-	 * Spring Boot 读取应用程序名称
+	 * Pattern for resolving the application name. This pattern follows Spring's property
+	 * resolution order for application name.
 	 */
 	public static final String NAME_PATTERN = "${spring.application.name:${vcap.application.name:${spring.config.name:application}}}";
 
 	/**
-	 * Spring Boot 读取应用程序启动端口
+	 * Pattern for resolving the server port. This pattern is used to access the
+	 * configured server port.
 	 */
 	public static final String PORT_PATTERN = "${server.port}";
 
 	/**
-	 * Spring Boot 读取应用程序索引
+	 * Pattern for resolving the application instance index. This pattern follows Spring's
+	 * property resolution order for instance indexing.
 	 */
 	public static final String INDEX_PATTERN = "${vcap.application.instance_index:${spring.application.index:${server.port:${PORT:null}}}}";
 
 	/**
-	 * Spring Boot 默认运行环境
+	 * Property key for Spring Boot default profile. This property defines the default
+	 * profile to use when no active profile is specified.
 	 */
 	public static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
 
 	/**
-	 * Spring Boot 指定运行环境
+	 * Property key for Spring Boot active profiles. This property specifies which
+	 * profiles are active for the current application.
 	 */
 	public static final String SPRING_PROFILE_ACTIVE = "spring.profiles.active";
 

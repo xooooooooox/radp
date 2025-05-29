@@ -16,8 +16,13 @@
 
 package space.x9x.radp.spring.framework.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
@@ -25,9 +30,9 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * Result object for responses that contain a single data item. This class extends the
  * base Result class to provide a typed data field.
  *
- * @param <T> the type of the data item in the result
  * @author IO x9x
  * @since 2024-09-26 15:57
+ * @param <T> the type of the data item in the result
  */
 @SuperBuilder(builderMethodName = "singleResultBuilder")
 @NoArgsConstructor
@@ -41,7 +46,7 @@ public class SingleResult<T> extends Result {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The single data item returned in the response
+	 * The single data item returned in the response.
 	 */
 	private T data;
 

@@ -19,6 +19,10 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Global constants used throughout the RADP Spring Framework. This utility class provides
+ * centralized access to common constants that are used across different components of the
+ * framework.
+ *
  * @author IO x9x
  * @since 2024-10-12 15:47
  */
@@ -26,7 +30,8 @@ import lombok.experimental.UtilityClass;
 public class Globals {
 
 	/**
-	 * radp-xxx-spring-boot-starter {@code ConfigurationProperties} global prefix
+	 * radp-xxx-spring-boot-starter {@code ConfigurationProperties} global prefix. This
+	 * constant is used to define the base prefix for all RADP configuration properties.
 	 */
 	public static final String RADP_CONFIGURATION_PROPERTIES_PREFIX = "radp.";
 

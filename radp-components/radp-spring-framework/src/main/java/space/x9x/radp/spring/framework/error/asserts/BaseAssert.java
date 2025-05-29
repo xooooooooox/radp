@@ -16,21 +16,21 @@
 
 package space.x9x.radp.spring.framework.error.asserts;
 
-import lombok.NonNull;
-import org.jetbrains.annotations.PropertyKey;
-import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
+
+import org.jetbrains.annotations.PropertyKey;
+
+import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 
 /**
  * Base an abstract class for all assertion classes with common assertion logic. This
  * class extends AbstractAssert and adds exception handling functionality.
  *
- * @param <E> the type of exception to be thrown
  * @author IO x9x
  * @since 2024-09-26 23:47
+ * @param <E> the type of exception to be thrown
  */
 public abstract class BaseAssert<E extends RuntimeException> extends AbstractAssert {
 
@@ -69,13 +69,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertDoesNotContain(@NonNull String textToSearch, String substring,
+	public void assertDoesNotContain(String textToSearch, String substring,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			doesNotContain(textToSearch, substring, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -85,13 +85,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertHasLength(@NonNull String expression,
+	public void assertHasLength(String expression,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			hasLength(expression, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -106,8 +106,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 		try {
 			hasText(text, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -118,13 +118,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertIsInstanceOf(Class<?> type, @NonNull Object obj,
+	public void assertIsInstanceOf(Class<?> type, Object obj,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			isInstanceOf(type, obj, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -139,8 +139,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 		try {
 			isNull(object, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -155,8 +155,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 		try {
 			notNull(object, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -171,8 +171,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 		try {
 			isTrue(expression, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -182,13 +182,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertNoNullElements(@NonNull Collection<?> collection,
+	public void assertNoNullElements(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			noNullElements(collection, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -198,13 +198,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertNotEmpty(@NonNull Object[] array,
+	public void assertNotEmpty(Object[] array,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			notEmpty(array, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -214,13 +214,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertNotEmpty(@NonNull Collection<?> collection,
+	public void assertNotEmpty(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			notEmpty(collection, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -230,13 +230,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertNotEmpty(@NonNull Map<?, ?> map,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	public void assertNotEmpty(Map<?, ?> map, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			Object... placeholders) {
 		try {
 			notEmpty(map, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -247,13 +247,13 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
-	public void assertIsAssignable(Class<?> superType, @NonNull Class<?> subType,
+	public void assertIsAssignable(Class<?> superType, Class<?> subType,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		try {
 			isAssignable(superType, subType, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 
@@ -268,8 +268,8 @@ public abstract class BaseAssert<E extends RuntimeException> extends AbstractAss
 		try {
 			state(expression, errCode, placeholders);
 		}
-		catch (IllegalArgumentException e) {
-			throw createException(errCode, e.getMessage());
+		catch (IllegalArgumentException ex) {
+			throw createException(errCode, ex.getMessage());
 		}
 	}
 

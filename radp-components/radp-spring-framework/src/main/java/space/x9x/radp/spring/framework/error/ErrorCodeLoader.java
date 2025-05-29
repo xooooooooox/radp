@@ -16,15 +16,20 @@
 
 package space.x9x.radp.spring.framework.error;
 
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.PropertyKey;
-import space.x9x.radp.commons.lang.format.MessageFormatter;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.PropertyKey;
+
+import space.x9x.radp.commons.lang.format.MessageFormatter;
+
 /**
+ * Utility class for loading error codes and messages from resource bundles. This class
+ * provides methods to retrieve error messages based on error codes, with support for both
+ * application-specific and internal framework error messages.
+ *
  * @author IO x9x
  * @since 2024-09-26 16:14
  */
@@ -46,18 +51,28 @@ public class ErrorCodeLoader {
 	 */
 	public static final String BUNDLE_NAME = "META-INF.error.message";
 
+	/**
+	 * The internal resource bundle containing framework-provided error messages. This
+	 * bundle is always loaded and used as a fallback when application-specific error
+	 * messages are not available.
+	 */
 	private static final ResourceBundle INTERNAL_RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME,
 			Locale.SIMPLIFIED_CHINESE);
 
+	/**
+	 * The application resource bundle containing application-specific error messages.
+	 * This bundle is loaded if available, otherwise the system falls back to the internal
+	 * resource bundle.
+	 */
 	private static ResourceBundle resourceBundle;
 
 	static {
 		try {
 			resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
 		}
-		catch (Exception e) {
+		catch (Exception ex) {
 			log.error("加载应用错误码文件失败 {}, 将回退使用框架内置错误码资源文件 {}", BUNDLE_NAME + ".properties",
-					INTERNAL_BUNDLE_NAME + ".properties", e);
+					INTERNAL_BUNDLE_NAME + ".properties", ex);
 			resourceBundle = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
 		}
 	}

@@ -16,28 +16,36 @@
 
 package space.x9x.radp.spring.framework.json.gson;
 
-import com.google.common.reflect.TypeToken;
-import space.x9x.radp.spring.framework.json.JSON;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.common.reflect.TypeToken;
+
+import space.x9x.radp.spring.framework.json.JSON;
+
 /**
+ * Implementation of the JSON interface using Google's Gson library. This class provides
+ * methods for serializing objects to JSON strings and deserializing JSON strings back to
+ * objects using Gson.
+ *
  * @author IO x9x
  * @since 2024-09-26 13:25
  */
 public class Gson implements JSON {
 
+	/**
+	 * The underlying Gson instance used for JSON serialization and deserialization.
+	 */
 	private final com.google.gson.Gson gson = new com.google.gson.Gson();
 
 	@Override
 	public <T> String toJSONString(T object) {
-		return gson.toJson(object);
+		return this.gson.toJson(object);
 	}
 
 	@Override
 	public <T> T parseObject(String text, Class<T> clazz) {
-		return gson.fromJson(text, clazz);
+		return this.gson.fromJson(text, clazz);
 	}
 
 	@Override
@@ -45,7 +53,7 @@ public class Gson implements JSON {
 		Type listType = new TypeToken<List<T>>() {
 		}.getType();
 
-		return gson.fromJson(text, listType);
+		return this.gson.fromJson(text, listType);
 	}
 
 }

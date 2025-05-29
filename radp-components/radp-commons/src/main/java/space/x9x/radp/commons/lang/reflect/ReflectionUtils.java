@@ -21,11 +21,12 @@ import java.lang.reflect.Modifier;
 import java.util.Date;
 
 import cn.hutool.core.util.ReflectUtil;
-import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 /**
- * 反射工具类
+ * Utility class for reflection operations. This class extends Hutool's ReflectUtil to
+ * provide additional utility methods for working with reflection, including method
+ * analysis, type checking, and property name extraction.
  *
  * @author IO x9x
  * @since 2024-09-24 16:25
@@ -38,7 +39,7 @@ public class ReflectionUtils extends ReflectUtil {
 	 * @param method the method to check
 	 * @return true if the method is public, false otherwise
 	 */
-	public static boolean isPublic(@NonNull Method method) {
+	public static boolean isPublic(Method method) {
 		return Modifier.isPublic(method.getModifiers());
 	}
 
@@ -59,7 +60,7 @@ public class ReflectionUtils extends ReflectUtil {
 	}
 
 	/**
-	 * 检查类类型是否为基本类型或常用的包装类。
+	 * 检查类类型是否为基本类型或常用的包装类.
 	 * @param clazz 要检查的类。
 	 * @return 如果是基本类型或常用的包装类，则返回 true；否则返回 false。
 	 * <p>
@@ -72,7 +73,7 @@ public class ReflectionUtils extends ReflectUtil {
 	}
 
 	/**
-	 * 检查类类型是否为基本类型或常用包装类的数组。
+	 * 检查类类型是否为基本类型或常用包装类的数组.
 	 * @param clazz 要检查的类。
 	 * @return 如果是基本类型或常用包装类的数组，则返回 true；否则返回 false。
 	 * <p>
@@ -88,8 +89,8 @@ public class ReflectionUtils extends ReflectUtil {
 	}
 
 	/**
-	 * 获取setter方法对应属性的名称
-	 * @param method Method对象，代表一个setter方法
+	 * 获取setter方法对应属性的名称.
+	 * @param method method对象，代表一个setter方法
 	 * @return 返回该setter方法所操作的属性名称如果方法名不符合setter模式，则返回空字符串
 	 */
 	public static String getSetterProperty(Method method) {

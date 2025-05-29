@@ -17,9 +17,14 @@
 package space.x9x.radp.commons.lang;
 
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.lang.format.MessageFormatter;
 
 /**
+ * Utility class for formatting messages with placeholders. This class provides a
+ * convenient wrapper around {@link MessageFormatter} for creating formatted message
+ * strings by replacing placeholders with provided values.
+ *
  * @author IO x9x
  * @since 2024-09-26 20:29
  */

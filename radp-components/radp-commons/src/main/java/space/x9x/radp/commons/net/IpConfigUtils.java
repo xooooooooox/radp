@@ -27,8 +27,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
@@ -42,14 +42,34 @@ import space.x9x.radp.commons.lang.Strings;
 @UtilityClass
 public class IpConfigUtils {
 
+	/**
+	 * HTTP header name for forwarded client IP addresses. This header is commonly used by
+	 * proxies to pass the original client IP.
+	 */
 	private static final String X_FORWARDED_FOR = "X-Forwarded-For";
 
+	/**
+	 * HTTP header name for proxy client IP address. This header is used by some proxy
+	 * servers to indicate the client's IP address.
+	 */
 	private static final String PROXY_CLIENT_IP = "Proxy-Client-IP";
 
+	/**
+	 * HTTP header name for WebLogic proxy client IP address. This header is specific to
+	 * WebLogic proxy servers.
+	 */
 	private static final String WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
 
+	/**
+	 * The cached IP address of the local machine. This value is determined when the class
+	 * is loaded.
+	 */
 	private static final String IP_ADDRESS = getIpAddress(null);
 
+	/**
+	 * Default subnet mask for IP subnet calculations. This mask (255.255.255.0)
+	 * represents a standard Class C network.
+	 */
 	private static final String SUBNET_MASK = "255.255.255.0";
 
 	/**
@@ -64,9 +84,15 @@ public class IpConfigUtils {
 	}
 
 	/**
-	 * 根据网卡名称获取 IP 地址.
-	 * @param interfaceName 网卡名称
-	 * @return ip 地址
+	 * Gets the IP address for the specified network interface.
+	 *
+	 * <p>
+	 * This method retrieves the IP address associated with the specified network
+	 * interface. If no interface name is provided, it returns the first available
+	 * non-loopback IPv4 address.
+	 * @param interfaceName the name of the network interface, or null for any interface
+	 * @return the IP address, or an empty string if no address is found or an error
+	 * occurs
 	 */
 	public static String getIpAddress(String interfaceName) {
 		try {
@@ -79,10 +105,15 @@ public class IpConfigUtils {
 	}
 
 	/**
-	 * 获取已激活网卡的 IP 地址.
-	 * @param interfaceName 网卡名称
-	 * @return 已激活网卡的 IP 地址
-	 * @throws SocketException 套接字异常
+	 * Gets the IP addresses of active network interfaces.
+	 *
+	 * <p>
+	 * This method retrieves all IP addresses from active network interfaces. It filters
+	 * out loopback addresses and IPv6 addresses.
+	 * @param interfaceName the name of the network interface to filter by, or null for
+	 * all interfaces
+	 * @return a list of IP addresses from active network interfaces
+	 * @throws SocketException if a network error occurs
 	 */
 	private static List<String> getHostAddress(String interfaceName) throws SocketException {
 		List<String> ipList = new ArrayList<>();
@@ -127,7 +158,7 @@ public class IpConfigUtils {
 	 * @param request the HTTP servlet request
 	 * @return the client IP address
 	 */
-	public static String parseIpAddress(@NonNull HttpServletRequest request) {
+	public static String parseIpAddress(HttpServletRequest request) {
 		String ip = request.getHeader(X_FORWARDED_FOR);
 		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader(PROXY_CLIENT_IP);
@@ -157,12 +188,16 @@ public class IpConfigUtils {
 	}
 
 	/**
-	 * 判断两个 IP 是否在同一网段.
-	 * @param ip1 第一个IP
-	 * @param ip2 第二个IP
-	 * @param subnetMask 子网掩码
-	 * @return true 如果两个IP在同一网段, 否则返回 false
-	 * @throws UnknownHostException if an IP address or subnet mask cannot be resolved.
+	 * Checks if two IP addresses are in the same subnet using a specified subnet mask.
+	 *
+	 * <p>
+	 * This method determines if the two provided IP addresses belong to the same subnet
+	 * by applying the specified subnet mask to both addresses and comparing the results.
+	 * @param ip1 the first IP address
+	 * @param ip2 the second IP address
+	 * @param subnetMask the subnet mask to use for the comparison
+	 * @return true if both IP addresses are in the same subnet, false otherwise
+	 * @throws UnknownHostException if an IP address or subnet mask cannot be resolved
 	 */
 	public static boolean isSameSubnet(String ip1, String ip2, String subnetMask) throws UnknownHostException {
 		InetAddress address1 = InetAddress.getByName(ip1);

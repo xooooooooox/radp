@@ -19,6 +19,10 @@ package space.x9x.radp.commons.lang;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for object operations. This class extends Apache Commons Lang's
+ * ObjectUtils to provide additional utility methods for working with objects, including
+ * null-safe operations and string conversions.
+ *
  * @author IO x9x
  * @since 2024-09-30 10:34
  */

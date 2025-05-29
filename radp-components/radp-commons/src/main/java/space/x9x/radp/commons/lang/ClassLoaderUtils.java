@@ -23,6 +23,10 @@ import java.util.Map;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for ClassLoader operations. This class provides methods for obtaining
+ * appropriate ClassLoaders in different contexts and maintains a mapping of primitive
+ * type names to their corresponding Class objects.
+ *
  * @author IO x9x
  * @since 2024-09-24 20:23
  */

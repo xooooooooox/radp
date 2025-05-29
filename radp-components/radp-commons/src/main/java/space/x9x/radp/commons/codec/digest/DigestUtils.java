@@ -19,6 +19,10 @@ package space.x9x.radp.commons.codec.digest;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for message digest operations. This class extends Apache Commons Codec's
+ * DigestUtils to provide convenient access to message digest algorithms such as MD5 and
+ * SHA.
+ *
  * @author IO x9x
  * @since 2024-12-27 16:31
  */

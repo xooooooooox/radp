@@ -20,6 +20,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * Container for formatted messages and their associated data. This class holds the result
+ * of a message formatting operation, including the formatted message string, the original
+ * argument array, and any throwable that might have been extracted from the arguments.
+ *
  * @author IO x9x
  * @since 2024-09-26 19:24
  */
@@ -33,10 +37,22 @@ public class FormattingTuple {
 	 */
 	public static final FormattingTuple NULL = new FormattingTuple(null);
 
+	/**
+	 * The formatted message string. This is the result of replacing placeholders in the
+	 * message pattern with the corresponding arguments.
+	 */
 	private final String message;
 
+	/**
+	 * The original array of arguments provided for message formatting. This may be null
+	 * if no arguments were provided.
+	 */
 	private final Object[] argArray;
 
+	/**
+	 * Any throwable that was extracted from the argument array. This may be null if no
+	 * throwable was provided or extracted.
+	 */
 	private final Throwable throwable;
 
 	/**

@@ -19,6 +19,10 @@ package space.x9x.radp.commons.lang;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for generating random strings. This class extends Apache Commons Lang's
+ * RandomStringUtils to provide convenient access to methods for generating random strings
+ * with various characteristics, such as alphabetic, numeric, or alphanumeric content.
+ *
  * @author IO x9x
  * @since 2024-11-20 16:41
  */

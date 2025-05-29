@@ -19,6 +19,10 @@ package space.x9x.radp.commons.lang.math;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for number operations. This class extends Apache Commons Lang's
+ * NumberUtils to provide convenient access to number manipulation methods such as
+ * parsing, conversion, and comparison of numeric values.
+ *
  * @author IO x9x
  * @since 2024-09-27 21:11
  */

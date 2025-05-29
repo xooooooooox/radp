@@ -22,6 +22,14 @@ import java.util.Random;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for generating NanoIDs. NanoIDs are secure, URL-friendly, unique
+ * identifiers designed to be collision-resistant. This implementation provides methods to
+ * generate NanoIDs with default or custom parameters.
+ *
+ * <p>
+ * The default implementation uses a secure random number generator and a URL-friendly
+ * alphabet to create identifiers that are safe for use in URLs and filenames.
+ *
  * @author IO x9x
  * @since 2024-12-27 12:08
  */
@@ -34,6 +42,10 @@ public class NanoIdGenerator {
 	 */
 	public static final SecureRandom DEFAULT_NUMBER_GENERATOR = new SecureRandom();
 
+	/**
+	 * The default alphabet used for NanoID generation. This alphabet is URL-friendly and
+	 * includes alphanumeric characters plus underscore and hyphen.
+	 */
 	private static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		.toCharArray();
 

@@ -22,38 +22,40 @@ import java.util.Map;
 import lombok.experimental.UtilityClass;
 
 /**
- * 用于格式化消息模板的工具类。该类提供了多种方法来将消息模板中的占位符替换为实际的参数值， 并返回一个包含格式化后的消息字符串、原始参数数组以及可能的异常对象的
- * {@link FormattingTuple}。
+ * Utility class for formatting message templates. This class provides various methods to
+ * replace placeholders in message templates with actual parameter values, and returns a
+ * {@link FormattingTuple} containing the formatted message string, the original parameter
+ * array, and any possible exception object.
  *
  * <p>
- * 以下是几个使用示例：
+ * Here are some usage examples:
  * </p>
  *
  * <pre>{@code
- * // 示例 1：单个参数
+ * // Example 1: Single parameter
  * String message = MessageFormatter.format("Hello, {0}", "World").getMessage();
- * System.out.println(message); // 输出: Hello, World
+ * System.out.println(message); // Output: Hello, World
  * }</pre>
  *
  * <pre>{@code
- * // 示例 2：两个参数
+ * // Example 2: Two parameters
  * String message = MessageFormatter.format("Hello, {0} and {1}", "Alice", "Bob").getMessage();
- * System.out.println(message); // 输出: Hello, Alice and Bob
+ * System.out.println(message); // Output: Hello, Alice and Bob
  * }</pre>
  *
  * <pre>{@code
- * // 示例 3：多个参数
+ * // Example 3: Multiple parameters
  * String message = MessageFormatter.arrayFormat("Hello, {0}, {1}, and {2}", new Object[]{"Alice", "Bob", "Charlie"}).getMessage();
- * System.out.println(message); // 输出: Hello, Alice, Bob, and Charlie
+ * System.out.println(message); // Output: Hello, Alice, Bob, and Charlie
  * }</pre>
  *
  * <pre>{@code
- * // 示例 4：包含异常
+ * // Example 4: With exception
  * try {
  *     throw new FileNotFoundException("File not found");
  * } catch (FileNotFoundException e) {
  *     String message = MessageFormatter.arrayFormat("Error occurred: {0}", new Object[]{"File not found"}, e).getMessage();
- *     System.out.println(message); // 输出: Error occurred: File not found
+ *     System.out.println(message); // Output: Error occurred: File not found
  * }
  * }</pre>
  *

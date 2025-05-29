@@ -22,6 +22,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 /**
+ * A pre-configured Jackson XmlMapper with sensible defaults. This class extends Jackson's
+ * XmlMapper and provides a default configuration suitable for most XML serialization and
+ * deserialization needs. It includes settings for handling unknown properties and empty
+ * beans during processing.
+ *
  * @author IO x9x
  * @since 2024-09-23 13:53
  */

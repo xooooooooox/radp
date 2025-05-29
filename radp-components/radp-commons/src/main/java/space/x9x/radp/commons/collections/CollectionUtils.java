@@ -24,6 +24,10 @@ import java.util.Set;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for collection operations. This class provides utility methods for
+ * working with collections, including checking for emptiness and creating immutable sets.
+ * It also wraps some functionality from Apache Commons Collections.
+ *
  * @author IO x9x
  * @since 2024-09-24 13:10
  */
@@ -53,10 +57,13 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * 创建一个不可变的集合，包含给定的元素 该方法接受任意数量的参数，并返回一个不可变的集合，其中包含了这些参数 如果没有提供参数或者参数数组为空，将返回一个空的不可变集合
-	 * @param values 要包含在集合中的元素，可以是任意类型
+	 * Creates an immutable set containing the given elements. This method accepts any
+	 * number of arguments and returns an immutable set containing these elements. If no
+	 * arguments are provided or the array is empty, an empty immutable set will be
+	 * returned.
+	 * @param values the elements to be included in the set, can be of any type
 	 * @param <T> the type of elements in the set
-	 * @return 一个不可变的集合，包含给定的元素
+	 * @return an immutable set containing the given elements
 	 */
 	public static <T> Set<T> ofSet(T... values) {
 		// Ensure that the array is not null and has elements

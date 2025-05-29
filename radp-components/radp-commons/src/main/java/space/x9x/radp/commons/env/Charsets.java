@@ -22,6 +22,11 @@ import java.nio.charset.StandardCharsets;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class providing commonly used character encodings. This class defines constants
+ * for standard character sets and their names, including UTF-8, UTF-16, ISO-8859-1,
+ * US-ASCII, and GBK. It provides both the Charset objects and their corresponding name
+ * strings.
+ *
  * @author IO x9x
  * @since 2024-09-30 13:03
  */

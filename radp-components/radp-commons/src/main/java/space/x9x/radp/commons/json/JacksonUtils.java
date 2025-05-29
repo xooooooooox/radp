@@ -31,12 +31,19 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+
 import space.x9x.radp.commons.json.jackson.exception.JacksonException;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultObjectMapper;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultXmlMapper;
 import space.x9x.radp.commons.lang.StringUtils;
 
 /**
+ * Utility class for JSON and XML processing using Jackson. This class provides a
+ * comprehensive set of methods for converting between Java objects, JSON strings, and XML
+ * strings, as well as parsing JSON and XML. It includes methods for pretty-printing,
+ * handling Optional results, and working with various data structures like Maps and
+ * Lists.
+ *
  * @author IO x9x
  * @since 2024-09-23 13:45
  */
@@ -45,9 +52,17 @@ import space.x9x.radp.commons.lang.StringUtils;
 @SuppressWarnings("java:S3252")
 public class JacksonUtils {
 
+	/**
+	 * The default ObjectMapper instance used for JSON operations. This mapper is
+	 * configured with the settings defined in DefaultObjectMapper.
+	 */
 	@Getter
 	private static final ObjectMapper defaultObjectMapper = new DefaultObjectMapper();
 
+	/**
+	 * The default XmlMapper instance used for XML operations. This mapper is configured
+	 * with the settings defined in DefaultXmlMapper.
+	 */
 	@Getter
 	private static final XmlMapper defaultXmlMapper = new DefaultXmlMapper();
 

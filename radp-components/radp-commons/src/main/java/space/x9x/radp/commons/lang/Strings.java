@@ -19,8 +19,6 @@ package space.x9x.radp.commons.lang;
 import lombok.experimental.UtilityClass;
 
 /**
- * 字符串常量
- * <p>
  * String constants for common use throughout the application. This utility class provides
  * a centralized repository of string constants to avoid duplication and ensure
  * consistency.

@@ -16,9 +16,18 @@
 
 package space.x9x.radp.commons.lang.format;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * Test class for {@link MessageFormatter}. This class contains unit tests to verify the
+ * functionality of the MessageFormatter class, particularly its ability to format
+ * messages by replacing placeholders with values.
+ *
+ * @author IO x9x
+ * @since 2025-05-28 19:28
+ */
 class MessageFormatterTest {
 
 	@Test
@@ -26,7 +35,7 @@ class MessageFormatterTest {
 		String messagePattern = "hello {}";
 		Object[] params = { "world" };
 		String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
-		Assertions.assertEquals("hello world", message);
+		assertThat(message).isEqualTo("hello world");
 	}
 
 }

@@ -21,23 +21,27 @@ import lombok.NoArgsConstructor;
 import lombok.Synchronized;
 
 /**
- * Twitter 雪花算法生成器
+ * Twitter Snowflake ID Generator.
  * <p>
- * 共 64 位, 0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号 <pre>
+ * The Snowflake ID is a 64-bit value: 0 + 41 bits timestamp + 10 bits machine ID (5 bits
+ * worker ID + 5 bits datacenter ID) + 12 bits sequence number <pre>
  * ┌─────────────── 41 bits ────────────────┐┌──── 10 bits ────┐┌─ 12 bits ─┐
- * │         时间戳(毫秒数) offset            ││数据中心ID+机器ID  ││  序列号    │
+ * │         timestamp (milliseconds)       ││datacenter+worker││ sequence  │
  * └────────────────────────────────────────┘└─────────────────┘└───────────┘
- * </pre> <pre>{@code
+ * </pre>
+ *
+ * <p>
+ * Example usage: <pre>{@code
  * public class SnowflakeDemo {
  *     public static void main(String[] args) {
- *         // 1) 直接 new 一个默认的 SnowflakeGenerator（dataCenterId=1, workerId=1）
+ *         // 1) Create a default SnowflakeGenerator (dataCenterId=1, workerId=1)
  *         SnowflakeGenerator generator = new SnowflakeGenerator();
  *
- *         // 2) 调用 nextId() 方法生成 Snowflake ID
+ *         // 2) Generate a Snowflake ID using nextId() method
  *         long id = generator.nextId();
  *         System.out.println("Snowflake ID: " + id);
  *
- *         // 3) 使用静态方法一次生成
+ *         // 3) Generate using static method
  *         long staticId = SnowflakeGenerator.nextId(2, 3);
  *         System.out.println("Snowflake ID (static): " + staticId);
  *     }
@@ -51,7 +55,7 @@ import lombok.Synchronized;
 public class SnowflakeGenerator {
 
 	/**
-	 * 开始时间截（2018-01-01）
+	 * Epoch timestamp (2018-01-01) used as the starting point for ID generation.
 	 */
 	private final long twepoch = 1514736000000L;
 
@@ -73,32 +77,32 @@ public class SnowflakeGenerator {
 	/**
 	 * 支持的最大机器 ID
 	 */
-	private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+	private final long maxWorkerId = -1L ^ (-1L << this.workerIdBits);
 
 	/**
 	 * 支持的最大数据标识 ID
 	 */
-	private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+	private final long maxDatacenterId = -1L ^ (-1L << this.datacenterIdBits);
 
 	/**
 	 * 机器 ID 向左移 12 位
 	 */
-	private final long workerIdShift = sequenceBits;
+	private final long workerIdShift = this.sequenceBits;
 
 	/**
 	 * 数据标识 ID 向左移 17 位
 	 */
-	private final long datacenterIdShift = sequenceBits + workerIdBits;
+	private final long datacenterIdShift = this.sequenceBits + this.workerIdBits;
 
 	/**
 	 * 时间截向左移 22 位
 	 */
-	private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+	private final long timestampLeftShift = this.sequenceBits + this.workerIdBits + this.datacenterIdBits;
 
 	/**
 	 * 生成序列的掩码
 	 */
-	private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+	private final long sequenceMask = -1L ^ (-1L << this.sequenceBits);
 
 	/**
 	 * 机器 ID
@@ -127,11 +131,11 @@ public class SnowflakeGenerator {
 	 */
 	@Builder
 	public SnowflakeGenerator(long dataCenterId, long workerId) {
-		if (dataCenterId > maxDatacenterId || dataCenterId < 0) {
-			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", maxDatacenterId));
+		if (dataCenterId > this.maxDatacenterId || dataCenterId < 0) {
+			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", this.maxDatacenterId));
 		}
-		if (workerId > maxWorkerId || workerId < 0) {
-			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", maxWorkerId));
+		if (workerId > this.maxWorkerId || workerId < 0) {
+			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", this.maxWorkerId));
 		}
 		this.dataCenterId = dataCenterId;
 		this.workerId = workerId;
@@ -156,29 +160,29 @@ public class SnowflakeGenerator {
 		long timestamp = timeGen();
 
 		// 如果当前时间小于上一次 ID 生成的时间戳，说明系统时钟回退过，抛出异常
-		if (timestamp < lastTimestamp) {
-			throw new RuntimeException(String.format("时钟被回退 %d 毫秒，无法生成", lastTimestamp - timestamp));
+		if (timestamp < this.lastTimestamp) {
+			throw new RuntimeException(String.format("时钟被回退 %d 毫秒，无法生成", this.lastTimestamp - timestamp));
 		}
 
 		// 如果是同一时间生成的，则进行毫秒内序列
-		if (lastTimestamp == timestamp) {
-			sequence = (sequence + 1) & sequenceMask;
+		if (this.lastTimestamp == timestamp) {
+			this.sequence = (this.sequence + 1) & this.sequenceMask;
 			// 毫秒内序列溢出
-			if (sequence == 0) {
+			if (this.sequence == 0) {
 				// 阻塞到下一个毫秒，获得新的时间戳
-				timestamp = tillNextMillis(lastTimestamp);
+				timestamp = tillNextMillis(this.lastTimestamp);
 			}
 		}
 		else { // 时间戳改变，毫秒内序列重置
-			sequence = 0L;
+			this.sequence = 0L;
 		}
 
 		// 上次生成 ID 的时间截
-		lastTimestamp = timestamp;
+		this.lastTimestamp = timestamp;
 
 		// 移位并通过或运算拼到一起组成 64 位的 ID
-		return ((timestamp - twepoch) << timestampLeftShift) | (dataCenterId << datacenterIdShift)
-				| (workerId << workerIdShift) | sequence;
+		return ((timestamp - this.twepoch) << this.timestampLeftShift) | (this.dataCenterId << this.datacenterIdShift)
+				| (this.workerId << this.workerIdShift) | this.sequence;
 	}
 
 	/**

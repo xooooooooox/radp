@@ -19,6 +19,10 @@ package space.x9x.radp.commons.lang;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for array operations. This class extends Apache Commons Lang's ArrayUtils
+ * to provide convenient access to array manipulation methods such as adding, removing,
+ * and checking elements in arrays of various types.
+ *
  * @author IO x9x
  * @since 2024-09-24 23:10
  */

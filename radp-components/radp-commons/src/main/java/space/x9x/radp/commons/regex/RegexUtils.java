@@ -21,32 +21,32 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.regex.pattern.RegexCache;
 
 /**
  * Utility class for regular expression operations.
  *
  * <p>
- * <strong>使用示例：</strong>
+ * <strong>Usage Examples:</strong>
  * </p>
  * <pre>{@code
  * public class Demo {
  *     public static void main(String[] args) {
- *         // 1) 判断整个字符串是否匹配正则
+ *         // 1) Check if the entire string matches a regex pattern
  *         boolean isMatch = RegexUtils.isMatch("\\d+", "12345");
  *         System.out.println(isMatch); // true
  *
- *         // 2) 查找目标字符串中是否存在匹配
+ *         // 2) Find if a pattern exists in the target string
  *         boolean found = RegexUtils.find("abc", "xxx abc yyy");
  *         System.out.println(found); // true
  *
- *         // 3) 分组匹配示例
+ *         // 3) Group matching example
  *         List<String> groups = RegexUtils.group("([a-z]+)", "abc def ghi");
  *         System.out.println(groups); // [abc, def, ghi]
  *
- *         // 4) 替换所有匹配项
+ *         // 4) Replace all matching patterns
  *         String replaced = RegexUtils.replaceAll("\\s+", "abc def", "_");
  *         System.out.println(replaced); // "abc_def"
  *     }
@@ -54,8 +54,8 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * }</pre>
  *
  * @author IO x9x
- * @see space.x9x.radp.commons.regex.pattern.Regex
  * @since 2024-12-27 12:50
+ * @see space.x9x.radp.commons.regex.pattern.Regex
  */
 @UtilityClass
 public class RegexUtils {
@@ -66,7 +66,7 @@ public class RegexUtils {
 	 * @param input the character sequence to be matched
 	 * @return true if the entire input sequence matches the pattern
 	 */
-	public static boolean isMatch(@NonNull String regex, @NonNull CharSequence input) {
+	public static boolean isMatch(String regex, CharSequence input) {
 		return Pattern.matches(regex, input);
 	}
 
@@ -76,7 +76,7 @@ public class RegexUtils {
 	 * @param input the character sequence to be searched
 	 * @return true if the pattern is found in the input sequence
 	 */
-	public static boolean find(@NonNull String regex, @NonNull CharSequence input) {
+	public static boolean find(String regex, CharSequence input) {
 		Pattern pattern = RegexCache.get(regex, Pattern.CASE_INSENSITIVE);
 		return pattern.matcher(input).find();
 	}
@@ -87,7 +87,7 @@ public class RegexUtils {
 	 * @param input the character sequence to be searched
 	 * @return a list of all captured group values
 	 */
-	public static List<String> group(@NonNull String regex, @NonNull CharSequence input) {
+	public static List<String> group(String regex, CharSequence input) {
 		List<String> matches = new ArrayList<>();
 		Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(input);
@@ -106,7 +106,7 @@ public class RegexUtils {
 	 * @param input the character sequence to be searched
 	 * @return the value of the first capturing group, or null if no match is found
 	 */
-	public static String groupFirst(@NonNull String regex, @NonNull CharSequence input) {
+	public static String groupFirst(String regex, CharSequence input) {
 		return group(regex, input, 1);
 	}
 
@@ -118,7 +118,7 @@ public class RegexUtils {
 	 * @param groupIndex the index of the capturing group to extract
 	 * @return the value of the specified capturing group, or null if no match is found
 	 */
-	public static String group(@NonNull String regex, @NonNull CharSequence input, int groupIndex) {
+	public static String group(String regex, CharSequence input, int groupIndex) {
 		Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(input);
 		if (matcher.find()) {
@@ -135,7 +135,7 @@ public class RegexUtils {
 	 * @param replacement the string to replace each match with
 	 * @return the resulting string after replacement
 	 */
-	public static String replaceAll(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
+	public static String replaceAll(String regex, CharSequence input, String replacement) {
 		return Pattern.compile(regex).matcher(input).replaceAll(replacement);
 	}
 
@@ -147,7 +147,7 @@ public class RegexUtils {
 	 * @param replacement the string to replace the first match with
 	 * @return the resulting string after replacement
 	 */
-	public static String replaceFirst(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
+	public static String replaceFirst(String regex, CharSequence input, String replacement) {
 		Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
 		return pattern.matcher(input).replaceFirst(replacement);
 	}

@@ -19,6 +19,8 @@
 #set( $symbol_escape = '\' )
 package ${package}.types.exception;
 
+import java.io.Serial;
+
 import org.jetbrains.annotations.PropertyKey;
 
 import space.x9x.radp.spring.framework.error.ErrorCode;
@@ -33,6 +35,7 @@ import space.x9x.radp.spring.framework.error.ServerException;
  */
 public class AppException extends ServerException {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

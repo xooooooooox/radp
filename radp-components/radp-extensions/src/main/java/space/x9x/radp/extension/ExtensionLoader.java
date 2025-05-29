@@ -805,7 +805,7 @@ public class ExtensionLoader<T> {
 	 * @return an unmodifiable set of loaded extension names
 	 */
 	public Set<String> getLoadedExtensions() {
-		return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
+		return Collections.unmodifiableSet(new TreeSet<>(this.cachedInstances.keySet()));
 	}
 
 	/**

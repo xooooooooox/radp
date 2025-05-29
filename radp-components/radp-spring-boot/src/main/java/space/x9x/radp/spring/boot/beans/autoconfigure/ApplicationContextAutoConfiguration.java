@@ -42,8 +42,7 @@ public class ApplicationContextAutoConfiguration {
 
 	/**
 	 * Log message for when the ApplicationContextHelper is autowired. This constant
-	 * defines the message that is logged when the ApplicationContextHelper bean is
-	 * created.
+	 * defines the message logged when the ApplicationContextHelper bean is created.
 	 */
 	private static final String AUTOWIRED_APPLICATION_CONTEXT_HELPER = "Autowired ApplicationContextHelper";
 

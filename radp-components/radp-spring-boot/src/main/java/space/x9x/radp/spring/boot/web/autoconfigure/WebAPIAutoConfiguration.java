@@ -52,7 +52,7 @@ public class WebAPIAutoConfiguration implements WebMvcConfigurer {
 	/**
 	 * Constructs a new WebAPIAutoConfiguration with the specified properties. This
 	 * constructor is automatically called by Spring's dependency injection system when
-	 * the auto-configuration is enabled.
+	 * the autoconfiguration is enabled.
 	 * @param properties the WebAPIProperties containing configuration for API endpoints
 	 */
 	public WebAPIAutoConfiguration(WebAPIProperties properties) {

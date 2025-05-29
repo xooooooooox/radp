@@ -27,7 +27,7 @@ import space.x9x.radp.spring.boot.logging.env.AccessLogProperties;
 import space.x9x.radp.spring.framework.logging.EnableAccessLog;
 
 /**
- * Auto-configuration for access logging. This configuration class automatically enables
+ * Autoconfiguration for access logging. This configuration class automatically enables
  * access logging in the application when the appropriate property is set. It uses the
  * AccessLogProperties for configuration and applies the @EnableAccessLog annotation to
  * activate the access logging functionality. The configuration is only activated when the

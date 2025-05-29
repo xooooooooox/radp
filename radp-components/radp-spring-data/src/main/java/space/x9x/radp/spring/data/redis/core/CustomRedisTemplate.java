@@ -41,22 +41,21 @@ public interface CustomRedisTemplate {
 	 */
 	long DEFAULT_EXPIRE = 86400L;
 
-	// ------------------------------- RedisObject Operations
-	// -------------------------------
+	// ---------------------------- RedisObject Operations ----------------------------
 
 	/**
 	 * Checks if a key exists in the cache.
 	 * @param key the key to check
 	 * @return true if the key exists, false otherwise
 	 */
-	boolean hasKey(String key);
+	Boolean hasKey(String key);
 
 	/**
 	 * Deletes a key from the cache.
 	 * @param key the key to delete
 	 * @return true if the key was deleted, false otherwise
 	 */
-	boolean delete(String key);
+	Boolean delete(String key);
 
 	/**
 	 * Sets an expiration time for a key. Note: This is a metadata operation that doesn't
@@ -65,7 +64,7 @@ public interface CustomRedisTemplate {
 	 * @param timeout the expiration time in seconds
 	 * @return true if the expiration was set, false otherwise
 	 */
-	boolean expire(String key, long timeout);
+	Boolean expire(String key, long timeout);
 
 	// ------------------------------- String Operations -------------------------------
 

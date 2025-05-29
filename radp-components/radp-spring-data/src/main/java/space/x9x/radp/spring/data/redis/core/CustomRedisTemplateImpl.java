@@ -57,18 +57,18 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	// ----------------------------------
 
 	@Override
-	public boolean hasKey(String key) {
-		return Boolean.TRUE.equals(this.redisTemplate.hasKey(key));
+	public Boolean hasKey(String key) {
+		return this.redisTemplate.hasKey(key);
 	}
 
 	@Override
-	public boolean delete(String key) {
-		return Boolean.TRUE.equals(this.redisTemplate.delete(key));
+	public Boolean delete(String key) {
+		return this.redisTemplate.delete(key);
 	}
 
 	@Override
-	public boolean expire(String key, long timeout) {
-		return Boolean.TRUE.equals(this.redisTemplate.expire(key, timeout, TimeUnit.SECONDS));
+	public Boolean expire(String key, long timeout) {
+		return this.redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
 	}
 
 	// ---------------------------------- String 操作 ----------------------------------

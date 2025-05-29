@@ -3,7 +3,6 @@
 #set( $symbol_escape = '\' )
 package ${package}.test
 
-
 /*
  * Copyright 2012-2025 the original author or authors.
  *

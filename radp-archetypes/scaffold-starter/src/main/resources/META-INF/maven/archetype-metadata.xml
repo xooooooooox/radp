@@ -43,6 +43,7 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
+				<include>.springjavaformatconfig</include>
             </includes>
         </fileSet>
 		<fileSet encoding="UTF-8">

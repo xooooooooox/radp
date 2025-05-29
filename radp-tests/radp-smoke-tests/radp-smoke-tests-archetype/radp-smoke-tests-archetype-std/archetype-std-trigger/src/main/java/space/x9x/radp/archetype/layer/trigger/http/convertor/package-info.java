@@ -1,10 +1,11 @@
 
 /**
- * 1. 在这里定义 Entity 与 DTO 转换器 2. 命名 {@code IXxxEntityConvertor} 3. 示例 <pre>
+ * 1. 在这里定义 Entity <-> DTO 转换器 2. 命名 {@code IXxxEntityConvertor} 3. 示例 <pre>{@code
  * import org.mapstruct.Mapper;
  *
- * {@literal @}Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
- * public interface IStrategyAwardEntityConvertor extends BaseConvertor&lt;StrategyAwardEntity, RaffleAwardListResponseDTO&gt; {
+ * &#64;Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+ * public interface IStrategyAwardEntityConvertor extends BaseConvertor<StrategyAwardEntity, RaffleAwardListResponseDTO> {
+ * }
  * }
  * </pre>
  */

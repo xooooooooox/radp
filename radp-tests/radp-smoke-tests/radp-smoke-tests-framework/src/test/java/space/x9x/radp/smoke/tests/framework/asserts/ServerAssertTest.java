@@ -27,9 +27,8 @@ import org.junit.jupiter.api.Test;
 import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.ServerException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests for {@link ServerAssert}.
@@ -52,9 +51,11 @@ class ServerAssertTest {
 		ServerAssert.notNull("not null", new TestErrorCode());
 
 		// Test with the null object (should throw exception)
-		ServerException exception = assertThrows(ServerException.class,
-				() -> ServerAssert.notNull(null, new TestErrorCode()));
-		assertEquals(TestErrorCode.CODE, exception.getErrCode());
+		assertThatThrownBy(() -> ServerAssert.notNull(null, new TestErrorCode())).isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(TestErrorCode.CODE);
+			});
 	}
 
 	@DisplayName("Test doesNotContain")
@@ -64,10 +65,13 @@ class ServerAssertTest {
 		ServerAssert.doesNotContain("hello world", "foo", ERROR_CODE, PLACEHOLDERS);
 
 		// Test with a string that contains substring (should throw exception)
-		ServerException exception = assertThrows(ServerException.class,
-				() -> ServerAssert.doesNotContain("hello world", "world", ERROR_CODE, PLACEHOLDERS));
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.doesNotContain("hello world", "world", ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test hasLength")
@@ -77,11 +81,13 @@ class ServerAssertTest {
 		ServerAssert.hasLength("hello", ERROR_CODE, PLACEHOLDERS);
 
 		// Test with empty string (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.hasLength("", ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.hasLength("", ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test hasText")
@@ -91,11 +97,13 @@ class ServerAssertTest {
 		ServerAssert.hasText("hello", ERROR_CODE, PLACEHOLDERS);
 
 		// Test with whitespace-only string (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.hasText("   ", ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.hasText("   ", ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test isInstanceOf")
@@ -105,12 +113,13 @@ class ServerAssertTest {
 		ServerAssert.isInstanceOf(Object.class, "hello", ERROR_CODE, PLACEHOLDERS);
 
 		// Test with object that is not instance of class (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.isInstanceOf(Integer.class, "hello", ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertTrue(exception.getMessage().startsWith(EXPECTED_MESSAGE),
-				"Expected message to start with '" + EXPECTED_MESSAGE + "' but was '" + exception.getMessage() + "'");
+		assertThatThrownBy(() -> ServerAssert.isInstanceOf(Integer.class, "hello", ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).startsWith(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test isNull")
@@ -120,11 +129,13 @@ class ServerAssertTest {
 		ServerAssert.isNull(null, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with non-null object (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.isNull("not null", ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.isNull("not null", ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test notNull with String error code")
@@ -134,11 +145,13 @@ class ServerAssertTest {
 		ServerAssert.notNull("not null", ERROR_CODE, PLACEHOLDERS);
 
 		// Test with null object (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.notNull(null, ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.notNull(null, ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test isTrue")
@@ -148,11 +161,13 @@ class ServerAssertTest {
 		ServerAssert.isTrue(true, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with false expression (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.isTrue(false, ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.isTrue(false, ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test noNullElements")
@@ -162,11 +177,13 @@ class ServerAssertTest {
 		ServerAssert.noNullElements(Arrays.asList("a", "b", "c"), ERROR_CODE, PLACEHOLDERS);
 
 		// Test with collection containing null elements (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.noNullElements(Arrays.asList("a", null, "c"), ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.noNullElements(Arrays.asList("a", null, "c"), ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test notEmpty for array")
@@ -176,11 +193,13 @@ class ServerAssertTest {
 		ServerAssert.notEmpty(new String[] { "a", "b" }, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with empty array (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.notEmpty(new String[0], ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.notEmpty(new String[0], ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test notEmpty for Collection")
@@ -190,11 +209,13 @@ class ServerAssertTest {
 		ServerAssert.notEmpty(Arrays.asList("a", "b"), ERROR_CODE, PLACEHOLDERS);
 
 		// Test with empty collection (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.notEmpty(Collections.emptyList(), ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.notEmpty(Collections.emptyList(), ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test notEmpty for Map")
@@ -206,11 +227,13 @@ class ServerAssertTest {
 		ServerAssert.notEmpty(nonEmptyMap, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with empty map (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.notEmpty(Collections.emptyMap(), ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.notEmpty(Collections.emptyMap(), ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).isEqualTo(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test isAssignable")
@@ -220,12 +243,13 @@ class ServerAssertTest {
 		ServerAssert.isAssignable(Object.class, String.class, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with non-assignable classes (should throw exception)
-		ServerException exception = assertThrows(ServerException.class, () -> {
-			ServerAssert.isAssignable(Integer.class, String.class, ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(ERROR_CODE, exception.getErrCode());
-		assertTrue(exception.getMessage().startsWith(EXPECTED_MESSAGE),
-				"Expected message to start with '" + EXPECTED_MESSAGE + "' but was '" + exception.getMessage() + "'");
+		assertThatThrownBy(() -> ServerAssert.isAssignable(Integer.class, String.class, ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(ServerException.class)
+			.satisfies(e -> {
+				ServerException se = (ServerException) e;
+				assertThat(se.getErrCode()).isEqualTo(ERROR_CODE);
+				assertThat(se.getMessage()).startsWith(EXPECTED_MESSAGE);
+			});
 	}
 
 	@DisplayName("Test state")
@@ -235,10 +259,9 @@ class ServerAssertTest {
 		ServerAssert.state(true, ERROR_CODE, PLACEHOLDERS);
 
 		// Test with false state (should throw exception)
-		IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-			ServerAssert.state(false, ERROR_CODE, PLACEHOLDERS);
-		});
-		assertEquals(EXPECTED_MESSAGE, exception.getMessage());
+		assertThatThrownBy(() -> ServerAssert.state(false, ERROR_CODE, PLACEHOLDERS))
+			.isInstanceOf(IllegalStateException.class)
+			.satisfies(e -> assertThat(e.getMessage()).isEqualTo(EXPECTED_MESSAGE));
 	}
 
 	/**

@@ -21,11 +21,8 @@ import org.junit.jupiter.api.Test;
 import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests for the enhanced Redis key management system.
@@ -41,42 +38,45 @@ class RedisKeyManagementTest {
 	@Test
 	void testKeyValidation() {
 		// Valid keys
-		assertTrue(RedisKeyConstants.isValidKey("radp:test:user:123"));
-		assertTrue(RedisKeyConstants.isValidKey("app:module:entity"));
+		assertThat(RedisKeyConstants.isValidKey("radp:test:user:123")).isTrue();
+		assertThat(RedisKeyConstants.isValidKey("app:module:entity")).isTrue();
 
 		// Invalid keys
-		assertFalse(RedisKeyConstants.isValidKey(null));
-		assertFalse(RedisKeyConstants.isValidKey(""));
-		assertFalse(RedisKeyConstants.isValidKey("single-part"));
-		assertFalse(RedisKeyConstants.isValidKey(":starts:with:delimiter"));
-		assertFalse(RedisKeyConstants.isValidKey("ends:with:delimiter:"));
-		assertFalse(RedisKeyConstants.isValidKey("has::consecutive:delimiters"));
+		assertThat(RedisKeyConstants.isValidKey(null)).isFalse();
+		assertThat(RedisKeyConstants.isValidKey("")).isFalse();
+		assertThat(RedisKeyConstants.isValidKey("single-part")).isFalse();
+		assertThat(RedisKeyConstants.isValidKey(":starts:with:delimiter")).isFalse();
+		assertThat(RedisKeyConstants.isValidKey("ends:with:delimiter:")).isFalse();
+		assertThat(RedisKeyConstants.isValidKey("has::consecutive:delimiters")).isFalse();
 	}
 
 	@Test
 	void testPrefixExtraction() {
-		assertEquals("radp", RedisKeyConstants.extractPrefix("radp:test:user:123"));
-		assertEquals("app", RedisKeyConstants.extractPrefix("app:module:entity"));
-		assertEquals("single", RedisKeyConstants.extractPrefix("single"));
-		assertEquals("", RedisKeyConstants.extractPrefix(null));
-		assertEquals("", RedisKeyConstants.extractPrefix(""));
+		assertThat(RedisKeyConstants.extractPrefix("radp:test:user:123")).isEqualTo("radp");
+		assertThat(RedisKeyConstants.extractPrefix("app:module:entity")).isEqualTo("app");
+		assertThat(RedisKeyConstants.extractPrefix("single")).isEqualTo("single");
+		assertThat(RedisKeyConstants.extractPrefix(null)).isEqualTo("");
+		assertThat(RedisKeyConstants.extractPrefix("")).isEqualTo("");
 	}
 
 	@Test
 	void testKeyBuilding() {
 		// Test building keys with various inputs
-		assertEquals("radp:test:user:123", RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "user", "123"));
-		assertEquals("radp", RedisKeyConstants.buildRedisKeyWithPrefix("radp"));
-		assertEquals("radp:test", RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test"));
-		assertEquals("radp:test:user", RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "user"));
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "user", "123"))
+			.isEqualTo("radp:test:user:123");
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp")).isEqualTo("radp");
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test")).isEqualTo("radp:test");
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "user")).isEqualTo("radp:test:user");
 
 		// Test handling of null and empty parts
-		assertEquals("radp:test:user", RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", null, "user"));
-		assertEquals("radp:test:user", RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "", "user"));
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", null, "user")).isEqualTo("radp:test:user");
+		assertThat(RedisKeyConstants.buildRedisKeyWithPrefix("radp", "test", "", "user")).isEqualTo("radp:test:user");
 
 		// Test exception for null or empty prefix
-		assertThrows(IllegalArgumentException.class, () -> RedisKeyConstants.buildRedisKeyWithPrefix(null));
-		assertThrows(IllegalArgumentException.class, () -> RedisKeyConstants.buildRedisKeyWithPrefix(""));
+		assertThatThrownBy(() -> RedisKeyConstants.buildRedisKeyWithPrefix(null))
+			.isInstanceOf(IllegalArgumentException.class);
+		assertThatThrownBy(() -> RedisKeyConstants.buildRedisKeyWithPrefix(""))
+			.isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -84,29 +84,29 @@ class RedisKeyManagementTest {
 		IRedisKeyProvider provider = TestRedisKeys.INSTANCE;
 
 		// Test building keys with the provider
-		assertEquals("radp:test:user:123", provider.buildKey("user", "123"));
-		assertEquals("radp:test:user:123", provider.buildEntityKey("user", "123"));
-		assertEquals("radp:test:feature", provider.buildFeatureKey("feature"));
+		assertThat(provider.buildKey("user", "123")).isEqualTo("radp:test:user:123");
+		assertThat(provider.buildEntityKey("user", "123")).isEqualTo("radp:test:user:123");
+		assertThat(provider.buildFeatureKey("feature")).isEqualTo("radp:test:feature");
 
 		// Test namespace validation
-		assertTrue(provider.isKeyInNamespace("radp:test:user:123"));
-		assertFalse(provider.isKeyInNamespace("other:test:user:123"));
-		assertFalse(provider.isKeyInNamespace(null));
+		assertThat(provider.isKeyInNamespace("radp:test:user:123")).isTrue();
+		assertThat(provider.isKeyInNamespace("other:test:user:123")).isFalse();
+		assertThat(provider.isKeyInNamespace(null)).isFalse();
 
 		// Test entity and ID extraction
 		// The key format is "radp:test:user:123" where "test" is the module, "user" is
 		// the entity, and "123" is the ID
 		// Since the TestRedisKeys provider has a prefix of "radp:test", the entity is at
 		// index 1 after the prefix
-		assertEquals("user", provider.extractEntity("radp:test:user:123"));
-		assertEquals("123", provider.extractId("radp:test:user:123"));
-		assertNull(provider.extractEntity("other:test:user:123"));
-		assertNull(provider.extractId("other:test:user:123"));
+		assertThat(provider.extractEntity("radp:test:user:123")).isEqualTo("user");
+		assertThat(provider.extractId("radp:test:user:123")).isEqualTo("123");
+		assertThat(provider.extractEntity("other:test:user:123")).isNull();
+		assertThat(provider.extractId("other:test:user:123")).isNull();
 
 		// Test key validation
-		assertTrue(provider.isValidNamespacedKey("radp:test:user:123"));
-		assertFalse(provider.isValidNamespacedKey("radp:test::user:123"));
-		assertFalse(provider.isValidNamespacedKey("other:test:user:123"));
+		assertThat(provider.isValidNamespacedKey("radp:test:user:123")).isTrue();
+		assertThat(provider.isValidNamespacedKey("radp:test::user:123")).isFalse();
+		assertThat(provider.isValidNamespacedKey("other:test:user:123")).isFalse();
 	}
 
 }

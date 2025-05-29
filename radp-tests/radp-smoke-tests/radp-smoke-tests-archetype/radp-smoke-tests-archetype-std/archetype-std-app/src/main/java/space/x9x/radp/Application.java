@@ -22,27 +22,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import space.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
 
-/**
- * Main application class for the RADP Standard Archetype. This class serves as the entry
- * point for the Spring Boot application.
- *
- * The {@code @SpringBootApplication} annotation enables auto-configuration and component
- * scanning. The {@code @Configurable} annotation allows for dependency injection into
- * non-managed objects. The {@code @EnableRestExceptionHandler} annotation enables global
- * REST exception handling.
- *
- * @author IO x9x
- * @since 2024-10-11 16:33
- */
 @SpringBootApplication
 @Configurable
 @EnableRestExceptionHandler
 public class Application {
 
-	/**
-	 * Main method which serves as the entry point for the application.
-	 * @param args command line arguments passed to the application
-	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class);
 	}

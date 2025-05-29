@@ -33,9 +33,7 @@ import org.testcontainers.utility.DockerImageName;
 import space.x9x.radp.redis.spring.boot.constants.RedisKeyConstants;
 import space.x9x.radp.redis.spring.boot.support.RedissonService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Smoke tests for {@link RedissonService} using Testcontainers. These tests verify that
@@ -104,7 +102,7 @@ class RedissonServiceSmokeTest {
 
 		// Get the value and verify it matches what was set
 		String retrievedValue = redissonService.getValue(testKey);
-		assertEquals(TEST_VALUE, retrievedValue);
+		assertThat(retrievedValue).isEqualTo(TEST_VALUE);
 	}
 
 	@Test
@@ -116,7 +114,7 @@ class RedissonServiceSmokeTest {
 		redissonService.setValue(testKey, TEST_VALUE, 100);
 
 		// Verify the value exists immediately after setting
-		assertTrue(redissonService.isExists(testKey));
+		assertThat(redissonService.isExists(testKey)).isTrue();
 
 		// Wait for the value to expire
 		try {
@@ -127,7 +125,7 @@ class RedissonServiceSmokeTest {
 		}
 
 		// Verify the value no longer exists after expiration
-		assertFalse(redissonService.isExists(testKey));
+		assertThat(redissonService.isExists(testKey)).isFalse();
 	}
 
 	@Test
@@ -139,13 +137,13 @@ class RedissonServiceSmokeTest {
 		redissonService.setValue(testKey, TEST_VALUE);
 
 		// Verify the value exists
-		assertTrue(redissonService.isExists(testKey));
+		assertThat(redissonService.isExists(testKey)).isTrue();
 
 		// Remove the value
 		redissonService.remove(testKey);
 
 		// Verify the value no longer exists
-		assertFalse(redissonService.isExists(testKey));
+		assertThat(redissonService.isExists(testKey)).isFalse();
 	}
 
 	@Test
@@ -158,23 +156,23 @@ class RedissonServiceSmokeTest {
 
 		// Get the value and verify it matches what was set
 		Long value = redissonService.getAtomicLong(testKey);
-		assertEquals(100L, value);
+		assertThat(value).isEqualTo(100L);
 
 		// Increment the value
 		long incrResult = redissonService.incr(testKey);
-		assertEquals(101L, incrResult);
+		assertThat(incrResult).isEqualTo(101L);
 
 		// Increment by a specific amount
 		long incrByResult = redissonService.incrBy(testKey, 10L);
-		assertEquals(111L, incrByResult);
+		assertThat(incrByResult).isEqualTo(111L);
 
 		// Decrement the value
 		long decrResult = redissonService.decr(testKey);
-		assertEquals(110L, decrResult);
+		assertThat(decrResult).isEqualTo(110L);
 
 		// Decrement by a specific amount
 		long decrByResult = redissonService.decrBy(testKey, 10L);
-		assertEquals(100L, decrByResult);
+		assertThat(decrByResult).isEqualTo(100L);
 	}
 
 	@Test
@@ -187,11 +185,11 @@ class RedissonServiceSmokeTest {
 
 		// Verify the value is a member of the set
 		boolean isMember = redissonService.isSetMember(testKey, TEST_VALUE);
-		assertTrue(isMember);
+		assertThat(isMember).isTrue();
 
 		// Verify a different value is not a member of the set
 		boolean isNotMember = redissonService.isSetMember(testKey, "non-existent-value");
-		assertFalse(isNotMember);
+		assertThat(isNotMember).isFalse();
 	}
 
 	@Test
@@ -204,7 +202,7 @@ class RedissonServiceSmokeTest {
 
 		// Get the value from the list and verify it matches what was added
 		String retrievedValue = redissonService.getFromList(testKey, 0);
-		assertEquals(TEST_VALUE, retrievedValue);
+		assertThat(retrievedValue).isEqualTo(TEST_VALUE);
 	}
 
 	@Test
@@ -218,7 +216,7 @@ class RedissonServiceSmokeTest {
 
 		// Get the value from the map and verify it matches what was added
 		String retrievedValue = redissonService.getFromMap(testKey, field);
-		assertEquals(TEST_VALUE, retrievedValue);
+		assertThat(retrievedValue).isEqualTo(TEST_VALUE);
 	}
 
 	@Test
@@ -228,11 +226,11 @@ class RedissonServiceSmokeTest {
 
 		// Set a value using setNx (only if not exists)
 		Boolean result = redissonService.setNx(testKey);
-		assertTrue(result);
+		assertThat(result).isTrue();
 
 		// Try to set the value again
 		Boolean secondResult = redissonService.setNx(testKey);
-		assertFalse(secondResult);
+		assertThat(secondResult).isFalse();
 	}
 
 	@Test
@@ -242,7 +240,7 @@ class RedissonServiceSmokeTest {
 
 		// Set a value using setNx with expiration
 		Boolean result = redissonService.setNx(testKey, 100, TimeUnit.MILLISECONDS);
-		assertTrue(result);
+		assertThat(result).isTrue();
 
 		// Wait for the value to expire
 		try {
@@ -254,7 +252,7 @@ class RedissonServiceSmokeTest {
 
 		// Try to set the value again after expiration
 		Boolean secondResult = redissonService.setNx(testKey);
-		assertTrue(secondResult);
+		assertThat(secondResult).isTrue();
 	}
 
 }

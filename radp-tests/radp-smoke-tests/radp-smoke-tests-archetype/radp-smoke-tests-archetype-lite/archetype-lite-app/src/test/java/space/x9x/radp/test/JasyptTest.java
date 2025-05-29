@@ -21,10 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -48,13 +49,13 @@ class JasyptTest {
 		}
 
 		// 使用当前 SpringBoot 上下文已经集成的 jasypt 加密器进行解密
-		Assertions.assertEquals("root", JasyptUtils.decrypt(stringEncryptor, "VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb"));
-		Assertions.assertEquals("123456", JasyptUtils.decrypt(stringEncryptor, "uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj"));
+		assertThat(JasyptUtils.decrypt(stringEncryptor, "VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb")).isEqualTo("root");
+		assertThat(JasyptUtils.decrypt(stringEncryptor, "uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj")).isEqualTo("123456");
 		// 使用指定的 jasypt 加密器进行解密
-		Assertions.assertEquals("root",
-				JasyptUtils.customPBEDecrypt("0R/8uhwNlqioUF0hbuJZWA==", "PBEWithMD5AndDES", "dsaf#,jds.klfj1"));
-		Assertions.assertEquals("123456",
-				JasyptUtils.customPBEDecrypt("lTEOkXx15CN6dH48COhuVA==", "PBEWithMD5AndDES", "dsaf#,jds.klfj1"));
+		assertThat(JasyptUtils.customPBEDecrypt("0R/8uhwNlqioUF0hbuJZWA==", "PBEWithMD5AndDES", "dsaf#,jds.klfj1"))
+			.isEqualTo("root");
+		assertThat(JasyptUtils.customPBEDecrypt("lTEOkXx15CN6dH48COhuVA==", "PBEWithMD5AndDES", "dsaf#,jds.klfj1"))
+			.isEqualTo("123456");
 	}
 
 }

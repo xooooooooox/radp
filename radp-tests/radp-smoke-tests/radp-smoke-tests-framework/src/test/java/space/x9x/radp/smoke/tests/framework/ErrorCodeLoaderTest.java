@@ -22,8 +22,7 @@ import org.junit.jupiter.api.Test;
 import space.x9x.radp.smoke.tests.framework.asserts.ServerAssert;
 import space.x9x.radp.spring.framework.error.ServerException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -38,9 +37,9 @@ class ErrorCodeLoaderTest {
 			ServerAssert.notNull(null, "10000", 123);
 		}
 		catch (ServerException e) {
-			assertEquals("HELLO 123", e.getMessage());
-			assertEquals("10000", e.getErrCode());
-			assertNull(e.getCause());
+			assertThat(e.getMessage()).isEqualTo("HELLO 123");
+			assertThat(e.getErrCode()).isEqualTo("10000");
+			assertThat(e.getCause()).isNull();
 		}
 	}
 

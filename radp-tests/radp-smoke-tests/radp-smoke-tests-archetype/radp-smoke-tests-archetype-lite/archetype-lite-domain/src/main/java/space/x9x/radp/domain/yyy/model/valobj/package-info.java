@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2012-2025 the original author or authors.
  *
@@ -16,6 +15,6 @@
  */
 
 /**
- * 值对象； 1. 用于描述对象属性的值，如一个库表中有json后者一个字段多个属性信息的枚举对象 2. 对象名称如；XxxVO
+ * 值对象. 1. 用于描述对象属性的值，如一个库表中有json后者一个字段多个属性信息的枚举对象 2. 对象名称如；XxxVO
  */
 package space.x9x.radp.domain.yyy.model.valobj;

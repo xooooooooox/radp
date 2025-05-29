@@ -24,11 +24,12 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.LoggerFactory;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for classic Logback configuration.
@@ -45,7 +46,7 @@ class ClassicLogbackTest {
 		loggerCtx.reset();
 
 		URL configUrl = getClass().getClassLoader().getResources("logback-classic.xml").nextElement();
-		Assertions.assertNotNull(configUrl, "无法找到 logback-classic.xml");
+		assertThat(configUrl).as("无法找到 logback-classic.xml").isNotNull();
 		JoranConfigurator cfg = new JoranConfigurator();
 		cfg.setContext(loggerCtx);
 		cfg.doConfigure(configUrl);

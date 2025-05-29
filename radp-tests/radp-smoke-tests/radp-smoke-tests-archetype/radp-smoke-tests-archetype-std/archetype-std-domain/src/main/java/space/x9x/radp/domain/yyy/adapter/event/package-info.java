@@ -1,6 +1,6 @@
 
 /**
- * MQ 消息(下面代码示例以 {@code Guava} 的 {@code EventBus} 为例
+ * MQ 消息(下面代码示例以 {@code Guava} 的 {@code EventBus} 为例.
  * <p>
  * 1. 在领域 {@code domain} 层的 {@code adapter/event} 包中, 定义事件消息(消息体). <pre>{@code
  *

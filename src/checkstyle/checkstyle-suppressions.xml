@@ -46,6 +46,7 @@
 	<!-- radp-extensions -->
 	<suppress files="Constants\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="LoadingStrategyHolder\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AdaptiveClassCodeGenerator\.java" checks="JavadocVariable"/>
 
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>

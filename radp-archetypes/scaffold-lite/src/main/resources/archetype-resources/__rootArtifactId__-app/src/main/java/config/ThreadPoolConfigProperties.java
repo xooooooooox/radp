@@ -19,7 +19,6 @@
 #set( $symbol_escape = '\' )
 package ${package}.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Data;
@@ -40,17 +39,17 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 public class ThreadPoolConfigProperties {
 
 	/**
-	 * 核心线程数
+	 * 核心线程数.
 	 */
 	private Integer corePoolSize = 20;
 
 	/**
-	 * 最大线程数
+	 * 最大线程数.
 	 */
 	private Integer maxPoolSize = 200;
 
 	/**
-	 * 最大等待时间（单位：秒）
+	 * 最大等待时间（单位：秒）.
 	 */
 	private Long keepAliveTime = 10L;
 

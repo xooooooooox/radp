@@ -58,36 +58,33 @@ public class ThreadPoolConfig {
 	 * @param properties the configuration properties for the thread pool
 	 * @return a configured ThreadPoolExecutor instance
 	 */
-    @Bean
-    @ConditionalOnMissingBean(ThreadPoolExecutor.class)
-    public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties properties) {
-        // 实例化策略
-        RejectedExecutionHandler handler;
-        switch (properties.getPolicy()) {
-            case ABORT_POLICY:
-                handler = new ThreadPoolExecutor.AbortPolicy();
-                break;
-            case DISCARD_POLICY:
-                handler = new ThreadPoolExecutor.DiscardPolicy();
-                break;
-            case DISCARD_OLDEST_POLICY:
-                handler = new ThreadPoolExecutor.DiscardOldestPolicy();
-                break;
-            case CALLER_RUNS_POLICY:
-                handler = new ThreadPoolExecutor.CallerRunsPolicy();
-                break;
-            default:
-                handler = new ThreadPoolExecutor.AbortPolicy();
-                break;
-        }
+	@Bean
+	@ConditionalOnMissingBean(ThreadPoolExecutor.class)
+	public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties properties) {
+		// 实例化策略
+		RejectedExecutionHandler handler;
+		switch (properties.getPolicy()) {
+			case ABORT_POLICY:
+				handler = new ThreadPoolExecutor.AbortPolicy();
+				break;
+			case DISCARD_POLICY:
+				handler = new ThreadPoolExecutor.DiscardPolicy();
+				break;
+			case DISCARD_OLDEST_POLICY:
+				handler = new ThreadPoolExecutor.DiscardOldestPolicy();
+				break;
+			case CALLER_RUNS_POLICY:
+				handler = new ThreadPoolExecutor.CallerRunsPolicy();
+				break;
+			default:
+				handler = new ThreadPoolExecutor.AbortPolicy();
+				break;
+		}
 
-        // 创建线程池
-        return new ThreadPoolExecutor(properties.getCorePoolSize(),
-                properties.getMaxPoolSize(),
-                properties.getKeepAliveTime(), TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(properties.getBlockQueueSize()),
-                Executors.defaultThreadFactory(),
-                handler);
-    }
+		// 创建线程池
+		return new ThreadPoolExecutor(properties.getCorePoolSize(), properties.getMaxPoolSize(),
+				properties.getKeepAliveTime(), TimeUnit.SECONDS,
+				new LinkedBlockingQueue<>(properties.getBlockQueueSize()), Executors.defaultThreadFactory(), handler);
+	}
 
 }

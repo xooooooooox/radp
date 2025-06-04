@@ -9,6 +9,7 @@
 
 	<!-- Global: package-info.java -->
 	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
+	<suppress files="[\\/]src[\\/]main[\\/]java[\\/].*package-info\.java" checks="JavadocStyle"/>
 
 	<!-- Global: tests and test fixtures -->
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"
@@ -17,11 +18,11 @@
 			  id="systemOutErrPrint"/>
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="SpringJUnit5"
 			  message="should not be public"/>
-	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].+(Tests|Suite)"
+	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].*[\\/].+(Test|Tests|Suite)"
 			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
 
 	<!-- GLobal: -->
-	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor|JavadocStyle"/>
 
 </suppressions>

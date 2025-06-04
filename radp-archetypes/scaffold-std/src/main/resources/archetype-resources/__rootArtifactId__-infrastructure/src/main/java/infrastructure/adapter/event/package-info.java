@@ -2,16 +2,15 @@
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
 /**
- * 配置发送消息,比如 kafka
- * <pre>{@code
- * @Slf4j
- * @Component
+ * 配置发送消息,比如 kafka <pre><code>
+ * &#64;Slf4j
+ * &#64;Component
  * public class EventPublisher {
  *
- *     @Resource
- *     private KafkaTemplate<String, String> kafkaTemplate;
+ *     &#64;Resource
+ *     private KafkaTemplate&lt;String, String&gt; kafkaTemplate;
  *
- *     public void publish(String topic, BaseEvent.EventMessage<?> eventMessage) {
+ *     public void publish(String topic, BaseEvent.EventMessage&lt;?&gt; eventMessage) {
  *         try {
  *             String messageJson = JSON.toJSONString(eventMessage);
  *             kafkaTemplate.send(topic, messageJson);
@@ -23,6 +22,6 @@
  *     }
  *
  * }
- * }</pre>
+ * </code></pre>
  */
 package ${package}.infrastructure.adapter.event;

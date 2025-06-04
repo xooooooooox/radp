@@ -9,7 +9,7 @@
 
 	<!-- Global: package-info.java -->
 	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
-	<suppress files="[\\/]radp-smoke-tests-archetype.*[\\/].*package-info\.java$" checks="JavadocStyle"/>
+	<suppress files="[\\/]src[\\/]main[\\/]java[\\/].*package-info\.java$" checks="JavadocStyle"/>
 
 	<!-- Global: tests and test fixtures -->
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"

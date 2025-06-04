@@ -41,9 +41,7 @@ import org.redisson.api.RSet;
 import org.redisson.api.RSortedSet;
 import org.redisson.api.RedissonClient;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -165,7 +163,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient).getBucket("testKey");
 		verify(stringBucket).get();
-		assertEquals("testValue", result);
+		assertThat(result).isEqualTo("testValue");
 	}
 
 	@Test
@@ -175,7 +173,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getQueue("testKey");
-		assertEquals(queue, result);
+		assertThat(result).isEqualTo(queue);
 	}
 
 	@Test
@@ -185,7 +183,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getBlockingQueue("testKey");
-		assertEquals(blockingQueue, result);
+		assertThat(result).isEqualTo(blockingQueue);
 	}
 
 	@Test
@@ -195,7 +193,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getDelayedQueue(blockingQueue);
-		assertEquals(delayedQueue, result);
+		assertThat(result).isEqualTo(delayedQueue);
 	}
 
 	@Test
@@ -216,7 +214,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(2)).getAtomicLong("testKey");
 		verify(atomicLong).get();
-		assertEquals(100L, result);
+		assertThat(result).isEqualTo(100L);
 	}
 
 	@Test
@@ -233,7 +231,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient).getAtomicLong("testKey");
 		verify(atomicLong).incrementAndGet();
-		assertEquals(101L, incrResult);
+		assertThat(incrResult).isEqualTo(101L);
 
 		// Test incrBy(String key, long delta)
 		long incrByResult = redissonService.incrBy("testKey", 10L);
@@ -241,7 +239,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(2)).getAtomicLong("testKey");
 		verify(atomicLong).addAndGet(10L);
-		assertEquals(110L, incrByResult);
+		assertThat(incrByResult).isEqualTo(110L);
 
 		// Test decr(String key)
 		long decrResult = redissonService.decr("testKey");
@@ -249,7 +247,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(3)).getAtomicLong("testKey");
 		verify(atomicLong).decrementAndGet();
-		assertEquals(99L, decrResult);
+		assertThat(decrResult).isEqualTo(99L);
 
 		// Test decrBy(String key, long delta)
 		long decrByResult = redissonService.decrBy("testKey", 10L);
@@ -257,7 +255,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(4)).getAtomicLong("testKey");
 		verify(atomicLong).addAndGet(-10L);
-		assertEquals(90L, decrByResult);
+		assertThat(decrByResult).isEqualTo(90L);
 	}
 
 	@Test
@@ -271,7 +269,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient).getBucket("testKey");
 		verify(stringBucket).isExists();
-		assertTrue(existsResult);
+		assertThat(existsResult).isTrue();
 
 		// Test remove(String key)
 		redissonService.remove("testKey");
@@ -286,7 +284,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(3)).getBucket("testKey");
 		verify(stringBucket, times(2)).isExists();
-		assertFalse(existsResult);
+		assertThat(existsResult).isFalse();
 	}
 
 	@Test
@@ -307,7 +305,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(2)).getSet("testKey");
 		verify(set).contains("testValue");
-		assertTrue(isMember);
+		assertThat(isMember).isTrue();
 	}
 
 	@Test
@@ -328,7 +326,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(2)).getList("testKey");
 		verify(list).get(0);
-		assertEquals("testValue", value);
+		assertThat(value).isEqualTo("testValue");
 	}
 
 	@Test
@@ -349,7 +347,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient, times(2)).getMap("testKey");
 		verify(map).get("field");
-		assertEquals("testValue", value);
+		assertThat(value).isEqualTo("testValue");
 	}
 
 	@Test
@@ -369,21 +367,21 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getLock("testKey");
-		assertEquals(lock, lockResult);
+		assertThat(lockResult).isEqualTo(lock);
 
 		// Test getFairLock(String key)
 		RLock fairLockResult = redissonService.getFairLock("testKey");
 
 		// Verify
 		verify(redissonClient).getFairLock("testKey");
-		assertEquals(lock, fairLockResult);
+		assertThat(fairLockResult).isEqualTo(lock);
 
 		// Test getReadWriteLock(String key)
 		RReadWriteLock rwLockResult = redissonService.getReadWriteLock("testKey");
 
 		// Verify
 		verify(redissonClient).getReadWriteLock("testKey");
-		assertEquals(readWriteLock, rwLockResult);
+		assertThat(rwLockResult).isEqualTo(readWriteLock);
 	}
 
 	@Test
@@ -393,14 +391,14 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getSemaphore("testKey");
-		assertEquals(semaphore, semaphoreResult);
+		assertThat(semaphoreResult).isEqualTo(semaphore);
 
 		// Test getPermitExpirableSemaphore(String key)
 		RPermitExpirableSemaphore permitSemaphoreResult = redissonService.getPermitExpirableSemaphore("testKey");
 
 		// Verify
 		verify(redissonClient).getPermitExpirableSemaphore("testKey");
-		assertEquals(permitExpirableSemaphore, permitSemaphoreResult);
+		assertThat(permitSemaphoreResult).isEqualTo(permitExpirableSemaphore);
 	}
 
 	@Test
@@ -410,7 +408,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getCountDownLatch("testKey");
-		assertEquals(countDownLatch, latchResult);
+		assertThat(latchResult).isEqualTo(countDownLatch);
 	}
 
 	@Test
@@ -420,7 +418,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getBloomFilter("testKey");
-		assertEquals(bloomFilter, filterResult);
+		assertThat(filterResult).isEqualTo(bloomFilter);
 	}
 
 	@Test
@@ -434,7 +432,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient).getBucket("testKey");
 		verify(stringBucket).setIfAbsent("lock");
-		assertTrue(result);
+		assertThat(result).isTrue();
 	}
 
 	@Test
@@ -448,7 +446,7 @@ class RedissonServiceTest {
 		// Verify
 		verify(redissonClient).getBucket("testKey");
 		verify(stringBucket).setIfAbsent(eq("lock"), any(Duration.class));
-		assertTrue(result);
+		assertThat(result).isTrue();
 	}
 
 	@Test
@@ -458,7 +456,7 @@ class RedissonServiceTest {
 
 		// Verify
 		verify(redissonClient).getBitSet("testKey");
-		assertEquals(bitSet, bitSetResult);
+		assertThat(bitSetResult).isEqualTo(bitSet);
 	}
 
 }

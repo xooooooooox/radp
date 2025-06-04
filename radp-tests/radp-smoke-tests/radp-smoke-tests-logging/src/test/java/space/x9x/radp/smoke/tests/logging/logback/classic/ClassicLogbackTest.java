@@ -27,7 +27,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,7 +41,7 @@ class ClassicLogbackTest {
 
 	@BeforeAll
 	void setup() throws IOException, JoranException {
-		loggerCtx = (LoggerContext) LoggerFactory.getILoggerFactory();
+		loggerCtx = new LoggerContext();
 		loggerCtx.reset();
 
 		URL configUrl = getClass().getClassLoader().getResources("logback-classic.xml").nextElement();

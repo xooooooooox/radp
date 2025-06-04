@@ -47,6 +47,7 @@
   - Optimize profile `code-review`
     - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
     - Add plugin `spring-javaformat-maven-plugin`
+    - Add plugin `maven-checkstyle-plugin`
   - Optimize profile `unit-test`
     - Move the `unit-test` profile to the root POM
     - Add property `maven.test.skip` to `false`

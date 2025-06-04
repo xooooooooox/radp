@@ -17,6 +17,7 @@
 package space.x9x.radp.redis.spring.boot.constants;
 
 import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.lang.Strings;
 
 /**

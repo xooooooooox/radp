@@ -21,11 +21,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import space.x9x.radp.jasypt.spring.boot.TestApplication;
 import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author IO x9x
@@ -45,12 +46,12 @@ class JasyptTest {
 			// 使用当前 SpringBoot 上下文已经集成的 jasypt 加密器进行加密
 			String encrypted1 = JasyptUtils.encrypt(stringEncryptor, plainText);
 			// 使用当前 SpringBoot 上下文已经集成的 jasypt 加密器进行解密
-			Assertions.assertEquals(plainText, JasyptUtils.decrypt(stringEncryptor, encrypted1));
+			assertThat(JasyptUtils.decrypt(stringEncryptor, encrypted1)).isEqualTo(plainText);
 			// 使用指定的 jasypt 加密器进行加密
 			String encrypted2 = JasyptUtils.customPBEEncrypt(plainText, "PBEWithMD5AndDES", "dsaf#,jds.klfj1");
 			// 使用指定的 jasypt 加密器进行解密
-			Assertions.assertEquals(plainText,
-					JasyptUtils.customPBEDecrypt(encrypted2, "PBEWithMD5AndDES", "dsaf#,jds.klfj1"));
+			assertThat(JasyptUtils.customPBEDecrypt(encrypted2, "PBEWithMD5AndDES", "dsaf#,jds.klfj1"))
+				.isEqualTo(plainText);
 		}
 	}
 

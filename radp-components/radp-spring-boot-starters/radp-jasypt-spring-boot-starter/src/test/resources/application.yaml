@@ -8,3 +8,7 @@ jasypt:
     algorithm: PBEWithMD5AndDES
     # 建议通过 --jasypt.encryptor.password=xxx 或者配置环境变量的方式, 而不是直接将秘钥配置在 yaml 配置文件中
     password: dsaf#,jds.klfj1
+
+logging:
+  pattern:
+    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:%5p} ${PID: }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"

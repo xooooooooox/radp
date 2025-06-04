@@ -19,6 +19,11 @@ package space.x9x.radp.commons.codec.binary;
 import lombok.experimental.UtilityClass;
 
 /**
+ * Utility class for Base64 encoding and decoding operations. This class extends the
+ * Apache Commons Codec Base64 implementation to provide Base64 encoding and decoding
+ * functionality within the RADP framework. Base64 is a binary-to-text encoding scheme
+ * that represents binary data in an ASCII string format.
+ *
  * @author IO x9x
  * @since 2024-12-27 16:25
  */

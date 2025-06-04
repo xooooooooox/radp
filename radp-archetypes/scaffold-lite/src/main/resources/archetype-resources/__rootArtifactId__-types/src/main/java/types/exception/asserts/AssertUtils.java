@@ -41,4 +41,5 @@ public class AssertUtils extends AbstractAssert {
 	public static void notNull(Object object, ErrorCode errorCode) {
 		notNull(object, errorCode.getMessage());
 	}
+
 }

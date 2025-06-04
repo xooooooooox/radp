@@ -104,7 +104,7 @@ public final class ClientAssert extends BaseAssert<ClientException> {
 	 * @param text the string to check
 	 * @param errCode the error code to use in the exception
 	 * @param placeholders the placeholders to use in the error message
-	 * @throws ClientException if the string does not contain text
+	 * @throws ClientException if the string does not contain the text
 	 */
 	public static void hasText(String text, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 			Object... placeholders) {

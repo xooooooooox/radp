@@ -19,8 +19,9 @@
 #set( $symbol_escape = '\' )
 package ${package}.test;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author IO x9x
@@ -29,8 +30,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ApiTest {
 
-    @Test
-    void test() {
+	@Test
+	void test() {
 
-    }
+	}
+
 }

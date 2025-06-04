@@ -52,6 +52,7 @@ public abstract class BaseEvent<T> {
 
 	/**
 	 * Inner class representing the structure of an event message.
+	 *
 	 * @param <T> the type of data contained in the event message
 	 */
 	@Data

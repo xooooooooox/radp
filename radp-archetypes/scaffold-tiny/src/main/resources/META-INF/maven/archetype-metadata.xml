@@ -100,15 +100,7 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>docs</directory>
-            <includes>
-                <include>api/**</include>
-                <include>dev-ops/**</include>
-                <include>drawio/**</include>
-                <include>*.drawio</include>
+				<include>.springjavaformatconfig</include>
             </includes>
         </fileSet>
 		<fileSet encoding="UTF-8">
@@ -118,9 +110,18 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
-			<directory>config</directory>
+			<directory>src</directory>
 			<includes>
 				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>docs</directory>
+			<includes>
+				<include>api/**</include>
+				<include>dev-ops/**</include>
+				<include>drawio/**</include>
+				<include>*.drawio</include>
 			</includes>
 		</fileSet>
         <!-- github -->

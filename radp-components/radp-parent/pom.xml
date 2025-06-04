@@ -467,8 +467,10 @@
 								<START_CLASS>${start-class}</START_CLASS>
 							</environment>
 							<user>1001:1001</user>
-							<!--                            <appRoot>${app.home}</appRoot>-->
-							<!--                            <workingDirectory>${app.home}</workingDirectory>-->
+							<!--
+							<appRoot>${app.home}</appRoot>
+							<workingDirectory>${app.home}</workingDirectory>
+							-->
 							<!-- 定义入口点 -->
 							<entrypoint>
 								<shell>bash</shell>
@@ -1501,37 +1503,6 @@
 			</build>
 		</profile>
 
-		<profile>
-			<id>coding</id>
-			<properties>
-				<!-- deploy -->
-				<user.altSnapshotDeploymentRepository.artifactory>
-					${setting.altSnapshotDeploymentRepository.artifactory}
-				</user.altSnapshotDeploymentRepository.artifactory>
-				<user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}
-				</user.altReleaseDeploymentRepository.artifactory>
-				<user.altSnapshotDeploymentRepository.central>${setting.altSnapshotDeploymentRepository.central}
-				</user.altSnapshotDeploymentRepository.central>
-				<!-- archetype -->
-				<user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
-				<user.minio.alias>${setting.minio.alias}</user.minio.alias>
-				<user.minio.bucket.path>${setting.minio.bucket.path}</user.minio.bucket.path>
-				<user.archetype.catalog.upload.url>${setting.archetype.catalog.upload.url}
-				</user.archetype.catalog.upload.url>
-				<user.archetype.catalog.upload.serverId>${setting.archetype.catalog.upload.serverId}
-				</user.archetype.catalog.upload.serverId>
-				<!-- docker -->
-				<user.docker.build.registry>${setting.docker.build.registry}</user.docker.build.registry>
-				<user.docker.build.base_image>${setting.docker.build.base_image}
-				</user.docker.build.base_image>
-				<user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
-				<!-- jasypt -->
-				<user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
-				<!-- code review -->
-				<user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
-				<user.sonar.token>${setting.sonar.token}</user.sonar.token>
-			</properties>
-		</profile>
 		<!-- 发布到 artifactory -->
 		<profile>
 			<id>publish-artifactory</id>

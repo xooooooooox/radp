@@ -44,6 +44,7 @@
     - `git-commit-id-plugin`
     - `versions-maven-plugin`. To resolve`Missing blame information error`, this may lead to missing/broken features in
       SonarQube
+  - Remove unnecessary 'coding' profile configuration from pom.xml
   - Optimize profile `code-review`
     - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
     - Add plugin `spring-javaformat-maven-plugin`

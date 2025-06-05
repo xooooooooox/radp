@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 3.22
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.22`.
+- Update `archetype-catalog-vcs.xml`.
+
 ## 3.21
 
 ### Break Changes

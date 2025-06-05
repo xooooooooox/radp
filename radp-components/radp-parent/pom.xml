@@ -624,7 +624,6 @@
 					<artifactId>gatling-maven-plugin</artifactId>
 					<version>${gatling-maven-plugin.version}</version>
 					<configuration>
-						<disableCompiler>true</disableCompiler>
 						<propagateSystemProperties>true
 						</propagateSystemProperties>
 						<failOnError>true</failOnError>

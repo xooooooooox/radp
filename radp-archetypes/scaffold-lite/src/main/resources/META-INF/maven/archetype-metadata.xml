@@ -1,106 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archetype-descriptor
-        xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
-        name="radp-archetype-lite"
-        xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+		name="radp-archetype-lite"
+		xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <requiredProperties>
-        <!-- project gav -->
-        <requiredProperty key="groupId">
-            <defaultValue>space.x9x.demo</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="artifactId">
-            <defaultValue>scaffold-lite-demo</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version">
-            <defaultValue>1.0-SNAPSHOT</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="package">
-            <defaultValue>space.x9x.demo</defaultValue>
-        </requiredProperty>
+	<requiredProperties>
+		<!-- project gav -->
+		<requiredProperty key="groupId">
+			<defaultValue>space.x9x.demo</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="artifactId">
+			<defaultValue>scaffold-lite-demo</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="version">
+			<defaultValue>1.0-SNAPSHOT</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="package">
+			<defaultValue>space.x9x.demo</defaultValue>
+		</requiredProperty>
 
-        <!-- radp-parent version -->
-        <requiredProperty key="radpVersion">
-            <defaultValue>3.21</defaultValue>
-        </requiredProperty>
+		<!-- radp-parent version -->
+		<requiredProperty key="radpVersion">
+			<defaultValue>3.21</defaultValue>
+		</requiredProperty>
 
-        <!-- spring application.yaml 占位符默认值 -->
-        <requiredProperty key="appName">
-            <defaultValue>scaffold-lite-demo</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="appPort">
-            <defaultValue>8888</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="appOwner">
-            <defaultValue>x9x</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="appEmail">
-            <defaultValue>xozoz.sos@gmail.com</defaultValue>
-        </requiredProperty>
+		<!-- spring application.yaml 占位符默认值 -->
+		<requiredProperty key="appName">
+			<defaultValue>scaffold-lite-demo</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="appPort">
+			<defaultValue>8888</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="appOwner">
+			<defaultValue>x9x</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="appEmail">
+			<defaultValue>xozoz.sos@gmail.com</defaultValue>
+		</requiredProperty>
 
-        <!-- docker -->
-        <requiredProperty key="imageNamespace">
-            <defaultValue>xooooooooox</defaultValue>
-        </requiredProperty>
-    </requiredProperties>
+		<!-- docker -->
+		<requiredProperty key="imageNamespace">
+			<defaultValue>xooooooooox</defaultValue>
+		</requiredProperty>
+	</requiredProperties>
 
-    <fileSets>
-        <!-- writerside -->
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>Writerside</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.tree</include>
-                <include>**/*.md</include>
-                <include>**/*.cfg</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>Writerside</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-        <!-- docs -->
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>docs/mdbook</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>docs/dev-ops</directory>
-            <includes>
-                <include>**/.env</include>
-                <include>**/.env.app.template</include>
-                <include>volumes/mysql/**/*.sql</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>docs</directory>
-            <includes>
-                <include>api/**</include>
-                <include>dev-ops/**</include>
-                <include>drawio/**</include>
-                <include>*.drawio</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>README.md</include>
-                <include>.gitlab-ci.yml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>*.md</include>
-                <include>.gitignore</include>
-                <include>.java-version</include>
-                <include>.tool-versions</include>
-                <include>.gitattributes</include>
+	<fileSets>
+		<!-- writerside -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>Writerside</directory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.tree</include>
+				<include>**/*.md</include>
+				<include>**/*.cfg</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>Writerside</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<!-- docs -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>docs/mdbook</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>docs/dev-ops</directory>
+			<includes>
+				<include>**/.env</include>
+				<include>**/.env.app.template</include>
+				<include>volumes/mysql/**/*.sql</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>docs</directory>
+			<includes>
+				<include>api/**</include>
+				<include>dev-ops/**</include>
+				<include>drawio/**</include>
+				<include>*.drawio</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>README.md</include>
+				<include>.gitlab-ci.yml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>*.md</include>
+				<include>.gitignore</include>
+				<include>.java-version</include>
+				<include>.tool-versions</include>
+				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
 			</includes>
 		</fileSet>
@@ -116,180 +116,180 @@
 				<include>**/**</include>
 			</includes>
 		</fileSet>
-        <!-- github -->
-        <fileSet encoding="UTF-8">
-            <directory>.github</directory>
-            <includes>
-                <include>**/*</include>
-            </includes>
-        </fileSet>
-        <!-- mvn -->
-        <fileSet encoding="UTF-8">
-            <directory>.mvn</directory>
-            <includes>
-                <include>**/*.config</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
-            </includes>
-        </fileSet>
-    </fileSets>
+		<!-- github -->
+		<fileSet encoding="UTF-8">
+			<directory>.github</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<!-- mvn -->
+		<fileSet encoding="UTF-8">
+			<directory>.mvn</directory>
+			<includes>
+				<include>**/*.config</include>
+				<include>**/*.properties</include>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>mvnw</include>
+				<include>mvnw.cmd</include>
+			</includes>
+		</fileSet>
+	</fileSets>
 
-    <modules>
-        <module id="${rootArtifactId}-types" dir="__rootArtifactId__-types" name="${rootArtifactId}-types">
-            <fileSets>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-                <fileSet packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.gitkeep</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources/META-INF</directory>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="${rootArtifactId}-domain" dir="__rootArtifactId__-domain" name="${rootArtifactId}-domain">
-            <fileSets>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="${rootArtifactId}-infrastructure" dir="__rootArtifactId__-infrastructure"
-                name="${rootArtifactId}-infrastructure">
-            <fileSets>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="${rootArtifactId}-trigger" dir="__rootArtifactId__-trigger" name="${rootArtifactId}-trigger">
-            <fileSets>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="${rootArtifactId}-app" dir="__rootArtifactId__-app" name="${rootArtifactId}-app">
-            <fileSets>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory/>
-                    <includes>
-                        <include>Dockerfile</include>
-                        <include>build.sh</include>
-                        <include>start.sh</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-                <fileSet packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.gitkeep</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/application*.yaml</include>
-                        <include>**/application*.yml</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources/db</directory>
-                    <includes>
-                        <include>**/*</include>
-                        <include>**/*.gitkeep</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources/mybatis</directory>
-                    <includes>
-                        <include>**/**</include>
-                        <include>**/*.gitkeep</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/.gitkeep</include>
-                        <include>**/*.yaml</include>
-                        <include>**/*.yml</include>
-                        <include>**/*.properties</include>
-                        <include>**/*.xml</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/test/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/test/groovy</directory>
-                    <includes>
-                        <include>**/*.groovy</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/test/resources</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                        <include>**/*.yaml</include>
-                        <include>**/*.yml</include>
-                        <include>**/*.properties</include>
-                    </includes>
-                </fileSet>
+	<modules>
+		<module id="${rootArtifactId}-types" dir="__rootArtifactId__-types" name="${rootArtifactId}-types">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+				<fileSet packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.gitkeep</include>
+					</includes>
+				</fileSet>
+				<fileSet encoding="UTF-8">
+					<directory>src/main/resources/META-INF</directory>
+					<includes>
+						<include>**/*</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-domain" dir="__rootArtifactId__-domain" name="${rootArtifactId}-domain">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-infrastructure" dir="__rootArtifactId__-infrastructure"
+				name="${rootArtifactId}-infrastructure">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-trigger" dir="__rootArtifactId__-trigger" name="${rootArtifactId}-trigger">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-app" dir="__rootArtifactId__-app" name="${rootArtifactId}-app">
+			<fileSets>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory/>
+					<includes>
+						<include>Dockerfile</include>
+						<include>build.sh</include>
+						<include>start.sh</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+				<fileSet packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.gitkeep</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>**/application*.yaml</include>
+						<include>**/application*.yml</include>
+					</includes>
+				</fileSet>
+				<fileSet encoding="UTF-8">
+					<directory>src/main/resources/db</directory>
+					<includes>
+						<include>**/*</include>
+						<include>**/*.gitkeep</include>
+					</includes>
+				</fileSet>
+				<fileSet encoding="UTF-8">
+					<directory>src/main/resources/mybatis</directory>
+					<includes>
+						<include>**/**</include>
+						<include>**/*.gitkeep</include>
+					</includes>
+				</fileSet>
+				<fileSet encoding="UTF-8">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>**/.gitkeep</include>
+						<include>**/*.yaml</include>
+						<include>**/*.yml</include>
+						<include>**/*.properties</include>
+						<include>**/*.xml</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/test/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/test/groovy</directory>
+					<includes>
+						<include>**/*.groovy</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/test/resources</directory>
+					<includes>
+						<include>**/*.xml</include>
+						<include>**/*.yaml</include>
+						<include>**/*.yml</include>
+						<include>**/*.properties</include>
+					</includes>
+				</fileSet>
 
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/assembly</directory>
-                    <includes>
-                        <include>**/*.*</include>
-                    </includes>
-                </fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/assembly</directory>
+					<includes>
+						<include>**/*.*</include>
+					</includes>
+				</fileSet>
 
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/docker</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/docker</directory>
-                    <includes>
-                        <include>**/**</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-    </modules>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/docker</directory>
+					<includes>
+						<include>**/*.xml</include>
+					</includes>
+				</fileSet>
+				<fileSet encoding="UTF-8">
+					<directory>src/main/docker</directory>
+					<includes>
+						<include>**/**</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+	</modules>
 </archetype-descriptor>

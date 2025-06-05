@@ -39,51 +39,49 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 public class ThreadPoolConfigProperties {
 
 	/**
-	 * Core pool size for the thread pool executor.
+	 * 核心线程数.
 	 */
 	private Integer corePoolSize = 20;
 
 	/**
-	 * Maximum pool size for the thread pool executor.
+	 * 最大线程数.
 	 */
 	private Integer maxPoolSize = 200;
 
 	/**
-	 * Maximum time (in seconds) that excess idle threads will wait for new tasks.
+	 * 最大等待时间（单位：秒）.
 	 */
 	private Long keepAliveTime = 10L;
 
 	/**
-	 * Maximum queue size for the thread pool executor.
+	 * 最大队列数.
 	 */
 	private Integer blockQueueSize = 5000;
 
 	/**
-	 * Rejection policy for the thread pool executor.
+	 * 拒绝策略.
 	 */
 	private Policy policy = Policy.ABORT_POLICY;
 
 	public enum Policy {
 
 		/**
-		 * Discards the task and throws a
-		 * {@link java.util.concurrent.RejectedExecutionException}.
+		 * 丢弃任务并抛出 {@link java.util.concurrent.RejectedExecutionException} 异常.
 		 */
 		ABORT_POLICY,
 
 		/**
-		 * Discards the task silently without throwing an exception.
+		 * 直接丢弃任务,但不会抛出异常.
 		 */
 		DISCARD_POLICY,
 
 		/**
-		 * Discards the oldest task in the queue and then tries to add the new task again.
+		 * 将最早进入队列的任务删除,之后再尝试加入队列的任务被拒绝.
 		 */
 		DISCARD_OLDEST_POLICY,
 
 		/**
-		 * If the task cannot be added to the thread pool, the calling thread executes the
-		 * task itself.
+		 * 如果任务添加线程池失败,那么主线程自己执行该任务.
 		 */
 		CALLER_RUNS_POLICY
 

@@ -31,7 +31,7 @@ import space.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHa
 public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

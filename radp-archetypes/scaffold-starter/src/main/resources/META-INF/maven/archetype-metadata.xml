@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archetype-descriptor
-        xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
-        name="radp-archetype-tiny"
-        xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+		name="radp-archetype-tiny"
+		xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <requiredProperties>
-        <!-- project gav -->
-        <requiredProperty key="groupId">
-            <defaultValue>space.x9x.demo</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="artifactId">
-            <defaultValue>scaffold-starter-demo</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version">
-            <defaultValue>1.0-SNAPSHOT</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="package">
-            <defaultValue>space.x9x.demo</defaultValue>
-        </requiredProperty>
+	<requiredProperties>
+		<!-- project gav -->
+		<requiredProperty key="groupId">
+			<defaultValue>space.x9x.demo</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="artifactId">
+			<defaultValue>scaffold-starter-demo</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="version">
+			<defaultValue>1.0-SNAPSHOT</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="package">
+			<defaultValue>space.x9x.demo</defaultValue>
+		</requiredProperty>
 
-        <!-- radp-parent version -->
-        <requiredProperty key="radpVersion">
-            <defaultValue>3.21</defaultValue>
-        </requiredProperty>
-    </requiredProperties>
+		<!-- radp-parent version -->
+		<requiredProperty key="radpVersion">
+			<defaultValue>3.21</defaultValue>
+		</requiredProperty>
+	</requiredProperties>
 
-    <fileSets>
-        <!-- docs -->
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>README.md</include>
-                <include>.gitlab-ci.yml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>*.md</include>
-                <include>.gitignore</include>
-                <include>.java-version</include>
-                <include>.tool-versions</include>
-                <include>.gitattributes</include>
+	<fileSets>
+		<!-- docs -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>README.md</include>
+				<include>.gitlab-ci.yml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>*.md</include>
+				<include>.gitignore</include>
+				<include>.java-version</include>
+				<include>.tool-versions</include>
+				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
-            </includes>
-        </fileSet>
+			</includes>
+		</fileSet>
 		<fileSet encoding="UTF-8">
 			<directory>.idea</directory>
 			<includes>
@@ -58,48 +58,48 @@
 				<include>**/**</include>
 			</includes>
 		</fileSet>
-        <!-- github -->
-        <fileSet encoding="UTF-8">
-            <directory>.github</directory>
-            <includes>
-                <include>**/*</include>
-            </includes>
-        </fileSet>
-        <!-- mvn -->
-        <fileSet encoding="UTF-8">
-            <directory>.mvn</directory>
-            <includes>
-                <include>**/*.config</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory/>
-            <includes>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
-            </includes>
-        </fileSet>
+		<!-- github -->
+		<fileSet encoding="UTF-8">
+			<directory>.github</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<!-- mvn -->
+		<fileSet encoding="UTF-8">
+			<directory>.mvn</directory>
+			<includes>
+				<include>**/*.config</include>
+				<include>**/*.properties</include>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>mvnw</include>
+				<include>mvnw.cmd</include>
+			</includes>
+		</fileSet>
 
-        <!-- src -->
-        <fileSet filtered="true" packaged="true" encoding="UTF-8">
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.java</include>
-            </includes>
-        </fileSet>
-        <fileSet packaged="true" encoding="UTF-8">
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.gitkeep</include>
-            </includes>
-        </fileSet>
-        <fileSet encoding="UTF-8">
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </fileSet>
-    </fileSets>
+		<!-- src -->
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet packaged="true" encoding="UTF-8">
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.gitkeep</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+	</fileSets>
 </archetype-descriptor>

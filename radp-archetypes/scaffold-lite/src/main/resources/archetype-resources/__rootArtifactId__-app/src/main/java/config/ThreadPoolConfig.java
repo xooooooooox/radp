@@ -61,7 +61,7 @@ public class ThreadPoolConfig {
 	@Bean
 	@ConditionalOnMissingBean(ThreadPoolExecutor.class)
 	public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties properties) {
-		// Initialize rejection strategy
+		// 实例化策略
 		RejectedExecutionHandler handler = switch (properties.getPolicy()) {
 			case ABORT_POLICY -> new ThreadPoolExecutor.AbortPolicy();
 			case DISCARD_POLICY -> new ThreadPoolExecutor.DiscardPolicy();
@@ -69,7 +69,7 @@ public class ThreadPoolConfig {
 			case CALLER_RUNS_POLICY -> new ThreadPoolExecutor.CallerRunsPolicy();
 		};
 
-		// Create a thread pool
+		// 创建线程池
 		return new ThreadPoolExecutor(properties.getCorePoolSize(), properties.getMaxPoolSize(),
 				properties.getKeepAliveTime(), TimeUnit.SECONDS,
 				new LinkedBlockingQueue<>(properties.getBlockQueueSize()), Executors.defaultThreadFactory(), handler);

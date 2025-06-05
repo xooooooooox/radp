@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-spring-boot-starters</artifactId>
-		<version>3.21</version>
+		<version>3.22-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>radp-redis-spring-boot-starter</artifactId>

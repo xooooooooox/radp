@@ -46,12 +46,12 @@ class JasyptTest {
 			// 使用当前 SpringBoot 上下文已经集成的 jasypt 加密器进行加密
 			String encrypted1 = JasyptUtils.encrypt(stringEncryptor, plainText);
 			// 使用当前 SpringBoot 上下文已经集成的 jasypt 加密器进行解密
-			assertThat(plainText).isEqualTo(JasyptUtils.decrypt(stringEncryptor, encrypted1));
+			assertThat(JasyptUtils.decrypt(stringEncryptor, encrypted1)).isEqualTo(plainText);
 			// 使用指定的 jasypt 加密器进行加密
 			String encrypted2 = JasyptUtils.customPBEEncrypt(plainText, "PBEWithMD5AndDES", "dsaf#,jds.klfj1");
 			// 使用指定的 jasypt 加密器进行解密
-			assertThat(plainText)
-				.isEqualTo(JasyptUtils.customPBEDecrypt(encrypted2, "PBEWithMD5AndDES", "dsaf#,jds.klfj1"));
+			assertThat(JasyptUtils.customPBEDecrypt(encrypted2, "PBEWithMD5AndDES", "dsaf#,jds.klfj1"))
+				.isEqualTo(plainText);
 		}
 	}
 

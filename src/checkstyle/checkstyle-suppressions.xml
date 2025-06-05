@@ -9,6 +9,7 @@
 
 	<!-- Global: package-info.java -->
 	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
+	<suppress files="[\\/]src[\\/]main[\\/]java[\\/].*package-info\.java" checks="JavadocStyle"/>
 
 	<!-- Global: tests and test fixtures -->
 	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"
@@ -46,6 +47,7 @@
 	<!-- radp-extensions -->
 	<suppress files="Constants\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="LoadingStrategyHolder\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AdaptiveClassCodeGenerator\.java" checks="JavadocVariable"/>
 
 	<!-- radp-spring-cloud -->
 	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>

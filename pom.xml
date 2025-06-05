@@ -49,6 +49,10 @@
 		<user.docker.build.registry/>
 		<user.docker.build.base_image/>
 		<user.jasypt.encryptor.password/>
+		<!-- checkstyle -->
+		<checkstyle.base.dir>src/checkstyle</checkstyle.base.dir>
+		<checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
+		<checkstyle.property.expansion>config_loc=${checkstyle.base.dir}</checkstyle.property.expansion>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -68,8 +72,11 @@
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
 		<gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-		<spring-javaformat-maven-plugin.version>0.0.45</spring-javaformat-maven-plugin.version>
+		<spring-javaformat-maven-plugin.version>0.0.46</spring-javaformat-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+
+		<!-- plugin dependency version -->
+		<checkstyle.version>9.3</checkstyle.version>
 	</properties>
 
 	<developers>
@@ -428,10 +435,40 @@
 						<artifactId>spring-javaformat-maven-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>spring checks</id>
 								<phase>validate</phase>
+								<inherited>true</inherited>
 								<goals>
 									<goal>validate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>com.puppycrawl.tools</groupId>
+								<artifactId>checkstyle</artifactId>
+								<version>${checkstyle.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>io.spring.javaformat</groupId>
+								<artifactId>spring-javaformat-checkstyle</artifactId>
+								<version>${spring-javaformat-maven-plugin.version}</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>checkstyle-validation</id>
+								<phase>validate</phase>
+								<configuration>
+									<configLocation>${checkstyle.config.location}</configLocation>
+									<propertyExpansion>${checkstyle.property.expansion}</propertyExpansion>
+									<includeTestSourceDirectory>true</includeTestSourceDirectory>
+								</configuration>
+								<goals>
+									<goal>check</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -617,8 +654,21 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-checkstyle-plugin</artifactId>
 						<version>${maven-checkstyle-plugin.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>com.puppycrawl.tools</groupId>
+								<artifactId>checkstyle</artifactId>
+								<version>${checkstyle.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>io.spring.javaformat</groupId>
+								<artifactId>spring-javaformat-checkstyle</artifactId>
+								<version>${spring-javaformat-maven-plugin.version}</version>
+							</dependency>
+						</dependencies>
 						<configuration>
-							<configLocation>src/checkstyle/checkstyle.xml</configLocation>
+							<configLocation>${checkstyle.config.location}</configLocation>
+							<propertyExpansion>${checkstyle.property.expansion}</propertyExpansion>
 							<consoleOutput>true</consoleOutput>
 							<failsOnError>false</failsOnError>
 							<linkXRef>true</linkXRef>
@@ -723,16 +773,17 @@
 						<artifactId>maven-checkstyle-plugin</artifactId>
 						<version>${maven-checkstyle-plugin.version}</version>
 						<configuration>
-							<configLocation>src/checkstyle/checkstyle.xml</configLocation>
+							<configLocation>${checkstyle.config.location}</configLocation>
+							<propertyExpansion>${checkstyle.property.expansion}</propertyExpansion>
 							<consoleOutput>false</consoleOutput>
 							<failsOnError>false</failsOnError>
 							<linkXRef>true</linkXRef>
 						</configuration>
 						<reportSets>
 							<reportSet>
-								<id>aggregate</id>
-								<inherited>false</inherited>
+								<id>checkstyle-aggregate</id>
 								<reports>
+									<report>checkstyle</report>
 									<report>checkstyle-aggregate</report>
 								</reports>
 							</reportSet>

@@ -106,7 +106,7 @@
 		<!-- [测试组件] -->
 		<spock.version>2.3-groovy-4.0</spock.version>
 		<cucumber.version>3.0.2</cucumber.version>
-		<gatling.version>3.2.1</gatling.version>
+		<gatling.version>3.10.0</gatling.version>
 		<groovy4.version>4.0.6</groovy4.version>
 		<jmh.version>1.36</jmh.version>
 		<testcontainers.version>1.21.0</testcontainers.version>
@@ -143,7 +143,7 @@
 		<maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
 		<redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
 		<!-- 性能测试 -->
-		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
+		<gatling-maven-plugin.version>4.6.0</gatling-maven-plugin.version>
 		<!-- 版本控制 -->
 		<maven-scm-plugin.version>2.0.0-M3</maven-scm-plugin.version>
 		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
@@ -411,17 +411,6 @@
 			<!-- ====================关系型数据库]==================== -->
 
 			<!-- ====================[NoSQL==================== -->
-			<!-- MongoDB -->
-			<dependency>
-				<groupId>org.mongodb</groupId>
-				<artifactId>mongo-java-driver</artifactId>
-				<version>${mongodb.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mongodb</groupId>
-				<artifactId>mongodb-driver</artifactId>
-				<version>${mongodb.version}</version>
-			</dependency>
 			<!-- ====================NoSQL]==================== -->
 
 			<!-- TODO: ====================[搜索引擎==================== -->
@@ -686,16 +675,6 @@
 				<version>${cucumber.version}</version>
 			</dependency>
 			<!-- Gatling性能测试工具依赖 -->
-			<dependency>
-				<groupId>io.gatling</groupId>
-				<artifactId>gatling-app</artifactId>
-				<version>${gatling.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.gatling</groupId>
-				<artifactId>gatling-recorder</artifactId>
-				<version>${gatling.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>io.gatling.highcharts</groupId>
 				<artifactId>gatling-charts-highcharts</artifactId>

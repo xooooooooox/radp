@@ -7,11 +7,12 @@
 #### Dependencies
 
 - Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
-- Remove unused MongoDB dependencies
+- Remove unused MongoDB dependencies.
 
 #### Build
 
 - Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
+- Remove unused disableCompiler configuration in Gatling Maven Plugin.
 
 #### Scaffold
 

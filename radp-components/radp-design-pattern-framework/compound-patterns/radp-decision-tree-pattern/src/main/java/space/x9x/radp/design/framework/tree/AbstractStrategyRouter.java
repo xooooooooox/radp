@@ -17,15 +17,19 @@
 package space.x9x.radp.design.framework.tree;
 
 /**
- * 策略路由抽象类
+ * Abstract class for strategy routing. 策略路由抽象类
  *
  * @author IO x9x
  * @since 2025-01-14 14:36
+ * @param <T> the type of request parameter
+ * @param <D> the type of dynamic context
+ * @param <R> the type of result
  */
 public abstract class AbstractStrategyRouter<T, D, R> implements StrategyMapper<T, D, R>, StrategyHandler<T, D, R> {
 
 	/**
-	 * 默认策略处理器. 当没有找到匹配的策略处理器时使用 默认使用空实现，返回null
+	 * Default strategy handler used when no matching strategy handler is found.
+	 * 默认策略处理器，当没有找到匹配的策略处理器时使用 默认使用空实现，返回null.
 	 */
 	@SuppressWarnings("unchecked")
 	protected StrategyHandler<T, D, R> defaultStrategyHandler = StrategyHandler.EMPTY;
@@ -44,7 +48,7 @@ public abstract class AbstractStrategyRouter<T, D, R> implements StrategyMapper<
 		if (nextStrategyHandler != null) {
 			return nextStrategyHandler.apply(requestParameter, dynamicContext);
 		}
-		return defaultStrategyHandler.apply(requestParameter, dynamicContext);
+		return this.defaultStrategyHandler.apply(requestParameter, dynamicContext);
 	}
 
 }

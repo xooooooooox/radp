@@ -21,18 +21,21 @@ package space.x9x.radp.design.framework.tree;
  *
  * @author IO x9x
  * @since 2025-01-14 14:29
+ * @param <T> the type of request parameter
+ * @param <D> the type of dynamic context
+ * @param <R> the type of result
  */
 public interface StrategyHandler<T, D, R> {
 
 	/**
-	 * 空策略处理器. 不执行任何操作，直接返回null 用作默认策略处理器，当没有找到匹配的策略处理器时使用
+	 * 空策略处理器. 不执行任何操作，直接返回null 用作默认策略处理器，当没有找到匹配的策略处理器时使用.
 	 */
 	StrategyHandler EMPTY = (requestParameter, dynamicContext) -> null;
 
 	/**
 	 * 受理策略处理.
 	 * <p>
-	 * 手里执行的业务流程. 每个业务流程执行时,如果后置节点依赖前置节点的数据, 可以将数据填充到 {@code dynamicContext} 中供后置节点使用
+	 * 受理执行的业务流程. 每个业务流程执行时,如果后置节点依赖前置节点的数据, 可以将数据填充到 {@code dynamicContext} 中供后置节点使用.
 	 * @param requestParameter 入参
 	 * @param dynamicContext 动态上下文
 	 * @return 执行结果

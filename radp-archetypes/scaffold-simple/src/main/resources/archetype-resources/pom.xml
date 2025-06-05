@@ -1,122 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>${radpVersion}</version>
-    </parent>
-    <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
-    <version>${version}</version>
-    <name>${artifactId}</name>
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>${radpVersion}</version>
+	</parent>
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<name>${artifactId}</name>
 
-    <properties>
-        <start-class>${package}.Application</start-class>
-        <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
-        <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
-        <app.artifact.file>${project.basedir}/dist/${app.assembly.filename}</app.artifact.file>
-        <app.version>${project.version}</app.version>
-        <app.server.port>${appPort}</app.server.port>
-        <app.management.server.port>9999</app.management.server.port>
+	<properties>
+		<start-class>${package}.Application</start-class>
+		<app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
+		<app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
+		<app.artifact.file>${project.basedir}/dist/${app.assembly.filename}</app.artifact.file>
+		<app.version>${project.version}</app.version>
+		<app.server.port>${appPort}</app.server.port>
+		<app.management.server.port>9999</app.management.server.port>
 		<docker.build.base_image>${app.build.base_image.jdk11}</docker.build.base_image>
-        <docker.build.image_name>${docker.build.namespace}/${runtime.env}/${appName}</docker.build.image_name>
-        <docker.build.image_tag>${project.version}</docker.build.image_tag>
+		<docker.build.image_name>${docker.build.namespace}/${runtime.env}/${appName}</docker.build.image_name>
+		<docker.build.image_tag>${project.version}</docker.build.image_tag>
 		<checkstyle.base.dir>config/checkstyle</checkstyle.base.dir>
 		<checkstyle.config.location>config/checkstyle/checkstyle.xml</checkstyle.config.location>
 
-        <!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
-        <scm.git.web_url/>
-        <scm.git.url/>
-        <scm.issue.url/>
-    </properties>
+		<!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
+		<scm.git.web_url/>
+		<scm.git.url/>
+		<scm.issue.url/>
+	</properties>
 
-    <scm>
-        <url>${scm.git.web_url}</url>
-        <connection>scm:git:${scm.git.url}</connection>
-        <developerConnection>scm:git:${scm.git.url}</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+	<scm>
+		<url>${scm.git.web_url}</url>
+		<connection>scm:git:${scm.git.url}</connection>
+		<developerConnection>scm:git:${scm.git.url}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- develop tools -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-
-        <!-- db -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-mybatis-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-liquibase-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-redis-spring-boot-starter</artifactId>
-        </dependency>
+		<!-- develop tools -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 
-        <!-- web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-springdoc-webmvc-spring-boot-starter</artifactId>
-        </dependency>
+		<!-- db -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-mybatis-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-liquibase-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-redis-spring-boot-starter</artifactId>
+		</dependency>
 
 
-        <!-- log  -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-logging-spring-boot-starter</artifactId>
-        </dependency>
+		<!-- web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-springdoc-webmvc-spring-boot-starter</artifactId>
+		</dependency>
 
 
-        <!-- test -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-boot-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<!-- log  -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-logging-spring-boot-starter</artifactId>
+		</dependency>
 
-    <build>
-        <finalName>${appName}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+
+		<!-- test -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${appName}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

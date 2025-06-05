@@ -94,7 +94,7 @@ RADP 提供脚手架工具和推荐的架构模式，帮助快速启动开发：
 <parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp-parent</artifactId>
-	<version>2.19</version>
+	<version>LATEST_VERSION</version>
 </parent>
 ```
 
@@ -105,7 +105,7 @@ RADP 提供脚手架工具和推荐的架构模式，帮助快速启动开发：
 <dependency>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp-spring-boot-starters</artifactId>
-	<version>2.19</version>
+	<version>LATEST_VERSION</version>
 	<type>pom</type>
 </dependency>
 ```
@@ -119,7 +119,7 @@ RADP 提供了几种 Maven 原型，可以快速引导新项目：
 mvn archetype:generate \
   -DarchetypeGroupId=space.x9x.radp \
   -DarchetypeArtifactId=scaffold-std \
-  -DarchetypeVersion=2.19 \
+  -DarchetypeVersion=LATEST_VERSION \
   -DgroupId=com.example \
   -DartifactId=my-project \
   -Dversion=1.0-SNAPSHOT

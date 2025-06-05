@@ -1,667 +1,662 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-dependencies</artifactId>
-        <version>3.21-SNAPSHOT</version>
-        <relativePath>../radp-dependencies/pom.xml</relativePath>
-    </parent>
-    <packaging>pom</packaging>
-    <artifactId>radp-parent</artifactId>
-    <name>${project.artifactId}
-    </name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-dependencies</artifactId>
+		<version>3.21-SNAPSHOT</version>
+		<relativePath>../radp-dependencies/pom.xml</relativePath>
+	</parent>
+	<packaging>pom</packaging>
+	<artifactId>radp-parent</artifactId>
+	<name>${project.artifactId}
+	</name> <!-- 如果不设定, 会导致 checksum-plugin 在 target/classes 中生成的 pom.xml 名为 ${project.name}.pom 而不是 radp-parent.pom -->
 
-    <properties>
-        <java.version>17</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<properties>
+		<java.version>17</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- 基础属性 -->
-        <spring.profiles.active />
-        <runtime.env />
-        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <timestamp>${maven.build.timestamp}</timestamp>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
-        <java-io-tmpdir>${user.home}/tmp</java-io-tmpdir>
-        <maven.test.skip>false</maven.test.skip>
-        <maven.javadoc.skip>false</maven.javadoc.skip>
+		<!-- 基础属性 -->
+		<spring.profiles.active/>
+		<runtime.env/>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
+		<java-io-tmpdir>${user.home}/tmp</java-io-tmpdir>
+		<maven.test.skip>false</maven.test.skip>
+		<maven.javadoc.skip>false</maven.javadoc.skip>
 
-        <!-- archetype -->
-        <gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
-        <minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
-        <minio.bucket.path>${user.minio.bucket.path}</minio.bucket.path>
-        <archetype.catalog.upload.url>${user.archetype.catalog.upload.url}</archetype.catalog.upload.url>
-        <archetype.catalog.upload.serverId>${user.archetype.catalog.upload.serverId}</archetype.catalog.upload.serverId>
+		<!-- archetype -->
+		<gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
+		<minio.alias>${user.minio.alias}</minio.alias> <!-- 记得: 需要提前在本机安装 mc, 并提前配置好 alias -->
+		<minio.bucket.path>${user.minio.bucket.path}</minio.bucket.path>
+		<archetype.catalog.upload.url>${user.archetype.catalog.upload.url}</archetype.catalog.upload.url>
+		<archetype.catalog.upload.serverId>${user.archetype.catalog.upload.serverId}</archetype.catalog.upload.serverId>
 
-        <!-- 打包成可执行程序 -->
-        <start-class />
-        <build.layers.enabled>true</build.layers.enabled>
-        <app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
-        <app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
-        <app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
+		<!-- 打包成可执行程序 -->
+		<start-class/>
+		<build.layers.enabled>true</build.layers.enabled>
+		<app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
+		<app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
+		<app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
 
-        <!-- Docker 部署 -->
-        <jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
-        <jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
-        <app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
-        <app.build.base_image.jdk11>eclipse-temurin:11-jdk</app.build.base_image.jdk11>
-        <app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
-        <docker.build.registry>${user.docker.build.registry}</docker.build.registry>
-        <docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
-        <docker.build.image_name /> <!-- to -->
-        <docker.build.namespace>${user.docker.build.namespace}</docker.build.namespace>
-        <docker.build.image_tag>${project.version}</docker.build.image_tag>
-        <app.home>/app</app.home> <!-- 容器内的应用目录 -->
-        <app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->
-        <app.server.port>8888</app.server.port>
-        <app.management.server.port>9999</app.management.server.port>
-        <docker.build.jvm.xms>1g</docker.build.jvm.xms>
-        <docker.build.jvm.xmx>1g</docker.build.jvm.xmx>
-        <docker.build.jvm.xss>1g</docker.build.jvm.xss>
-        <docker.build.jvm.gc_mode>G1</docker.build.jvm.gc_mode>
-        <docker.build.jvm.use_gc_log>Y</docker.build.jvm.use_gc_log>
-        <docker.build.jvm.gc_log_path>${app.data.home}/logs</docker.build.jvm.gc_log_path>
-        <docker.build.jvm.use_heap_dump>Y</docker.build.jvm.use_heap_dump>
-        <docker.build.jvm.heap_dump_path>${app.data.home}/logs</docker.build.jvm.heap_dump_path>
-        <docker.build.jvm.use_large_pages>Y</docker.build.jvm.use_large_pages>
-        <docker.build.jdwp.debug>N</docker.build.jdwp.debug>
-        <docker.build.jdwp.port>5005</docker.build.jdwp.port>
-        <docker.build.use_current_timestamp>USE_CURRENT_TIMESTAMP</docker.build.use_current_timestamp>
-        <docker.build.allow_insecure_registries>true</docker.build.allow_insecure_registries>
+		<!-- Docker 部署 -->
+		<jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
+		<jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
+		<app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
+		<app.build.base_image.jdk11>eclipse-temurin:11-jdk</app.build.base_image.jdk11>
+		<app.build.base_image.jdk17>eclipse-temurin:17-jdk</app.build.base_image.jdk17>
+		<docker.build.registry>${user.docker.build.registry}</docker.build.registry>
+		<docker.build.base_image>${user.docker.build.base_image}</docker.build.base_image> <!-- from -->
+		<docker.build.image_name/> <!-- to -->
+		<docker.build.namespace>${user.docker.build.namespace}</docker.build.namespace>
+		<docker.build.image_tag>${project.version}</docker.build.image_tag>
+		<app.home>/app</app.home> <!-- 容器内的应用目录 -->
+		<app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->
+		<app.server.port>8888</app.server.port>
+		<app.management.server.port>9999</app.management.server.port>
+		<docker.build.jvm.xms>1g</docker.build.jvm.xms>
+		<docker.build.jvm.xmx>1g</docker.build.jvm.xmx>
+		<docker.build.jvm.xss>1g</docker.build.jvm.xss>
+		<docker.build.jvm.gc_mode>G1</docker.build.jvm.gc_mode>
+		<docker.build.jvm.use_gc_log>Y</docker.build.jvm.use_gc_log>
+		<docker.build.jvm.gc_log_path>${app.data.home}/logs</docker.build.jvm.gc_log_path>
+		<docker.build.jvm.use_heap_dump>Y</docker.build.jvm.use_heap_dump>
+		<docker.build.jvm.heap_dump_path>${app.data.home}/logs</docker.build.jvm.heap_dump_path>
+		<docker.build.jvm.use_large_pages>Y</docker.build.jvm.use_large_pages>
+		<docker.build.jdwp.debug>N</docker.build.jdwp.debug>
+		<docker.build.jdwp.port>5005</docker.build.jdwp.port>
+		<docker.build.use_current_timestamp>USE_CURRENT_TIMESTAMP</docker.build.use_current_timestamp>
+		<docker.build.allow_insecure_registries>true</docker.build.allow_insecure_registries>
 
-        <!-- 数据库迁移工具 -->
-        <liquibase-maven-plugin.property_file>
-            src/main/resources/db/config/liquibase_maven_plugin-${runtime.env}.properties
-        </liquibase-maven-plugin.property_file>
-        <liquibase-maven-plugin.property_provider_class>env.space.x9x.radp.jasypt.spring.boot.ExtendJasyptProperties
-        </liquibase-maven-plugin.property_provider_class>
-        <jasypt.encryptor.password>${user.jasypt.encryptor.password}</jasypt.encryptor.password>
-        <jasypt.encryptor.algorithm>PBEWithMD5AndDES</jasypt.encryptor.algorithm>
-        <jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
-        <liquibase.contexts>local</liquibase.contexts>
-        <liquibase.changelog_file>src/main/resources/db/db.changelog-master.yaml</liquibase.changelog_file>
-        <spring.datasource.driver />
-        <spring.datasource.url />
-        <spring.datasource.username />
-        <spring.datasource.password />
-        <liquibase.output_changeset_author />
-        <liquibase.output_changelog_file>src/main/resources/db/output/changelog-output-${maven.build.timestamp}.yaml
-        </liquibase.output_changelog_file>
-        <liquibase.output_file_encoding>UTF-8</liquibase.output_file_encoding>
-        <liquibase.output_data_dir>src/main/resources/db/output/data</liquibase.output_data_dir>
-        <liquibase.reference_driver />
-        <liquibase.reference_url />
-        <liquibase.reference_username />
-        <liquibase.reference_password />
-        <liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
-        </liquibase.diff_changelog_file>
+		<!-- 数据库迁移工具 -->
+		<liquibase-maven-plugin.property_file>
+			src/main/resources/db/config/liquibase_maven_plugin-${runtime.env}.properties
+		</liquibase-maven-plugin.property_file>
+		<liquibase-maven-plugin.property_provider_class>env.space.x9x.radp.jasypt.spring.boot.ExtendJasyptProperties
+		</liquibase-maven-plugin.property_provider_class>
+		<jasypt.encryptor.password>${user.jasypt.encryptor.password}</jasypt.encryptor.password>
+		<jasypt.encryptor.algorithm>PBEWithMD5AndDES</jasypt.encryptor.algorithm>
+		<jasypt.config.file>src/main/resources/jasypt.properties</jasypt.config.file> <!-- 如果使用外部配置文件 -->
+		<liquibase.contexts>local</liquibase.contexts>
+		<liquibase.changelog_file>src/main/resources/db/db.changelog-master.yaml</liquibase.changelog_file>
+		<spring.datasource.driver/>
+		<spring.datasource.url/>
+		<spring.datasource.username/>
+		<spring.datasource.password/>
+		<liquibase.output_changeset_author/>
+		<liquibase.output_changelog_file>src/main/resources/db/output/changelog-output-${maven.build.timestamp}.yaml
+		</liquibase.output_changelog_file>
+		<liquibase.output_file_encoding>UTF-8</liquibase.output_file_encoding>
+		<liquibase.output_data_dir>src/main/resources/db/output/data</liquibase.output_data_dir>
+		<liquibase.reference_driver/>
+		<liquibase.reference_url/>
+		<liquibase.reference_username/>
+		<liquibase.reference_password/>
+		<liquibase.diff_changelog_file>src/main/resources/db/diff/changelog-diff-${maven.build.timestamp}.yaml
+		</liquibase.diff_changelog_file>
 
-        <!-- OpenAPI 生成工具 -->
-        <openapi-generator-maven-plugin.apiPackage />
-        <openapi-generator-maven-plugin.modelPackage />
-        <asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
-        <asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
-        <asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
-        <asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
-        <swagger.input>${server.url}/v2/api-docs</swagger.input>
-        <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
-        <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
-        <server.url />
+		<!-- OpenAPI 生成工具 -->
+		<openapi-generator-maven-plugin.apiPackage/>
+		<openapi-generator-maven-plugin.modelPackage/>
+		<asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
+		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
+		<asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
+		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
+		<swagger.input>${server.url}/v2/api-docs</swagger.input>
+		<swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
+		<swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
+		<server.url/>
 
-        <!-- 其他 -->
-        <flattened.filename>.flatten-pom-xml</flattened.filename>
-        <javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
-        <properties-maven-plugin.property_file />
-    </properties>
+		<!-- 其他 -->
+		<flattened.filename>.flatten-pom-xml</flattened.filename>
+		<javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
+		<properties-maven-plugin.property_file/>
+	</properties>
 
-    <build>
-        <finalName>${project.name}</finalName>
-        <!-- 控制 target 目录中的内容, 在 process-resources 阶段执行(即 compile 之前) -->
-        <!-- 这里这么定义是为了后期如果要打包, 不会将其它环境配置文件打进 jar 包中 -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>application-*.yml</exclude>
-                    <exclude>application-*.yaml</exclude>
-                    <exclude>**/*.gitkeep</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>application.yml</include>
-                    <include>application.yaml</include>
-                    <include>application-${runtime.env}.yml</include>
-                    <include>application-${runtime.env}.yaml</include>
-                    <include>config/application-*.yml</include>
-                    <include>config/application-*.yaml</include>
-                </includes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/java</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/groovy</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin.version}</version>
-            </extension>
-        </extensions>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>io.github.git-commit-id</groupId>
-                <artifactId>git-commit-id-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-            <plugins>
-                <!-- ====================[清理==================== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <configuration>
-                        <skip>false</skip>
-                        <!--当配置 true 时, 只清理 filesets 里的文件, 构建目录中的文件不被清理, 默认为 false-->
-                        <excludeDefaultDirectories>false</excludeDefaultDirectories>
-                        <filesets>
-                            <fileset>
-                                <!--要清理的目录位置-->
-                                <directory>${basedir}/dist</directory>
-                                <!--是否跟随符号链接-->
-                                <followSymlinks>false</followSymlinks>
-                                <!--默认有些文件是不会被清理的, 比如 .svn 文件-->
-                                <useDefaultExcludes>true</useDefaultExcludes>
-                                <!--对这些文件进行清理-->
-                                <includes>
-                                    <include>**/*</include>
-                                </includes>
-                            </fileset>
-                            <fileset>
-                                <directory>${basedir}</directory>
-                                <followSymlinks>false</followSymlinks>
-                                <useDefaultExcludes>true</useDefaultExcludes>
-                                <includes>
-                                    <include>**/${flattened.filename}</include>
-                                </includes>
-                            </fileset>
-                        </filesets>
-                    </configuration>
-                </plugin>
-                <!-- ====================清理]==================== -->
+	<build>
+		<finalName>${project.name}</finalName>
+		<!-- 控制 target 目录中的内容, 在 process-resources 阶段执行(即 compile 之前) -->
+		<!-- 这里这么定义是为了后期如果要打包, 不会将其它环境配置文件打进 jar 包中 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>application-*.yml</exclude>
+					<exclude>application-*.yaml</exclude>
+					<exclude>**/*.gitkeep</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>application.yml</include>
+					<include>application.yaml</include>
+					<include>application-${runtime.env}.yml</include>
+					<include>application-${runtime.env}.yaml</include>
+					<include>config/application-*.yml</include>
+					<include>config/application-*.yaml</include>
+				</includes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/java</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/groovy</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+				<version>${os-maven-plugin.version}</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- ====================[清理==================== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<configuration>
+						<skip>false</skip>
+						<!--当配置 true 时, 只清理 filesets 里的文件, 构建目录中的文件不被清理, 默认为 false-->
+						<excludeDefaultDirectories>false</excludeDefaultDirectories>
+						<filesets>
+							<fileset>
+								<!--要清理的目录位置-->
+								<directory>${basedir}/dist</directory>
+								<!--是否跟随符号链接-->
+								<followSymlinks>false</followSymlinks>
+								<!--默认有些文件是不会被清理的, 比如 .svn 文件-->
+								<useDefaultExcludes>true</useDefaultExcludes>
+								<!--对这些文件进行清理-->
+								<includes>
+									<include>**/*</include>
+								</includes>
+							</fileset>
+							<fileset>
+								<directory>${basedir}</directory>
+								<followSymlinks>false</followSymlinks>
+								<useDefaultExcludes>true</useDefaultExcludes>
+								<includes>
+									<include>**/${flattened.filename}</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+				<!-- ====================清理]==================== -->
 
-                <!-- ====================[编译==================== -->
-                <!-- maven-compiler-plugin 插件，解决 spring-boot-configuration-processor + Lombok + MapStruct 组合 -->
-                <!-- https://stackoverflow.com/questions/33483697/re-run-spring-boot-configuration-annotation-processor-to-update-generated-metada -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <compilerArgs>
-                            <arg>-Xlint:all</arg>
-                            <arg>-Xlint:-processing</arg>
-                            <arg>-parameters</arg>
-                        </compilerArgs>
-                        <excludes>
-                            <exclude>*.gitkeep</exclude>
-                        </excludes>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>${lombok.version}</version>
-                            </path>
-                            <path>
-                                <groupId>org.mapstruct</groupId>
-                                <artifactId>mapstruct-processor</artifactId>
-                                <version>${mapstruct.version}</version>
-                            </path>
-                            <path>
-                                <groupId>org.springframework.boot</groupId>
-                                <artifactId>spring-boot-configuration-processor</artifactId>
-                                <version>${spring-boot.version}</version>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </plugin>
-                <!-- ====================编译]==================== -->
+				<!-- ====================[编译==================== -->
+				<!-- maven-compiler-plugin 插件，解决 spring-boot-configuration-processor + Lombok + MapStruct 组合 -->
+				<!-- https://stackoverflow.com/questions/33483697/re-run-spring-boot-configuration-annotation-processor-to-update-generated-metada -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<compilerArgs>
+							<arg>-Xlint:all</arg>
+							<arg>-Xlint:-processing</arg>
+							<arg>-parameters</arg>
+						</compilerArgs>
+						<excludes>
+							<exclude>*.gitkeep</exclude>
+						</excludes>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+							<path>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-configuration-processor</artifactId>
+								<version>${spring-boot.version}</version>
+							</path>
+						</annotationProcessorPaths>
+					</configuration>
+				</plugin>
+				<!-- ====================编译]==================== -->
 
-                <!-- ====================[资源管理==================== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>add-source</goal>
-                            </goals>
-                            <configuration>
-                                <sources>
-                                    <source>
-                                        ${project.build.directory}/generated-sources/openapi/src/gen/java
-                                    </source>
-                                </sources>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================资源管理]==================== -->
+				<!-- ====================[资源管理==================== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>
+										${project.build.directory}/generated-sources/openapi/src/gen/java
+									</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================资源管理]==================== -->
 
-                <!-- ====================[打包成可执行程序==================== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <configuration>
-                        <ignoreMissingDescriptor>true</ignoreMissingDescriptor>
-                        <descriptors>
-                            <descriptor>src/main/assembly/assembly.xml
-                            </descriptor>
-                        </descriptors>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>assembly-single</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <excludes>
-                            <exclude>**/rebel.xml</exclude>
-                        </excludes>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <archive>
-                            <manifest>
-                                <mainClass>${start-class}</mainClass>
-                                <addDefaultImplementationEntries>true
-                                </addDefaultImplementationEntries>
-                            </manifest>
-                        </archive>
-                        <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
-                    </configuration>
-                </plugin>
-                <!-- ====================打包成可执行程序]==================== -->
+				<!-- ====================[打包成可执行程序==================== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<configuration>
+						<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
+						<descriptors>
+							<descriptor>src/main/assembly/assembly.xml
+							</descriptor>
+						</descriptors>
+					</configuration>
+					<executions>
+						<execution>
+							<id>assembly-single</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/rebel.xml</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<archive>
+							<manifest>
+								<mainClass>${start-class}</mainClass>
+								<addDefaultImplementationEntries>true
+								</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+						<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+					</configuration>
+				</plugin>
+				<!-- ====================打包成可执行程序]==================== -->
 
-                <!-- ====================[部署仓库==================== -->
-                <!--部署到中央仓库-->
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                            <configuration>
-                                <!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
-                                <!-- 1. 确保 gpg version 2.1+ -->
-                                <!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
-                                <gpgArguments>
-                                    <arg>--pinentry-mode</arg>
-                                    <arg>loopback</arg>
-                                </gpgArguments>
-                                <useAgent>true</useAgent>
-                                <keyname>${user.gpg.keyname}</keyname>
-                                <passphraseServerId>${user.gpg.keyname}</passphraseServerId>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>net.nicoulaj.maven.plugins</groupId>
-                    <artifactId>checksum-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>create-checksums</id>
-                            <goals>
-                                <goal>artifacts</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- docker 部署  -->
-                <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                    <!-- 绑定 Jib 到 Maven 生命周期 -->
-                    <!-- jib:dockerBuild, jib:build 均需要本地有 docker daemon -->
-                    <executions>
-                        <execution>
-                            <!-- Only build image -->
-                            <id>jib-dockerBuild-iamges</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>dockerBuild</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <!-- build and publish image to registry -->
-                            <id>jib-dockerBuild-publish</id>
-                            <phase>deploy</phase>
-                            <goals>
-                                <goal>build</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <!-- 基础镜像 -->
-                        <from>
-                            <image>${docker.build.base_image}</image>
-                            <!-- 支持多架构,会根据当前机器OS -->
-                            <platforms>
-                                <platform>
-                                    <architecture>amd64</architecture>
-                                    <os>linux</os>
-                                </platform>
-                                <platform>
-                                    <architecture>arm64</architecture>
-                                    <os>linux</os>
-                                </platform>
-                            </platforms>
-                        </from>
-                        <!-- 目标镜像 -->
-                        <to>
-                            <image>${docker.build.image_name}</image>
-                            <tags>
-                                <tag>${docker.build.image_tag}</tag>
-                                <tag>latest</tag>
-                            </tags>
-                        </to>
-                        <allowInsecureRegistries>true</allowInsecureRegistries>
-                        <!-- 容器配置 -->
-                        <container>
-                            <!-- 如果指定了 entrypoint 这会被忽略 -->
-                            <mainClass>${start-class}</mainClass>
-                            <!-- (optional) -->
-                            <creationTime>${docker.build.use_current_timestamp}</creationTime>
-                            <!-- 端口暴露 -->
-                            <ports>
-                                <port>${app.server.port}</port>
-                                <port>${app.management.server.port}</port>
-                            </ports>
-                            <!-- 环境变量 -->
-                            <environment>
-                                <TZ>Asia/Shanghai</TZ>
-                                <LANG>C.UTF-8</LANG>
-                                <!-- jvm xms/xmx/xss -->
-                                <JVM_XMS>${docker.build.jvm.xms}</JVM_XMS>
-                                <JVM_XMX>${docker.build.jvm.xmx}</JVM_XMX>
-                                <JVM_XSS>${docker.build.jvm.xss}</JVM_XSS>
-                                <!-- jvm gc -->
-                                <GC_MODE>${docker.build.jvm.gc_mode}</GC_MODE>
-                                <USE_GC_LOG>${docker.build.jvm.use_gc_log}</USE_GC_LOG>
-                                <GC_LOG_PATH>${docker.build.jvm.gc_log_path}</GC_LOG_PATH>
-                                <!-- jvm heap dump -->
-                                <USE_HEAP_DUMP>${docker.build.jvm.use_heap_dump}</USE_HEAP_DUMP>
-                                <HEAP_DUMP_PATH>${docker.build.jvm.heap_dump_path}</HEAP_DUMP_PATH>
-                                <!-- jvm large page -->
-                                <USE_LARGE_PAGES>${docker.build.jvm.use_large_pages}</USE_LARGE_PAGES>
-                                <!-- jvm debug -->
-                                <JDWP_DEBUG>${docker.build.jdwp.debug}</JDWP_DEBUG>
-                                <JDWP_PORT>${docker.build.jdwp.port}</JDWP_PORT>
-                                <!-- app config -->
-                                <APP_HOME>${app.home}</APP_HOME>
-                                <DATA_HOME>${app.data.home}</DATA_HOME>
-                                <SERVER_PORT>${app.server.port}</SERVER_PORT>
-                                <MANAGEMENT_SERVER_PORT>${app.management.server.port}</MANAGEMENT_SERVER_PORT>
-                                <SPRING_PROFILES_ACTIVE>${runtime.env}</SPRING_PROFILES_ACTIVE>
-                                <START_CLASS>${start-class}</START_CLASS>
-                            </environment>
-                            <user>1001:1001</user>
-                            <!--                            <appRoot>${app.home}</appRoot>-->
-                            <!--                            <workingDirectory>${app.home}</workingDirectory>-->
-                            <!-- 定义入口点 -->
-                            <entrypoint>
-                                <shell>bash</shell>
-                                <option>-c</option>
-                                <arg>/entrypoint.sh</arg>
-                            </entrypoint>
-                            <labels>
-                                <org.opencontainers.image.authors>x9x &lt;${developer.email}&gt;
-                                </org.opencontainers.image.authors>
-                                <org.opencontainers.image.version>${project.version}
-                                </org.opencontainers.image.version>
-                            </labels>
-                        </container>
-                        <!-- 其他配置 -->
-                        <extraDirectories>
-                            <paths>
-                                <path>
-                                    <from>${project.basedir}/src/main/docker/jib</from>
-                                    <into>/</into>
-                                </path>
-                            </paths>
-                            <permissions>
-                                <permission>
-                                    <file>/entrypoint.sh</file>
-                                    <mode>755</mode>
-                                </permission>
-                            </permissions>
-                        </extraDirectories>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>dockerfile-maven-plugin</artifactId>
-                    <configuration>
-                        <repository>${project.name}</repository>
-                        <tag>${project.version}</tag>
-                        <contextDirectory>${project.build.directory}</contextDirectory>
-                    </configuration>
-                </plugin>
-                <!-- ====================部署仓库]==================== -->
+				<!-- ====================[部署仓库==================== -->
+				<!--部署到中央仓库-->
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+							<configuration>
+								<!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
+								<!-- 1. 确保 gpg version 2.1+ -->
+								<!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
+								<gpgArguments>
+									<arg>--pinentry-mode</arg>
+									<arg>loopback</arg>
+								</gpgArguments>
+								<useAgent>true</useAgent>
+								<keyname>${user.gpg.keyname}</keyname>
+								<passphraseServerId>${user.gpg.keyname}</passphraseServerId>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>net.nicoulaj.maven.plugins</groupId>
+					<artifactId>checksum-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>create-checksums</id>
+							<goals>
+								<goal>artifacts</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- Docker 部署 -->
+				<plugin>
+					<groupId>com.google.cloud.tools</groupId>
+					<artifactId>jib-maven-plugin</artifactId>
+					<!-- 绑定 Jib 到 Maven 生命周期 -->
+					<!-- jib:dockerBuild, jib:build 均需要本地有 docker daemon -->
+					<executions>
+						<execution>
+							<!-- Only build image -->
+							<id>jib-dockerBuild-iamges</id>
+							<phase>install</phase>
+							<goals>
+								<goal>dockerBuild</goal>
+							</goals>
+						</execution>
+						<execution>
+							<!-- build and publish image to a registry -->
+							<id>jib-dockerBuild-publish</id>
+							<phase>deploy</phase>
+							<goals>
+								<goal>build</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<!-- 基础镜像 -->
+						<from>
+							<image>${docker.build.base_image}</image>
+							<!-- 支持多架构,会根据当前机器OS -->
+							<platforms>
+								<platform>
+									<architecture>amd64</architecture>
+									<os>linux</os>
+								</platform>
+								<platform>
+									<architecture>arm64</architecture>
+									<os>linux</os>
+								</platform>
+							</platforms>
+						</from>
+						<!-- 目标镜像 -->
+						<to>
+							<image>${docker.build.image_name}</image>
+							<tags>
+								<tag>${docker.build.image_tag}</tag>
+								<tag>latest</tag>
+							</tags>
+						</to>
+						<allowInsecureRegistries>true</allowInsecureRegistries>
+						<!-- 容器配置 -->
+						<container>
+							<!-- 如果指定了 entrypoint 这会被忽略 -->
+							<mainClass>${start-class}</mainClass>
+							<!-- (optional) -->
+							<creationTime>${docker.build.use_current_timestamp}</creationTime>
+							<!-- 端口暴露 -->
+							<ports>
+								<port>${app.server.port}</port>
+								<port>${app.management.server.port}</port>
+							</ports>
+							<!-- 环境变量 -->
+							<environment>
+								<TZ>Asia/Shanghai</TZ>
+								<LANG>C.UTF-8</LANG>
+								<!-- jvm xms/xmx/xss -->
+								<JVM_XMS>${docker.build.jvm.xms}</JVM_XMS>
+								<JVM_XMX>${docker.build.jvm.xmx}</JVM_XMX>
+								<JVM_XSS>${docker.build.jvm.xss}</JVM_XSS>
+								<!-- jvm gc -->
+								<GC_MODE>${docker.build.jvm.gc_mode}</GC_MODE>
+								<USE_GC_LOG>${docker.build.jvm.use_gc_log}</USE_GC_LOG>
+								<GC_LOG_PATH>${docker.build.jvm.gc_log_path}</GC_LOG_PATH>
+								<!-- jvm heap dump -->
+								<USE_HEAP_DUMP>${docker.build.jvm.use_heap_dump}</USE_HEAP_DUMP>
+								<HEAP_DUMP_PATH>${docker.build.jvm.heap_dump_path}</HEAP_DUMP_PATH>
+								<!-- jvm large page -->
+								<USE_LARGE_PAGES>${docker.build.jvm.use_large_pages}</USE_LARGE_PAGES>
+								<!-- jvm debug -->
+								<JDWP_DEBUG>${docker.build.jdwp.debug}</JDWP_DEBUG>
+								<JDWP_PORT>${docker.build.jdwp.port}</JDWP_PORT>
+								<!-- app config -->
+								<APP_HOME>${app.home}</APP_HOME>
+								<DATA_HOME>${app.data.home}</DATA_HOME>
+								<SERVER_PORT>${app.server.port}</SERVER_PORT>
+								<MANAGEMENT_SERVER_PORT>${app.management.server.port}</MANAGEMENT_SERVER_PORT>
+								<SPRING_PROFILES_ACTIVE>${runtime.env}</SPRING_PROFILES_ACTIVE>
+								<START_CLASS>${start-class}</START_CLASS>
+							</environment>
+							<user>1001:1001</user>
+							<!--
+							<appRoot>${app.home}</appRoot>
+							<workingDirectory>${app.home}</workingDirectory>
+							-->
+							<!-- 定义入口点 -->
+							<entrypoint>
+								<shell>bash</shell>
+								<option>-c</option>
+								<arg>/entrypoint.sh</arg>
+							</entrypoint>
+							<labels>
+								<org.opencontainers.image.authors>x9x &lt;${developer.email}&gt;
+								</org.opencontainers.image.authors>
+								<org.opencontainers.image.version>${project.version}
+								</org.opencontainers.image.version>
+							</labels>
+						</container>
+						<!-- 其他配置 -->
+						<extraDirectories>
+							<paths>
+								<path>
+									<from>${project.basedir}/src/main/docker/jib</from>
+									<into>/</into>
+								</path>
+							</paths>
+							<permissions>
+								<permission>
+									<file>/entrypoint.sh</file>
+									<mode>755</mode>
+								</permission>
+							</permissions>
+						</extraDirectories>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<configuration>
+						<repository>${project.name}</repository>
+						<tag>${project.version}</tag>
+						<contextDirectory>${project.build.directory}</contextDirectory>
+					</configuration>
+				</plugin>
+				<!-- ====================部署仓库]==================== -->
 
-                <!-- ====================[发布版本==================== -->
-                <!-- 该插件需要结合 scm 使用 -->
-                <!-- 1. mvn release:prepare -B -->
-                <!-- 0) 这里的 -B 表示 batch mode, 无交互式运行 -->
-                <!-- 1) 检查是否有未提交的代码 -->
-                <!-- 2) 修改 pom.xml 版本号快照版本为正式版本, 并提交 commit 修改后的代码, 并对修改后的代码打 tag -->
-                <!-- 3) 更新版本为下一个快照版本, 并提交代码 -->
-                <!-- 2. mvn release:perform -B -->
-                <!-- 检出打好标签的最新正式版本, 并执行构建与部署 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                        <tagNameFormat>@{project.version}</tagNameFormat>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
-                        <!-- 如果为true, 那么 performRelease 将会为 true -->
-                        <!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-                        <arguments>${devops.release.arguments}</arguments>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <configuration>
-                        <generateBackupPoms>false</generateBackupPoms>
-                    </configuration>
-                </plugin>
-                <!-- ====================发布版本]==================== -->
+				<!-- ====================[发布版本==================== -->
+				<!-- 该插件需要结合 scm 使用 -->
+				<!-- 1. mvn release:prepare -B -->
+				<!-- 0) 这里的 -B 表示 batch mode, 无交互式运行 -->
+				<!-- 1) 检查是否有未提交的代码 -->
+				<!-- 2) 修改 pom.xml 版本号快照版本为正式版本, 并提交 commit 修改后的代码, 并对修改后的代码打 tag -->
+				<!-- 3) 更新版本为下一个快照版本, 并提交代码 -->
+				<!-- 2. mvn release:perform -B -->
+				<!-- 检出打好标签的最新正式版本, 并执行构建与部署 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<configuration>
+						<tagNameFormat>@{project.version}</tagNameFormat>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
+						<!-- 如果为true, 那么 performRelease 将会为 true -->
+						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
+						<useReleaseProfile>false</useReleaseProfile>
+						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
+						<arguments>${devops.release.arguments}</arguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<configuration>
+						<generateBackupPoms>false</generateBackupPoms>
+					</configuration>
+				</plugin>
+				<!-- ====================发布版本]==================== -->
 
-                <!-- ====================[代码覆盖率==================== -->
-                <!-- ====================代码覆盖率]==================== -->
+				<!-- ====================[代码覆盖率==================== -->
+				<!-- ====================代码覆盖率]==================== -->
 
-                <!-- ====================[代码质量==================== -->
-                <!-- ====================代码质量]==================== -->
+				<!-- ====================[代码质量==================== -->
+				<!-- ====================代码质量]==================== -->
 
-                <!-- ====================[单元测试==================== -->
-                <!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
-                <!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <argLine>-Djava.io.tmpdir=${java-io-tmpdir}
-                            -Dcglib.debugLocation=${project.build.outputDirectory}
-                        </argLine>
-                    </configuration>
-                </plugin>
-                <!-- ====================单元测试]==================== -->
+				<!-- ====================[单元测试==================== -->
+				<!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
+				<!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<argLine>-Djava.io.tmpdir=${java-io-tmpdir}
+							-Dcglib.debugLocation=${project.build.outputDirectory}
+						</argLine>
+					</configuration>
+				</plugin>
+				<!-- ====================单元测试]==================== -->
 
-                <!-- ====================[集成测试==================== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <configuration>
-                        <includes>
-                            <include>**/*IT</include>
-                            <include>**/*ITCase</include>
-                        </includes>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>ru.trylogic.maven.plugins</groupId>
-                    <artifactId>redis-maven-plugin</artifactId>
-                    <configuration>
-                        <forked>true</forked>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>start-redis</id>
-                            <phase>pre-integration-test</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>stop-redis</id>
-                            <phase>post-integration-test</phase>
-                            <goals>
-                                <goal>shutdown</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================[集成测试==================== -->
+				<!-- ====================[集成测试==================== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<configuration>
+						<includes>
+							<include>**/*IT</include>
+							<include>**/*ITCase</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>ru.trylogic.maven.plugins</groupId>
+					<artifactId>redis-maven-plugin</artifactId>
+					<configuration>
+						<forked>true</forked>
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-redis</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>stop-redis</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>shutdown</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================[集成测试==================== -->
 
-                <!-- ====================[性能测试==================== -->
-                <plugin>
-                    <groupId>io.gatling</groupId>
-                    <artifactId>gatling-maven-plugin</artifactId>
-                    <configuration>
-                        <disableCompiler>true</disableCompiler>
-                        <propagateSystemProperties>true
-                        </propagateSystemProperties>
-                        <failOnError>true</failOnError>
-                        <runMultipleSimulations>true</runMultipleSimulations>
-                    </configuration>
-                </plugin>
-                <!-- ====================性能测试]==================== -->
+				<!-- ====================[性能测试==================== -->
+				<plugin>
+					<groupId>io.gatling</groupId>
+					<artifactId>gatling-maven-plugin</artifactId>
+					<configuration>
+						<disableCompiler>true</disableCompiler>
+						<propagateSystemProperties>true
+						</propagateSystemProperties>
+						<failOnError>true</failOnError>
+						<runMultipleSimulations>true</runMultipleSimulations>
+					</configuration>
+				</plugin>
+				<!-- ====================性能测试]==================== -->
 
-                <!-- ====================[版本控制==================== -->
-                <!-- 版本提交信息 -->
-                <plugin>
-                    <groupId>io.github.git-commit-id</groupId>
-                    <artifactId>git-commit-id-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>revision</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <!-- 如果没有 Git 目录，不会导致构建失败 -->
-                        <failOnNoGitDirectory>false</failOnNoGitDirectory>
-                        <!-- 如果无法提取仓库信息，不会导致构建失败 -->
-                        <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
-                        <!-- 生成 git.properties 文件 -->
-                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <!-- 仅包含指定的属性 -->
-                        <includeOnlyProperties>
-                            <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.branch$</includeOnlyProperty>
-                            <includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
-                        </includeOnlyProperties>
-                    </configuration>
-                </plugin>
-                <!-- 版本变更记录 -->
-                <plugin>
-                    <groupId>se.bjurr.gitchangelog</groupId>
-                    <artifactId>git-changelog-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>GenerateGitChangelog</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>git-changelog</goal>
-                            </goals>
-                            <configuration>
-                                <templateContent>
-                                    <![CDATA[
+				<!-- ====================[版本控制==================== -->
+				<!-- 版本提交信息 -->
+				<plugin>
+					<groupId>io.github.git-commit-id</groupId>
+					<artifactId>git-commit-id-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>revision</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<!-- 如果没有 Git 目录，不会导致构建失败 -->
+						<failOnNoGitDirectory>false</failOnNoGitDirectory>
+						<!-- 如果无法提取仓库信息，不会导致构建失败 -->
+						<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+						<!-- 生成 git.properties 文件 -->
+						<generateGitPropertiesFile>true</generateGitPropertiesFile>
+						<!-- 仅包含指定的属性 -->
+						<includeOnlyProperties>
+							<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+							<includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
+							<includeOnlyProperty>^git.branch$</includeOnlyProperty>
+							<includeOnlyProperty>^git.remote.origin.url$</includeOnlyProperty>
+						</includeOnlyProperties>
+					</configuration>
+				</plugin>
+				<!-- 版本变更记录 -->
+				<plugin>
+					<groupId>se.bjurr.gitchangelog</groupId>
+					<artifactId>git-changelog-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>GenerateGitChangelog</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>git-changelog</goal>
+							</goals>
+							<configuration>
+								<templateContent>
+									<![CDATA[
 								{{#tags}}
 								## {{name}}
 								 {{#issues}}
@@ -691,1119 +686,948 @@
 								 {{/issues}}
 								{{/tags}}
 								]]>
-                                </templateContent>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================版本控制]==================== -->
+								</templateContent>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================版本控制]==================== -->
 
-                <!-- ====================[项目脚手架==================== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <configuration>
-                        <propertyFile>archetype.properties</propertyFile>
-                        <useDefaultExcludes>false</useDefaultExcludes>
-                    </configuration>
-                </plugin>
-                <!-- ====================项目脚手架]==================== -->
+				<!-- ====================[项目脚手架==================== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<configuration>
+						<propertyFile>archetype.properties</propertyFile>
+						<useDefaultExcludes>false</useDefaultExcludes>
+					</configuration>
+				</plugin>
+				<!-- ====================项目脚手架]==================== -->
 
-                <!-- ====================[数据库迁移工具==================== -->
-                <!-- ====================数据库迁移工具]==================== -->
+				<!-- ====================[数据库迁移工具==================== -->
+				<!-- ====================数据库迁移工具]==================== -->
 
-                <!-- ====================[OpenAPI 生成工具==================== -->
-                <plugin>
-                    <groupId>org.openapitools</groupId>
-                    <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                            <configuration>
-                                <inputSpec>
-                                    ${project.basedir}/src/main/resources/openapi.yaml
-                                </inputSpec>
-                                <generatorName>jaxrs-spec</generatorName>
-                                <configOptions>
-                                    <dateLibrary>java8-localdatetime
-                                    </dateLibrary>
-                                    <java8>true</java8>
-                                    <serializableModel>true</serializableModel>
-                                    <interfaceOnly>true</interfaceOnly>
-                                    <useSwaggerAnnotations>true
-                                    </useSwaggerAnnotations>
-                                </configOptions>
-                                <apiPackage>
-                                    ${openapi-generator-maven-plugin.apiPackage}
-                                </apiPackage>
-                                <modelPackage>
-                                    ${openapi-generator-maven-plugin.modelPackage}
-                                </modelPackage>
-                                <supportingFilesToGenerate>ApiUtil.java
-                                </supportingFilesToGenerate>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================OpenAPI 生成工具]==================== -->
+				<!-- ====================[OpenAPI 生成工具==================== -->
+				<plugin>
+					<groupId>org.openapitools</groupId>
+					<artifactId>openapi-generator-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<configuration>
+								<inputSpec>
+									${project.basedir}/src/main/resources/openapi.yaml
+								</inputSpec>
+								<generatorName>jaxrs-spec</generatorName>
+								<configOptions>
+									<dateLibrary>java8-localdatetime
+									</dateLibrary>
+									<java8>true</java8>
+									<serializableModel>true</serializableModel>
+									<interfaceOnly>true</interfaceOnly>
+									<useSwaggerAnnotations>true
+									</useSwaggerAnnotations>
+								</configOptions>
+								<apiPackage>
+									${openapi-generator-maven-plugin.apiPackage}
+								</apiPackage>
+								<modelPackage>
+									${openapi-generator-maven-plugin.modelPackage}
+								</modelPackage>
+								<supportingFilesToGenerate>ApiUtil.java
+								</supportingFilesToGenerate>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================OpenAPI 生成工具]==================== -->
 
-                <!-- ====================[属性解析工具==================== -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>properties-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>read-project-properties</goal>
-                            </goals>
-                            <configuration>
-                                <files>
-                                    <file>${properties-maven-plugin.property_file}</file>
-                                </files>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>it.ozimov</groupId>
-                    <artifactId>yaml-properties-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>yaml-read-project-properties</id>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>read-project-properties</goal>
-                            </goals>
-                            <configuration>
-                                <files>
-                                    <file>
-                                        ${project.basedir}/src/main/resources/application-${runtime.env}.yaml
-                                    </file>
-                                </files>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================属性解析工具]==================== -->
+				<!-- ====================[属性解析工具==================== -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>initialize</phase>
+							<goals>
+								<goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+								<files>
+									<file>${properties-maven-plugin.property_file}</file>
+								</files>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>it.ozimov</groupId>
+					<artifactId>yaml-properties-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>yaml-read-project-properties</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+								<files>
+									<file>
+										${project.basedir}/src/main/resources/application-${runtime.env}.yaml
+									</file>
+								</files>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================属性解析工具]==================== -->
 
-                <!-- ====================[其他编程语言==================== -->
-                <plugin>
-                    <groupId>org.codehaus.gmavenplus</groupId>
-                    <artifactId>gmavenplus-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>compileTests</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- ====================其他编程语言]==================== -->
+				<!-- ====================[其他编程语言==================== -->
+				<plugin>
+					<groupId>org.codehaus.gmavenplus</groupId>
+					<artifactId>gmavenplus-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>compileTests</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ====================其他编程语言]==================== -->
 
-                <!-- ====================[其他==================== -->
-                <!-- 解决多模块 revision 版本替换问题 -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <configuration>
-                        <updatePomFile>true</updatePomFile>
-                        <flattenedPomFilename>${flattened.filename}</flattenedPomFilename>
-                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                    </configuration>
-                    <executions>
-                        <!-- enable flattening -->
-                        <execution>
-                            <id>flatten</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>flatten</goal>
-                            </goals>
-                        </execution>
-                        <!-- ensure proper cleanup -->
-                        <execution>
-                            <id>flatten.clean</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <charset>${javadoc.encoding}</charset>
-                        <docencoding>${javadoc.encoding}</docencoding>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                            <configuration>
-                                <failOnError>false</failOnError>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-wrapper-plugin</artifactId>
-                    <configuration>
-                        <mavenVersion>3.9.9</mavenVersion>
-                        <distributionType>only-script</distributionType>
-                    </configuration>
-                </plugin>
-                <!-- ====================其他]==================== -->
-            </plugins>
-        </pluginManagement>
-    </build>
+				<!-- ====================[其他==================== -->
+				<!-- 解决多模块 revision 版本替换问题 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<configuration>
+						<updatePomFile>true</updatePomFile>
+						<flattenedPomFilename>${flattened.filename}</flattenedPomFilename>
+						<flattenMode>resolveCiFriendliesOnly</flattenMode>
+					</configuration>
+					<executions>
+						<!-- enable flattening -->
+						<execution>
+							<id>flatten</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>flatten</goal>
+							</goals>
+						</execution>
+						<!-- ensure proper cleanup -->
+						<execution>
+							<id>flatten.clean</id>
+							<phase>clean</phase>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<charset>${javadoc.encoding}</charset>
+						<docencoding>${javadoc.encoding}</docencoding>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<configuration>
+								<failOnError>false</failOnError>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-wrapper-plugin</artifactId>
+					<configuration>
+						<mavenVersion>3.9.9</mavenVersion>
+						<distributionType>only-script</distributionType>
+					</configuration>
+				</plugin>
+				<!-- ====================其他]==================== -->
+			</plugins>
+		</pluginManagement>
+	</build>
 
-    <profiles>
-        <profile>
-            <id>env-local</id>
-            <properties>
-                <runtime.env>local</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-dev</id>
-            <properties>
-                <runtime.env>dev</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-sit</id>
-            <properties>
-                <runtime.env>sit</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-uat</id>
-            <properties>
-                <runtime.env>uat</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-test</id>
-            <properties>
-                <runtime.env>test</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-prod</id>
-            <properties>
-                <runtime.env>prod</runtime.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>env-private</id>
-            <properties>
-                <runtime.env>private</runtime.env>
-            </properties>
-        </profile>
+	<profiles>
+		<profile>
+			<id>env-local</id>
+			<properties>
+				<runtime.env>local</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-dev</id>
+			<properties>
+				<runtime.env>dev</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-sit</id>
+			<properties>
+				<runtime.env>sit</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-uat</id>
+			<properties>
+				<runtime.env>uat</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-test</id>
+			<properties>
+				<runtime.env>test</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-prod</id>
+			<properties>
+				<runtime.env>prod</runtime.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-private</id>
+			<properties>
+				<runtime.env>private</runtime.env>
+			</properties>
+		</profile>
 
-        <!-- 当激活此 profile 时，将会打包所有 application-xx.yaml 配置文件 -->
-        <!-- 默认仅打包 application.yaml, application-${runtime.env}.yaml, config/application-xx.yaml -->
-        <profile>
-            <id>o-all-env</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <excludes>
-                            <exclude>**/*.gitkeep</exclude>
-                        </excludes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
-                        <includes>
-                            <include>application*.yml</include>
-                            <include>application*.yaml</include>
-                            <include>config/application*.yml</include>
-                            <include>config/application*.yaml</include>
-                        </includes>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
+		<!-- 当激活此 profile 时，将会打包所有 application-xx.yaml 配置文件 -->
+		<!-- 默认仅打包 application.yaml, application-${runtime.env}.yaml, config/application-xx.yaml -->
+		<profile>
+			<id>o-all-env</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>**/*.gitkeep</exclude>
+						</excludes>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+						<includes>
+							<include>application*.yml</include>
+							<include>application*.yaml</include>
+							<include>config/application*.yml</include>
+							<include>config/application*.yaml</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
 
-        <!-- mvn clean verify sonar:sonar -Pcoding,code-review -->
-        <profile>
-            <id>code-review</id>
-            <properties>
-                <sonar.host.url>${user.sonar.host.url}</sonar.host.url>
-                <sonar.token>${user.sonar.token}</sonar.token>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<profile>
+			<!-- 不需要手动激活, 会自动激活 -->
+			<id>auto-liquibase</id>
+			<activation>
+				<file>
+					<!-- 当 db.changelog-master.xml 文件存在时将会自动激活这个 profile -->
+					<exists>${project.basedir}/src/main/resources/db/db.changelog-master.yaml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<!-- see https://juejin.cn/post/7301180375421108259#heading-12 -->
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<configuration>
+							<!-- 是否允许外部配置文件中的属性覆盖命令行参数或 maven pom 中定义的属性 -->
+							<propertyFileWillOverride>true</propertyFileWillOverride>
+							<propertyFile>${liquibase-maven-plugin.property_file}</propertyFile>
+							<propertyProviderClass>${liquibase-maven-plugin.property_provider_class}
+							</propertyProviderClass>
+							<systemProperties> <!-- 这三个 properties 是给 propertyProviderClass 使用的 -->
+								<jasypt.encryptor.password>${jasypt.encryptor.password}</jasypt.encryptor.password>
+								<jasypt.encryptor.algorithm>${jasypt.encryptor.algorithm}</jasypt.encryptor.algorithm>
+								<jasypt.config.file>${jasypt.config.file}</jasypt.config.file> <!-- 如果使用外部配置文件 -->
+							</systemProperties>
+							<!-- 参数化 propertyProviderClass 中的秘钥和算法 -->
+							<verbose>true</verbose>
+							<!-- liquibase:updateSQL, 根据配置的 changeLogFile 生成要执行的 SQL -->
+							<contexts>${liquibase.contexts}</contexts>
+							<changeLogFile>${liquibase.changelog_file}</changeLogFile>
+							<!-- liquibase:generateChangeLog, 连接数据库将数据库的表结构转换成 changelog 变更日志-->
+							<driver>${spring.datasource.driver}</driver>
+							<url>${spring.datasource.url}</url>
+							<username>${spring.datasource.username}</username>
+							<password>${spring.datasource.password}</password>
+							<changeSetAuthor>${liquibase.output_changeset_author}</changeSetAuthor>
+							<outputChangeLogFile>${liquibase.output_changelog_file}</outputChangeLogFile>
+							<outputFileEncoding>${liquibase.output_file_encoding}</outputFileEncoding>
+							<dataDir>${liquibase.output_data_dir}</dataDir> <!-- 如果设置了 dataDir, 会将数据以 csv 文件格式导出 -->
+							<!-- liquibase:diff -->
+							<referenceUrl>${liquibase.reference_url}</referenceUrl>
+							<referenceUsername>${liquibase.reference_username}</referenceUsername>
+							<referencePassword>${liquibase.reference_password}</referencePassword>
+							<diffChangeLogFile>${liquibase.diff_changelog_file}</diffChangeLogFile>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>org.liquibase</groupId>
+								<artifactId>liquibase-core</artifactId>
+								<version>${liquibase.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-        <profile>
-            <id>unit-test</id>
-            <build>
-                <plugins>
-                    <!-- 编译 Groovy 代码 -->
-                    <plugin>
-                        <groupId>org.codehaus.gmavenplus</groupId>
-                        <artifactId>gmavenplus-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>compile</goal>
-                                    <goal>compileTests</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 运行基于 Junit 或 Spock 等框架的单元测试 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <!-- 并行执行 -->
-                            <parallel>methods</parallel>
-                            <threadCount>10</threadCount>
-                            <!-- 出现失败继续生成报告 -->
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <!-- 避免某些 Groovy 反射问题 -->
-                            <useSystemClassLoader>false</useSystemClassLoader>
-                            <skipTests>false</skipTests>
-                            <includes>
-                                <include>**/*Test.java</include>
-                                <include>**/*Spec.groovy</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/*IT</exclude>
-                                <exclude>**/*ITCase</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <!-- 收集代码覆盖率并生成报告 -->
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <!-- 初始化时附加 agent -->
-                                <id>prepare-agent</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>report-and-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                    <goal>check</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
-                                    <rules>
-                                        <rule implementation="org.jacoco.maven.RuleConfiguration">
-                                            <element>BUNDLE</element>
-                                            <limits>　　
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>METHOD</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>0.50</minimum>
-                                                </limit>
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>BRANCH</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>0.50</minimum>
-                                                </limit>
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>CLASS</counter>
-                                                    <value>MISSEDCOUNT</value>
-                                                    <maximum>0</maximum>
-                                                </limit>
-                                            </limits>
-                                        </rule>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <reporting>
-                <plugins>
-                    <!-- 生成单元测试报告 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-report-plugin</artifactId>
-                        <configuration>
-                            <aggregate>false</aggregate>
-                        </configuration>
-                    </plugin>
-                    <!-- 交叉应用 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jxr-plugin</artifactId>
-                    </plugin>
-                    <!-- 项目基本信息报告(依赖树,插件清单等) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-project-info-reports-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </reporting>
-            <dependencies>
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
+		<profile>
+			<id>integration-test</id>
+			<build>
+				<plugins>
+					<!-- 编译 Groovy / Spock 代码 -->
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>compileTests</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- 注入 Jacoco agent -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-agent-integration</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>prepare-agent-integration</goal>
+								</goals>
+								<configuration>
+									<propertyName>jacoco.it.arg</propertyName>
+									<destFile>${project.build.directory}/jacoco-it.exec</destFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>report-and-check-integration</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>report-integration</goal>
+									<goal>check</goal>
+								</goals>
+								<configuration>
+									<dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
+									<rules>
+										<rule implementation="org.jacoco.maven.RuleConfiguration">
+											<element>BUNDLE</element>
+											<limits>　　
+												<limit implementation="org.jacoco.report.check.Limit">
+													<counter>METHOD</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>0.50</minimum>
+												</limit>
+												<limit implementation="org.jacoco.report.check.Limit">
+													<counter>BRANCH</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>0.50</minimum>
+												</limit>
+												<limit implementation="org.jacoco.report.check.Limit">
+													<counter>CLASS</counter>
+													<value>MISSEDCOUNT</value>
+													<maximum>0</maximum>
+												</limit>
+											</limits>
+										</rule>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- 运行集成测试 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<skipTests>false</skipTests>
+							<useModulePath>false</useModulePath>
+							<useFile>false</useFile>
+							<parallel>methods</parallel>
+							<threadCount>10</threadCount>
+							<includes>
+								<include>**/*IT</include>
+								<include>**/*ITCase</include>
+							</includes>
+							<excludes>
+								<exclude>**/*Test</exclude>
+								<exclude>**/*Spec</exclude>
+							</excludes>
+						</configuration>
+						<executions>
+							<execution>
+								<id>integration</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>org.junit.jupiter</groupId>
+								<artifactId>junit-jupiter-engine</artifactId>
+								<version>${junit-jupiter-engine.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+					<!-- 跳过单元测试 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>failsafe-report</id>
+								<phase>site</phase>
+								<goals>
+									<goal>failsafe-report-only</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<configuration>
+							<aggregate>true</aggregate>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jxr-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-project-info-reports-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</reporting>
+			<dependencies>
+				<dependency>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
 
-        <profile>
-            <!-- 不需要手动激活, 会自动激活 -->
-            <id>auto-liquibase</id>
-            <activation>
-                <file>
-                    <!-- 当 db.changelog-master.xml 文件存在时将会自动激活这个 profile -->
-                    <exists>${project.basedir}/src/main/resources/db/db.changelog-master.yaml</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- see https://juejin.cn/post/7301180375421108259#heading-12 -->
-                    <plugin>
-                        <groupId>org.liquibase</groupId>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <configuration>
-                            <!-- 是否允许外部配置文件中的属性覆盖命令行参数或 maven pom 中定义的属性 -->
-                            <propertyFileWillOverride>true</propertyFileWillOverride>
-                            <propertyFile>${liquibase-maven-plugin.property_file}</propertyFile>
-                            <propertyProviderClass>${liquibase-maven-plugin.property_provider_class}
-                            </propertyProviderClass>
-                            <systemProperties> <!-- 这三个 properties 是给 propertyProviderClass 使用的 -->
-                                <jasypt.encryptor.password>${jasypt.encryptor.password}</jasypt.encryptor.password>
-                                <jasypt.encryptor.algorithm>${jasypt.encryptor.algorithm}</jasypt.encryptor.algorithm>
-                                <jasypt.config.file>${jasypt.config.file}</jasypt.config.file> <!-- 如果使用外部配置文件 -->
-                            </systemProperties>
-                            <!-- 参数化 propertyProviderClass 中的秘钥和算法 -->
-                            <verbose>true</verbose>
-                            <!-- liquibase:updateSQL, 根据配置的 changeLogFile 生成要执行的 SQL -->
-                            <contexts>${liquibase.contexts}</contexts>
-                            <changeLogFile>${liquibase.changelog_file}</changeLogFile>
-                            <!-- liquibase:generateChangeLog, 连接数据库将数据库的表结构转换成 changelog 变更日志-->
-                            <driver>${spring.datasource.driver}</driver>
-                            <url>${spring.datasource.url}</url>
-                            <username>${spring.datasource.username}</username>
-                            <password>${spring.datasource.password}</password>
-                            <changeSetAuthor>${liquibase.output_changeset_author}</changeSetAuthor>
-                            <outputChangeLogFile>${liquibase.output_changelog_file}</outputChangeLogFile>
-                            <outputFileEncoding>${liquibase.output_file_encoding}</outputFileEncoding>
-                            <dataDir>${liquibase.output_data_dir}</dataDir> <!-- 如果设置了 dataDir, 会将数据以 csv 文件格式导出 -->
-                            <!-- liquibase:diff -->
-                            <referenceUrl>${liquibase.reference_url}</referenceUrl>
-                            <referenceUsername>${liquibase.reference_username}</referenceUsername>
-                            <referencePassword>${liquibase.reference_password}</referencePassword>
-                            <diffChangeLogFile>${liquibase.diff_changelog_file}</diffChangeLogFile>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.liquibase</groupId>
-                                <artifactId>liquibase-core</artifactId>
-                                <version>${liquibase.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<profile>
+			<id>auto-assembly</id>
+			<activation>
+				<!-- 当 assembly.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
+				<file>
+					<exists>${project.basedir}/src/main/assembly/assembly.xml</exists>
+				</file>
+				<property>
+					<name>auto.assembly.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>repackage_fat_jar</id>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="${app.assembly.file}" tofile="${app.artifact.file}"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-        <profile>
-            <id>integration-test</id>
-            <build>
-                <plugins>
-                    <!-- 编译 Groovy / Spock 代码 -->
-                    <plugin>
-                        <groupId>org.codehaus.gmavenplus</groupId>
-                        <artifactId>gmavenplus-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>compile</goal>
-                                    <goal>compileTests</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 注入 Jacoco agent -->
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent-integration</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>prepare-agent-integration</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>jacoco.it.arg</propertyName>
-                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>report-and-check-integration</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>report-integration</goal>
-                                    <goal>check</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                                    <rules>
-                                        <rule implementation="org.jacoco.maven.RuleConfiguration">
-                                            <element>BUNDLE</element>
-                                            <limits>　　
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>METHOD</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>0.50</minimum>
-                                                </limit>
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>BRANCH</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>0.50</minimum>
-                                                </limit>
-                                                <limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>CLASS</counter>
-                                                    <value>MISSEDCOUNT</value>
-                                                    <maximum>0</maximum>
-                                                </limit>
-                                            </limits>
-                                        </rule>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 运行集成测试 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                            <useModulePath>false</useModulePath>
-                            <useFile>false</useFile>
-                            <parallel>methods</parallel>
-                            <threadCount>10</threadCount>
-                            <includes>
-                                <include>**/*IT</include>
-                                <include>**/*ITCase</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/*Test</exclude>
-                                <exclude>**/*Spec</exclude>
-                            </excludes>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>integration</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.junit.jupiter</groupId>
-                                <artifactId>junit-jupiter-engine</artifactId>
-                                <version>${junit-jupiter-engine.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                    <!-- 跳过单元测试 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-report-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>failsafe-report</id>
-                                <phase>site</phase>
-                                <goals>
-                                    <goal>failsafe-report-only</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <reporting>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-report-plugin</artifactId>
-                        <configuration>
-                            <aggregate>true</aggregate>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jxr-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-project-info-reports-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </reporting>
-            <dependencies>
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
+		<profile>
+			<!-- 无需手动激活,会自动激活 -->
+			<id>auto-layered</id>
+			<activation>
+				<!-- 当 layers.xml 文件存在 且 auto.layered.enable=true 时, 将会自动激活这个 profile -->
+				<file>
+					<exists>${project.basedir}/src/main/docker/springboot/layers.xml</exists>
+				</file>
+				<property>
+					<name>auto.layered.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<version>${spring-boot-maven-plugin.version}</version>
+						<configuration>
+							<layers>
+								<enabled>true</enabled>
+								<includeLayerTools>true</includeLayerTools>
+								<configuration>
+									${project.basedir}/src/main/docker/springboot/layers.xml
+								</configuration>
+							</layers>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-        <profile>
-            <id>auto-assembly</id>
-            <activation>
-                <!-- 当 assembly.xml 文件存在 且 auto.assembly.enable=true 时, 将会自动激活这个 profile -->
-                <file>
-                    <exists>${project.basedir}/src/main/assembly/assembly.xml</exists>
-                </file>
-                <property>
-                    <name>auto.assembly.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>repackage_fat_jar</id>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy file="${app.assembly.file}" tofile="${app.artifact.file}" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<profile>
+			<!-- 是否启用 jib-maven-plugin 进行容器化 -->
+			<id>auto-jib-buildTar</id>
+			<!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
+			<!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
+				</file>
+				<property>
+					<name>auto.jib.buildTar.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>check-files</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireFilesExist>
+											<files>
+												<file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
+											</files>
+										</requireFilesExist>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>jib-buildTar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>buildTar</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<from>
+								<platforms>
+									<platform>
+										<architecture>${jib.buildTar.platform.architecture}</architecture>
+										<os>${jib.buildTar.platform.os}</os>
+									</platform>
+								</platforms>
+							</from>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- 是否启用 jib-maven-plugin 进行容器化 -->
+			<id>auto-jib-dockerBuild</id>
+			<!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
+			<!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
+				</file>
+				<property>
+					<name>auto.jib.dockerBuild.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>check-files</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireFilesExist>
+											<files>
+												<file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
+											</files>
+										</requireFilesExist>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-        <profile>
-            <!-- 无需手动激活,会自动激活 -->
-            <id>auto-layered</id>
-            <activation>
-                <!-- 当 layers.xml 文件存在 且 auto.layered.enable=true 时, 将会自动激活这个 profile -->
-                <file>
-                    <exists>${project.basedir}/src/main/docker/springboot/layers.xml</exists>
-                </file>
-                <property>
-                    <name>auto.layered.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <version>${spring-boot-maven-plugin.version}</version>
-                        <configuration>
-                            <layers>
-                                <enabled>true</enabled>
-                                <includeLayerTools>true</includeLayerTools>
-                                <configuration>
-                                    ${project.basedir}/src/main/docker/springboot/layers.xml
-                                </configuration>
-                            </layers>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<profile>
+			<!-- 不需要手动激活, 会自动激活 -->
+			<id>auto-update-local-catalog</id>
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<configuration>
+							<addDefaultExcludes>false</addDefaultExcludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-archetype-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>copy-archetype-catalog</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="${settings.localRepository}/archetype-catalog.xml"
+											  tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>auto-upload-catalog-gh</id>
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<!-- 这里复制一份生成的 archetype-catalog.xml 到 radp-archetype/catalog/archetype-catalog-origin.xml -->
+					<!-- 你只需要复制这份 archetype-catalog-origin.xml 到同级目录下的 archetype-catalog-vcs.xml -->
+					<!-- 这样我们便可以利用 GitHub raw url 来使用了 -->
+					<!-- https://raw.githubusercontent.com/xooooooooox/radp/refs/heads/main/radp-archetypes/catalog/archetype-catalog-vcs.xml -->
+					<!-- 将上面这个地址配置到 IntelliJ 的 Archetype Catalogs 中, 你便可以使用 radp 封装的脚手架了 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>copy-archetype-catalog</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="${settings.localRepository}/archetype-catalog.xml"
+											  tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- 发布 archetype 到私有化部署制品库 -->
+			<!-- 这个 profile 将 archetype-catalog.xml 上传到 artifactory -->
+			<id>auto-upload-catalog-artifactory</id>
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+				</file>
+				<property>
+					<name>auto.archetype.catalog.artifactory</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>upload-archetype-catalog-to-artifactory</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>upload-single</goal>
+								</goals>
+								<configuration>
+									<serverId>${archetype.catalog.upload.serverId}</serverId>
+									<url>${archetype.catalog.upload.url}</url>
+									<fromFile>${settings.localRepository}/archetype-catalog.xml</fromFile>
+									<toFile>archetype-catalog.xml</toFile>      <!-- stays at repo root -->
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- archetype 要可用的前提条件是: 构件上传到制品库,且 archetype-catalog.xml 可直接通过 web url 访问 -->
+			<!-- 这个 profile 将 archetype-catalog.xml 上传到 minio -->
+			<id>auto-upload-catalog-minio</id>
+			<activation>
+				<file>
+					<exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
+				</file>
+				<property>
+					<name>auto.archetype.catalog.minio</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- 由于 maven-archetype-plugin 自动生成的 archetype-catalog.xml 缺少 repository 属性, 这样会导致使用脚手架创建时, 不知道去哪里下载 archetype, 会触发去兜底中央仓库下载 -->
+					<!-- 如果构件是发布到私有化部署远程仓库(比如 artifactory), 那么就会导致无法下载 archetype, 因为 archetype-catalog.xml 没有指定 私有化部署仓库地址 -->
+					<!-- 为了解决这个问题, 曲线救国, 手动添加: 将自动生成的 archetype-catalog.xml 复制一份到指定目录下的 archetype-catalog-artifactory.xml, 然后手动添加 repository 属性 -->
+					<!-- 即: 需要手动修改 radp-archetypes/catalog/archetype-catalog-artifactory.xml, 增加 repository 属性指向 私有化部署仓库地址 -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>${exec-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>upload-archetype-catalog-to-minio</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>mc</executable>
+									<arguments>
+										<argument>cp</argument>
+										<argument>${project.basedir}/../catalog/archetype-catalog-artifactory.xml
+										</argument>
+										<argument>${minio.alias}/${minio.bucket.path}/archetype-catalog.xml</argument>
+									</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-        <profile>
-            <!-- 是否启用 jib-maven-plugin 进行容器化 -->
-            <id>auto-jib-buildTar</id>
-            <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
-            <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
-                </file>
-                <property>
-                    <name>auto.jib.buildTar.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>check-files</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireFilesExist>
-                                            <files>
-                                                <file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
-                                            </files>
-                                        </requireFilesExist>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jib-buildTar</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>buildTar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <from>
-                                <platforms>
-                                    <platform>
-                                        <architecture>${jib.buildTar.platform.architecture}</architecture>
-                                        <os>${jib.buildTar.platform.os}</os>
-                                    </platform>
-                                </platforms>
-                            </from>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- 是否启用 jib-maven-plugin 进行容器化 -->
-            <id>auto-jib-dockerBuild</id>
-            <!-- 只有当 activate-jib-build.flg 存在时 profile 才会被激活 -->
-            <!-- Enforcer 会再检查 entrypoint.sh，缺一即终止构建 -->
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/docker/jib/activate-jib-build.flg</exists>
-                </file>
-                <property>
-                    <name>auto.jib.dockerBuild.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>check-files</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireFilesExist>
-                                            <files>
-                                                <file>${project.basedir}/src/main/docker/jib/entrypoint.sh</file>
-                                            </files>
-                                        </requireFilesExist>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<!-- 发布到 artifactory -->
+		<profile>
+			<id>publish-artifactory</id>
+			<properties>
+				<!-- 是否要激活上传 archtype-catalog.xml 到 artifactory 等 -->
+				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+				<!-- 是否要激活上传 archtype-catalog.xml 到 minio 等 -->
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+				<!-- release:perform arguments -->
+				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
+				</devops.release.arguments>
+				<!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
+				<!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
+				<!-- 比如:
+				1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
+				2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
+				-->
+				<altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}
+				</altSnapshotDeploymentRepository>
+				<altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}
+				</altReleaseDeploymentRepository>
+			</properties>
+		</profile>
+		<!-- 发布到中央仓库 -->
+		<!-- https://central.sonatype.com/ -->
+		<!-- 该插件的存在无需指定 distributionManagement -->
+		<profile>
+			<id>publish-central</id>
+			<properties>
+				<auto.release.enabled>true</auto.release.enabled>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<version>${central-publishing-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<publishingServerId>${central.server.id}</publishingServerId>
+							<autoPublish>true</autoPublish>
+							<waitUntil>published</waitUntil>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>publish-harbor</id>
+			<properties>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
+				<maven.deploy.skip>true</maven.deploy.skip>
+				<devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
+				</devops.release.arguments>
+			</properties>
+		</profile>
 
-        <profile>
-            <!-- 不需要手动激活, 会自动激活 -->
-            <id>auto-update-local-catalog</id>
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <configuration>
-                            <addDefaultExcludes>false</addDefaultExcludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-archetype-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>copy-archetype-catalog</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>auto-upload-catalog-gh</id>
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- 这里复制一份生成的 archetype-catalog.xml 到 radp-archetype/catalog/archetype-catalog-origin.xml -->
-                    <!-- 你只需要复制这份 archetype-catalog-origin.xml 到同级目录下的 archetype-catalog-vcs.xml -->
-                    <!-- 这样我们便可以利用 GitHub raw url 来使用了 -->
-                    <!-- https://raw.githubusercontent.com/xooooooooox/radp/refs/heads/main/radp-archetypes/catalog/archetype-catalog-vcs.xml -->
-                    <!-- 将上面这个地址配置到 IntelliJ 的 Archetype Catalogs 中, 你便可以使用 radp 封装的脚手架了 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>copy-archetype-catalog</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy file="${settings.localRepository}/archetype-catalog.xml" tofile="${project.basedir}/../catalog/archetype-catalog-origin.xml" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- 发布 archetype 到私有化部署制品库 -->
-            <!-- 这个 profile 将 archetype-catalog.xml 上传到 artifactory -->
-            <id>auto-upload-catalog-artifactory</id>
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
-                </file>
-                <property>
-                    <name>auto.archetype.catalog.artifactory</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>wagon-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>upload-archetype-catalog-to-artifactory</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>upload-single</goal>
-                                </goals>
-                                <configuration>
-                                    <serverId>${archetype.catalog.upload.serverId}</serverId>
-                                    <url>${archetype.catalog.upload.url}</url>
-                                    <fromFile>${settings.localRepository}/archetype-catalog.xml</fromFile>
-                                    <toFile>archetype-catalog.xml</toFile>      <!-- stays at repo root -->
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- archetype 要可用的前提条件是: 构件上传到制品库,且 archetype-catalog.xml 可直接通过 web url 访问 -->
-            <!-- 这个 profile 将 archetype-catalog.xml 上传到 minio -->
-            <id>auto-upload-catalog-minio</id>
-            <activation>
-                <file>
-                    <exists>${project.basedir}/src/main/resources/META-INF/maven/archetype-metadata.xml</exists>
-                </file>
-                <property>
-                    <name>auto.archetype.catalog.minio</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- 由于 maven-archetype-plugin 自动生成的 archetype-catalog.xml 缺少 repository 属性, 这样会导致使用脚手架创建时, 不知道去哪里下载 archetype, 会触发去兜底中央仓库下载 -->
-                    <!-- 如果构件是发布到私有化部署远程仓库(比如 artifactory), 那么就会导致无法下载 archetype, 因为 archetype-catalog.xml 没有指定 私有化部署仓库地址 -->
-                    <!-- 为了解决这个问题, 曲线救国, 手动添加: 将自动生成的 archetype-catalog.xml 复制一份到指定目录下的 archetype-catalog-artifactory.xml, 然后手动添加 repository 属性 -->
-                    <!-- 即: 需要手动修改 radp-archetypes/catalog/archetype-catalog-artifactory.xml, 增加 repository 属性指向 私有化部署仓库地址 -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${exec-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>upload-archetype-catalog-to-minio</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>mc</executable>
-                                    <arguments>
-                                        <argument>cp</argument>
-                                        <argument>${project.basedir}/../catalog/archetype-catalog-artifactory.xml
-                                        </argument>
-                                        <argument>${minio.alias}/${minio.bucket.path}/archetype-catalog.xml</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>coding</id>
-            <properties>
-                <!-- deploy -->
-                <user.altSnapshotDeploymentRepository.artifactory>
-                    ${setting.altSnapshotDeploymentRepository.artifactory}
-                </user.altSnapshotDeploymentRepository.artifactory>
-                <user.altReleaseDeploymentRepository.artifactory>${setting.altReleaseDeploymentRepository.artifactory}
-                </user.altReleaseDeploymentRepository.artifactory>
-                <user.altSnapshotDeploymentRepository.central>
-                    ${setting.altSnapshotDeploymentRepository.central}
-                </user.altSnapshotDeploymentRepository.central>
-                <!-- archetype -->
-                <user.gpg.keyname>${setting.gpg.keyname}</user.gpg.keyname>
-                <user.minio.alias>${setting.minio.alias}</user.minio.alias>
-                <user.minio.bucket.path>${setting.minio.bucket.path}</user.minio.bucket.path>
-                <user.archetype.catalog.upload.url>${setting.archetype.catalog.upload.url}
-                </user.archetype.catalog.upload.url>
-                <user.archetype.catalog.upload.serverId>${setting.archetype.catalog.upload.serverId}
-                </user.archetype.catalog.upload.serverId>
-                <!-- docker -->
-                <user.docker.build.registry>${setting.docker.build.registry}</user.docker.build.registry>
-                <user.docker.build.base_image>${setting.docker.build.base_image}
-                </user.docker.build.base_image>
-                <user.docker.build.namespace>${setting.docker.build.namespace}</user.docker.build.namespace>
-                <!-- jasypt -->
-                <user.jasypt.encryptor.password>${setting.jasypt.encryptor.password}</user.jasypt.encryptor.password>
-                <!-- code review -->
-                <user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
-                <user.sonar.token>${setting.sonar.token}</user.sonar.token>
-            </properties>
-        </profile>
-        <!-- 发布到 artifactory -->
-        <profile>
-            <id>publish-artifactory</id>
-            <properties>
-                <!-- 是否要激活上传 archtype-catalog.xml 到 artifactory 等 -->
-                <auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-                <!-- 是否要激活上传 archtype-catalog.xml 到 minio 等 -->
-                <auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
-                <!-- release:perform arguments -->
-                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
-                </devops.release.arguments>
-                <!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
-                <!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
-                <!-- 比如:
-                1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
-                2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
-                -->
-                <altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}
-                </altSnapshotDeploymentRepository>
-                <altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}
-                </altReleaseDeploymentRepository>
-            </properties>
-        </profile>
-        <!-- 发布到中央仓库 -->
-        <!-- https://central.sonatype.com/ -->
-        <!-- 该插件的存在无需指定 distributionManagement -->
-        <profile>
-            <id>publish-central</id>
-            <properties>
-                <auto.release.enabled>true</auto.release.enabled>
-                <auto.layered.enabled>true</auto.layered.enabled>
-                <auto.assembly.enabled>false</auto.assembly.enabled>
-                <devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${central-publishing-maven-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>${central.server.id}</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>publish-harbor</id>
-            <properties>
-                <auto.layered.enabled>true</auto.layered.enabled>
-                <auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
-                <maven.deploy.skip>true</maven.deploy.skip>
-                <devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
-                </devops.release.arguments>
-            </properties>
-        </profile>
-
-        <profile>
-            <!-- 为了加快构建速度 -->
-            <!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
-            <!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
-            <id>auto-release</id>
-            <activation>
-                <property>
-                    <name>auto.release.enabled</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>versions-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <!-- 一定要先签名,再生成校验文件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.nicoulaj.maven.plugins</groupId>
-                        <artifactId>checksum-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
-        <profile>
-            <id>o-release</id>
-            <properties>
-                <!-- 激活 auto-release profile -->
-                <auto.release.enabled>true</auto.release.enabled>
-                <!-- 激活 auto-layered profile -->
-                <auto.layered.enabled>true</auto.layered.enabled>
-                <!-- 激活 auto-assembly profile -->
-                <auto.assembly.enabled>false</auto.assembly.enabled>
-                <!-- release:perform arguments -->
-                <devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
-            </properties>
-        </profile>
-        <!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
-        <profile>
-            <id>o-tar</id>
-            <properties>
-                <auto.assembly.enabled>true</auto.assembly.enabled>
-                <auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
-            </properties>
-        </profile>
-    </profiles>
+		<profile>
+			<!-- 为了加快构建速度 -->
+			<!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
+			<!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
+			<id>auto-release</id>
+			<activation>
+				<property>
+					<name>auto.release.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>versions-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+					<!-- 一定要先签名,再生成校验文件 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>net.nicoulaj.maven.plugins</groupId>
+						<artifactId>checksum-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
+		<profile>
+			<id>o-release</id>
+			<properties>
+				<!-- 激活 auto-release profile -->
+				<auto.release.enabled>true</auto.release.enabled>
+				<!-- 激活 auto-layered profile -->
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<!-- 激活 auto-assembly profile -->
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release:perform arguments -->
+				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
+			</properties>
+		</profile>
+		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->
+		<profile>
+			<id>o-tar</id>
+			<properties>
+				<auto.assembly.enabled>true</auto.assembly.enabled>
+				<auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
+			</properties>
+		</profile>
+	</profiles>
 
 
 </project>

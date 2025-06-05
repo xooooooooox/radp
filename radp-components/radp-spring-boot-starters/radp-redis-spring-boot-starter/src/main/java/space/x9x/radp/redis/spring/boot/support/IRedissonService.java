@@ -1,299 +1,306 @@
-package space.x9x.radp.redis.spring.boot.support;
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.redisson.api.*;
+package space.x9x.radp.redis.spring.boot.support;
 
 import java.util.concurrent.TimeUnit;
 
+import org.redisson.api.RBitSet;
+import org.redisson.api.RBlockingQueue;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RCountDownLatch;
+import org.redisson.api.RDelayedQueue;
+import org.redisson.api.RLock;
+import org.redisson.api.RMap;
+import org.redisson.api.RPermitExpirableSemaphore;
+import org.redisson.api.RQueue;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RSemaphore;
+
 /**
- * @author x9x
+ * Interface for Redisson service operations. This interface provides a simplified API for
+ * working with Redis through Redisson, offering methods for various Redis data structures
+ * and distributed objects including:
+ * <ul>
+ * <li>key-value operations</li>
+ * <li>atomic counters</li>
+ * <li>collections (lists, sets, maps)</li>
+ * <li>distributed locks and synchronization primitives</li>
+ * <li>bloom filters and bit operations</li>
+ * </ul>
+ *
+ * @author IO x9x
  * @since 2024-10-28 15:21
  */
 public interface IRedissonService {
 
-    /**
-     * 设置指定 key 的值
-     *
-     * @param <T>   值的类型
-     * @param key   键
-     * @param value 值
-     */
-    <T> void setValue(String key, T value);
+	/**
+	 * sets a value for the specified key.
+	 * @param <T> the type of the value
+	 * @param key the key
+	 * @param value the value
+	 */
+	<T> void setValue(String key, T value);
 
-    /**
-     * 设置指定 key 的值
-     *
-     * @param <T>     值的类型
-     * @param key     键
-     * @param value   值
-     * @param expired 过期时间
-     */
-    <T> void setValue(String key, T value, long expired);
+	/**
+	 * Sets a value for the specified key with an expiration time.
+	 * @param <T> the type of the value
+	 * @param key the key
+	 * @param value the value
+	 * @param expired the expiration time in seconds
+	 */
+	<T> void setValue(String key, T value, long expired);
 
-    /**
-     * 获取指定 key 的值
-     *
-     * @param <T> 返回值的类型
-     * @param key 键
-     * @return 值
-     */
-    <T> T getValue(String key);
+	/**
+	 * Gets the value for the specified key.
+	 * @param <T> the return type
+	 * @param key the key
+	 * @return the value
+	 */
+	<T> T getValue(String key);
 
-    /**
-     * 获取队列
-     *
-     * @param key 键
-     * @param <T> 泛型
-     * @return 队列
-     */
-    <T> RQueue<T> getQueue(String key);
+	/**
+	 * Gets a Redis queue for the specified key.
+	 * @param key the key
+	 * @param <T> the type of elements in the queue
+	 * @return the Redis queue
+	 */
+	<T> RQueue<T> getQueue(String key);
 
-    /**
-     * 加锁队列
-     *
-     * @param key 键
-     * @param <T> 泛型
-     * @return 队列
-     */
-    <T> RBlockingQueue<T> getBlockingQueue(String key);
+	/**
+	 * Gets a Redis blocking queue for the specified key.
+	 * @param key the key
+	 * @param <T> the type of elements in the queue
+	 * @return the Redis blocking queue
+	 */
+	<T> RBlockingQueue<T> getBlockingQueue(String key);
 
-    /**
-     * 延迟队列
-     *
-     * @param rBlockingQueue 加锁队列
-     * @param <T>            泛型
-     * @return 队列
-     */
-    <T> RDelayedQueue<T> getDelayedQueue(RBlockingQueue<T> rBlockingQueue);
+	/**
+	 * Gets a Redis delayed queue based on a blocking queue.
+	 * @param rBlockingQueue the blocking queue
+	 * @param <T> the type of elements in the queue
+	 * @return the Redis delayed queue
+	 */
+	<T> RDelayedQueue<T> getDelayedQueue(RBlockingQueue<T> rBlockingQueue);
 
-    /**
-     * 设置值
-     *
-     * @param key   key 键
-     * @param value 值
-     */
-    void setAtomicLong(String key, long value);
+	/**
+	 * Sets an atomic long value for the specified key.
+	 * @param key the key
+	 * @param value the value
+	 */
+	void setAtomicLong(String key, long value);
 
-    /**
-     * 获取值
-     *
-     * @param key key 键
-     * @return 原子计数器的当前值
-     */
-    Long getAtomicLong(String key);
+	/**
+	 * Gets the atomic long value for the specified key.
+	 * @param key the key
+	 * @return the current value of the atomic counter
+	 */
+	Long getAtomicLong(String key);
 
-    /**
-     * 自增 Key 的值；1、2、3、4
-     *
-     * @param key 键
-     * @return 自增后的值
-     */
-    long incr(String key);
+	/**
+	 * Increments the value of the specified key by 1.
+	 * @param key the key
+	 * @return the value after increment
+	 */
+	long incr(String key);
 
-    /**
-     * 指定值，自增 Key 的值；1、2、3、4
-     *
-     * @param key 键
-     * @param delta 增加的值
-     * @return 自增后的值
-     */
-    long incrBy(String key, long delta);
+	/**
+	 * Increments the value of the specified key by the given delta.
+	 * @param key the key
+	 * @param delta the value to add
+	 * @return the value after increment
+	 */
+	long incrBy(String key, long delta);
 
-    /**
-     * 自减 Key 的值；1、2、3、4
-     *
-     * @param key 键
-     * @return 自增后的值
-     */
-    long decr(String key);
+	/**
+	 * Decrements the value of the specified key by 1.
+	 * @param key the key
+	 * @return the value after decrement
+	 */
+	long decr(String key);
 
-    /**
-     * 指定值，自减 Key 的值；1、2、3、4
-     *
-     * @param key 键
-     * @param delta 减少的值
-     * @return 自减后的值
-     */
-    long decrBy(String key, long delta);
+	/**
+	 * Decrements the value of the specified key by the given delta.
+	 * @param key the key
+	 * @param delta the value to subtract
+	 * @return the value after decrement
+	 */
+	long decrBy(String key, long delta);
 
-    /**
-     * 移除指定 key 的值
-     *
-     * @param key 键
-     */
-    void remove(String key);
+	/**
+	 * Removes the value for the specified key.
+	 * @param key the key
+	 */
+	void remove(String key);
 
-    /**
-     * 判断指定 key 的值是否存在
-     *
-     * @param key 键
-     * @return true/false
-     */
-    boolean isExists(String key);
+	/**
+	 * Checks if the value for the specified key exists.
+	 * @param key the key
+	 * @return true if the key exists, false otherwise
+	 */
+	boolean isExists(String key);
 
-    /**
-     * 将指定的值添加到集合中
-     *
-     * @param key   键
-     * @param value 值
-     */
-    void addToSet(String key, String value);
+	/**
+	 * adds the specified value to a set.
+	 * @param key the key
+	 * @param value the value
+	 */
+	void addToSet(String key, String value);
 
-    /**
-     * 判断指定的值是否是集合的成员
-     *
-     * @param key   键
-     * @param value 值
-     * @return 如果是集合的成员返回 true，否则返回 false
-     */
-    boolean isSetMember(String key, String value);
+	/**
+	 * checks if the specified value is a member of the set.
+	 * @param key the key
+	 * @param value the value
+	 * @return true if the value is a member of the set, false otherwise
+	 */
+	boolean isSetMember(String key, String value);
 
-    /**
-     * 将指定的值添加到列表中
-     *
-     * @param key   键
-     * @param value 值
-     */
-    void addToList(String key, String value);
+	/**
+	 * adds the specified value to a list.
+	 * @param key the key
+	 * @param value the value
+	 */
+	void addToList(String key, String value);
 
-    /**
-     * 获取列表中指定索引的值
-     *
-     * @param key   键
-     * @param index 索引
-     * @return 值
-     */
-    String getFromList(String key, int index);
+	/**
+	 * gets the value at the specified index in the list.
+	 * @param key the key
+	 * @param index the index
+	 * @return the value
+	 */
+	String getFromList(String key, int index);
 
-    /**
-     * 获取Map
-     *
-     * @param <K> Map的键类型
-     * @param <V> Map的值类型
-     * @param key 键
-     * @return 值
-     */
-    <K, V> RMap<K, V> getMap(String key);
+	/**
+	 * gets a Redis map for the specified key.
+	 * @param <K> the type of keys in the map
+	 * @param <V> the type of values in the map
+	 * @param key the key
+	 * @return the Redis map
+	 */
+	<K, V> RMap<K, V> getMap(String key);
 
-    /**
-     * 将指定的键值对添加到哈希表中
-     *
-     * @param key   键
-     * @param field 字段
-     * @param value 值
-     */
-    void addToMap(String key, String field, String value);
+	/**
+	 * adds the specified key-value pair to a hash map.
+	 * @param key the key
+	 * @param field the field
+	 * @param value the value
+	 */
+	void addToMap(String key, String field, String value);
 
-    /**
-     * 获取哈希表中指定字段的值
-     *
-     * @param key   键
-     * @param field 字段
-     * @return 值
-     */
-    String getFromMap(String key, String field);
+	/**
+	 * gets the value for the specified field from a hash map.
+	 * @param key the key
+	 * @param field the field
+	 * @return the value
+	 */
+	String getFromMap(String key, String field);
 
-    /**
-     * 获取哈希表中指定字段的值
-     *
-     * @param <K> 字段类型
-     * @param <V> 值类型
-     * @param key   键
-     * @param field 字段
-     * @return 值
-     */
-    <K, V> V getFromMap(String key, K field);
+	/**
+	 * gets the value for the specified field from a hash map.
+	 * @param <K> the field type
+	 * @param <V> the value type
+	 * @param key the key
+	 * @param field the field
+	 * @return the value
+	 */
+	<K, V> V getFromMap(String key, K field);
 
-    /**
-     * 将指定的值添加到有序集合中
-     *
-     * @param key   键
-     * @param value 值
-     */
-    void addToSortedSet(String key, String value);
+	/**
+	 * adds the specified value to a sorted set.
+	 * @param key the key
+	 * @param value the value
+	 */
+	void addToSortedSet(String key, String value);
 
-    /**
-     * 获取 Redis 锁（可重入锁）
-     *
-     * @param key 键
-     * @return Lock
-     */
-    RLock getLock(String key);
+	/**
+	 * gets a Redis reentrant lock for the specified key.
+	 * @param key the key
+	 * @return the lock
+	 */
+	RLock getLock(String key);
 
-    /**
-     * 获取 Redis 锁（公平锁）
-     *
-     * @param key 键
-     * @return Lock
-     */
-    RLock getFairLock(String key);
+	/**
+	 * gets a Redis fair lock for the specified key.
+	 * @param key the key
+	 * @return the lock
+	 */
+	RLock getFairLock(String key);
 
-    /**
-     * 获取 Redis 锁（读写锁）
-     *
-     * @param key 键
-     * @return RReadWriteLock
-     */
-    RReadWriteLock getReadWriteLock(String key);
+	/**
+	 * gets a Redis read-write lock for the specified key.
+	 * @param key the key
+	 * @return the read-write lock
+	 */
+	RReadWriteLock getReadWriteLock(String key);
 
-    /**
-     * 获取 Redis 信号量
-     *
-     * @param key 键
-     * @return RSemaphore
-     */
-    RSemaphore getSemaphore(String key);
+	/**
+	 * gets Redis semaphore for the specified key.
+	 * @param key the key
+	 * @return the semaphore
+	 */
+	RSemaphore getSemaphore(String key);
 
-    /**
-     * 获取 Redis 过期信号量
-     * <p>
-     * 基于Redis的Redisson的分布式信号量（Semaphore）Java对象RSemaphore采用了与java.util.concurrent.Semaphore相似的接口和用法。
-     * 同时还提供了异步（Async）、反射式（Reactive）和RxJava2标准的接口。
-     *
-     * @param key 键
-     * @return RPermitExpirableSemaphore
-     */
-    RPermitExpirableSemaphore getPermitExpirableSemaphore(String key);
+	/**
+	 * gets Redis permit expirable semaphore for the specified key.
+	 * <p>
+	 * this distributed semaphore has an interface similar to
+	 * java.util.concurrent.Semaphore and also provides async, reactive, and RxJava2
+	 * interfaces.
+	 * @param key the key
+	 * @return the permit expirable semaphore
+	 */
+	RPermitExpirableSemaphore getPermitExpirableSemaphore(String key);
 
-    /**
-     * 闭锁
-     *
-     * @param key 键
-     * @return RCountDownLatch
-     */
-    RCountDownLatch getCountDownLatch(String key);
+	/**
+	 * gets a Redis count down latch for the specified key.
+	 * @param key the key
+	 * @return the count-down latch
+	 */
+	RCountDownLatch getCountDownLatch(String key);
 
-    /**
-     * 布隆过滤器
-     *
-     * @param key 键
-     * @param <T> 存放对象
-     * @return 返回结果
-     */
-    <T> RBloomFilter<T> getBloomFilter(String key);
+	/**
+	 * gets a Redis bloom filter for the specified key.
+	 * @param key the key
+	 * @param <T> the type of elements in the bloom filter
+	 * @return the bloom filter
+	 */
+	<T> RBloomFilter<T> getBloomFilter(String key);
 
-    /**
-     * 设置键的值，只有在键不存在时才会设置成功
-     *
-     * @param key 键
-     * @return 设置成功返回true，否则返回false
-     */
-    Boolean setNx(String key);
+	/**
+	 * sets the value for the specified key only if the key does not exist.
+	 * @param key the key
+	 * @return true if the value was set, false otherwise
+	 */
+	Boolean setNx(String key);
 
-    /**
-     * 设置键的值，只有在键不存在时才会设置成功，并设置过期时间
-     *
-     * @param key      键
-     * @param expired  过期时间
-     * @param timeUnit 时间单位
-     * @return 设置成功返回true，否则返回false
-     */
-    Boolean setNx(String key, long expired, TimeUnit timeUnit);
+	/**
+	 * sets the value for the specified key only if the key does not exist, with an
+	 * expiration time.
+	 * @param key the key
+	 * @param expired the expiration time
+	 * @param timeUnit the time unit
+	 * @return true if the value was set, false otherwise
+	 */
+	Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
-    /**
-     * 获取位图对象
-     *
-     * @param key 键
-     * @return 位图对象
-     */
-    RBitSet getBitSet(String key);
+	/**
+	 * gets a Redis bit set for the specified key.
+	 * @param key the key
+	 * @return the bit set
+	 */
+	RBitSet getBitSet(String key);
+
 }

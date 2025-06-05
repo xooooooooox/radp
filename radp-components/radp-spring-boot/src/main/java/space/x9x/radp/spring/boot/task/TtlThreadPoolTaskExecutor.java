@@ -1,44 +1,110 @@
-package space.x9x.radp.spring.boot.task;
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import com.alibaba.ttl.TtlCallable;
-import com.alibaba.ttl.TtlRunnable;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+package space.x9x.radp.spring.boot.task;
 
 import java.io.Serial;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import com.alibaba.ttl.TtlCallable;
+import com.alibaba.ttl.TtlRunnable;
+
 /**
- * TTL 线程池执行器
+ * TTL Thread Pool Task Executor.
+ * <p>
+ * This executor extends Spring's ThreadPoolTaskExecutor and uses Alibaba's TTL
+ * (TransmittableThreadLocal) to ensure ThreadLocal variables can be correctly passed in
+ * thread pools. This is important for applications that need to maintain context
+ * information (such as user identity, request tracking ID, etc.) in asynchronous
+ * execution contexts.
+ * <p>
+ * This class overrides all task submission methods to ensure each task is wrapped with
+ * TTL, thereby enabling the transmission of ThreadLocal values.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-30 12:04
  */
 public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private static final String MESSAGE = "Task is not null";
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    public void execute(Runnable task) {
-        super.execute(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE));
-    }
+	/**
+	 * Error message used for null checks. This constant defines the message used when
+	 * validating that tasks are not null.
+	 */
+	private static final String MESSAGE = "Task is not null";
 
-    @Override
-    public void execute(Runnable task, long startTimeout) {
-        super.execute(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE), startTimeout);
-    }
+	/**
+	 * Executes a Runnable task.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
+	 */
+	@Override
+	public void execute(Runnable task) {
+		super.execute(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE));
+	}
 
-    @Override
-    public Future<?> submit(Runnable task) {
-        return super.submit(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE));
-    }
+	/**
+	 * Executes a Runnable task with a startup timeout.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to execute
+	 * @param startTimeout the startup timeout in milliseconds
+	 * @deprecated this method is deprecated in the AsyncTaskExecutor interface, use
+	 * alternative methods instead
+	 */
+	@Override
+	@Deprecated(since = "6.0", forRemoval = true)
+	public void execute(Runnable task, long startTimeout) {
+		super.execute(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE), startTimeout);
+	}
 
-    @Override
-    public <T> Future<T> submit(Callable<T> task) {
-        return super.submit(Objects.requireNonNull(TtlCallable.get(task), MESSAGE));
-    }
+	/**
+	 * Submits a Runnable task for execution.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @return a Future representing pending completion of the task
+	 */
+	@Override
+	public Future<?> submit(Runnable task) {
+		return super.submit(Objects.requireNonNull(TtlRunnable.get(task), MESSAGE));
+	}
+
+	/**
+	 * Submits a Callable task for execution.
+	 * <p>
+	 * Wraps the task as a TTL task to ensure ThreadLocal values are passed to the
+	 * execution thread.
+	 * @param task the task to submit
+	 * @param <T> the result type
+	 * @return a Future representing pending completion of the task
+	 */
+	@Override
+	public <T> Future<T> submit(Callable<T> task) {
+		return super.submit(Objects.requireNonNull(TtlCallable.get(task), MESSAGE));
+	}
 
 }

@@ -1,10 +1,20 @@
-package space.x9x.radp.extension.adaptive;
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.extension.Adaptive;
-import space.x9x.radp.extension.ExtensionLoader;
+package space.x9x.radp.extension.adaptive;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -15,274 +25,316 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.extension.Adaptive;
+import space.x9x.radp.extension.ExtensionLoader;
+
 /**
- * 基于 @Adaptive 的代码生成器
+ * 基于 @Adaptive 的代码生成器.
+ * <p>
+ * Code generator based on @Adaptive annotation. This class is responsible for dynamically
+ * generating Java source code for adaptive extension implementations. It creates classes
+ * that can route method calls to the appropriate extension implementation based on
+ * runtime parameters.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 14:05
  */
 @RequiredArgsConstructor
 @Slf4j
 public class AdaptiveClassCodeGenerator {
 
-    // 模板字符串，用于生成不同部分的代码
-    private static final String FORMAT_CODE_PACKAGE = "package %s;\n";
-    private static final String FORMAT_CODE_IMPORT = "import %s;\n;";
-    private static final String FORMAT_CODE_CLASS_DECLARATION = "public class %s$Adaptive implements %s {\n";
-    private static final String FORMAT_CODE_METHOD_DECLARATION = "public %s %s(%s) throws %s {\n%s\n}\n";
-    private static final String FORMAT_CODE_METHOD_ARGUMENT = "%s arg%d";
-    private static final String FORMAT_CODE_METHOD_THROWS = "throw %s";
-    private static final String FORMAT_CODE_UNSUPPORTED = "throw new UnsupportedOperationException(\"The method %s of interface %s is not adaptive method !\");\n";
-    private static final String FORMAT_CODE_URL_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"url == null\");\n%s url = arg%d;\n";
-    private static final String CLASSNAME_INVOCATION = "org.apache.dubbo.rpc.Invocation"; // TODO 2024/9/24: 为什么是这个 
-    private static final String FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"invocation == null\"); "
-            + "String methodName = arg%d.getMethodName();\n";
-    private static final String FORMAT_CODE_EXT_NAME_ASSIGNMENT = "String extName = %s;\n";
-    private static final String FORMAT_CODE_EXT_NAME_NULL_CHECK = "if(extName == null) "
-            + "throw new IllegalStateException(\"Failed to get extension (%s) name from url (\" + url.toString() + \") use keys(%s)\");\n";
-    private static final String FORMAT_CODE_EXTENSION_ASSIGNMENT = "%s extension = (%<s)%s.getExtensionLoader(%s.class).getExtension(extName);\n";
-    private static final String FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT = "arg%d";
+	// 模板字符串，用于生成不同部分的代码
+	private static final String FORMAT_CODE_PACKAGE = "package %s;\n";
 
+	private static final String FORMAT_CODE_IMPORT = "import %s;\n;";
 
-    private final Class<?> type;
-    private final String defaultExtName;
+	private static final String FORMAT_CODE_CLASS_DECLARATION = "public class %s$Adaptive implements %s {\n";
 
-    /**
-     * Generates the Java source code for an adaptive class implementation.
-     * This method creates a complete Java class that implements the extension interface
-     * and delegates method calls to the appropriate extension implementation based on
-     * runtime parameters. The generated code includes:
-     * - Package declaration
-     * - Import statements
-     * - Class declaration
-     * - Method implementations that route calls to the appropriate extension
-     *
-     * @return the complete Java source code for the adaptive class as a string
-     * @throws IllegalArgumentException if the extension type has no adaptive methods
-     */
-    public String generate() {
-        if (!hasAdaptiveMethod()) {
-            throw new IllegalArgumentException("No adaptive method on extension " + type.getName() + ", refused to create the adaptive class!");
-        }
-        StringBuilder code = new StringBuilder();
-        code.append(generatePackageInfo());
-        code.append(generateImports());
-        code.append(generateClassDeclaration());
+	private static final String FORMAT_CODE_METHOD_DECLARATION = "public %s %s(%s) throws %s {\n%s\n}\n";
 
-        Method[] methods = type.getMethods();
-        for (Method method : methods) {
-            code.append(generateMethod(method));
-        }
-        code.append("}");
-        if (log.isDebugEnabled()) {
-            log.debug(code.toString());
-        }
-        return code.toString();
-    }
+	private static final String FORMAT_CODE_METHOD_ARGUMENT = "%s arg%d";
 
-    private String generateMethod(Method method) {
-        String methodReturnType = method.getReturnType().getCanonicalName();
-        String methodName = method.getName();
-        String methodArgs = generateMethodArguments(method);
-        String methodThrows = generateMethodThrows(method);
-        String methodContent = generateMethodContent(method);
-        return String.format(FORMAT_CODE_METHOD_DECLARATION, methodReturnType, methodName, methodArgs, methodThrows, methodContent);
-    }
+	private static final String FORMAT_CODE_METHOD_THROWS = "throw %s";
 
-    private String generateMethodContent(Method method) {
-        Adaptive adaptiveAnnotation = method.getAnnotation(Adaptive.class);
-        StringBuilder code = new StringBuilder(512);
-        if (adaptiveAnnotation == null) {
-            return generateUnsupported(method);
-        }
-        int urlTypeIndex = getUrlTypeIndex(method);
-        if (urlTypeIndex != -1) {
-            code.append(generateUrlNullCheck(urlTypeIndex));
-        } else {
-            code.append(generateUrlAssignmentIndirectly(method));
-        }
+	private static final String FORMAT_CODE_UNSUPPORTED = "throw new UnsupportedOperationException(\"The method %s of interface %s is not adaptive method !\");\n";
 
-        String[] value = getMethodAdaptiveValue(adaptiveAnnotation);
-        boolean hasInvocation = hasInvocationArgument(method);
-        code.append(generateInvocationArgumentNullCheck(method));
-        code.append(generateExtNameAssignment(value, hasInvocation));
-        code.append(generateExtNameNullCheck(value));
-        code.append(generateExtensionAssignment());
-        code.append(generateReturnAndInvocation(method));
-        return code.toString();
-    }
+	private static final String FORMAT_CODE_URL_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"url == null\");\n%s url = arg%d;\n";
 
-    private String generateReturnAndInvocation(Method method) {
-        String returnStatement = method.getReturnType().equals(void.class) ? "" : "return ";
+	// TODO 2024/9/24: 为什么是这个
+	private static final String CLASSNAME_INVOCATION = "org.apache.dubbo.rpc.Invocation";
 
-        String args = IntStream.range(0, method.getParameters().length)
-                .mapToObj(i -> String.format(FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT, i))
-                .collect(Collectors.joining(", "));
+	private static final String FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK = "if (arg%d == null) throw new IllegalArgumentException(\"invocation == null\"); "
+			+ "String methodName = arg%d.getMethodName();\n";
 
-        return returnStatement + String.format("extension.%s(%s);%n", method.getName(), args);
-    }
+	private static final String FORMAT_CODE_EXT_NAME_ASSIGNMENT = "String extName = %s;\n";
 
-    private String generateExtensionAssignment() {
-        return String.format(FORMAT_CODE_EXTENSION_ASSIGNMENT, type.getName(), ExtensionLoader.class.getSimpleName(), type.getName());
-    }
+	private static final String FORMAT_CODE_EXT_NAME_NULL_CHECK = "if(extName == null) "
+			+ "throw new IllegalStateException(\"Failed to get extension (%s) name from url (\" + url.toString() + \") use keys(%s)\");\n";
 
-    private String generateExtNameNullCheck(String[] value) {
-        return String.format(FORMAT_CODE_EXT_NAME_NULL_CHECK, type.getName(), Arrays.toString(value));
-    }
+	private static final String FORMAT_CODE_EXTENSION_ASSIGNMENT = "%s extension = (%<s)%s.getExtensionLoader(%s.class).getExtension(extName);\n";
 
-    private String generateExtNameAssignment(String[] value, boolean hasInvocation) {
-        // TODO 2024/9/24: reformat it
+	private static final String FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT = "arg%d";
 
-        String getNameCode = null;
-        for (int i = value.length - 1; i >= 0; --i) {
-            if (i == value.length - 1) {
-                if (null != defaultExtName) {
-                    if (!"protocol".equals(value[i])) {
-                        if (hasInvocation) {
-                            getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i], defaultExtName);
-                        } else {
-                            getNameCode = String.format("url.getParameter(\"%s\", \"%s\")", value[i], defaultExtName);
-                        }
-                    } else {
-                        getNameCode = String.format("( url.getProtocol() == null ? \"%s\" : url.getProtocol() )", defaultExtName);
-                    }
-                } else {
-                    if (!"protocol".equals(value[i])) {
-                        if (hasInvocation) {
-                            getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i], defaultExtName);
-                        } else {
-                            getNameCode = String.format("url.getParameter(\"%s\")", value[i]);
-                        }
-                    } else {
-                        getNameCode = "url.getProtocol()";
-                    }
-                }
-            } else {
-                if (!"protocol".equals(value[i])) {
-                    if (hasInvocation) {
-                        getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i], defaultExtName);
-                    } else {
-                        getNameCode = String.format("url.getParameter(\"%s\", %s)", value[i], getNameCode);
-                    }
-                } else {
-                    getNameCode = String.format("url.getProtocol() == null ? (%s) : url.getProtocol()", getNameCode);
-                }
-            }
-        }
+	private final Class<?> type;
 
-        return String.format(FORMAT_CODE_EXT_NAME_ASSIGNMENT, getNameCode);
-    }
+	private final String defaultExtName;
 
-    private String generateInvocationArgumentNullCheck(Method method) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        return IntStream.range(0, parameterTypes.length)
-                .filter(i -> parameterTypes[i].getName().equals(CLASSNAME_INVOCATION))
-                .mapToObj(i -> String.format(FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK, i, i))
-                .findFirst().orElse("");
-    }
+	/**
+	 * Generates the Java source code for an adaptive class implementation. This method
+	 * creates a complete Java class that implements the extension interface and delegates
+	 * method calls to the appropriate extension implementation based on runtime
+	 * parameters. The generated code includes: - Package declaration - Import statements
+	 * - Class declaration - Method implementations that route calls to the appropriate
+	 * extension
+	 * @return the complete Java source code for the adaptive class as a string
+	 * @throws IllegalArgumentException if the extension type has no adaptive methods
+	 */
+	public String generate() {
+		if (!hasAdaptiveMethod()) {
+			throw new IllegalArgumentException("No adaptive method on extension " + this.type.getName()
+					+ ", refused to create the adaptive class!");
+		}
+		StringBuilder code = new StringBuilder();
+		code.append(generatePackageInfo());
+		code.append(generateImports());
+		code.append(generateClassDeclaration());
 
-    private boolean hasInvocationArgument(Method method) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        return Arrays.stream(parameterTypes).anyMatch(p -> CLASSNAME_INVOCATION.equals(p.getName()));
-    }
+		Method[] methods = this.type.getMethods();
+		for (Method method : methods) {
+			code.append(generateMethod(method));
+		}
+		code.append("}");
+		if (log.isDebugEnabled()) {
+			log.debug(code.toString());
+		}
+		return code.toString();
+	}
 
-    private String[] getMethodAdaptiveValue(Adaptive adaptiveAnnotation) {
-        String[] value = adaptiveAnnotation.value();
-        if (value.length == 0) {
-            String splitName = StringUtils.camelToSplitName(type.getSimpleName(), ".");
-            value = new String[]{splitName};
-        }
-        return value;
-    }
+	private String generateMethod(Method method) {
+		String methodReturnType = method.getReturnType().getCanonicalName();
+		String methodName = method.getName();
+		String methodArgs = generateMethodArguments(method);
+		String methodThrows = generateMethodThrows(method);
+		String methodContent = generateMethodContent(method);
+		return String.format(FORMAT_CODE_METHOD_DECLARATION, methodReturnType, methodName, methodArgs, methodThrows,
+				methodContent);
+	}
 
+	private String generateMethodContent(Method method) {
+		Adaptive adaptiveAnnotation = method.getAnnotation(Adaptive.class);
+		StringBuilder code = new StringBuilder(512);
+		if (adaptiveAnnotation == null) {
+			return generateUnsupported(method);
+		}
+		int urlTypeIndex = getUrlTypeIndex(method);
+		if (urlTypeIndex != -1) {
+			code.append(generateUrlNullCheck(urlTypeIndex));
+		}
+		else {
+			code.append(generateUrlAssignmentIndirectly(method));
+		}
 
-    private String generateUrlAssignmentIndirectly(Method method) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        Map<String, Integer> getterReturnUrl = new HashMap<>();
-        for (int i = 0; i < parameterTypes.length; i++) {
-            for (Method m : parameterTypes[i].getMethods()) {
-                String name = m.getName();
-                if ((name.startsWith("get") || name.length() > 3)
-                        && Modifier.isPublic(m.getModifiers())
-                        && !Modifier.isStatic(m.getModifiers())
-                        && m.getParameterTypes().length == 0
-                        && m.getReturnType() == URL.class) {
-                    getterReturnUrl.put(name, i);
-                }
-            }
-        }
-        if (getterReturnUrl.size() <= 0) {
-            throw new IllegalArgumentException("Failed to create adaptive class for interface " + type.getName() + ": not found url parameter or url attribute in parameters of method " + method.getName());
-        }
+		String[] value = getMethodAdaptiveValue(adaptiveAnnotation);
+		boolean hasInvocation = hasInvocationArgument(method);
+		code.append(generateInvocationArgumentNullCheck(method));
+		code.append(generateExtNameAssignment(value, hasInvocation));
+		code.append(generateExtNameNullCheck(value));
+		code.append(generateExtensionAssignment());
+		code.append(generateReturnAndInvocation(method));
+		return code.toString();
+	}
 
-        Integer index = getterReturnUrl.get("getUrl");
-        if (index != null) {
-            return generateGetUrlNullCheck(index, parameterTypes[index], "getUrl");
-        } else {
-            Map.Entry<String, Integer> entry = getterReturnUrl.entrySet().iterator().next();
-            return generateGetUrlNullCheck(entry.getValue(), parameterTypes[entry.getValue()], entry.getKey());
-        }
-    }
+	private String generateReturnAndInvocation(Method method) {
+		String returnStatement = method.getReturnType().equals(void.class) ? "" : "return ";
 
-    private String generateGetUrlNullCheck(int index, Class<?> parameterType, String method) {
-        return String.format("if (arg%d == null) throw new IllegalArgumentException(\"%s argument == null\");%n",
-                index, parameterType.getName()) +
-                String.format("if (arg%d.%s() == null) throw new IllegalArgumentException(\"%s argument %s() == null\");%n",
-                        index, method, parameterType.getName(), method) +
-                String.format("%s url = arg%d.%s();%n",
-                        URL.class.getName(), index, method);
-    }
+		String args = IntStream.range(0, method.getParameters().length)
+			.mapToObj(i -> String.format(FORMAT_CODE_EXTENSION_METHOD_INVOKE_ARGUMENT, i))
+			.collect(Collectors.joining(", "));
 
-    private String generateUrlNullCheck(int index) {
-        return String.format(FORMAT_CODE_URL_NULL_CHECK, index, URL.class.getName(), index);
-    }
+		return returnStatement + String.format("extension.%s(%s);%n", method.getName(), args);
+	}
 
-    private int getUrlTypeIndex(Method method) {
-        int urlTypeIndex = -1;
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        for (int i = 0; i < parameterTypes.length; i++) {
-            if (parameterTypes[i].equals(URL.class)) {
-                urlTypeIndex = i;
-                break;
-            }
-        }
-        return urlTypeIndex;
-    }
+	private String generateExtensionAssignment() {
+		return String.format(FORMAT_CODE_EXTENSION_ASSIGNMENT, this.type.getName(),
+				ExtensionLoader.class.getSimpleName(), this.type.getName());
+	}
 
-    private String generateUnsupported(Method method) {
-        return String.format(FORMAT_CODE_UNSUPPORTED, method, type.getName());
-    }
+	private String generateExtNameNullCheck(String[] value) {
+		return String.format(FORMAT_CODE_EXT_NAME_NULL_CHECK, this.type.getName(), Arrays.toString(value));
+	}
 
-    private String generateMethodThrows(Method method) {
-        Class<?>[] exceptionTypes = method.getExceptionTypes();
-        if (exceptionTypes.length > 0) {
-            String list = Arrays.stream(exceptionTypes).map(Class::getCanonicalName).collect(Collectors.joining(", "));
-            return String.format(FORMAT_CODE_METHOD_THROWS, list);
-        } else {
-            return "";
-        }
-    }
+	private String generateExtNameAssignment(String[] value, boolean hasInvocation) {
+		// TODO 2024/9/24: reformat it
 
-    private String generateMethodArguments(Method method) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        return IntStream.range(0, parameterTypes.length)
-                .mapToObj(i -> String.format(FORMAT_CODE_METHOD_ARGUMENT, parameterTypes[i].getCanonicalName(), i))
-                .collect(Collectors.joining(", "));
-    }
+		String getNameCode = null;
+		for (int i = value.length - 1; i >= 0; --i) {
+			if (i == value.length - 1) {
+				if (null != this.defaultExtName) {
+					if (!"protocol".equals(value[i])) {
+						if (hasInvocation) {
+							getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i],
+									this.defaultExtName);
+						}
+						else {
+							getNameCode = String.format("url.getParameter(\"%s\", \"%s\")", value[i],
+									this.defaultExtName);
+						}
+					}
+					else {
+						getNameCode = String.format("( url.getProtocol() == null ? \"%s\" : url.getProtocol() )",
+								this.defaultExtName);
+					}
+				}
+				else {
+					if (!"protocol".equals(value[i])) {
+						if (hasInvocation) {
+							getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i],
+									this.defaultExtName);
+						}
+						else {
+							getNameCode = String.format("url.getParameter(\"%s\")", value[i]);
+						}
+					}
+					else {
+						getNameCode = "url.getProtocol()";
+					}
+				}
+			}
+			else {
+				if (!"protocol".equals(value[i])) {
+					if (hasInvocation) {
+						getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")", value[i],
+								this.defaultExtName);
+					}
+					else {
+						getNameCode = String.format("url.getParameter(\"%s\", %s)", value[i], getNameCode);
+					}
+				}
+				else {
+					getNameCode = String.format("url.getProtocol() == null ? (%s) : url.getProtocol()", getNameCode);
+				}
+			}
+		}
 
-    private String generateClassDeclaration() {
-        return String.format(FORMAT_CODE_CLASS_DECLARATION, type.getSimpleName(), type.getCanonicalName());
-    }
+		return String.format(FORMAT_CODE_EXT_NAME_ASSIGNMENT, getNameCode);
+	}
 
-    private String generateImports() {
-        return String.format(FORMAT_CODE_IMPORT, ExtensionLoader.class.getName());
-    }
+	private String generateInvocationArgumentNullCheck(Method method) {
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		return IntStream.range(0, parameterTypes.length)
+			.filter(i -> parameterTypes[i].getName().equals(CLASSNAME_INVOCATION))
+			.mapToObj(i -> String.format(FORMAT_CODE_INVOCATION_ARGUMENT_NULL_CHECK, i, i))
+			.findFirst()
+			.orElse("");
+	}
 
-    private String generatePackageInfo() {
-        return String.format(FORMAT_CODE_PACKAGE, type.getPackage().getName());
-    }
+	private boolean hasInvocationArgument(Method method) {
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		return Arrays.stream(parameterTypes).anyMatch(p -> CLASSNAME_INVOCATION.equals(p.getName()));
+	}
 
-    private boolean hasAdaptiveMethod() {
-        return Arrays.stream(type.getMethods()).anyMatch(method -> method.isAnnotationPresent(Adaptive.class));
-    }
+	private String[] getMethodAdaptiveValue(Adaptive adaptiveAnnotation) {
+		String[] value = adaptiveAnnotation.value();
+		if (value.length == 0) {
+			String splitName = StringUtils.camelToSplitName(this.type.getSimpleName(), ".");
+			value = new String[] { splitName };
+		}
+		return value;
+	}
+
+	private String generateUrlAssignmentIndirectly(Method method) {
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		Map<String, Integer> getterReturnUrl = new HashMap<>();
+		for (int i = 0; i < parameterTypes.length; i++) {
+			for (Method m : parameterTypes[i].getMethods()) {
+				String name = m.getName();
+				if ((name.startsWith("get") || name.length() > 3) && Modifier.isPublic(m.getModifiers())
+						&& !Modifier.isStatic(m.getModifiers()) && m.getParameterTypes().length == 0
+						&& m.getReturnType() == URL.class) {
+					getterReturnUrl.put(name, i);
+				}
+			}
+		}
+		if (getterReturnUrl.isEmpty()) {
+			throw new IllegalArgumentException("Failed to create adaptive class for interface " + this.type.getName()
+					+ ": not found url parameter or url attribute in parameters of method " + method.getName());
+		}
+
+		Integer index = getterReturnUrl.get("getUrl");
+		if (index != null) {
+			return generateGetUrlNullCheck(index, parameterTypes[index], "getUrl");
+		}
+		else {
+			Map.Entry<String, Integer> entry = getterReturnUrl.entrySet().iterator().next();
+			return generateGetUrlNullCheck(entry.getValue(), parameterTypes[entry.getValue()], entry.getKey());
+		}
+	}
+
+	private String generateGetUrlNullCheck(int index, Class<?> parameterType, String method) {
+		return String.format("if (arg%d == null) throw new IllegalArgumentException(\"%s argument == null\");%n", index,
+				parameterType.getName())
+				+ String.format(
+						"if (arg%d.%s() == null) throw new IllegalArgumentException(\"%s argument %s() == null\");%n",
+						index, method, parameterType.getName(), method)
+				+ String.format("%s url = arg%d.%s();%n", URL.class.getName(), index, method);
+	}
+
+	private String generateUrlNullCheck(int index) {
+		return String.format(FORMAT_CODE_URL_NULL_CHECK, index, URL.class.getName(), index);
+	}
+
+	private int getUrlTypeIndex(Method method) {
+		int urlTypeIndex = -1;
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].equals(URL.class)) {
+				urlTypeIndex = i;
+				break;
+			}
+		}
+		return urlTypeIndex;
+	}
+
+	private String generateUnsupported(Method method) {
+		return String.format(FORMAT_CODE_UNSUPPORTED, method, this.type.getName());
+	}
+
+	private String generateMethodThrows(Method method) {
+		Class<?>[] exceptionTypes = method.getExceptionTypes();
+		if (exceptionTypes.length > 0) {
+			String list = Arrays.stream(exceptionTypes).map(Class::getCanonicalName).collect(Collectors.joining(", "));
+			return String.format(FORMAT_CODE_METHOD_THROWS, list);
+		}
+		else {
+			return "";
+		}
+	}
+
+	private String generateMethodArguments(Method method) {
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		return IntStream.range(0, parameterTypes.length)
+			.mapToObj(i -> String.format(FORMAT_CODE_METHOD_ARGUMENT, parameterTypes[i].getCanonicalName(), i))
+			.collect(Collectors.joining(", "));
+	}
+
+	private String generateClassDeclaration() {
+		return String.format(FORMAT_CODE_CLASS_DECLARATION, this.type.getSimpleName(), this.type.getCanonicalName());
+	}
+
+	private String generateImports() {
+		return String.format(FORMAT_CODE_IMPORT, ExtensionLoader.class.getName());
+	}
+
+	private String generatePackageInfo() {
+		return String.format(FORMAT_CODE_PACKAGE, this.type.getPackage().getName());
+	}
+
+	private boolean hasAdaptiveMethod() {
+		return Arrays.stream(this.type.getMethods()).anyMatch(method -> method.isAnnotationPresent(Adaptive.class));
+	}
+
 }

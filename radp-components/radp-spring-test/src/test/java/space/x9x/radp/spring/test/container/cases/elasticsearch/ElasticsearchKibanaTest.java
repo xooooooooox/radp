@@ -1,0 +1,107 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package space.x9x.radp.spring.test.container.cases.elasticsearch;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.json.JsonData;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.Network;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * @author IO x9x
+ * @since 2025-05-25 14:36
+ */
+@Testcontainers
+class ElasticsearchKibanaTest {
+
+	private static final Network NETWORK = Network.newNetwork();
+
+	@SuppressWarnings("resource")
+	@Container
+	public final GenericContainer<?> elasticsearch = new GenericContainer<>(
+			"docker.elastic.co/elasticsearch/elasticsearch:7.17.9")
+		.withNetwork(NETWORK)
+		.withNetworkAliases("elasticsearch")
+		.withExposedPorts(9200)
+		.withEnv("discovery.type", "single-node")
+		.withEnv("xpack.security.enabled", "false")
+		.withEnv("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
+		.waitingFor(Wait.forHttp("/_cluster/health?wait_for_status=yellow")
+			.forPort(9200)
+			.forStatusCode(200)
+			.withStartupTimeout(Duration.ofMinutes(2)));
+
+	@SuppressWarnings("resource")
+	@Container
+	public final GenericContainer<?> kibana = new GenericContainer<>("docker.elastic.co/kibana/kibana:7.17.9")
+		.withNetwork(NETWORK)
+		.withNetworkAliases("kibana")
+		.withExposedPorts(5601)
+		.withEnv("ELASTICSEARCH_HOSTS", "http://elasticsearch:9200")
+		.dependsOn(elasticsearch)
+		.waitingFor(
+				Wait.forHttp("/api/status").forPort(5601).forStatusCode(200).withStartupTimeout(Duration.ofMinutes(2)));
+
+	@Test
+	void testElasticsearchKibana() throws Exception {
+		// Create Elasticsearch client
+		RestClient restClient = RestClient.builder(new HttpHost("localhost", elasticsearch.getMappedPort(9200), "http"))
+			.build();
+
+		// Create a transport layer
+		ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+
+		// Create API client
+		ElasticsearchClient client = new ElasticsearchClient(transport);
+
+		// Index data
+		Map<String, Object> document = new HashMap<>();
+		document.put("message", "Test log");
+		document.put("level", "INFO");
+		client.index(i -> i.index("logs").document(document));
+
+		// Wait for index refresh
+		client.indices().refresh(r -> r.index("logs"));
+
+		// Search data
+		SearchResponse<JsonData> response = client
+			.search(s -> s.index("logs").query(q -> q.match(m -> m.field("message").query("Test"))), JsonData.class);
+
+		assertThat(response.hits().total()).isNotNull();
+		assertThat(response.hits().total().value()).isEqualTo(1);
+
+		// Close client
+		transport.close();
+	}
+
+}

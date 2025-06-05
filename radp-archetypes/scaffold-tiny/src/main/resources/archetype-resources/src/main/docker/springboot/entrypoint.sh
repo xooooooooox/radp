@@ -285,4 +285,3 @@ else
   # Use exec to replace the shell process with java, ensuring signals are properly handled
   exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher "$@"
 fi
-

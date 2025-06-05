@@ -1,12 +1,103 @@
 # ChangeLog
 
+## 3.21
+
+### Break Changes
+
+- Refactor module `radp-logging-spring-boot-starter`. Improved logging clarity and extensibility for various use cases.
+
+### Features
+
+- Add Redis key management utilities provides a standardized approach to creating, validation. Ensures the keys follow a
+  consistent format.
+- Add a comprehensive testing framework in `radp-spring-test`.
+
+### Bug Fixes
+
+- Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
+- Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`.
+- Fix error handling in embedded servers
+- Fix `Unable to find a URL to the parent project. The parent menu will NOT be added.`
+- Resolve issues with transitive dependencies
+
+### Chore
+
+- dependencies
+  - Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`.
+  - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
+  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`
+  - DependencyManagement Add `com.redis:testcontainers-redis:2.2.2`.
+  - Override `kafka.version` from `3.8.1` to `3.9.0`. Resolve
+    `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
+  - Optimize dependency to resolve module cycles.
+  - Remove property `mongodb.version`.
+  - Remove property `maven-surefire-plugin.version`.
+  - Exclude `spring-boot-starter-loggin` in `radp-spring-boot-test`.
+  - Remove unused radp-spring-test dependency from radp-spring-framework.
+  - Remove redundant dependency from `radp-integration-test`.
+- build
+  - PluginManagement add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`.
+  - Remove redundant profile `code-review`.
+  - Move plugins from the `radp-parent` to the root POM:
+    - `git-commit-id-maven-plugin`.
+    - `versions-maven-plugin`.
+  - Optimize profile `code-review`:
+    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false.
+    - Add plugin `spring-javaformat-maven-plugin`.
+    - Add plugin `maven-checkstyle-plugin`.
+  - Optimize profile `unit-test`:
+    - Move the `unit-test` profile to the root POM.
+    - Add property `maven.test.skip` to `false`.
+  - Optimize profile `aggregate-reports`:
+    - Use `src/checkstyle/checkstyle.xml` (Spring Checks) as the configuration file of `maven-checkstyle-plugin`.
+  - Add missing relativePath to POM parent configuration.
+  - Optimize module `radp-smoke-tests-archetype`:
+    - Remove property `maven.install.skip` from the `radp-smoke-tests-archetype-xx` module.
+    - Add property `maven.test.skip` to `radp-smoke-tests-archetype`.
+- scaffold
+  - Update scaffold default radpVersion to `3.21`.
+  - Update `application-logback.yaml` and `logback-test.xml`.
+  - Add `RedisKeyProvider` enum.
+  - Relocate assert classes to a new package.
+  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`.
+  - Add IDE config `.idea` for copyright and scope settings.
+- malicious
+  - Switch from GNU GPLv3 to Apache 2.0.
+  - Optimize CheckStyle-IDEA plugin, integrate Spring Checks.
+  - Optimize IDEA CodeStyle configuration.
+
+### Refactor
+
+- Relocate ResponseBuilder to dto package
+- Refactor `LocalCallFirstCluster` and `DubboExceptionFilter`
+  - reduce method complexity
+  - refactor the code to improve readability and maintainability
+  - refactor any remaining issues with deprecated methods
+- Optimize `RedissonService`
+  - Update the `setNx` methods in RedissonService.java to use the non-deprecated
+    alternatives
+
+### Test
+
+- Add module `radp-smoke-tests-redis`,
+- Add module`radp-smoke-tests-logging`
+- Add module `radp-smoke-tests-test`
+  - Add test cases for TestContainers
+  - Add test cases for EmbeddedServers
+- Add RedissonServiceTest for radp-redis-spring-boot-starter
+
+### Documentation
+
 ## 3.20.2
 
 ### fix
 
-- Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last parameter in varargs
-- Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a parameter
-- Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message template without placeholder
+- Fix `BaseException` to properly set the cause when a `Throwable` is passed as the last
+  parameter in varargs
+- Fix `BaseException` to handle placeholder mismatches when a `Throwable` is passed as a
+  parameter
+- Add `ErrorCodeLoader.getErrMessage(String errCode)` method to get the raw message
+  template without placeholder
   replacement
 - Remove deprecated ListenableFuture methods in `TtlThreadPoolTaskExecutor`
 - Add `serialVersionUID` to improve serialization consistency
@@ -33,7 +124,8 @@
   - Upgrade `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`
   - DependencyManagement add dependency `com.google.code.findbugs:annotations:3.0.1`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-jxr-plugin:3.3.0`
-  - PluginManagement add plugin `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
+  - PluginManagement add plugin
+    `org.apache.maven.plugins:maven-project-info-reports-plugin:3.6.2`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-site-plugin:3.12.1`
   - PluginManagement add plugin `org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1`
   - PluginManagement add plugin `org.apache.maven.plugins:archetype-packaging:3.2.0`
@@ -81,7 +173,8 @@
   - Optimize the pom.xml of scaffold-xx xx-types module
   - Optimize the pom.xml of scaffold-xx xx-app module
   - Fix entrypoint.sh `Unrecognized option: --spring.config.additional-location=`
-  - Optimize application-local.yaml for exposure env endpoint and unrestricted loggers endpoint
+  - Optimize application-local.yaml for exposure env endpoint and unrestricted loggers
+    endpoint
   - Optimize dev-ops docker-compose-app.yaml
 
 ## 3.18.1
@@ -94,11 +187,13 @@
   - Update scaffold default radpVersion to `3.18.1`
   - Optimize entrypoint.sh
   - Optimize liquibase
-    - Fixed the issue with duplicate initialization caused by inconsistent filenames recognized in changesets
+    - Fixed the issue with duplicate initialization caused by inconsistent filenames
+      recognized in changesets
       - see <https://docs.liquibase.com/change-types/includeall.html>
       -
       see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
-    - Optimized changelog-init.yaml example, migration/20241018 directory structure, and multienvironment support
+    - Optimized changelog-init.yaml example, migration/20241018 directory structure, and
+      multienvironment support
 
 ## 3.18
 
@@ -111,7 +206,8 @@
 - parent
   - Support for publishing snapshots to the central portal
   - Add profile `env.uat`
-  - Optimize profile `repo-central`, add property `auto.layered.enabled` and `auto.assembly.enabled`
+  - Optimize profile `repo-central`, add property `auto.layered.enabled` and
+    `auto.assembly.enabled`
   - profile `coding` add property `user.docker.build.namespace`
 - scaffold
   - Update scaffold default radpVersion to `3.18`
@@ -136,7 +232,8 @@
 ### chore
 
 - parent
-  - 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及 `auto-jib-dockerBuild`, 解决 `jib:buildTar`
+  - 优化 profile `auto-jib`, 拆分两个 profile `auto-jib-buildTar` 以及
+    `auto-jib-dockerBuild`, 解决 `jib:buildTar`
     不支持 multi platform 引起的构建失败问题
   - Add profile `o-release`, `o-tar`, `publish-harbor`
   - Add profile `publish-artifactory`
@@ -150,7 +247,8 @@
 ## 3.16.1
 
 - fix
-  - Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin are missing or invalid_
+  - Fix when deploy to artifactory got ERROR _the parameters 'url' for wagon-maven-plugin
+    are missing or invalid_
   - Fix GitHub Action got error _Unable to decrypt gpg passphrase_
 - parent
   - Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`
@@ -179,13 +277,14 @@
   - Optimize application.yaml, add application-webmvc.yaml
   - .mvn/settings.xml Add properties `auto.archetype.catalog.artifactory`
 - writerside
-  - Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
+  -
+  Update [1.1.1-use_archetype_create_project.md](Writerside/topics/1.1.1-use_archetype_create_project.md)
 
 ## 3.15.1
 
 - dependencies
   - Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with
-      `org.apache.tika:tika-core`
+    `org.apache.tika:tika-core`
 - scaffold
   - dev-ops add `docker-compose-pgadmin.yaml` and `docker-compose-redis-commander.yaml`
   - Update scaffold default radpVersion to `3.15.1`
@@ -198,17 +297,20 @@
 - dependencies
   - Upgrade the spring boot version from `3.2.3` to `3.4.4`
   - Upgrade the spring cloud version from `2023.0.0` to `2024.0.0`
-  - dependencyManagement add `central-publishing-maven-plugin:0.6.0`, `maven-javadoc-plugin:3.5.0`
+  - dependencyManagement add `central-publishing-maven-plugin:0.6.0`,
+    `maven-javadoc-plugin:3.5.0`
   - `space.x9x.radp:radp` 沿用 `radp-dependenncies` 中声明的 `maven-deploy-plugin` 而不是
-      `spring-boot-dependencies` 中声明的 `3.10.1` 版本
+    `spring-boot-dependencies` 中声明的 `3.10.1` 版本
   - Fix dependencyManagement for `org.apache.dubbo.dubbo-dependencies-zookeeper`
-  - Change dependencyManagement `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to
-      `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
+  - Change dependencyManagement
+    `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0` to
+    `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
   - Remove the redundant plugin version in `radp-parent`
   - Remove duplicate plugin in `radp-depdencies`
   - 修复由于依赖传递的问题, 导致的 spring framework 版本被降级的问题
 - parent
-  - add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`, `app.build.base_image.jdk17`
+  - add properties `app.build.base_image.jdk8`, `app.build.base_image.jdk11`,
+    `app.build.base_image.jdk17`
 - scaffold
   - Optimize dev-ops
   - Fix application-dev.yaml
@@ -219,22 +321,26 @@
 
 - feature
   - Remove module `radp-tomcat-spring-boot-starter`
-  - Rename module `radp-swagger3-spring-boot-starter` to `radp-springdoc-webmvc-spring-boot-starter`
+  - Rename module `radp-swagger3-spring-boot-starter` to
+    `radp-springdoc-webmvc-spring-boot-starter`
   - Add module `radp-springdoc-webflux-spring-boot-starter`
-  - Disable autoconfiguration `BootstrapLogAutoConfiguration`, `AccessLogAutoConfiguration`,
-      `WebAPIAutoConfiguration`
+  - Disable autoconfiguration `BootstrapLogAutoConfiguration`,
+    `AccessLogAutoConfiguration`,
+    `WebAPIAutoConfiguration`
   - Enable autoconfiguration `AsyncTaskExecutionAutoConfiguration`
 - fix
-  - Resolve `AsyncTaskExecutionAutoConfiguration` problem: 'org.springframework.boot.task.TaskExecutorBuilder' is
-      deprecated since version 3.2.0 and marked for removal
+  - Resolve `AsyncTaskExecutionAutoConfiguration` problem:
+    `org.springframework.boot.task.TaskExecutorBuilder' is deprecated since version 3.2.0 and marked for removal`
 - dependencies
-  - Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use radp-parent manage plugin
-      configuration
+  - Optimize pluginManagement. Use radp-dependencies manage maven plugin version, use
+    radp-parent manage plugin
+    configuration
   - Change `com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0` to
-      `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
+    `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`
 - parent
-  - `radp-parent` add properties `java.version`, `maven.compiler.source`, `maven.compiler.target`,
-      `project.build.sourceEncoding` 等
+  - `radp-parent` add properties `java.version`, `maven.compiler.source`,
+    `maven.compiler.target`,
+    `project.build.sourceEncoding` 等
 - doc
   - writerside update `about.md`
 
@@ -254,22 +360,25 @@
   - optimize assembly jar profiles active by cli not work
   - assembly bin/catalina.sh, bin/catalina.bat, bin/startup.sh, bin/shutdown.sh
 - dependencies
-  - `pl.project13.maven:git-commit-id-plugin:4.9.10` -> `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
+  - `pl.project13.maven:git-commit-id-plugin:4.9.10` ->
+    `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`
   - upgrade `commons-io:commons-io:2.7` to `commons-io:commons-io:2.13.0`
   - upgrade springdoc-openapi version from 1.6.15 to 2.4.0
   - upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to
-      `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
+    `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`
   - use springdoc-openapi bom
   - upgrade the spring-cloud version from `2021.0.5` to `2023.0.0`
   - upgrade mybatis-spring-boot version from `2.1.4` to `3.0.4`
   - upgrade the mybatis-plus version from `3.5.7` to `3.5.9`, use mybatis-plus-bom instead
 - feature
   - `radp-spring-framework` add `MultiResult`
-  - `radp-logging-spring-boot-starter` template/logback-spring.xml 增加 `NopStatusListener`
+  - `radp-logging-spring-boot-starter` template/logback-spring.xml 增加
+    `NopStatusListener`
   - `ResponseBuilder` add method signature `Result buildFailure(ErrorCode errorCode)`
   - optimize profile `auto-layered` and `auto-assembly`
 - fix
-  - fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明 `mybatis-plus-jsqlparser`
+  - fix can't find symbol `PaginationInnerInterceptor`, 需要显式声明
+    `mybatis-plus-jsqlparser`
   - fix GitLab CI/CD after upgrade to Spring Boot 3 (JDK17)
   - fix GitHub Actions after upgrade to Spring Boot 3 (JDK17)
   - fix `radp-spring-framework` ResponseBuilder bug
@@ -297,8 +406,8 @@
 ## 0.10
 
 - Fix GitHub Action maven cache not work
-- Change default jdk from `java 8.0.432+6-tem` to `java 8.0.442+6-amzn`. Because no available `java 8.0.432+6-tem`
-  on arm64
+- Change default jdk from `java 8.0.432+6-tem` to `java 8.0.442+6-amzn`.
+  Because no available `java 8.0.432+6-tem` on arm64
 - Update archetype application-dev.yaml
 
 ## 0.9
@@ -310,11 +419,12 @@
 
 - Update archetype
 - Optimize GitHub Actions
-- 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装, 降低设计模式的应用难度以及统一编码风格
-    - 决策树设计模式抽象
+- 新增 `rapd-design-pattern-framework`, 对设计模式的使用进行抽象和封装,
+  降低设计模式的应用难度以及统一编码风格
+  - 决策树设计模式抽象
 - archetype
-    - assembly 优化
-    - 分层构建优化
+  - assembly 优化
+  - 分层构建优化
 
 ## 0.7
 
@@ -335,7 +445,8 @@
 
 ## 0.3
 
-- Add Utility classes for regex `RegexUtils`, ID generation `NanoIdGenerator` `SnowflakeGenerator`
+- Add Utility classes for regex `RegexUtils`, ID generation `NanoIdGenerator`
+  `SnowflakeGenerator`
 
 ## 0.2
 

@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>3.21-SNAPSHOT</version>
-        <relativePath>../radp-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>radp-spring-integration</artifactId>
-    <name>${project.artifactId}</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>3.21-SNAPSHOT</version>
+		<relativePath>../radp-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-spring-integration</artifactId>
+	<name>${project.artifactId}</name>
 
-    <dependencies>
-        <!-- 内部组件 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-framework</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-data</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <!-- 开发组件 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- swagger -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-common</artifactId>
-        </dependency>
-    </dependencies>
+		<!-- swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-common</artifactId>
+		</dependency>
+	</dependencies>
 
 </project>

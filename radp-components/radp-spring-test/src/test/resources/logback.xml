@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <property name="userLogPath" value="../../logs/radp-spring-test/classic"/>
+    <property name="userLogFileName" value="radp-spring-test"/>
+
+    <include resource="radp/logback/classic/base.xml"/>
+
+    <!-- Set the root logger level to trace to enable all log levels -->
+    <!--    <property name="logging.level.root" value="trace" />-->
+    <logger name="org.testcontainers" level="info"/>
+</configuration>

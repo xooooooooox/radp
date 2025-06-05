@@ -22,7 +22,7 @@
 
         <!-- radp-parent version -->
         <requiredProperty key="radpVersion">
-            <defaultValue>3.20.2</defaultValue>
+            <defaultValue>3.21</defaultValue>
         </requiredProperty>
 
         <!-- spring application.yaml 占位符默认值 -->
@@ -101,8 +101,21 @@
                 <include>.java-version</include>
                 <include>.tool-versions</include>
                 <include>.gitattributes</include>
+				<include>.springjavaformatconfig</include>
             </includes>
         </fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>src</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
         <!-- github -->
         <fileSet encoding="UTF-8">
             <directory>.github</directory>
@@ -231,12 +244,14 @@
                     <directory>src/main/resources/db</directory>
                     <includes>
                         <include>**/**</include>
+                        <include>**/*.gitkeep</include>
                     </includes>
                 </fileSet>
                 <fileSet encoding="UTF-8">
                     <directory>src/main/resources/mybatis</directory>
                     <includes>
                         <include>**/**</include>
+                        <include>**/*.gitkeep</include>
                     </includes>
                 </fileSet>
                 <fileSet encoding="UTF-8">

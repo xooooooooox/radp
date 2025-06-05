@@ -1,46 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>3.21-SNAPSHOT</version>
-        <relativePath>../radp-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>radp-spring-test</artifactId>
-    <name>${project.artifactId}</name>
-    <description>Spring Test 扩展</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>3.21-SNAPSHOT</version>
+		<relativePath>../radp-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-spring-test</artifactId>
+	<name>${project.artifactId}</name>
+	<description>Spring Test 扩展</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-logging-spring-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- Redis 嵌入式组件 -->
-        <dependency>
-            <groupId>com.github.codemonstur</groupId>
-            <artifactId>embedded-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>annotations</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- Spock 测试组件 -->
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-spring</artifactId>
-        </dependency>
+		<!-- Testcontainers -->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mysql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mariadb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.redis</groupId>
+			<artifactId>testcontainers-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>elasticsearch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mongodb</artifactId>
+		</dependency>
 
-        <!-- 内部组件 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-extensions</artifactId>
-        </dependency>
-    </dependencies>
+		<!-- db driver -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+			<optional>true</optional>
+		</dependency>
 
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 嵌入式组件 -->
+		<dependency>
+			<groupId>com.github.codemonstur</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test
+			</artifactId> <!-- Resolve error: org.junit.platform.commons.JUnitException: TestEngine with ID 'spock' failed to discover tests -->
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>

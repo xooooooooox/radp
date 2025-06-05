@@ -37,7 +37,7 @@ This ensures consistent builds and frees developers from the tedium of managing 
 
 ### Common Components Integration
 
-Built upon the Spring ecosystem, RADP integrates and extends several essential components:
+Built upon the Spring ecosystem, RADP integrates and extends several essential parts:
 
 - **Spring Framework Extensions**: Enhanced Spring Framework components with additional utilities
 - **Spring Boot Starters**: Custom starters for common technologies and patterns
@@ -69,7 +69,7 @@ RADP provides abstractions and implementations of common design patterns to simp
 
 ### Scaffolding & Architecture Templates
 
-RADP provides scaffolding tools and recommended architectural patterns to jumpstart development:
+RADP provides scaffolding tools and recommended architectural patterns to upstart development:
 
 - **Project Archetypes**: Multiple archetypes for different project sizes and complexities
   - Standard (DDD-based multi-module)
@@ -179,5 +179,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[GNU General Public License—](./LICENSE)Copyright (C) 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE)Copyright © 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

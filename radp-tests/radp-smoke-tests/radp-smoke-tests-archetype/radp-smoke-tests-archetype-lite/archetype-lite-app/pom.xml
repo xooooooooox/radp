@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-smoke-tests-archetype-lite</artifactId>
-        <version>3.21-SNAPSHOT</version>
-    </parent>
-    <artifactId>archetype-lite-app</artifactId>
-    <name>${project.artifactId}</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-smoke-tests-archetype-lite</artifactId>
+		<version>3.21-SNAPSHOT</version>
+	</parent>
+	<artifactId>archetype-lite-app</artifactId>
+	<name>${project.artifactId}</name>
 
-    <properties>
-        <start-class>space.x9x.radp.Application</start-class>
-        <build.jib.enabled>true</build.jib.enabled>
-        <build.layers.enabled>true</build.layers.enabled> <!-- 是否激活分层构建 -->
-        <docker.build.image_name>${docker.build.registry}/x9x/radp-archetype-lite-app</docker.build.image_name>
-    </properties>
+	<properties>
+		<start-class>space.x9x.radp.Application</start-class>
+		<build.jib.enabled>true</build.jib.enabled>
+		<build.layers.enabled>true</build.layers.enabled> <!-- 是否激活分层构建 -->
+		<docker.build.image_name>${docker.build.registry}/x9x/radp-archetype-lite-app</docker.build.image_name>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-jasypt-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-logging-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-boot-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-jasypt-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-logging-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <!-- 自身模块 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>archetype-lite-trigger</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>archetype-lite-infrastructure</artifactId>
-        </dependency>
-    </dependencies>
+		<!-- 自身模块 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>archetype-lite-trigger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>archetype-lite-infrastructure</artifactId>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <finalName>${project.name}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<finalName>${project.name}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

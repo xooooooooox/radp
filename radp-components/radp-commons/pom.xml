@@ -1,204 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>3.21-SNAPSHOT</version>
-        <relativePath>../radp-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>radp-commons</artifactId>
-    <name>${project.artifactId}</name>
-    <description>流行工具集整合</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>3.21-SNAPSHOT</version>
+		<relativePath>../radp-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-commons</artifactId>
+	<name>${project.artifactId}</name>
+	<description>流行工具集整合</description>
 
-    <dependencies>
-        <!-- ===========================
-             开发工具
-             ============================ -->
-        <!-- Lombok: 简化Java代码，通过注解自动生成getter、setter等方法 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+	<dependencies>
+		<!-- ===========================
+			 开发工具
+			 ============================ -->
+		<!-- Lombok: 简化Java代码，通过注解自动生成getter、setter等方法 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- ===========================
-             Apache Commons 工具库
-             ============================ -->
-        <!-- Commons Collections 4: 提供扩展的集合类和实用方法 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-        </dependency>
-        <!-- Commons IO: 提供对IO操作的简化处理 -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <!-- Commons Lang3: 提供对Java核心类的扩展功能 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
+		<!-- ===========================
+			 Apache Commons 工具库
+			 ============================ -->
+		<!-- Commons Collections 4: 提供扩展的集合类和实用方法 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>
+		<!-- Commons IO: 提供对IO操作的简化处理 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<!-- Commons Lang3: 提供对Java核心类的扩展功能 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
 
-        <!-- ===========================
-             序列化与反序列化
-             ============================ -->
-        <!-- Jackson Dataformat XML: 支持将XML与Java对象互转 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-        </dependency>
-        <!-- Classmate: Jackson用于处理泛型类型的库 -->
-        <dependency>
-            <groupId>com.fasterxml</groupId>
-            <artifactId>classmate</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Annotations: 提供Jackson的注解支持 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Databind: 提供数据绑定功能，将JSON与Java对象互转 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Dataformat CBOR: 支持CBOR（Concise Binary Object Representation）数据格式 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-cbor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Datatype JSR310: 支持Java 8日期和时间API（JSR-310） -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Datatype JSON-Org: 支持JSON-Org库的数据类型 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-json-org</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson JAX-RS JSON Provider: 在JAX-RS中使用Jackson进行JSON处理 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Fastjson2 -->
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- ===========================
+			 序列化与反序列化
+			 ============================ -->
+		<!-- Jackson Dataformat XML: 支持将XML与Java对象互转 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<!-- Classmate: Jackson用于处理泛型类型的库 -->
+		<dependency>
+			<groupId>com.fasterxml</groupId>
+			<artifactId>classmate</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Annotations: 提供Jackson的注解支持 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Databind: 提供数据绑定功能，将JSON与Java对象互转 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Dataformat CBOR: 支持CBOR（Concise Binary Object Representation）数据格式 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-cbor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Datatype JSR310: 支持Java 8日期和时间API（JSR-310） -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Datatype JSON-Org: 支持JSON-Org库的数据类型 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-json-org</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson JAX-RS JSON Provider: 在JAX-RS中使用Jackson进行JSON处理 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Fastjson2 -->
+		<dependency>
+			<groupId>com.alibaba.fastjson2</groupId>
+			<artifactId>fastjson2</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- ===========================
-             日志
-             ============================ -->
-        <!-- SLF4J API: 简单日志门面，支持多种日志实现 -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
+		<!-- ===========================
+			 日志
+			 ============================ -->
+		<!-- SLF4J API: 简单日志门面，支持多种日志实现 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
 
-        <!-- ===========================
-             工具库
-             ============================ -->
-        <!-- Hutool All: 集成了多种Java工具库，提供丰富的功能 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-        <!-- Google Guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
+		<!-- ===========================
+			 工具库
+			 ============================ -->
+		<!-- Hutool All: 集成了多种Java工具库，提供丰富的功能 -->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
+		<!-- Google Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
 
-        <!-- ===========================
-             注解与验证 (Annotations & Validation)
-             ============================ -->
-        <!-- JSR 305: 提供用于静态代码分析的注解 -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-        </dependency>
-        <!-- JetBrains Annotations: 提供JetBrains的注解支持，如@Nullable等 -->
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-        </dependency>
-        <!-- Hibernate Validator: 提供Hibernate的验证支持 -->
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
+		<!-- ===========================
+			 注解与验证 (Annotations & Validation)
+			 ============================ -->
+		<!-- JSR 305: 提供用于静态代码分析的注解 -->
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+		</dependency>
+		<!-- JetBrains Annotations: 提供JetBrains的注解支持，如@Nullable等 -->
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+		</dependency>
+		<!-- Hibernate Validator: 提供Hibernate的验证支持 -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 
-        <!-- ===========================
-             Jakarta EE (Jakarta Enterprise Edition)
-             ============================ -->
-        <!-- Jakarta Servlet API: 提供Servlet规范的API，支持Web应用开发 -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- ===========================
+			 Jakarta EE (Jakarta Enterprise Edition)
+			 ============================ -->
+		<!-- Jakarta Servlet API: 提供Servlet规范的API，支持Web应用开发 -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- ===========================
-             线程池
-             ============================ -->
-        <!-- 池化复用线程增强 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>transmittable-thread-local</artifactId>
-        </dependency>
+		<!-- ===========================
+			 线程池
+			 ============================ -->
+		<!-- 池化复用线程增强 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>transmittable-thread-local</artifactId>
+		</dependency>
 
-        <!-- ===========================
-             测试组件
-             ============================ -->
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<!-- ===========================
+			 测试组件
+			 ============================ -->
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 
 </project>

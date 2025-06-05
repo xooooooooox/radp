@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-archetypes</artifactId>
-        <version>3.21-SNAPSHOT</version>
-    </parent>
-    <artifactId>scaffold-tiny</artifactId>
-    <name>${project.artifactId}</name>
-    <packaging>maven-archetype</packaging>
-    <description>极简版(MVC架构)</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-archetypes</artifactId>
+		<version>3.21-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>scaffold-tiny</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>maven-archetype</packaging>
+	<description>极简版(MVC架构)</description>
 
-    <properties>
-        <archetype.test.skip>true</archetype.test.skip>
-    </properties>
+	<properties>
+		<archetype.test.skip>true</archetype.test.skip>
+	</properties>
 
-    <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>${archetype-packaging.version}</version>
-            </extension>
-        </extensions>
-    </build>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>${archetype-packaging.version}</version>
+			</extension>
+		</extensions>
+	</build>
 
-    <licenses>
-        <license>
-            <name>GNU General Public License, Version 3</name>
-            <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
-            <distribution>repo</distribution>
-            <comments>A description of the license can be added here if necessary.</comments>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>GNU General Public License, Version 3</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+			<distribution>repo</distribution>
+			<comments>A description of the license can be added here if necessary.</comments>
+		</license>
+	</licenses>
 
-    <developers>
-        <developer>
-            <id>${developer.id}</id>
-            <name>${developer.name}</name>
-            <email>${developer.email}</email>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>${developer.id}</id>
+			<name>${developer.name}</name>
+			<email>${developer.email}</email>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
 
 
 </project>

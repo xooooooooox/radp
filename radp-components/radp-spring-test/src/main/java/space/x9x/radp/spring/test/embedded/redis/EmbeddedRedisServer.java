@@ -121,6 +121,11 @@ public class EmbeddedRedisServer implements IEmbeddedServer {
 		return this;
 	}
 
+	/**
+	 * Starts the embedded Redis server. This method builds and starts the Redis server
+	 * with the configured settings. If the server fails to start, an exception is thrown.
+	 * @throws RuntimeException if the server fails to start due to an IOException
+	 */
 	@Override
 	public void startup() {
 		try {

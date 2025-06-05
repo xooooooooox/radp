@@ -122,7 +122,7 @@ RADP provides several Maven archetypes to quickly bootstrap new projects:
 mvn archetype:generate \
   -DarchetypeGroupId=space.x9x.radp \
   -DarchetypeArtifactId=scaffold-std \
-  -DarchetypeVersion=3.19 \
+  -DarchetypeVersion=LATEST_VERSION \
   -DgroupId=com.example \
   -DartifactId=my-project \
   -Dversion=1.0-SNAPSHOT

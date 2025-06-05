@@ -119,7 +119,7 @@ RADP 提供了几种 Maven 原型，可以快速引导新项目：
 mvn archetype:generate \
   -DarchetypeGroupId=space.x9x.radp \
   -DarchetypeArtifactId=scaffold-std \
-  -DarchetypeVersion=3.19 \
+  -DarchetypeVersion=LATEST_VERSION \
   -DgroupId=com.example \
   -DartifactId=my-project \
   -Dversion=1.0-SNAPSHOT
@@ -176,5 +176,5 @@ RADP 遵循[语义化版本控制](https://semver.org/)
 
 ## 许可证
 
-[GNU 通用公共许可证](./LICENSE) - 版权所有 (C) 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE) - 版权所有 (C) 2024 xooooooooox
 和[贡献者](https://github.com/xooooooooox/radp/graphs/contributors)

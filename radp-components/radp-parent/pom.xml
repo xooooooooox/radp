@@ -618,6 +618,7 @@
 				<!-- ====================[集成测试==================== -->
 
 				<!-- ====================[性能测试==================== -->
+				<!-- reference https://github.com/gatling/gatling-maven-plugin-demo-java -->
 				<plugin>
 					<groupId>io.gatling</groupId>
 					<artifactId>gatling-maven-plugin</artifactId>

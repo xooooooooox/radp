@@ -8,8 +8,8 @@
 
 ### Features
 
-- Add Redis key management utility provides a standardized approach to creating validation.
-  Ensures the keys follow a consistent format.
+- Add Redis key management utilities provides a standardized approach to creating, validation. Ensures the keys follow a
+  consistent format.
 - Add a comprehensive testing framework in `radp-spring-test`.
 
 ### Bug Fixes
@@ -24,55 +24,54 @@
 ### Chore
 
 - dependencies
-  - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`
-  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`
-  - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`
+  - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
+  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`.
+  - DependencyManagement add `com.redis:testcontainers-redis:2.2.2`.
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
     Resolve `WARNING: Discovered 3 'junit-platform.properties' configuration files on the classpath`.
   - Optimize dependency to resolve module cycles.
-  - Remove unused `mongodb.version` property.
+  - Remove unused property `mongodb.version` .
   - Remove property `maven-surefire-plugin.version`.
-  - Remove property `maven-antrun-plugin.version`
-  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`
-  - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`
+  - Remove property `maven-antrun-plugin.version`.
+  - Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`.
+  - Optimize dependency in `radp-spring-framework` and `radp-spring-tests`.
   - Remove unused radp-spring-test dependency from radp-spring-framework.
-  - Remove redundant dependency in `radp-integration-test`
+  - Remove redundant dependency in `radp-integration-test`.
 - build
-  - PluginManagement add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`
-  - Remove redundant profile `code-review`
-  - Move plugins from the `radp-parent` to the root POM
-    - `git-commit-id-plugin`
-    - `versions-maven-plugin`. To resolve`Missing blame information error`, this may lead to missing/broken features in
-      SonarQube
-  - Remove unnecessary 'coding' profile configuration from pom.xml
-  - Optimize profile `code-review`
-    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
-    - Add plugin `spring-javaformat-maven-plugin`
-    - Add plugin `maven-checkstyle-plugin`
-  - Optimize profile `unit-test`
-    - Move the `unit-test` profile to the root POM
-    - Add property `maven.test.skip` to `false`
-  - Optimize profile `aggregate-reports`
-    - Use `src/checkstyle/checkstyle.xml` (Spring Checks) as the configuration file of `maven-checkstyle-plugin`
-  - Add missing relativePath to POM parent configuration
-  - Optimize module `radp-smoke-tests-archetype`
-    - Remove `maven.install.skip` property from the `radp-smoke-tests-archetype-xx`.
-    - Add property `maven.test.skip` to `radp-smoke-tests-archetype`
+  - PluginManagement add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`.
+  - Remove redundant profile `code-review`.
+  - Remove unnecessary `coding` profile configuration from pom.xml.
+  - Move plugins from the `radp-parent` to the root POM:
+    - `git-commit-id-plugin`.
+    - `versions-maven-plugin`.
+  - Optimize profile `code-review`:
+    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false.
+    - Add plugin `spring-javaformat-maven-plugin`.
+    - Add plugin `maven-checkstyle-plugin`.
+  - Optimize profile `unit-test`:
+    - Move the `unit-test` profile to the root POM.
+    - Add property `maven.test.skip` to `false`.
+  - Optimize profile `aggregate-reports`:
+    - Use `src/checkstyle/checkstyle.xml` (Spring Checks) as the configuration file of `maven-checkstyle-plugin`.
+  - Add missing relativePath to POM parent configuration.
+  - Optimize module `radp-smoke-tests-archetype`:
+    - Remove property `maven.install.skip` from the `radp-smoke-tests-archetype-xx` module.
+    - Add property `maven.test.skip` to `radp-smoke-tests-archetype`.
 - scaffold
   - Update scaffold default radpVersion to `2.21`.
   - Update `application-logback.yaml` and `logback-test.xml`.
   - Add `RedisKeyProvider` enum.
-  - Move assert classes to a new package.
-  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`
-  - Add `.idea`. Add IDE config for copyright and scope settings
+  - Relocate assert classes to a new package.
+  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`.
+  - Add IDE config `.idea` for copyright and scope settings.
 - malicious
   - Switch from GNU GPLv3 to Apache 2.0.
-  - Optimize CheckStyle-IDEA plugin, Integrate spring checks
-  - Optimize IDEA CodeStyle configuration
+  - Optimize CheckStyle-IDEA plugin, integrate Spring Checks.
+  - Optimize IDEA CodeStyle configuration.
 
 ### Refactor
 
-- Move `ResponseBuilder` to a new package.
+- Relocate `ResponseBuilder` to dto package.
 - Refactor `LocalCallFirstCluster` and `DubboExceptionFilter`
   - reduce method complexity
   - refactor the code to improve readability and maintainability

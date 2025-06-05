@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.framework.bootstrap.constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Global constants used throughout the RADP Spring Framework. This utility class provides
  * centralized access to common constants that are used across different components of the
@@ -24,15 +26,8 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
  * @author IO x9x
  * @since 2024-10-12 15:47
  */
-public final class Globals {
-
-	/**
-	 * Private constructor to prevent instantiation of this utility class. This class is
-	 * not meant to be instantiated.
-	 */
-	private Globals() {
-		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-	}
+@UtilityClass
+public class Globals {
 
 	/**
 	 * radp-xxx-spring-boot-starter {@code ConfigurationProperties} global prefix. This

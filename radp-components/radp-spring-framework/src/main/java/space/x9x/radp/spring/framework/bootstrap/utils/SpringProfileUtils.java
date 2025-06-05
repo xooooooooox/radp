@@ -18,6 +18,8 @@ package space.x9x.radp.spring.framework.bootstrap.utils;
 
 import org.springframework.core.env.Environment;
 
+import lombok.experimental.UtilityClass;
+
 import space.x9x.radp.commons.lang.ArrayUtils;
 
 /**
@@ -27,15 +29,8 @@ import space.x9x.radp.commons.lang.ArrayUtils;
  * @author IO x9x
  * @since 2024-09-28 21:04
  */
-public final class SpringProfileUtils {
-
-	/**
-	 * Private constructor to prevent instantiation of this utility class. This class is
-	 * not meant to be instantiated.
-	 */
-	private SpringProfileUtils() {
-		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-	}
+@UtilityClass
+public class SpringProfileUtils {
 
 	/**
 	 * Gets the active profiles from the Spring environment. If no active profiles are

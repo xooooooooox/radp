@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.framework.bootstrap.constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Constants for Spring property keys used in the RADP framework. This utility class
  * defines standard property names for Spring configuration to ensure consistent property
@@ -24,15 +26,8 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
  * @author IO x9x
  * @since 2024-09-28 20:57
  */
-public final class SpringProperties {
-
-	/**
-	 * Private constructor to prevent instantiation of this utility class. This class is
-	 * not meant to be instantiated.
-	 */
-	private SpringProperties() {
-		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-	}
+@UtilityClass
+public class SpringProperties {
 
 	/**
 	 * Property key for Spring Boot application name. This property is used to identify

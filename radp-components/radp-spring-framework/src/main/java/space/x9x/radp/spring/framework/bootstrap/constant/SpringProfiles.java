@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.framework.bootstrap.constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Constants for Spring profiles used in the RADP framework. This utility class defines
  * standard profile names for different environments to ensure consistent profile naming
@@ -24,15 +26,8 @@ package space.x9x.radp.spring.framework.bootstrap.constant;
  * @author IO x9x
  * @since 2024-09-28 21:39
  */
-public final class SpringProfiles {
-
-	/**
-	 * Private constructor to prevent instantiation of this utility class. This class is
-	 * not meant to be instantiated.
-	 */
-	private SpringProfiles() {
-		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-	}
+@UtilityClass
+public class SpringProfiles {
 
 	/**
 	 * Local environment profile. Used for development on local machines.

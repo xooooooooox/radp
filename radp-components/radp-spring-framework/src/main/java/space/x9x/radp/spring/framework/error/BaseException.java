@@ -70,7 +70,7 @@ public class BaseException extends RuntimeException {
 		// exception message
 		this.errCode = errCode;
 		this.errMessage = ErrorCodeLoader.getErrMessage(errCode);
-		this.params = new Object[0];
+		this.params = null;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class BaseException extends RuntimeException {
 		super(errorCode.getMessage());
 		this.errCode = errorCode.getCode();
 		this.errMessage = errorCode.getMessage();
-		this.params = new Object[0];
+		this.params = null;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class BaseException extends RuntimeException {
 		super(MessageFormatter.format(errorCode.getMessage(), t.getMessage()).getMessage());
 		this.errCode = errorCode.getCode();
 		this.errMessage = MessageFormatter.format(errorCode.getMessage(), t.getMessage()).getMessage();
-		this.params = new Object[0];
+		this.params = null;
 	}
 
 }

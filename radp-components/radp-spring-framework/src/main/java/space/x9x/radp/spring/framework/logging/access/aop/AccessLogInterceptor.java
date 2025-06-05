@@ -64,12 +64,12 @@ public class AccessLogInterceptor implements MethodInterceptor {
 	 */
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		// Skip proxy classes
+		// 排除代理类
 		if (AopUtils.isAopProxy(invocation.getThis())) {
 			return invocation.proceed();
 		}
 
-		// Check if logging is needed based on sampling rate
+		// 判断是否需要输出日志
 		if (AccessLogHelper.shouldLog(this.accessLogConfig.getSampleRate())) {
 			return invocation.proceed();
 		}

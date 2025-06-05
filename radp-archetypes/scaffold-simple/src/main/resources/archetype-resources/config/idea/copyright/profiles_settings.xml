@@ -1,7 +1,8 @@
 <component name="CopyrightManager">
-	<settings default="apache2">
+	<settings>
 		<module2copyright>
 			<element module="java" copyright="apache2"/>
+			<element module="groovy" copyright="apache2"/>
 		</module2copyright>
 	</settings>
 </component>

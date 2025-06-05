@@ -1,116 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>2.21-SNAPSHOT</version>
-        <relativePath>../radp-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>radp-spring-framework</artifactId>
-    <name>${project.artifactId}</name>
-    <description>Spring Framework 扩展</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>2.21-SNAPSHOT</version>
+		<relativePath>../radp-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-spring-framework</artifactId>
+	<name>${project.artifactId}</name>
+	<description>Spring Framework 扩展</description>
 
-    <dependencies>
-        <!-- 内部组件 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-extensions</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-extensions</artifactId>
+		</dependency>
 
-        <!-- 开发组件 -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-        </dependency>
-        <!-- 使用 jakarta.validation-api 替代 javax.validation:validation-api -->
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<!-- 使用 jakarta.validation-api 替代 javax.validation:validation-api -->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- Spring Framework -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- Spring Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 
-        <!-- 序列化与反序列化 -->
-        <!-- Jackson Datatype JSR310: 支持Java 8日期和时间API（JSR-310） -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson Datatype JSON-Org: 支持JSON-Org库的数据类型 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-json-org</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Jackson JAX-RS JSON Provider: 在JAX-RS中使用Jackson进行JSON处理 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Fastjson2 -->
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- 序列化与反序列化 -->
+		<!-- Jackson Datatype JSR310: 支持Java 8日期和时间API（JSR-310） -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson Datatype JSON-Org: 支持JSON-Org库的数据类型 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-json-org</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Jackson JAX-RS JSON Provider: 在JAX-RS中使用Jackson进行JSON处理 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Fastjson2 -->
+		<dependency>
+			<groupId>com.alibaba.fastjson2</groupId>
+			<artifactId>fastjson2</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- Jakarta -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- Jakarta -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-spring</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>

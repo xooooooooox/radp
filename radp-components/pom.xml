@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp</artifactId>
-        <version>2.21-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <packaging>pom</packaging>
-    <artifactId>radp-components</artifactId>
-    <name>${project.artifactId}</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp</artifactId>
+		<version>2.21-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<packaging>pom</packaging>
+	<artifactId>radp-components</artifactId>
+	<name>${project.artifactId}</name>
 
-    <modules>
-        <module>radp-dependencies</module>
-        <module>radp-parent</module>
-        <module>radp-commons</module>
-        <module>radp-extensions</module>
-        <module>radp-spring-test</module>
-        <module>radp-spring-framework</module>
-        <module>radp-spring-data</module>
-        <module>radp-spring-integration</module>
-        <module>radp-spring-boot</module>
-        <module>radp-spring-boot-test</module>
-        <module>radp-spring-boot-starters</module>
-        <module>radp-spring-cloud</module>
-        <module>radp-spring-cloud-starters</module>
-        <module>radp-spring-security</module>
-        <module>radp-design-pattern-framework</module>
-    </modules>
+	<modules>
+		<module>radp-dependencies</module>
+		<module>radp-parent</module>
+		<module>radp-commons</module>
+		<module>radp-extensions</module>
+		<module>radp-spring-test</module>
+		<module>radp-spring-framework</module>
+		<module>radp-spring-data</module>
+		<module>radp-spring-integration</module>
+		<module>radp-spring-boot</module>
+		<module>radp-spring-boot-test</module>
+		<module>radp-spring-boot-starters</module>
+		<module>radp-spring-cloud</module>
+		<module>radp-spring-cloud-starters</module>
+		<module>radp-spring-security</module>
+		<module>radp-design-pattern-framework</module>
+	</modules>
 
 </project>

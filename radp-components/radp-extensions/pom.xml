@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>2.21-SNAPSHOT</version>
-        <relativePath>../radp-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>radp-extensions</artifactId>
-    <name>${project.artifactId}</name>
-    <description>扩展点组件</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>2.21-SNAPSHOT</version>
+		<relativePath>../radp-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-extensions</artifactId>
+	<name>${project.artifactId}</name>
+	<description>扩展点组件</description>
 
-    <dependencies>
-        <!-- 内部组件 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-commons</artifactId>
-        </dependency>
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-commons</artifactId>
+		</dependency>
 
-        <!-- 开发组件 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!-- 测试组件 -->
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<!-- 测试组件 -->
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 </project>

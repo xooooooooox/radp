@@ -1,155 +1,163 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.spring.framework.error;
 
 import lombok.Getter;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
- * 全局响应码
+ * 全局响应码.
  * <p>
- * 使用 0-999 错误码段，和 HTTP 响应状态码 (opens new window)对应
- * <p>
- * 对于项目组自定义错误码, 建议单独定义一个枚举类 {@code xx/types/enum/ResponseCode},且使用的错误码不要与这里的全局错误码重复
- * <p>
- * 在定义错误码时, 你可以像 {@code GlobalResponseCode} 这样, 定义在 {@code META-INF/error/message.properties}中,
- * 也可以不定义在 {@code META-INF/error/message.properties}, 直接定义在枚举类中
+ * 使用 0-999 错误码段，和 HTTP 响应状态码 (opens new window)对应 <br>
+ * 对于项目组自定义错误码, 建议单独定义一个枚举类 {@code xx/types/enum/ResponseCode},且使用的错误码不要与这里的全局错误码重复 <br>
+ * 在定义错误码时, 你可以像 {@code GlobalResponseCode} 这样, 定义在
+ * {@code META-INF/error/message.properties}中, 也可以不定义在
+ * {@code META-INF/error/message.properties}, 直接定义在枚举类中
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-10-24 13:27
  */
 @Getter
 public enum GlobalResponseCode {
 
-    /**
-     * 成功响应码
-     * 表示请求已成功处理
-     */
-    SUCCESS("0"),
+	/**
+	 * Success (HTTP 200). Standard response for successful HTTP requests. The actual
+	 * response will depend on the request method used.
+	 */
+	SUCCESS("0"),
 
-    // ========== 4xx ==========
-    /**
-     * 错误请求
-     * 表示由于语法无效，服务器无法理解该请求
-     */
-    BAD_REQUEST("400"),
+	// ========== 4xx ==========
+	/**
+	 * Bad Request (HTTP 400). The server cannot or will not process the request due to a
+	 * client error, such as malformed request syntax, invalid request message framing, or
+	 * deceptive request routing.
+	 */
+	BAD_REQUEST("400"),
+	/**
+	 * Unauthorized (HTTP 401). The request requires user authentication. The client must
+	 * authenticate to get the requested response.
+	 */
+	UNAUTHORIZED("401"),
+	/**
+	 * Forbidden (HTTP 403). The server understood the request but refused to authorize
+	 * it. Unlike 401 Unauthorized, re-authenticating will make no difference.
+	 */
+	FORBIDDEN("403"),
+	/**
+	 * Not Found (HTTP 404). The server cannot find the requested resource. The requested
+	 * URL was not found on the server.
+	 */
+	NOT_FOUND("404"),
+	/**
+	 * Method Not Allowed (HTTP 405). The request method is known by the server but is not
+	 * supported by the target resource.
+	 */
+	METHOD_NOT_ALLOWED("405"),
+	/**
+	 * Not Acceptable (HTTP 406). The server cannot produce a response matching the list
+	 * of acceptable values defined in the request's headers.
+	 */
+	NOT_ACCEPTABLE("406"),
+	/**
+	 * Request Timeout (HTTP 408). The server timed out waiting for the request. The
+	 * client may repeat the request without modifications.
+	 */
+	REQUEST_TIMEOUT("408"),
+	/**
+	 * Locked (HTTP 423). The resource that is being accessed is locked. Part of WebDAV
+	 * protocol.
+	 */
+	LOCKED("423"),
+	/**
+	 * Too Many Requests (HTTP 429). The user has sent too many requests in a given amount
+	 * of time ("rate limiting").
+	 */
+	TOO_MANY_REQUESTS("429"),
 
-    /**
-     * 未授权
-     * 表示请求需要用户认证
-     */
-    UNAUTHORIZED("401"),
+	// ========== 5xx ==========
+	/**
+	 * Internal Server Error (HTTP 500). The server has encountered a situation it doesn't
+	 * know how to handle. This is a generic server error response when no more specific
+	 * message is suitable.
+	 */
+	INTERNAL_SERVER_ERROR("500"),
+	/**
+	 * Not Implemented (HTTP 501). The server does not support the functionality required
+	 * to fulfill the request.
+	 */
+	NOT_IMPLEMENTED("501"),
+	/**
+	 * Service Unavailable (HTTP 503). The server is not ready to handle the request.
+	 * Common causes are a server that is down for maintenance or is overloaded.
+	 */
+	SERVICE_UNAVAILABLE("503"),
+	/**
+	 * Gateway Timeout (HTTP 504). The server, while acting as a gateway or proxy, did not
+	 * receive a timely response from an upstream server it needed to access to complete
+	 * the request.
+	 */
+	GATEWAY_TIMEOUT("504"),
 
-    /**
-     * 禁止访问
-     * 表示服务器理解请求但拒绝执行
-     */
-    FORBIDDEN("403"),
+	/**
+	 * Unknown Error (999). A generic error code is used when the specific error condition
+	 * is unknown or doesn't fit into other categories.
+	 */
+	UNKNOWN("999");
 
-    /**
-     * 未找到
-     * 表示服务器找不到请求的资源
-     */
-    NOT_FOUND("404"),
+	/**
+	 * The error code object associated with this response code. Contains both the code
+	 * and message for the error.
+	 */
+	private final ErrorCode errorCode;
 
-    /**
-     * 方法不允许
-     * 表示请求方法不被允许
-     */
-    METHOD_NOT_ALLOWED("405"),
+	/**
+	 * 用于创建带有指定错误代码和消息的GlobalResponseCode对象.
+	 * @param code 错误代码字符串
+	 * @param message 错误消息字符串
+	 */
+	GlobalResponseCode(String code, String message) {
+		this.errorCode = new ErrorCode(code, message);
+	}
 
-    /**
-     * 不可接受
-     * 表示服务器无法根据请求的内容特性完成请求
-     */
-    NOT_ACCEPTABLE("406"),
+	/**
+	 * 用于创建带有参数化消息的GlobalResponseCode对象.
+	 * @param errCode 错误代码，通过资源文件加载对应的错误消息
+	 * @param params 可变参数数组，用于格式化错误消息
+	 */
+	GlobalResponseCode(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
+		this.errorCode = new ErrorCode(errCode, params);
+	}
 
-    /**
-     * 请求超时
-     * 表示服务器等待客户端发送请求时超时
-     */
-    REQUEST_TIMEOUT("408"),
+	/**
+	 * Returns the code of this response code. This method provides access to the numeric
+	 * code associated with this response.
+	 * @return the string representation of the response code
+	 */
+	public String code() {
+		return this.errorCode.getCode();
+	}
 
-    /**
-     * 资源被锁定
-     * 表示请求的资源被锁定
-     */
-    LOCKED("423"),
+	/**
+	 * Returns the message of this response code. This method provides access to the
+	 * descriptive message associated with this response.
+	 * @return the message describing this response code
+	 */
+	public String message() {
+		return this.errorCode.getMessage();
+	}
 
-    /**
-     * 请求过多
-     * 表示用户在给定的时间内发送了太多请求
-     */
-    TOO_MANY_REQUESTS("429"),
-
-    // ========== 5xx ==========
-    /**
-     * 内部服务器错误
-     * 表示服务器遇到了不知道如何处理的情况
-     */
-    INTERNAL_SERVER_ERROR("500"),
-
-    /**
-     * 未实现
-     * 表示服务器不支持请求的功能
-     */
-    NOT_IMPLEMENTED("501"),
-
-    /**
-     * 服务不可用
-     * 表示服务器暂时不可用（过载或维护）
-     */
-    SERVICE_UNAVAILABLE("503"),
-
-    /**
-     * 网关超时
-     * 表示作为网关或代理的服务器未及时从上游服务器接收请求
-     */
-    GATEWAY_TIMEOUT("504"),
-
-    /**
-     * 未知错误
-     * 表示发生了未分类的错误
-     */
-    UNKNOWN("999")
-    ;
-
-    private final ErrorCode errorCode;
-
-
-    /**
-     * 构造函数，用于创建带有指定错误代码和消息的GlobalResponseCode对象
-     *
-     * @param code    错误代码字符串
-     * @param message 错误消息字符串
-     */
-    GlobalResponseCode(String code, String message) {
-        this.errorCode = new ErrorCode(code, message);
-    }
-
-    /**
-     * 构造函数，用于创建带有参数化消息的GlobalResponseCode对象
-     *
-     * @param errCode 错误代码，通过资源文件加载对应的错误消息
-     * @param params  可变参数数组，用于格式化错误消息
-     */
-    GlobalResponseCode(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
-        this.errorCode = new ErrorCode(errCode, params);
-    }
-
-    /**
-     * 获取错误代码
-     *
-     * @return 返回当前响应码对应的错误代码字符串
-     */
-    public String code() {
-        return errorCode.getCode();
-    }
-
-    /**
-     * 获取错误消息
-     *
-     * @return 返回当前响应码对应的错误消息字符串
-     */
-    public String message() {
-        return errorCode.getMessage();
-    }
 }

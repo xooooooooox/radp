@@ -95,9 +95,9 @@ Add RADP as a parent to your Maven project:
 ```xml
 
 <parent>
-  <groupId>space.x9x.radp</groupId>
-  <artifactId>radp-parent</artifactId>
-  <version>2.19</version>
+	<groupId>space.x9x.radp</groupId>
+	<artifactId>radp-parent</artifactId>
+	<version>2.19</version>
 </parent>
 ```
 
@@ -106,10 +106,10 @@ Or add specific components as dependencies:
 ```xml
 
 <dependency>
-  <groupId>space.x9x.radp</groupId>
-  <artifactId>radp-spring-boot-starters</artifactId>
-  <version>2.19</version>
-  <type>pom</type>
+	<groupId>space.x9x.radp</groupId>
+	<artifactId>radp-spring-boot-starters</artifactId>
+	<version>2.19</version>
+	<type>pom</type>
 </dependency>
 ```
 
@@ -179,5 +179,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[GNU General Public License—](./LICENSE)Copyright (C) 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE)Copyright © 2024 xooooooooox
 and [contributors](https://github.com/xooooooooox/radp/graphs/contributors)

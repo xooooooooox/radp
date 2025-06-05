@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+-->
+
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <include resource="radp/logback/classic/base.xml"/>
+</configuration>

@@ -1,34 +1,59 @@
+/*
+ * Copyright 2012-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package space.x9x.radp.extension;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 扩展点顺序, 相同扩展点名称根据 {@code Order} 优先排序
+ * 扩展点顺序. 相同扩展点名称根据 {@code Order} 优先排序
+ * <p>
+ * Extension point ordering annotation. When multiple extensions have the same name, they
+ * are prioritized according to their {@code Order} value. Extensions with lower order
+ * values have higher priority and will be processed first.
  *
- * @author x9x
+ * @author IO x9x
  * @since 2024-09-24 23:47
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Order {
-    /**
-     * Constant representing the highest possible precedence value.
-     * Extensions with this precedence value will be processed first.
-     */
-    int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;
 
-    /**
-     * Constant representing the lowest possible precedence value.
-     * Extensions with this precedence value will be processed last.
-     */
-    int LOWEST_PRECEDENCE = Integer.MAX_VALUE;
+	/**
+	 * Constant indicating the highest precedence that can be assigned to an extension.
+	 * Extensions with this precedence value will be processed first.
+	 */
+	int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;
 
-    /**
-     * Specifies the order value for the annotated element.
-     * Lower values indicate higher priority. The default value is 0.
-     *
-     * @return the order value
-     */
-    int value() default 0;
+	/**
+	 * Constant indicating the lowest precedence that can be assigned to an extension.
+	 * Extensions with this precedence value will be processed last.
+	 */
+	int LOWEST_PRECEDENCE = Integer.MAX_VALUE;
+
+	/**
+	 * Specifies the order value for the annotated extension. Lower values have higher
+	 * priority. The default value is 0.
+	 * @return the order value
+	 */
+	int value() default 0;
+
 }

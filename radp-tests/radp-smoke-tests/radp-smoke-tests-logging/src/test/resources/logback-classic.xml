@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+
+    <property name="userLogPath" value="../../../logs/radp-smoke-tests-logging/classic"/>
+    <property name="userLogFileName" value="radp-smoke-tests-logging"/>
+    <property name="userConsoleLogPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %boldYellow([%thread]) %boldGreen(%-40.40logger{39}) | %msg%n%ex"/>
+
+    <include resource="radp/logback/classic/base.xml"/>
+
+    <!-- Set the root logger level to trace to enable all log levels -->
+    <!--    <property name="logging.level.root" value="trace" />-->
+    <logger name="space.x9x.radp" level="trace"/>
+</configuration>
+

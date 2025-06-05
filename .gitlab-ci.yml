@@ -25,7 +25,7 @@ variables:
   ## 发布制品参数 - by maven
   TP_RELEASE_TYPE: maven
   TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
-  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
+  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \
                          -Pcoding,publish-artifactory \
                          -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
 

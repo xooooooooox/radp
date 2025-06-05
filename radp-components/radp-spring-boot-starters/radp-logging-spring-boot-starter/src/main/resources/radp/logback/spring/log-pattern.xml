@@ -1,0 +1,4 @@
+<included>
+    <property name="radpConsoleLogPattern" value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="radpFileLogPattern" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger{39} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+</included>

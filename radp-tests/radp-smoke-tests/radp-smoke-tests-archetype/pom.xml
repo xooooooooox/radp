@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-smoke-tests</artifactId>
-        <version>2.21-SNAPSHOT</version>
-    </parent>
-    <artifactId>radp-smoke-tests-archetype</artifactId>
-    <name>${project.artifactId}</name>
-    <packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-smoke-tests</artifactId>
+		<version>2.21-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>radp-smoke-tests-archetype</artifactId>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}</name>
 
-    <modules>
-        <module>radp-smoke-tests-archetype-simple</module>
-        <module>radp-smoke-tests-archetype-lite</module>
-        <module>radp-smoke-tests-archetype-std</module>
-        <module>radp-smoke-tests-archetype-tiny</module>
-        <module>radp-smoke-tests-archetype-starter</module>
-    </modules>
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+
+	<modules>
+		<module>radp-smoke-tests-archetype-simple</module>
+		<module>radp-smoke-tests-archetype-lite</module>
+		<module>radp-smoke-tests-archetype-std</module>
+		<module>radp-smoke-tests-archetype-tiny</module>
+		<module>radp-smoke-tests-archetype-starter</module>
+	</modules>
 
 </project>

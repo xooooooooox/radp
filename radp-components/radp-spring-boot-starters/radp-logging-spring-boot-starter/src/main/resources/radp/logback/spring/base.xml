@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+-->
+
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="radp/logback/spring/log-pattern.xml"/>
+    <include resource="radp/logback/defaults.xml"/>
+    <include resource="radp/logback/console-appender.xml"/>
+    <include resource="radp/logback/file-appender.xml"/>
+
+    <!-- 默认的root logger配置，当没有激活任何Spring profile时使用 -->
+    <root level="${logging.level.root:-info}">
+        <appender-ref ref="radp_console_appender"/>
+        <appender-ref ref="radp_file_appender_async"/>
+        <appender-ref ref="radp_file_appender_filter_trace_async"/>
+        <appender-ref ref="radp_file_appender_filter_debug_async"/>
+        <appender-ref ref="radp_file_appender_filter_info_async"/>
+        <appender-ref ref="radp_file_appender_filter_warn_async"/>
+        <appender-ref ref="radp_file_appender_filter_error_async"/>
+    </root>
+</included>

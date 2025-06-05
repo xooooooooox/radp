@@ -1,64 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-tests</artifactId>
-        <version>2.21-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <packaging>pom</packaging>
-    <artifactId>radp-integration-tests</artifactId>
-    <name>${project.artifactId}</name>
-    <description>集成测试</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-tests</artifactId>
+		<version>2.21-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<packaging>pom</packaging>
+	<artifactId>radp-integration-tests</artifactId>
+	<name>${project.artifactId}</name>
+	<description>集成测试</description>
 
-    <dependencies>
-        <!-- 内部组件 -->
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-cloud</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-integration</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>space.x9x.radp</groupId>
-            <artifactId>radp-spring-test</artifactId>
-        </dependency>
-        <!-- 内部组件 -->
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-cloud</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-integration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-security</artifactId>
+		</dependency>
 
-        <!-- Spock -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-spring</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>space.x9x.radp</groupId>
+			<artifactId>radp-spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 </project>

@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Abstract class for multi-threaded asynchronous resource loading and strategy routing.
+ * Abstract class for multithreaded asynchronous resource loading and strategy routing.
  * 多线程异步资源加载 + 策略路由的抽象类.
  *
  * @author IO x9x

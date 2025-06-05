@@ -24,8 +24,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
- * Enumeration of business response codes. This enum provides standardized response codes
- * for business operations.
+ * 业务返回码枚举.
  *
  * @author IO x9x
  * @since 2024-10-24 14:08

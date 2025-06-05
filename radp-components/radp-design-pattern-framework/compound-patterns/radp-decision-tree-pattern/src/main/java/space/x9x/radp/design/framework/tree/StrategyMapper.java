@@ -17,7 +17,7 @@
 package space.x9x.radp.design.framework.tree;
 
 /**
- * Strategy mapper interface. 策略映射器.
+ * 策略映射器.
  *
  * @author IO x9x
  * @since 2025-01-14 14:25
@@ -28,14 +28,13 @@ package space.x9x.radp.design.framework.tree;
 public interface StrategyMapper<T, D, R> {
 
 	/**
-	 * Gets the strategy to be executed. 获取待执行策略
+	 * 获取待执行策略.
 	 * <p>
-	 * Used to get each node to be executed, equivalent to the process of completing one
-	 * flow and entering the next flow. 用于获取每个要执行的节点, 相当于一个流程走完进入到下一个流程的过程.
-	 * @param requestParameter the request parameter
-	 * @param dynamicContext the dynamic context
-	 * @return the next strategy to be executed
-	 * @throws Exception when an error occurs during strategy retrieval
+	 * 用于获取每个要执行的节点, 相当于一个流程走完进入到下一个流程的过程.
+	 * @param requestParameter 入参
+	 * @param dynamicContext 动态上下文
+	 * @return 下一个待执行策略
+	 * @throws Exception 异常
 	 */
 	StrategyHandler<T, D, R> get(T requestParameter, D dynamicContext) throws Exception;
 

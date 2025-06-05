@@ -6,7 +6,7 @@
 
 #### Scaffold
 
-- Update scaffold default radpVersion to `2.22`.
+- Update scaffold default radpVersion to `3.22`.
 - Update `archetype-catalog-vcs.xml`.
 
 ## 3.21

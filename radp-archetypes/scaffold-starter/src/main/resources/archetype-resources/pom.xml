@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>space.x9x.radp</groupId>
-        <artifactId>radp-parent</artifactId>
-        <version>${radpVersion}</version>
-    </parent>
-    <artifactId>${artifactId}</artifactId>
-    <groupId>${groupId}</groupId>
-    <version>${version}</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>space.x9x.radp</groupId>
+		<artifactId>radp-parent</artifactId>
+		<version>${radpVersion}</version>
+	</parent>
+	<artifactId>${artifactId}</artifactId>
+	<groupId>${groupId}</groupId>
+	<version>${version}</version>
 
-    <properties>
-        <!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
-        <scm.git.web_url/>
-        <scm.git.url/>
-        <scm.issue.url/>
-    </properties>
+	<properties>
+		<!-- TODO 在这里指定当前工程的 git url, 否则 maven-release-plugin:prepare 将无法 push 到 remote -->
+		<scm.git.web_url/>
+		<scm.git.url/>
+		<scm.issue.url/>
+	</properties>
 
-    <scm>
-        <url>${scm.git.web_url}</url>
-        <connection>scm:git:${scm.git.url}</connection>
-        <developerConnection>scm:git:${scm.git.url}</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+	<scm>
+		<url>${scm.git.web_url}</url>
+		<connection>scm:git:${scm.git.url}</connection>
+		<developerConnection>scm:git:${scm.git.url}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+	</dependencies>
 </project>

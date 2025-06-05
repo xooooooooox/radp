@@ -7,6 +7,7 @@
 #### Dependencies
 
 - Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
+- Remove unused MongoDB dependencies
 
 #### Build
 

@@ -4,6 +4,14 @@
 
 ### Chore
 
+#### Dependencies
+
+- Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
+
+#### Build
+
+- Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
+
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.22`.

@@ -409,17 +409,6 @@
 			<!-- ====================关系型数据库]==================== -->
 
 			<!-- ====================[NoSQL==================== -->
-			<!-- MongoDB -->
-			<dependency>
-				<groupId>org.mongodb</groupId>
-				<artifactId>mongo-java-driver</artifactId>
-				<version>${mongodb.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mongodb</groupId>
-				<artifactId>mongodb-driver</artifactId>
-				<version>${mongodb.version}</version>
-			</dependency>
 			<!-- ====================NoSQL]==================== -->
 
 			<!-- TODO: ====================[搜索引擎==================== -->

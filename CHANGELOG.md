@@ -17,8 +17,6 @@
 - Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
 - Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`.
 - Fix error handling in embedded servers
-  - Improved exception handling in EmbeddedRedisServer, EmbeddedZookeeperServer,
-    EmbeddedKafkaServer.
 - Fix `Unable to find a URL to the parent project. The parent menu will NOT be added.`
 - Resolve issues with transitive dependencies
 
@@ -38,29 +36,35 @@
   - Remove unused radp-spring-test dependency from radp-spring-framework.
   - Remove redundant dependency from `radp-integration-test`.
 - build
+  - PluginManagement add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`.
   - Remove redundant profile `code-review`.
-  - Move the `git-commit-id-maven-plugin` from the submodule POM to the root POM for resolve
-    `Missing blame information error`, this may lead to missing/broken features in SonarQube
-  - Moved the `versions-maven-plugin` from the submodule POM to the root POM for better management.
-  - Optimize the `code-review` profile
-    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false
-    - Updated the code-review profile comment to include the `unit-test` profile for more clarity.
-  - Optimize the `unit-test` profile
-    - Move the `unit-test` profile to the root POM
-    - Add property `maven.test.skip` to `false`
-  - Add relativePath to POM parent configuration
-  - Remove the `maven.install.skip` property from the radp-smoke-tests-archetype-xx
-    module.
-  - Add the `maven.test.skip` property to `radp-smoke-tests-archetype`
+  - Move plugins from the `radp-parent` to the root POM:
+    - `git-commit-id-maven-plugin`.
+    - `versions-maven-plugin`.
+  - Optimize profile `code-review`:
+    - Add property `maven.test.skip`, explicitly sets maven.test.skip to false.
+    - Add plugin `spring-javaformat-maven-plugin`.
+    - Add plugin `maven-checkstyle-plugin`.
+  - Optimize profile `unit-test`:
+    - Move the `unit-test` profile to the root POM.
+    - Add property `maven.test.skip` to `false`.
+  - Optimize profile `aggregate-reports`:
+    - Use `src/checkstyle/checkstyle.xml` (Spring Checks) as the configuration file of `maven-checkstyle-plugin`.
+  - Add missing relativePath to POM parent configuration.
+  - Optimize module `radp-smoke-tests-archetype`:
+    - Remove property `maven.install.skip` from the `radp-smoke-tests-archetype-xx` module.
+    - Add property `maven.test.skip` to `radp-smoke-tests-archetype`.
 - scaffold
-  - Update scaffold default radpVersion to `3.21`
-  - Update `application-logback.yaml` and `logback-test.xml`
-  - Add `RedisKeyProvider` enum
-  - Relocate assert classes to a new package
-  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`
-  - Add `.idea`. Add IDE config for copyright and scope settings
+  - Update scaffold default radpVersion to `3.21`.
+  - Update `application-logback.yaml` and `logback-test.xml`.
+  - Add `RedisKeyProvider` enum.
+  - Relocate assert classes to a new package.
+  - Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`.
+  - Add IDE config `.idea` for copyright and scope settings.
 - malicious
-  - Switch from GNU GPLv3 to Apache 2.0
+  - Switch from GNU GPLv3 to Apache 2.0.
+  - Optimize CheckStyle-IDEA plugin, integrate Spring Checks.
+  - Optimize IDEA CodeStyle configuration.
 
 ### Refactor
 

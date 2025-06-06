@@ -16,6 +16,12 @@
 
 package space.x9x.radp.redis.spring.boot.autoconfigure;
 
+import cn.hutool.core.util.ReflectUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.spring.starter.RedissonAutoConfiguration;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +29,6 @@ import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-
-import cn.hutool.core.util.ReflectUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.extern.slf4j.Slf4j;
-import org.redisson.spring.starter.RedissonAutoConfiguration;
 
 /**
  * Auto-configuration for Redis templates. This class automatically configures a

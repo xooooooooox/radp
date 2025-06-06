@@ -16,6 +16,8 @@
 
 package space.x9x.radp.redis.spring.boot.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -26,8 +28,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
-
-import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.spring.data.redis.core.CustomRedisTemplate;
 import space.x9x.radp.spring.data.redis.core.CustomRedisTemplateImpl;

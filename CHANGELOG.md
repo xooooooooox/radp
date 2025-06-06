@@ -17,9 +17,11 @@
 
 #### Scaffold
 
+- Avoid generating an incorrect `.gitlab-ci.yml` file.
 - Update scaffold default radpVersion to `3.22`.
 - Update `archetype-catalog-vcs.xml`.
-- Avoid generating an incorrect `.gitlab-ci.yml` file.
+- Update idea and checkstyle configuration.
+- Update `.editorconfig`
 
 #### Style
 

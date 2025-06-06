@@ -14,7 +14,6 @@
 	<description>统一依赖管理</description>
 
 	<properties>
-		<!-- ============================================================================== -->
 		<!-- [Spring] -->
 		<spring-boot.version>2.7.18</spring-boot.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>

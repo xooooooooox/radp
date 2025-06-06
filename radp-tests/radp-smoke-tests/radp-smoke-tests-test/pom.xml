@@ -11,7 +11,6 @@
 	<artifactId>radp-smoke-tests-test</artifactId>
 	<name>${project.artifactId}</name>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>space.x9x.radp</groupId>
@@ -21,7 +20,6 @@
 			<groupId>space.x9x.radp</groupId>
 			<artifactId>radp-logging-spring-boot-starter</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,6 +31,5 @@
 			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
 	</dependencies>
-
 
 </project>

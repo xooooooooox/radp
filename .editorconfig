@@ -16,5 +16,9 @@ end_of_line = lf
 indent_style = space
 indent_size = 2
 
+[radp-archetypes/scaffold-*/src/main/resources/archetype-resources/{.idea,.coding/idea}/**.xml]
+indent_style = space
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false

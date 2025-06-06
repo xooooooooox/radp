@@ -50,8 +50,8 @@
 		<user.docker.build.base_image/>
 		<user.jasypt.encryptor.password/>
 		<!-- checkstyle -->
-		<checkstyle.base.dir>src/checkstyle</checkstyle.base.dir>
-		<checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
+		<checkstyle.base.dir>.coding/checkstyle</checkstyle.base.dir>
+		<checkstyle.config.location>.coding/checkstyle/checkstyle.xml</checkstyle.config.location>
 		<checkstyle.property.expansion>config_loc=${checkstyle.base.dir}</checkstyle.property.expansion>
 
 		<!-- plugin version -->

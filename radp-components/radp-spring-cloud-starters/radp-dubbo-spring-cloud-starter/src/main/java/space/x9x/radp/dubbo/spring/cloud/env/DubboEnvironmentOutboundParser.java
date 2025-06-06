@@ -16,9 +16,9 @@
 
 package space.x9x.radp.dubbo.spring.cloud.env;
 
-import org.springframework.core.env.Environment;
-
 import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.Strings;

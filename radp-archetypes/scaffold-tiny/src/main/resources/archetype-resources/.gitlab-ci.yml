@@ -10,25 +10,25 @@ variables:
   TP_RUN_PAGES: "false"
   TP_RUN_DEPLOY: "false"
 
-  # 缓存
+  # ------------------------------ 缓存 ------------------------------
   TP_CACHE_DIR: ''
 
-  ## prepare - 参数
+  # ------------------------------ prepare参数 ------------------------------
   # TP_PREPARE_SCRIPT_REF:  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
   # TP_TAG_NAME: 指定要创建的标签名称, 如果未指定, 将自动计算下一个版本号
 
-  ## 构建参数
+  # ------------------------------ 构建参数 ------------------------------
   TP_BUILD_IMAGE: maven:3.9.9-eclipse-temurin-17  # default is maven:3.9.9-eclipse-temurin-8
   TP_MAVEN_OPTS: "-Dmaven.repo.local=${TP_RUNNER_BUILD_CACHE} --settings .mvn/settings.xml"
   TP_BUILD_SHELL: "mvn clean package ${TP_MAVEN_OPTS} -DskipTests"
 
-  ## 发布制品参数 - by maven
+  # ------------------------------ 发布制品参数 | by maven ------------------------------
   TP_RELEASE_TYPE: maven
   TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
   TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
                          -Pcoding,publish-artifactory \
                          -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
 
-  ## 发布 pages - writerside
+  # ------------------------------ 发布 pages | writerside ------------------------------
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

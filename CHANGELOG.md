@@ -22,6 +22,7 @@
 - Update `archetype-catalog-vcs.xml`.
 - Update idea and checkstyle configuration.
 - Update `.editorconfig`
+- Update `archetype-metadata.xml` to include `.coding` directory.
 
 #### Style
 

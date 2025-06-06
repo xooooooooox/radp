@@ -23,6 +23,7 @@
 #### Style
 
 - Update code style and checkstyle configuration.
+- Optimize imports order
 
 ## 3.21
 

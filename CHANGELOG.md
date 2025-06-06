@@ -13,12 +13,22 @@
 
 - Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
 - Remove unused disableCompiler configuration in Gatling Maven Plugin.
+- Update checkstyle config location
 
 #### Scaffold
 
-- Update scaffold default radpVersion to `2.22`.
-- Update `archetype-catalog-vcs.xml`.
 - Avoid generating an incorrect `.gitlab-ci.yml` file.
+- Update scaffold default radpVersion to `3.22`.
+- Update `archetype-catalog-vcs.xml`.
+- Update idea and checkstyle configuration.
+- Update `.editorconfig`
+- Update `archetype-metadata.xml` to include `.coding` directory.
+- Update `archetype-metadata.xml` to include `.editorconfig`.
+
+#### Style
+
+- Update code style and checkstyle configuration.
+- Optimize imports order
 
 ## 2.21
 

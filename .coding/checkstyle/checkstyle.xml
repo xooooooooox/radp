@@ -88,11 +88,12 @@
 		<module name="UnusedImports"/>
 		<module name="RedundantImport"/>
 		<module name="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck">
-			<property name="groups" value="java,javax,org.springframework,*,space.x9x"/>
+			<property name="groups" value="java,javax,*,org.springframework,space.x9x"/>
 			<property name="ordered" value="true"/>
 			<property name="separated" value="true"/>
 			<property name="option" value="bottom"/>
 			<property name="sortStaticImportsAlphabetically" value="true"/>
+			<property name="separatedStaticGroups" value="true"/>
 		</module>
 		<module name="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck">
 			<property name="id" value="bannedImports"/>

@@ -18,6 +18,7 @@
 
 - Update scaffold default radpVersion to `2.22`.
 - Update `archetype-catalog-vcs.xml`.
+- Avoid generating an incorrect `.gitlab-ci.yml` file.
 
 ## 2.21
 

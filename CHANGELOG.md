@@ -23,6 +23,7 @@
 - Update idea and checkstyle configuration.
 - Update `.editorconfig`
 - Update `archetype-metadata.xml` to include `.coding` directory.
+- Update `archetype-metadata.xml` to include `.editorconfig`.
 
 #### Style
 

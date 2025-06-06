@@ -99,6 +99,7 @@
 				<include>.tool-versions</include>
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
+				<include>.editorconfig</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -108,7 +109,7 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
-			<directory>config</directory>
+			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>

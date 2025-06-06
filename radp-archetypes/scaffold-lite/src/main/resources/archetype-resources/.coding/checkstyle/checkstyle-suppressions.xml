@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+	"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+	"https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+
+	<!-- Global: generated sources -->
+	<suppress files="[\\/]build[\\/]generated[\\/]sources[\\/]" checks=".*"/>
+
+	<!-- Global: package-info.java -->
+	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>
+	<suppress files="[\\/]src[\\/]main[\\/]java[\\/].*package-info\.java" checks="JavadocStyle"/>
+
+	<!-- Global: tests and test fixtures -->
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]"
+			  checks="AnnotationLocation|AnnotationUseStyle|AtclauseOrder|AvoidNestedBlocks|FinalClass|HideUtilityClassConstructor|InnerTypeLast|JavadocStyle|JavadocType|JavadocVariable|LeftCurly|MultipleVariableDeclarations|NeedBraces|OneTopLevelClass|OuterTypeFilename|RequireThis|SpringCatch|SpringJavadoc|SpringNoThis"/>
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="RegexpSinglelineJava"
+			  id="systemOutErrPrint"/>
+	<suppress files="[\\/]src[\\/](test|testFixtures)[\\/](java|java21)[\\/]" checks="SpringJUnit5"
+			  message="should not be public"/>
+	<suppress files="[\\/]src[\\/]test[\\/](java|java21)[\\/]space[\\/]x9x[\\/].*[\\/].+(Test|Tests|Suite)"
+			  checks="IllegalImport" id="bannedJUnitJupiterImports"/>
+	<suppress files="[\\/]src[\\/]testFixtures[\\/]java[\\/].+" checks="IllegalImport" id="bannedJUnitJupiterImports"/>
+
+	<!-- GLobal: -->
+	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor|JavadocStyle"/>
+
+	<!-- radp-commons -->
+	<suppress files="CollectionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Charsets\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="NanoIdGenerator\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JacksonUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatter\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ClassLoaderUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MessageFormatUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Strings\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfig\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="IpConfigUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Regex\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexCache\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RegexUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SnowflakeGenerator\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+	<suppress files="MessageFormatter\.java"
+			  checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable|NeedBraces"/>
+	<suppress files="ReflectionUtils\.java" checks="JavadocStyle|JavadocType|JavadocMethod|JavadocVariable"/>
+
+	<!-- radp-extensions -->
+	<suppress files="Constants\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="LoadingStrategyHolder\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AdaptiveClassCodeGenerator\.java" checks="JavadocVariable"/>
+
+	<!-- radp-spring-cloud -->
+	<suppress files="DubboEnvironment\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-test -->
+	<suppress files="EmbeddedServerHelper\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-boot -->
+	<suppress files="ManagementServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="Conditions\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringBootProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="DatasourceEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="WebServerEnvironment\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="MybatisUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="RedisKeyConstants\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="DubboAttachments\.java" checks="HideUtilityClassConstructor"/>
+
+	<!-- radp-spring-framework -->
+	<suppress files="Globals\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfiles\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProperties\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringProfileUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ExceptionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ErrorCodeLoader\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="SpringExpressionUtils\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="JSONHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="AccessLogHelper\.java" checks="HideUtilityClassConstructor"/>
+	<suppress files="ServletUtils\.java" checks="HideUtilityClassConstructor"/>
+
+</suppressions>

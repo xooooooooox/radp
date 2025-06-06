@@ -101,10 +101,17 @@
 				<include>.tool-versions</include>
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
+				<include>.editorconfig</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
 			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>

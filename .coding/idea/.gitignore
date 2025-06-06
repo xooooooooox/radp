@@ -1,5 +1,11 @@
 *.name
 *.xml
+
+!codeStyles/**.xml
+!copyright/**.xml
+!dictionaries/**.xml
+!inspectionProfiles/**.xml
+!scopes/**.xml
 # Default ignored files
 /shelf/
 /workspace.xml

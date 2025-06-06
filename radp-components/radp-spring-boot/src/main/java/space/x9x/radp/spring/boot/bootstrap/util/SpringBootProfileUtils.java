@@ -19,9 +19,9 @@ package space.x9x.radp.spring.boot.bootstrap.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.boot.SpringApplication;
-
 import lombok.experimental.UtilityClass;
+
+import org.springframework.boot.SpringApplication;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProfiles;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;

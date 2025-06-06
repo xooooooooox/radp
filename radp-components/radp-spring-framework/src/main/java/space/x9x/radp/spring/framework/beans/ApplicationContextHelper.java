@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.framework.beans;
 
+import org.jetbrains.annotations.NotNull;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -27,8 +29,6 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultBeanNameGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-
-import org.jetbrains.annotations.NotNull;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 

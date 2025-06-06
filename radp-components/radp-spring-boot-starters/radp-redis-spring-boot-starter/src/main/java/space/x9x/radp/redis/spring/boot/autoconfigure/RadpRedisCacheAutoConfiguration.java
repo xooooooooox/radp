@@ -18,6 +18,9 @@ package space.x9x.radp.redis.spring.boot.autoconfigure;
 
 import java.util.Objects;
 
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RedissonClient;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,9 +34,6 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-
-import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
 
 import space.x9x.radp.redis.spring.boot.env.ExtendedCacheProperties;
 import space.x9x.radp.redis.spring.boot.support.IRedissonService;

@@ -18,11 +18,11 @@ package space.x9x.radp.mybatis.spring.boot.extension;
 
 import java.util.Collection;
 
-import org.springframework.util.StringUtils;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+
+import org.springframework.util.StringUtils;
 
 /**
  * Extended MyBatis Plus QueryWrapper class with additional functionality.

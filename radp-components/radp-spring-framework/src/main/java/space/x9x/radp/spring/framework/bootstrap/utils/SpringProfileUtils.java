@@ -16,9 +16,9 @@
 
 package space.x9x.radp.spring.framework.bootstrap.utils;
 
-import org.springframework.core.env.Environment;
-
 import lombok.experimental.UtilityClass;
+
+import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.ArrayUtils;
 

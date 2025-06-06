@@ -16,13 +16,13 @@
 
 package space.x9x.radp.spring.boot.beans.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
-
-import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
 

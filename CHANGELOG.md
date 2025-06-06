@@ -20,6 +20,10 @@
 - Update `archetype-catalog-vcs.xml`.
 - Avoid generating an incorrect `.gitlab-ci.yml` file.
 
+#### Style
+
+- Update code style and checkstyle configuration.
+
 ## 3.21
 
 ### Break Changes

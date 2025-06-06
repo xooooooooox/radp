@@ -25,4 +25,10 @@
 	<!-- GLobal: -->
 	<suppress files=".+Application\.java" checks="HideUtilityClassConstructor|JavadocStyle"/>
 
+	<!-- api -->
+	<!-- app -->
+	<!-- domain -->
+	<!-- infrastructure -->
+	<!-- trigger -->
+	<!-- types -->
 </suppressions>

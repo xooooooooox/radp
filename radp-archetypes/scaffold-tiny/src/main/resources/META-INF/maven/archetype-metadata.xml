@@ -110,6 +110,12 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
+			<directory>.coding</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
 			<directory>src</directory>
 			<includes>
 				<include>**/**</include>

@@ -111,7 +111,7 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
-			<directory>src</directory>
+			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>

@@ -53,7 +53,7 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
-			<directory>config</directory>
+			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>

@@ -13,6 +13,7 @@
 
 - Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
 - Remove unused disableCompiler configuration in Gatling Maven Plugin.
+- Update checkstyle config location
 
 #### Scaffold
 

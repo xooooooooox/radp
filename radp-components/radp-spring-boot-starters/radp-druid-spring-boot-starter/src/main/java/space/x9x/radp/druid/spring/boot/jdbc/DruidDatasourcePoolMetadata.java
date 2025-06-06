@@ -16,9 +16,9 @@
 
 package space.x9x.radp.druid.spring.boot.jdbc;
 
-import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;
-
 import com.alibaba.druid.pool.DruidDataSource;
+
+import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;
 
 /**
  * Metadata provider for Druid datasource pools. This class implements the

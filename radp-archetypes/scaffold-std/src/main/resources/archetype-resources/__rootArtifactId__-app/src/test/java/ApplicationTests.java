@@ -19,9 +19,9 @@
 #set( $symbol_escape = '\' )
 package ${package};
 
-import org.springframework.boot.test.context.SpringBootTest;
-
 import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ApplicationTests {

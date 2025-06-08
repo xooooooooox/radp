@@ -24,6 +24,7 @@
 - Update `.editorconfig`
 - Update `archetype-metadata.xml` to include `.coding` directory.
 - Update `archetype-metadata.xml` to include `.editorconfig`.
+- Update `application-local.yaml` to use dynamic port assignment
 
 #### Style
 

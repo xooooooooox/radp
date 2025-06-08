@@ -22,9 +22,10 @@
 - Update `archetype-catalog-vcs.xml`.
 - Update idea and checkstyle configuration.
 - Update `.editorconfig`
+- Update `application-local.yaml` to use dynamic port assignment
 - Update `archetype-metadata.xml` to include `.coding` directory.
 - Update `archetype-metadata.xml` to include `.editorconfig`.
-- Update `application-local.yaml` to use dynamic port assignment
+- Update `archtype-metadata.xml` to include `.devcontainer`
 
 #### Style
 

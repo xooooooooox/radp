@@ -1,0 +1,12 @@
+networks:
+  local-network:
+    driver: bridge
+    name: scaffold-std-demo-network
+    external: false
+
+services:
+  ollama:
+    image: ollama/ollama:0.5.10
+    restart: unless-stopped
+    ports:
+      - "11434"

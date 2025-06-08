@@ -187,7 +187,11 @@ copy_template_files() {
     target_file="docker-compose.$template.yml"
 
     if [ -f "$template_file" ]; then
-      cp -v "$template_file" "$target_file"
+if [ ! -f "target_file" ]; then
+  cp -v "$template_file" "$target_file"
+else
+  echo -e "${YELLOW}Warning: $target_file already setup, skipped."
+fi
     else
       echo -e "${YELLOW}Warning: Template file $template_file not found.${NC}"
     fi

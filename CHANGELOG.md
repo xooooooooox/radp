@@ -14,7 +14,7 @@
 - Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
 - Remove unused disableCompiler configuration in Gatling Maven Plugin.
 - Update checkstyle config location
-- Update settings.xml to
+- Add default pluginGroup to `.mvn/settings.xml`
 
 #### Scaffold
 
@@ -22,11 +22,13 @@
 - Update scaffold default radpVersion to `3.22`.
 - Update `archetype-catalog-vcs.xml`.
 - Update idea and checkstyle configuration.
-- Update `.editorconfig`
-- Update `application-local.yaml` to use dynamic port assignment
+- Update `.editorconfig`.
+- Update `application-local.yaml` to use dynamic port assignment.
 - Update `archetype-metadata.xml` to include `.coding` directory.
 - Update `archetype-metadata.xml` to include `.editorconfig`.
-- Update `archtype-metadata.xml` to include `.devcontainer`
+- Update `archtype-metadata.xml` to include `.devcontainer`.
+- Update `.mvn/settings.xml` to include default pluginGroup.
+- Update profiles in `.mvn/maven.config` to include code-review.
 
 #### Style
 

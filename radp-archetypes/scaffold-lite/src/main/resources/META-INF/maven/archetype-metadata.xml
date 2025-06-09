@@ -77,6 +77,8 @@
 				<include>.env</include>
 				<include>devcontainer.json</include>
 				<include>volumes/**/*.sql</include>
+				<include>docker-compose.yml</include>
+				<include>templates/**/docker-compose.yml</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -242,6 +244,12 @@
 						<include>**/application*.yml</include>
 					</includes>
 				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/resources/db/config</directory>
+					<includes>
+						<include>*.properties</include>
+					</includes>
+				</fileSet>
 				<fileSet encoding="UTF-8">
 					<directory>src/main/resources/db</directory>
 					<includes>
@@ -253,7 +261,8 @@
 					<directory>src/main/resources/mybatis</directory>
 					<includes>
 						<include>**/**</include>
-						<include>**/*.gitkeep</include>
+						<include>**/.gitkeep</include>
+						<include>.gitkeep</include>
 					</includes>
 				</fileSet>
 				<fileSet encoding="UTF-8">

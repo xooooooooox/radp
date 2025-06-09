@@ -61,6 +61,8 @@
 				<include>.env</include>
 				<include>devcontainer.json</include>
 				<include>volumes/**/*.sql</include>
+				<include>docker-compose.yml</include>
+				<include>templates/**/docker-compose.yml</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">

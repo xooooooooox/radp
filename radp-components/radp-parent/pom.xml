@@ -398,7 +398,7 @@
 					<executions>
 						<execution>
 							<!-- Only build image -->
-							<id>jib-dockerBuild-iamges</id>
+							<id>jib-dockerBuild-images</id>
 							<phase>install</phase>
 							<goals>
 								<goal>dockerBuild</goal>
@@ -1553,9 +1553,9 @@
 		<profile>
 			<id>publish-artifactory</id>
 			<properties>
-				<!-- 是否要激活上传 archtype-catalog.xml 到 artifactory 等 -->
+				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
 				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<!-- 是否要激活上传 archtype-catalog.xml 到 minio 等 -->
+				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
 				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
 				<!-- release:perform arguments -->
 				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests

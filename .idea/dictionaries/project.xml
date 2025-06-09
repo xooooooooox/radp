@@ -3,12 +3,16 @@
     <words>
       <w>confluentinc</w>
       <w>coveredratio</w>
+      <w>devcontainer</w>
       <w>drawio</w>
+      <w>gitkeep</w>
       <w>javaformat</w>
       <w>mdbook</w>
       <w>missedcount</w>
       <w>mvnw</w>
       <w>nacos</w>
+      <w>xlint</w>
+      <w>xpkginfo</w>
     </words>
   </dictionary>
 </component>

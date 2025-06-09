@@ -1,5 +1,6 @@
 *.name
 *.xml
+.cache
 
 !codeStyles/**.xml
 !copyright/**.xml

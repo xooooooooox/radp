@@ -196,7 +196,8 @@
 			<directory>src/main/resources/mybatis</directory>
 			<includes>
 				<include>**/**</include>
-				<include>**/*.gitkeep</include>
+				<include>**/.gitkeep</include>
+				<include>.gitkeep</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">

@@ -46,91 +46,48 @@
 	</requiredProperties>
 
 	<fileSets>
-		<!-- writerside -->
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory>Writerside</directory>
-			<includes>
-				<include>**/*.xml</include>
-				<include>**/*.tree</include>
-				<include>**/*.md</include>
-				<include>**/*.cfg</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>Writerside</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
-		<!-- docs -->
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory>docs/mdbook</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory/>
-			<includes>
-				<include>Dockerfile</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory>docs/dev-ops</directory>
-			<includes>
-				<include>**/.env</include>
-				<include>**/.env.app.template</include>
-				<include>volumes/mysql/**/*.sql</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory/>
-			<includes>
-				<include>README.md</include>
-				<include>.gitlab-ci.yml</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory/>
-			<includes>
-				<include>*.md</include>
-				<include>.gitignore</include>
-				<include>.java-version</include>
-				<include>.tool-versions</include>
-				<include>.gitattributes</include>
-				<include>.springjavaformatconfig</include>
-				<include>.editorconfig</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>.idea</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
+		<!-- .coding -->
 		<fileSet encoding="UTF-8">
 			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>
 		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>docs</directory>
+
+		<!-- .devcontainer -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>.devcontainer</directory>
 			<includes>
-				<include>dev-ops/**</include>
-				<include>api/**</include>
-				<include>drawio/**</include>
-				<include>*.drawio</include>
+				<include>.env</include>
+				<include>devcontainer.json</include>
+				<include>volumes/**/*.sql</include>
 			</includes>
 		</fileSet>
-		<!-- github -->
+		<fileSet encoding="UTF-8">
+			<directory>.devcontainer</directory>
+			<includes>
+				<include>**</include>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- .github -->
 		<fileSet encoding="UTF-8">
 			<directory>.github</directory>
 			<includes>
 				<include>**/*</include>
 			</includes>
 		</fileSet>
-		<!-- mvn -->
+
+		<!-- .idea -->
+		<fileSet encoding="UTF-8">
+			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- .mvn -->
 		<fileSet encoding="UTF-8">
 			<directory>.mvn</directory>
 			<includes>
@@ -147,6 +104,62 @@
 			</includes>
 		</fileSet>
 
+		<!-- docs -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>docs/mdbook</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>docs</directory>
+			<includes>
+				<include>api/**</include>
+				<include>drawio/**</include>
+				<include>*.drawio</include>
+			</includes>
+		</fileSet>
+
+		<!-- writerside -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>Writerside</directory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.tree</include>
+				<include>**/*.md</include>
+				<include>**/*.cfg</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>Writerside</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- / -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>Dockerfile</include>
+				<include>README.md</include>
+				<include>.gitlab-ci.yml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>*.md</include>
+				<include>.gitignore</include>
+				<include>.java-version</include>
+				<include>.tool-versions</include>
+				<include>.gitattributes</include>
+				<include>.springjavaformatconfig</include>
+				<include>.editorconfig</include>
+			</includes>
+		</fileSet>
+
+		<!-- ============================================================= -->
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">
 			<directory>src/main/java</directory>
 			<includes>

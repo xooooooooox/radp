@@ -1,7 +1,7 @@
 networks:
   local-network:
     driver: bridge
-    name: scaffold-std-demo-network
+    name: ${appName}-network
     external: false
 
 services:

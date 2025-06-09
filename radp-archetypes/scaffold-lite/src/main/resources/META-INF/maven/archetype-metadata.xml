@@ -77,6 +77,7 @@
 				<include>.env</include>
 				<include>devcontainer.json</include>
 				<include>volumes/**/*.sql</include>
+				<include>docker-compose.yml</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -240,6 +241,12 @@
 					<includes>
 						<include>**/application*.yaml</include>
 						<include>**/application*.yml</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/resources/db/config</directory>
+					<includes>
+						<include>*.properties</include>
 					</includes>
 				</fileSet>
 				<fileSet encoding="UTF-8">

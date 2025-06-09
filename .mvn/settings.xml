@@ -67,7 +67,17 @@
         </mirror>
     </mirrors>
 
-    <profiles>
+	<pluginGroups>
+		<!--
+		添加默认插件组, 以支持简写
+		1. sonar:sonar
+		2. spring-javaformat:validate or spring-javaformat:apply
+		-->
+		<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+		<pluginGroup>io.spring.javaformat</pluginGroup>
+	</pluginGroups>
+
+	<profiles>
         <profile>
             <id>default</id>
             <properties>

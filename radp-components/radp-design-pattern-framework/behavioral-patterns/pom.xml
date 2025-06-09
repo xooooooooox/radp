@@ -9,7 +9,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>behavioral-patterns</artifactId>
-	<version>2.22-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>行为型模式</description>
 

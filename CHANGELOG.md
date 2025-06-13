@@ -15,6 +15,7 @@
 - Remove unused disableCompiler configuration in Gatling Maven Plugin.
 - Update checkstyle config location
 - Add default pluginGroup to `.mvn/settings.xml`
+- Add property `sonar.login` to the `code-review` profile
 
 #### Scaffold
 

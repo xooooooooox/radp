@@ -1,34 +1,46 @@
 include:
   - project: homelab/gitlab-ci-templates
-    ref: "main"
-    file: templates/k8s/java-pipeline.yml
+    ref: main
+    file: k8s/pipelines/lang/java.yml
 
 variables:
-  TP_RUN_BUILD: "false"
-  TP_RUN_TEST: "false"
-  TP_RUN_RELEASE: "false"
-  TP_RUN_PAGES: "false"
-  TP_RUN_DEPLOY: "false"
+  TP_RUN_BUILD: "false"       # [2] 是否启用构键阶段
+  TP_RUN_TEST: "false"        # [3] 是否启用测试阶段
+  TP_RUN_CODE_REVIEW: "false" # [4] 是否启用代码评审阶段
+  TP_RUN_RELEASE: "true"      # [5] 是否启用发布阶段
+  TP_RUN_PAGES: "true"        # [6] 是否启用pages
+  TP_RUN_DEPLOY: "false"      # [7] 是否启用部署阶段
 
-  # ------------------------------ 缓存 ------------------------------
-  TP_CACHE_DIR: ''
-
-  # ------------------------------ prepare参数 ------------------------------
+  ## ------------------------------------------- [1] prepare args -----------------------------------------------------#
   # TP_PREPARE_SCRIPT_REF:  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
   # TP_TAG_NAME: 指定要创建的标签名称, 如果未指定, 将自动计算下一个版本号
 
-  # ------------------------------ 构建参数 ------------------------------
+  ## ------------------------------------------- [2] build args -------------------------------------------------------#
+  TP_BUILD_ARTIFACT_EXPIRE_IN: 1 week
+  TP_BUILD_ARTIFACT_PATH: ""
   TP_BUILD_IMAGE: maven:3.9.9-eclipse-temurin-17  # default is maven:3.9.9-eclipse-temurin-8
-  TP_MAVEN_OPTS: "-Dmaven.repo.local=${TP_RUNNER_BUILD_CACHE} --settings .mvn/settings.xml"
-  TP_BUILD_SHELL: "mvn clean package ${TP_MAVEN_OPTS} -DskipTests"
+  TP_BASE_MAVEN_OPTS: "${DF_BASE_MAVEN_OPTS} --settings .mvn/settings.xml"
+  TP_BUILD_SHELL: "mvn clean package ${TP_BASE_MAVEN_OPTS} -DskipTests"
 
-  # ------------------------------ 发布制品参数 | by maven ------------------------------
+  ## ------------------------------------------- [3] test args --------------------------------------------------------#
+  TP_JUNIT_REPORT_PATH: ${DF_JUNIT_REPORT_PATH}
+  TP_TEST_IMAGE: ${DF_MAVEN_IMAGE}
+  TP_TEST_SHELL: "mvn clean test -Pcoding,unit-test ${TP_BASE_MAVEN_OPTS}"
+
+  ## ------------------------------------------- [4] code_review args -------------------------------------------------#
+  TP_CODE_REVIEW_IMAGE: ${TP_BUILD_IMAGE}
+  TP_CODE_REVIEW_SHELL: "mvn clean verify sonar:sonar -Pcoding,code-review"
+
+  ## ------------------------------------------- [5] release args -----------------------------------------------------#
   TP_RELEASE_TYPE: maven
   TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
-  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy ${TP_MAVEN_OPTS} -DskipTests \ 
-                         -Pcoding,publish-artifactory \
-                         -Dauto.release.enabled=false -Dauto.archetype.catalog.minio=false"
+  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy -Pcoding,publish-artifactory \
+                         ${TP_BASE_MAVEN_OPTS} \
+                         -DskipTests \
+                         -Dauto.release.enabled=false \
+                         -Dauto.archetype.catalog.minio=false"
 
-  # ------------------------------ 发布 pages | writerside ------------------------------
+  ## ------------------------------------------- [6] pages args -------------------------------------------------------#
+  # 发布 pages | writerside
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

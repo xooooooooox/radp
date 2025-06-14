@@ -421,8 +421,18 @@
 			<properties>
 				<sonar.host.url>${user.sonar.host.url}</sonar.host.url>
 				<sonar.token>${user.sonar.token}</sonar.token>
+				<sonar.login>${user.sonar.token}</sonar.login>
 				<maven.test.skip>false</maven.test.skip>
-				<!-- Java 17 is the required JRE to run the scanner in SonarQube v10.4+ -->
+				<!--
+				=========================================================================
+									Version Compatibility Matrix
+				=========================================================================
+				JDK	|	SonarQube Server		|	sonar-maven-plugin
+				8	|	v8.0 - v8.9				|	<=3.11.0.3922
+				11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x
+				17	|	v9.x, v10.x and later	|	4.0.x for v10.0-v10.5 / 5.x for v10.6+
+				=========================================================================
+				-->
 			</properties>
 			<build>
 				<plugins>

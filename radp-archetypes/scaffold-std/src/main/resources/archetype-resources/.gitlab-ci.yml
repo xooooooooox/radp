@@ -20,21 +20,21 @@ variables:
   TP_BUILD_ARTIFACT_PATH: ""
   TP_BUILD_IMAGE: maven:3.9.9-eclipse-temurin-17  # default is maven:3.9.9-eclipse-temurin-8
   TP_BASE_MAVEN_OPTS: "${DF_BASE_MAVEN_OPTS} --settings .mvn/settings.xml"
-  TP_BUILD_SHELL: "mvn clean package ${TP_BASE_MAVEN_OPTS} -DskipTests"
+  TP_BUILD_SHELL: "./mvnw clean package ${TP_BASE_MAVEN_OPTS} -DskipTests"
 
   ## ------------------------------------------- [3] test args --------------------------------------------------------#
   TP_JUNIT_REPORT_PATH: ${DF_JUNIT_REPORT_PATH}
   TP_TEST_IMAGE: ${DF_MAVEN_IMAGE}
-  TP_TEST_SHELL: "mvn clean test -Pcoding,unit-test ${TP_BASE_MAVEN_OPTS}"
+  TP_TEST_SHELL: "./mvnw clean test -Pcoding,unit-test ${TP_BASE_MAVEN_OPTS}"
 
   ## ------------------------------------------- [4] code_review args -------------------------------------------------#
   TP_CODE_REVIEW_IMAGE: ${TP_BUILD_IMAGE}
-  TP_CODE_REVIEW_SHELL: "mvn clean verify sonar:sonar -Pcoding,code-review"
+  TP_CODE_REVIEW_SHELL: "./mvnw clean verify sonar:sonar -Pcoding,code-review"
 
   ## ------------------------------------------- [5] release args -----------------------------------------------------#
   TP_RELEASE_TYPE: maven
   TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
-  TP_MAVEN_DEPLOY_SHELL: "mvn clean deploy -Pcoding,publish-artifactory \
+  TP_MAVEN_DEPLOY_SHELL: "./mvnw clean deploy -Pcoding,publish-artifactory \
                          ${TP_BASE_MAVEN_OPTS} \
                          -DskipTests \
                          -Dauto.release.enabled=false \

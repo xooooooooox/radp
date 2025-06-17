@@ -35,6 +35,8 @@
 - Update `.mvn/settings.xml` to include default pluginGroup.
 - Update profiles in `.mvn/maven.config` to include code-review.
 - Update `.gitlab-ci.yml`
+- Optimize `checkstyle-suppressions.xml`
+  - Add suppression for `target/generated-sources`
 
 #### Style
 

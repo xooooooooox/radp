@@ -422,7 +422,7 @@
 				<sonar.host.url>${user.sonar.host.url}</sonar.host.url>
 				<sonar.token>${user.sonar.token}</sonar.token>
 				<sonar.login>${user.sonar.token}</sonar.login>
-				<maven.test.skip>false</maven.test.skip>
+				<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 				<!--
 				=========================================================================
 									Version Compatibility Matrix

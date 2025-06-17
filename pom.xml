@@ -621,7 +621,7 @@
 		</profile>
 
 		<!-- 仅供 radp 当前工程使用 -->
-		<!-- mvn clean verify site -Pcoding,unit-test,aggregate -->
+		<!-- mvn clean verify site -Pcoding,unit-test,aggregate-reports -->
 		<!-- 报告位置:
 		1. 在 <项目根目录>/target/staging/index.html
 		2. 在 <项目根目录>/target/staging/surefire-report.html -->

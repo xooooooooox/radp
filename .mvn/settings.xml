@@ -99,6 +99,10 @@
 				</setting.archetype.catalog.upload.url>
 				<setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
 				<setting.docker.build.namespace>${env.PRIVATE_REGISTRY}/x9x</setting.docker.build.namespace>
+				<!-- code review -->
+				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
+				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
+				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
 			</properties>
 		</profile>
 		<profile>

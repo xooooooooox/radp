@@ -571,11 +571,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
-					<configuration>
-						<argLine>-Djava.io.tmpdir=${java-io-tmpdir}
-							-Dcglib.debugLocation=${project.build.outputDirectory}
-						</argLine>
-					</configuration>
 				</plugin>
 				<!-- ====================单元测试]==================== -->
 

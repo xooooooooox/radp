@@ -20,6 +20,7 @@
   - Add property `sonar.qualitygate.wait`
 - Optimize profile `unit-test`
 - Rename profile `aggregate-reports` to `site-aggregate`
+- Remove unused `argLine` configuration from surefire plugin to resolve jacoco not work.
 
 #### Scaffold
 

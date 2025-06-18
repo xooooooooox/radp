@@ -15,7 +15,11 @@
 - Remove unused disableCompiler configuration in Gatling Maven Plugin.
 - Update checkstyle config location
 - Add default pluginGroup to `.mvn/settings.xml`
-- Add property `sonar.login` to the `code-review` profile
+- Optimize profile `code-review`
+  - Add property `sonar.login` to the `code-review` profile
+  - Add property `sonar.qualitygate.wait`
+- Optimize profile `unit-test`
+- Rename profile `aggregate-reports` to `site-aggregate`
 
 #### Scaffold
 
@@ -28,11 +32,11 @@
 - Update `archetype-metadata.xml` to include `.coding` directory.
 - Update `archetype-metadata.xml` to include `.editorconfig`.
 - Update `archtype-metadata.xml` to include `.devcontainer`.
-- Update `.mvn/settings.xml`
-  - Add default pluginGroup.
-  - Add sonar properties in the `default` profile
+- Update `.mvn/settings.xml` to include default pluginGroup.
 - Update profiles in `.mvn/maven.config` to include code-review.
 - Update `.gitlab-ci.yml`
+- Optimize `checkstyle-suppressions.xml`
+  - Add suppression for `target/generated-sources`
 
 #### Style
 

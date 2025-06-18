@@ -422,7 +422,7 @@
 				<sonar.host.url>${user.sonar.host.url}</sonar.host.url>
 				<sonar.token>${user.sonar.token}</sonar.token>
 				<sonar.login>${user.sonar.token}</sonar.login>
-				<maven.test.skip>false</maven.test.skip>
+				<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 				<!--
 				=========================================================================
 									Version Compatibility Matrix
@@ -487,6 +487,10 @@
 			</build>
 		</profile>
 
+		<!--
+		单元测试 + 覆盖率
+		mvn clean verify -Pcoding,unit-test
+		-->
 		<profile>
 			<id>unit-test</id>
 			<properties>
@@ -586,51 +590,17 @@
 					</plugin>
 				</plugins>
 			</build>
-			<reporting>
-				<plugins>
-					<!-- 生成单元测试报告 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-report-plugin</artifactId>
-						<version>${maven-surefire-plugin.version}</version>
-						<configuration>
-							<aggregate>false</aggregate>
-						</configuration>
-					</plugin>
-					<!-- 交叉应用 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jxr-plugin</artifactId>
-						<version>${maven-jxr-plugin.version}</version>
-					</plugin>
-					<!-- 项目基本信息报告(依赖树,插件清单等) -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-project-info-reports-plugin</artifactId>
-						<version>${maven-project-info-reports-plugin.version}</version>
-					</plugin>
-				</plugins>
-			</reporting>
-			<dependencies>
-				<dependency>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 
-		<!-- 仅供 radp 当前工程使用 -->
-		<!-- mvn clean verify site -Pcoding,unit-test,aggregate -->
+		<!-- mvn clean verify site -Pcoding,unit-test,site-aggregate -->
 		<!-- 报告位置:
 		1. 在 <项目根目录>/target/staging/index.html
 		2. 在 <项目根目录>/target/staging/surefire-report.html -->
 		<profile>
-			<id>aggregate-reports</id>
+			<id>site-aggregate</id>
 			<distributionManagement>
 				<site>
 					<id>site</id>
-					<name>Project Site</name>
 					<!--suppress UnresolvedMavenProperty -->
 					<url>file:${session.executionRootDirectory}/target/staging</url>
 				</site>

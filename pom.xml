@@ -562,25 +562,49 @@
 								</goals>
 								<configuration>
 									<dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+									<!--
+									1. Available element type (represent the scope of each rule):
+									1) BUNDLE: All classes in the Maven module combined will be checked against the rule
+									2) PACKAGE: each java package
+									3) CLASS: Each Class file will be checked against the rule
+									4) SOURCEFILE: Each Java file will be checked against the rule
+									5) METHOD: each method will be checked against the rule
+									-->
 									<rules>
-										<rule implementation="org.jacoco.maven.RuleConfiguration">
+										<!-- rule1: 模块级门槛 -->
+										<rule>
 											<element>BUNDLE</element>
 											<limits>　　
-												<limit implementation="org.jacoco.report.check.Limit">
-													<counter>METHOD</counter>
+												<limit>
+													<counter>INSTRUCTION</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>0.75</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>BRANCH</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>0.60</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>CLASS</counter>
 													<value>MISSEDCOUNT</value>
 													<maximum>0</maximum>
 												</limit>
+											</limits>
+										</rule>
+										<!-- rule2: 类级门槛 -->
+										<rule>
+											<element>CLASS</element>
+											<excludes>
+												<exclude>*Exception*</exclude>
+												<exclude>*Application</exclude>
+												<exclude>*Config*</exclude>
+												<exclude>*Properties</exclude>
+											</excludes>
+											<limits>
+												<counter>LINE</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>0.50</minimum>
 											</limits>
 										</rule>
 									</rules>

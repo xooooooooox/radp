@@ -44,7 +44,7 @@ variables:
 
   ## ------------------------------------------- [2] lint args --------------------------------------------------------#
   TP_LINT_IMAGE: $TP_BASE_IMAGE
-  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review"
+  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
 
   ## ------------------------------------------- [3] unit-test args ---------------------------------------------------#
   TP_UNIT_TEST_IMAGE: $TP_BASE_IMAGE

@@ -1,5 +1,9 @@
 spec:
   inputs:
+    runner_tags:
+      description: 'Choose runner tags'
+      options: [ 'k8s', 'centos-shell', 'ubuntu-shell' ]
+      default: 'ubuntu-shell'
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
@@ -17,6 +21,7 @@ include:
     ref: main
     file: templates/k8s/pipelines/lang/java.yml
     inputs:
+      runner_tags: $[[ inputs.runner_tags ]]
       version_type: $[[ inputs.version_type ]]
       environment: $[[ inputs.environment ]]
 
@@ -39,11 +44,11 @@ variables:
 
   ## ------------------------------------------- [2] lint args --------------------------------------------------------#
   TP_LINT_IMAGE: $TP_BASE_IMAGE
-  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL -ntp -Pcoding,code-review"
+  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review"
 
   ## ------------------------------------------- [3] unit-test args ---------------------------------------------------#
   TP_UNIT_TEST_IMAGE: $TP_BASE_IMAGE
-  TP_UNIT_TEST_SHELL: "$DF_UNIT_TEST_BASE_SHELL jacoco:report-aggregate --settings .mvn/settings.xml \
+  TP_UNIT_TEST_SHELL: "$DF_UNIT_TEST_BASE_SHELL jacoco:report-aggregate -ntp --settings .mvn/settings.xml \
                 -Pcoding,unit-test,env-test \
                 -Dapp.server.port=0 \
                 -Dapp.management.server.port=0" # 如果是多模块项目在 TP_TEST_SHELL 中加上 jacoco:report-aggregate

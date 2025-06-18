@@ -1,46 +1,76 @@
+spec:
+  inputs:
+    version_type:
+      description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
+      type: string
+      options: [ 'patch', 'minor', 'major' ]
+      default: 'minor'
+    environment:
+      type: string
+      options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
+      default: ''
+
+---
+
 include:
   - project: homelab/gitlab-ci-templates
     ref: main
-    file: k8s/pipelines/lang/java.yml
+    file: templates/k8s/pipelines/lang/java.yml
+    inputs:
+      version_type: $[[ inputs.version_type ]]
+      environment: $[[ inputs.environment ]]
 
 variables:
-  TP_RUN_BUILD: "false"       # [2] 是否启用构键阶段
-  TP_RUN_TEST: "false"        # [3] 是否启用测试阶段
-  TP_RUN_CODE_REVIEW: "false" # [4] 是否启用代码评审阶段
-  TP_RUN_RELEASE: "true"      # [5] 是否启用发布阶段
-  TP_RUN_PAGES: "true"        # [6] 是否启用pages
-  TP_RUN_DEPLOY: "false"      # [7] 是否启用部署阶段
+  TP_RUN_LINT: "true"         # [2] 是否启用代码评审阶段
+  TP_RUN_UNIT_TEST: "true"    # [3] 是否启用单元测试阶段
+  TP_RUN_SONARQUBE: "true"    # [4] 是否启用质量门阶段
+  TP_RUN_BUILD: "false"       # [5] 是否启用构建阶段
+  TP_RUN_PACKAGE: "false"     # [6] 是否启用打包阶段
+  TP_RUN_PUBLISH: "false"     # [7] 是否启用制品发布阶段
+  TP_RUN_PAGES: "false"       # [8] 是否启用pages阶段
+  TP_RUN_DEPLOY: "false"      # [9] 是否启用部署阶段
 
+  TP_BASE_IMAGE: maven:3.9.9-eclipse-temurin-8
+  TP_CODE_REVIEW_BRANCHES: "$DF_CODE_REVIEW_BRANCHES"
   ## ------------------------------------------- [1] prepare args -----------------------------------------------------#
-  # TP_PREPARE_SCRIPT_REF:  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
+  TP_CHILD_PIPELINE_TEMPLATE_REF: main
+  TP_PREPARE_SCRIPT_REF: $TP_CHILD_PIPELINE_TEMPLATE_REF  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
   # TP_TAG_NAME: 指定要创建的标签名称, 如果未指定, 将自动计算下一个版本号
 
-  ## ------------------------------------------- [2] build args -------------------------------------------------------#
-  TP_BUILD_ARTIFACT_EXPIRE_IN: 1 week
+  ## ------------------------------------------- [2] lint args --------------------------------------------------------#
+  TP_LINT_IMAGE: $TP_BASE_IMAGE
+  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL -ntp -Pcoding,code-review"
+
+  ## ------------------------------------------- [3] unit-test args ---------------------------------------------------#
+  TP_UNIT_TEST_IMAGE: $TP_BASE_IMAGE
+  TP_UNIT_TEST_SHELL: "$DF_UNIT_TEST_BASE_SHELL jacoco:report-aggregate --settings .mvn/settings.xml \
+                -Pcoding,unit-test,env-test \
+                -Dapp.server.port=0 \
+                -Dapp.management.server.port=0" # 如果是多模块项目在 TP_TEST_SHELL 中加上 jacoco:report-aggregate
+
+  ## ------------------------------------------- [4] sonarqube args ---------------------------------------------------#
+  TP_SONARQUBE_IMAGE: $DF_SONARQUBE_IMAGE
+  TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review"
+  TP_SONARQUBE_USER_HOME: "$DF_SONAR_USER_HOME"
+
+  ## ------------------------------------------- [5] build args -------------------------------------------------------#
+  TP_BUILD_IMAGE: $DF_BUILD_IMAGE
   TP_BUILD_ARTIFACT_PATH: ""
-  TP_BUILD_IMAGE: maven:3.9.9-eclipse-temurin-17  # default is maven:3.9.9-eclipse-temurin-8
-  TP_BASE_MAVEN_OPTS: "${DF_BASE_MAVEN_OPTS} --settings .mvn/settings.xml"
-  TP_BUILD_SHELL: "./mvnw clean package ${TP_BASE_MAVEN_OPTS} -DskipTests"
+  TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding"
 
-  ## ------------------------------------------- [3] test args --------------------------------------------------------#
-  TP_JUNIT_REPORT_PATH: ${DF_JUNIT_REPORT_PATH}
-  TP_TEST_IMAGE: ${DF_MAVEN_IMAGE}
-  TP_TEST_SHELL: "./mvnw clean test -Pcoding,unit-test ${TP_BASE_MAVEN_OPTS}"
+  ## ------------------------------------------- [6] package args -------------------------------------------------------#
+  TP_PACKAGE_IMAGE: $TP_BASE_IMAGE
+  TP_PACKAGE_ARTIFACT_PATH: "$DF_PACKAGE_ARTIFACT_PATH"
+  TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,o-tar,env-$TP_RUNTIME_ENV"
 
-  ## ------------------------------------------- [4] code_review args -------------------------------------------------#
-  TP_CODE_REVIEW_IMAGE: ${TP_BUILD_IMAGE}
-  TP_CODE_REVIEW_SHELL: "./mvnw clean verify sonar:sonar -Pcoding,code-review"
+  ## ------------------------------------------- [7] publish args -----------------------------------------------------#
+  TP_PUBLISH_TYPE: maven
+  TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
+  TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV \
+                            -DskipTests \
+                            -Dauto.release.enabled=false \
+                            -Dauto.archtype.catalog.minio=false"
 
-  ## ------------------------------------------- [5] release args -----------------------------------------------------#
-  TP_RELEASE_TYPE: maven
-  TP_MAVEN_IMAGE: ${TP_BUILD_IMAGE}
-  TP_MAVEN_DEPLOY_SHELL: "./mvnw clean deploy -Pcoding,publish-artifactory \
-                         ${TP_BASE_MAVEN_OPTS} \
-                         -DskipTests \
-                         -Dauto.release.enabled=false \
-                         -Dauto.archetype.catalog.minio=false"
-
-  ## ------------------------------------------- [6] pages args -------------------------------------------------------#
-  # 发布 pages | writerside
+  ## ------------------------------------------- [8] pages args -------------------------------------------------------#
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

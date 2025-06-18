@@ -3,7 +3,7 @@ spec:
     runner_tags:
       description: 'Choose runner tags'
       options: [ 'k8s', 'centos-shell', 'ubuntu-shell' ]
-      default: 'ubuntu-shell'
+      default: 'k8s'
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
@@ -71,7 +71,8 @@ variables:
   ## ------------------------------------------- [7] publish args -----------------------------------------------------#
   TP_PUBLISH_TYPE: maven
   TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
-  TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV \
+  TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL \
+                            -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV,repo-artifactory \
                             -DskipTests \
                             -Dauto.release.enabled=false \
                             -Dauto.archtype.catalog.minio=false"

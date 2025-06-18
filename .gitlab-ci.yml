@@ -3,7 +3,7 @@ spec:
     runner_tags:
       description: 'Choose runner tags'
       options: [ 'k8s', 'centos-shell', 'ubuntu-shell' ]
-      default: 'ubuntu-shell'
+      default: 'k8s'
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string

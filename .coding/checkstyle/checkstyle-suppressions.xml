@@ -6,6 +6,7 @@
 
 	<!-- Global: generated sources -->
 	<suppress files="[\\/]build[\\/]generated[\\/]sources[\\/]" checks=".*"/>
+	<suppress files="[\\/]target[\\/]generated-sources[\\/]" checks=".*"/>
 
 	<!-- Global: package-info.java -->
 	<suppress files="(^(?!.+[\\/]src[\\/]main[\\/]java[\\/]).*)|(.*framework-docs.*)" checks="JavadocPackage"/>

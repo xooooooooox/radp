@@ -1,30 +1,34 @@
+############################################## inputs ################################################################
 spec:
   inputs:
-    runner_tags:
-      description: 'Choose runner tags'
-      options: [ 'k8s', 'centos-shell', 'ubuntu-shell' ]
-      default: 'k8s'
+    environment:
+      type: string
+      options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
+      default: ''
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
       options: [ 'patch', 'minor', 'major' ]
       default: 'minor'
-    environment:
-      type: string
-      options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
-      default: ''
+    runner_tags:
+      description: 'All jobs default runner tags'
+      options: [ 'k8s', 'shell', 'docker', 'ubuntu-shell', 'centos-shell', 'ubuntu-docker' ]
+      default: 'k8s'
 
 ---
 
+############################################## includes ################################################################
 include:
   - project: homelab/gitlab-ci-templates
     ref: main
     file: templates/k8s/pipelines/lang/java.yml
     inputs:
-      runner_tags: $[[ inputs.runner_tags ]]
-      version_type: $[[ inputs.version_type ]]
       environment: $[[ inputs.environment ]]
+      version_type: $[[ inputs.version_type ]]
+      runner_tags: $[[ inputs.runner_tags ]]
 
+
+############################################## variables ################################################################
 variables:
   TP_RUN_LINT: "true"         # [2] 是否启用代码评审阶段
   TP_RUN_UNIT_TEST: "true"    # [3] 是否启用单元测试阶段
@@ -54,19 +58,20 @@ variables:
                 -Dapp.management.server.port=0" # 如果是多模块项目在 TP_TEST_SHELL 中加上 jacoco:report-aggregate
 
   ## ------------------------------------------- [4] sonarqube args ---------------------------------------------------#
+  # TP_SONARQUBE_RUNNER_TAGS: # [optional] 可使用这个变量覆盖当前 stage 的默认runner tags
   TP_SONARQUBE_IMAGE: $DF_SONARQUBE_IMAGE
   TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
   TP_SONARQUBE_USER_HOME: "$DF_SONAR_USER_HOME"
 
   ## ------------------------------------------- [5] build args -------------------------------------------------------#
-  TP_BUILD_IMAGE: $DF_BUILD_IMAGE
+  TP_BUILD_IMAGE: $TP_BASE_IMAGE
   TP_BUILD_ARTIFACT_PATH: ""
-  TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,repo-artifactory"
+  TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
 
   ## ------------------------------------------- [6] package args -------------------------------------------------------#
   TP_PACKAGE_IMAGE: $TP_BASE_IMAGE
   TP_PACKAGE_ARTIFACT_PATH: "$DF_PACKAGE_ARTIFACT_PATH"
-  TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,o-tar,env-$TP_RUNTIME_ENV,repo-artifactory"
+  TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,env-$TP_RUNTIME_ENV,o-tar,repo-artifactory"
 
   ## ------------------------------------------- [7] publish args -----------------------------------------------------#
   TP_PUBLISH_TYPE: maven
@@ -78,5 +83,6 @@ variables:
                             -Dauto.archtype.catalog.minio=false"
 
   ## ------------------------------------------- [8] pages args -------------------------------------------------------#
+  # TP_PAGES_RUNNER_TAGS: # [optional] 可使用这个变量覆盖当前 stage 的默认runner tags
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

@@ -1,3 +1,4 @@
+############################################## inputs ##################################################################
 spec:
   inputs:
     environment:
@@ -15,7 +16,7 @@ spec:
       default: 'k8s'
 
 ---
-
+############################################## includes ################################################################
 include:
   - project: homelab/gitlab-ci-templates
     ref: main
@@ -25,6 +26,8 @@ include:
       version_type: $[[ inputs.version_type ]]
       runner_tags: $[[ inputs.runner_tags ]]
 
+
+############################################## variables ###############################################################
 variables:
   TP_RUN_LINT: "true"         # [2] 是否启用代码评审阶段
   TP_RUN_UNIT_TEST: "true"    # [3] 是否启用单元测试阶段

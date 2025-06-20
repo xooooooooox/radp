@@ -1,18 +1,18 @@
 spec:
   inputs:
-    runner_tags:
-      description: 'Choose runner tags'
-      options: [ 'k8s', 'centos-shell', 'ubuntu-shell' ]
-      default: 'k8s'
+    environment:
+      type: string
+      options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
+      default: ''
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
       options: [ 'patch', 'minor', 'major' ]
       default: 'minor'
-    environment:
-      type: string
-      options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
-      default: ''
+    runner_tags:
+      description: 'All jobs default runner tags'
+      options: [ 'k8s', 'shell', 'docker', 'ubuntu-shell', 'centos-shell', 'ubuntu-docker' ]
+      default: 'k8s'
 
 ---
 
@@ -21,9 +21,9 @@ include:
     ref: main
     file: templates/k8s/pipelines/lang/java.yml
     inputs:
-      runner_tags: $[[ inputs.runner_tags ]]
-      version_type: $[[ inputs.version_type ]]
       environment: $[[ inputs.environment ]]
+      version_type: $[[ inputs.version_type ]]
+      runner_tags: $[[ inputs.runner_tags ]]
 
 variables:
   TP_RUN_LINT: "true"         # [2] 是否启用代码评审阶段
@@ -44,34 +44,35 @@ variables:
 
   ## ------------------------------------------- [2] lint args --------------------------------------------------------#
   TP_LINT_IMAGE: $TP_BASE_IMAGE
-  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review"
+  TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
 
   ## ------------------------------------------- [3] unit-test args ---------------------------------------------------#
   TP_UNIT_TEST_IMAGE: $TP_BASE_IMAGE
   TP_UNIT_TEST_SHELL: "$DF_UNIT_TEST_BASE_SHELL jacoco:report-aggregate -ntp --settings .mvn/settings.xml \
-                -Pcoding,unit-test,env-test \
+                -Pcoding,unit-test,env-test,repo-artifactory \
                 -Dapp.server.port=0 \
                 -Dapp.management.server.port=0" # 如果是多模块项目在 TP_TEST_SHELL 中加上 jacoco:report-aggregate
 
   ## ------------------------------------------- [4] sonarqube args ---------------------------------------------------#
   TP_SONARQUBE_IMAGE: $DF_SONARQUBE_IMAGE
-  TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review"
+  TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
   TP_SONARQUBE_USER_HOME: "$DF_SONAR_USER_HOME"
 
   ## ------------------------------------------- [5] build args -------------------------------------------------------#
-  TP_BUILD_IMAGE: $DF_BUILD_IMAGE
+  TP_BUILD_IMAGE: $TP_BASE_IMAGE
   TP_BUILD_ARTIFACT_PATH: ""
-  TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding"
+  TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
 
   ## ------------------------------------------- [6] package args -------------------------------------------------------#
   TP_PACKAGE_IMAGE: $TP_BASE_IMAGE
   TP_PACKAGE_ARTIFACT_PATH: "$DF_PACKAGE_ARTIFACT_PATH"
-  TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,o-tar,env-$TP_RUNTIME_ENV"
+  TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,env-$TP_RUNTIME_ENV,o-tar,repo-artifactory"
 
   ## ------------------------------------------- [7] publish args -----------------------------------------------------#
   TP_PUBLISH_TYPE: maven
   TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
-  TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV \
+  TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL \
+                            -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV,repo-artifactory \
                             -DskipTests \
                             -Dauto.release.enabled=false \
                             -Dauto.archtype.catalog.minio=false"

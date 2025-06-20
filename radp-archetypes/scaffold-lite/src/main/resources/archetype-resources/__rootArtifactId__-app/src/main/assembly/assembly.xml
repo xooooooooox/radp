@@ -56,5 +56,14 @@
                 <exclude>**/*</exclude>
             </excludes>
         </fileSet>
+
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory>docker</outputDirectory>
+			<fileMode>0644</fileMode>
+			<includes>
+				<include>jib-image.tar</include>
+			</includes>
+		</fileSet>
     </fileSets>
 </assembly>

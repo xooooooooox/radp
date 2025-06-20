@@ -30,14 +30,16 @@
 - Update idea and checkstyle configuration.
 - Update `.editorconfig`.
 - Update `application-local.yaml` to use dynamic port assignment.
-- Update `archetype-metadata.xml` to include `.coding` directory.
-- Update `archetype-metadata.xml` to include `.editorconfig`.
+- Update `archetype-metadata.xml`
+  - include `.coding` directory.
+  - include `.editorconfig`.
 - Update `archtype-metadata.xml` to include `.devcontainer`.
 - Update `.mvn/settings.xml` to include default pluginGroup.
 - Update profiles in `.mvn/maven.config` to include code-review.
 - Update `.gitlab-ci.yml`
 - Optimize `checkstyle-suppressions.xml`
   - Add suppression for `target/generated-sources`
+- Optimize assembly.xml to include `jib-maven.tar`
 
 #### Style
 

@@ -40,6 +40,7 @@
 - Optimize `checkstyle-suppressions.xml`
   - Add suppression for `target/generated-sources`
 - Optimize assembly.xml to include `jib-maven.tar`
+- Fix scaffold writerside.cfg
 
 #### Style
 

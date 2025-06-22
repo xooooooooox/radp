@@ -22,6 +22,7 @@
 - Rename profile `aggregate-reports` to `site-aggregate`
 - Remove unused `argLine` configuration from surefire plugin to resolve jacoco not work.
 - Add profile `o-wrapper`
+- Remove property `sonar.login`. To resolve warnings: `sonar.login` is deprecated and will be removed in the future
 
 #### Scaffold
 

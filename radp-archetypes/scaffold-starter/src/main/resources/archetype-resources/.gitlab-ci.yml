@@ -40,7 +40,7 @@ spec:
 include:
   - project: homelab/gitlab-ci-templates
     ref: main
-    file: templates/pipelines/extends/lang/java.yml
+    file: templates/pipelines/feature/lang/java.yml
     inputs:
       debug_mode: $[[ inputs.debug_mode ]]
       environment: $[[ inputs.environment ]]

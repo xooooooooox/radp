@@ -101,7 +101,7 @@ variables:
                 -Dapp.management.server.port=0" # 如果是多模块项目在 TP_UNIT_TEST_SHELL 中加上 jacoco:report-aggregate
 
   #--------------------------------------------- [c/1-3] sonarqube args -----------------------------------------------#
-  TP_SONARQUBE_IMAGE: $TP_BASE_IMAGE
+  TP_SONARQUBE_IMAGE: $DF_SONARQUBE_IMAGE
   TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
   TP_SONARQUBE_USER_HOME: "$DF_SONARQUBE_USER_HOME"
 

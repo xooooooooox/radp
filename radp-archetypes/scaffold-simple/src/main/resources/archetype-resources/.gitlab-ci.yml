@@ -1,79 +1,113 @@
-############################################## inputs ################################################################
+############################################## inputs ##################################################################
 spec:
   inputs:
+    debug_mode:
+      description: '是否打印更多调试日志'
+      type: boolean
+      default: true
     environment:
       type: string
       options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
       default: ''
+    runner_tags:
+      description: 'All jobs default runner tags'
+      type: string
+      options:
+        # docker executor
+        - docker
+        - docker-arm64
+        # shell executor
+        - shell
+        - shell-arm64
+        - shell-ubuntu
+        - shell-ubuntu-arm64
+        - shell-amd64
+        - shell-centos
+        - shell-centos-amd64
+        # kubernetes executor
+        - kubernetes
+        - k8s
+        - k8s-amd64
+      default: 'k8s'
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
       options: [ 'patch', 'minor', 'major' ]
       default: 'minor'
-    runner_tags:
-      description: 'All jobs default runner tags'
-      options: [ 'k8s', 'shell', 'docker', 'ubuntu-shell', 'centos-shell', 'ubuntu-docker' ]
-      default: 'k8s'
 
 ---
-
 ############################################## includes ################################################################
 include:
   - project: homelab/gitlab-ci-templates
     ref: main
-    file: templates/k8s/pipelines/lang/java.yml
+    file: templates/pipelines/extends/lang/java.yml
     inputs:
+      debug_mode: $[[ inputs.debug_mode ]]
       environment: $[[ inputs.environment ]]
       version_type: $[[ inputs.version_type ]]
       runner_tags: $[[ inputs.runner_tags ]]
 
-
-############################################## variables ################################################################
+############################################## variables ###############################################################
+# 预定义变量 https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 variables:
-  TP_RUN_LINT: "true"         # [2] 是否启用代码评审阶段
-  TP_RUN_UNIT_TEST: "true"    # [3] 是否启用单元测试阶段
-  TP_RUN_SONARQUBE: "true"    # [4] 是否启用质量门阶段
-  TP_RUN_BUILD: "false"       # [5] 是否启用构建阶段
-  TP_RUN_PACKAGE: "false"     # [6] 是否启用打包阶段
-  TP_RUN_PUBLISH: "false"     # [7] 是否启用制品发布阶段
-  TP_RUN_PAGES: "false"       # [8] 是否启用pages阶段
-  TP_RUN_DEPLOY: "false"      # [9] 是否启用部署阶段
-
   TP_BASE_IMAGE: maven:3.9.9-eclipse-temurin-8
-  TP_CODE_REVIEW_BRANCHES: "$DF_CODE_REVIEW_BRANCHES"
-  ## ------------------------------------------- [1] prepare args -----------------------------------------------------#
-  # TP_TAG_NAME: 指定要创建的标签名称, 如果未指定, 将自动计算下一个版本号
-  TP_CHILD_PIPELINE_TEMPLATE_REF: main
-  TP_PREPARE_SCRIPT_REF: $TP_CHILD_PIPELINE_TEMPLATE_REF  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
 
-  ## ------------------------------------------- [2] lint args --------------------------------------------------------#
+  ## =================================================================================================================##
+  ## =========================================== Parent Pipeline =====================================================##
+  ## =================================================================================================================##
+  ## ------------------------------------------- [1] prepare args -----------------------------------------------------#
+  TP_PREPARE_SCRIPT_REF: main  # 可选：指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main
+
+  ## ------------------------------------------- [2] trigger args -----------------------------------------------------#
+  TP_CHILD_PIPELINE_TEMPLATE_REF: $TP_PREPARE_SCRIPT_REF      # 用于指定子流水线使用的模板版本，默认使用 gitlab-ci-templates main 分支
+
+  ## 1) 子作业流控制
+  TP_TRIGGER_CHILD_PIPELINE_LANGE: "true"                     # [2-1] 指定是否启用子流水线: lang_pipeline
+
+  ## 2) 作业控制: 子作业流 lang_pipeline
+  TP_RUN_LINT: "true"                                         # [2-1-1] 是否启用代码评审阶段
+  TP_RUN_UNIT_TEST: "true"                                    # [2-1-2] 是否启用单元测试阶段
+  TP_RUN_SONARQUBE: "true"                                    # [2-1-3] 是否启用质量门阶段
+  TP_RUN_BUILD: "false"                                       # [2-1-4] 是否启用构建阶段
+  TP_RUN_PACKAGE: "false"                                     # [2-1-5] 是否启用打包阶段
+  TP_RUN_PUBLISH: "true"                                      # [2-1-6] 是否启用制品发布阶段
+  TP_RUN_PAGES: "true"                                        # [2-1-7] 是否启用pages阶段
+  TP_RUN_DEPLOY: "false"                                      # [2-1-8] 是否启用部署阶段
+  # 说明: (code-review = lint + unit_test + sonarqube)
+  # 如果 mr target branch 在这个列表中, 将触发 code-review 相关 Jobs
+  TP_CODE_REVIEW_BRANCHES: $DF_CODE_REVIEW_BRANCHES
+
+  ## =================================================================================================================##
+  ## =========================================== Child Pipeline ======================================================##
+  ## =================================================================================================================##
+  ## ------------------------------------------- [3] lint args --------------------------------------------------------#
   TP_LINT_IMAGE: $TP_BASE_IMAGE
   TP_LINT_SHELL: "$DF_LINT_BASE_SHELL --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
 
-  ## ------------------------------------------- [3] unit-test args ---------------------------------------------------#
+  ## ------------------------------------------- [4] unit-test args ---------------------------------------------------#
   TP_UNIT_TEST_IMAGE: $TP_BASE_IMAGE
   TP_UNIT_TEST_SHELL: "$DF_UNIT_TEST_BASE_SHELL jacoco:report-aggregate -ntp --settings .mvn/settings.xml \
                 -Pcoding,unit-test,env-test,repo-artifactory \
                 -Dapp.server.port=0 \
                 -Dapp.management.server.port=0" # 如果是多模块项目在 TP_TEST_SHELL 中加上 jacoco:report-aggregate
 
-  ## ------------------------------------------- [4] sonarqube args ---------------------------------------------------#
+  ## ------------------------------------------- [5] sonarqube args ---------------------------------------------------#
   # TP_SONARQUBE_RUNNER_TAGS: # [optional] 可使用这个变量覆盖当前 stage 的默认runner tags
   TP_SONARQUBE_IMAGE: $DF_SONARQUBE_IMAGE
   TP_SONARQUBE_CHECK_SHELL: "$DF_SONARQUBE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,code-review,repo-artifactory"
   TP_SONARQUBE_USER_HOME: "$DF_SONAR_USER_HOME"
 
-  ## ------------------------------------------- [5] build args -------------------------------------------------------#
+  ## ------------------------------------------- [6] build args -------------------------------------------------------#
   TP_BUILD_IMAGE: $TP_BASE_IMAGE
   TP_BUILD_ARTIFACT_PATH: ""
   TP_BUILD_SHELL: "$DF_BUILD_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
 
-  ## ------------------------------------------- [6] package args -------------------------------------------------------#
+  ## ------------------------------------------- [7] package args -------------------------------------------------------#
   TP_PACKAGE_IMAGE: $TP_BASE_IMAGE
   TP_PACKAGE_ARTIFACT_PATH: "$DF_PACKAGE_ARTIFACT_PATH"
   TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,env-$TP_RUNTIME_ENV,o-tar,repo-artifactory"
 
-  ## ------------------------------------------- [7] publish args -----------------------------------------------------#
+  ## ------------------------------------------- [8] publish args -----------------------------------------------------#
   TP_PUBLISH_TYPE: maven
   TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
   TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL \
@@ -82,7 +116,8 @@ variables:
                             -Dauto.release.enabled=false \
                             -Dauto.archtype.catalog.minio=false"
 
-  ## ------------------------------------------- [8] pages args -------------------------------------------------------#
+  ## ------------------------------------------- [9] pages args -------------------------------------------------------#
   # TP_PAGES_RUNNER_TAGS: # [optional] 可使用这个变量覆盖当前 stage 的默认runner tags
+  # 发布 pages | writerside
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"

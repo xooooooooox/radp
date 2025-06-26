@@ -53,6 +53,9 @@
 		<checkstyle.base.dir>.coding/checkstyle</checkstyle.base.dir>
 		<checkstyle.config.location>.coding/checkstyle/checkstyle.xml</checkstyle.config.location>
 		<checkstyle.property.expansion>config_loc=${checkstyle.base.dir}</checkstyle.property.expansion>
+		<!-- wrapper -->
+		<wrapper.maven.version>3.9.9</wrapper.maven.version>
+		<wrapper.distribution.type>only-script</wrapper.distribution.type>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -60,7 +63,7 @@
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
-		<maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -233,14 +236,6 @@
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
 						<arguments>${devops.release.arguments}</arguments>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-wrapper-plugin</artifactId>
-					<version>${maven-wrapper-plugin.version}</version>
-					<configuration>
-						<mavenVersion>3.9.9</mavenVersion>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -421,9 +416,9 @@
 			<properties>
 				<sonar.host.url>${user.sonar.host.url}</sonar.host.url>
 				<sonar.token>${user.sonar.token}</sonar.token>
-				<sonar.login>${user.sonar.token}</sonar.login>
 				<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 				<!--
+				sonar.login is deprecated and will be removed in the future
 				=========================================================================
 									Version Compatibility Matrix
 				=========================================================================
@@ -562,24 +557,50 @@
 								</goals>
 								<configuration>
 									<dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+									<!--
+									1. Available element type (represent the scope of each rule):
+									1) BUNDLE: All classes in the Maven module combined will be checked against the rule
+									2) PACKAGE: each java package
+									3) CLASS: Each Class file will be checked against the rule
+									4) SOURCEFILE: Each Java file will be checked against the rule
+									5) METHOD: each method will be checked against the rule
+									-->
 									<rules>
-										<rule implementation="org.jacoco.maven.RuleConfiguration">
+										<!-- rule1: 模块级门槛 -->
+										<rule>
 											<element>BUNDLE</element>
 											<limits>　　
-												<limit implementation="org.jacoco.report.check.Limit">
-													<counter>METHOD</counter>
+												<limit>
+													<counter>INSTRUCTION</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>0.65</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>BRANCH</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>0.60</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>CLASS</counter>
 													<value>MISSEDCOUNT</value>
 													<maximum>0</maximum>
+												</limit>
+											</limits>
+										</rule>
+										<!-- rule2: 类级门槛 -->
+										<rule>
+											<element>CLASS</element>
+											<excludes>
+												<exclude>*Exception*</exclude>
+												<exclude>*Application</exclude>
+												<exclude>*Config*</exclude>
+												<exclude>*Properties</exclude>
+											</excludes>
+											<limits>
+												<limit>
+													<counter>LINE</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>0.50</minimum>
 												</limit>
 											</limits>
 										</rule>
@@ -771,6 +792,23 @@
 					</plugin>
 				</plugins>
 			</reporting>
+		</profile>
+
+		<profile>
+			<id>o-wrapper</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-wrapper-plugin</artifactId>
+						<version>${maven-wrapper-plugin.version}</version>
+						<configuration>
+							<mavenVersion>${wrapper.maven.version}</mavenVersion>
+							<distributionType>${wrapper.distribution.type}</distributionType>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>

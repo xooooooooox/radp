@@ -12,6 +12,10 @@
 	<name>${project.artifactId}</name>
 	<description>流行工具集整合</description>
 
+	<properties>
+		<jacoco.skip>true</jacoco.skip>
+	</properties>
+
 	<dependencies>
 		<!-- ===========================
 			 开发工具

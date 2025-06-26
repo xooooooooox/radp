@@ -99,6 +99,10 @@
 				</setting.archetype.catalog.upload.url>
 				<setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
 				<setting.docker.build.namespace>${env.PRIVATE_REGISTRY}/x9x</setting.docker.build.namespace>
+				<!-- code review -->
+				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
+				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
+				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
 			</properties>
 		</profile>
 		<profile>
@@ -211,6 +215,70 @@
 					</releases>
 					<snapshots>
 						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+		<profile>
+			<id>repo-artifactory</id>
+			<repositories>
+				<repository>
+					<id>artifactory-release</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-release-virtual</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<id>artifactory-snapshots</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-snapshot-virtual</url>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>artifactory-remote</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-remote-virtual</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<id>artifactory-public</id>
+					<name>maven-public-virtual</name>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+					<id>archetype</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>artifactory-public</id>
+					<name>maven-public-virtual</name>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
 					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>

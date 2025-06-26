@@ -16,6 +16,9 @@ spec:
         # docker executor
         - docker
         - docker-arm64
+        - docker-dind
+        - docker-dood
+        - docker-rootless
         # shell executor
         - shell
         - shell-arm64
@@ -28,6 +31,7 @@ spec:
         - kubernetes
         - k8s
         - k8s-amd64
+        - k8s-arm64
       default: 'docker-arm64'
     version_type:
       description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'

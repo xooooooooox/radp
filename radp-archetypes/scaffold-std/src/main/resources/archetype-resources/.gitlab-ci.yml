@@ -38,7 +38,7 @@ spec:
 ---
 ############################################## includes ################################################################
 include:
-  - project: homelab/gitlab-ci-templates
+  - project: coding/homelab/gitlab-ci-templates
     ref: main
     file: templates/pipelines/feature/lang/java.yml
     inputs:

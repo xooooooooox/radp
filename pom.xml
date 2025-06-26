@@ -56,6 +56,12 @@
 		<!-- wrapper -->
 		<wrapper.maven.version>3.9.9</wrapper.maven.version>
 		<wrapper.distribution.type>only-script</wrapper.distribution.type>
+		<!-- jacoco -->
+		<jacoco.skip>false</jacoco.skip>
+		<jacoco.bundle.instruction.coveredratio>0.65</jacoco.bundle.instruction.coveredratio>
+		<jacoco.bundle.branch.coveredratio>0.60</jacoco.bundle.branch.coveredratio>
+		<jacoco.bundle.class.missedcount>0</jacoco.bundle.class.missedcount>
+		<jacoco.class.line.coveredratio>0.50</jacoco.class.line.coveredratio>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -536,6 +542,10 @@
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<!-- 可以通过激活 skip-jacoco profile 来跳过 jacoco 执行 -->
+							<skip>${jacoco.skip}</skip>
+						</configuration>
 						<executions>
 							<execution>
 								<!-- 初始化时附加 agent -->
@@ -573,17 +583,17 @@
 												<limit>
 													<counter>INSTRUCTION</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.65</minimum>
+													<minimum>${jacoco.bundle.instruction.coveredratio}</minimum>
 												</limit>
 												<limit>
 													<counter>BRANCH</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.60</minimum>
+													<minimum>${jacoco.bundle.branch.coveredratio}</minimum>
 												</limit>
 												<limit>
 													<counter>CLASS</counter>
 													<value>MISSEDCOUNT</value>
-													<maximum>0</maximum>
+													<maximum>${jacoco.bundle.class.missedcount}</maximum>
 												</limit>
 											</limits>
 										</rule>
@@ -600,7 +610,7 @@
 												<limit>
 													<counter>LINE</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>${jacoco.class.line.coveredratio}</minimum>
 												</limit>
 											</limits>
 										</rule>
@@ -633,6 +643,10 @@
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<!-- 可以通过激活 skip-jacoco profile 来跳过 jacoco 执行 -->
+							<skip>${jacoco.skip}</skip>
+						</configuration>
 						<executions>
 							<execution>
 								<id>report-aggregate</id>

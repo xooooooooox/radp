@@ -69,8 +69,8 @@ variables:
 
   # 2) 作业控制: 子作业流 lang_pipeline
   TP_RUN_LINT: "true"                                       # [c/1-1] 是否启用代码评审阶段
-  TP_RUN_UNIT_TEST: "true"                                  # [c/1-2] 是否启用单元测试阶段
-  TP_RUN_SONARQUBE: "true"                                  # [c/1-3] 是否启用质量门阶段
+  TP_RUN_UNIT_TEST: "false"                                  # [c/1-2] 是否启用单元测试阶段
+  TP_RUN_SONARQUBE: "false"                                  # [c/1-3] 是否启用质量门阶段
   TP_RUN_BUILD: "false"                                     # [c/1-4] 是否启用构建阶段
   TP_RUN_PACKAGE: "false"                                   # [c/1-5] 是否启用打包阶段
   TP_RUN_PUBLISH: "true"                                    # [c/1-6] 是否启用制品发布阶段

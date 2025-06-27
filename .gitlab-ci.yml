@@ -80,7 +80,7 @@ variables:
 
   # 说明: (code-review = lint + unit_test + sonarqube)
   # 如果 mr target branch 在这个列表中, 将触发 code-review 相关 Jobs
-  TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|feat\/public\/.+|feat\/future\/.+)$/'
+  TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|future|feat\/public\/.+|feat\/future\/.+)$/'
   TP_WORKFLOW_RULE_BRANCHES_RELEASE: '/^(master|develop|main|future|feat\/future\/.+)$/'
 
   #====================================================================================================================#

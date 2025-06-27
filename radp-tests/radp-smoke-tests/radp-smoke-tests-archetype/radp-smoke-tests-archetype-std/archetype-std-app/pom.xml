@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-smoke-tests-archetype-std</artifactId>
-		<version>3.22</version>
+		<version>3.23-SNAPSHOT</version>
 	</parent>
 	<artifactId>archetype-std-app</artifactId>
 	<name>${project.artifactId}</name>

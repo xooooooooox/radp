@@ -2,7 +2,6 @@
 spec:
   inputs:
     debug_mode:
-      description: '是否打印更多调试日志'
       type: boolean
       default: true
     environment:
@@ -10,7 +9,6 @@ spec:
       options: [ '', 'dev', 'sit', 'uat', 'prod', 'local' ]
       default: ''
     runner_tags:
-      description: 'All jobs default runner tags'
       type: string
       options:
         # docker executor
@@ -34,16 +32,15 @@ spec:
         - k8s-arm64
       default: 'docker-arm64'
     version_type:
-      description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
-      options: [ 'patch', 'minor', 'major' ]
-      default: 'minor'
+      options: [ 'timestamp',  'patch', 'minor', 'major' ]
+      default: 'timestamp'
 
 ---
 ############################################## includes ################################################################
 include:
   - project: coding/homelab/gitlab-ci-templates
-    ref: main
+    ref: feat/1.16
     file: templates/pipelines/feature/lang/java.yml
     inputs:
       debug_mode: $[[ inputs.debug_mode ]]
@@ -62,7 +59,7 @@ variables:
   #--------------------------------------------- [p-1] prepare args -----------------------------------------------------#
   # TP_TAG_NAME:                # 可选: 指定要创建的标签名称，如果未指定，将自动计算下一个版本号
   # TP_TAG_PREFIX:              # 可选: 指定创建的 tag 的前缀.
-  TP_PREPARE_SCRIPT_REF: main   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
+  TP_PREPARE_SCRIPT_REF: feat/1.16   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
 
   #--------------------------------------------- [p-2] trigger args -----------------------------------------------------#
   TP_CHILD_PIPELINE_TEMPLATE_REF: $TP_PREPARE_SCRIPT_REF    # 用于指定子流水线使用的模板版本，默认使用 gitlab-ci-templates main 分支

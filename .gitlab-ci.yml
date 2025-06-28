@@ -137,7 +137,7 @@ variables:
   #--------------------------------------------- [c/1-8] deploy args --------------------------------------------------#
 
   #--------------------------------------------- [c/1-9] release args --------------------------------------------------#
-  TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
+  TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory,o-release"
   TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL --settings .mvn/settings.xml -Dgpg.skip=true -Pcoding,repo-artifactory,o-release"
-  TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
-  TP_RELEASE_CLEAN_SHELL: "$DF_RELEASE_CLEAN_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory"
+  TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory,o-release"
+  TP_RELEASE_CLEAN_SHELL: "$DF_RELEASE_CLEAN_BASE_SHELL --settings .mvn/settings.xml -Pcoding,repo-artifactory,o-release"

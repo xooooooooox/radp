@@ -111,7 +111,7 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-central -DskipTests</maven.release.arguments>
 			</properties>
 		</profile>
 		<profile>
@@ -120,7 +120,7 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<devops.release.arguments>-Pcoding,publish-github -DskipTests</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-github -DskipTests</maven.release.arguments>
 				<altSnapshotDeploymentRepository>
 					github::https://maven.pkg.github.com/xooooooooox/radp
 				</altSnapshotDeploymentRepository>
@@ -134,8 +134,8 @@
 			<properties>
 				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
 				<auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
-				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
-				</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-artifactory -DskipTests
+				</maven.release.arguments>
 				<altSnapshotDeploymentRepository>
 					artifactory-snapshots::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local
 				</altSnapshotDeploymentRepository>

@@ -37,7 +37,9 @@
   - include `.coding` directory.
   - include `.editorconfig`.
 - Update `archtype-metadata.xml` to include `.devcontainer`.
-- Update `.mvn/settings.xml` to include default pluginGroup.
+- Update `.mvn/settings.xml`
+  - include default pluginGroup.
+  - replace `devops.release.arguments` with `maven.release.arguments`
 - Update profiles in `.mvn/maven.config` to include code-review.
 - Update `.gitlab-ci.yml`
 - Optimize `checkstyle-suppressions.xml`

@@ -361,6 +361,7 @@
 								<goal>sign</goal>
 							</goals>
 							<configuration>
+								<skip>${gpg.skip}</skip>
 								<!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
 								<!-- 1. 确保 gpg version 2.1+ -->
 								<!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
@@ -545,7 +546,7 @@
 						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-						<arguments>${devops.release.arguments}</arguments>
+						<arguments>${maven.release.arguments}</arguments>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -1569,8 +1570,8 @@
 				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
 				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
 				<!-- release:perform arguments -->
-				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
-				</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-artifactory -DskipTests
+				</maven.release.arguments>
 				<!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
 				<!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
 				<!-- 比如:
@@ -1592,7 +1593,7 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-central -DskipTests</maven.release.arguments>
 			</properties>
 			<build>
 				<plugins>
@@ -1616,8 +1617,8 @@
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
 				<maven.deploy.skip>true</maven.deploy.skip>
-				<devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
-				</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
+				</maven.release.arguments>
 			</properties>
 		</profile>
 
@@ -1679,7 +1680,7 @@
 				<!-- 激活 auto-assembly profile -->
 				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release:perform arguments -->
-				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-artifactory -DskipTests</maven.release.arguments>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->

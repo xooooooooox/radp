@@ -62,6 +62,8 @@
 		<jacoco.bundle.branch.coveredratio>0.60</jacoco.bundle.branch.coveredratio>
 		<jacoco.bundle.class.missedcount>0</jacoco.bundle.class.missedcount>
 		<jacoco.class.line.coveredratio>0.50</jacoco.class.line.coveredratio>
+		<!-- gpg -->
+		<gpg.skip>false</gpg.skip>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -197,6 +199,7 @@
 								<goal>sign</goal>
 							</goals>
 							<configuration>
+								<skip>${gpg.skip}</skip>
 								<!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
 								<!-- 1. 确保 gpg version 2.1+ -->
 								<!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
@@ -241,7 +244,7 @@
 						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-						<arguments>${devops.release.arguments}</arguments>
+						<arguments>${maven.release.arguments}</arguments>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -356,7 +359,7 @@
 			<id>publish-central</id>
 			<properties>
 				<auto.release.enabled>true</auto.release.enabled>
-				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+				<maven.release.arguments>-Pcoding,publish-central -DskipTests</maven.release.arguments>
 			</properties>
 			<build>
 				<plugins>

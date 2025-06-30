@@ -135,6 +135,8 @@ variables:
   #--------------------------------------------- [c/1-8] deploy args --------------------------------------------------#
 
   #--------------------------------------------- [c/1-9] release args -------------------------------------------------#
+  TP_RELEASE_TAG_PREFIX: 3
+  
   TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL --settings .mvn/settings.xml -Darguments=\"-DskipTests\" -DpreparationProfiles=coding,o-release,publish-artifactory"
   TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL --settings .mvn/settings.xml -Darguments=\"-DskipTests -Dgpg.skip=true\" -DreleaseProfiles=coding,o-release,publish-artifactory"
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL --settings .mvn/settings.xml"

@@ -64,6 +64,10 @@
 		<jacoco.class.line.coveredratio>0.50</jacoco.class.line.coveredratio>
 		<!-- gpg -->
 		<gpg.skip>false</gpg.skip>
+		<!-- release -->
+		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
+		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
+		<maven.release.releaseProfiles>${user.release.releaseProfiles}</maven.release.releaseProfiles>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -245,10 +249,10 @@
 						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-						<arguments>${user.release.arguments}</arguments>
+						<arguments>${maven.release.arguments}</arguments>
 
-						<preparationProfiles>${user.release.preparationProfiles}</preparationProfiles>
-						<releaseProfiles>${user.release.releaseProfiles}</releaseProfiles>
+						<preparationProfiles>${maven.release.preparationProfiles}</preparationProfiles>
+						<releaseProfiles>${maven.release.releaseProfiles}</releaseProfiles>
 					</configuration>
 				</plugin>
 				<plugin>

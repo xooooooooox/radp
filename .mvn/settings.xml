@@ -103,6 +103,11 @@
 				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
 				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
 				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
+				<!-- release -->
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 		<profile>
@@ -111,37 +116,44 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<maven.release.arguments>-Pcoding,publish-central -DskipTests</maven.release.arguments>
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,publish-central</setting.release.preparationProfiles>
+				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 		<profile>
 			<id>publish-github</id>
 			<properties>
-				<auto.release.enabled>true</auto.release.enabled>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<maven.release.arguments>-Pcoding,publish-github -DskipTests</maven.release.arguments>
 				<altSnapshotDeploymentRepository>
 					github::https://maven.pkg.github.com/xooooooooox/radp
 				</altSnapshotDeploymentRepository>
 				<altReleaseDeploymentRepository>
 					github::https://maven.pkg.github.com/xooooooooox/radp
 				</altReleaseDeploymentRepository>
+				<auto.release.enabled>true</auto.release.enabled>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,o-release,publish-github
+				</setting.release.preparationProfiles>
+				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 		<profile>
 			<id>publish-artifactory</id>
 			<properties>
-				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
-				<maven.release.arguments>-Pcoding,publish-artifactory -DskipTests
-				</maven.release.arguments>
 				<altSnapshotDeploymentRepository>
 					artifactory-snapshots::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local
 				</altSnapshotDeploymentRepository>
 				<altReleaseDeploymentRepository>
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
+				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 

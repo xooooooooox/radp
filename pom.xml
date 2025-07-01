@@ -89,6 +89,7 @@
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
 		<spring-javaformat-maven-plugin.version>0.0.46</spring-javaformat-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+		<git-commit-id-maven-plugin.version>9.0.2</git-commit-id-maven-plugin.version>
 
 		<!-- plugin dependency version -->
 		<checkstyle.version>9.3</checkstyle.version>

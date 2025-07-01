@@ -650,6 +650,7 @@
 						</execution>
 					</executions>
 					<configuration>
+						<skip>${maven.gitcommitid.skip}</skip>
 						<!-- 如果没有 Git 目录，不会导致构建失败 -->
 						<failOnNoGitDirectory>false</failOnNoGitDirectory>
 						<!-- 如果无法提取仓库信息，不会导致构建失败 -->

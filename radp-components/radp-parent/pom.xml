@@ -1574,12 +1574,6 @@
 		<profile>
 			<id>publish-artifactory</id>
 			<properties>
-				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
-				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
-				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
-				<!-- release:perform arguments -->
-				<user.release.arguments>-DskipTests</user.release.arguments>
 				<!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
 				<!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
 				<!-- 比如:
@@ -1590,6 +1584,15 @@
 				</altSnapshotDeploymentRepository>
 				<altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}
 				</altReleaseDeploymentRepository>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
+				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 		<!-- 发布到中央仓库 -->
@@ -1601,7 +1604,10 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<user.release.arguments>-DskipTests</user.release.arguments>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,publish-central</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 			</properties>
 			<build>
 				<plugins>
@@ -1625,8 +1631,11 @@
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
 				<maven.deploy.skip>true</maven.deploy.skip>
-				<user.release.arguments>-DskipTests -Dmaven.deploy.skip=true
-				</user.release.arguments>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,o-release,publish-harbor
+				</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,o-release,publish-harbor</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 

@@ -7,6 +7,7 @@
 #### Dependencies
 
 - Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
+- Upgrade `io.github.git-commit-id:git-commit-id-maven-plugin` from `9.0.1` to `9.0.2`
 - Remove unused MongoDB dependencies.
 
 #### Build

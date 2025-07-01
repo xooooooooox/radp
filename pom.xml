@@ -68,6 +68,10 @@
 		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
 		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
 		<maven.release.releaseProfiles>${user.release.releaseProfiles}</maven.release.releaseProfiles>
+		<!-- git-commit-id-maven-plugin -->
+		<git-commit-id.skip>false</git-commit-id.skip>
+		<!-- javadoc -->
+		<javadoc.skip>false</javadoc.skip>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -142,6 +146,7 @@
 						</execution>
 					</executions>
 					<configuration>
+						<skip>${git-commit-id.skip}</skip>
 						<!-- 如果没有 Git 目录，不会导致构建失败 -->
 						<failOnNoGitDirectory>false</failOnNoGitDirectory>
 						<!-- 如果无法提取仓库信息，不会导致构建失败 -->
@@ -175,6 +180,7 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven-javadoc-plugin.version}</version>
 					<configuration>
+						<skip>${javadoc.skip}</skip>
 						<source>${java.version}</source>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<charset>${javadoc.encoding}</charset>

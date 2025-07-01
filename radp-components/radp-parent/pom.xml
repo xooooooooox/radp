@@ -361,7 +361,6 @@
 								<goal>sign</goal>
 							</goals>
 							<configuration>
-								<skip>${gpg.skip}</skip>
 								<!-- 启用 pinentry-mode loopback 模式需要满足以下条件 -->
 								<!-- 1. 确保 gpg version 2.1+ -->
 								<!-- 2. 确保 ~/.gnupg/gpg.conf 启用 allow-loopback-pinentry -->
@@ -651,7 +650,6 @@
 						</execution>
 					</executions>
 					<configuration>
-						<skip>${git-commit-id.skip}</skip>
 						<!-- 如果没有 Git 目录，不会导致构建失败 -->
 						<failOnNoGitDirectory>false</failOnNoGitDirectory>
 						<!-- 如果无法提取仓库信息，不会导致构建失败 -->
@@ -864,7 +862,6 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven-javadoc-plugin.version}</version>
 					<configuration>
-						<skip>${javadoc.skip}</skip>
 						<source>${java.version}</source>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<charset>${javadoc.encoding}</charset>

@@ -146,6 +146,7 @@
 						<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
 						<!-- 生成 git.properties 文件 -->
 						<generateGitPropertiesFile>true</generateGitPropertiesFile>
+						<!-- 允许通过 -Dmaven.gitcommitid.skip 跳过 -->
 						<skipViaCommandLine>true</skipViaCommandLine>
 						<!-- 仅包含指定的属性 -->
 						<includeOnlyProperties>

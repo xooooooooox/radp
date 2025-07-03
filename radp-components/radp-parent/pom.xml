@@ -660,6 +660,8 @@
 						<generateGitPropertiesFile>true</generateGitPropertiesFile>
 						<!-- 支持通过 -Dmaven.gitcommitid.skip=true 跳过插件执行 -->
 						<skip>${maven.gitcommitid.skip}</skip>
+						<!-- 完全禁用插件 -->
+						<skipPoms>${maven.gitcommitid.skip}</skipPoms>
 						<!-- 仅包含指定的属性 -->
 						<includeOnlyProperties>
 							<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>

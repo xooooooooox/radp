@@ -25,6 +25,7 @@
 - Add profile `o-wrapper`
 - Remove property `sonar.login`. To resolve warnings: `sonar.login` is deprecated and will be removed in the future
 - Change maven-release-plugin tagNameFormat from `x.y.z` to `vx.y.x`
+- Add `skipViaCommandLine` Option to override the value of skip `git-commit-id-maven-plugin`
 
 #### Scaffold
 

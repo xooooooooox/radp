@@ -31,7 +31,6 @@
 		<java-io-tmpdir>${user.home}/tmp</java-io-tmpdir>
 		<maven.test.skip>false</maven.test.skip>
 		<maven.javadoc.skip>false</maven.javadoc.skip>
-		<maven.gitcommitid.skip>false</maven.gitcommitid.skip>
 
 		<!-- archetype -->
 		<gpg.keyname>${user.gpg.keyname}</gpg.keyname> <!-- 记得: 需要提前在本机导入 gpg key, 以及在 settings.xml 中配置 serverId -->
@@ -658,10 +657,6 @@
 						<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
 						<!-- 生成 git.properties 文件 -->
 						<generateGitPropertiesFile>true</generateGitPropertiesFile>
-						<!-- 支持通过 -Dmaven.gitcommitid.skip=true 跳过插件执行 -->
-						<skip>${maven.gitcommitid.skip}</skip>
-						<!-- 完全禁用插件 -->
-						<skipPoms>${maven.gitcommitid.skip}</skipPoms>
 						<skipViaCommandLine>true</skipViaCommandLine>
 						<!-- 仅包含指定的属性 -->
 						<includeOnlyProperties>

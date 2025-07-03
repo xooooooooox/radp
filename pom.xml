@@ -66,8 +66,6 @@
 		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
 		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
 		<maven.release.releaseProfiles>${user.release.releaseProfiles}</maven.release.releaseProfiles>
-		<!-- git-commit-id-maven-plugin -->
-		<maven.gitcommitid.skip>false</maven.gitcommitid.skip>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -148,10 +146,6 @@
 						<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
 						<!-- 生成 git.properties 文件 -->
 						<generateGitPropertiesFile>true</generateGitPropertiesFile>
-						<!-- 支持通过 -Dmaven.gitcommitid.skip=true 跳过插件执行 -->
-						<skip>${maven.gitcommitid.skip}</skip>
-						<!-- 完全禁用插件 -->
-						<skipPoms>${maven.gitcommitid.skip}</skipPoms>
 						<skipViaCommandLine>true</skipViaCommandLine>
 						<!-- 仅包含指定的属性 -->
 						<includeOnlyProperties>

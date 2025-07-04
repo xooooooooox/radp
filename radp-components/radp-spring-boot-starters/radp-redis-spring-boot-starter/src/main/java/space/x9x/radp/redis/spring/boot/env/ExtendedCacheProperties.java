@@ -16,9 +16,9 @@
 
 package space.x9x.radp.redis.spring.boot.env;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.Data;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 

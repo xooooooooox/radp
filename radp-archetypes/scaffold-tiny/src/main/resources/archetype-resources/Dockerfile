@@ -67,7 +67,7 @@ COPY --from=builder /app/application/modules-dependencies/ ./
 COPY --from=builder /app/application/snapshot-dependencies/ ./
 COPY --from=builder /app/application/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
-RUN chmod +x entrypoint.sh
+RUN chmod +x "$APP_HOME"/entrypoint.sh
 
 # 切换到容器用户并创建日志目录
 USER $USER

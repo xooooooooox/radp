@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>3.21</defaultValue>
+			<defaultValue>3.22</defaultValue>
 		</requiredProperty>
 	</requiredProperties>
 
@@ -44,6 +44,7 @@
 				<include>.tool-versions</include>
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
+				<include>.editorconfig</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -53,7 +54,7 @@
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
-			<directory>config</directory>
+			<directory>.coding</directory>
 			<includes>
 				<include>**/**</include>
 			</includes>

@@ -47,6 +47,7 @@ class NacosContainerTest {
 		.withEnv("MODE", "standalone")
 		// 直接用 HTTP 健康端点做等待策略，避免“端口已开但服务未完全就绪”的假阳性
 		.waitingFor(Wait.forHttp("/nacos/v1/console/health/liveness")
+			.forPort(8848)
 			.forStatusCode(200)
 			.withStartupTimeout(Duration.ofMinutes(3)));
 

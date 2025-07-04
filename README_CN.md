@@ -92,9 +92,9 @@ RADP 提供脚手架工具和推荐的架构模式，帮助快速启动开发：
 ```xml
 
 <parent>
-  <groupId>space.x9x.radp</groupId>
-  <artifactId>radp-parent</artifactId>
-  <version>3.19</version>
+	<groupId>space.x9x.radp</groupId>
+	<artifactId>radp-parent</artifactId>
+	<version>LATEST_VERSION</version>
 </parent>
 ```
 
@@ -103,10 +103,10 @@ RADP 提供脚手架工具和推荐的架构模式，帮助快速启动开发：
 ```xml
 
 <dependency>
-  <groupId>space.x9x.radp</groupId>
-  <artifactId>radp-spring-boot-starters</artifactId>
-  <version>3.19</version>
-  <type>pom</type>
+	<groupId>space.x9x.radp</groupId>
+	<artifactId>radp-spring-boot-starters</artifactId>
+	<version>LATEST_VERSION</version>
+	<type>pom</type>
 </dependency>
 ```
 
@@ -119,7 +119,7 @@ RADP 提供了几种 Maven 原型，可以快速引导新项目：
 mvn archetype:generate \
   -DarchetypeGroupId=space.x9x.radp \
   -DarchetypeArtifactId=scaffold-std \
-  -DarchetypeVersion=3.19 \
+  -DarchetypeVersion=LATEST_VERSION \
   -DgroupId=com.example \
   -DartifactId=my-project \
   -Dversion=1.0-SNAPSHOT
@@ -176,5 +176,5 @@ RADP 遵循[语义化版本控制](https://semver.org/)
 
 ## 许可证
 
-[GNU 通用公共许可证](./LICENSE) - 版权所有 (C) 2024 xooooooooox
+[Apache 2.0 License—](./LICENSE) - 版权所有 (C) 2024 xooooooooox
 和[贡献者](https://github.com/xooooooooox/radp/graphs/contributors)

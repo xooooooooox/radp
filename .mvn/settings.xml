@@ -6,19 +6,19 @@
 		<!-- github -->
 		<server>
 			<id>github</id>
-			<username>${env.GITHUB_USERNAME}</username>
-			<password>${env.GITHUB_TOKEN}</password>
+			<username>${env.GH_USERNAME}</username>
+			<password>${env.GH_TOKEN}</password>
 		</server>
 		<!-- ossrh -->
 		<server>
 			<id>central-portal</id>
-			<username>${env.MAVEN_USERNAME}</username>
-			<password>${env.MAVEN_PASSWORD}</password>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
 		</server>
 		<server>
 			<id>central-portal-snapshots</id>
-			<username>${env.MAVEN_USERNAME}</username>
-			<password>${env.MAVEN_PASSWORD}</password>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
 		</server>
 		<!-- artifactory -->
 		<server>

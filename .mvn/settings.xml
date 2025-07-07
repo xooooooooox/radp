@@ -61,7 +61,7 @@
 
 	<mirrors>
 		<mirror>
-			<id>mirror-artifactory</id>
+			<id>mirror-aliyun</id>
 			<url>https://maven.aliyun.com/repository/public</url>
 			<mirrorOf>central</mirrorOf>
 		</mirror>

@@ -188,7 +188,41 @@
 				</pluginRepository>
 			</pluginRepositories>
 		</profile>
-
+		<profile>
+			<id>repo-artifactory</id>
+			<repositories>
+				<repository>
+					<id>artifactory-public</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+					<id>archetype</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>artifactory-public</id>
+					<name>maven-public-virtual</name>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
 		<profile>
 			<id>repo-central</id>
 			<repositories>

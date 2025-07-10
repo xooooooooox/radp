@@ -235,36 +235,7 @@
 			<id>repo-artifactory</id>
 			<repositories>
 				<repository>
-					<id>artifactory-release</id>
-					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-release-virtual</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-				</repository>
-				<repository>
-					<id>artifactory-snapshots</id>
-					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-snapshot-virtual</url>
-					<snapshots>
-						<enabled>true</enabled>
-						<updatePolicy>always</updatePolicy>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>artifactory-remote</id>
-					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-remote-virtual</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-				</repository>
-				<repository>
 					<id>artifactory-public</id>
-					<name>maven-public-virtual</name>
 					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
 					<snapshots>
 						<enabled>true</enabled>

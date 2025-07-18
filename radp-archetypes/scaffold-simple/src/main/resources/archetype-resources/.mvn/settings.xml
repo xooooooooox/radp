@@ -6,19 +6,19 @@
 		<!-- github -->
 		<server>
 			<id>github</id>
-			<username>${env.GITHUB_USERNAME}</username>
-			<password>${env.GITHUB_TOKEN}</password>
+			<username>${env.GH_USERNAME}</username>
+			<password>${env.GH_TOKEN}</password>
 		</server>
 		<!-- ossrh -->
 		<server>
 			<id>central-portal</id>
-			<username>${env.MAVEN_USERNAME}</username>
-			<password>${env.MAVEN_PASSWORD}</password>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
 		</server>
 		<server>
 			<id>central-portal-snapshots</id>
-			<username>${env.MAVEN_USERNAME}</username>
-			<password>${env.MAVEN_PASSWORD}</password>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
 		</server>
 		<!-- artifactory -->
 		<server>
@@ -149,7 +149,7 @@
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
 				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<auto.archetype.catalog.minio>true</auto.archetype.catalog.minio>
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
 				</setting.release.preparationProfiles>
@@ -179,6 +179,49 @@
 				<pluginRepository>
 					<id>aliyun-public</id>
 					<url>${setting.repository.url.aliyun-public}</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+		<profile>
+			<id>repo-central</id>
+			<repositories>
+				<repository>
+					<id>repo-central</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>central-portal-snapshots</id>
+					<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+					<id>archetype</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>repo-central</id>
+					<url>https://repo.maven.apache.org/maven2</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -219,48 +262,6 @@
 					<snapshots>
 						<enabled>true</enabled>
 						<updatePolicy>interval:60</updatePolicy>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
-		</profile>
-		<profile>
-			<id>repo-central</id>
-			<repositories>
-				<repository>
-					<id>repo-central</id>
-					<url>https://repo.maven.apache.org/maven2</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>central-portal-snapshots</id>
-					<url>https://central.sonatype.com/repository/maven-snapshots/</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
-					<id>archetype</id>
-					<url>https://repo.maven.apache.org/maven2</url>
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<id>repo-central</id>
-					<url>https://repo.maven.apache.org/maven2</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
 					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>

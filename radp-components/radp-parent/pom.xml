@@ -398,7 +398,7 @@
 					<executions>
 						<execution>
 							<!-- Only build image -->
-							<id>jib-dockerBuild-iamges</id>
+							<id>jib-dockerBuild-images</id>
 							<phase>install</phase>
 							<goals>
 								<goal>dockerBuild</goal>
@@ -538,14 +538,24 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>${maven-release-plugin.version}</version>
 					<configuration>
-						<tagNameFormat>@{project.version}</tagNameFormat>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
-						<allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
-						<!-- 如果为true, 那么 performRelease 将会为 true -->
-						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
+						<!--
+						scmCommentPrefix: default is [maven-release-plugin]
+						scmReleaseCommitComment: default is @{prefix} prepare release @{releaseLabel}
+						scmDevelopmentCommitComment: default is @{prefix} prepare for the next development iteration
+						-->
+						<pushChanges>true</pushChanges>
+						<!--
+						如果为true, 那么 performRelease 将会为 true
+						利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足
+						-->
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-						<arguments>${devops.release.arguments}</arguments>
+						<arguments>${maven.release.arguments}</arguments>
+
+						<preparationProfiles>${maven.release.preparationProfiles}</preparationProfiles>
+						<releaseProfiles>${maven.release.releaseProfiles}</releaseProfiles>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -1560,67 +1570,6 @@
 			</build>
 		</profile>
 
-		<!-- 发布到 artifactory -->
-		<profile>
-			<id>publish-artifactory</id>
-			<properties>
-				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
-				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
-				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
-				<!-- release:perform arguments -->
-				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests
-				</devops.release.arguments>
-				<!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
-				<!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
-				<!-- 比如:
-				1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
-				2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
-				-->
-				<altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}
-				</altSnapshotDeploymentRepository>
-				<altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}
-				</altReleaseDeploymentRepository>
-			</properties>
-		</profile>
-		<!-- 发布到中央仓库 -->
-		<!-- https://central.sonatype.com/ -->
-		<!-- 该插件的存在无需指定 distributionManagement -->
-		<profile>
-			<id>publish-central</id>
-			<properties>
-				<auto.release.enabled>true</auto.release.enabled>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.assembly.enabled>false</auto.assembly.enabled>
-				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.sonatype.central</groupId>
-						<artifactId>central-publishing-maven-plugin</artifactId>
-						<version>${central-publishing-maven-plugin.version}</version>
-						<extensions>true</extensions>
-						<configuration>
-							<publishingServerId>${central.server.id}</publishingServerId>
-							<autoPublish>true</autoPublish>
-							<waitUntil>published</waitUntil>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>publish-harbor</id>
-			<properties>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
-				<maven.deploy.skip>true</maven.deploy.skip>
-				<devops.release.arguments>-Pcoding,publish-harbor -DskipTests -Dmaven.deploy.skip=true
-				</devops.release.arguments>
-			</properties>
-		</profile>
-
 		<profile>
 			<!-- 为了加快构建速度 -->
 			<!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
@@ -1679,7 +1628,7 @@
 				<!-- 激活 auto-assembly profile -->
 				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release:perform arguments -->
-				<devops.release.arguments>-Pcoding,publish-artifactory -DskipTests</devops.release.arguments>
+				<user.release.arguments>-DskipTests</user.release.arguments>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->

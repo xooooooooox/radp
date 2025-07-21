@@ -23,6 +23,8 @@
 - Remove unused `argLine` configuration from surefire plugin to resolve jacoco not work.
 - Add profile `o-wrapper`
 - Remove property `sonar.login`. To resolve warnings: `sonar.login` is deprecated and will be removed in the future
+- Change maven-release-plugin tagNameFormat from `x.y.z` to `vx.y.x`
+- Add `skipViaCommandLine` Option to override the value of skip `git-commit-id-maven-plugin`
 
 #### Scaffold
 
@@ -36,7 +38,9 @@
   - include `.coding` directory.
   - include `.editorconfig`.
 - Update `archtype-metadata.xml` to include `.devcontainer`.
-- Update `.mvn/settings.xml` to include default pluginGroup.
+- Update `.mvn/settings.xml`
+  - include default pluginGroup.
+  - replace `devops.release.arguments` with `maven.release.arguments`
 - Update profiles in `.mvn/maven.config` to include code-review.
 - Update `.gitlab-ci.yml`
 - Optimize `checkstyle-suppressions.xml`

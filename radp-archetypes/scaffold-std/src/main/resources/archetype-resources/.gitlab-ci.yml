@@ -16,6 +16,9 @@ spec:
         # docker executor
         - docker
         - docker-arm64
+        - docker-dind
+        - docker-dood
+        - docker-rootless
         # shell executor
         - shell
         - shell-arm64
@@ -28,12 +31,12 @@ spec:
         - kubernetes
         - k8s
         - k8s-amd64
+        - k8s-arm64
       default: 'k8s'
     version_type:
-      description: '指定版本号自动计算规则(如指定 minor,则默认 minor+1)'
       type: string
-      options: [ 'patch', 'minor', 'major' ]
-      default: 'minor'
+      options: [ 'timestamp', 'patch', 'minor', 'major' ]
+      default: 'timestamp'
 
 ---
 ############################################## includes ################################################################
@@ -53,14 +56,12 @@ variables:
   TP_BASE_IMAGE: "maven:3.9.9-eclipse-temurin-8"
 
   #====================================================================================================================#
-  #============================================= [p] Parent Pipeline ======================================================#
+  #============================================= [p] Parent Pipeline ==================================================#
   #====================================================================================================================#
-  #--------------------------------------------- [p-1] prepare args -----------------------------------------------------#
-  # TP_TAG_NAME:                # 可选: 指定要创建的标签名称，如果未指定，将自动计算下一个版本号
-  # TP_TAG_PREFIX:              # 可选: 指定创建的 tag 的前缀.
+  #--------------------------------------------- [p-1] prepare args ---------------------------------------------------#
   TP_PREPARE_SCRIPT_REF: main   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
 
-  #--------------------------------------------- [p-2] trigger args -----------------------------------------------------#
+  #--------------------------------------------- [p-2] trigger args ---------------------------------------------------#
   TP_CHILD_PIPELINE_TEMPLATE_REF: $TP_PREPARE_SCRIPT_REF    # 用于指定子流水线使用的模板版本，默认使用 gitlab-ci-templates main 分支
 
   # 1) 子作业流控制
@@ -75,9 +76,12 @@ variables:
   TP_RUN_PUBLISH: "false"                                   # [c/1-6] 是否启用制品发布阶段
   TP_RUN_PAGES: "false"                                     # [c/1-7] 是否启用pages阶段
   TP_RUN_DEPLOY: "false"                                    # [c/1-8] 是否启用部署阶段
+  TP_RUN_RELEASE: "true"                                    # [c/1-9] 是否启用打版阶段
+
   # 说明: (code-review = lint + unit_test + sonarqube)
   # 如果 mr target branch 在这个列表中, 将触发 code-review 相关 Jobs
-  # TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|feat\/public\/.+)$/'
+  TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|future|feat\/public\/.+)$/'
+  TP_WORKFLOW_RULE_BRANCHES_RELEASE: '/^(master|develop|main|future)$/'
 
   #====================================================================================================================#
   #--------------------------------------------- [c] Child Pipeline ---------------------------------------------------#
@@ -129,3 +133,13 @@ variables:
   # 发布 pages - writerside
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/${appName}"
+
+  #--------------------------------------------- [c/1-8] deploy args --------------------------------------------------#
+
+  #--------------------------------------------- [c/1-9] release args -------------------------------------------------#
+  TP_RELEASE_TAG_SEARCH: v
+
+  TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
+  TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
+  TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
+  TP_RELEASE_CLEAN_SHELL: "$DF_RELEASE_CLEAN_BASE_SHELL -ntp --settings .mvn/settings.xml"

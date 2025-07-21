@@ -9,6 +9,9 @@
 .*.md.html
 .attach_pid*
 
+### gitlab-ci-templates job dist
+.gitlab-ci/
+
 ### Build & Dist ###
 dist
 *.jar

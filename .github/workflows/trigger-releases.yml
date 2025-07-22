@@ -17,9 +17,9 @@ jobs:
 
       - name: Validate tag version format
         run: |
-          # Fail if the release tag doesn't match x.x or x.x.x
-          if [[ ! "${{ github.event.release.tag_name }}" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
-            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match x.x or x.x.x."
+          # Fail if the release tag doesn't match vx.x or vx.x.x
+          if [[ ! "${{ github.event.release.tag_name }}" =~ ^v[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo "::error ::Invalid version format '${{ github.event.release.tag_name }}'. Must match vx.x or vx.x.x."
             exit 1
           fi
 

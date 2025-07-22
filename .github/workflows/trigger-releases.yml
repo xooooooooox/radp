@@ -58,7 +58,9 @@ jobs:
 
       - name: Set version
         run: |
-          ./mvnw versions:set -DnewVersion=${{ github.event.release.tag_name }}
+          # Extract version without 'v' prefix (keep only x.y or x.y.z)
+          VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/^v//')
+          ./mvnw versions:set -DnewVersion=${VERSION}
 
       - name: Publish package
         run: |

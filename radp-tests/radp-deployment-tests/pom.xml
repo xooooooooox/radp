@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-tests</artifactId>
-		<version>2.22-SNAPSHOT</version>
+		<version>2.22</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<packaging>pom</packaging>
@@ -15,20 +14,20 @@
 
 
 	<properties>
-		<appserver.port/>
-		<appserver.admin.port/>
-		<appserver.jms.port/>
-		<appserver.iiop.port/>
-		<appserver.https.port/>
-		<appserver.iiops.port/>
-		<appserver.iiopmutualauth.port/>
-		<appserver.jmx.port/>
-		<appserver.osgishell.port/>
-		<appserver.debugger.port/>
-		<cargo.container.id/>
+		<appserver.port />
+		<appserver.admin.port />
+		<appserver.jms.port />
+		<appserver.iiop.port />
+		<appserver.https.port />
+		<appserver.iiops.port />
+		<appserver.iiopmutualauth.port />
+		<appserver.jmx.port />
+		<appserver.osgishell.port />
+		<appserver.debugger.port />
+		<cargo.container.id />
 		<cargo.container.download-dir>${settings.localRepository}/.cache/cargo/installs
 		</cargo.container.download-dir>
-		<cargo.container.url/>
+		<cargo.container.url />
 		<cargo.timeout>1200000</cargo.timeout>
 	</properties>
 

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.18</version>
-		<relativePath/> <!-- lookup parent from the repository -->
+		<relativePath /> <!-- lookup parent from the repository -->
 	</parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp</artifactId>
-	<version>2.22-SNAPSHOT</version>
+	<version>2.22</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	<description>Rapid Application Development Platform</description>
@@ -41,14 +40,14 @@
 		<flattened.filename>.flatten-pom-xml</flattened.filename>
 		<javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
 		<central.server.id>central-portal</central.server.id>
-		<user.archetype.catalog.upload.url/>
-		<user.archetype.catalog.upload.serverId/>
-		<user.gpg.keyname/>
-		<user.minio.alias/>
-		<user.minio.bucket.path/>
-		<user.docker.build.registry/>
-		<user.docker.build.base_image/>
-		<user.jasypt.encryptor.password/>
+		<user.archetype.catalog.upload.url />
+		<user.archetype.catalog.upload.serverId />
+		<user.gpg.keyname />
+		<user.minio.alias />
+		<user.minio.bucket.path />
+		<user.docker.build.registry />
+		<user.docker.build.base_image />
+		<user.jasypt.encryptor.password />
 		<!-- checkstyle -->
 		<checkstyle.base.dir>.coding/checkstyle</checkstyle.base.dir>
 		<checkstyle.config.location>.coding/checkstyle/checkstyle.xml</checkstyle.config.location>
@@ -108,7 +107,7 @@
 		<url>${scm.git.web_url}</url>
 		<connection>scm:git:${scm.git.url}</connection>
 		<developerConnection>scm:git:${scm.git.url}</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v2.22</tag>
 	</scm>
 
 	<issueManagement>
@@ -487,8 +486,7 @@
 									Version Compatibility Matrix
 				=========================================================================
 				JDK	|	SonarQube Server		|	sonar-maven-plugin
-				8	|	v8.0 - v8.9				|	<=3.11.0.3922
-				11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x
+				8	|	v8.0 - v8.9				|	<=3.11.0.3922 11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x
 				17	|	v9.x, v10.x and later	|	4.0.x for v10.0-v10.5 / 5.x for v10.6+
 				=========================================================================
 				-->

@@ -16,12 +16,12 @@
 
 package space.x9x.radp.jasypt.spring.boot.test;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import space.x9x.radp.jasypt.spring.boot.TestApplication;
 import space.x9x.radp.jasypt.spring.boot.util.JasyptUtils;

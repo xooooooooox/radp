@@ -1,0 +1,28 @@
+networks:
+  local-network:
+    driver: bridge
+    name: ${appName}-network
+    external: false
+
+services:
+  pgvector:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      PGPASSWORD: postgres
+    ports:
+      - "5432"
+    volumes:
+      - ./volumes/pgvector/sql:/docker-entrypoint-initdb.d
+    networks:
+      - local-network
+    healthcheck:
+      test: "pg_isready -U postgres -d postgres"
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s

@@ -16,10 +16,10 @@
 
 package space.x9x.radp.swagger3.spring.boot.env;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 

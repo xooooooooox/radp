@@ -1,0 +1,33 @@
+{
+  "name": "${appName}",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "docker-in-docker": "latest",
+    //    "docker-from-docker": "latest"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "pivotal.vscode-boot-dev-pack"
+      ],
+      "settings": {
+        "java.home": "/docker-java-home"
+      }
+    }
+  },
+  "forwardPorts": [
+    8888,
+    // 后端服务主端口
+    9999,
+    // 后端服务管理端口
+    3306,
+    // MySQL 端口
+    6379
+    // Redis 端口
+  ],
+  "remoteUser": "vscode",
+  "postCreateCommand": "pwd"
+}

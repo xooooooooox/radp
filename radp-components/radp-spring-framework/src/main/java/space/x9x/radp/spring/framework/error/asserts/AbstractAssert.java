@@ -19,9 +19,9 @@ package space.x9x.radp.spring.framework.error.asserts;
 import java.util.Collection;
 import java.util.Map;
 
-import org.springframework.util.Assert;
-
 import org.jetbrains.annotations.PropertyKey;
+
+import org.springframework.util.Assert;
 
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 

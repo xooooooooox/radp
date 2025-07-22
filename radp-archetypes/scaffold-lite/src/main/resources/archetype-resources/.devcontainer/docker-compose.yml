@@ -1,0 +1,23 @@
+networks:
+  local-network:
+    driver: bridge
+    name: ${appName}-network
+    external: false
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: "17"
+        INSTALL_MAVEN: "true"
+        MAVEN_VERSION: "3.9.9"
+        INSTALL_GRADLE: "false"
+        NODE_VERSION: "lts/*"
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    networks:
+      - local-network
+    environment:
+      TZ: Asia/Shanghai

@@ -4,10 +4,10 @@
 /**
  * RPC interface, format {@code IXxxService} 定义 rpc 接口, 提供给 <strong>trigger</strong> 层使用
  *
- * <pre>{@code
+ * <pre><code>
  * public interface IRaffleService {
- *      SingleResult<List<RaffleAwardListResponseDTO>> queryRaffleAwardList(RaffleAwardListRequestDTO requestDTO);
+ *      SingleResult&lt;List&lt;RaffleAwardListResponseDTO&gt;&gt; queryRaffleAwardList(RaffleAwardListRequestDTO requestDTO);
  * }
- * }</pre>
+ * </code></pre>
  */
 package ${package}.api;

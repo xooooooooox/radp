@@ -18,9 +18,9 @@ package space.x9x.radp.mybatis.spring.boot.env;
 
 import java.time.Duration;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.Data;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 

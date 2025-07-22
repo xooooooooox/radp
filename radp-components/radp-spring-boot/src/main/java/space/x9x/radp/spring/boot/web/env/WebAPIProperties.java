@@ -16,12 +16,12 @@
 
 package space.x9x.radp.spring.boot.web.env;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;

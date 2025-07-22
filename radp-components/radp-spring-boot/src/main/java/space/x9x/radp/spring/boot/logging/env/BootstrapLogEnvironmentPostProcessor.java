@@ -16,11 +16,11 @@
 
 package space.x9x.radp.spring.boot.logging.env;
 
+import org.slf4j.MDC;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
-
-import org.slf4j.MDC;
 
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;

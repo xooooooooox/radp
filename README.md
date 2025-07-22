@@ -37,7 +37,7 @@ This ensures consistent builds and frees developers from the tedium of managing 
 
 ### Common Components Integration
 
-Built upon the Spring ecosystem, RADP integrates and extends several essential components:
+Built upon the Spring ecosystem, RADP integrates and extends several essential parts:
 
 - **Spring Framework Extensions**: Enhanced Spring Framework components with additional utilities
 - **Spring Boot Starters**: Custom starters for common technologies and patterns
@@ -69,7 +69,7 @@ RADP provides abstractions and implementations of common design patterns to simp
 
 ### Scaffolding & Architecture Templates
 
-RADP provides scaffolding tools and recommended architectural patterns to jumpstart development:
+RADP provides scaffolding tools and recommended architectural patterns to upstart development:
 
 - **Project Archetypes**: Multiple archetypes for different project sizes and complexities
   - Standard (DDD-based multi-module)
@@ -97,7 +97,7 @@ Add RADP as a parent to your Maven project:
 <parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp-parent</artifactId>
-	<version>2.19</version>
+	<version>LATEST_VERSION</version>
 </parent>
 ```
 
@@ -108,7 +108,7 @@ Or add specific components as dependencies:
 <dependency>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp-spring-boot-starters</artifactId>
-	<version>2.19</version>
+	<version>LATEST_VERSION</version>
 	<type>pom</type>
 </dependency>
 ```
@@ -122,7 +122,7 @@ RADP provides several Maven archetypes to quickly bootstrap new projects:
 mvn archetype:generate \
   -DarchetypeGroupId=space.x9x.radp \
   -DarchetypeArtifactId=scaffold-std \
-  -DarchetypeVersion=2.19 \
+  -DarchetypeVersion=LATEST_VERSION \
   -DgroupId=com.example \
   -DartifactId=my-project \
   -Dversion=1.0-SNAPSHOT

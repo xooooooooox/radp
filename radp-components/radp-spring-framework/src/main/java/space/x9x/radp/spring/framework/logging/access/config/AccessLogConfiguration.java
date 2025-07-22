@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.framework.logging.access.config;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +26,6 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-
-import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.spring.framework.logging.EnableAccessLog;
 import space.x9x.radp.spring.framework.logging.access.aop.AccessLogAdvisor;

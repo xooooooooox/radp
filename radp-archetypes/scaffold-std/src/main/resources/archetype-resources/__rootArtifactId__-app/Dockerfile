@@ -66,6 +66,7 @@ COPY --from=builder /app/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
 RUN chmod +x "$APP_HOME"/entrypoint.sh
 
+
 # 切换到容器用户并创建日志目录
 USER $USER
 RUN mkdir -p "$DATA_HOME"/logs \

@@ -1,5 +1,58 @@
 # ChangeLog
 
+## 2.22
+
+### Chore
+
+#### Dependencies
+
+- Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
+- Remove unused MongoDB dependencies.
+
+#### Build
+
+- Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
+- Remove unused disableCompiler configuration in Gatling Maven Plugin.
+- Update checkstyle config location
+- Add default pluginGroup to `.mvn/settings.xml`
+- Optimize profile `code-review`
+  - Add property `sonar.login` to the `code-review` profile
+  - Add property `sonar.qualitygate.wait`
+- Optimize profile `unit-test`
+- Rename profile `aggregate-reports` to `site-aggregate`
+- Remove unused `argLine` configuration from surefire plugin to resolve jacoco not work.
+- Add profile `o-wrapper`
+- Remove property `sonar.login`. To resolve warnings: `sonar.login` is deprecated and will be removed in the future
+- Change maven-release-plugin tagNameFormat from `x.y.z` to `vx.y.x`
+- Add `skipViaCommandLine` Option to override the value of skip `git-commit-id-maven-plugin`
+
+#### Scaffold
+
+- Avoid generating an incorrect `.gitlab-ci.yml` file.
+- Update scaffold default radpVersion to `3.22`.
+- Update `archetype-catalog-vcs.xml`.
+- Update idea and checkstyle configuration.
+- Update `.editorconfig`.
+- Update `application-local.yaml` to use dynamic port assignment.
+- Update `archetype-metadata.xml`
+  - include `.coding` directory.
+  - include `.editorconfig`.
+- Update `archtype-metadata.xml` to include `.devcontainer`.
+- Update `.mvn/settings.xml`
+  - include default pluginGroup.
+  - replace `devops.release.arguments` with `maven.release.arguments`
+- Update profiles in `.mvn/maven.config` to include code-review.
+- Update `.gitlab-ci.yml`
+- Optimize `checkstyle-suppressions.xml`
+  - Add suppression for `target/generated-sources`
+- Optimize assembly.xml to include `jib-maven.tar`
+- Fix scaffold writerside.cfg
+
+#### Style
+
+- Update code style and checkstyle configuration.
+- Optimize imports order
+
 ## 2.21
 
 ## Break Changes

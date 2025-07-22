@@ -1,75 +1,75 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <option name="AUTODETECT_INDENTS" value="false" />
+    <option name="AUTODETECT_INDENTS" value="false"/>
     <option name="OTHER_INDENT_OPTIONS">
       <value>
-        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="USE_TAB_CHARACTER" value="true"/>
       </value>
     </option>
-    <option name="RIGHT_MARGIN" value="120" />
+    <option name="RIGHT_MARGIN" value="120"/>
     <JavaCodeStyleSettings>
-      <option name="BLANK_LINES_AROUND_FIELD_WITH_ANNOTATIONS" value="1" />
-      <option name="INSERT_INNER_CLASS_IMPORTS" value="true" />
-      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="50" />
-      <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="30" />
+      <option name="BLANK_LINES_AROUND_FIELD_WITH_ANNOTATIONS" value="1"/>
+      <option name="INSERT_INNER_CLASS_IMPORTS" value="true"/>
+      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="50"/>
+      <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="30"/>
       <option name="IMPORT_LAYOUT_TABLE">
         <value>
-          <package name="" withSubpackages="true" static="false" module="true" />
-          <emptyLine />
-          <package name="java" withSubpackages="true" static="false" />
-          <emptyLine />
-          <package name="javax" withSubpackages="true" static="false" />
-          <emptyLine />
-          <package name="org.springframework" withSubpackages="true" static="false" />
-          <emptyLine />
-          <package name="" withSubpackages="true" static="false" />
-          <emptyLine />
-          <package name="space.x9x" withSubpackages="true" static="false" />
-          <emptyLine />
-          <package name="" withSubpackages="true" static="true" />
+          <package name="" withSubpackages="true" static="false" module="true"/>
+          <emptyLine/>
+          <package name="java" withSubpackages="true" static="false"/>
+          <emptyLine/>
+          <package name="javax" withSubpackages="true" static="false"/>
+          <emptyLine/>
+          <package name="" withSubpackages="true" static="false"/>
+          <emptyLine/>
+          <package name="org.springframework" withSubpackages="true" static="false"/>
+          <emptyLine/>
+          <package name="space.x9x" withSubpackages="true" static="false"/>
+          <emptyLine/>
+          <package name="" withSubpackages="true" static="true"/>
         </value>
       </option>
     </JavaCodeStyleSettings>
     <codeStyleSettings language="Groovy">
       <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="USE_TAB_CHARACTER" value="true"/>
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="JAVA">
-      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
-      <option name="BLANK_LINES_AROUND_FIELD" value="1" />
-      <option name="BLANK_LINES_AROUND_FIELD_IN_INTERFACE" value="1" />
-      <option name="ELSE_ON_NEW_LINE" value="true" />
-      <option name="CATCH_ON_NEW_LINE" value="true" />
-      <option name="FINALLY_ON_NEW_LINE" value="true" />
-      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
-      <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true" />
-      <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
-      <option name="KEEP_MULTIPLE_EXPRESSIONS_IN_ONE_LINE" value="true" />
-      <option name="FIELD_ANNOTATION_WRAP" value="1" />
+      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1"/>
+      <option name="BLANK_LINES_AROUND_FIELD" value="1"/>
+      <option name="BLANK_LINES_AROUND_FIELD_IN_INTERFACE" value="1"/>
+      <option name="ELSE_ON_NEW_LINE" value="true"/>
+      <option name="CATCH_ON_NEW_LINE" value="true"/>
+      <option name="FINALLY_ON_NEW_LINE" value="true"/>
+      <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
+      <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true"/>
+      <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true"/>
+      <option name="KEEP_MULTIPLE_EXPRESSIONS_IN_ONE_LINE" value="true"/>
+      <option name="FIELD_ANNOTATION_WRAP" value="1"/>
       <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="USE_TAB_CHARACTER" value="true"/>
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="JSON">
       <indentOptions>
-        <option name="TAB_SIZE" value="2" />
+        <option name="TAB_SIZE" value="2"/>
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="Markdown">
       <indentOptions>
-        <option name="INDENT_SIZE" value="2" />
-        <option name="TAB_SIZE" value="2" />
+        <option name="INDENT_SIZE" value="2"/>
+        <option name="TAB_SIZE" value="2"/>
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="XML">
       <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="USE_TAB_CHARACTER" value="true"/>
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="kotlin">
       <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
+        <option name="USE_TAB_CHARACTER" value="true"/>
       </indentOptions>
     </codeStyleSettings>
   </code_scheme>

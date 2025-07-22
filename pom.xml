@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.18</version>
-		<relativePath /> <!-- lookup parent from the repository -->
+		<relativePath/> <!-- lookup parent from the repository -->
 	</parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp</artifactId>
@@ -40,18 +41,31 @@
 		<flattened.filename>.flatten-pom-xml</flattened.filename>
 		<javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
 		<central.server.id>central-portal</central.server.id>
-		<user.archetype.catalog.upload.url />
-		<user.archetype.catalog.upload.serverId />
-		<user.gpg.keyname />
-		<user.minio.alias />
-		<user.minio.bucket.path />
-		<user.docker.build.registry />
-		<user.docker.build.base_image />
-		<user.jasypt.encryptor.password />
+		<user.archetype.catalog.upload.url/>
+		<user.archetype.catalog.upload.serverId/>
+		<user.gpg.keyname/>
+		<user.minio.alias/>
+		<user.minio.bucket.path/>
+		<user.docker.build.registry/>
+		<user.docker.build.base_image/>
+		<user.jasypt.encryptor.password/>
 		<!-- checkstyle -->
-		<checkstyle.base.dir>src/checkstyle</checkstyle.base.dir>
-		<checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
+		<checkstyle.base.dir>.coding/checkstyle</checkstyle.base.dir>
+		<checkstyle.config.location>.coding/checkstyle/checkstyle.xml</checkstyle.config.location>
 		<checkstyle.property.expansion>config_loc=${checkstyle.base.dir}</checkstyle.property.expansion>
+		<!-- wrapper -->
+		<wrapper.maven.version>3.9.9</wrapper.maven.version>
+		<wrapper.distribution.type>only-script</wrapper.distribution.type>
+		<!-- jacoco -->
+		<jacoco.skip>false</jacoco.skip>
+		<jacoco.bundle.instruction.coveredratio>0.65</jacoco.bundle.instruction.coveredratio>
+		<jacoco.bundle.branch.coveredratio>0.60</jacoco.bundle.branch.coveredratio>
+		<jacoco.bundle.class.missedcount>0</jacoco.bundle.class.missedcount>
+		<jacoco.class.line.coveredratio>0.50</jacoco.class.line.coveredratio>
+		<!-- release -->
+		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
+		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
+		<maven.release.releaseProfiles>${user.release.releaseProfiles}</maven.release.releaseProfiles>
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -59,7 +73,7 @@
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
-		<maven-wrapper-plugin.version>3.2.0</maven-wrapper-plugin.version>
+		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -131,6 +145,8 @@
 						<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
 						<!-- 生成 git.properties 文件 -->
 						<generateGitPropertiesFile>true</generateGitPropertiesFile>
+						<!-- 允许通过 -Dmaven.gitcommitid.skip 跳过 -->
+						<skipViaCommandLine>true</skipViaCommandLine>
 						<!-- 仅包含指定的属性 -->
 						<includeOnlyProperties>
 							<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
@@ -219,27 +235,24 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>${maven-release-plugin.version}</version>
 					<configuration>
-						<tagNameFormat>@{project.version}</tagNameFormat>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
-
-						<!-- scmCommentPrefix: default is [maven-release-plugin] -->
-						<!-- scmReleaseCommitComment: default is @{prefix} prepare release @{releaseLabel} -->
-						<!-- scmDevelopmentCommitComment:
-						default is @{prefix} prepare for the next development iteration -->
-
-						<!-- 如果为true, 那么 performRelease 将会为 true -->
-						<!-- 利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足 -->
+						<!--
+						scmCommentPrefix: default is [maven-release-plugin]
+						scmReleaseCommitComment: default is @{prefix} prepare release @{releaseLabel}
+						scmDevelopmentCommitComment: default is @{prefix} prepare for the next development iteration
+						-->
+						<pushChanges>true</pushChanges>
+						<!--
+						如果为true, 那么 performRelease 将会为 true
+						利用这个特性,可以将这个 performRelease 绑定到通过属性激活的 profile, 以补充 arguments 的不足
+						-->
 						<useReleaseProfile>false</useReleaseProfile>
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
-						<arguments>${devops.release.arguments}</arguments>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-wrapper-plugin</artifactId>
-					<version>${maven-wrapper-plugin.version}</version>
-					<configuration>
-						<mavenVersion>3.9.9</mavenVersion>
+						<arguments>${maven.release.arguments}</arguments>
+
+						<preparationProfiles>${maven.release.preparationProfiles}</preparationProfiles>
+						<releaseProfiles>${maven.release.releaseProfiles}</releaseProfiles>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -345,6 +358,11 @@
 				<!-- code review -->
 				<user.sonar.host.url>${setting.sonar.host.url}</user.sonar.host.url>
 				<user.sonar.token>${setting.sonar.token}</user.sonar.token>
+				<!-- release -->
+				<user.release.arguments>${setting.release.arguments}</user.release.arguments>
+				<user.release.preparationProfiles>${setting.release.preparationProfiles}
+				</user.release.preparationProfiles>
+				<user.release.releaseProfiles>${setting.release.releaseProfiles}</user.release.releaseProfiles>
 			</properties>
 		</profile>
 		<!-- 发布到中央仓库 -->
@@ -354,7 +372,12 @@
 			<id>publish-central</id>
 			<properties>
 				<auto.release.enabled>true</auto.release.enabled>
-				<devops.release.arguments>-Pcoding,publish-central -DskipTests</devops.release.arguments>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,publish-central</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 			</properties>
 			<build>
 				<plugins>
@@ -371,6 +394,43 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>publish-artifactory</id>
+			<properties>
+				<!-- 有了这两个属性后，工程 pom.xml 可以不需要配置 distributionManagement 了 -->
+				<!-- 属性，可使用 -DaltDeploymentRepository=xxxxx 进行覆盖 -->
+				<!-- 比如:
+				1) 发布快照版本 mvn deploy -DaltDeploymentRepository=artifactory-snapshots::https://artifactory.example.com/artifactory/maven-dev-local
+				2) 发布正式版本 mvn deploy -DaltDeploymentRepository=artifactory-releases::https://artifactory.example.com/artifactory/maven-prod-local
+				-->
+				<altSnapshotDeploymentRepository>${user.altSnapshotDeploymentRepository.artifactory}
+				</altSnapshotDeploymentRepository>
+				<altReleaseDeploymentRepository>${user.altReleaseDeploymentRepository.artifactory}
+				</altReleaseDeploymentRepository>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
+				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
+			</properties>
+		</profile>
+		<profile>
+			<id>publish-harbor</id>
+			<properties>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
+				<maven.deploy.skip>true</maven.deploy.skip>
+				<!-- release -->
+				<setting.release.preparationProfiles>coding,o-release,publish-harbor
+				</setting.release.preparationProfiles>
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.releaseProfiles>coding,o-release,publish-harbor</setting.release.releaseProfiles>
+			</properties>
 		</profile>
 		<profile>
 			<!-- 为了加快构建速度 -->
@@ -420,8 +480,18 @@
 			<properties>
 				<sonar.host.url>${user.sonar.host.url}</sonar.host.url>
 				<sonar.token>${user.sonar.token}</sonar.token>
-				<maven.test.skip>false</maven.test.skip>
-				<!-- Java 17 is the required JRE to run the scanner in SonarQube v10.4+ -->
+				<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+				<!--
+				sonar.login is deprecated and will be removed in the future
+				=========================================================================
+									Version Compatibility Matrix
+				=========================================================================
+				JDK	|	SonarQube Server		|	sonar-maven-plugin
+				8	|	v8.0 - v8.9				|	<=3.11.0.3922
+				11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x
+				17	|	v9.x, v10.x and later	|	4.0.x for v10.0-v10.5 / 5.x for v10.6+
+				=========================================================================
+				-->
 			</properties>
 			<build>
 				<plugins>
@@ -476,6 +546,10 @@
 			</build>
 		</profile>
 
+		<!--
+		单元测试 + 覆盖率
+		mvn clean verify -Pcoding,unit-test
+		-->
 		<profile>
 			<id>unit-test</id>
 			<properties>
@@ -526,6 +600,10 @@
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<!-- 可以通过激活 skip-jacoco profile 来跳过 jacoco 执行 -->
+							<skip>${jacoco.skip}</skip>
+						</configuration>
 						<executions>
 							<execution>
 								<!-- 初始化时附加 agent -->
@@ -547,24 +625,50 @@
 								</goals>
 								<configuration>
 									<dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+									<!--
+									1. Available element type (represent the scope of each rule):
+									1) BUNDLE: All classes in the Maven module combined will be checked against the rule
+									2) PACKAGE: each java package
+									3) CLASS: Each Class file will be checked against the rule
+									4) SOURCEFILE: Each Java file will be checked against the rule
+									5) METHOD: each method will be checked against the rule
+									-->
 									<rules>
-										<rule implementation="org.jacoco.maven.RuleConfiguration">
+										<!-- rule1: 模块级门槛 -->
+										<rule>
 											<element>BUNDLE</element>
 											<limits>　　
-												<limit implementation="org.jacoco.report.check.Limit">
-													<counter>METHOD</counter>
+												<limit>
+													<counter>INSTRUCTION</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>${jacoco.bundle.instruction.coveredratio}</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>BRANCH</counter>
 													<value>COVEREDRATIO</value>
-													<minimum>0.50</minimum>
+													<minimum>${jacoco.bundle.branch.coveredratio}</minimum>
 												</limit>
-												<limit implementation="org.jacoco.report.check.Limit">
+												<limit>
 													<counter>CLASS</counter>
 													<value>MISSEDCOUNT</value>
-													<maximum>0</maximum>
+													<maximum>${jacoco.bundle.class.missedcount}</maximum>
+												</limit>
+											</limits>
+										</rule>
+										<!-- rule2: 类级门槛 -->
+										<rule>
+											<element>CLASS</element>
+											<excludes>
+												<exclude>*Exception*</exclude>
+												<exclude>*Application</exclude>
+												<exclude>*Config*</exclude>
+												<exclude>*Properties</exclude>
+											</excludes>
+											<limits>
+												<limit>
+													<counter>LINE</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>${jacoco.class.line.coveredratio}</minimum>
 												</limit>
 											</limits>
 										</rule>
@@ -575,51 +679,17 @@
 					</plugin>
 				</plugins>
 			</build>
-			<reporting>
-				<plugins>
-					<!-- 生成单元测试报告 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-report-plugin</artifactId>
-						<version>${maven-surefire-plugin.version}</version>
-						<configuration>
-							<aggregate>false</aggregate>
-						</configuration>
-					</plugin>
-					<!-- 交叉应用 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jxr-plugin</artifactId>
-						<version>${maven-jxr-plugin.version}</version>
-					</plugin>
-					<!-- 项目基本信息报告(依赖树,插件清单等) -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-project-info-reports-plugin</artifactId>
-						<version>${maven-project-info-reports-plugin.version}</version>
-					</plugin>
-				</plugins>
-			</reporting>
-			<dependencies>
-				<dependency>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 
-		<!-- 仅供 radp 当前工程使用 -->
-		<!-- mvn clean verify site -Pcoding,unit-test,aggregate -->
+		<!-- mvn clean verify site -Pcoding,unit-test,site-aggregate -->
 		<!-- 报告位置:
 		1. 在 <项目根目录>/target/staging/index.html
 		2. 在 <项目根目录>/target/staging/surefire-report.html -->
 		<profile>
-			<id>aggregate-reports</id>
+			<id>site-aggregate</id>
 			<distributionManagement>
 				<site>
 					<id>site</id>
-					<name>Project Site</name>
 					<!--suppress UnresolvedMavenProperty -->
 					<url>file:${session.executionRootDirectory}/target/staging</url>
 				</site>
@@ -631,6 +701,10 @@
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<!-- 可以通过激活 skip-jacoco profile 来跳过 jacoco 执行 -->
+							<skip>${jacoco.skip}</skip>
+						</configuration>
 						<executions>
 							<execution>
 								<id>report-aggregate</id>
@@ -790,6 +864,23 @@
 					</plugin>
 				</plugins>
 			</reporting>
+		</profile>
+
+		<profile>
+			<id>o-wrapper</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-wrapper-plugin</artifactId>
+						<version>${maven-wrapper-plugin.version}</version>
+						<configuration>
+							<mavenVersion>${wrapper.maven.version}</mavenVersion>
+							<distributionType>${wrapper.distribution.type}</distributionType>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>

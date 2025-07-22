@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archetype-descriptor
-		xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
-		name="radp-archetype-tiny"
-		xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+	name="radp-archetype-tiny"
+	xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<requiredProperties>
 		<!-- project gav -->
@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>2.21</defaultValue>
+			<defaultValue>2.22</defaultValue>
 		</requiredProperty>
 
 		<!-- spring application.yaml 占位符默认值 -->
@@ -46,6 +46,82 @@
 	</requiredProperties>
 
 	<fileSets>
+		<!-- .coding -->
+		<fileSet encoding="UTF-8">
+			<directory>.coding</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- .devcontainer -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>.devcontainer</directory>
+			<includes>
+				<include>.env</include>
+				<include>devcontainer.json</include>
+				<include>volumes/**/*.sql</include>
+				<include>docker-compose.yml</include>
+				<include>templates/**/docker-compose.yml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.devcontainer</directory>
+			<includes>
+				<include>**</include>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- .github -->
+		<fileSet encoding="UTF-8">
+			<directory>.github</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+
+		<!-- .idea -->
+		<fileSet encoding="UTF-8">
+			<directory>.idea</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- .mvn -->
+		<fileSet encoding="UTF-8">
+			<directory>.mvn</directory>
+			<includes>
+				<include>**/*.config</include>
+				<include>**/*.properties</include>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory/>
+			<includes>
+				<include>mvnw</include>
+				<include>mvnw.cmd</include>
+			</includes>
+		</fileSet>
+
+		<!-- docs -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>docs/mdbook</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>docs</directory>
+			<includes>
+				<include>api/**</include>
+				<include>drawio/**</include>
+				<include>*.drawio</include>
+			</includes>
+		</fileSet>
+
 		<!-- writerside -->
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory>Writerside</directory>
@@ -62,32 +138,12 @@
 				<include>**/**</include>
 			</includes>
 		</fileSet>
-		<!-- docs -->
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory>docs/mdbook</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
+
+		<!-- / -->
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory/>
 			<includes>
 				<include>Dockerfile</include>
-				<include>build.sh</include>
-				<include>start.sh</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory>docs/dev-ops</directory>
-			<includes>
-				<include>**/.env</include>
-				<include>**/.env.app.template</include>
-				<include>volumes/mysql/**/*.sql</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory/>
-			<includes>
 				<include>README.md</include>
 				<include>.gitlab-ci.yml</include>
 			</includes>
@@ -101,52 +157,11 @@
 				<include>.tool-versions</include>
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
+				<include>.editorconfig</include>
 			</includes>
 		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>.idea</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>src</directory>
-			<includes>
-				<include>**/**</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>docs</directory>
-			<includes>
-				<include>api/**</include>
-				<include>dev-ops/**</include>
-				<include>drawio/**</include>
-				<include>*.drawio</include>
-			</includes>
-		</fileSet>
-		<!-- github -->
-		<fileSet encoding="UTF-8">
-			<directory>.github</directory>
-			<includes>
-				<include>**/*</include>
-			</includes>
-		</fileSet>
-		<!-- mvn -->
-		<fileSet encoding="UTF-8">
-			<directory>.mvn</directory>
-			<includes>
-				<include>**/*.config</include>
-				<include>**/*.properties</include>
-				<include>**/*.xml</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory/>
-			<includes>
-				<include>mvnw</include>
-				<include>mvnw.cmd</include>
-			</includes>
-		</fileSet>
+
+		<!-- ============================================================= -->
 
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">
 			<directory>src/main/java</directory>
@@ -184,7 +199,8 @@
 			<directory>src/main/resources/mybatis</directory>
 			<includes>
 				<include>**/**</include>
-				<include>**/*.gitkeep</include>
+				<include>**/.gitkeep</include>
+				<include>.gitkeep</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">

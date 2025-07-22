@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 2.23
+
+### scaffold
+
+- Update scaffold default radpVersion to `2.23`.
+
 ## 2.22
 
 ### Chore
@@ -29,7 +35,7 @@
 #### Scaffold
 
 - Avoid generating an incorrect `.gitlab-ci.yml` file.
-- Update scaffold default radpVersion to `3.22`.
+- Update scaffold default radpVersion to `2.22`.
 - Update `archetype-catalog-vcs.xml`.
 - Update idea and checkstyle configuration.
 - Update `.editorconfig`.

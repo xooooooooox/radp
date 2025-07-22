@@ -136,6 +136,7 @@ variables:
 
   #--------------------------------------------- [c/1-9] release args -------------------------------------------------#
   TP_RELEASE_TAG_SEARCH: 3
+  TP_RELEASE_TAG_PREFIX: v
 
   TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
   TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"

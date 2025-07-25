@@ -4,6 +4,10 @@
 
 ### chore
 
+#### Build
+
+- Add `jvm.config` file to `.mvn`
+
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.23`.

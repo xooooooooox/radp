@@ -49,13 +49,13 @@
 		<!-- registry -->
 		<server>
 			<id>docker.io</id>
-			<username>${env.DOCKER_USERNAME}</username>
-			<password>${env.DOCKER_PASSWORD}</password>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
 		</server>
 		<server>
 			<id>registry-1.docker.io</id>
-			<username>${env.DOCKER_USERNAME}</username>
-			<password>${env.DOCKER_PASSWORD}</password>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
 		</server>
 	</servers>
 

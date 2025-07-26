@@ -41,7 +41,7 @@
 		<!-- 打包成可执行程序 -->
 		<start-class />
 		<build.layers.enabled>true</build.layers.enabled>
-		<app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
+		<app.assembly.filename>${project.build.finalName}-assembly-${project.version}.tar.gz</app.assembly.filename>
 		<app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
 		<app.artifact.file>${project.basedir}/../dist/${app.assembly.filename}</app.artifact.file>
 
@@ -1622,10 +1622,6 @@
 			<properties>
 				<!-- 激活 auto-release profile -->
 				<auto.release.enabled>true</auto.release.enabled>
-				<!-- 激活 auto-layered profile -->
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<!-- 激活 auto-assembly profile -->
-				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release:perform arguments -->
 				<user.release.arguments>-DskipTests</user.release.arguments>
 			</properties>
@@ -1635,6 +1631,7 @@
 			<id>o-tar</id>
 			<properties>
 				<auto.assembly.enabled>true</auto.assembly.enabled>
+				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
 			</properties>
 		</profile>

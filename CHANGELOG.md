@@ -8,6 +8,11 @@
 
 - Add `jvm.config` file to `.mvn`
 
+#### Dependencies
+
+- Upgrade spring-boot-starter-parent from `3.4.5` to `3.5.4`
+- Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`
+
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.23`.

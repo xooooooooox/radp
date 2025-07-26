@@ -6,7 +6,9 @@
 
 #### Build
 
-- Add `jvm.config` file to `.mvn`.
+- Optimize .mvn
+  - Add `jvm.config` file.
+  - Add private registry server configuration to Maven settings files.
 - Optimize profile `o-release` and `o-tar`.
 - Optimize assembly
   - Change assembly dist filename from `${project.build.finalName}-assembly.tar.gz` to

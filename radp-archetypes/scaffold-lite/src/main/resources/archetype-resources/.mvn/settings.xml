@@ -57,6 +57,11 @@
 			<username>${env.DOCKERHUB_USERNAME}</username>
 			<password>${env.DOCKERHUB_TOKEN}</password>
 		</server>
+		<server>
+			<id>${env.PRIVATE_REGISTRY}</id>
+			<username>${env.PRIVATE_REGISTRY_USERNAME}</username>
+			<password>${env.PRIVATE_REGISTRY_PASSWORD}</password>
+		</server>
 	</servers>
 
 	<mirrors>

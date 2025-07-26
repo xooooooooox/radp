@@ -16,6 +16,7 @@
   - Remove `zip` format from assembly configuration.
 - Optimize maven-release-plugin
   - Add properties `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`
+- Add profile `o-catalog`
 
 #### Dependencies
 

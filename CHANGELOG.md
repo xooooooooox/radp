@@ -2,7 +2,17 @@
 
 ## 2.23
 
-### scaffold
+### chore
+
+#### Build
+
+- Add `jvm.config` file to `.mvn`
+
+#### Dependencies
+
+- Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`
+
+#### Scaffold
 
 - Update scaffold default radpVersion to `2.23`.
 

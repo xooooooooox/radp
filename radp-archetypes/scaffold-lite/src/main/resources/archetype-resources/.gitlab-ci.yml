@@ -138,10 +138,11 @@ variables:
   #--------------------------------------------- [c/1-8] deploy args --------------------------------------------------#
 
   #--------------------------------------------- [c/1-9] release args -------------------------------------------------#
-  TP_RELEASE_TAG_SEARCH: v
+  TP_RELEASE_TAG_PREFIX: $TP_RUNTIME_ENV
+  TP_RELEASE_TAG_SEARCH: $TP_RELEASE_TAG_PREFIX
 
   TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
-  TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
+  TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,o-tar,publish-artifactory,repo-artifactory,env-$TP_RUNTIME_ENV"
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
 
   #--------------------------------------------- [c/1-10] summary args ------------------------------------------------#

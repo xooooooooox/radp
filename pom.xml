@@ -65,6 +65,8 @@
 		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
 		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
 		<maven.release.releaseProfiles>${user.release.releaseProfiles}</maven.release.releaseProfiles>
+		<maven.release.extraPreparationProfiles/> <!-- Append profiles to maven.release.preparationProfiles, 比如(需要以逗号开始): ,o-tar,env-dev -->
+		<maven.release.extraReleaseProfiles/> <!-- Append profiles to maven.release.releaseProfiles 比如: ,o-tar,env-dev-->
 
 		<!-- plugin version -->
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -251,8 +253,11 @@
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
 						<arguments>${maven.release.arguments}</arguments>
 
-						<preparationProfiles>${maven.release.preparationProfiles}</preparationProfiles>
-						<releaseProfiles>${maven.release.releaseProfiles}</releaseProfiles>
+						<preparationProfiles>
+							${maven.release.preparationProfiles}${maven.release.extraPreparationProfiles}
+						</preparationProfiles>
+						<releaseProfiles>${maven.release.releaseProfiles}${maven.release.extraReleaseProfiles}
+						</releaseProfiles>
 					</configuration>
 				</plugin>
 				<plugin>

@@ -554,8 +554,11 @@
 						<!-- 指定 release:perform 执行时传递的 maven config, 比如指定 -Pxx,yy -->
 						<arguments>${maven.release.arguments}</arguments>
 
-						<preparationProfiles>${maven.release.preparationProfiles}</preparationProfiles>
-						<releaseProfiles>${maven.release.releaseProfiles}</releaseProfiles>
+						<preparationProfiles>
+							${maven.release.preparationProfiles}${maven.release.extraPreparationProfiles}
+						</preparationProfiles>
+						<releaseProfiles>${maven.release.releaseProfiles}${maven.release.extraReleaseProfiles}
+						</releaseProfiles>
 					</configuration>
 				</plugin>
 				<plugin>

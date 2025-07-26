@@ -8,6 +8,10 @@
 
 - Add `jvm.config` file to `.mvn`.
 - Optimize profile `o-release` and `o-tar`.
+- Optimize assembly
+  - Change assembly filename from `${project.build.finalName}-assembly.tar.gz` to
+    `${project.build.finalName}-assembly-${project.version}.tar.gz`.
+  - Remove `zip` format from assembly configuration.
 
 #### Dependencies
 

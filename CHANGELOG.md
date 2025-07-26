@@ -6,11 +6,14 @@
 
 #### Build
 
-- Add `jvm.config` file to `.mvn`
+- Add `jvm.config` file to `.mvn`.
+- Optimize profile `o-release` and `o-tar`.
+- Change assembly filename from `${project.build.finalName}-assembly.tar.gz` to
+  `${project.build.finalName}-assembly-${project.version}.tar.gz`.
 
 #### Dependencies
 
-- Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`
+- Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`.
 
 #### Scaffold
 

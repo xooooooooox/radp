@@ -110,9 +110,11 @@
 				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
+				</setting.release.preparationProfiles>
 				<setting.release.extraPreparationProfiles/>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
+				</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
@@ -122,9 +124,8 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles/>
 			</properties>
@@ -141,11 +142,9 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
@@ -157,15 +156,6 @@
 				<altReleaseDeploymentRepository>
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
-				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
-				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
-				</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
-				</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 

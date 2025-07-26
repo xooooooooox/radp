@@ -426,7 +426,6 @@
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.jib.dockerBuild.enabled>true</auto.jib.dockerBuild.enabled>
 				<maven.deploy.skip>true</maven.deploy.skip>
-				<!-- override properties o-release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.releaseProfiles>coding,o-release,publish-harbor</setting.release.releaseProfiles>
 			</properties>

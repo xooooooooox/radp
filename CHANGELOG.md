@@ -13,7 +13,9 @@
 - Optimize assembly
   - Change assembly dist filename from `${project.build.finalName}-assembly.tar.gz` to
     `${project.build.finalName}-assembly-${project.version}.tar.gz`.
-  - Remove `zip` format from assembly configuration
+  - Remove `zip` format from assembly configuration.
+- Optimize maven-release-plugin
+  - Add properties `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`
 
 #### Dependencies
 

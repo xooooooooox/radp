@@ -1579,8 +1579,6 @@
 			<properties>
 				<!-- 激活 auto-release profile -->
 				<auto.release.enabled>true</auto.release.enabled>
-				<!-- release:perform arguments -->
-				<user.release.arguments>-DskipTests</user.release.arguments>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->

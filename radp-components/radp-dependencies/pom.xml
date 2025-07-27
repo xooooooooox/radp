@@ -980,11 +980,6 @@
 
 				<!-- ====================[项目脚手架==================== -->
 				<plugin>
-					<groupId>org.apache.maven.archetype</groupId>
-					<artifactId>archetype-packaging</artifactId>
-					<version>${archetype-packaging.version}</version>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-archetype-plugin</artifactId>
 					<version>${maven-archetype-plugin.version}</version>

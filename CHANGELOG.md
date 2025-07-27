@@ -21,6 +21,8 @@
 #### Dependencies
 
 - Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`.
+- Remove archetype-packaging pluginManagement. Resolve
+  `Failed to retrieve plugin descriptor … No plugin descriptor found at META-INF/maven/plugin.xml`
 
 #### Scaffold
 

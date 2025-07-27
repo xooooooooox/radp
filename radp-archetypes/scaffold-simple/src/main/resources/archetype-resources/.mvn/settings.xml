@@ -118,6 +118,8 @@
 				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles/>
 			</properties>
@@ -136,7 +138,10 @@
 				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
@@ -149,7 +154,13 @@
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
 				<!-- release -->
-				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
+				</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 
@@ -271,14 +282,6 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<!-- release:perform arguments -->
 				<user.release.arguments>-DskipTests</user.release.arguments>
-
-				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
-				</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
-				</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
@@ -291,7 +294,6 @@
 				<auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
 			</properties>
 		</profile>
-
 	</profiles>
 
 	<activeProfiles>

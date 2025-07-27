@@ -108,24 +108,16 @@
 				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
 				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
 				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
-				<!-- release -->
-				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
-				</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
-				</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
 			<id>publish-central</id>
 			<properties>
 				<auto.release.enabled>true</auto.release.enabled>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.assembly.enabled>false</auto.assembly.enabled>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles/>
 			</properties>
@@ -141,7 +133,10 @@
 				</altReleaseDeploymentRepository>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
@@ -155,6 +150,11 @@
 				</altReleaseDeploymentRepository>
 				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 

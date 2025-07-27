@@ -1573,53 +1573,6 @@
 			</build>
 		</profile>
 
-		<profile>
-			<!-- 为了加快构建速度 -->
-			<!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
-			<!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
-			<id>auto-release</id>
-			<activation>
-				<property>
-					<name>auto.release.enabled</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>versions-maven-plugin</artifactId>
-						<version>${versions-maven-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>${maven-source-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${maven-javadoc-plugin.version}</version>
-					</plugin>
-					<!-- 一定要先签名,再生成校验文件 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${maven-gpg-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>net.nicoulaj.maven.plugins</groupId>
-						<artifactId>checksum-maven-plugin</artifactId>
-						<version>${maven-checksum-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<version>${maven-release-plugin.version}</version>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 		<!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
 		<profile>
 			<id>o-release</id>

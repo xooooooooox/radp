@@ -153,6 +153,8 @@
 				<altReleaseDeploymentRepository>
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
+				<!-- release -->
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 			</properties>
 		</profile>
 

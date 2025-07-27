@@ -17,6 +17,7 @@
 - Optimize maven-release-plugin
   - Add properties `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`.
 - Add profile `o-catalog`.
+- Remove redundant `auto-release` profile.
 
 #### Dependencies
 

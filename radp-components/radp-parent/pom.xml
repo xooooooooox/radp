@@ -1581,12 +1581,6 @@
 				<auto.release.enabled>true</auto.release.enabled>
 				<!-- release:perform arguments -->
 				<user.release.arguments>-DskipTests</user.release.arguments>
-				<!-- release -->
-				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->

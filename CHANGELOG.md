@@ -18,7 +18,7 @@
   - Add properties `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`.
 - Add profile `o-catalog`.
 - Remove redundant `auto-release` profile.
-- Optimize jib-maven-plugin configuration for support build image without docker daemon.
+- Optimize jib-maven-plugin configuration for support build image without the docker daemon.
 
 #### Dependencies
 

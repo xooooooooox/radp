@@ -75,7 +75,7 @@ variables:
   TP_RUN_PAGES: "true"                                      # [c/1-7] 是否启用pages阶段
   TP_RUN_DEPLOY: "false"                                    # [c/1-8] 是否启用部署阶段
   TP_RUN_RELEASE: "true"                                    # [c/1-9] 是否启用打版阶段
-  TP_RUN_SUMMARY: "true"                                    # [c/1-10] 是否启用汇总制品阶段
+  TP_RUN_SUMMARY: "false"                                   # [c/1-10] 是否启用汇总制品阶段
 
   # 说明: (code-review = lint + unit_test + sonarqube)
   # 如果 mr target branch 在这个列表中, 将触发 code-review 相关 Jobs
@@ -139,8 +139,8 @@ variables:
   TP_RELEASE_TAG_SEARCH: v3
   TP_RELEASE_TAG_PREFIX: v
 
-  TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
-  TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,o-release,publish-artifactory,repo-artifactory"
+  TP_RELEASE_PREPARE_SHELL: "$DF_RELEASE_PREPARE_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,publish-artifactory,o-release"
+  TP_RELEASE_PERFORM_SHELL: "$DF_RELEASE_PERFORM_BASE_SHELL -ntp --settings .mvn/settings.xml -DskipTests -Pcoding,publish-artifactory,o-release"
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
 
   #--------------------------------------------- [c/1-10] summary args ------------------------------------------------#

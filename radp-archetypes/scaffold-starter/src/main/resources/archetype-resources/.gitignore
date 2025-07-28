@@ -1,9 +1,6 @@
 !/**/src/**/bin
 !/**/src/**/build
 
-### gitlab-ci-templates job dist
-.gitlab-ci/
-
 ### Temp
 *#
 *.sw?
@@ -11,6 +8,9 @@
 .#*
 .*.md.html
 .attach_pid*
+
+### gitlab-ci-templates job dist
+.gitlab-ci/
 
 ### Build & Dist ###
 dist

@@ -47,6 +47,8 @@
 		<app.artifact.file>${project.basedir}/../dist/${app.artifact.filename}</app.artifact.file>
 
 		<!-- Docker 部署 -->
+		<jib.skip.dockerBuild>false</jib.skip.dockerBuild> <!-- build image to local docker daemon -->
+		<jib.skip.build>false</jib.skip.build> <!-- build image without the docker daemon, recommend in ci -->
 		<jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
 		<jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
 		<app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
@@ -403,14 +405,20 @@
 							<goals>
 								<goal>dockerBuild</goal>
 							</goals>
+							<configuration>
+								<skip>${jib.skip.dockerBuild}</skip>
+							</configuration>
 						</execution>
 						<execution>
 							<!-- build and publish image to a registry -->
-							<id>jib-dockerBuild-publish</id>
+							<id>jib-build-publish</id>
 							<phase>deploy</phase>
 							<goals>
 								<goal>build</goal>
 							</goals>
+							<configuration>
+								<skip>${jib.skip.build}</skip>
+							</configuration>
 						</execution>
 					</executions>
 					<configuration>
@@ -1579,6 +1587,7 @@
 			<properties>
 				<!-- 激活 auto-release profile -->
 				<auto.release.enabled>true</auto.release.enabled>
+				<jib.skip.dockerBuild>true</jib.skip.dockerBuild>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->

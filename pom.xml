@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp</artifactId>
-	<version>3.23-SNAPSHOT</version>
+	<version>3.23</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	<description>Rapid Application Development Platform</description>
@@ -112,7 +112,7 @@
 		<url>${scm.git.web_url}</url>
 		<connection>scm:git:${scm.git.url}</connection>
 		<developerConnection>scm:git:${scm.git.url}</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v3.23</tag>
 	</scm>
 
 	<issueManagement>
@@ -386,9 +386,9 @@
 				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
+				<setting.release.extraPreparationProfiles />
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles/>
+				<setting.release.extraReleaseProfiles />
 			</properties>
 			<build>
 				<plugins>
@@ -423,7 +423,7 @@
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
 				</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
+				<setting.release.extraPreparationProfiles />
 				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
@@ -437,9 +437,9 @@
 				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles/>
+				<setting.release.extraPreparationProfiles />
 				<setting.release.releaseProfiles>coding,o-release,publish-harbor</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles/>
+				<setting.release.extraReleaseProfiles />
 			</properties>
 		</profile>
 		<profile>
@@ -497,8 +497,7 @@
 									Version Compatibility Matrix
 				=========================================================================
 				JDK	|	SonarQube Server		|	sonar-maven-plugin
-				8	|	v8.0 - v8.9				|	<=3.11.0.3922 11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x 17	|	v9.x, v10.x and later	|	4.0.x for v10.0-v10.5 / 5.x for v10.6+
-				=========================================================================
+				8	|	v8.0 - v8.9				|	<=3.11.0.3922 11	|	v8.9 and v10.0 - v10.5	|	3.11.x - 4.0.x 17	|	v9.x, v10.x and later	|	4.0.x for v10.0-v10.5 / 5.x for v10.6+ =========================================================================
 				-->
 			</properties>
 			<build>

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>compound-patterns</artifactId>
-		<version>3.23-SNAPSHOT</version>
+		<version>3.23</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>radp-decision-tree-pattern</artifactId>

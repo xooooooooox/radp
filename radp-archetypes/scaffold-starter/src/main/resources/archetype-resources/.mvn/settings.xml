@@ -280,6 +280,7 @@
 			<properties>
 				<!-- 激活 auto-release profile -->
 				<auto.release.enabled>true</auto.release.enabled>
+				<jib.skip.dockerBuild>true</jib.skip.dockerBuild>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
@@ -298,4 +299,3 @@
 		<activeProfile>default</activeProfile>
 	</activeProfiles>
 </settings>
-	O

@@ -1,5 +1,36 @@
 # ChangeLog
 
+## 3.23
+
+### chore
+
+#### Build
+
+- Optimize .mvn
+  - Add `jvm.config` file.
+  - Add private registry server configuration to Maven settings files.
+- Optimize profile `o-release` and `o-tar`.
+- Optimize assembly
+  - Change assembly dist filename from `${project.build.finalName}-assembly.tar.gz` to
+    `${project.build.finalName}-assembly-${project.version}.tar.gz`.
+  - Remove `zip` format from assembly configuration.
+- Optimize maven-release-plugin
+  - Add properties `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`.
+- Add profile `o-catalog`.
+- Remove redundant `auto-release` profile.
+- Optimize jib-maven-plugin configuration for support build image without the docker daemon.
+
+#### Dependencies
+
+- Upgrade spring-boot-starter-parent from `3.4.5` to `3.5.4`.
+- Upgrade jib-maven-plugin from `3.4.5` to `3.4.6`.
+- Remove archetype-packaging pluginManagement. Resolve
+  `Failed to retrieve plugin descriptor … No plugin descriptor found at META-INF/maven/plugin.xml`
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.23`.
+
 ## 3.22
 
 ### Chore

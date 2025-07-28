@@ -49,13 +49,18 @@
 		<!-- registry -->
 		<server>
 			<id>docker.io</id>
-			<username>${env.DOCKER_USERNAME}</username>
-			<password>${env.DOCKER_PASSWORD}</password>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
 		</server>
 		<server>
 			<id>registry-1.docker.io</id>
-			<username>${env.DOCKER_USERNAME}</username>
-			<password>${env.DOCKER_PASSWORD}</password>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
+		</server>
+		<server>
+			<id>${env.PRIVATE_REGISTRY}</id>
+			<username>${env.PRIVATE_REGISTRY_USERNAME}</username>
+			<password>${env.PRIVATE_REGISTRY_PASSWORD}</password>
 		</server>
 	</servers>
 
@@ -103,22 +108,18 @@
 				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
 				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
 				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
-				<!-- release -->
-				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
-				</setting.release.preparationProfiles>
-				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 			</properties>
 		</profile>
 		<profile>
 			<id>publish-central</id>
 			<properties>
 				<auto.release.enabled>true</auto.release.enabled>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,publish-central</setting.release.preparationProfiles>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
@@ -130,13 +131,12 @@
 				<altReleaseDeploymentRepository>
 					github::https://maven.pkg.github.com/xooooooooox/radp
 				</altReleaseDeploymentRepository>
-				<auto.release.enabled>true</auto.release.enabled>
-				<auto.layered.enabled>true</auto.layered.enabled>
-				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,o-release,publish-github
-				</setting.release.preparationProfiles>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>
@@ -148,12 +148,13 @@
 				<altReleaseDeploymentRepository>
 					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
 				</altReleaseDeploymentRepository>
-				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
-				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
+				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
-				<setting.release.preparationProfiles>coding,o-release,publish-artifactory
+				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
 				</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
 		</profile>
 

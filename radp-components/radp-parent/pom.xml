@@ -47,6 +47,8 @@
 		<app.artifact.file>${project.basedir}/../dist/${app.artifact.filename}</app.artifact.file>
 
 		<!-- Docker 部署 -->
+		<jib.skip.dockerBuild>false</jib.skip.dockerBuild> <!-- build image to local docker daemon -->
+		<jib.skip.build>false</jib.skip.build> <!-- build image without the docker daemon, recommend in ci -->
 		<jib.buildTar.platform.os>linux</jib.buildTar.platform.os>
 		<jib.buildTar.platform.architecture>arm64</jib.buildTar.platform.architecture> <!-- arm64/amd64 -->
 		<app.build.base_image.jdk8>eclipse-temurin:8-jdk</app.build.base_image.jdk8>
@@ -403,14 +405,20 @@
 							<goals>
 								<goal>dockerBuild</goal>
 							</goals>
+							<configuration>
+								<skip>${jib.skip.dockerBuild}</skip>
+							</configuration>
 						</execution>
 						<execution>
 							<!-- build and publish image to a registry -->
-							<id>jib-dockerBuild-publish</id>
+							<id>jib-build-publish</id>
 							<phase>deploy</phase>
 							<goals>
 								<goal>build</goal>
 							</goals>
+							<configuration>
+								<skip>${jib.skip.build}</skip>
+							</configuration>
 						</execution>
 					</executions>
 					<configuration>
@@ -1573,61 +1581,13 @@
 			</build>
 		</profile>
 
-		<profile>
-			<!-- 为了加快构建速度 -->
-			<!-- 对于 source jar, javadoc, asc, md5 这些构件信息 -->
-			<!-- 只针对涉及发布到远程仓库时, 才激活, 比如 profile publish-* 激活时将自动激活 -->
-			<id>auto-release</id>
-			<activation>
-				<property>
-					<name>auto.release.enabled</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>versions-maven-plugin</artifactId>
-						<version>${versions-maven-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>${maven-source-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${maven-javadoc-plugin.version}</version>
-					</plugin>
-					<!-- 一定要先签名,再生成校验文件 -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${maven-gpg-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>net.nicoulaj.maven.plugins</groupId>
-						<artifactId>checksum-maven-plugin</artifactId>
-						<version>${maven-checksum-plugin.version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<version>${maven-release-plugin.version}</version>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 		<!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
 		<profile>
 			<id>o-release</id>
 			<properties>
 				<!-- 激活 auto-release profile -->
 				<auto.release.enabled>true</auto.release.enabled>
-				<!-- release:perform arguments -->
-				<user.release.arguments>-DskipTests</user.release.arguments>
+				<jib.skip.dockerBuild>true</jib.skip.dockerBuild>
 			</properties>
 		</profile>
 		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assembly tar 以及 jib:buildTar -->
@@ -1637,6 +1597,16 @@
 				<auto.assembly.enabled>true</auto.assembly.enabled>
 				<auto.layered.enabled>true</auto.layered.enabled>
 				<auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
+			</properties>
+		</profile>
+		<!-- 上传 archetype catalog -->
+		<profile>
+			<id>o-catalog</id>
+			<properties>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 artifactory 等 -->
+				<auto.archetype.catalog.artifactory>true</auto.archetype.catalog.artifactory>
+				<!-- 是否要激活上传 archetype-catalog.xml 到 minio 等 -->
+				<auto.archetype.catalog.minio>false</auto.archetype.catalog.minio>
 			</properties>
 		</profile>
 	</profiles>

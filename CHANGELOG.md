@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 3.24
+
+### chore
+
+#### scaffold
+
+- Update scaffold default radpVersion to `3.24`.
+
 ## 3.23
 
 ### chore

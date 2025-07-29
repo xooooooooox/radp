@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 2.24
+
+### chore
+
+#### scaffold
+
+- Update scaffold default radpVersion to `2.24`.
+- Update .gitlab-ci.yml.
+
 ## 2.23
 
 ### chore

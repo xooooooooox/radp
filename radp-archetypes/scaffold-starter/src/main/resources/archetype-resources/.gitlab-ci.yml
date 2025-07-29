@@ -146,7 +146,14 @@ variables:
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
 
   #--------------------------------------------- [c/1-10] summary args ------------------------------------------------#
-  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME
-  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                   # 制品汇总工程 project id
-  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN             # 制品汇总工程 Access Token, scope=api
-  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF   # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品汇总到目标工程
+  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME                       # 制品汇总工程 project name
+  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                           # 制品汇总工程 project id
+  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN                     # 制品汇总工程 Access Token, scope=api
+  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF           # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品上传
+  TP_SUMMARY_ARTIFACT_UPLOAD_METHOD: $DF_SUMMARY_ARTIFACT_UPLOAD_METHOD   # 制品上传目标，gitlab_packages/jfrog/original
+  # 制品上传目标制品库 - jfrog
+  TP_SUMMARY_JFROG_GENERIC_REPO_NAME: $DF_JFROG_GENERIC_REPO_NAME
+  TP_SUMMARY_JFROG_USERNAME: $DF_JFROG_USERNAME
+  TP_SUMMARY_JFROG_PASSWORD: $DF_JFROG_PASSWORD

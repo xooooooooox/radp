@@ -7,6 +7,7 @@
 #### scaffold
 
 - Update scaffold default radpVersion to `3.24`.
+- Update .gitlab-ci.yml.
 
 ## 3.23
 

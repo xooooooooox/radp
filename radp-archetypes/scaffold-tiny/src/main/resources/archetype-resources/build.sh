@@ -2,15 +2,21 @@
 set -e
 
 runtime_env=${1:-dev}
+artifactory_domain=${2:?}
+artifactory_username=${3:?}
+artifactory_password=${4:?}
 
-active_profile="env-${runtime_env}"
-script_dir="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
-project_root="${script_dir}"
-pushd "$script_dir" || exit 1
-pushd "$project_root" || exit 1
-echo "==>Building with env: ${runtime_env}"
-./mvnw clean -Dauto.layered.enabled=true -Pcoding,${active_profile} package || sh mvnw clean -Dauto.layered.enabled=true -Pcoding,${active_profile} package
-popd || exit 1
-docker build -f ./Dockerfile -t ${imageNamespace}/${appName} .
+cur_dir="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+project_root="${cur_dir}"
+
+# 1. build image
+docker build \
+--build-arg RUNTIME_ENV=${runtime_env} \
+--build-arg ARTIFACTORY_DOMAIN=${artifactory_domain} \
+--build-arg ARTIFACTORY_USERNAME=${artifactory_username} \
+--build-arg ARTIFACTORY_PASSWORD=${artifactory_password} \
+-f ${cur_dir}/Dockerfile \
+-t ${imageNamespace}/${appName} "$project_root"
+
+# 2. push image
 docker push ${imageNamespace}/${appName}
-popd || exit 1

@@ -12,6 +12,7 @@
 
 - Update scaffold default radpVersion to `2.24`.
 - Update .gitlab-ci.yml.
+- Optimize Dockerfile
 
 ## 2.23
 

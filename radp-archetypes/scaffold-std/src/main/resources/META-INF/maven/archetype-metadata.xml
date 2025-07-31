@@ -157,6 +157,7 @@
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
 				<include>.editorconfig</include>
+				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 	</fileSets>

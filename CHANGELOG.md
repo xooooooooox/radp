@@ -4,6 +4,10 @@
 
 ### chore
 
+#### build
+
+- Support custom container runtime user.
+
 #### scaffold
 
 - Update scaffold default radpVersion to `2.24`.

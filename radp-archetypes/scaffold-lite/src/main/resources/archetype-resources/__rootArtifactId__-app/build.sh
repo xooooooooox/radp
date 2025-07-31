@@ -11,12 +11,12 @@ project_root="${cur_dir}/.."
 
 # 1. build image
 docker build \
---build-arg RUNTIME_ENV=${runtime_env} \
---build-arg ARTIFACTORY_DOMAIN=${artifactory_domain} \
---build-arg ARTIFACTORY_USERNAME=${artifactory_username} \
---build-arg ARTIFACTORY_PASSWORD=${artifactory_password} \
--f ${cur_dir}/Dockerfile \
--t ${imageNamespace}/${appName} "$project_root"
+  --build-arg RUNTIME_ENV="${runtime_env}" \
+  --build-arg ARTIFACTORY_DOMAIN="${artifactory_domain}" \
+  --build-arg ARTIFACTORY_USERNAME="${artifactory_username}" \
+  --build-arg ARTIFACTORY_PASSWORD="${artifactory_password}" \
+  -f "${cur_dir}"/Dockerfile \
+  -t ${imageNamespace}/${appName} "$project_root"
 
 # 2. push image
 docker push ${imageNamespace}/${appName}

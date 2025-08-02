@@ -59,7 +59,8 @@ variables:
   #============================================= [p] Parent Pipeline ==================================================#
   #====================================================================================================================#
   #--------------------------------------------- [p-1] prepare args ---------------------------------------------------#
-  TP_PREPARE_SCRIPT_REF: main   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
+  TP_PREPARE_SCRIPT_REF: main                               # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
+  TP_PREPARE_SCRIPT_REF_TYPE: branch
 
   #--------------------------------------------- [p-2] trigger args ---------------------------------------------------#
   TP_CHILD_PIPELINE_TEMPLATE_REF: $TP_PREPARE_SCRIPT_REF    # 用于指定子流水线使用的模板版本，默认使用 gitlab-ci-templates main 分支
@@ -122,6 +123,8 @@ variables:
 
   #--------------------------------------------- [c/1-6] publish args -------------------------------------------------#
   TP_PUBLISH_TYPE: maven
+
+  # 1-6-1 publish-by-maven args
   TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
   TP_PUBLISH_BY_MAVEN_SHELL: "$DF_PUBLISH_BY_MAVEN_BASE_SHELL \
                   -DskipTests \
@@ -129,6 +132,32 @@ variables:
                   -Dauto.archetype.catalog.minio=false \
                   -ntp --settings .mvn/settings.xml \
                   -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV"
+
+  # 1-6-2 publish-by-docker args
+  TP_PUBLISH_DOCKER_BUILD_TOOL: $DF_PUBLISH_DOCKER_BUILD_TOOL                               # support buildx/buildctl
+  TP_PUBLISH_DOCKER_BUILD_PLATFORMS: $DF_PUBLISH_DOCKER_BUILD_PLATFORMS                     # 逗号分隔多架构, 如: linux/amd64,linux/arm64
+  TP_PUBLISH_DOCKER_BUILD_CONTEXT_DIR: $DF_PUBLISH_DOCKER_BUILD_CONTEXT_DIR                 # docker 构建上下文
+  TP_PUBLISH_DOCKER_DOCKERFILE: "${appName}-app/Dockerfile"                                 # Dockerfile
+  TP_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF: $DF_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF   # build cache from/to registry
+  # image reference: [registry/][namespace/]repository:[tag][@digest]
+  TP_PUBLISH_DOCKER_REGISTRIES: $PRIVATE_REGISTRY_B64                                       # 逗号分隔的 base64 encode registry，例如: "base64(registry1.com),base64(docker.io)"
+  TP_PUBLISH_DOCKER_REGISTRY_USERNAMES: $DF_PUBLISH_DOCKER_REGISTRY_USERNAMES               # 逗号风格的 base64 encode registry usernames
+  TP_PUBLISH_DOCKER_REGISTRY_PASSWORDS: $DF_PUBLISH_DOCKER_REGISTRY_PASSWORDS               # 逗号风格的 base64 encode registry passwords
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_NAMESPACES: "${imageNamespace}/${TP_RUNTIME_ENV}"           # 对应每个registry的namespace，例如: "ns1,ns2,ns3"
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_REPOSITORY: $DF_PUBLISH_DOCKER_BUILD_IMAGE_REPOSITORY       # image repository name
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_ADDITIONAL_TAGS: ""                                         # 额外的标签，逗号分隔
+  TP_PUBLISH_DOCKER_BUILD_ARGS: $DF_PUBLISH_DOCKER_BUILD_ARGS                               # 构建参数，格式: "ARG1=value1,ARG2=value2,ARG3=value3"
+  TP_PUBLISH_DOCKER_BUILD_ARGS_FROM_ENV: $DF_PUBLISH_DOCKER_BUILD_ARGS_FROM_ENV             # 从环境变量自动传入的构建参数，格式: "CI_COMMIT_SHA,CI_COMMIT_TAG,CI_PROJECT_NAME"
+
+  # 1-6-3 publish-by-curl args
+  TP_PUBLISH_BY_CURL_IMAGE: $DF_PUBLISH_BY_CURL_IMAGE
+  TP_PUBLISH_BY_CURL_TARGET_BASE_URL: $DF_PUBLISH_BY_CURL_TARGET_BASE_URL                   #制品库地址
+  TP_PUBLISH_BY_CURL_TARGET_BASE_PATH: $DF_PUBLISH_BY_CURL_TARGET_BASE_PATH                 #发布制品到制品库的目标仓库ID
+  TP_PUBLISH_BY_CURL_TARGET_FILE_PATH: $DF_PUBLISH_BY_CURL_TARGET_FILE_PATH                 #发布制品到制品库制品位置(目录结构)
+  TP_PUBLISH_BY_CURL_TARGET_FILENAME: $DF_PUBLISH_BY_CURL_TARGET_FILENAME                   #目标制品名称(如果不指定或为空, 将与源文件名保持一致)
+  TP_PUBLISH_BY_CURL_SOURCE_FILE: $DF_PUBLISH_BY_CURL_SOURCE_FILE                           #制品路径(相对于项目根目录的相对路径)
+  TP_PUBLISH_BY_CURL_AUTH_USER: $DF_PUBLISH_BY_CURL_AUTH_USER                               #制品库用户
+  TP_PUBLISH_BY_CURL_AUTH_PASSWD: $DF_PUBLISH_BY_CURL_AUTH_PASSWD                           #制品库密码
 
   #--------------------------------------------- [c/1-7] pages args ---------------------------------------------------#
   # 发布 pages - writerside
@@ -146,7 +175,14 @@ variables:
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
 
   #--------------------------------------------- [c/1-10] summary args ------------------------------------------------#
-  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME
-  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                   # 制品汇总工程 project id
-  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN             # 制品汇总工程 Access Token, scope=api
-  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF   # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品汇总到目标工程
+  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME                       # 制品汇总工程 project name
+  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                           # 制品汇总工程 project id
+  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN                     # 制品汇总工程 Access Token, scope=api
+  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF           # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品上传
+  TP_SUMMARY_ARTIFACT_UPLOAD_METHOD: $DF_SUMMARY_ARTIFACT_UPLOAD_METHOD   # 制品上传目标，gitlab_packages/jfrog/original
+  # 制品上传目标制品库 - jfrog
+  TP_SUMMARY_JFROG_GENERIC_REPO_NAME: $DF_JFROG_GENERIC_REPO_NAME
+  TP_SUMMARY_JFROG_USERNAME: $DF_JFROG_USERNAME
+  TP_SUMMARY_JFROG_PASSWORD: $DF_JFROG_PASSWORD

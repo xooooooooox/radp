@@ -130,6 +130,22 @@ variables:
                   -ntp --settings .mvn/settings.xml \
                   -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV"
 
+  # publish-by-docker args
+  TP_PUBLISH_DOCKER_BUILD_TOOL: $DF_PUBLISH_DOCKER_BUILD_TOOL                               # support buildx/buildctl
+  TP_PUBLISH_DOCKER_BUILD_PLATFORMS: $DF_PUBLISH_DOCKER_BUILD_PLATFORMS                     # 逗号分隔多架构, 如: linux/amd64,linux/arm64
+  TP_PUBLISH_DOCKER_BUILD_CONTEXT_DIR: $DF_PUBLISH_DOCKER_BUILD_CONTEXT_DIR                 # docker 构建上下文
+  TP_PUBLISH_DOCKER_DOCKERFILE: "${appName}-app/Dockerfile"                                 # Dockerfile
+  TP_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF: $DF_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF   # build cache from/to registry
+  # image reference: [registry/][namespace/]repository:[tag][@digest]
+  TP_PUBLISH_DOCKER_REGISTRIES: $PRIVATE_REGISTRY_B64                                       # 逗号分隔的 base64 encode registry，例如: "base64(registry1.com),base64(docker.io)"
+  TP_PUBLISH_DOCKER_REGISTRY_USERNAMES: $DF_PUBLISH_DOCKER_REGISTRY_USERNAMES               # 逗号风格的 base64 encode registry usernames
+  TP_PUBLISH_DOCKER_REGISTRY_PASSWORDS: $DF_PUBLISH_DOCKER_REGISTRY_PASSWORDS               # 逗号风格的 base64 encode registry passwords
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_NAMESPACES: "${imageNamespace}/${TP_RUNTIME_ENV}"           # 对应每个registry的namespace，例如: "ns1,ns2,ns3"
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_REPOSITORY: $DF_PUBLISH_DOCKER_BUILD_IMAGE_REPOSITORY       # image repository name
+  TP_PUBLISH_DOCKER_BUILD_IMAGE_ADDITIONAL_TAGS: ""                                         # 额外的标签，逗号分隔
+  TP_PUBLISH_DOCKER_BUILD_ARGS: $DF_PUBLISH_DOCKER_BUILD_ARGS                               # 构建参数，格式: "ARG1=value1,ARG2=value2,ARG3=value3"
+  TP_PUBLISH_DOCKER_BUILD_ARGS_FROM_ENV: $DF_PUBLISH_DOCKER_BUILD_ARGS_FROM_ENV             # 从环境变量自动传入的构建参数，格式: "CI_COMMIT_SHA,CI_COMMIT_TAG,CI_PROJECT_NAME"
+
   #--------------------------------------------- [c/1-7] pages args ---------------------------------------------------#
   # 发布 pages - writerside
   TP_PAGES_TYPE: "writerside"

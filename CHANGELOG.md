@@ -4,7 +4,11 @@
 
 ### Chore
 
-#### scaffold
+#### Build
+
+- Update license.
+
+#### Scaffold
 
 - Update scaffold default radpVersion to `2.24`
 - Optimize dockerfile build script.

@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 3.24
+
+### Chore
+
+#### scaffold
+
+- Update scaffold default radpVersion to `3.24`
+- Optimize dockerfile build script.
+
 ## 3.23.1
 
 ### chore

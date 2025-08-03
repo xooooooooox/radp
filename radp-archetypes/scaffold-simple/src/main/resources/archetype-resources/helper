@@ -272,6 +272,7 @@ build_platform() { # one arch at a time (keeps caches hot)
   project_version=$(get_project_version)
 
   docker buildx build \
+    --sbom=true \
     --platform "$plat" \
     --cache-from type=local,src="$g_local_cache_dir/$slug" \
     --cache-from type=registry,ref="$g_remote_cache_ref-$slug" \
@@ -304,6 +305,7 @@ build_multi() { # buildx – all targets in one go
 
   # Build multi-platform image
   docker buildx build \
+    --sbom=true \
     --platform "$g_platforms" \
     "${cache_flags[@]}" \
     --build-arg BUILDKIT_INLINE_CACHE=1 \

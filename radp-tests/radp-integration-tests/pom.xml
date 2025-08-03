@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-tests</artifactId>
-		<version>3.23.1-SNAPSHOT</version>
+		<version>3.23.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<packaging>pom</packaging>

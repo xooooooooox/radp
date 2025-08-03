@@ -45,6 +45,7 @@
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
 				<include>.editorconfig</include>
+				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">

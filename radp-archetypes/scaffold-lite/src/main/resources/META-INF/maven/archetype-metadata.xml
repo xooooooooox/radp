@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>3.23</defaultValue>
+			<defaultValue>3.23.1</defaultValue>
 		</requiredProperty>
 
 		<!-- spring application.yaml 占位符默认值 -->
@@ -40,6 +40,9 @@
 		</requiredProperty>
 
 		<!-- docker -->
+		<requiredProperty key="imageRegistry">
+			<defaultValue>harbor.example.com</defaultValue>
+		</requiredProperty>
 		<requiredProperty key="imageNamespace">
 			<defaultValue>xooooooooox</defaultValue>
 		</requiredProperty>
@@ -157,6 +160,7 @@
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
 				<include>.editorconfig</include>
+				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 	</fileSets>
@@ -221,7 +225,7 @@
 					<directory/>
 					<includes>
 						<include>Dockerfile</include>
-						<include>build.sh</include>
+						<include>helper</include>
 						<include>start.sh</include>
 					</includes>
 				</fileSet>

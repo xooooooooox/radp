@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-dependencies</artifactId>
-		<version>3.24-SNAPSHOT</version>
+		<version>3.23.1-SNAPSHOT</version>
 		<relativePath>../radp-dependencies/pom.xml</relativePath>
 	</parent>
 	<packaging>pom</packaging>
@@ -63,6 +63,8 @@
 		<app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->
 		<app.server.port>8888</app.server.port>
 		<app.management.server.port>9999</app.management.server.port>
+		<docker.build.uid>1001</docker.build.uid>
+		<docker.build.gid>1001</docker.build.gid>
 		<docker.build.jvm.xms>1g</docker.build.jvm.xms>
 		<docker.build.jvm.xmx>1g</docker.build.jvm.xmx>
 		<docker.build.jvm.xss>1g</docker.build.jvm.xss>
@@ -485,7 +487,7 @@
 								<SPRING_PROFILES_ACTIVE>${runtime.env}</SPRING_PROFILES_ACTIVE>
 								<START_CLASS>${start-class}</START_CLASS>
 							</environment>
-							<user>1001:1001</user>
+							<user>${docker.build.uid}:${docker.build.gid}</user>
 							<!--
 							<appRoot>${app.home}</appRoot>
 							<workingDirectory>${app.home}</workingDirectory>

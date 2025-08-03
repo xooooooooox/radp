@@ -1,0 +1,352 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+##############################################################################
+# Defaults – everything can still be overridden from the CLI
+##############################################################################
+readonly g_cur_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly g_project_home="$(cd "${g_cur_dir}/.." && pwd)"
+
+g_app_name="${appName}"
+g_runtime_env="local"
+g_platforms="linux/amd64,linux/arm64"
+
+g_registry="${imageRegistry}"
+g_namespace="${imageNamespace}/${g_runtime_env}"
+
+g_artifactory_domain=""
+g_artifactory_username=""
+g_artifactory_password=""
+
+g_local_cache_dir="$HOME/.docker/buildx/cache/${g_app_name}"
+g_remote_cache_ref="${g_registry}/${g_namespace}/${g_app_name}:cache"
+
+g_context_dir="${g_project_home}"
+g_dockerfile="${g_cur_dir}/Dockerfile"
+
+g_build_type="multi" # one of: single | multi | platform
+
+##############################################################################
+# Helpers
+##############################################################################
+log() { printf '[%s] %s\n' "$(date +'%F %T')" "$*" >&2; }
+die() {
+  log "ERROR: $*"
+  exit 1
+}
+
+get_project_version() {
+  local pom_file="${g_project_home}/pom.xml"
+  if [[ ! -f "$pom_file" ]]; then
+    die "POM file not found at $pom_file"
+  fi
+
+  # Extract version from pom.xml using grep and sed
+  local version
+  version=$(grep -A1 "<artifactId>${g_app_name}</artifactId>" "$pom_file" |
+    grep "<version>" |
+    sed -E 's/.*<version>(.*)<\/version>.*/\1/')
+
+  if [[ -z "$version" ]]; then
+    die "Could not extract version from $pom_file"
+  fi
+
+  echo "${version%-*}"
+}
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Options
+  -e, --env ENV                Runtime environment (default: $g_runtime_env)
+  -r, --registry REGISTRY      Docker registry       (default: $g_registry)
+  -n, --namespace NS           Registry namespace    (default: $g_namespace)
+  -a, --app-name NAME          Application name      (default: $g_app_name)
+  -p, --platforms PLATFORMS    Comma-separated list  (default: $g_platforms)
+  -c, --cache DIR              Local cache dir       (default: $g_local_cache_dir)
+  -d, --artifactory-domain DOM Artifactory domain    (default: $g_artifactory_domain)
+  -u, --artifactory-user USER  Artifactory username  (default: $g_artifactory_username)
+  -P, --artifactory-pass PASS  Artifactory password
+  -f, --dockerfile PATH        Custom Dockerfile     (default: $g_dockerfile)
+  -t, --type TYPE              build type: single | multi | platform
+  -h, --help                   Show this message
+
+Examples
+  $0                               # multi-arch build + push with defaults
+  $0 -e prod -p linux/arm64        # prod image for arm64 only
+  $0 -t single                     # build for current host arch only
+  $0 -t push                       # (re-)push latest local image
+EOF
+}
+
+##############################################################################
+# Argument parsing
+##############################################################################
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    -e | --env)
+      g_runtime_env=$2
+      shift 2
+      ;;
+    -d | --artifactory-domain)
+      g_artifactory_domain=$2
+      shift 2
+      ;;
+    -u | --artifactory-user)
+      g_artifactory_username=$2
+      shift 2
+      ;;
+    -P | --artifactory-pass)
+      g_artifactory_password=$2
+      shift 2
+      ;;
+    -r | --registry)
+      g_registry=$2
+      shift 2
+      ;;
+    -n | --namespace)
+      g_namespace=$2
+      shift 2
+      ;;
+    -a | --app-name)
+      g_app_name=$2
+      shift 2
+      ;;
+    -p | --platforms)
+      g_platforms=$2
+      shift 2
+      ;;
+    -c | --cache)
+      g_local_cache_dir=$2
+      shift 2
+      ;;
+    -f | --dockerfile)
+      g_dockerfile=$2
+      shift 2
+      ;;
+    -t | --type)
+      g_build_type=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *) die "Unknown option: $1" ;;
+    esac
+  done
+
+  # Variables derived from the flags above
+  g_namespace="${g_namespace:-x9x/${g_runtime_env}}"
+  g_remote_cache_ref="${g_registry}/${g_namespace}/${g_app_name}:cache"
+}
+
+validate_args() {
+  # Check required string variables with CLI hints
+  if [[ -z "$g_app_name" ]]; then
+    die "Application name cannot be empty. Use: -a, --app-name NAME"
+  fi
+
+  if [[ -z "$g_runtime_env" ]]; then
+    die "Runtime environment cannot be empty. Use: -e, --env ENV"
+  fi
+
+  if [[ -z "$g_platforms" ]]; then
+    die "Platforms cannot be empty. Use: -p, --platforms PLATFORMS"
+  fi
+
+  if [[ -z "$g_registry" ]]; then
+    die "Docker registry cannot be empty. Use: -r, --registry REGISTRY"
+  fi
+
+  if [[ -z "$g_namespace" ]]; then
+    die "Registry namespace cannot be empty. Use: -n, --namespace NS"
+  fi
+
+  if [[ -z "$g_artifactory_domain" ]]; then
+    die "Artifactory domain cannot be empty. Use: -d,--artifactory-domain ARTIFACTORY_DOMAIN"
+  fi
+
+  if [[ -z "$g_artifactory_username" ]]; then
+    die "Artifactory username cannot be empty. Use: -u, --artifactory-user USER"
+  fi
+
+  if [[ -z "$g_local_cache_dir" ]]; then
+    die "Local cache directory cannot be empty. Use: -c, --cache DIR"
+  fi
+
+  if [[ -z "$g_context_dir" ]]; then
+    die "Context directory cannot be empty (derived from project home)"
+  fi
+
+  if [[ -z "$g_dockerfile" ]]; then
+    die "Dockerfile path cannot be empty. Use: -f, --dockerfile PATH"
+  fi
+
+  if [[ -z "$g_build_type" ]]; then
+    die "Build type cannot be empty. Use: -t, --type TYPE (single|multi|platform)"
+  fi
+
+  # Validate build type is one of the allowed values
+  case "$g_build_type" in
+  single | multi | platform) ;;
+  *) die "Build type must be one of: single, multi, platform. Use: -t, --type TYPE" ;;
+  esac
+
+  # Check if dockerfile exists
+  if [[ ! -f "$g_dockerfile" ]]; then
+    die "Dockerfile not found at: $g_dockerfile. Use: -f, --dockerfile PATH"
+  fi
+
+  # Check if context directory exists
+  if [[ ! -d "$g_context_dir" ]]; then
+    die "Context directory not found at: $g_context_dir"
+  fi
+
+  # Interactive password prompt if empty
+  if [[ -z "$g_artifactory_password" ]]; then
+    read -srp "please input artifactory password for user '$g_artifactory_username': " g_artifactory_password
+    echo ""
+    # Validate password was actually entered
+    if [[ -z "$g_artifactory_password" ]]; then
+      die "Artifactory password cannot be empty. Use: -P, --artifactory-pass PASS"
+    fi
+  fi
+}
+
+##############################################################################
+# Cache helpers
+##############################################################################
+ensure_cache_dirs() {
+  log "Ensuring cache directories exist..."
+  local p slug
+  local -a _plats
+  IFS=',' read -ra _plats <<<"$1"
+  for p in "${_plats[@]}"; do
+    slug="${p//\//-}"
+    mkdir -pv "$g_local_cache_dir/$slug"
+  done
+}
+
+cache_from_flags() {
+  local p slug
+  local -a _plats _flags
+  IFS=',' read -ra _plats <<<"$1"
+  for p in "${_plats[@]}"; do
+    slug="${p//\//-}"
+    _flags+=("--cache-from" "type=local,src=$g_local_cache_dir/$slug")
+  done
+  for p in "${_plats[@]}"; do
+    slug="${p//\//-}"
+    _flags+=("--cache-from" "type=registry,ref=$g_remote_cache_ref-$slug")
+  done
+  printf '%s\n' "${_flags[@]}"
+}
+
+##############################################################################
+# Build targets
+##############################################################################
+build_single() {
+  log "Building single-arch image for $(uname -m)…"
+  docker build \
+    --build-arg RUNTIME_ENV="$g_runtime_env" \
+    --build-arg ARTIFACTORY_DOMAIN="$g_artifactory_domain" \
+    --build-arg ARTIFACTORY_USERNAME="$g_artifactory_username" \
+    --build-arg ARTIFACTORY_PASSWORD="$g_artifactory_password" \
+    -f "$g_dockerfile" \
+    -t "${g_registry}/${g_namespace}/${g_app_name}:latest" \
+    "$g_context_dir"
+}
+
+build_platform() { # one arch at a time (keeps caches hot)
+  local plat="$1"
+  log "Building platform-specific image for $plat ..."
+  local slug=${1//\//-}
+
+  # Ensure cache directory exists
+  ensure_cache_dirs "$plat"
+
+  local project_version
+  project_version=$(get_project_version)
+
+  docker buildx build \
+    --platform "$plat" \
+    --cache-from type=local,src="$g_local_cache_dir/$slug" \
+    --cache-from type=registry,ref="$g_remote_cache_ref-$slug" \
+    --cache-to type=local,dest="$g_local_cache_dir/$slug",compression=zstd,mode=max \
+    --cache-to type=registry,ref="$g_remote_cache_ref-$slug",mode=max \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
+    --build-arg RUNTIME_ENV="$g_runtime_env" \
+    --build-arg ARTIFACTORY_DOMAIN="$g_artifactory_domain" \
+    --build-arg ARTIFACTORY_USERNAME="$g_artifactory_username" \
+    --build-arg ARTIFACTORY_PASSWORD="$g_artifactory_password" \
+    -f "$g_dockerfile" \
+    -t "${g_registry}/${g_namespace}/${g_app_name}:${slug}" \
+    -t "${g_registry}/${g_namespace}/${g_app_name}:${project_version}-${slug}" \
+    --push \
+    "$g_context_dir"
+}
+
+build_multi() { # buildx – all targets in one go
+  log "Building multi-arch image for: $g_platforms …"
+
+  # Ensure cache directory exists
+  ensure_cache_dirs "$g_platforms"
+
+  # Get cache flags as an array
+  local -a cache_flags
+  mapfile -t cache_flags < <(cache_from_flags "$g_platforms")
+
+  local project_version
+  project_version=$(get_project_version)
+
+  # Build multi-platform image
+  docker buildx build \
+    --platform "$g_platforms" \
+    "${cache_flags[@]}" \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
+    --file "${g_dockerfile}" \
+    --build-arg RUNTIME_ENV="${g_runtime_env}" \
+    --build-arg ARTIFACTORY_DOMAIN="${g_artifactory_domain}" \
+    --build-arg ARTIFACTORY_USERNAME="${g_artifactory_username}" \
+    --build-arg ARTIFACTORY_PASSWORD="${g_artifactory_password}" \
+    --tag "${g_registry}/${g_namespace}/${g_app_name}:latest" \
+    --tag "${g_registry}/${g_namespace}/${g_app_name}:$project_version" \
+    --push \
+    "$g_context_dir"
+
+  # Write to the platform-specific cache
+  log "Writing platform-specific caches..."
+  local -a platform_array
+  IFS=',' read -ra platform_array <<<"$g_platforms"
+  local p
+  for p in "${platform_array[@]}"; do
+    build_platform "$p"
+  done
+}
+
+##############################################################################
+# Main
+##############################################################################
+main() {
+  parse_args "$@"
+  validate_args
+
+  case "$g_build_type" in
+  single) build_single ;;
+  multi) build_multi ;;
+  platform)
+    local -a _plats
+    IFS=',' read -ra _plats <<<"$g_platforms"
+    local p
+    for p in "${_plats[@]}"; do
+      build_platform "$p"
+    done
+    ;;
+  *) die "Unknown build type: $g_build_type" ;;
+  esac
+}
+
+main "$@"

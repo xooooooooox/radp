@@ -59,7 +59,8 @@ variables:
   #============================================= [p] Parent Pipeline ==================================================#
   #====================================================================================================================#
   #--------------------------------------------- [p-1] prepare args ---------------------------------------------------#
-  TP_PREPARE_SCRIPT_REF: main   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
+  TP_PREPARE_SCRIPT_REF: main                               # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0
+  TP_PREPARE_SCRIPT_REF_TYPE: branch
 
   #--------------------------------------------- [p-2] trigger args ---------------------------------------------------#
   TP_CHILD_PIPELINE_TEMPLATE_REF: $TP_PREPARE_SCRIPT_REF    # 用于指定子流水线使用的模板版本，默认使用 gitlab-ci-templates main 分支
@@ -146,7 +147,14 @@ variables:
   TP_RELEASE_ROLLBACK_SHELL: "$DF_RELEASE_ROLLBACK_BASE_SHELL -ntp --settings .mvn/settings.xml"
 
   #--------------------------------------------- [c/1-10] summary args ------------------------------------------------#
-  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME
-  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                   # 制品汇总工程 project id
-  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN             # 制品汇总工程 Access Token, scope=api
-  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF   # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品汇总到目标工程
+  TP_SUMMARY_PROJECT_NAME: $DF_SUMMARY_PROJECT_NAME                       # 制品汇总工程 project name
+  TP_SUMMARY_PROJECT_ID: $DF_SUMMARY_PROJECT_ID                           # 制品汇总工程 project id
+  TP_SUMMARY_PROJECT_TOKEN: $DF_SUMMARY_PROJECT_TOKEN                     # 制品汇总工程 Access Token, scope=api
+  TP_SUMMARY_PROJECT_TARGET_REF: $DF_SUMMARY_PROJECT_TARGET_REF           # 制品汇总工程 target ref, tag 将会创建在这里
+  # 制品上传
+  TP_SUMMARY_ARTIFACT_UPLOAD_METHOD: $DF_SUMMARY_ARTIFACT_UPLOAD_METHOD   # 制品上传目标，gitlab_packages/jfrog/original
+  # 制品上传目标制品库 - jfrog
+  TP_SUMMARY_JFROG_GENERIC_REPO_NAME: $DF_JFROG_GENERIC_REPO_NAME
+  TP_SUMMARY_JFROG_USERNAME: $DF_JFROG_USERNAME
+  TP_SUMMARY_JFROG_PASSWORD: $DF_JFROG_PASSWORD

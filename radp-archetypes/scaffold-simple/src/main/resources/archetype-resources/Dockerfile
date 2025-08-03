@@ -1,16 +1,98 @@
-#################### [1] builder 阶段 ####################
+# syntax=docker/dockerfile:1.6
 
-# 使用基础镜像
-FROM eclipse-temurin:17-jdk  AS builder
+#################### [0] 全局构建参数 ####################
+ARG APP_NAME=${appName}
+ARG RUNTIME_ENV=local
+ARG ACTIVE_PROFILE=coding,repo-artifactory
+ARG MAVEN_REPO_LOCAL=/root/.m2/repository
 
-# 设置工作目录并指定构建模块
+# 制品库认证(给 .mvn/settings.xml)
+ARG ARTIFACTORY_DOMAIN
+ARG ARTIFACTORY_USERNAME
+ARG ARTIFACTORY_PASSWORD
+
+#################### [1] 基础镜像层优化 阶段 ####################
+FROM eclipse-temurin:17-jdk AS base
+# 安装常用工具，单独缓存层
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+	--mount=type=cache,target=/var/lib/apt,sharing=locked \
+	apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+#################### [2] 依赖预下载阶段 ####################
+FROM base AS deps
+
+# 构建参数
+ARG APP_NAME
+ARG ACTIVE_PROFILE
+ARG MAVEN_REPO_LOCAL
+ARG ARTIFACTORY_DOMAIN
+ARG ARTIFACTORY_USERNAME
+ARG ARTIFACTORY_PASSWORD
+
+# 设置环境变量
+ENV ARTIFACTORY_DOMAIN=${ARTIFACTORY_DOMAIN}
+ENV ARTIFACTORY_USERNAME=${ARTIFACTORY_USERNAME}
+ENV ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD}
+
+# 设置工作目录
+WORKDIR /build
+
+# 复制 Maven wrapper
+COPY mvnw mvnw.cmd ./
+COPY .mvn .mvn/
+RUN chmod +x ./mvnw
+
+# 复制配置文件
+COPY .coding .coding
+COPY .springjavaformatconfig ./
+
+# 复制工程 POM 文件
+COPY pom.xml ./
+
+# 3. 下载依赖（利用 Docker 缓存层优化构建速度）
+RUN --mount=type=cache,target=/root/.m2,sharing=locked \
+	./mvnw dependency:resolve dependency:resolve-plugins \
+	--settings .mvn/settings.xml \
+	-Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+    -B -ntp \
+	-P${ACTIVE_PROFILE}
+
+######################## [3] 构建阶段 ########################
+FROM deps AS builder
+
+ARG APP_NAME
+ARG RUNTIME_ENV
+ARG MAVEN_REPO_LOCAL
+ARG ACTIVE_PROFILE=coding,repo-artifactory,env-${RUNTIME_ENV}
+
+# 4. 复制源代码
+COPY src src
+
+# 执行构建
+RUN --mount=type=cache,target=/root/.m2,sharing=locked \
+	./mvnw clean package \
+	--settings .mvn/settings.xml \
+	-Dauto.layered.enabled=true \
+	-DskipTests \
+	-Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+	-B -ntp \
+	-P${ACTIVE_PROFILE}
+
+#################### [4] JAR 提取阶段 ####################
+# 使用基础镜像提取 JAR 分层
+FROM eclipse-temurin:8-jdk AS jar-extractor
+
+ARG APP_NAME
+
 WORKDIR /app
-ARG MODULE=.
-ARG ARTIFACT=${appName}.jar
 
-# 复制必要文件
-COPY ${MODULE}/target/$ARTIFACT application.jar
-COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
+# 从 Maven 构建阶段复制构建好的 JAR 文件
+COPY --from=builder /build/target/${APP_NAME}.jar application.jar
+
+# 复制启动脚本
+COPY src/main/docker/springboot/entrypoint.sh entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 # 1) Use the old tools extractor in Spring Boot 3.1 and below.
@@ -18,35 +100,59 @@ COPY ${MODULE}/src/main/docker/springboot/entrypoint.sh entrypoint.sh
 # 2) Use the new tools extractor in Spring Boot 3.2 instead, -Djarmode=layertools deprecated.
 RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
 
-#################### [2] runtime 阶段 ####################
-
+#################### [5] runtime 阶段 ####################
 # 创建容器镜像
-FROM  eclipse-temurin:17-jdk
+FROM  eclipse-temurin:17-jre
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
+# user
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
 ARG UID=1001
 ARG GID=1001
+# path
+ARG APP_HOME="/app"
+ARG DATA_HOME="/data"
+# zone
+ARG TZ="Asia/Shanghai"
+ARG LANG="C.UTF-8"
+# JVM args
+ARG JVM_XMS="1g"
+ARG JVM_XMX="1g"
+ARG JVM_XSS="256k"
+ARG GC_MODE="G1"
+# debug & logs
+ARG JDWP_DEBUG="N"
+ARG JDWP_PORT="5005"
+ARG USE_GC_LOG="Y"
+ARG GC_LOG_PATH="${DATA_HOME}/logs"
+ARG USE_HEAP_DUMP="Y"
+ARG HEAP_DUMP_PATH="${DATA_HOME}/logs"
+ARG USE_LARGE_PAGES="N"
+# app
+ARG SERVER_PORT="8888"
+ARG MANAGEMENT_SERVER_PORT="9999"
+ARG SPRING_PROFILES_ACTIVE="dev"
 
-ENV APP_HOME="/app"
-ENV DATA_HOME="/data"
-ENV TZ="Asia/Shanghai"
-ENV LANG="C.UTF-8"
-ENV JVM_XMS="1g"
-ENV JVM_XMX="1g"
-ENV JVM_XSS="256k"
-ENV GC_MODE="G1"
-ENV JDWP_DEBUG="N"
-ENV JDWP_PORT="5005"
-ENV USE_GC_LOG="Y"
-ENV GC_LOG_PATH="${DATA_HOME}/logs"
-ENV USE_HEAP_DUMP="Y"
-ENV HEAP_DUMP_PATH="${DATA_HOME}/logs"
-ENV USE_LARGE_PAGES="N"
-ENV SERVER_PORT="8888"
-ENV MANAGEMENT_SERVER_PORT="9999"
-ENV SPRING_PROFILES_ACTIVE="dev"
+# 设置环境变量
+ENV APP_HOME=${APP_HOME}
+ENV DATA_HOME=${DATA_HOME}
+ENV TZ=${TZ}
+ENV LANG=${LANG}
+ENV JVM_XMS=${JVM_XMS}
+ENV JVM_XMX=${JVM_XMX}
+ENV JVM_XSS=${JVM_XSS}
+ENV GC_MODE=${GC_MODE}
+ENV JDWP_DEBUG=${JDWP_DEBUG}
+ENV JDWP_PORT=${JDWP_PORT}
+ENV USE_GC_LOG=${USE_GC_LOG}
+ENV GC_LOG_PATH="${GC_LOG_PATH}"
+ENV USE_HEAP_DUMP=${USE_HEAP_DUMP}
+ENV HEAP_DUMP_PATH="${HEAP_DUMP_PATH}"
+ENV USE_LARGE_PAGES=${USE_LARGE_PAGES}
+ENV SERVER_PORT=${SERVER_PORT}
+ENV MANAGEMENT_SERVER_PORT=${MANAGEMENT_SERVER_PORT}
+ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 
 # 创建普通用户并切换工作目录(包括设置 umask)
 RUN groupadd -g "$GID" "$GROUP" \
@@ -60,15 +166,14 @@ RUN groupadd -g "$GID" "$GROUP" \
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=builder /app/application/spring-boot-loader/ ./
-COPY --from=builder /app/application/dependencies/ ./
-COPY --from=builder /app/application/organization-dependencies/ ./
-COPY --from=builder /app/application/modules-dependencies/ ./
-COPY --from=builder /app/application/snapshot-dependencies/ ./
-COPY --from=builder /app/application/application/ ./
-COPY --from=builder /app/entrypoint.sh ./
+COPY --from=jar-extractor /app/application/spring-boot-loader/ ./
+COPY --from=jar-extractor /app/application/dependencies/ ./
+COPY --from=jar-extractor /app/application/organization-dependencies/ ./
+COPY --from=jar-extractor /app/application/modules-dependencies/ ./
+COPY --from=jar-extractor /app/application/snapshot-dependencies/ ./
+COPY --from=jar-extractor /app/application/application/ ./
+COPY --from=jar-extractor /app/entrypoint.sh ./
 RUN chmod +x "$APP_HOME"/entrypoint.sh
-
 
 # 切换到容器用户并创建日志目录
 USER $USER

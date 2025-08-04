@@ -10,8 +10,10 @@
 
 #### Scaffold
 
-- Update scaffold default radpVersion to `2.24`
+- Update scaffold default radpVersion to `2.24`.
 - Optimize dockerfile build script.
+- Optimize Dockerfile.
+- Optimize script `helper`
 
 ## 2.23.1
 

@@ -25,6 +25,7 @@ g_context_dir="${g_project_home}"
 g_dockerfile="${g_cur_dir}/Dockerfile"
 
 g_build_type="multi" # one of: single | multi | platform
+g_enable_sbom="false" # whether to enable SBOM generation
 
 ##############################################################################
 # Helpers
@@ -70,12 +71,14 @@ Options
   -P, --artifactory-pass PASS  Artifactory password
   -f, --dockerfile PATH        Custom Dockerfile     (default: $g_dockerfile)
   -t, --type TYPE              build type: single | multi | platform
+  --sbom true|false            Enable/disable SBOM generation (default: $g_enable_sbom)
   -h, --help                   Show this message
 
 Examples
   $0                               # multi-arch build + push with defaults
   $0 -e prod -p linux/arm64        # prod image for arm64 only
   $0 -t single                     # build for current host arch only
+  $0 --sbom false                  # build without SBOM generation
   $0 -t push                       # (re-)push latest local image
 EOF
 }
@@ -128,6 +131,10 @@ parse_args() {
       ;;
     -t | --type)
       g_build_type=$2
+      shift 2
+      ;;
+    --sbom)
+      g_enable_sbom=$2
       shift 2
       ;;
     -h | --help)
@@ -191,8 +198,8 @@ validate_args() {
 
   # Validate build type is one of the allowed values
   case "$g_build_type" in
-  single | multi | platform) ;;
-  *) die "Build type must be one of: single, multi, platform. Use: -t, --type TYPE" ;;
+    single|multi|platform) ;;
+    *) die "Build type must be one of: single, multi, platform. Use: -t, --type TYPE" ;;
   esac
 
   # Check if dockerfile exists
@@ -272,7 +279,7 @@ build_platform() { # one arch at a time (keeps caches hot)
   project_version=$(get_project_version)
 
   docker buildx build \
-    --sbom=true \
+    --sbom="$g_enable_sbom" \
     --platform "$plat" \
     --cache-from type=local,src="$g_local_cache_dir/$slug" \
     --cache-from type=registry,ref="$g_remote_cache_ref-$slug" \
@@ -305,7 +312,7 @@ build_multi() { # buildx – all targets in one go
 
   # Build multi-platform image
   docker buildx build \
-    --sbom=true \
+    --sbom="$g_enable_sbom" \
     --platform "$g_platforms" \
     "${cache_flags[@]}" \
     --build-arg BUILDKIT_INLINE_CACHE=1 \

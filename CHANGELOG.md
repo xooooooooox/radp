@@ -14,6 +14,7 @@
 - Optimize dockerfile build script.
 - Optimize Dockerfile.
 - Optimize script `helper`
+- Fix archetype:generate failed.
 
 ## 2.23.1
 

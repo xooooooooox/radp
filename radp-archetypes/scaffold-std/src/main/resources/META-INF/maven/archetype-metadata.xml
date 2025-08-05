@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>2.23.1</defaultValue>
+			<defaultValue>2.24</defaultValue>
 		</requiredProperty>
 
 		<!-- spring application.yaml 占位符默认值 -->
@@ -241,7 +241,6 @@
 					<directory/>
 					<includes>
 						<include>Dockerfile</include>
-						<include>helper</include>
 						<include>start.sh</include>
 					</includes>
 				</fileSet>

@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>2.23.1</defaultValue>
+			<defaultValue>2.24</defaultValue>
 		</requiredProperty>
 
 		<!-- spring application.yaml 占位符默认值 -->
@@ -149,7 +149,6 @@
 				<include>Dockerfile</include>
 				<include>README.md</include>
 				<include>.gitlab-ci.yml</include>
-				<include>helper</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-##############################################################################
-# Defaults – everything can still be overridden from the CLI
-##############################################################################
 readonly g_cur_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly g_project_home="$(cd "${g_cur_dir}/.." && pwd)"
-
-g_app_name="${appName}"
+##############################################################################
+# TODO: 根据实际情况修改默认值
+# Defaults – everything can still be overridden from the CLI
+##############################################################################
+g_app_name="${appName}" # TODO
 g_runtime_env="local"
 g_platforms="linux/amd64,linux/arm64"
 
-g_registry="${imageRegistry}"
-g_namespace="${imageNamespace}/${g_runtime_env}"
+g_registry="${imageRegistry}" #TODO
+g_namespace="${imageNamespace}/${g_runtime_env}" #TODO
 
 g_artifactory_domain=""
 g_artifactory_username=""

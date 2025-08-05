@@ -1,0 +1,301 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<servers>
+		<!-- github -->
+		<server>
+			<id>github</id>
+			<username>${env.GH_USERNAME}</username>
+			<password>${env.GH_TOKEN}</password>
+		</server>
+		<!-- ossrh -->
+		<server>
+			<id>central-portal</id>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
+		</server>
+		<server>
+			<id>central-portal-snapshots</id>
+			<username>${env.CENTRAL_TOKEN_USERNAME}</username>
+			<password>${env.CENTRAL_TOKEN_PASSWORD}</password>
+		</server>
+		<!-- artifactory -->
+		<server>
+			<id>archetype</id>
+			<username>${env.ARTIFACTORY_USERNAME}</username>
+			<password>${env.ARTIFACTORY_PASSWORD}</password>
+		</server>
+		<server>
+			<id>artifactory-public</id>
+			<username>${env.ARTIFACTORY_USERNAME}</username>
+			<password>${env.ARTIFACTORY_PASSWORD}</password>
+		</server>
+		<server>
+			<id>artifactory-releases</id>
+			<username>${env.ARTIFACTORY_USERNAME}</username>
+			<password>${env.ARTIFACTORY_PASSWORD}</password>
+		</server>
+		<server>
+			<id>artifactory-snapshots</id>
+			<username>${env.ARTIFACTORY_USERNAME}</username>
+			<password>${env.ARTIFACTORY_PASSWORD}</password>
+		</server>
+		<!-- gpg -->
+		<server>
+			<id>${env.GPG_KEYID}</id>
+			<passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
+		</server>
+		<!-- registry -->
+		<server>
+			<id>docker.io</id>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
+		</server>
+		<server>
+			<id>registry-1.docker.io</id>
+			<username>${env.DOCKERHUB_USERNAME}</username>
+			<password>${env.DOCKERHUB_TOKEN}</password>
+		</server>
+		<server>
+			<id>${env.PRIVATE_REGISTRY}</id>
+			<username>${env.PRIVATE_REGISTRY_USERNAME}</username>
+			<password>${env.PRIVATE_REGISTRY_PASSWORD}</password>
+		</server>
+	</servers>
+
+	<mirrors>
+		<mirror>
+			<id>mirror-aliyun</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+	</mirrors>
+
+	<pluginGroups>
+		<!--
+		添加默认插件组, 以支持简写
+		1. sonar:sonar
+		2. spring-javaformat:validate or spring-javaformat:apply
+		-->
+		<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+		<pluginGroup>io.spring.javaformat</pluginGroup>
+	</pluginGroups>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<properties>
+				<!-- deploy -->
+				<setting.altSnapshotDeploymentRepository.artifactory>
+					artifactory-snapshots::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local
+				</setting.altSnapshotDeploymentRepository.artifactory>
+				<setting.altReleaseDeploymentRepository.artifactory>
+					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
+				</setting.altReleaseDeploymentRepository.artifactory>
+				<setting.altSnapshotDeploymentRepository.central>
+					central-portal-snapshots::https://central.sonatype.com/repository/maven-snapshots/
+				</setting.altSnapshotDeploymentRepository.central>
+				<!-- archetype -->
+				<setting.archetype.catalog.upload.serverId>artifactory-public
+				</setting.archetype.catalog.upload.serverId>
+				<setting.archetype.catalog.upload.url>
+					https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual
+				</setting.archetype.catalog.upload.url>
+				<setting.gpg.keyname>${env.GPG_KEYID}</setting.gpg.keyname>
+				<setting.docker.build.namespace>${env.PRIVATE_REGISTRY}/x9x</setting.docker.build.namespace>
+				<!-- code review -->
+				<setting.sonar.host.url>${env.SONAR_HOST_URL}</setting.sonar.host.url>
+				<setting.sonar.token>${env.SONAR_TOKEN}</setting.sonar.token>
+				<setting.sonar.token.global>${env.SONAR_GLOBAL_TOKEN}</setting.sonar.token.global>
+			</properties>
+		</profile>
+		<profile>
+			<id>publish-central</id>
+			<properties>
+				<auto.release.enabled>true</auto.release.enabled>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
+				<setting.release.arguments>-DskipTests</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
+				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
+			</properties>
+		</profile>
+		<profile>
+			<id>publish-github</id>
+			<properties>
+				<altSnapshotDeploymentRepository>
+					github::https://maven.pkg.github.com/xooooooooox/radp
+				</altSnapshotDeploymentRepository>
+				<altReleaseDeploymentRepository>
+					github::https://maven.pkg.github.com/xooooooooox/radp
+				</altReleaseDeploymentRepository>
+				<auto.release.enabled>true</auto.release.enabled>
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>false</auto.assembly.enabled>
+				<!-- release -->
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
+				<setting.release.releaseProfiles>coding,o-release,publish-github</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles/>
+			</properties>
+		</profile>
+		<profile>
+			<id>publish-artifactory</id>
+			<properties>
+				<altSnapshotDeploymentRepository>
+					artifactory-snapshots::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-dev-local
+				</altSnapshotDeploymentRepository>
+				<altReleaseDeploymentRepository>
+					artifactory-releases::https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-prod-local
+				</altReleaseDeploymentRepository>
+				<!-- release -->
+				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
+				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
+				</setting.release.preparationProfiles>
+				<setting.release.extraPreparationProfiles/>
+				<setting.release.releaseProfiles>coding,o-release,publish-artifactory,repo-artifactory
+				</setting.release.releaseProfiles>
+				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>repo-aliyun</id>
+			<properties>
+				<setting.repository.url.aliyun-public>https://maven.aliyun.com/repository/public
+				</setting.repository.url.aliyun-public>
+			</properties>
+			<repositories>
+				<repository>
+					<id>aliyun-public</id>
+					<url>${setting.repository.url.aliyun-public}</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>aliyun-public</id>
+					<url>${setting.repository.url.aliyun-public}</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+		<profile>
+			<id>repo-central</id>
+			<repositories>
+				<repository>
+					<id>repo-central</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>central-portal-snapshots</id>
+					<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+					<id>archetype</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>repo-central</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+		<profile>
+			<id>repo-artifactory</id>
+			<repositories>
+				<repository>
+					<id>artifactory-public</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<!-- id expected by maven-archetype-plugin to avoid fetching from everywhere -->
+					<id>archetype</id>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>artifactory-public</id>
+					<name>maven-public-virtual</name>
+					<url>https://${env.ARTIFACTORY_DOMAIN}/artifactory/maven-public-virtual</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>interval:60</updatePolicy>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+		<!-- 激活这个 profile, 以便生成更完备的制品, 达到可以发布到中央仓库的要求 -->
+		<profile>
+			<id>o-release</id>
+			<properties>
+				<!-- 激活 auto-release profile -->
+				<auto.release.enabled>true</auto.release.enabled>
+				<jib.skip.dockerBuild>true</jib.skip.dockerBuild>
+			</properties>
+		</profile>
+		<!-- 激活这个 profile, 让 package 阶段构建出, 需要的 assemblely tar 以及 jib:buildTar -->
+		<profile>
+			<id>o-tar</id>
+			<properties>
+				<!-- 激活 auto-layered profile -->
+				<auto.layered.enabled>true</auto.layered.enabled>
+				<auto.assembly.enabled>true</auto.assembly.enabled>
+				<auto.jib.buildTar.enabled>true</auto.jib.buildTar.enabled>
+			</properties>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>default</activeProfile>
+	</activeProfiles>
+</settings>

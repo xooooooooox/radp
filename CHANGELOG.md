@@ -4,10 +4,16 @@
 
 ### Chore
 
-#### scaffold
+#### Build
 
-- Update scaffold default radpVersion to `3.24`
-- Optimize dockerfile build script.
+- Change Apache License.
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.24`.
+- Optimize Dockerfile.
+- Optimize script `helper`
+- Fix archetype:generate failed.
 
 ## 3.23.1
 

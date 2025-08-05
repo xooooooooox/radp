@@ -163,7 +163,7 @@ ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 RUN mkdir -p "$DATA_HOME"/logs \
   && touch "$DATA_HOME"/logs/entrypoint.out \
   && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.out
+  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.err
 
 WORKDIR $APP_HOME
 

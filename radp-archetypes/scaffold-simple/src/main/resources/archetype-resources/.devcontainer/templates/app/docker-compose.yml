@@ -1,3 +1,6 @@
+#set($dollar = '$')
+#set($lbrace = '{')
+#set($rbrace = '}')
 networks:
   local-network:
     driver: bridge
@@ -8,24 +11,24 @@ services:
   backend:
     # NOTE: use build or image
     # build:
-    #   context: ../../${APP_NAME}-app
+    #   context: ../../${dollar}${lbrace}APP_NAME${rbrace}-app
     #   dockerfile: Dockerfile
-    image: ${IMAGE_NAMESPACE}/${APP_NAME}:latest
+    image: ${dollar}${lbrace}IMAGE_NAMESPACE${rbrace}/${dollar}${lbrace}APP_NAME${rbrace}:latest
     # pull_policy: always
     restart: unless-stopped
     ports:
-      - "${SERVER_PORT:-8888}"
-      - "${MANAGEMENT_SERVER_PORT:-9999}"
+      - "${dollar}${lbrace}SERVER_PORT:-8888${rbrace}"
+      - "${dollar}${lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}"
     environment:
       TZ: Asia/Shanghai
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: ${dollar}${lbrace}SPRING_PROFILES_ACTIVE${rbrace}
 
     volumes:
       - ./volumes/app/data:/data
       - ./volumes/app/config/:/app/config/
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${MANAGEMENT_SERVER_PORT:-9999}/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${dollar}${lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -241,7 +241,6 @@
 					<directory/>
 					<includes>
 						<include>Dockerfile</include>
-						<include>helper</include>
 						<include>start.sh</include>
 					</includes>
 				</fileSet>

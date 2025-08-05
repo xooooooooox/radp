@@ -6,6 +6,10 @@ ARG RUNTIME_ENV=local
 ARG ACTIVE_PROFILE=coding,repo-artifactory
 ARG MAVEN_REPO_LOCAL=/root/.m2/repository
 
+ARG BUILD_HOME="/build"
+ARG APP_HOME="/app"
+ARG DATA_HOME="/data"
+
 # 制品库认证(给 .mvn/settings.xml)
 ARG ARTIFACTORY_DOMAIN
 ARG ARTIFACTORY_USERNAME
@@ -24,6 +28,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 FROM base AS deps
 
 # 构建参数
+ARG BUILD_HOME
 ARG APP_NAME
 ARG ACTIVE_PROFILE
 ARG MAVEN_REPO_LOCAL
@@ -37,12 +42,11 @@ ENV ARTIFACTORY_USERNAME=${ARTIFACTORY_USERNAME}
 ENV ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD}
 
 # 设置工作目录
-WORKDIR /build
+WORKDIR "$BUILD_HOME"
 
 # 复制 Maven wrapper
 COPY mvnw mvnw.cmd ./
 COPY .mvn .mvn/
-RUN chmod +x ./mvnw
 
 # 复制配置文件
 COPY .coding .coding
@@ -59,11 +63,12 @@ COPY ${APP_NAME}-app/pom.xml ${APP_NAME}-app/
 
 # 3. 下载依赖（利用 Docker 缓存层优化构建速度）
 RUN --mount=type=cache,target=/root/.m2,sharing=locked \
-	./mvnw dependency:resolve dependency:resolve-plugins \
+	([ -x ./mvnw ] || chmod +x ./mvnw) && \
+  	./mvnw -B -ntp \
 	--settings .mvn/settings.xml \
 	-Dmaven.repo.local=$MAVEN_REPO_LOCAL \
-    -B -ntp \
-	-P${ACTIVE_PROFILE}
+	-P${ACTIVE_PROFILE} \
+	dependency:go-offline
 
 ######################## [3] 构建阶段 ########################
 FROM deps AS builder
@@ -83,24 +88,26 @@ COPY ${APP_NAME}-app/src ${APP_NAME}-app/src
 
 # 执行构建
 RUN --mount=type=cache,target=/root/.m2,sharing=locked \
-	./mvnw clean package \
+	./mvnw -B -ntp \
 	--settings .mvn/settings.xml \
 	-Dauto.layered.enabled=true \
 	-DskipTests \
 	-Dmaven.repo.local=$MAVEN_REPO_LOCAL \
-	-B -ntp \
-	-P${ACTIVE_PROFILE}
+	-P${ACTIVE_PROFILE} \
+    clean package
 
 #################### [4] JAR 提取阶段 ####################
 # 使用基础镜像提取 JAR 分层
 FROM eclipse-temurin:8-jdk AS jar-extractor
 
 ARG APP_NAME
+ARG APP_HOME
+ARG BUILD_HOME
 
-WORKDIR /app
+WORKDIR ${APP_HOME}
 
 # 从 Maven 构建阶段复制构建好的 JAR 文件
-COPY --from=builder /build/${APP_NAME}-app/target/${APP_NAME}.jar application.jar
+COPY --from=builder $BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar application.jar
 
 # 复制启动脚本
 COPY ${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh entrypoint.sh
@@ -123,8 +130,8 @@ ARG GROUP=tmpgroup
 ARG UID=1001
 ARG GID=1001
 # path
-ARG APP_HOME="/app"
-ARG DATA_HOME="/data"
+ARG APP_HOME
+ARG DATA_HOME
 # zone
 ARG TZ="Asia/Shanghai"
 ARG LANG="C.UTF-8"
@@ -144,7 +151,7 @@ ARG USE_LARGE_PAGES="N"
 # app
 ARG SERVER_PORT="8888"
 ARG MANAGEMENT_SERVER_PORT="9999"
-ARG SPRING_PROFILES_ACTIVE="local"
+ARG SPRING_PROFILES_ACTIVE="dev"
 
 # 设置环境变量
 ENV APP_HOME=${APP_HOME}
@@ -166,34 +173,39 @@ ENV SERVER_PORT=${SERVER_PORT}
 ENV MANAGEMENT_SERVER_PORT=${MANAGEMENT_SERVER_PORT}
 ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 
-# 创建普通用户并切换工作目录(包括设置 umask)
-RUN groupadd -g "$GID" "$GROUP" \
-  && useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER" \
-  && echo 'umask 0002' >>"$APP_HOME"/.bashrc \
-  && chmod -R 755 "$APP_HOME" \
-  && mkdir -p "$DATA_HOME" \
-  && chown -R "$USER":"$GROUP" "$DATA_HOME" \
-  && chmod -R 755 "$DATA_HOME"
+# 设置日志目录
+RUN mkdir -p "$DATA_HOME"/logs \
+  && touch "$DATA_HOME"/logs/entrypoint.out \
+  && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
+  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.err
 
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=jar-extractor /app/application/spring-boot-loader/ ./
-COPY --from=jar-extractor /app/application/dependencies/ ./
-COPY --from=jar-extractor /app/application/organization-dependencies/ ./
-COPY --from=jar-extractor /app/application/modules-dependencies/ ./
-COPY --from=jar-extractor /app/application/snapshot-dependencies/ ./
-COPY --from=jar-extractor /app/application/application/ ./
-COPY --from=jar-extractor /app/entrypoint.sh ./
-RUN chmod +x "$APP_HOME"/entrypoint.sh
+COPY --from=jar-extractor "$APP_HOME"/application/spring-boot-loader/ ./
+COPY --from=jar-extractor "$APP_HOME"/application/dependencies/ ./
+COPY --from=jar-extractor "$APP_HOME"/application/organization-dependencies/ ./
+COPY --from=jar-extractor "$APP_HOME"/application/modules-dependencies/ ./
+COPY --from=jar-extractor "$APP_HOME"/application/snapshot-dependencies/ ./
+COPY --from=jar-extractor "$APP_HOME"/application/application/ ./
+COPY --from=jar-extractor "$APP_HOME"/entrypoint.sh ./
 
-# 切换到容器用户并创建日志目录
+# 创建普通用户(包括设置 umask), 并将 $HOME 绑定到 $APP_HOME
+RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
+  && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
+  && echo 'umask 0002' >>"$HOME"/.bashrc \
+  && mkdir -p "$APP_HOME" \
+  && chmod -R 755 "$APP_HOME" \
+  && chown -R "$USER":"$GROUP" "$APP_HOME" \
+  && mkdir -p "$DATA_HOME" \
+  && chown -R "$USER":"$GROUP" "$DATA_HOME" \
+  && chmod -R 755 "$DATA_HOME"
+
+# 切换到容器用户
 USER $USER
-RUN mkdir -p "$DATA_HOME"/logs \
-  && touch "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.out
 
-# 设置启动入口和端口
+# 暴露容器端口
 EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT
+
+# 设置启动脚本
 ENTRYPOINT ["./entrypoint.sh"]

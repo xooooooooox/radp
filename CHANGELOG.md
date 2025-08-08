@@ -11,9 +11,8 @@
 #### Scaffold
 
 - Update scaffold default radpVersion to `2.24`.
-- Optimize dockerfile build script.
-- Optimize Dockerfile.
-- Optimize script `helper`
+- Optimize `Dockerfile` adn `.dockerignore`.
+- Optimize script `helper`.
 - Fix archetype:generate failed.
 
 ## 2.23.1

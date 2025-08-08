@@ -122,7 +122,7 @@ variables:
   TP_PACKAGE_SHELL: "$DF_PACKAGE_BASE_SHELL -ntp --settings .mvn/settings.xml -Pcoding,o-tar,env-$TP_RUNTIME_ENV,repo-artifactory"
 
   #--------------------------------------------- [c/1-6] publish args -------------------------------------------------#
-  TP_PUBLISH_TYPE: maven
+  TP_PUBLISH_TYPE: maven                                                                    # support maven/dind_tcp/dind_tls/dind_socket/dood/docker_rootless, 使用逗号分隔多个
 
   # 1-6-1 publish-by-maven args
   TP_PUBLISH_BY_MAVEN_IMAGE: $TP_BASE_IMAGE
@@ -134,7 +134,7 @@ variables:
                   -Pcoding,publish-artifactory,env-$TP_RUNTIME_ENV"
 
   # 1-6-2 publish-by-docker args
-  TP_PUBLISH_DOCKER_BUILD_TOOL: $DF_PUBLISH_DOCKER_BUILD_TOOL                               # support buildx/buildctl
+  TP_PUBLISH_DOCKER_BUILD_TOOL: $DF_PUBLISH_DOCKER_BUILD_TOOL                               # support buildx/buildctl/buildctl-daemonless
   TP_PUBLISH_DOCKER_BUILD_PLATFORMS: $DF_PUBLISH_DOCKER_BUILD_PLATFORMS                     # 逗号分隔多架构, 如: linux/amd64,linux/arm64
   TP_PUBLISH_DOCKER_BUILD_CONTEXT_DIR: $DF_PUBLISH_DOCKER_BUILD_CONTEXT_DIR                 # docker 构建上下文
   TP_PUBLISH_DOCKER_DOCKERFILE: "${appName}-app/Dockerfile"                                 # Dockerfile

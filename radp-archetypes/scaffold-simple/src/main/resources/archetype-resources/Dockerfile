@@ -47,6 +47,7 @@ WORKDIR "$BUILD_HOME"
 # 复制 Maven wrapper
 COPY mvnw mvnw.cmd ./
 COPY .mvn .mvn/
+RUN ([ -x ./mvnw ] || chmod +x ./mvnw)
 
 # 复制配置文件
 COPY .coding .coding
@@ -56,9 +57,8 @@ COPY .springjavaformatconfig ./
 COPY pom.xml ./
 
 # 3. 下载依赖（利用 Docker 缓存层优化构建速度）
-RUN --mount=type=cache,target=/root/.m2,sharing=locked \
-	([ -x ./mvnw ] || chmod +x ./mvnw) && \
-  	./mvnw -B -ntp \
+RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
+  	./mvnw -B \
 	--settings .mvn/settings.xml \
 	-Dmaven.repo.local=$MAVEN_REPO_LOCAL \
 	-P${ACTIVE_PROFILE} \
@@ -76,7 +76,7 @@ ARG ACTIVE_PROFILE=coding,repo-artifactory,env-${RUNTIME_ENV}
 COPY src src
 
 # 执行构建
-RUN --mount=type=cache,target=/root/.m2,sharing=locked \
+RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
 	./mvnw -B -ntp \
 	--settings .mvn/settings.xml \
 	-Dauto.layered.enabled=true \

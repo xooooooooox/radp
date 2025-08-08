@@ -1,82 +1,57 @@
-!/**/src/**/bin
-!/**/src/**/build
+###############################################################################
+# 0) Ignore all project files first
+###############################################################################
+**
 
-### Temp
-*#
-*.sw?
-*~
-.#*
-.*.md.html
-.attach_pid*
+###############################################################################
+# 1) Whitelist
+###############################################################################
+# Maven
+!mvnw*
+!.mvn/
 
-### gitlab-ci-templates job dist
-.gitlab-ci/
+# POM
+!pom.xml
 
-### Build & Dist ###
-dist
-*.jar
-_site
+# Project source and config
+!src
+!.springjavaformatconfig
+!.coding
 
-### IntelliJ IDEA ###
-*.iws
-*.iml
-*.ipr
-
-### VS Code ###
-.vscode/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-.recommenders
-.metadata
-
-### Mac OS ###
-.DS_Store
-
-### Log ###
-logs
-*.log
-
-### Maven ###
+###############################################################################
+# 2) 二次排除 —— 避免白名单额外引入
+###############################################################################
+# ── Build / IDE / VCS ─────────────────────────────────────────────────────
 target/
-pom.xml.tag
-# flatten-maven-plugin
-.flatten-pom-xml
-.flattened-pom.xml
-# mvn release:prepare generated
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
+out/
+build/
+.m2/
+.gradle/
+.git/
+.gitmodules/
+.idea/
+.vscode/
+*.iml
+*.sw?
 
-### Gradle ###
-.gradle
-**/build/
-!src/**/build/
-# Ignore Gradle GUI config
-gradle-app.setting
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
-# Cache of project
-.gradletasknamecache
+# ── Test / Assets ───────────────────────────────────────────────────────────
+src/test/
+src/it/
+src/integrationTest/
+src/contractTest/
 
-### Runtime ###
-dump.rdb
-activemq-data
-overridedb.*
+# ── OS / Others ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
 
-### Node ###
-node_modules
+
+# Build outputs
+target/
+out/
+build/
+
+# Tests (kept excluded even if src/ gets broadened later)
+src/test/
+src/it/
+src/integrationTest/
+src/contractTest/

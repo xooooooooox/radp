@@ -1,82 +1,51 @@
-!/**/src/**/bin
-!/**/src/**/build
+###############################################################################
+# 0) Ignore all project files first
+###############################################################################
+**
 
-### Temp
-*#
-*.sw?
-*~
-.#*
-.*.md.html
-.attach_pid*
+###############################################################################
+# 1) Whitelist
+###############################################################################
+# root aggregator POM
+!pom.xml
+# sub-module pom
+!**/pom.xml
 
-### gitlab-ci-templates job dist
-.gitlab-ci/
+# sub-modules
+!${appName}-app/
+!${appName}-domain/
+!${appName}-infrastructure/
+!${appName}-trigger/
+!${appName}-types/
 
-### Build & Dist ###
-dist
-*.jar
-_site
+# 构建脚本 / 配置
+!mvnw*
+!.mvn/
+!.springjavaformatconfig
+!.coding
 
-### IntelliJ IDEA ###
-*.iws
-*.iml
-*.ipr
-
-### VS Code ###
-.vscode/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-.recommenders
-.metadata
-
-### Mac OS ###
-.DS_Store
-
-### Log ###
-logs
-*.log
-
-### Maven ###
-target/
-pom.xml.tag
-# flatten-maven-plugin
-.flatten-pom-xml
-.flattened-pom.xml
-# mvn release:prepare generated
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
-
-### Gradle ###
-.gradle
+###############################################################################
+# 2) 二次排除 —— 避免白名单额外引入
+###############################################################################
+# ── Build / IDE / VCS ─────────────────────────────────────────────────────
+**/target/
+**/out/
 **/build/
-!src/**/build/
-# Ignore Gradle GUI config
-gradle-app.setting
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
-# Cache of project
-.gradletasknamecache
+**/.m2/
+**/.gradle/
+**/.git/
+**/.gitmodules
+**/.idea/
+**/.vscode/
+*.iml
+*.sw?
 
-### Runtime ###
-dump.rdb
-activemq-data
-overridedb.*
+# ── Test / Assets ───────────────────────────────────────────────────────────
+**/src/test/
+**/src/it/
+**/src/integrationTest/
+**/src/contractTest/
 
-### Node ###
-node_modules
+# ── OS / Others ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

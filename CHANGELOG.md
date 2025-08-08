@@ -6,13 +6,13 @@
 
 #### Build
 
-- Change Apache License.
+- Update license.
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.24`.
-- Optimize Dockerfile.
-- Optimize script `helper`
+- Optimize `Dockerfile` adn `.dockerignore`.
+- Optimize script `helper`.
 - Fix archetype:generate failed.
 
 ## 3.23.1

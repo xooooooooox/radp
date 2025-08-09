@@ -138,6 +138,7 @@ variables:
   TP_PUBLISH_DOCKER_BUILD_PLATFORMS: $DF_PUBLISH_DOCKER_BUILD_PLATFORMS                     # 逗号分隔多架构, 如: linux/amd64,linux/arm64
   TP_PUBLISH_DOCKER_BUILD_CONTEXT_DIR: $DF_PUBLISH_DOCKER_BUILD_CONTEXT_DIR                 # docker 构建上下文
   TP_PUBLISH_DOCKER_DOCKERFILE: "Dockerfile"                                                # Dockerfile
+  TP_PUBLISH_DOCKER_BUILD_CACHE_LOCAL_DIR: $DF_RUNNER_DOCKER_BUILD_LOCAL_CACHE/$TP_PUBLISH_DOCKER_BUILD_TOOL/$CI_PROJECT_PATH_SLUG/$CI_COMMIT_REF_SLUG        # build cache from/to local
   TP_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF: $DF_PUBLISH_DOCKER_BUILD_CACHE_REGISTRY_REF   # build cache from/to registry
   # image reference: [registry/][namespace/]repository:[tag][@digest]
   TP_PUBLISH_DOCKER_REGISTRIES: $PRIVATE_REGISTRY_B64                                       # 逗号分隔的 base64 encode registry，例如: "base64(registry1.com),base64(docker.io)"

@@ -17,7 +17,7 @@ ARG ARTIFACTORY_PASSWORD
 
 #################### [1] 基础镜像层优化 阶段 ####################
 # 使用 --platform=$BUILDPLATFORM, 与构建机架构保持一致(避免QEMU模拟导致的慢,兼容性或动态库问题)
-FROM --platfrom=$BUILDPLATFORM eclipse-temurin:8-jdk AS base
+FROM --platform=$BUILDPLATFORM eclipse-temurin:8-jdk AS base
 # 安装常用工具，单独缓存层
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 	--mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -99,7 +99,7 @@ RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
 
 #################### [4] JAR 提取阶段 ####################
 # 使用基础镜像提取 JAR 分层
-FROM --platfrom=$BUILDPLATFORM eclipse-temurin:8-jdk AS jar-extractor
+FROM --platform=$BUILDPLATFORM eclipse-temurin:8-jdk AS jar-extractor
 
 ARG APP_NAME
 ARG APP_HOME

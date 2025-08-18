@@ -19,7 +19,8 @@
 !${appName}-types/
 
 # 构建脚本 / 配置
-!mvnw*
+!mvnw
+!mvnw.cmd
 !.mvn/
 !.springjavaformatconfig
 !.coding

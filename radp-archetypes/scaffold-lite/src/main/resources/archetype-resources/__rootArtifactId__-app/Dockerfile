@@ -112,8 +112,9 @@ COPY --from=builder $BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar applicati
 COPY ${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
-RUN java -Djarmode=layertools -jar application.jar extract && \
-    rm application.jar
+RUN java -Djarmode=layertools -jar application.jar extract \
+  	&& mkdir -p organization-dependencies modules-dependencies \
+    && rm application.jar
 
 #################### [5] runtime 阶段 ####################
 # 创建容器镜像

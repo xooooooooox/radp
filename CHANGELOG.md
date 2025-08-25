@@ -14,6 +14,7 @@
 - Optimize `Dockerfile` and `.dockerignore`.
 - Optimize script `helper`.
 - Fix archetype:generate failed.
+- Optimize `layers.xml`
 
 ## 2.23.1
 

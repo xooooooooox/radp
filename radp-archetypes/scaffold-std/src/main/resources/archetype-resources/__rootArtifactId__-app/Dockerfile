@@ -1,14 +1,20 @@
 # syntax=docker/dockerfile:1.6
 
 #################### [0] 全局构建参数 ####################
+ARG BASE_IMAGE=eclipse-temurin:8-jdk
+ARG RUNTIME_BASE_IMAGE=eclipse-temurin:8-jre
+
 ARG APP_NAME=${appName}
 ARG RUNTIME_ENV=local
 ARG ACTIVE_PROFILE=coding,repo-artifactory
 ARG MAVEN_REPO_LOCAL=/root/.m2/repository
 
 ARG BUILD_HOME="/build"
-ARG APP_HOME="/app"
-ARG DATA_HOME="/data"
+ARG APP_HOME="/workspace"
+ARG DATA_HOME="/app/data/$APP_NAME"
+ARG LOG_HOME="/app/logs/$APP_NAME"
+ARG JAR_FILE=$BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar
+ARG ENTRYPOINT_SCRIPT=${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh
 
 # 制品库认证(给 .mvn/settings.xml)
 ARG ARTIFACTORY_DOMAIN
@@ -17,7 +23,7 @@ ARG ARTIFACTORY_PASSWORD
 
 #################### [1] 基础镜像层优化 阶段 ####################
 # 使用 --platform=$BUILDPLATFORM, 与构建机架构保持一致(避免QEMU模拟导致的慢,兼容性或动态库问题)
-FROM --platform=$BUILDPLATFORM eclipse-temurin:8-jdk AS base
+FROM --platform=$BUILDPLATFORM $BASE_IMAGE AS base
 # 安装常用工具，单独缓存层
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 	--mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -99,19 +105,21 @@ RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
 
 #################### [4] JAR 提取阶段 ####################
 # 使用基础镜像提取 JAR 分层
-FROM --platform=$BUILDPLATFORM eclipse-temurin:8-jdk AS jar-extractor
+FROM --platform=$BUILDPLATFORM $BASE_IMAGE AS jar-extractor
 
 ARG APP_NAME
 ARG APP_HOME
 ARG BUILD_HOME
+ARG JAR_FILE
+ARG ENTRYPOINT_SCRIPT
 
 WORKDIR ${APP_HOME}
 
 # 从 Maven 构建阶段复制构建好的 JAR 文件
-COPY --from=builder $BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar application.jar
+COPY --from=builder $JAR_FILE application.jar
 
 # 复制启动脚本
-COPY ${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh entrypoint.sh
+COPY $ENTRYPOINT_SCRIPT entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract \
@@ -120,7 +128,7 @@ RUN java -Djarmode=layertools -jar application.jar extract \
 
 #################### [5] runtime 阶段 ####################
 # 创建容器镜像
-FROM --platform=$TARGETPLATFORM eclipse-temurin:8-jre
+FROM --platform=$TARGETPLATFORM $RUNTIME_BASE_IMAGE
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
 # user
@@ -131,6 +139,7 @@ ARG GID=1001
 # path
 ARG APP_HOME
 ARG DATA_HOME
+ARG LOG_HOME
 # zone
 ARG TZ="Asia/Shanghai"
 ARG LANG="C.UTF-8"
@@ -143,9 +152,9 @@ ARG GC_MODE="G1"
 ARG JDWP_DEBUG="N"
 ARG JDWP_PORT="5005"
 ARG USE_GC_LOG="Y"
-ARG GC_LOG_PATH="${DATA_HOME}/logs"
+ARG GC_LOG_PATH="$LOG_HOME"
 ARG USE_HEAP_DUMP="Y"
-ARG HEAP_DUMP_PATH="${DATA_HOME}/logs"
+ARG HEAP_DUMP_PATH="$LOG_HOME"
 ARG USE_LARGE_PAGES="N"
 # app
 ARG SERVER_PORT="8888"
@@ -172,33 +181,29 @@ ENV SERVER_PORT=${SERVER_PORT}
 ENV MANAGEMENT_SERVER_PORT=${MANAGEMENT_SERVER_PORT}
 ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 
-# 设置日志目录
-RUN mkdir -p "$DATA_HOME"/logs \
+# 创建系统用户与目录，并准备日志链接
+RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
+  && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
+  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
+  && echo 'umask 0002' >>"$APP_HOME"/.bashrc \
+  && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
+  && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
   && touch "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.err
+  && touch "$DATA_HOME"/logs/entrypoint.err \
+  && ln -sf /dev/stdout "$LOG_HOME"/entrypoint.out \
+  && ln -sf /dev/stderr "$LOG_HOME"/entrypoint.err
 
 WORKDIR $APP_HOME
 
-# 从基础镜像复制应用程序依赖项和模块
-COPY --from=jar-extractor "$APP_HOME"/spring-boot-loader/ ./
-COPY --from=jar-extractor "$APP_HOME"/dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/organization-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/modules-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/snapshot-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/ ./
-COPY --from=jar-extractor "$APP_HOME"/entrypoint.sh ./
-
-# 创建普通用户(包括设置 umask), 并将 $HOME 绑定到 $APP_HOME
-RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
-  && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
-  && echo 'umask 0002' >>"$HOME"/.bashrc \
-  && mkdir -p "$APP_HOME" \
-  && chmod -R 755 "$APP_HOME" \
-  && chown -R "$USER":"$GROUP" "$APP_HOME" \
-  && mkdir -p "$DATA_HOME" \
-  && chown -R "$USER":"$GROUP" "$DATA_HOME" \
-  && chmod -R 755 "$DATA_HOME"
+# 从基础镜像复制应用程序依赖项和模块（直接赋予正确属主，避免额外 chown 层）
+# Required Docker Engine >= 17.09
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/spring-boot-loader/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/organization-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/modules-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/snapshot-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/ ./
+COPY --from=jar-extractor --chown=$UID:$GID --chmod=0755 "$APP_HOME"/entrypoint.sh ./
 
 # 切换到容器用户
 USER $USER

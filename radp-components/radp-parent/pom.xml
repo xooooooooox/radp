@@ -59,8 +59,10 @@
 		<docker.build.image_name /> <!-- to -->
 		<docker.build.namespace>${user.docker.build.namespace}</docker.build.namespace>
 		<docker.build.image_tag>${project.version}</docker.build.image_tag>
-		<app.home>/app</app.home> <!-- 容器内的应用目录 -->
-		<app.data.home>/data</app.data.home> <!-- 容器内容数据目录 -->
+		<app.name>${project.name}</app.name>
+		<app.home>/workspace</app.home> <!-- 容器内的应用目录 -->
+		<app.data.home>/app/data/${app.name}</app.data.home> <!-- 容器内容数据目录 -->
+		<app.logs.home>/app/logs/${app.name}</app.logs.home>
 		<app.server.port>8888</app.server.port>
 		<app.management.server.port>9999</app.management.server.port>
 		<docker.build.uid>1001</docker.build.uid>
@@ -70,9 +72,9 @@
 		<docker.build.jvm.xss>1g</docker.build.jvm.xss>
 		<docker.build.jvm.gc_mode>G1</docker.build.jvm.gc_mode>
 		<docker.build.jvm.use_gc_log>Y</docker.build.jvm.use_gc_log>
-		<docker.build.jvm.gc_log_path>${app.data.home}/logs</docker.build.jvm.gc_log_path>
+		<docker.build.jvm.gc_log_path>${app.logs.home}</docker.build.jvm.gc_log_path>
 		<docker.build.jvm.use_heap_dump>Y</docker.build.jvm.use_heap_dump>
-		<docker.build.jvm.heap_dump_path>${app.data.home}/logs</docker.build.jvm.heap_dump_path>
+		<docker.build.jvm.heap_dump_path>${app.logs.home}</docker.build.jvm.heap_dump_path>
 		<docker.build.jvm.use_large_pages>Y</docker.build.jvm.use_large_pages>
 		<docker.build.jdwp.debug>N</docker.build.jdwp.debug>
 		<docker.build.jdwp.port>5005</docker.build.jdwp.port>
@@ -482,6 +484,7 @@
 								<!-- app config -->
 								<APP_HOME>${app.home}</APP_HOME>
 								<DATA_HOME>${app.data.home}</DATA_HOME>
+								<LOG_HOME>${app.logs.home}</LOG_HOME>
 								<SERVER_PORT>${app.server.port}</SERVER_PORT>
 								<MANAGEMENT_SERVER_PORT>${app.management.server.port}</MANAGEMENT_SERVER_PORT>
 								<SPRING_PROFILES_ACTIVE>${runtime.env}</SPRING_PROFILES_ACTIVE>

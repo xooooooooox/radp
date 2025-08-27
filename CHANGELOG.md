@@ -7,6 +7,7 @@
 #### Build
 
 - Update license.
+- Optimize `jib-maven-plugin` configuration properties.
 
 #### Scaffold
 
@@ -15,6 +16,7 @@
 - Optimize script `helper`.
 - Fix archetype:generate failed.
 - Optimize `layers.xml`
+- Optimize `.devcontainer`
 
 ## 2.23.1
 

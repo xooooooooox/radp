@@ -13,6 +13,7 @@
 	<name>${artifactId}</name>
 
 	<properties>
+		<app.name>${project.name}</app.name>
 		<start-class>${package}.Application</start-class>
 		<app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
 		<app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>

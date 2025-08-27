@@ -1,11 +1,13 @@
 {
   "name": "${appName}",
-  "dockerComposeFile": "docker-compose.yml",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
   "service": "devcontainer",
   "workspaceFolder": "/workspace",
   "features": {
-    "docker-in-docker": "latest",
-    //    "docker-from-docker": "latest"
+    "docker-in-docker": "latest"
+//    "docker-from-docker": "latest"
   },
   "customizations": {
     "vscode": {
@@ -29,5 +31,6 @@
     // Redis 端口
   ],
   "remoteUser": "vscode",
-  "postCreateCommand": "pwd"
+  "initializeCommand": "bash .devcontainer/setup.sh setup --env dev",
+  "postCreateCommand": "bash .devcontainer/setup.sh up --env dev"
 }

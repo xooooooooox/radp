@@ -13,8 +13,8 @@ ARG BUILD_HOME="/build"
 ARG APP_HOME="/workspace"
 ARG DATA_HOME="/app/data/$APP_NAME"
 ARG LOG_HOME="/app/logs/$APP_NAME"
-ARG JAR_FILE=$BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar
-ARG ENTRYPOINT_SCRIPT=${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh
+ARG JAR_FILE=$BUILD_HOME/target/${APP_NAME}.jar
+ARG ENTRYPOINT_SCRIPT=src/main/docker/springboot/entrypoint.sh
 
 # 制品库认证(给 .mvn/settings.xml)
 ARG ARTIFACTORY_DOMAIN
@@ -62,11 +62,6 @@ COPY .springjavaformatconfig ./
 
 # 复制工程 POM 文件
 COPY pom.xml ./
-COPY ${APP_NAME}-types/pom.xml ${APP_NAME}-types/
-COPY ${APP_NAME}-domain/pom.xml ${APP_NAME}-domain/
-COPY ${APP_NAME}-infrastructure/pom.xml ${APP_NAME}-infrastructure/
-COPY ${APP_NAME}-trigger/pom.xml ${APP_NAME}-trigger/
-COPY ${APP_NAME}-app/pom.xml ${APP_NAME}-app/
 
 # 3. 下载依赖（利用 Docker 缓存层优化构建速度）
 RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
@@ -85,11 +80,7 @@ ARG MAVEN_REPO_LOCAL
 ARG ACTIVE_PROFILE=coding,repo-artifactory,env-${RUNTIME_ENV}
 
 # 4. 复制源代码
-COPY ${APP_NAME}-types/src ${APP_NAME}-types/src
-COPY ${APP_NAME}-domain/src ${APP_NAME}-domain/src
-COPY ${APP_NAME}-infrastructure/src ${APP_NAME}-infrastructure/src
-COPY ${APP_NAME}-trigger/src ${APP_NAME}-trigger/src
-COPY ${APP_NAME}-app/src ${APP_NAME}-app/src
+COPY src src
 
 # 执行构建
 RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
@@ -157,7 +148,7 @@ ARG USE_LARGE_PAGES="N"
 # app
 ARG SERVER_PORT="8888"
 ARG MANAGEMENT_SERVER_PORT="9999"
-ARG SPRING_PROFILES_ACTIVE="dev"
+ARG SPRING_PROFILES_ACTIVE
 
 # 设置环境变量
 ENV APP_HOME=${APP_HOME}
@@ -182,14 +173,12 @@ ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 # 创建系统用户与目录，并准备日志链接
 RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
   && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
-  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
   && echo 'umask 0002' >>"$APP_HOME"/.bashrc \
-  && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
-  && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
-  && touch "$DATA_HOME"/logs/entrypoint.out \
-  && touch "$DATA_HOME"/logs/entrypoint.err \
+  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
   && ln -sf /dev/stdout "$LOG_HOME"/entrypoint.out \
-  && ln -sf /dev/stderr "$LOG_HOME"/entrypoint.err
+  && ln -sf /dev/stderr "$LOG_HOME"/entrypoint.err \
+  && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
+  && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME"
 
 WORKDIR $APP_HOME
 
@@ -207,7 +196,7 @@ COPY --from=jar-extractor --chown=$UID:$GID --chmod=0755 "$APP_HOME"/entrypoint.
 USER $USER
 
 # 暴露容器端口
-EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT
+EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT $JDWP_PORT
 
 # 设置启动脚本
 ENTRYPOINT ["./entrypoint.sh"]

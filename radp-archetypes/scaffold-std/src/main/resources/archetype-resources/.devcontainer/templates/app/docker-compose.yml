@@ -9,28 +9,74 @@ networks:
 
 services:
   backend:
-    # NOTE: use build or image
-    # build:
-    #   context: ../../${dollar}${lbrace}APP_NAME${rbrace}-app
-    #   dockerfile: Dockerfile
-    image: ${dollar}${lbrace}IMAGE_NAMESPACE${rbrace}/${dollar}${lbrace}APP_NAME${rbrace}:latest
-    # pull_policy: always
+    image: ${IMAGE_NAMESPACE}/${APP_NAME}:latest
+    build:
+      context: ..
+      dockerfile: ${appName}-app/src/main/docker/Dockerfile
+      args:
+        # Base images
+        BASE_IMAGE: ${BASE_IMAGE:-eclipse-temurin:8-jdk}
+        RUNTIME_BASE_IMAGE: ${RUNTIME_BASE_IMAGE:-eclipse-temurin:8-jre}
+
+        # App configuration
+        APP_NAME: ${APP_NAME:-scaffold-std-demo}
+        RUNTIME_ENV: ${RUNTIME_ENV:-local}
+        SERVER_PORT: ${SERVER_PORT:-8888}
+        MANAGEMENT_SERVER_PORT: ${MANAGEMENT_SERVER_PORT:-9999}
+        SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+
+        # Artifactory configuration
+        ARTIFACTORY_DOMAIN: ${ARTIFACTORY_DOMAIN}
+        ARTIFACTORY_USERNAME: ${ARTIFACTORY_USERNAME}
+        ARTIFACTORY_PASSWORD: ${ARTIFACTORY_PASSWORD}
+
+        # Container user:group
+        USER: ${CONTAINER_USER:-tmpuser}
+        GROUP: ${CONTAINER_GROUP:-tmpgroup}
+        UID: ${CONTAINER_UID:-1001}
+        GID: ${CONTAINER_GID:-1001}
+
+        # JVM configration
+        JVM_XMS: ${JVM_XMS:-1g}
+        JVM_XMX: ${JVM_XMX:-1g}
+        JVM_XSS: ${JVM_XSS:-256k}
+        GC_MODE: ${GC_MODE:-G1}
+
+        # Debug configration
+        JDWP_DEBUG: ${JDWP_DEBUG:-N}
+        JDWP_PORT: ${JDWP_PORT:-5005}
+        USE_GC_LOG: ${USE_GC_LOG:-Y}
+        USE_HEAP_DUMP: ${USE_HEAP_DUMP:-Y}
+        USE_LARGE_PAGES: ${USE_LARGE_PAGES:-Y}
+
+        # System Configuration
+        TZ: ${TZ:-Asia/Shanghai}
+        LANG: ${LANG:-C.UTF-8}
     restart: unless-stopped
     ports:
-      - "${dollar}${lbrace}SERVER_PORT:-8888${rbrace}"
-      - "${dollar}${lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}"
+      - "${EXPOSE_JDWP_PORT:-5005}:${JDWP_PORT:-5005}"
+      - "${EXPOSE_SERVER_PORT:-8888}:${SERVER_PORT:-8888}"
+      - "${EXPOSE_MANAGEMENT_SERVER_PORT:-9999}:${MANAGEMENT_SERVER_PORT:-9999}"
     environment:
-      TZ: Asia/Shanghai
-      SPRING_PROFILES_ACTIVE: ${dollar}${lbrace}SPRING_PROFILES_ACTIVE${rbrace}
+      TZ: $TZ
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
 
     volumes:
-      - ./volumes/app/data:/data
-      - ./volumes/app/config/:/app/config/
+      - ${LOG_VOLUME:-./volumes/app/logs}:/app/logs
+      - ${DATA_VOLUME:-./volumes/app/data}:/app/data
+      - ${EXTERNAL_CONFIG_VOLUME:-./volumes/app/config/}:/workspace/config/
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${dollar}${lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${MANAGEMENT_SERVER_PORT:-9999}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
+
     networks:
       - local-network
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"

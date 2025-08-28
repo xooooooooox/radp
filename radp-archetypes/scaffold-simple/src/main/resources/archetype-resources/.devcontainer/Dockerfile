@@ -44,7 +44,7 @@ fi
 # Utilities: install jq and yq (supports amd64/arm64)
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends ca-certificates curl wget jq; \
+    apt-get install -y --no-install-recommends ca-certificates curl jq wget; \
     arch="$(dpkg --print-architecture)"; \
     case "$arch" in \
       amd64) yq_arch=amd64 ;; \

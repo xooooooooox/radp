@@ -4,11 +4,19 @@
     "docker-compose.yml"
   ],
   "service": "devcontainer",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/home/vscode/workspace",
   "features": {
     "docker-in-docker": "latest"
-//    "docker-from-docker": "latest"
+    //    "docker-from-docker": "latest"
   },
+  "mounts": [
+    // macOS/Linux: mount ~/.m2 for cache, and bind the resolved settings.xml to override symlink
+    "source=${localEnv:HOME}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.m2/settings.xml,target=/home/vscode/.m2/settings.xml,type=bind,consistency=cached"
+    // On Windows, use this instead:
+    // "source=${localEnv:USERPROFILE}\\.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
+    // "source=${localEnv:USERPROFILE}\\.m2\\settings.xml,target=/home/vscode/.m2/settings.xml,type=bind,consistency=cached"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -18,7 +26,29 @@
       "settings": {
         "java.home": "/docker-java-home"
       }
+    },
+    "jetbrains": {
+      // Plugins will be installed into the backend on first start and kept if you persist JetBrains dirs with volumes
+      "plugins": [
+        "CheckStyle-IDEA",
+        "GrepConsole",
+        "Key Promoter X",
+        "Lombook Plugin",
+        "String Manipulation",
+        "cn.yiiguxing.plugin.translate",
+        "com.baomidou.plugin.idea.mybatisx",
+        "com.github.xepozz.gitattributes",
+        "org.editorconfig.editorconfigjetbrains",
+        "org.jetbrains.junie",
+        "zielu.gittoolbox",
+        "Docker",
+        "ru.adelf.idea.dotenv",
+        "spring-javaformat",
+        "com.github.deeepamin.gitlabciaid",
+        "com.nasller.CodeGlancePro"
+      ]
     }
+
   },
   "forwardPorts": [
     8888,
@@ -31,6 +61,5 @@
     // Redis 端口
   ],
   "remoteUser": "vscode",
-  "initializeCommand": "bash .devcontainer/setup.sh setup --env dev",
-  "postCreateCommand": "bash .devcontainer/setup.sh up --env dev"
+  "postCreateCommand": "bash .devcontainer/devcontainer_helper setup --env dev && bash .devcontainer/devcontainer_helper up --env dev"
 }

@@ -8,14 +8,21 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# ===== Paths =====
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="${SCRIPT_DIR}/setup.yml"
+
 # ===== Helpers: yq / jq =====
 _check_yq() {
   if ! command -v yq >/dev/null 2>&1; then
     echo -e "${YELLOW}yq is not installed. It is required to process YAML files.${NC}"
     read -r -p "Do you want to install yq? (y/n): " choice
     case "$choice" in
-    y|Y ) _install_yq ;;
-    * ) echo -e "${RED}yq is required for this script to work. Exiting.${NC}"; exit 1 ;;
+    y | Y) _install_yq ;;
+    *)
+      echo -e "${RED}yq is required for this script to work. Exiting.${NC}"
+      exit 1
+      ;;
     esac
   fi
 }
@@ -25,8 +32,11 @@ _check_jq() {
     echo -e "${YELLOW}jq is not installed. It is required to process JSON files.${NC}"
     read -r -p "Do you want to install jq? (y/n): " choice
     case "$choice" in
-    y|Y ) _install_jq ;;
-    * ) echo -e "${RED}jq is required for this script to work. Exiting.${NC}"; exit 1 ;;
+    y | Y) _install_jq ;;
+    *)
+      echo -e "${RED}jq is required for this script to work. Exiting.${NC}"
+      exit 1
+      ;;
     esac
   fi
 }
@@ -75,8 +85,8 @@ _install_jq() {
 
 # ===== Config =====
 _read_config() {
-  if [[ ! -f "setup.yml" ]]; then
-    echo -e "${RED}setup.yml not found in current directory.${NC}"
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo -e "${RED}$CONFIG_FILE not found.${NC}"
     exit 1
   fi
 }
@@ -102,7 +112,7 @@ _update_strict_devcontainer_json() {
   tmp="$(mktemp)"
   jq --arg init "$init_cmd" --arg post "$post_cmd" \
     '.initializeCommand = $init | .postCreateCommand = $post' \
-    devcontainer.json > "$tmp" && mv "$tmp" devcontainer.json
+    devcontainer.json >"$tmp" && mv "$tmp" devcontainer.json
 
   echo -e "${GREEN}devcontainer.json updated.${NC}"
 }
@@ -110,23 +120,23 @@ _update_strict_devcontainer_json() {
 _update_devcontainer_json() {
   local runtime_env="${1:-dev}"
   local file="devcontainer.json"
-  echo -e "${BLUE}Updating devcontainer.json (initializeCommand/postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
+  echo -e "${BLUE}Updating devcontainer.json (postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
 
-  [[ -f "$file" ]] || { echo -e "${RED}devcontainer.json not found.${NC}"; exit 1; }
+  [[ -f "$file" ]] || {
+    echo -e "${RED}devcontainer.json not found.${NC}"
+    exit 1
+  }
 
-  local init_cmd="bash .devcontainer/setup.sh setup --env ${runtime_env}"
-  local post_cmd="bash .devcontainer/setup.sh up --env ${runtime_env}"
+  local post_cmd
+  post_cmd="bash .devcontainer/$(basename "$0") setup --env ${runtime_env} && bash .devcontainer/$(basename "$0") up --env ${runtime_env}"
 
   # 0) 如果已是目标值，直接跳过，避免产生无意义 diff
   #    允许行尾可有逗号、前后有空白
-  local re_init='^[[:space:]]*"initializeCommand"[[:space:]]*:[[:space:]]*"'$(
-    printf '%s' "$init_cmd" | sed 's/[[:space:]]/\\s\\+/g; s/\./\\./g; s/\//\\\//g'
-  )'"[[:space:]]*(,)?[[:space:]]*$'
   local re_post='^[[:space:]]*"postCreateCommand"[[:space:]]*:[[:space:]]*"'$(
     printf '%s' "$post_cmd" | sed 's/[[:space:]]/\\s\\+/g; s/\./\\./g; s/\//\\\//g'
   )'"[[:space:]]*(,)?[[:space:]]*$'
 
-  if grep -Eq "$re_init" "$file" && grep -Eq "$re_post" "$file"; then
+  if grep -Eq "$re_post" "$file"; then
     echo -e "${GREEN}devcontainer.json already up-to-date. No changes written.${NC}"
     return
   fi
@@ -135,9 +145,9 @@ _update_devcontainer_json() {
   if command -v jq >/dev/null 2>&1 && jq -e . "$file" >/dev/null 2>&1; then
     local tmp
     tmp="$(mktemp)"
-    jq --arg init "$init_cmd" --arg post "$post_cmd" \
-      '.initializeCommand = $init | .postCreateCommand = $post' \
-      "$file" > "$tmp"
+    jq --arg post "$post_cmd" \
+      '.postCreateCommand = $post' \
+      "$file" >"$tmp"
 
     if cmp -s "$tmp" "$file"; then
       rm -f "$tmp"
@@ -153,16 +163,9 @@ _update_devcontainer_json() {
   echo -e "${YELLOW}devcontainer.json seems to be JSONC. Using awk-based safe update...${NC}"
   local tmp
   tmp="$(mktemp)"
-  awk -v init="$init_cmd" -v post="$post_cmd" '
+  awk -v post="$post_cmd" '
     {
       a[++n]=$0
-      # 就地替换 initializeCommand
-      if ($0 ~ /^[[:space:]]*"initializeCommand"[[:space:]]*:/) {
-        match($0, /^[[:space:]]*/); indent=substr($0, RSTART, RLENGTH)
-        comma=""; if ($0 ~ /,[[:space:]]*$/) comma=","
-        a[n]=indent "\"initializeCommand\": \"" init "\"" comma
-        init_found=1
-      }
       # 就地替换 postCreateCommand
       if ($0 ~ /^[[:space:]]*"postCreateCommand"[[:space:]]*:/) {
         match($0, /^[[:space:]]*/); indent=substr($0, RSTART, RLENGTH)
@@ -172,7 +175,7 @@ _update_devcontainer_json() {
       }
     }
     END{
-      if (init_found && post_found) {
+      if (post_found) {
         for(i=1;i<=n;i++) print a[i]
         exit
       }
@@ -205,13 +208,12 @@ _update_devcontainer_json() {
         match(a[lastsig], /^[[:space:]]*/); if (RLENGTH>0) indent=substr(a[lastsig], RSTART, RLENGTH)
       }
 
-      # 插入键值（保持只插入必要的两行）
+      # 仅插入 postCreateCommand
       for(i=1;i<close_idx;i++) print a[i]
-      if (!init_found) print indent "\"initializeCommand\": \"" init "\","
-      if (!post_found) print indent "\"postCreateCommand\": \"" post "\""
+      print indent "\"postCreateCommand\": \"" post "\""
       for(i=close_idx;i<=n;i++) print a[i]
     }
-  ' "$file" > "$tmp"
+  ' "$file" >"$tmp"
 
   if cmp -s "$tmp" "$file"; then
     rm -f "$tmp"
@@ -227,12 +229,12 @@ _update_docker_compose_yml() {
   echo -e "${BLUE}Updating docker-compose.yml...${NC}"
 
   local java_version nodejs_version maven_enabled maven_version gradle_enabled gradle_version
-  java_version=$(yq e '.devcontainer.languages.java.version' setup.yml)
-  nodejs_version=$(yq e '.devcontainer.languages.nodejs.version' setup.yml)
-  maven_enabled=$(yq e '.devcontainer.build.tools.maven.enabled' setup.yml)
-  maven_version=$(yq e '.devcontainer.build.tools.maven.version' setup.yml)
-  gradle_enabled=$(yq e '.devcontainer.build.tools.gradle.enabled' setup.yml)
-  gradle_version=$(yq e '.devcontainer.build.tools.gradle.version' setup.yml)
+  java_version=$(yq e '.devcontainer.languages.java.version' "$CONFIG_FILE")
+  nodejs_version=$(yq e '.devcontainer.languages.nodejs.version' "$CONFIG_FILE")
+  maven_enabled=$(yq e '.devcontainer.build.tools.maven.enabled' "$CONFIG_FILE")
+  maven_version=$(yq e '.devcontainer.build.tools.maven.version' "$CONFIG_FILE")
+  gradle_enabled=$(yq e '.devcontainer.build.tools.gradle.enabled' "$CONFIG_FILE")
+  gradle_version=$(yq e '.devcontainer.build.tools.gradle.version' "$CONFIG_FILE")
 
   local temp_file
   temp_file="$(mktemp)"
@@ -251,7 +253,7 @@ _update_docker_compose_yml() {
 # ===== copy template compose files =====
 _copy_template_files() {
   echo -e "${BLUE}Linking template docker-compose files...${NC}"
-  mapfile -t enabled_templates < <(yq e '.devcontainer.templates.enabled[]' setup.yml)
+  mapfile -t enabled_templates < <(yq e '.devcontainer.templates.enabled[]' "$CONFIG_FILE")
 
   for template in "${enabled_templates[@]}"; do
     local template_file="templates/$template/docker-compose.yml"
@@ -275,10 +277,14 @@ setup() {
   local ENV_ARG=""
   while [[ $# -gt 0 ]]; do
     case "$1" in
-    -e|--env)
-      ENV_ARG="${2:-}"; shift 2 ;;
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
     *)
-      echo -e "${YELLOW}Unknown option for setup: $1${NC}"; shift ;;
+      echo -e "${YELLOW}Unknown option for setup: $1${NC}"
+      shift
+      ;;
     esac
   done
 
@@ -302,7 +308,7 @@ setup() {
 
 # ===== Internal helpers for up/down =====
 _get_enabled_templates() {
-  mapfile -t ENABLED_TEMPLATES < <(yq e '.devcontainer.templates.enabled[]' setup.yml)
+  mapfile -t ENABLED_TEMPLATES < <(yq e '.devcontainer.templates.enabled[]' "$CONFIG_FILE")
 }
 
 # prefer compose.<name>.yml -> docker-compose.<name>.yml -> templates/<name>/docker-compose.yml
@@ -375,14 +381,26 @@ up() {
   # parse args: --env/-e <name>, --no-build, --dry-run
   while [[ $# -gt 0 ]]; do
     case "$1" in
-    -e|--env)
-      ENV_ARG="${2:-}"; shift 2 ;;
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
     --no-build)
-      BUILD_FLAG=0; shift ;;
-    -n|--dry-run)
-      DRY_RUN=1; shift ;;
-    --) shift; break ;;
-    *) echo -e "${YELLOW}Unknown option: $1${NC}"; shift ;;
+      BUILD_FLAG=0
+      shift
+      ;;
+    -n | --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo -e "${YELLOW}Unknown option: $1${NC}"
+      shift
+      ;;
     esac
   done
 
@@ -396,7 +414,7 @@ up() {
 
   _get_enabled_templates
   if [[ "${#ENABLED_TEMPLATES[@]}" -eq 0 ]]; then
-    echo -e "${RED}No enabled templates found in setup.yml${NC}"
+    echo -e "${RED}No enabled templates found in $CONFIG_FILE${NC}"
     exit 1
   fi
   echo -e "${BLUE}Enabled templates: ${YELLOW}${ENABLED_TEMPLATES[*]}${NC}"
@@ -437,16 +455,30 @@ down() {
   # parse args: --env/-e <name>, --remove-orphans, -v/--volumes, --dry-run
   while [[ $# -gt 0 ]]; do
     case "$1" in
-    -e|--env)
-      ENV_ARG="${2:-}"; shift 2 ;;
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
     --remove-orphans)
-      REMOVE_ORPHANS=1; shift ;;
-    -v|--volumes)
-      WITH_VOLUMES=1; shift ;;
-    -n|--dry-run)
-      DRY_RUN=1; shift ;;
-    --) shift; break ;;
-    *) echo -e "${YELLOW}Unknown option: $1${NC}"; shift ;;
+      REMOVE_ORPHANS=1
+      shift
+      ;;
+    -v | --volumes)
+      WITH_VOLUMES=1
+      shift
+      ;;
+    -n | --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo -e "${YELLOW}Unknown option: $1${NC}"
+      shift
+      ;;
     esac
   done
 
@@ -459,7 +491,7 @@ down() {
 
   _get_enabled_templates
   if [[ "${#ENABLED_TEMPLATES[@]}" -eq 0 ]]; then
-    echo -e "${RED}No enabled templates found in setup.yml${NC}"
+    echo -e "${RED}No enabled templates found in $CONFIG_FILE${NC}"
     exit 1
   fi
   echo -e "${BLUE}Enabled templates: ${YELLOW}${ENABLED_TEMPLATES[*]}${NC}"
@@ -506,12 +538,20 @@ EOF
 main() {
   local cmd="${1:-}"
   shift || true
+
+  # Always operate from the script directory (i.e., .devcontainer)
+  cd "$SCRIPT_DIR"
+
   case "$cmd" in
   setup) setup "$@" ;;
-  up)    up "$@" ;;
-  down)  down "$@" ;;
-  ""|-h|--help|help) _usage ;;
-  *) echo -e "${RED}Unknown command: $cmd${NC}"; _usage; exit 1 ;;
+  up) up "$@" ;;
+  down) down "$@" ;;
+  "" | -h | --help | help) _usage ;;
+  *)
+    echo -e "${RED}Unknown command: $cmd${NC}"
+    _usage
+    exit 1
+    ;;
   esac
 }
 

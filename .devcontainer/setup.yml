@@ -1,0 +1,17 @@
+devcontainer:
+  templates:
+    available:
+      - kafka
+      - kafka-eagle
+      - mysql
+      - nginx
+      - ollama
+      - pgvector
+      - rabbitmq
+      - redis
+      - redis-commander
+      - rocketmq
+      - zookeeper
+#    enabled:
+#      - mysql
+#      - redis

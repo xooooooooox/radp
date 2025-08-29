@@ -64,7 +64,6 @@
 				<include>.env</include>
 				<include>env/**</include>
 				<include>devcontainer.json</include>
-				<include>docker-compose.yml</include>
 				<include>templates/**/docker-compose.yml</include>
 				<include>volumes/**/*.sql</include>
 			</includes>

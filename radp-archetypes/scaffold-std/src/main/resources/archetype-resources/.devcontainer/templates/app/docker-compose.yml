@@ -9,65 +9,65 @@ networks:
 
 services:
   backend:
-    image: ${IMAGE_NAMESPACE}/${APP_NAME}:latest
+    image: ${dollar}{lbrace}IMAGE_NAMESPACE${rbrace}/${dollar}{lbrace}APP_NAME${rbrace}:latest
     build:
       context: ..
       dockerfile: ${appName}-app/src/main/docker/Dockerfile
       args:
         # Base images
-        BASE_IMAGE: ${BASE_IMAGE:-eclipse-temurin:8-jdk}
-        RUNTIME_BASE_IMAGE: ${RUNTIME_BASE_IMAGE:-eclipse-temurin:8-jre}
+        BASE_IMAGE: ${dollar}{lbrace}BASE_IMAGE:-eclipse-temurin:8-jdk${rbrace}
+        RUNTIME_BASE_IMAGE: ${dollar}{lbrace}RUNTIME_BASE_IMAGE:-eclipse-temurin:8-jre${rbrace}
 
         # App configuration
-        APP_NAME: ${APP_NAME:-scaffold-std-demo}
-        RUNTIME_ENV: ${RUNTIME_ENV:-local}
-        SERVER_PORT: ${SERVER_PORT:-8888}
-        MANAGEMENT_SERVER_PORT: ${MANAGEMENT_SERVER_PORT:-9999}
-        SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+        APP_NAME: ${dollar}{lbrace}APP_NAME:-scaffold-std-demo${rbrace}
+        RUNTIME_ENV: ${dollar}{lbrace}RUNTIME_ENV:-local${rbrace}
+        SERVER_PORT: ${dollar}{lbrace}SERVER_PORT:-8888${rbrace}
+        MANAGEMENT_SERVER_PORT: ${dollar}{lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}
+        SPRING_PROFILES_ACTIVE: ${dollar}{lbrace}SPRING_PROFILES_ACTIVE${rbrace}
 
         # Artifactory configuration
-        ARTIFACTORY_DOMAIN: ${ARTIFACTORY_DOMAIN}
-        ARTIFACTORY_USERNAME: ${ARTIFACTORY_USERNAME}
-        ARTIFACTORY_PASSWORD: ${ARTIFACTORY_PASSWORD}
+        ARTIFACTORY_DOMAIN: ${dollar}{lbrace}ARTIFACTORY_DOMAIN${rbrace}
+        ARTIFACTORY_USERNAME: ${dollar}{lbrace}ARTIFACTORY_USERNAME${rbrace}
+        ARTIFACTORY_PASSWORD: ${dollar}{lbrace}ARTIFACTORY_PASSWORD${rbrace}
 
         # Container user:group
-        USER: ${CONTAINER_USER:-tmpuser}
-        GROUP: ${CONTAINER_GROUP:-tmpgroup}
-        UID: ${CONTAINER_UID:-1001}
-        GID: ${CONTAINER_GID:-1001}
+        USER: ${dollar}{lbrace}CONTAINER_USER:-tmpuser${rbrace}
+        GROUP: ${dollar}{lbrace}CONTAINER_GROUP:-tmpgroup${rbrace}
+        UID: ${dollar}{lbrace}CONTAINER_UID:-1001${rbrace}
+        GID: ${dollar}{lbrace}CONTAINER_GID:-1001${rbrace}
 
         # JVM configration
-        JVM_XMS: ${JVM_XMS:-1g}
-        JVM_XMX: ${JVM_XMX:-1g}
-        JVM_XSS: ${JVM_XSS:-256k}
-        GC_MODE: ${GC_MODE:-G1}
+        JVM_XMS: ${dollar}{lbrace}JVM_XMS:-1g${rbrace}
+        JVM_XMX: ${dollar}{lbrace}JVM_XMX:-1g${rbrace}
+        JVM_XSS: ${dollar}{lbrace}JVM_XSS:-256k${rbrace}
+        GC_MODE: ${dollar}{lbrace}GC_MODE:-G1${rbrace}
 
         # Debug configration
-        JDWP_DEBUG: ${JDWP_DEBUG:-N}
-        JDWP_PORT: ${JDWP_PORT:-5005}
-        USE_GC_LOG: ${USE_GC_LOG:-Y}
-        USE_HEAP_DUMP: ${USE_HEAP_DUMP:-Y}
-        USE_LARGE_PAGES: ${USE_LARGE_PAGES:-Y}
+        JDWP_DEBUG: ${dollar}{lbrace}JDWP_DEBUG:-N${rbrace}
+        JDWP_PORT: ${dollar}{lbrace}JDWP_PORT:-5005${rbrace}
+        USE_GC_LOG: ${dollar}{lbrace}USE_GC_LOG:-Y${rbrace}
+        USE_HEAP_DUMP: ${dollar}{lbrace}USE_HEAP_DUMP:-Y${rbrace}
+        USE_LARGE_PAGES: ${dollar}{lbrace}USE_LARGE_PAGES:-Y${rbrace}
 
         # System Configuration
-        TZ: ${TZ:-Asia/Shanghai}
-        LANG: ${LANG:-C.UTF-8}
+        TZ: ${dollar}{lbrace}TZ:-Asia/Shanghai${rbrace}
+        LANG: ${dollar}{lbrace}LANG:-C.UTF-8${rbrace}
     restart: unless-stopped
     ports:
-      - "${EXPOSE_JDWP_PORT:-5005}:${JDWP_PORT:-5005}"
-      - "${EXPOSE_SERVER_PORT:-8888}:${SERVER_PORT:-8888}"
-      - "${EXPOSE_MANAGEMENT_SERVER_PORT:-9999}:${MANAGEMENT_SERVER_PORT:-9999}"
+      - "${dollar}{lbrace}EXPOSE_JDWP_PORT:-5005${rbrace}:${dollar}{lbrace}JDWP_PORT:-5005${rbrace}"
+      - "${dollar}{lbrace}EXPOSE_SERVER_PORT:-8888${rbrace}:${dollar}{lbrace}SERVER_PORT:-8888${rbrace}"
+      - "${dollar}{lbrace}EXPOSE_MANAGEMENT_SERVER_PORT:-9999${rbrace}:${dollar}{lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}"
     environment:
-      TZ: $TZ
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+      TZ: ${dollar}{lbrace}TZ${rbrace}
+      SPRING_PROFILES_ACTIVE: ${dollar}{lbrace}SPRING_PROFILES_ACTIVE${rbrace}
 
     volumes:
-      - ${LOG_VOLUME:-./volumes/app/logs}:/app/logs
-      - ${DATA_VOLUME:-./volumes/app/data}:/app/data
-      - ${EXTERNAL_CONFIG_VOLUME:-./volumes/app/config/}:/workspace/config/
+      - ${dollar}{lbrace}LOG_VOLUME:-./volumes/app/logs${rbrace}:/app/logs
+      - ${dollar}{lbrace}DATA_VOLUME:-./volumes/app/data${rbrace}:/app/data
+      - ${dollar}{lbrace}EXTERNAL_CONFIG_VOLUME:-./volumes/app/config/${rbrace}:/workspace/config/
 
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${MANAGEMENT_SERVER_PORT:-9999}/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${dollar}{lbrace}MANAGEMENT_SERVER_PORT:-9999${rbrace}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3

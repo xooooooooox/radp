@@ -2,6 +2,10 @@
 
 ## 2.24
 
+### feat
+
+- Add devcontainer
+
 ### Chore
 
 #### Build

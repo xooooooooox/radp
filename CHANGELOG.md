@@ -2,18 +2,29 @@
 
 ## 3.24
 
+### Feature
+
+- Add devcontainer
+
+### Bug fix
+
+- fix `.mvn/settings.xml`
+
 ### Chore
 
 #### Build
 
 - Update license.
+- Optimize `jib-maven-plugin` configuration properties.
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.24`.
-- Optimize `Dockerfile` adn `.dockerignore`.
+- Optimize `Dockerfile` and `.dockerignore`.
 - Optimize script `helper`.
 - Fix archetype:generate failed.
+- Optimize `layers.xml`
+- Optimize `.devcontainer`
 
 ## 3.23.1
 

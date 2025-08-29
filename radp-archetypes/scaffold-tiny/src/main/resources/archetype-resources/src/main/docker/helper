@@ -4,7 +4,7 @@ set -euo pipefail
 # shellcheck disable=SC2155
 readonly g_cur_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC2155
-readonly g_project_home="$(cd "${g_cur_dir}/.." && pwd)"
+readonly g_project_home="$(cd "${g_cur_dir}/../.." && pwd)"
 ##############################################################################
 # TODO: 根据实际情况修改默认值
 # Defaults – everything can still be overridden from the CLI

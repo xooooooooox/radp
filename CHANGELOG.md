@@ -2,9 +2,13 @@
 
 ## 2.24
 
-### feat
+### Feature
 
 - Add devcontainer
+
+### Bug fix
+
+- fix `.mvn/settings.xml`
 
 ### Chore
 

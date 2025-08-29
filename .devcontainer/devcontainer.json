@@ -4,7 +4,7 @@
     "templates/devcontainer/docker-compose.yml"
   ],
   // service 即 template/devcontainer/docker-compose.yml 中的 service
-  service: "devcontainer",
+  "service": "devcontainer",
   "workspaceFolder": "/home/vscode/workspace",
   "features": {
     "docker-in-docker": "latest",

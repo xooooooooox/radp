@@ -1,13 +1,24 @@
 {
   "name": "${appName}",
   "dockerComposeFile": [
-    "docker-compose.yml"
+    "templates/devcontainer/docker-compose.yml"
   ],
-  "service": "devcontainer",
+  // service 即 template/devcontainer/docker-compose.yml 中的 service
+  service: "devcontainer",
   "workspaceFolder": "/home/vscode/workspace",
   "features": {
-    "docker-in-docker": "latest"
-    //    "docker-from-docker": "latest"
+    "docker-in-docker": "latest",
+    // OR
+    // "docker-from-docker": "latest",
+
+    // see https://github.com/devcontainers/features/blob/main/src/java/README.md
+    // see https://hub.docker.com/r/microsoft/devcontainers-java
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "8",
+      "jdkDistro": "amzn",
+      "installMaven": true,
+      "mavenVersion": "3.9.9"
+    },
   },
   "mounts": [
     // macOS/Linux: mount ~/.m2 for cache, and bind the resolved settings.xml to override symlink
@@ -23,9 +34,7 @@
         "vscjava.vscode-java-pack",
         "pivotal.vscode-boot-dev-pack"
       ],
-      "settings": {
-        "java.home": "/docker-java-home"
-      }
+      "settings": {}
     },
     "jetbrains": {
       // Plugins will be installed into the backend on first start and kept if you persist JetBrains dirs with volumes
@@ -48,7 +57,6 @@
         "com.nasller.CodeGlancePro"
       ]
     }
-
   },
   "forwardPorts": [
     8888,

@@ -93,7 +93,7 @@ _read_config() {
 
 # ===== devcontainer.json =====
 _update_strict_devcontainer_json() {
-  local runtime_env="${1:-dev}"
+  local runtime_env="${1:-}"
   echo -e "${BLUE}Updating devcontainer.json (initializeCommand/postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
 
   # devcontainer.json 必须存在（当前脚本目录应为 .devcontainer）
@@ -102,9 +102,16 @@ _update_strict_devcontainer_json() {
     exit 1
   fi
 
-  # 生成要写入的命令
-  local init_cmd="bash .devcontainer/setup.sh setup --env ${runtime_env}"
-  local post_cmd="bash .devcontainer/setup.sh up --env ${runtime_env}"
+  # 生成要写入的命令（当 env 为空时省略 --env）
+  local init_cmd
+  local post_cmd
+  if [[ -n "$runtime_env" ]]; then
+    init_cmd="bash .devcontainer/setup.sh setup --env ${runtime_env}"
+    post_cmd="bash .devcontainer/setup.sh up --env ${runtime_env}"
+  else
+    init_cmd="bash .devcontainer/setup.sh setup"
+    post_cmd="bash .devcontainer/setup.sh up"
+  fi
 
   # 使用 jq 精准更新（不存在则新增键）
   _check_jq
@@ -118,7 +125,7 @@ _update_strict_devcontainer_json() {
 }
 
 _update_devcontainer_json() {
-  local runtime_env="${1:-dev}"
+  local runtime_env="${1:-}"
   local file="devcontainer.json"
   echo -e "${BLUE}Updating devcontainer.json (postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
 
@@ -128,7 +135,11 @@ _update_devcontainer_json() {
   }
 
   local post_cmd
-  post_cmd="bash .devcontainer/$(basename "$0") setup --env ${runtime_env} && bash .devcontainer/$(basename "$0") up --env ${runtime_env}"
+  if [[ -n "$runtime_env" ]]; then
+    post_cmd="bash .devcontainer/$(basename "$0") setup --env ${runtime_env} && bash .devcontainer/$(basename "$0") up --env ${runtime_env}"
+  else
+    post_cmd="bash .devcontainer/$(basename "$0") setup && bash .devcontainer/$(basename "$0") up"
+  fi
 
   # 0) 如果已是目标值，直接跳过，避免产生无意义 diff
   #    允许行尾可有逗号、前后有空白
@@ -224,32 +235,6 @@ _update_devcontainer_json() {
   fi
 }
 
-# ===== docker-compose.yml (devcontainer) =====
-_update_docker_compose_yml() {
-  echo -e "${BLUE}Updating docker-compose.yml...${NC}"
-
-  local java_version nodejs_version maven_enabled maven_version gradle_enabled gradle_version
-  java_version=$(yq e '.devcontainer.languages.java.version' "$CONFIG_FILE")
-  nodejs_version=$(yq e '.devcontainer.languages.nodejs.version' "$CONFIG_FILE")
-  maven_enabled=$(yq e '.devcontainer.build.tools.maven.enabled' "$CONFIG_FILE")
-  maven_version=$(yq e '.devcontainer.build.tools.maven.version' "$CONFIG_FILE")
-  gradle_enabled=$(yq e '.devcontainer.build.tools.gradle.enabled' "$CONFIG_FILE")
-  gradle_version=$(yq e '.devcontainer.build.tools.gradle.version' "$CONFIG_FILE")
-
-  local temp_file
-  temp_file="$(mktemp)"
-  cp docker-compose.yml "$temp_file"
-
-  yq e -i ".services.devcontainer.build.args.VARIANT = \"$java_version\"" "$temp_file"
-  yq e -i ".services.devcontainer.build.args.INSTALL_MAVEN = \"$maven_enabled\"" "$temp_file"
-  yq e -i ".services.devcontainer.build.args.MAVEN_VERSION = \"$maven_version\"" "$temp_file"
-  yq e -i ".services.devcontainer.build.args.INSTALL_GRADLE = \"$gradle_enabled\"" "$temp_file"
-  yq e -i ".services.devcontainer.build.args.NODE_VERSION = \"$nodejs_version\"" "$temp_file"
-
-  mv "$temp_file" docker-compose.yml
-  echo -e "${GREEN}docker-compose.yml updated.${NC}"
-}
-
 # ===== copy template compose files =====
 _copy_template_files() {
   echo -e "${BLUE}Linking template docker-compose files...${NC}"
@@ -288,19 +273,17 @@ setup() {
     esac
   done
 
-  # 解析 RUNTIME_ENV（优先命令行 > 环境变量 > 默认 dev）
+  # 解析 RUNTIME_ENV（优先命令行 > 环境变量 > 默认空）
   if [[ -n "${ENV_ARG}" ]]; then
     RUNTIME_ENV="${ENV_ARG}"
   else
-    RUNTIME_ENV="${RUNTIME_ENV:-dev}"
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
   fi
   echo -e "${BLUE}Setup runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
 
   # 更新 devcontainer.json 的 initializeCommand/postCreateCommand
   _update_devcontainer_json "${RUNTIME_ENV}"
 
-  # 原有逻辑保持
-  _update_docker_compose_yml
   _copy_template_files
 
   echo -e "${GREEN}Setup completed.${NC}"
@@ -352,7 +335,9 @@ _collect_env_files() {
   local svc
   for svc in "${ENABLED_TEMPLATES[@]}"; do
     _append_unique_path_if_exists "env/.env.${svc}" ENV_FILES
-    _append_unique_path_if_exists "env/.env.${svc}.${RUNTIME_ENV}" ENV_FILES
+    if [[ -n "${RUNTIME_ENV:-}" ]]; then
+      _append_unique_path_if_exists "env/.env.${svc}.${RUNTIME_ENV}" ENV_FILES
+    fi
   done
 }
 
@@ -408,7 +393,7 @@ up() {
   if [[ -n "${ENV_ARG}" ]]; then
     RUNTIME_ENV="${ENV_ARG}"
   else
-    RUNTIME_ENV="${RUNTIME_ENV:-dev}"
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
   fi
   echo -e "${BLUE}Runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
 
@@ -485,7 +470,7 @@ down() {
   if [[ -n "${ENV_ARG}" ]]; then
     RUNTIME_ENV="${ENV_ARG}"
   else
-    RUNTIME_ENV="${RUNTIME_ENV:-dev}"
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
   fi
   echo -e "${BLUE}Runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
 
@@ -528,7 +513,7 @@ Usage:
   devcontainer_helper down [-e|--env ENV] [-v|--volumes] [--remove-orphans] [-n|--dry-run]
 
 Notes:
-  - ENV defaults to "dev" if not provided and $RUNTIME_ENV is unset.
+  - ENV defaults to empty if not provided and $RUNTIME_ENV is unset.
   - Env files included (if exist): ./.env, env/.env.<svc>, env/.env.<svc>.<ENV> for each enabled template.
   - Compose files resolution priority per enabled template:
       compose.<svc>.yml -> docker-compose.<svc>.yml -> templates/<svc>/docker-compose.yml

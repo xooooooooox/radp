@@ -5,18 +5,12 @@ networks:
     external: false
 services:
   devcontainer:
+    # image: mcr.microsoft.com/devcontainers/base:ubuntu-22.04
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        VARIANT: "17"
-        INSTALL_MAVEN: "true"
-        MAVEN_VERSION: "3.9.9"
-        INSTALL_GRADLE: "false"
-        NODE_VERSION: "lts/*"
     volumes:
-      - ..:/workspace:cached
-    command: sleep infinity
+      - ../..:/workspace:cached
     networks:
       - local-network
     environment:

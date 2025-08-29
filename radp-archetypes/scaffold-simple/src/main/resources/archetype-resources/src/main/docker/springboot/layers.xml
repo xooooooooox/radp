@@ -10,15 +10,15 @@
     </application>
     <!-- 一般来说只需要修改 dependencies 标签中的内容 -->
     <dependencies>
-        <into layer="snapshot-dependencies">
-            <include>*:*:*SNAPSHOT</include>
-        </into>
+		<into layer="organization-dependencies">
+			<include>space.x9x*:*:*</include>
+		</into>
         <into layer="modules-dependencies">
             <include>${groupId}:*:*</include>
         </into>
-        <into layer="organization-dependencies">
-            <include>space.x9x*:*:*</include>
-        </into>
+		<into layer="snapshot-dependencies">
+			<include>*:*:*SNAPSHOT</include>
+		</into>
         <into layer="dependencies"/>
     </dependencies>
     <!-- 确保变动频率高的依赖像在后面,以利用 Docker 缓存 -->

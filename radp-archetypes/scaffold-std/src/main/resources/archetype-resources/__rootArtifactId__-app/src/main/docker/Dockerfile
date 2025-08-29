@@ -1,14 +1,20 @@
 # syntax=docker/dockerfile:1.6
 
 #################### [0] 全局构建参数 ####################
+ARG BASE_IMAGE=eclipse-temurin:17-jdk
+ARG RUNTIME_BASE_IMAGE=eclipse-temurin:17-jre
+
 ARG APP_NAME=${appName}
 ARG RUNTIME_ENV=local
 ARG ACTIVE_PROFILE=coding,repo-artifactory
 ARG MAVEN_REPO_LOCAL=/root/.m2/repository
 
 ARG BUILD_HOME="/build"
-ARG APP_HOME="/app"
-ARG DATA_HOME="/data"
+ARG APP_HOME="/workspace"
+ARG DATA_HOME="/app/data/$APP_NAME"
+ARG LOG_HOME="/app/logs/$APP_NAME"
+ARG JAR_FILE=$BUILD_HOME/${APP_NAME}-app/target/${APP_NAME}.jar
+ARG ENTRYPOINT_SCRIPT=${APP_NAME}-app/src/main/docker/springboot/entrypoint.sh
 
 # 制品库认证(给 .mvn/settings.xml)
 ARG ARTIFACTORY_DOMAIN
@@ -16,7 +22,8 @@ ARG ARTIFACTORY_USERNAME
 ARG ARTIFACTORY_PASSWORD
 
 #################### [1] 基础镜像层优化 阶段 ####################
-FROM eclipse-temurin:17-jdk AS base
+# 使用 --platform=$BUILDPLATFORM, 与构建机架构保持一致(避免QEMU模拟导致的慢,兼容性或动态库问题)
+FROM --platform=$BUILDPLATFORM $BASE_IMAGE AS base
 # 安装常用工具，单独缓存层
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 	--mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -55,6 +62,12 @@ COPY .springjavaformatconfig ./
 
 # 复制工程 POM 文件
 COPY pom.xml ./
+COPY ${APP_NAME}-types/pom.xml ${APP_NAME}-types/
+COPY ${APP_NAME}-api/pom.xml ${APP_NAME}-api/
+COPY ${APP_NAME}-domain/pom.xml ${APP_NAME}-domain/
+COPY ${APP_NAME}-infrastructure/pom.xml ${APP_NAME}-infrastructure/
+COPY ${APP_NAME}-trigger/pom.xml ${APP_NAME}-trigger/
+COPY ${APP_NAME}-app/pom.xml ${APP_NAME}-app/
 
 # 3. 下载依赖（利用 Docker 缓存层优化构建速度）
 RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
@@ -73,7 +86,12 @@ ARG MAVEN_REPO_LOCAL
 ARG ACTIVE_PROFILE=coding,repo-artifactory,env-${RUNTIME_ENV}
 
 # 4. 复制源代码
-COPY src src
+COPY ${APP_NAME}-types/src ${APP_NAME}-types/src
+COPY ${APP_NAME}-api/src ${APP_NAME}-api/src
+COPY ${APP_NAME}-domain/src ${APP_NAME}-domain/src
+COPY ${APP_NAME}-infrastructure/src ${APP_NAME}-infrastructure/src
+COPY ${APP_NAME}-trigger/src ${APP_NAME}-trigger/src
+COPY ${APP_NAME}-app/src ${APP_NAME}-app/src
 
 # 执行构建
 RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
@@ -87,29 +105,32 @@ RUN --mount=type=cache,target=$MAVEN_REPO_LOCAL,sharing=locked,id=maven-repo \
 
 #################### [4] JAR 提取阶段 ####################
 # 使用基础镜像提取 JAR 分层
-FROM eclipse-temurin:8-jdk AS jar-extractor
+FROM --platform=$BUILDPLATFORM $BASE_IMAGE AS jar-extractor
 
 ARG APP_NAME
 ARG APP_HOME
 ARG BUILD_HOME
+ARG JAR_FILE
+ARG ENTRYPOINT_SCRIPT
 
 WORKDIR ${APP_HOME}
 
 # 从 Maven 构建阶段复制构建好的 JAR 文件
-COPY --from=builder $BUILD_HOME/target/${APP_NAME}.jar application.jar
+COPY --from=builder $JAR_FILE application.jar
 
 # 复制启动脚本
-COPY src/main/docker/springboot/entrypoint.sh entrypoint.sh
+COPY $ENTRYPOINT_SCRIPT entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 # 1) Use the old tools extractor in Spring Boot 3.1 and below.
 # RUN java -Djarmode=layertools -jar application.jar extract
 # 2) Use the new tools extractor in Spring Boot 3.2 instead, -Djarmode=layertools deprecated.
-RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher && \
+	rm application.jar
 
 #################### [5] runtime 阶段 ####################
 # 创建容器镜像
-FROM  eclipse-temurin:17-jre
+FROM --platform=$TARGETPLATFORM $RUNTIME_BASE_IMAGE
 LABEL org.opencontainers.image.authors="x9x <xozozsos@gmail.com>"
 
 # user
@@ -120,6 +141,7 @@ ARG GID=1001
 # path
 ARG APP_HOME
 ARG DATA_HOME
+ARG LOG_HOME
 # zone
 ARG TZ="Asia/Shanghai"
 ARG LANG="C.UTF-8"
@@ -132,14 +154,14 @@ ARG GC_MODE="G1"
 ARG JDWP_DEBUG="N"
 ARG JDWP_PORT="5005"
 ARG USE_GC_LOG="Y"
-ARG GC_LOG_PATH="${DATA_HOME}/logs"
+ARG GC_LOG_PATH="$LOG_HOME"
 ARG USE_HEAP_DUMP="Y"
-ARG HEAP_DUMP_PATH="${DATA_HOME}/logs"
+ARG HEAP_DUMP_PATH="$LOG_HOME"
 ARG USE_LARGE_PAGES="N"
 # app
 ARG SERVER_PORT="8888"
 ARG MANAGEMENT_SERVER_PORT="9999"
-ARG SPRING_PROFILES_ACTIVE="dev"
+ARG SPRING_PROFILES_ACTIVE
 
 # 设置环境变量
 ENV APP_HOME=${APP_HOME}
@@ -161,39 +183,32 @@ ENV SERVER_PORT=${SERVER_PORT}
 ENV MANAGEMENT_SERVER_PORT=${MANAGEMENT_SERVER_PORT}
 ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 
-# 设置日志目录
-RUN mkdir -p "$DATA_HOME"/logs \
-  && touch "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.err
+# 创建系统用户与目录，并准备日志链接
+RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
+  && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
+  && echo 'umask 0002' >>"$HOME"/.bashrc \
+  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
+  && ln -sf /dev/stdout "$LOG_HOME"/entrypoint.out \
+  && ln -sf /dev/stderr "$LOG_HOME"/entrypoint.err \
+  && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
+  && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME"
 
 WORKDIR $APP_HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=jar-extractor "$APP_HOME"/application/spring-boot-loader/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/organization-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/modules-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/snapshot-dependencies/ ./
-COPY --from=jar-extractor "$APP_HOME"/application/application/ ./
-COPY --from=jar-extractor "$APP_HOME"/entrypoint.sh ./
-
-# 创建普通用户(包括设置 umask), 并将 $HOME 绑定到 $APP_HOME
-RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
-  && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
-  && echo 'umask 0002' >>"$HOME"/.bashrc \
-  && mkdir -p "$APP_HOME" \
-  && chmod -R 755 "$APP_HOME" \
-  && chown -R "$USER":"$GROUP" "$APP_HOME" \
-  && mkdir -p "$DATA_HOME" \
-  && chown -R "$USER":"$GROUP" "$DATA_HOME" \
-  && chmod -R 755 "$DATA_HOME"
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/spring-boot-loader/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/organization-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/modules-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/snapshot-dependencies/ ./
+COPY --from=jar-extractor --chown=$UID:$GID "$APP_HOME"/application/application/ ./
+COPY --from=jar-extractor --chown=$UID:$GID --chmod=0755 "$APP_HOME"/entrypoint.sh ./
 
 # 切换到容器用户
 USER $USER
 
 # 暴露容器端口
-EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT
+EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT $JDWP_PORT
 
 # 设置启动脚本
 ENTRYPOINT ["./entrypoint.sh"]

@@ -62,10 +62,10 @@
 			<directory>.devcontainer</directory>
 			<includes>
 				<include>.env</include>
+				<include>env/**</include>
 				<include>devcontainer.json</include>
-				<include>volumes/**/*.sql</include>
-				<include>docker-compose.yml</include>
 				<include>templates/**/docker-compose.yml</include>
+				<include>volumes/**/*.sql</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -146,7 +146,6 @@
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory/>
 			<includes>
-				<include>Dockerfile</include>
 				<include>README.md</include>
 				<include>.gitlab-ci.yml</include>
 				<include>.dockerignore</include>
@@ -255,6 +254,8 @@
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory>src/main/docker</directory>
 			<includes>
+				<include>Dockerfile</include>
+				<include>start.sh</include>
 				<include>**/*.xml</include>
 			</includes>
 		</fileSet>

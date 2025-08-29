@@ -13,9 +13,3 @@ spring:
     url: jdbc:mysql://mysql:3306/${appName}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
     password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
---- # hikari
-spring:
-  datasource:
-    hikari:
-      data-source-properties:
-        loggerLevel: INFO

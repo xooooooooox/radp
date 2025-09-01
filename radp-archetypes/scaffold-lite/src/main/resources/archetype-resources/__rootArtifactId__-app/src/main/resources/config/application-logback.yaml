@@ -15,3 +15,4 @@ logging:
     com.ulisesbocchio.jasyptspringboot: warn
     space.x9x.radp: info
     space.x9x: info
+    com.zaxxer.hikari.HikariConfig: info

@@ -1,0 +1,17 @@
+networks:
+  local-network:
+    driver: bridge
+    name: ${appName}-network
+    external: false
+services:
+  devcontainer:
+    # image: mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspace:cached
+    networks:
+      - local-network
+    environment:
+      TZ: Asia/Shanghai

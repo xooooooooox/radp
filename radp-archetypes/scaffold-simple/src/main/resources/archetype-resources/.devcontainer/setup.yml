@@ -1,18 +1,4 @@
 devcontainer:
-  languages:
-    java:
-      version: 17
-    nodejs:
-      version: lts/*
-  build:
-    tools:
-      maven:
-        enabled: true
-        version: 3.9.9
-      gradle:
-        enabled: false
-        version: 8.14.1
-
   templates:
     available:
       - kafka
@@ -29,3 +15,4 @@ devcontainer:
     enabled:
       - mysql
       - redis
+#      - app

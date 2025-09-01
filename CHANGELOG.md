@@ -9,6 +9,10 @@
 - Update scaffold default radpVersion to `2.25`.
 - Optimize `maven.config` default active profiles.
 
+### Docs
+
+- Comment added in the `application-logback.yaml` file to explain how to adjust the log file name using the environment variable `LOG_FILE_BASENAME`.
+
 ## 2.24
 
 ### Feature

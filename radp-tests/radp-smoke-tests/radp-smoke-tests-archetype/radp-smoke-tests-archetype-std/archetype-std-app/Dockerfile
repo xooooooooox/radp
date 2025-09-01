@@ -67,7 +67,7 @@ USER $USER
 RUN mkdir -p "$DATA_HOME"/logs \
   && touch "$DATA_HOME"/logs/entrypoint.out \
   && ln -sf /dev/stdout "$DATA_HOME"/logs/entrypoint.out \
-  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.out
+  && ln -sf /dev/stderr "$DATA_HOME"/logs/entrypoint.err
 
 # 设置启动入口和端口
 EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT

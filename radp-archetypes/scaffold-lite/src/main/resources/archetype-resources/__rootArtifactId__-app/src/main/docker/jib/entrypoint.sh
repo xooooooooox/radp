@@ -139,20 +139,20 @@ _optimize_java_opts() {
   # GC 日志设置
   if [[ "${USE_GC_LOG:-N}" == "Y" ]]; then
     _append_if_supported "-XX:+PrintVMOptions"
-    gc_log_path="${GC_LOG_PATH:-${DATA_HOME}/logs}"
+    gc_log_path="${GC_LOG_PATH:-${LOG_HOME}}"
 
     # Create a GC log directory if it doesn't exist
     if [[ ! -d "${gc_log_path}" ]]; then
       mkdir -p "${gc_log_path}" || {
         echo "Warning: Failed to create GC log directory '${gc_log_path}', using default logs directory"
-        gc_log_path="${DATA_HOME}/logs"
+        gc_log_path="${LOG_HOME}"
       }
     fi
 
     # Ensure the directory is writable
     if [[ ! -w "${gc_log_path}" ]]; then
       echo "Warning: GC log directory '${gc_log_path}' is not writable, using default logs directory"
-      gc_log_path="${DATA_HOME}/logs"
+      gc_log_path="${LOG_HOME}"
       # Try to make the default directory writable if it exists
       if [[ -d "${gc_log_path}" && ! -w "${gc_log_path}" ]]; then
         chmod 755 "${gc_log_path}" 2>/dev/null || echo "Warning: Could not make '${gc_log_path}' writable"
@@ -199,13 +199,13 @@ _optimize_java_opts() {
   # Heap dump settings
   # 堆转储设置
   if [[ "${USE_HEAP_DUMP:-N}" == "Y" ]]; then
-    heap_dump_path="${HEAP_DUMP_PATH:-${DATA_HOME}/logs}"
+    heap_dump_path="${HEAP_DUMP_PATH:-${LOG_HOME}}"
 
     # Create a heap dump directory if it doesn't exist
     if [[ ! -d "${heap_dump_path}" ]]; then
       mkdir -p "${heap_dump_path}" || {
         echo "Warning: Failed to create heap dump directory '${heap_dump_path}', using default logs directory"
-        heap_dump_path="${DATA_HOME}/logs"
+        heap_dump_path="${LOG_HOME}"
       }
     fi
 
@@ -241,7 +241,7 @@ _optimize_java_opts() {
       # springboot < 2.4
       JAVA_OPTS="${JAVA_OPTS} -Dspring.config.additional-location=optional:file:${EXTERNAL_CONFIG_HOME}/"
       # springboot >= 2.4
-#      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.import=optional:file:${EXTERNAL_CONFIG_HOME}/"
+      #      JAVA_OPTS="${JAVA_OPTS} -Dspring.config.import=optional:file:${EXTERNAL_CONFIG_HOME}/"
     else
       echo "External configuration directory ${EXTERNAL_CONFIG_HOME} exists but is empty, skipping"
     fi
@@ -258,17 +258,21 @@ _optimize_java_opts() {
 
 # Initialize environment variables with defaults
 JAVA_OPTS=${JAVA_OPTS:-}
-APP_HOME=${APP_HOME:-${HOME}}
-echo "APP_HOME is ${APP_HOME}"
-DATA_HOME=${DATA_HOME:-${HOME}/data}
-echo "DATA_HOME is ${DATA_HOME}"
+APP_NAME=${APP_NAME:-application}
+APP_HOME=${APP_HOME:-/workspace}
+echo "APP_HOME is $APP_HOME"
+DATA_HOME=${DATA_HOME:-/app/data}
+echo "DATA_HOME is $DATA_HOME"
+LOG_HOME=${LOG_HOME:-/app/logs}
+echo "LOG_HOME is $LOG_HOME"
 EXTERNAL_CONFIG_HOME=${EXTERNAL_CONFIG_HOME:-${APP_HOME}/config}
+echo "EXTERNAL_CONFIG_HOME is $EXTERNAL_CONFIG_HOME"
 
 # Create logs directory
 # 创建日志目录
-if [[ ! -d "${DATA_HOME}/logs" ]]; then
-  mkdir -p "${DATA_HOME}/logs" || {
-    echo "Error: failed to create logs directory ${DATA_HOME}/logs"
+if [[ ! -d "${LOG_HOME}" ]]; then
+  mkdir -p "${LOG_HOME}" || {
+    echo "Error: failed to create logs directory $LOG_HOME"
     exit 1
   }
 fi

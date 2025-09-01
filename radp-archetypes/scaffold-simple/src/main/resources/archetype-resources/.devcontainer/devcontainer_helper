@@ -1,0 +1,543 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ===== Colors =====
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# ===== Paths =====
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="${SCRIPT_DIR}/setup.yml"
+
+# ===== Helpers: yq / jq =====
+_check_yq() {
+  if ! command -v yq >/dev/null 2>&1; then
+    echo -e "${YELLOW}yq is not installed. It is required to process YAML files.${NC}"
+    read -r -p "Do you want to install yq? (y/n): " choice
+    case "$choice" in
+    y | Y) _install_yq ;;
+    *)
+      echo -e "${RED}yq is required for this script to work. Exiting.${NC}"
+      exit 1
+      ;;
+    esac
+  fi
+}
+
+_check_jq() {
+  if ! command -v jq >/dev/null 2>&1; then
+    echo -e "${YELLOW}jq is not installed. It is required to process JSON files.${NC}"
+    read -r -p "Do you want to install jq? (y/n): " choice
+    case "$choice" in
+    y | Y) _install_jq ;;
+    *)
+      echo -e "${RED}jq is required for this script to work. Exiting.${NC}"
+      exit 1
+      ;;
+    esac
+  fi
+}
+
+_install_yq() {
+  echo -e "${BLUE}Installing yq...${NC}"
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+    sudo chmod a+x /usr/local/bin/yq
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    if command -v brew >/dev/null 2>&1; then
+      brew install yq
+    else
+      echo -e "${RED}Homebrew not found. Please install yq manually.${NC}"
+      exit 1
+    fi
+  else
+    echo -e "${RED}Unsupported OS. Please install yq manually.${NC}"
+    exit 1
+  fi
+  command -v yq >/dev/null 2>&1 && echo -e "${GREEN}yq installed.${NC}"
+}
+
+_install_jq() {
+  echo -e "${BLUE}Installing jq...${NC}"
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if command -v apt-get >/dev/null 2>&1; then
+      sudo apt-get update -y && sudo apt-get install -y jq
+    else
+      echo -e "${RED}apt-get not found. Please install jq manually.${NC}"
+      exit 1
+    fi
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    if command -v brew >/dev/null 2>&1; then
+      brew install jq
+    else
+      echo -e "${RED}Homebrew not found. Please install jq manually.${NC}"
+      exit 1
+    fi
+  else
+    echo -e "${RED}Unsupported OS. Please install jq manually.${NC}"
+    exit 1
+  fi
+  command -v jq >/dev/null 2>&1 && echo -e "${GREEN}jq installed.${NC}"
+}
+
+# ===== Config =====
+_read_config() {
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo -e "${RED}$CONFIG_FILE not found.${NC}"
+    exit 1
+  fi
+}
+
+# ===== devcontainer.json =====
+_update_strict_devcontainer_json() {
+  local runtime_env="${1:-}"
+  echo -e "${BLUE}Updating devcontainer.json (initializeCommand/postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
+
+  # devcontainer.json 必须存在（当前脚本目录应为 .devcontainer）
+  if [[ ! -f "devcontainer.json" ]]; then
+    echo -e "${RED}devcontainer.json not found in current directory.${NC}"
+    exit 1
+  fi
+
+  # 生成要写入的命令（当 env 为空时省略 --env）
+  local init_cmd
+  local post_cmd
+  if [[ -n "$runtime_env" ]]; then
+    init_cmd="bash .devcontainer/setup.sh setup --env ${runtime_env}"
+    post_cmd="bash .devcontainer/setup.sh up --env ${runtime_env}"
+  else
+    init_cmd="bash .devcontainer/setup.sh setup"
+    post_cmd="bash .devcontainer/setup.sh up"
+  fi
+
+  # 使用 jq 精准更新（不存在则新增键）
+  _check_jq
+  local tmp
+  tmp="$(mktemp)"
+  jq --arg init "$init_cmd" --arg post "$post_cmd" \
+    '.initializeCommand = $init | .postCreateCommand = $post' \
+    devcontainer.json >"$tmp" && mv "$tmp" devcontainer.json
+
+  echo -e "${GREEN}devcontainer.json updated.${NC}"
+}
+
+_update_devcontainer_json() {
+  local runtime_env="${1:-}"
+  local file="devcontainer.json"
+  echo -e "${BLUE}Updating devcontainer.json (postCreateCommand) for env: ${YELLOW}${runtime_env}${NC}"
+
+  [[ -f "$file" ]] || {
+    echo -e "${RED}devcontainer.json not found.${NC}"
+    exit 1
+  }
+
+  local post_cmd
+  if [[ -n "$runtime_env" ]]; then
+    post_cmd="bash .devcontainer/$(basename "$0") setup --env ${runtime_env} && bash .devcontainer/$(basename "$0") up --env ${runtime_env}"
+  else
+    post_cmd="bash .devcontainer/$(basename "$0") setup && bash .devcontainer/$(basename "$0") up"
+  fi
+
+  # 0) 如果已是目标值，直接跳过，避免产生无意义 diff
+  #    允许行尾可有逗号、前后有空白
+  local re_post='^[[:space:]]*"postCreateCommand"[[:space:]]*:[[:space:]]*"'$(
+    printf '%s' "$post_cmd" | sed 's/[[:space:]]/\\s\\+/g; s/\./\\./g; s/\//\\\//g'
+  )'"[[:space:]]*(,)?[[:space:]]*$'
+
+  if grep -Eq "$re_post" "$file"; then
+    echo -e "${GREEN}devcontainer.json already up-to-date. No changes written.${NC}"
+    return
+  fi
+
+  # 1) 优先尝试严格 JSON，用 jq（写前做 diff，内容没变不覆盖）
+  if command -v jq >/dev/null 2>&1 && jq -e . "$file" >/dev/null 2>&1; then
+    local tmp
+    tmp="$(mktemp)"
+    jq --arg post "$post_cmd" \
+      '.postCreateCommand = $post' \
+      "$file" >"$tmp"
+
+    if cmp -s "$tmp" "$file"; then
+      rm -f "$tmp"
+      echo -e "${GREEN}devcontainer.json already up-to-date (jq path).${NC}"
+    else
+      mv "$tmp" "$file"
+      echo -e "${GREEN}devcontainer.json updated via jq.${NC}"
+    fi
+    return
+  fi
+
+  # 2) JSONC 兼容路径，用 awk 安全替换/插入（写前亦做 diff）
+  echo -e "${YELLOW}devcontainer.json seems to be JSONC. Using awk-based safe update...${NC}"
+  local tmp
+  tmp="$(mktemp)"
+  awk -v post="$post_cmd" '
+    {
+      a[++n]=$0
+      # 就地替换 postCreateCommand
+      if ($0 ~ /^[[:space:]]*"postCreateCommand"[[:space:]]*:/) {
+        match($0, /^[[:space:]]*/); indent=substr($0, RSTART, RLENGTH)
+        comma=""; if ($0 ~ /,[[:space:]]*$/) comma=","
+        a[n]=indent "\"postCreateCommand\": \"" post "\"" comma
+        post_found=1
+      }
+    }
+    END{
+      if (post_found) {
+        for(i=1;i<=n;i++) print a[i]
+        exit
+      }
+      # 找到最后一个仅含 } 的行号
+      close_idx=0
+      for(i=n;i>=1;i--){
+        if (a[i] ~ /^[[:space:]]*}[[:space:]]*$/) { close_idx=i; break }
+      }
+      if (close_idx==0) { for(i=1;i<=n;i++) print a[i]; exit }
+
+      # 找 close_idx 之前最后一行有效内容（非空、非 //、非 /*）
+      lastsig=0
+      for(i=close_idx-1;i>=1;i--){
+        s=a[i]; gsub(/[[:space:]]+$/,"",s)
+        if (s ~ /^[[:space:]]*$/) continue
+        if (s ~ /^[[:space:]]*\/\//) continue
+        if (s ~ /^[[:space:]]*\/\*/) continue
+        lastsig=i; break
+      }
+
+      # 若上一有效行不以 { 或 , 结尾，则补一个逗号
+      if (lastsig>0) {
+        s=a[lastsig]; s_trim=s; gsub(/[[:space:]]+$/,"",s_trim)
+        if (s_trim !~ /[,{]$/) a[lastsig]=s ","
+      }
+
+      # 沿用上一有效行的缩进（若无则两个空格）
+      indent="  "
+      if (lastsig>0) {
+        match(a[lastsig], /^[[:space:]]*/); if (RLENGTH>0) indent=substr(a[lastsig], RSTART, RLENGTH)
+      }
+
+      # 仅插入 postCreateCommand
+      for(i=1;i<close_idx;i++) print a[i]
+      print indent "\"postCreateCommand\": \"" post "\""
+      for(i=close_idx;i<=n;i++) print a[i]
+    }
+  ' "$file" >"$tmp"
+
+  if cmp -s "$tmp" "$file"; then
+    rm -f "$tmp"
+    echo -e "${GREEN}devcontainer.json already up-to-date (JSONC path).${NC}"
+  else
+    mv "$tmp" "$file"
+    echo -e "${GREEN}devcontainer.json updated (JSONC-safe).${NC}"
+  fi
+}
+
+# ===== copy template compose files =====
+_copy_template_files() {
+  echo -e "${BLUE}Linking template docker-compose files...${NC}"
+  mapfile -t enabled_templates < <(yq e '.devcontainer.templates.enabled[]' "$CONFIG_FILE")
+
+  for template in "${enabled_templates[@]}"; do
+    local template_file="templates/$template/docker-compose.yml"
+    local target_file="compose.${template}.yml"
+    if [[ -f "$template_file" ]]; then
+      ln -snf "$template_file" "$target_file"
+      echo -e "  Linked ${YELLOW}$target_file${NC} -> $template_file"
+    else
+      echo -e "${YELLOW}Warning: $template_file not found.${NC}"
+    fi
+  done
+  echo -e "${GREEN}Template links ready.${NC}"
+}
+
+# ===== Public: setup =====
+setup() {
+  _check_yq
+  _check_jq
+  _read_config
+
+  local ENV_ARG=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
+    *)
+      echo -e "${YELLOW}Unknown option for setup: $1${NC}"
+      shift
+      ;;
+    esac
+  done
+
+  # 解析 RUNTIME_ENV（优先命令行 > 环境变量 > 默认空）
+  if [[ -n "${ENV_ARG}" ]]; then
+    RUNTIME_ENV="${ENV_ARG}"
+  else
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
+  fi
+  echo -e "${BLUE}Setup runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
+
+  # 更新 devcontainer.json 的 initializeCommand/postCreateCommand
+  _update_devcontainer_json "${RUNTIME_ENV}"
+
+  _copy_template_files
+
+  echo -e "${GREEN}Setup completed.${NC}"
+}
+
+# ===== Internal helpers for up/down =====
+_get_enabled_templates() {
+  mapfile -t ENABLED_TEMPLATES < <(yq e '.devcontainer.templates.enabled[]' "$CONFIG_FILE")
+}
+
+# prefer compose.<name>.yml -> docker-compose.<name>.yml -> templates/<name>/docker-compose.yml
+_resolve_compose_file_for() {
+  local name="$1"
+  local c1="compose.${name}.yml"
+  local c2="docker-compose.${name}.yml"
+  local c3="templates/${name}/docker-compose.yml"
+
+  if [[ -f "$c1" ]]; then
+    echo "$c1"
+  elif [[ -f "$c2" ]]; then
+    echo "$c2"
+  elif [[ -f "$c3" ]]; then
+    echo "$c3"
+  else
+    echo ""
+  fi
+}
+
+_append_unique_path_if_exists() {
+  # $1: file path, $2: array name (by reference via eval)
+  local f="$1"
+  local arr_name="$2"
+  if [[ -f "$f" ]]; then
+    # dedupe for bash 3.2 (no assoc array)
+    eval "local current=(\"\${$arr_name[@]:-}\")"
+    local it
+    for it in "${current[@]:-}"; do
+      [[ "$it" == "$f" ]] && return 0
+    done
+    eval "$arr_name+=(\"$f\")"
+  fi
+}
+
+_collect_env_files() {
+  # inputs: ENABLED_TEMPLATES[], RUNTIME_ENV
+  ENV_FILES=()
+  _append_unique_path_if_exists ".env" ENV_FILES
+
+  local svc
+  for svc in "${ENABLED_TEMPLATES[@]}"; do
+    _append_unique_path_if_exists "env/.env.${svc}" ENV_FILES
+    if [[ -n "${RUNTIME_ENV:-}" ]]; then
+      _append_unique_path_if_exists "env/.env.${svc}.${RUNTIME_ENV}" ENV_FILES
+    fi
+  done
+}
+
+_collect_compose_files() {
+  COMPOSE_FILES=()
+  local svc f
+  for svc in "${ENABLED_TEMPLATES[@]}"; do
+    f="$(_resolve_compose_file_for "$svc")"
+    if [[ -n "$f" ]]; then
+      COMPOSE_FILES+=("$f")
+    else
+      echo -e "${YELLOW}Warning: compose file for '${svc}' not found. Skipped.${NC}"
+    fi
+  done
+}
+
+# ===== Public: up =====
+up() {
+  _check_yq
+  _read_config
+
+  local DRY_RUN=0
+  local BUILD_FLAG=1
+  local ENV_ARG=""
+
+  # parse args: --env/-e <name>, --no-build, --dry-run
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
+    --no-build)
+      BUILD_FLAG=0
+      shift
+      ;;
+    -n | --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo -e "${YELLOW}Unknown option: $1${NC}"
+      shift
+      ;;
+    esac
+  done
+
+  # runtime env
+  if [[ -n "${ENV_ARG}" ]]; then
+    RUNTIME_ENV="${ENV_ARG}"
+  else
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
+  fi
+  echo -e "${BLUE}Runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
+
+  _get_enabled_templates
+  if [[ "${#ENABLED_TEMPLATES[@]}" -eq 0 ]]; then
+    echo -e "${RED}No enabled templates found in $CONFIG_FILE${NC}"
+    exit 1
+  fi
+  echo -e "${BLUE}Enabled templates: ${YELLOW}${ENABLED_TEMPLATES[*]}${NC}"
+
+  _collect_env_files
+  _collect_compose_files
+
+  # build docker compose command
+  CMD=(docker compose)
+  local f
+  for f in "${ENV_FILES[@]}"; do
+    CMD+=(--env-file "$f")
+  done
+  for f in "${COMPOSE_FILES[@]}"; do
+    CMD+=(-f "$f")
+  done
+  CMD+=(up -d)
+  [[ $BUILD_FLAG -eq 1 ]] && CMD+=(--build)
+
+  echo -e "${BLUE}Executing:${NC} ${YELLOW}${CMD[*]}${NC}"
+  if [[ $DRY_RUN -eq 1 ]]; then
+    echo -e "${GREEN}(dry-run) Command not executed.${NC}"
+  else
+    "${CMD[@]}"
+  fi
+}
+
+# ===== Public: down =====
+down() {
+  _check_yq
+  _read_config
+
+  local DRY_RUN=0
+  local ENV_ARG=""
+  local REMOVE_ORPHANS=0
+  local WITH_VOLUMES=0
+
+  # parse args: --env/-e <name>, --remove-orphans, -v/--volumes, --dry-run
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -e | --env)
+      ENV_ARG="${2:-}"
+      shift 2
+      ;;
+    --remove-orphans)
+      REMOVE_ORPHANS=1
+      shift
+      ;;
+    -v | --volumes)
+      WITH_VOLUMES=1
+      shift
+      ;;
+    -n | --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo -e "${YELLOW}Unknown option: $1${NC}"
+      shift
+      ;;
+    esac
+  done
+
+  if [[ -n "${ENV_ARG}" ]]; then
+    RUNTIME_ENV="${ENV_ARG}"
+  else
+    RUNTIME_ENV="${RUNTIME_ENV:-}"
+  fi
+  echo -e "${BLUE}Runtime env: ${YELLOW}${RUNTIME_ENV}${NC}"
+
+  _get_enabled_templates
+  if [[ "${#ENABLED_TEMPLATES[@]}" -eq 0 ]]; then
+    echo -e "${RED}No enabled templates found in $CONFIG_FILE${NC}"
+    exit 1
+  fi
+  echo -e "${BLUE}Enabled templates: ${YELLOW}${ENABLED_TEMPLATES[*]}${NC}"
+
+  _collect_env_files
+  _collect_compose_files
+
+  CMD=(docker compose)
+  local f
+  for f in "${ENV_FILES[@]}"; do
+    CMD+=(--env-file "$f")
+  done
+  for f in "${COMPOSE_FILES[@]}"; do
+    CMD+=(-f "$f")
+  done
+  CMD+=(down)
+  [[ $WITH_VOLUMES -eq 1 ]] && CMD+=(-v)
+  [[ $REMOVE_ORPHANS -eq 1 ]] && CMD+=(--remove-orphans)
+
+  echo -e "${BLUE}Executing:${NC} ${YELLOW}${CMD[*]}${NC}"
+  if [[ $DRY_RUN -eq 1 ]]; then
+    echo -e "${GREEN}(dry-run) Command not executed.${NC}"
+  else
+    "${CMD[@]}"
+  fi
+}
+
+# ===== CLI =====
+_usage() {
+  cat <<"EOF"
+Usage:
+  devcontainer_helper setup
+  devcontainer_helper up [-e|--env ENV] [--no-build] [-n|--dry-run]
+  devcontainer_helper down [-e|--env ENV] [-v|--volumes] [--remove-orphans] [-n|--dry-run]
+
+Notes:
+  - ENV defaults to empty if not provided and $RUNTIME_ENV is unset.
+  - Env files included (if exist): ./.env, env/.env.<svc>, env/.env.<svc>.<ENV> for each enabled template.
+  - Compose files resolution priority per enabled template:
+      compose.<svc>.yml -> docker-compose.<svc>.yml -> templates/<svc>/docker-compose.yml
+EOF
+}
+
+main() {
+  local cmd="${1:-}"
+  shift || true
+
+  # Always operate from the script directory (i.e., .devcontainer)
+  cd "$SCRIPT_DIR"
+
+  case "$cmd" in
+  setup) setup "$@" ;;
+  up) up "$@" ;;
+  down) down "$@" ;;
+  "" | -h | --help | help) _usage ;;
+  *)
+    echo -e "${RED}Unknown command: $cmd${NC}"
+    _usage
+    exit 1
+    ;;
+  esac
+}
+
+main "$@"

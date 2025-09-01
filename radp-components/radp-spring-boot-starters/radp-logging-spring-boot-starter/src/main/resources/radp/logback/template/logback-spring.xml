@@ -9,36 +9,37 @@
 -->
 
 <configuration debug="false">
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
-    <!-- 从 application.yaml 中读取配置 -->
-    <springProperty name="userLogPath" source="logging.file.path" scope="context"/>
-    <springProperty name="userLogFileName" source="spring.application.name" scope="context"/>
-    <springProperty name="userConsoleLogPattern" source="logging.pattern.console" scope="context"/>
-    <springProperty name="userConsoleLogCharset" source="logging.charset.console" scope="context"/>
-    <springProperty name="userFileLogPattern" source="logging.pattern.file" scope="context"/>
-    <springProperty name="userFileLogCharset" source="logging.charset.file" scope="context"/>
+	<!-- 从 application.yaml 中读取配置 -->
+	<springProperty name="userLogPath" source="logging.file.path" scope="context"/>
+	<springProperty name="userLogFileBasename" source="LOG_FILE_BASENAME" scope="context"/>
+	<springProperty name="userSpringApplicationName" source="spring.application.name" scope="context"/>
+	<springProperty name="userConsoleLogPattern" source="logging.pattern.console" scope="context"/>
+	<springProperty name="userConsoleLogCharset" source="logging.charset.console" scope="context"/>
+	<springProperty name="userFileLogPattern" source="logging.pattern.file" scope="context"/>
+	<springProperty name="userFileLogCharset" source="logging.charset.file" scope="context"/>
 
-    <include resource="radp/logback/spring/base.xml"/>
+	<include resource="radp/logback/spring/base.xml"/>
 
-    <!-- 根据环境配置额外的文件日志 -->
-    <springProfile name="local,dev,test">
-        <logger name="ROOT" additivity="false">
-            <appender-ref ref="radp_console_appender"/>
-            <appender-ref ref="radp_file_appender_filter_trace_async"/>
-            <appender-ref ref="radp_file_appender_filter_debug_async"/>
-            <appender-ref ref="radp_file_appender_filter_info_async"/>
-            <appender-ref ref="radp_file_appender_filter_warn_async"/>
-            <appender-ref ref="radp_file_appender_filter_error_async"/>
-        </logger>
-    </springProfile>
-    <springProfile name="sit,uat,prod">
-        <logger name="ROOT" additivity="false">
-            <appender-ref ref="radp_file_appender_filter_trace_async"/>
-            <appender-ref ref="radp_file_appender_filter_debug_async"/>
-            <appender-ref ref="radp_file_appender_filter_info_async"/>
-            <appender-ref ref="radp_file_appender_filter_warn_async"/>
-            <appender-ref ref="radp_file_appender_filter_error_async"/>
-        </logger>
-    </springProfile>
+	<!-- 根据环境配置额外的文件日志 -->
+	<springProfile name="local,dev,test">
+		<logger name="ROOT" additivity="false">
+			<appender-ref ref="radp_console_appender"/>
+			<appender-ref ref="radp_file_appender_filter_trace_async"/>
+			<appender-ref ref="radp_file_appender_filter_debug_async"/>
+			<appender-ref ref="radp_file_appender_filter_info_async"/>
+			<appender-ref ref="radp_file_appender_filter_warn_async"/>
+			<appender-ref ref="radp_file_appender_filter_error_async"/>
+		</logger>
+	</springProfile>
+	<springProfile name="sit,uat,prod">
+		<logger name="ROOT" additivity="false">
+			<appender-ref ref="radp_file_appender_filter_trace_async"/>
+			<appender-ref ref="radp_file_appender_filter_debug_async"/>
+			<appender-ref ref="radp_file_appender_filter_info_async"/>
+			<appender-ref ref="radp_file_appender_filter_warn_async"/>
+			<appender-ref ref="radp_file_appender_filter_error_async"/>
+		</logger>
+	</springProfile>
 </configuration>

@@ -22,7 +22,7 @@
 
 		<!-- radp-parent version -->
 		<requiredProperty key="radpVersion">
-			<defaultValue>2.23.1</defaultValue>
+			<defaultValue>2.24</defaultValue>
 		</requiredProperty>
 
 		<!-- spring application.yaml 占位符默认值 -->
@@ -62,10 +62,10 @@
 			<directory>.devcontainer</directory>
 			<includes>
 				<include>.env</include>
+				<include>env/**</include>
 				<include>devcontainer.json</include>
-				<include>volumes/**/*.sql</include>
-				<include>docker-compose.yml</include>
 				<include>templates/**/docker-compose.yml</include>
+				<include>volumes/**/*.sql</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -146,10 +146,9 @@
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory/>
 			<includes>
-				<include>Dockerfile</include>
 				<include>README.md</include>
 				<include>.gitlab-ci.yml</include>
-				<include>helper</include>
+				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 		<fileSet encoding="UTF-8">
@@ -162,7 +161,6 @@
 				<include>.gitattributes</include>
 				<include>.springjavaformatconfig</include>
 				<include>.editorconfig</include>
-				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 
@@ -256,6 +254,8 @@
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory>src/main/docker</directory>
 			<includes>
+				<include>Dockerfile</include>
+				<include>start.sh</include>
 				<include>**/*.xml</include>
 			</includes>
 		</fileSet>

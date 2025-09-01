@@ -10,6 +10,7 @@
 	<artifactId>${artifactId}</artifactId>
 
 	<properties>
+		<app.name>${project.name}</app.name>
 		<start-class>${package}.Application</start-class>
 		<app.assembly.filename>${project.build.finalName}-assembly.tar.gz</app.assembly.filename>
 		<app.assembly.file>${project.basedir}/target/${app.assembly.filename}</app.assembly.file>
@@ -18,7 +19,7 @@
 		<app.version>${project.version}</app.version>
 		<app.server.port>${appPort}</app.server.port>
 		<app.management.server.port>9999</app.management.server.port>
-		<docker.build.base_image>${app.build.base_image.jdk11}</docker.build.base_image>
+		<docker.build.base_image>${app.build.base_image.jdk8}</docker.build.base_image>
 		<docker.build.image_name>${docker.build.namespace}/${runtime.env}/${appName}</docker.build.image_name>
 		<docker.build.image_tag>${project.version}</docker.build.image_tag>
 	</properties>

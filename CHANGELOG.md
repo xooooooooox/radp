@@ -1,5 +1,32 @@
 # ChangeLog
 
+## 2.24
+
+### Feature
+
+- Add devcontainer.
+- Optimize `radp-logging-spring-boot-starter`, Support override log file basename via Environment variable.
+
+### Bug fix
+
+- fix `.mvn/settings.xml`
+
+### Chore
+
+#### Build
+
+- Update license.
+- Optimize `jib-maven-plugin` configuration properties.
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.24`.
+- Optimize `Dockerfile` and `.dockerignore`.
+- Optimize script `helper`.
+- Fix archetype:generate failed.
+- Optimize `layers.xml`
+- Optimize `.devcontainer`
+
 ## 2.23.1
 
 ### chore

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-design-pattern-framework</artifactId>
-		<version>3.24</version>
+		<version>3.25-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>structural-patterns</artifactId>

@@ -4,7 +4,8 @@
 
 ### Feature
 
-- Add devcontainer
+- Add devcontainer.
+- Optimize `radp-logging-spring-boot-starter`, Support override log file basename via Environment variable.
 
 ### Bug fix
 

@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 2.25
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.25`.
+
 ## 2.24
 
 ### Feature

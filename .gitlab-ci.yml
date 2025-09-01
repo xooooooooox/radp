@@ -30,7 +30,7 @@ spec:
         - k8s
         - k8s-amd64
         - k8s-arm64
-      default: 'docker-arm64'
+      default: 'k8s'
     version_type:
       type: string
       options: [ 'timestamp',  'patch', 'minor', 'major' ]

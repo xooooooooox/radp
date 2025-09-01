@@ -131,6 +131,7 @@ variables:
 
   #--------------------------------------------- [c/1-7] pages args ---------------------------------------------------#
   # 发布 pages - writerside
+  TP_PAGES_RUNNER_TAGS: k8s
   TP_PAGES_TYPE: "writerside"
   TP_WRITERSIDE_INSTANCE: "Writerside/radp"
 

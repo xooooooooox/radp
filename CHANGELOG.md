@@ -7,6 +7,7 @@
 #### Scaffold
 
 - Update scaffold default radpVersion to `2.25`.
+- Optimize `maven.config` default active profiles.
 
 ## 2.24
 

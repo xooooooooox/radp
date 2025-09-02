@@ -1,5 +1,20 @@
 # ChangeLog
 
+## 3.25
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.25`.
+- Optimize `maven.config` default active profiles.
+- Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
+
+### Docs
+
+- Comment added in the `application-logback.yaml` file to explain how to adjust the log file name using the environment
+  variable `LOG_FILE_BASENAME`.
+
 ## 3.24
 
 ### Feature

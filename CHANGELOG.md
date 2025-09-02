@@ -8,6 +8,7 @@
 
 - Update scaffold default radpVersion to `2.25`.
 - Optimize `maven.config` default active profiles.
+- Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
 
 ### Docs
 

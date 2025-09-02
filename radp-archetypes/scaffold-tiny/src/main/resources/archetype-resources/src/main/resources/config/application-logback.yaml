@@ -3,9 +3,8 @@ debug: false
 logging:
   config: classpath:radp/logback/template/logback-spring.xml
   file:
-    path: ./logs/${spring.application.name}
-    # 支持通过 Environment variable LOG_FILE_BASENAME 调整日志文件名
-    name: ${logging.file.path}/${spring.application.name}.log # 日志文件名，全路径
+    path: ${LOG_HOME:./logs/${LOG_FILE_BASENAME:${spring.application.name}}}
+    name: ${logging.file.path}/${LOG_FILE_BASENAME:${spring.application.name}}.log # 日志文件名，全路径
   logback:
     rollingpolicy:
       max-history: 7

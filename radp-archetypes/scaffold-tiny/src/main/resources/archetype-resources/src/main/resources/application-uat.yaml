@@ -2,7 +2,7 @@
 debug: false
 logging:
   file:
-    path: ${LOG_HOME:/app/logs/${LOG_FILE_BASENAME:${spring.application.name}}}
+    path: ${LOG_HOME:/app/logs/${spring.application.name}}
   level:
     space.x9x.radp: debug
     space.x9x: debug

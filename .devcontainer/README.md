@@ -1,4 +1,4 @@
-# DevContainer Guide (Updated)
+# DevContainer Guide
 
 This project uses DevContainer to provide a consistent local development environment and manages peripheral dependencies (MySQL, Redis, etc.) via composable templates and helper scripts. This document is aligned with the current repository configuration.
 

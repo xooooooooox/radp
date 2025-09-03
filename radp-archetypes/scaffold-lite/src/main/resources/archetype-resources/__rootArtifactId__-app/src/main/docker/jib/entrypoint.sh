@@ -139,35 +139,35 @@ _optimize_java_opts() {
   # GC 日志设置
   if [[ "${USE_GC_LOG:-N}" == "Y" ]]; then
     _append_if_supported "-XX:+PrintVMOptions"
-    gc_log_path="${GC_LOG_PATH:-${LOG_HOME}}"
+    gc_log_path="${GC_LOG_PATH:-${LOG_HOME}/jvm}"
 
     # Create a GC log directory if it doesn't exist
     if [[ ! -d "${gc_log_path}" ]]; then
       mkdir -p "${gc_log_path}" || {
         echo "Warning: Failed to create GC log directory '${gc_log_path}', using default logs directory"
-        gc_log_path="${LOG_HOME}"
+        gc_log_path="${LOG_HOME}/jvm"
       }
     fi
 
     # Ensure the directory is writable
     if [[ ! -w "${gc_log_path}" ]]; then
       echo "Warning: GC log directory '${gc_log_path}' is not writable, using default logs directory"
-      gc_log_path="${LOG_HOME}"
+      gc_log_path="${LOG_HOME}/jvm"
       # Try to make the default directory writable if it exists
       if [[ -d "${gc_log_path}" && ! -w "${gc_log_path}" ]]; then
         chmod 755 "${gc_log_path}" 2>/dev/null || echo "Warning: Could not make '${gc_log_path}' writable"
       fi
     fi
-
+    gc_log_filename=${GC_LOG_FILE_BASENAME:-${HOSTNAME:-}.jvm_gc}
     # Different GC log options for Java 9+ vs Java 8 and earlier
     if [[ "${JAVA_MAJOR_VERSION}" -gt "8" ]]; then
       # Java 9+ uses unified logging with -Xlog
-      gc_log_file="${gc_log_path}/jvm_gc-%p-%t.log"
+      gc_log_file="${gc_log_path}/$gc_log_filename-%p-%t.log"
       echo "GC log path is '${gc_log_file}'."
       _append_if_supported "-Xlog:gc:file=${gc_log_file}:tags,uptime,time,level:filecount=${GC_LOG_FILE_COUNT:-10},filesize=${GC_LOG_FILE_SIZE:-100M}"
     else
       # Java 8 and earlier use multiple options
-      gc_log_file="${gc_log_path}/jvm_gc.log"
+      gc_log_file="${gc_log_path}/$gc_log_filename.log"
       echo "GC log path is '${gc_log_file}'."
       # Touch the file to ensure it exists and check if it's writable
       touch "${gc_log_file}" 2>/dev/null || echo "Warning: Could not create GC log file '${gc_log_file}'"
@@ -199,18 +199,19 @@ _optimize_java_opts() {
   # Heap dump settings
   # 堆转储设置
   if [[ "${USE_HEAP_DUMP:-N}" == "Y" ]]; then
-    heap_dump_path="${HEAP_DUMP_PATH:-${LOG_HOME}}"
+    heap_dump_path="${HEAP_DUMP_PATH:-${LOG_HOME}/jvm}"
 
     # Create a heap dump directory if it doesn't exist
     if [[ ! -d "${heap_dump_path}" ]]; then
       mkdir -p "${heap_dump_path}" || {
         echo "Warning: Failed to create heap dump directory '${heap_dump_path}', using default logs directory"
-        heap_dump_path="${LOG_HOME}"
+        heap_dump_path="${LOG_HOME}/jvm"
       }
     fi
 
-    echo "Heap dump path is '${heap_dump_path}/jvm_heap_dump.hprof'."
-    _append_if_supported "-XX:HeapDumpPath=${heap_dump_path}/jvm_heap_dump.hprof"
+    heap_dump_file=${heap_dump_path}/${HEAP_DUMP_FILE_BASENAME:-${HOSTNAME:-}.jvm_heap_dump}.hprof
+    echo "Heap dump path is '${heap_dump_file}'"
+    _append_if_supported "-XX:HeapDumpPath=${heap_dump_file}"
     _append_if_supported "-XX:+HeapDumpOnOutOfMemoryError"
   else
     echo "Warning: JVM Heap Dump not enabled"
@@ -261,9 +262,9 @@ JAVA_OPTS=${JAVA_OPTS:-}
 APP_NAME=${APP_NAME:-application}
 APP_HOME=${APP_HOME:-/workspace}
 echo "APP_HOME is $APP_HOME"
-DATA_HOME=${DATA_HOME:-/app/data}
+DATA_HOME=${DATA_HOME:-/app/data/$APP_NAME}
 echo "DATA_HOME is $DATA_HOME"
-LOG_HOME=${LOG_HOME:-/app/logs}
+LOG_HOME=${LOG_HOME:-/app/logs/$APP_NAME}
 echo "LOG_HOME is $LOG_HOME"
 EXTERNAL_CONFIG_HOME=${EXTERNAL_CONFIG_HOME:-${APP_HOME}/config}
 echo "EXTERNAL_CONFIG_HOME is $EXTERNAL_CONFIG_HOME"

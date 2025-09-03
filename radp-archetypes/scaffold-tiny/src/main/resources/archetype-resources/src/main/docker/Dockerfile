@@ -114,7 +114,8 @@ COPY $ENTRYPOINT_SCRIPT entrypoint.sh
 # 1) Use the old tools extractor in Spring Boot 3.1 and below.
 # RUN java -Djarmode=layertools -jar application.jar extract
 # 2) Use the new tools extractor in Spring Boot 3.2 instead, -Djarmode=layertools deprecated.
-RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher && \
+  rm application.jar
 
 #################### [5] runtime 阶段 ####################
 # 创建容器镜像
@@ -142,9 +143,11 @@ ARG GC_MODE="G1"
 ARG JDWP_DEBUG="N"
 ARG JDWP_PORT="5005"
 ARG USE_GC_LOG="Y"
-ARG GC_LOG_PATH="$LOG_HOME"
+ARG GC_LOG_PATH="$LOG_HOME"/jvm
+ARG GC_LOG_FILE_BASENAME
 ARG USE_HEAP_DUMP="Y"
-ARG HEAP_DUMP_PATH="$LOG_HOME"
+ARG HEAP_DUMP_PATH="$GC_LOG_PATH"
+ARG HEAP_DUMP_FILE_BASENAME
 ARG USE_LARGE_PAGES="N"
 # app
 ARG SERVER_PORT="8888"
@@ -164,8 +167,10 @@ ENV JDWP_DEBUG=${JDWP_DEBUG}
 ENV JDWP_PORT=${JDWP_PORT}
 ENV USE_GC_LOG=${USE_GC_LOG}
 ENV GC_LOG_PATH="${GC_LOG_PATH}"
+ENV GC_LOG_FILE_BASENAME=$GC_LOG_FILE_BASENAME
 ENV USE_HEAP_DUMP=${USE_HEAP_DUMP}
 ENV HEAP_DUMP_PATH="${HEAP_DUMP_PATH}"
+ENV HEAP_DUMP_FILE_BASENAME=$HEAP_DUMP_FILE_BASENAME
 ENV USE_LARGE_PAGES=${USE_LARGE_PAGES}
 ENV SERVER_PORT=${SERVER_PORT}
 ENV MANAGEMENT_SERVER_PORT=${MANAGEMENT_SERVER_PORT}
@@ -174,10 +179,10 @@ ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 # 创建系统用户与目录，并准备日志链接
 RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
   && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
-  && echo 'umask 0002' >>"$APP_HOME"/.bashrc \
-  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
-  && ln -sf /dev/stdout "$LOG_HOME"/entrypoint.out \
-  && ln -sf /dev/stderr "$LOG_HOME"/entrypoint.err \
+  && echo 'umask 0002' >>"$HOME"/.bashrc \
+  && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" "$GC_LOG_PATH" \
+  && ln -sf /dev/stdout "$LOG_HOME"/${HOSTNAME:-}.entrypoint.out \
+  && ln -sf /dev/stderr "$LOG_HOME"/${HOSTNAME:-}.entrypoint.err \
   && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
   && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME"
 

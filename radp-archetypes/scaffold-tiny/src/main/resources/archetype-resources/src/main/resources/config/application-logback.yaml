@@ -3,8 +3,8 @@ debug: false
 logging:
   config: classpath:radp/logback/template/logback-spring.xml
   file:
-    path: ${LOG_HOME:./logs/${LOG_FILE_BASENAME:${spring.application.name}}}
-    name: ${logging.file.path}/${LOG_FILE_BASENAME:${spring.application.name}}.log # 日志文件名，全路径
+    path: ${LOG_HOME:./logs/${spring.application.name}}
+    name: ${logging.file.path}/${LOG_FILE_BASENAME:${HOSTNAME:${spring.application.name}}}.log # 日志文件名，全路径
   logback:
     rollingpolicy:
       max-history: 7

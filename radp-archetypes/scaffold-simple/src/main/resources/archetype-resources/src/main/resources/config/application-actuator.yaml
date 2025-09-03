@@ -8,6 +8,9 @@ management:
       exposure:
         include: health,info,prometheus,metrics
   endpoint:
+    # startupProbe path: /actuator/health
+    # livenessProbe path: /actuator/health/liveness
+    # readinessProbe path: /actuator/health/readiness
     health:
       show-details: always
       probes:

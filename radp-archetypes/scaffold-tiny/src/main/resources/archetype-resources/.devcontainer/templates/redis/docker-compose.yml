@@ -6,7 +6,7 @@ networks:
 
 services:
   redis:
-    image: redis:7.2.0
+    image: redis:${symbol_dollar}{REDIS_VERSION}
     restart: unless-stopped
     environment:
       TZ: Asia/Shanghai

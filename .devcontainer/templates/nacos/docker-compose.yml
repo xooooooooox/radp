@@ -1,0 +1,41 @@
+networks:
+  local-network:
+    driver: bridge
+    name: radp-network
+    external: false
+
+services:
+  # Nacos 官方:
+  # https://nacos.io/docs/latest/overview
+  # https://github.com/nacos-group/nacos-docker
+  # 使用 Nacos 3，默认以单机模式启动。env 从 volumes/nacos/nacos-standalone-mysql.env 加载。
+  nacos:
+    image: nacos/nacos-server:${NACOS_VERSION}
+    restart: unless-stopped
+    env_file:
+      - ./volumes/nacos/nacos-standalone-mysql.env
+    environment:
+      TZ: Asia/Shanghai
+      NACOS_SERVER_PORT: 8848
+    ports:
+      - "8080:8080"   # 控制台 http://127.0.0.1:8848/  默认账号/密码: nacos/nacos
+      - "8848:8848"   # RPC/gRPC 端口（SDK 客户端访问）
+      - "9848:9848"   # RPC/gRPC 端口（SDK 客户端访问）
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./volumes/nacos/logs:/home/nacos/logs
+      - ./volumes/nacos/data:/home/nacos/data
+      # 如果需要自定义配置，可映射 application.properties
+      # - ./volumes/nacos/conf/application.properties:/home/nacos/conf/application.properties
+    networks:
+      - local-network
+    # 如果需要使用外部 MySQL 存储配置数据，请在 env 文件中设置 SPRING_DATASOURCE_PLATFORM、MYSQL_SERVICE_* 等变量
+    # 健康检查（可选，如镜像包含 wget/curl 工具可开启）
+    # healthcheck:
+    #   test: ["CMD-SHELL", "wget -q -O - http://localhost:8848/nacos/ | grep -qi nacos || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
+    #   start_period: 30s

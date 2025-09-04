@@ -6,7 +6,7 @@ networks:
 
 services:
   ollama:
-    image: ollama/ollama:0.5.10
+    image: ollama/ollama:${OLLAMA_VERSION}
     restart: unless-stopped
     ports:
       - "11434:11434"

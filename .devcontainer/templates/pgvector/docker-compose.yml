@@ -6,7 +6,7 @@ networks:
 
 services:
   pgvector:
-    image: pgvector/pgvector:pg17
+    image: pgvector/pgvector:${PGVECTOR_VERSION}
     restart: unless-stopped
     environment:
       TZ: Asia/Shanghai

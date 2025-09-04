@@ -7,7 +7,7 @@ networks:
 services:
   # 方式一: 如果使用传统的 zookeeper 模式
   kafka:
-    image: bitnami/kafka:3.7.0
+    image: bitnami/kafka:${KAFKA_VERSION}
     ports:
       - "9092:9092"
     environment:

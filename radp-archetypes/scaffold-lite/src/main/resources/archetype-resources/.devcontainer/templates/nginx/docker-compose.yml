@@ -6,7 +6,7 @@ networks:
 
 services:
   nginx:
-    image: nginx:1.21.0-alpine
+    image: nginx:${symbol_dollar}{NGINX_VERSION}
     restart: unless-stopped
     volumes:
       - ./volumes/nginx/ssl:/etc/nginx/ssl

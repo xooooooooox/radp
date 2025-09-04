@@ -4,9 +4,11 @@
 
 ### feat
 
-- 优化 devcontainer
-  - 优化端口映射
-  - 优化 `devcontainer_helper` 脚本
+- Optimize devcontainer
+  - optimize devcontainer forwardedPorts
+  - optimize `devcontainer_helper` script
+  - extract image version to .env
+  - add template: nacos
 
 ### Chore
 

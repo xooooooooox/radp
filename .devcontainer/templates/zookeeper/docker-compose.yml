@@ -6,7 +6,7 @@ networks:
 
 services:
   zookeeper:
-    image: zookeeper:3.9.0
+    image: zookeeper:${ZOOKEEPER_VERSION}
     restart: unless-stopped
     ports:
       - "2181:2181"

@@ -4,7 +4,9 @@
 
 ### feat
 
-- 优化 devcontainer 端口映射
+- 优化 devcontainer
+  - 优化端口映射
+  - 优化 `devcontainer_helper` 脚本
 
 ### Chore
 

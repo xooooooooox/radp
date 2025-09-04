@@ -17,7 +17,7 @@ services:
     volumes:
       - ./volumes/kafka/kafka-eagle/system-config.properties:/opt/kafka-eagle/conf/system-config.properties
     ports:
-      - "8048"
+      - "8048:8048"
     depends_on:
       - kafka
     networks:

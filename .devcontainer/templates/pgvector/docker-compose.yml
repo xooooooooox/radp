@@ -15,7 +15,7 @@ services:
       POSTGRES_DB: postgres
       PGPASSWORD: postgres
     ports:
-      - "5432"
+      - "5432:5432"
     volumes:
       - ./volumes/pgvector/sql:/docker-entrypoint-initdb.d
     networks:

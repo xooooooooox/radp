@@ -9,4 +9,4 @@ services:
     image: ollama/ollama:0.5.10
     restart: unless-stopped
     ports:
-      - "11434"
+      - "11434:11434"

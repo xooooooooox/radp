@@ -36,11 +36,11 @@ services:
   rocketmq:
     image: livinphp/rocketmq:5.1.0
     ports:
-      - "8080"
-      - "9876"
-      - "10909"
-      - "10911"
-      - "10912"
+      - "8080:8080"
+      - "9876:9876"
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
     volumes:
       - ./volumes/rocketmq_data:/home/app/data
     environment:

@@ -34,13 +34,13 @@ services:
   # arm
   # 提示: 首次启动可能会有问题, 可以多试几次且等待一段时间, 直到 rocketmq_data/rocketmq/store 目录被创建
   rocketmq:
-    image: livinphp/rocketmq:5.1.0
+    image: livinphp/rocketmq:${ROCKETMQ_VERSION}
     ports:
-      - "8080"
-      - "9876"
-      - "10909"
-      - "10911"
-      - "10912"
+      - "8080:8080"
+      - "9876:9876"
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
     volumes:
       - ./volumes/rocketmq_data:/home/app/data
     environment:

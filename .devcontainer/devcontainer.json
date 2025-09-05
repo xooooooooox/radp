@@ -18,7 +18,7 @@
       "jdkDistro": "amzn",
       "installMaven": true,
       "mavenVersion": "3.9.9"
-    },
+    }
   },
   "mounts": [
     // macOS/Linux: mount ~/.m2 for cache, and bind the resolved settings.xml to override symlink
@@ -42,7 +42,7 @@
         "CheckStyle-IDEA",
         "GrepConsole",
         "Key Promoter X",
-        "Lombook Plugin",
+        "Lombok Plugin",
         "String Manipulation",
         "cn.yiiguxing.plugin.translate",
         "com.baomidou.plugin.idea.mybatisx",
@@ -60,14 +60,48 @@
   },
   "forwardPorts": [
     8888,
-    // 后端服务主端口
     9999,
-    // 后端服务管理端口
     3306,
-    // MySQL 端口
-    6379
-    // Redis 端口
+    6379,
+    80,
+    443,
+    9092,
+    8080,
+    8848,
+    9848
   ],
+  "portsAttributes": {
+    "8888": {
+      "label": "app"
+    },
+    "9999": {
+      "label": "actuator"
+    },
+    "3306": {
+      "label": "MySQL"
+    },
+    "6379": {
+      "label": "Redis"
+    },
+    "80": {
+      "label": "http"
+    },
+    "443": {
+      "label": "https"
+    },
+    "9092": {
+      "label": "kafka"
+    },
+    "8080": {
+      "label": "nacos-console"
+    },
+    "8848": {
+      "label": "nacos-http"
+    },
+    "9848": {
+      "label": "nacos-grpc"
+    }
+  },
   "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/devcontainer_helper setup && bash .devcontainer/devcontainer_helper up"
 }

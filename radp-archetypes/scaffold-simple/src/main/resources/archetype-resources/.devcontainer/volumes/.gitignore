@@ -1,5 +1,15 @@
+# mysql
+mysql/data
+
+# nacos
+nacos/logs
+nacos/data
+
+# rocketmq
+rocketmq_data
 !rocketmq_data/console/config
 !rocketmq_data/rocketmq/conf
-rocketmq_data
-!xxl-job_data/sql
+
+# xxl-job
 xxl-job_data
+!xxl-job_data/sql

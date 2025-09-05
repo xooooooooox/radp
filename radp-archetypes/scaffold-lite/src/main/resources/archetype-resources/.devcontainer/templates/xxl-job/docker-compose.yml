@@ -10,13 +10,13 @@ services:
   # 官网镜像为 xuxueli/xxl-job-admin 但不支持ARM架构【需要自己打包】，所以找了一个 kuschzzp/xxl-job-aarch64:2.4.0 镜像支持 AMD/ARM
   # 注意: 在启动 xxl-job 前, 记得先将 xxl-job 的数据库表结构导入到 mysql 中 (xxl-job_data/sql/xxl-job.sql)
   xxl-job-admin:
-    image: kuschzzp/xxl-job-aarch64:2.4.0
+    image: kuschzzp/xxl-job-aarch64:${symbol_dollar}{XXL_JOB_VERSION}
     restart: unless-stopped
     depends_on:
       mysql:
         condition: service_healthy
     ports:
-      - "9090"
+      - "9090:9090"
     volumes:
       - ./volumes/xxl-job_data/logs:/data/applogs
       - ./volumes/xxl-job_data/xxl-job:/xxl-job

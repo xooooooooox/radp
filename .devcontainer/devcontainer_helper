@@ -244,8 +244,12 @@ _copy_template_files() {
     local template_file="templates/$template/docker-compose.yml"
     local target_file="compose.${template}.yml"
     if [[ -f "$template_file" ]]; then
-      ln -snf "$template_file" "$target_file"
-      echo -e "  Linked ${YELLOW}$target_file${NC} -> $template_file"
+      if [[ ! -f "$target_file" ]]; then
+        ln -snf "$template_file" "$target_file"
+        echo -e "  Linked ${YELLOW}$target_file${NC} -> $template_file"
+      else
+        echo -e "  Already Linked ${YELLOW}$target_file${NC} -> $template_file"
+      fi
     else
       echo -e "${YELLOW}Warning: $template_file not found.${NC}"
     fi
@@ -403,6 +407,8 @@ up() {
     exit 1
   fi
   echo -e "${BLUE}Enabled templates: ${YELLOW}${ENABLED_TEMPLATES[*]}${NC}"
+
+  _copy_template_files
 
   _collect_env_files
   _collect_compose_files

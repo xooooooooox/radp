@@ -6,7 +6,7 @@ networks:
 
 services:
   nginx:
-    image: nginx:1.21.0-alpine
+    image: nginx:${symbol_dollar}{NGINX_VERSION}
     restart: unless-stopped
     volumes:
       - ./volumes/nginx/ssl:/etc/nginx/ssl
@@ -17,8 +17,8 @@ services:
     environment:
       TZ: Asia/Shanghai
     ports:
-      - "443"
-      - "80"
+      - "443:443"
+      - "80:80"
     networks:
       - local-network
     healthcheck:

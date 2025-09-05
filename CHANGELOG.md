@@ -8,7 +8,7 @@
   - optimize devcontainer forwardedPorts
   - optimize `devcontainer_helper` script
   - extract image version to .env
-  - add template: nacos
+  - add template `nacos`
 
 ### Chore
 

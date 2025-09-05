@@ -6,7 +6,7 @@
 
 -- app
 CREATE
-DATABASE IF NOT EXISTS `scaffold-std-demo`;
+DATABASE IF NOT EXISTS `${appName}`;
 
 -- nacos
 -- 与 .devcontainer/volumes/nacos/nacos-standalone-mysql.env 保持一致：

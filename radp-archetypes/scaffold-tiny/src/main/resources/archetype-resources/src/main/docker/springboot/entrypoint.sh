@@ -35,8 +35,8 @@ _append_if_supported() {
       echo "Skip unsupported VM option: ${raw_opt}"
     fi
 
-    # ----------- 2) Process options starting with -X -----------
-    # 处理 -X 开头
+  # ----------- 2) Process options starting with -X -----------
+  # 处理 -X 开头
   elif [[ $raw_opt == -X* ]]; then # e.g. -Xloggc:...
     # Extract "template name" by removing numeric values and everything after colon
     # 拆出 “模板名”：去掉数值等尾巴（第一个数字/冒号后全部切掉）
@@ -51,8 +51,8 @@ _append_if_supported() {
       echo "Skip unsupported -X option: ${raw_opt}"
     fi
 
-    # ----------- 3) Add other parameters directly -----------
-    # 其它普通参数直接加
+  # ----------- 3) Add other parameters directly -----------
+  # 其它普通参数直接加
   else
     # Directly append normal parameters like -Dxxx
     # 普通 -Dxxx 或其他运行参数直接追加

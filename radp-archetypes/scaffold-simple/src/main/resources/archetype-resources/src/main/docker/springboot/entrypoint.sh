@@ -17,47 +17,47 @@ _append_if_supported() {
   # ----------- 1) Process options starting with -XX: -----------
   # 处理 -XX: 开头（同前）
   if [[ $raw_opt == -XX:* ]]; then # e.g. -XX:+UseStringDeduplication
-  # Extract flag name by removing -XX: prefix and any +/- or =xxx
-  # 提取 flag 名称去掉 -XX: 前缀和任何 +/- 或 =xxx
-  local flag="${raw_opt#-XX:}" # Remove prefix
-  flag="${flag#[-+=]}"         # Remove first +, -, or =
-  flag="${flag%%=*}"           # Remove everything after first =
+    # Extract flag name by removing -XX: prefix and any +/- or =xxx
+    # 提取 flag 名称去掉 -XX: 前缀和任何 +/- 或 =xxx
+    local flag="${raw_opt#-XX:}" # Remove prefix
+    flag="${flag#[-+=]}"         # Remove first +, -, or =
+    flag="${flag%%=*}"           # Remove everything after first =
 
-  # JVM flags must be unlocked first, otherwise they won't be printed
-  # JVM flags 一定要先解锁，否则不会 Print 出来
-  local flags_output
-  flags_output=$(java -XX:+UnlockExperimentalVMOptions \
-    -XX:+UnlockDiagnosticVMOptions \
-    -XX:+PrintFlagsFinal -version 2>&1)
-  if grep -q -E "^[[:space:]]+[[:alnum:]_]+[[:space:]]+${flag}[[:space:]]" <<<"${flags_output}"; then
-    JAVA_OPTS+=" ${raw_opt}"
-  else
-    echo "Skip unsupported VM option: ${raw_opt}"
-  fi
+    # JVM flags must be unlocked first, otherwise they won't be printed
+    # JVM flags 一定要先解锁，否则不会 Print 出来
+    local flags_output
+    flags_output=$(java -XX:+UnlockExperimentalVMOptions \
+      -XX:+UnlockDiagnosticVMOptions \
+      -XX:+PrintFlagsFinal -version 2>&1)
+    if grep -q -E "^[[:space:]]+[[:alnum:]_]+[[:space:]]+${flag}[[:space:]]" <<<"${flags_output}"; then
+      JAVA_OPTS+=" ${raw_opt}"
+    else
+      echo "Skip unsupported VM option: ${raw_opt}"
+    fi
 
-# ----------- 2) Process options starting with -X -----------
-# 处理 -X 开头
-elif [[ $raw_opt == -X* ]]; then # e.g. -Xloggc:...
-  # Extract "template name" by removing numeric values and everything after colon
-  # 拆出 “模板名”：去掉数值等尾巴（第一个数字/冒号后全部切掉）
-  local tmpl="${raw_opt%%[0-9]*}" # Remove digits and everything after
-  tmpl="${tmpl%%:*}"              # Remove colon and everything after
+  # ----------- 2) Process options starting with -X -----------
+  # 处理 -X 开头
+  elif [[ $raw_opt == -X* ]]; then # e.g. -Xloggc:...
+    # Extract "template name" by removing numeric values and everything after colon
+    # 拆出 “模板名”：去掉数值等尾巴（第一个数字/冒号后全部切掉）
+    local tmpl="${raw_opt%%[0-9]*}" # Remove digits and everything after
+    tmpl="${tmpl%%:*}"              # Remove colon and everything after
 
-  # java -X list includes template formats like -Xms<size>
-  # java -X 列表包含 -Xms<size> 这种模板写法
-  if java -X 2>&1 | grep -q -- "${tmpl}"; then
-    JAVA_OPTS+=" ${raw_opt}"
-  else
-    echo "Skip unsupported -X option: ${raw_opt}"
-  fi
+    # java -X list includes template formats like -Xms<size>
+    # java -X 列表包含 -Xms<size> 这种模板写法
+    if java -X 2>&1 | grep -q -- "${tmpl}"; then
+      JAVA_OPTS+=" ${raw_opt}"
+    else
+      echo "Skip unsupported -X option: ${raw_opt}"
+    fi
 
   # ----------- 3) Add other parameters directly -----------
   # 其它普通参数直接加
-else
-  # Directly append normal parameters like -Dxxx
-  # 普通 -Dxxx 或其他运行参数直接追加
-  JAVA_OPTS+=" ${raw_opt}"
-fi
+  else
+    # Directly append normal parameters like -Dxxx
+    # 普通 -Dxxx 或其他运行参数直接追加
+    JAVA_OPTS+=" ${raw_opt}"
+  fi
 }
 
 # Optimize Java options based on environment variables and Java version

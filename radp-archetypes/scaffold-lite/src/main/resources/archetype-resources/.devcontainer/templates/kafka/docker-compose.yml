@@ -30,7 +30,7 @@ services:
 
   # 方式二: 如果使用 kraft 模式, 不需要 zookeeper
 #  kafka:
-#    image: bitnami/kafka:3.9.0
+#    image: bitnami/${symbol_dollar}{KAFKA_VERSION}
 #    ports:
 #      - "9092:9092"
 #    restart: unless-stopped

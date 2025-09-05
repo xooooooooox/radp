@@ -68,44 +68,44 @@
     3306,
     6379,
     80,
-443,
-9092,
-8080,
-8848,
-9848
+    443,
+    9092,
+    8080,
+    8848,
+    9848
   ],
-"portsAttributes": {
-"8888": {
-"label": "app",
-},
-"9999": {
-"label": "actuator",
-},
-"3306": {
-"label": "MySQL",
-},
-"6379": {
-"label": "Redis",
-},
-"80": {
-"label": "http",
-},
-"443": {
-"label": "https",
-},
-"9092": {
-"label": "kafka",
-},
-"8080": {
-"label": "nacos-console",
-},
-"8848": {
-"label": "nacos-http",
-},
-"9848": {
-"label": "nacos-grpc",
-}
-},
+  "portsAttributes": {
+    "8888": {
+      "label": "app",
+    },
+    "9999": {
+      "label": "actuator",
+    },
+    "3306": {
+      "label": "MySQL",
+    },
+    "6379": {
+      "label": "Redis",
+    },
+    "80": {
+      "label": "http",
+    },
+    "443": {
+      "label": "https",
+    },
+    "9092": {
+      "label": "kafka",
+    },
+    "8080": {
+      "label": "nacos-console",
+    },
+    "8848": {
+      "label": "nacos-http",
+    },
+    "9848": {
+      "label": "nacos-grpc",
+    }
+  },
   "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/devcontainer_helper setup --env dev && bash .devcontainer/devcontainer_helper up --env dev"
 }

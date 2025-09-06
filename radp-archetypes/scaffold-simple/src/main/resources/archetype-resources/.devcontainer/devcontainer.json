@@ -8,11 +8,13 @@
   ],
   // service 即 template/devcontainer/docker-compose.yml 中的 service
   "service": "devcontainer",
-  "workspaceFolder": "/home/vscode/workspace",
+  "workspaceFolder": "/workspace/${appName}",
   "features": {
-    "docker-in-docker": "latest",
-    // OR
-    // "docker-from-docker": "latest",
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "installDockerCompose": false
+    },
+    // OR, if you prefer host Docker (recommended on Docker Desktop):
+    // "ghcr.io/devcontainers/features/docker-from-docker:2": {},
 
     // see https://github.com/devcontainers/features/blob/main/src/java/README.md
     // see https://hub.docker.com/r/microsoft/devcontainers-java
@@ -37,16 +39,18 @@
         "vscjava.vscode-java-pack",
         "pivotal.vscode-boot-dev-pack"
       ],
-      "settings": {
-      }
+      "settings": {}
     },
     "jetbrains": {
+      "settings": {
+        "org.jetbrains.plugins.github:app:GithubSettings.clone_git_using_ssh": true
+      },
       // Plugins will be installed into the backend on first start and kept if you persist JetBrains dirs with volumes
       "plugins": [
         "CheckStyle-IDEA",
         "GrepConsole",
         "Key Promoter X",
-        "Lombok Plugin",
+        "Lombook Plugin",
         "String Manipulation",
         "cn.yiiguxing.plugin.translate",
         "com.baomidou.plugin.idea.mybatisx",
@@ -58,7 +62,8 @@
         "ru.adelf.idea.dotenv",
         "spring-javaformat",
         "com.github.deeepamin.gitlabciaid",
-        "com.nasller.CodeGlancePro"
+        "com.nasller.CodeGlancePro",
+        "com.intellij.ml.llm"
       ]
     }
   },
@@ -76,36 +81,37 @@
   ],
   "portsAttributes": {
     "8888": {
-      "label": "app",
+      "label": "app"
     },
     "9999": {
-      "label": "actuator",
+      "label": "actuator"
     },
     "3306": {
-      "label": "MySQL",
+      "label": "MySQL"
     },
     "6379": {
-      "label": "Redis",
+      "label": "Redis"
     },
     "80": {
-      "label": "http",
+      "label": "http"
     },
     "443": {
-      "label": "https",
+      "label": "https"
     },
     "9092": {
-      "label": "kafka",
+      "label": "kafka"
     },
     "8080": {
-      "label": "nacos-console",
+      "label": "nacos-console"
     },
     "8848": {
-      "label": "nacos-http",
+      "label": "nacos-http"
     },
     "9848": {
-      "label": "nacos-grpc",
+      "label": "nacos-grpc"
     }
   },
   "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/devcontainer_helper setup --env dev && bash .devcontainer/devcontainer_helper up --env dev"
 }
+

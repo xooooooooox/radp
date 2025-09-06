@@ -5,10 +5,7 @@
 ### feat
 
 - Optimize devcontainer
-  - optimize devcontainer forwardedPorts
-  - optimize `devcontainer_helper` script
-  - extract image version to .env
-  - add template `nacos`
+- Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
 
 ### Chore
 

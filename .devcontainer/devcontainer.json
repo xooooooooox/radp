@@ -5,11 +5,13 @@
   ],
   // service 即 template/devcontainer/docker-compose.yml 中的 service
   "service": "devcontainer",
-  "workspaceFolder": "/home/vscode/workspace",
+  "workspaceFolder": "/workspace/radp",
   "features": {
-    "docker-in-docker": "latest",
-    // OR
-    // "docker-from-docker": "latest",
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "installDockerCompose": false
+    },
+    // OR, if you prefer host Docker (recommended on Docker Desktop):
+    // "ghcr.io/devcontainers/features/docker-from-docker:2": {},
 
     // see https://github.com/devcontainers/features/blob/main/src/java/README.md
     // see https://hub.docker.com/r/microsoft/devcontainers-java
@@ -37,12 +39,15 @@
       "settings": {}
     },
     "jetbrains": {
+      "settings": {
+        "org.jetbrains.plugins.github:app:GithubSettings.clone_git_using_ssh": true
+      },
       // Plugins will be installed into the backend on first start and kept if you persist JetBrains dirs with volumes
       "plugins": [
         "CheckStyle-IDEA",
         "GrepConsole",
         "Key Promoter X",
-        "Lombok Plugin",
+        "Lombook Plugin",
         "String Manipulation",
         "cn.yiiguxing.plugin.translate",
         "com.baomidou.plugin.idea.mybatisx",

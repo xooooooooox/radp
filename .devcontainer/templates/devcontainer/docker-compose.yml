@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ../..:/workspace:cached
+      - ../..:/workspace/radp:cached
     networks:
       - local-network
     environment:

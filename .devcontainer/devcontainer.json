@@ -7,7 +7,9 @@
   "service": "devcontainer",
   "workspaceFolder": "/workspace/radp",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "installDockerCompose": false
+    },
     // OR, if you prefer host Docker (recommended on Docker Desktop):
     // "ghcr.io/devcontainers/features/docker-from-docker:2": {},
 

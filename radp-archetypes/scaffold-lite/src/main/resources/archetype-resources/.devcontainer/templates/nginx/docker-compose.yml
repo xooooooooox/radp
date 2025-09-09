@@ -14,8 +14,10 @@ services:
       - ./volumes/nginx/conf/conf.d:/etc/nginx/conf.d
       - ./volumes/nginx/logs:/var/log/nginx
       - ./volumes/nginx/html:/usr/share/nginx/html:ro
+      - ./volumes/nginx/entrypoint:/docker-entrypoint.d:ro
     environment:
       TZ: Asia/Shanghai
+      NGINX_WATCH_INTERVAL: "2"
     ports:
       - "443:443"
       - "80:80"

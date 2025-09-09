@@ -14,11 +14,25 @@ log() {
 }
 
 calc_signature() {
-  # Use file path and modification time to detect changes; robust and cheap.
-  # If directory is empty, find prints nothing; we handle empty case by echoing a placeholder.
+  # Portable signature without relying on GNU find -printf (works on busybox/alpine).
+  # 1) List files under the watched paths (if any), sorted for stable order.
+  # 2) Hash each file's content with its filename, then hash the full list to one digest.
   # shellcheck disable=SC2086
-  if SIG=$(find $WATCH_PATHS -type f -printf '%p %T@\n' 2>/dev/null | sort | sha256sum 2>/dev/null); then
-    printf '%s' "${SIG%% *}"
+  FILES=$(find $WATCH_PATHS -type f 2>/dev/null | sort)
+  if [ -n "$FILES" ]; then
+    # Note: filenames are appended to ensure file renames/creates/deletes affect the signature.
+    # shellcheck disable=SC2086
+    (
+      for f in $FILES; do
+        # Combine file path and its content hash for better sensitivity to file set changes.
+        if HASH=$(sha256sum "$f" 2>/dev/null); then
+          echo "$HASH $f"
+        else
+          # If a file disappears mid-scan, still affect the signature deterministically.
+          echo "missing $f"
+        fi
+      done
+    ) | sha256sum 2>/dev/null | awk '{print $1}'
   else
     printf '%s' "none"
   fi

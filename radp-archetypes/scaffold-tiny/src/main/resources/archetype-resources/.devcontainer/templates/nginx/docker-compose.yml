@@ -19,6 +19,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       NGINX_WATCH_INTERVAL: "2"
+      WATCH_PATHS: "/etc/nginx/nginx.conf /etc/nginx/conf.d /etc/nginx/snippets"
     ports:
       - "443:443"
       - "80:80"

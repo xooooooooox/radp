@@ -18,8 +18,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./volumes/xxl-job_data/logs:/data/applogs
-      - ./volumes/xxl-job_data/xxl-job:/xxl-job
+      - ./volumes/logs/xxl-job:/data/applogs
+      - ./volumes/xxl-job:/xxl-job
     networks:
       - local-network
     environment:

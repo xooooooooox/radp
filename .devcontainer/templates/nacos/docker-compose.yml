@@ -25,7 +25,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./volumes/nacos/logs:/home/nacos/logs
+      - ./volumes/logs/nacos:/home/nacos/logs
       - ./volumes/nacos/data:/home/nacos/data
       # 如果需要自定义配置，可映射 application.properties
       # - ./volumes/nacos/conf/application.properties:/home/nacos/conf/application.properties

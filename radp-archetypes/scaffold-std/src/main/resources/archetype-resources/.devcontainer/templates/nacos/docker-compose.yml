@@ -31,6 +31,14 @@ services:
       # - ./volumes/nacos/conf/application.properties:/home/nacos/conf/application.properties
     networks:
       - local-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"
     # 如果需要使用外部 MySQL 存储配置数据，请在 env 文件中设置 SPRING_DATASOURCE_PLATFORM、MYSQL_SERVICE_* 等变量
     # 健康检查（可选，如镜像包含 wget/curl 工具可开启）
     # healthcheck:

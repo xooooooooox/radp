@@ -20,3 +20,11 @@ services:
     command: rabbitmq-server
     volumes:
       - ./volumes/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

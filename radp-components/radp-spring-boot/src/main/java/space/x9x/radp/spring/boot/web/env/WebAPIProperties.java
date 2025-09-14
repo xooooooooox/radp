@@ -42,6 +42,9 @@ import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;
 @ConfigurationProperties(prefix = WebAPIProperties.PREFIX)
 public class WebAPIProperties extends ApiConfig {
 
+	/**
+	 * Configuration properties prefix.
+	 */
 	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "web";
 
 	/**

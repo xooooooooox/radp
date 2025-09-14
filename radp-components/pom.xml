@@ -16,6 +16,7 @@
 		<module>radp-parent</module>
 		<module>radp-commons</module>
 		<module>radp-extensions</module>
+		<module>radp-solutions</module>
 		<module>radp-spring-test</module>
 		<module>radp-spring-framework</module>
 		<module>radp-spring-data</module>

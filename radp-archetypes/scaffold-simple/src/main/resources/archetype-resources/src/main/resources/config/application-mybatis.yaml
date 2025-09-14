@@ -23,3 +23,5 @@ radp:
         enabled: true
         created-data-field-name: createdDate
         last-modified-date-field-name: lastModifiedDate
+        creator-field-name: creator
+        updater-field-name: updater

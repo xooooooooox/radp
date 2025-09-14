@@ -70,7 +70,8 @@ public class RadpMybatisPlusExtensionAutoConfiguration {
 	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
 		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
 		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDataFieldName(),
-				properties.getAutoFill().getLastModifiedDateFieldName());
+				properties.getAutoFill().getLastModifiedDateFieldName(), properties.getAutoFill().getCreatorFieldName(),
+				properties.getAutoFill().getUpdaterFieldName());
 	}
 
 }

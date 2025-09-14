@@ -190,8 +190,8 @@ RUN (getent group "$GROUP" || groupadd -g "$GID" "$GROUP") \
   && (getent passwd "$USER" || useradd -u "$UID" -g "$GROUP" -d "$APP_HOME" -m -s /bin/bash "$USER") \
   && echo 'umask 0002' >>"$HOME"/.bashrc \
   && mkdir -p "$APP_HOME" "$DATA_HOME" "$LOG_HOME" "$GC_LOG_PATH" \
-  && ln -sf /dev/stdout "$LOG_HOME"/${HOSTNAME:-}.entrypoint.out \
-  && ln -sf /dev/stderr "$LOG_HOME"/${HOSTNAME:-}.entrypoint.err \
+  && ln -sf /dev/stdout "$LOG_HOME"/"$HOSTNAME".entrypoint.out \
+  && ln -sf /dev/stderr "$LOG_HOME"/"$HOSTNAME".entrypoint.err \
   && chmod -R 755 "$APP_HOME" "$DATA_HOME" "$LOG_HOME" \
   && chown -R "$USER":"$GROUP" "$APP_HOME" "$DATA_HOME" "$LOG_HOME"
 

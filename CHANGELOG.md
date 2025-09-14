@@ -6,6 +6,9 @@
 
 - Optimize devcontainer
 - Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
+- Add module radp-solutions
+- Optimize `radp-mybatis-spring-boot-starter`
+- Optimize `radp-spring-data`
 
 ### Chore
 

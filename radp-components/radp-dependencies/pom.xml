@@ -244,7 +244,12 @@
 			</dependency>
 
 
-			<!-- TODO: radp solutions -->
+			<!-- radp solutions -->
+			<dependency>
+				<groupId>space.x9x.radp</groupId>
+				<artifactId>radp-solution-tenant</artifactId>
+				<version>3.25-SNAPSHOT</version>
+			</dependency>
 
 			<!-- radp-xx-spring-boot-starter -->
 			<dependency>

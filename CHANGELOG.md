@@ -14,6 +14,7 @@
 ### Dependencies
 
 - DependencyManagement add dependency `org.bouncycastle:bcprov-jdk15to18:1.81`.
+- DependencyManagement add dependency `org.passay:passay:1.6.6`.
 
 ### Chore
 

@@ -13,7 +13,7 @@
 - Optimize module `radp-commons`:
   - Optimize `SnowflakeGenerator`.
   - Add `PasswordGeneratorUtils` for password generation and validation.
-  - Add `NumberUtils`. Support generate numeric strings of specified lengths, generate plausible Mainland China 11-digit mobile numbers.
+  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, and valid usernames.
 
 ### Dependencies
 

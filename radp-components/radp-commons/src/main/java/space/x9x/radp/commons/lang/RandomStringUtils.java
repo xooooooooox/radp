@@ -16,17 +16,154 @@
 
 package space.x9x.radp.commons.lang;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import lombok.experimental.UtilityClass;
 
 /**
  * Utility class for generating random strings. This class extends Apache Commons Lang's
  * RandomStringUtils to provide convenient access to methods for generating random strings
  * with various characteristics, such as alphabetic, numeric, or alphanumeric content.
+ * <p>
+ * Enhancements include:
+ * <ul>
+ * <li>Generating N-digit numeric strings whose first digit is non-zero</li>
+ * <li>Quick generation of an 11-digit number</li>
+ * <li>Creation of a plausible Mainland China 11-digit mobile number for testing</li>
+ * <li>Generation of valid random usernames (start with a letter; allowed
+ * [A-Za-z0-9_])</li>
+ * </ul>
+ * </p>
  *
  * @author IO x9x
  * @since 2024-11-20 16:41
  */
 @UtilityClass
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
+
+	/**
+	 * 数字字符集
+	 */
+	private static final char[] DIGITS = "0123456789".toCharArray();
+
+	/**
+	 * 字母字符集（用户名首字符使用）
+	 */
+	private static final char[] LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+	/**
+	 * 用户名合法字符集：字母、数字、下划线
+	 */
+	private static final char[] USERNAME_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+		.toCharArray();
+
+	/**
+	 * Generate a numeric string with the specified length where the first digit is
+	 * non-zero.
+	 * <p>
+	 * For example, length=4 may yield "1234" or "9087".
+	 * </p>
+	 * @param length total number of digits; must be >= 1
+	 * @return a numeric string of the given length; its first digit is in [1-9]
+	 * @throws IllegalArgumentException if length < 1
+	 */
+	public static String generateNDigitNumber(int length) {
+		if (length < 1) {
+			throw new IllegalArgumentException("length must be >= 1");
+		}
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		StringBuilder sb = new StringBuilder(length);
+		// 首位 [1-9]
+		sb.append((char) ('1' + random.nextInt(9))); // 1..9
+		for (int i = 1; i < length; i++) {
+			sb.append(DIGITS[random.nextInt(10)]);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Generate an 11-digit numeric string whose first digit is non-zero.
+	 * @return an 11-digit numeric string
+	 * @see #generateNDigitNumber(int)
+	 */
+	public static String generate11DigitNumber() {
+		return generateNDigitNumber(11);
+	}
+
+	/**
+	 * Generate a plausible Mainland China 11-digit mobile number for testing purposes.
+	 * <p>
+	 * Rules:
+	 * <ul>
+	 * <li>Starts with '1'</li>
+	 * <li>The second digit is randomly chosen from common segments [3,4,5,6,7,8,9]</li>
+	 * <li>The remaining 9 digits are random [0-9]</li>
+	 * </ul>
+	 * Note: The result is not guaranteed to correspond to an actually assigned/valid
+	 * number; it is intended for demos/tests only.
+	 * </p>
+	 * @return a string containing 11 digits representing a plausible mobile number
+	 */
+	public static String generateChineseMobile() {
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		int[] secondDigits = { 3, 4, 5, 6, 7, 8, 9 };
+		StringBuilder sb = new StringBuilder(11);
+		sb.append('1');
+		sb.append(secondDigits[random.nextInt(secondDigits.length)]);
+		for (int i = 0; i < 9; i++) {
+			sb.append(DIGITS[random.nextInt(10)]);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 生成合法的随机用户名。 规则:
+	 * <ul>
+	 * <li>用户名需以字母开头</li>
+	 * <li>允许的字符集：[A-Za-z0-9_]</li>
+	 * <li>默认长度范围：6-16</li>
+	 * </ul>
+	 * @return 合法的随机用户名
+	 */
+	public static String generateUsername() {
+		return generateUsername(6, 16);
+	}
+
+	/**
+	 * 生成指定长度的合法随机用户名.
+	 * @param length 长度（必须 >= 3）
+	 * @return 合法的随机用户名
+	 */
+	public static String generateUsername(int length) {
+		return generateUsername(length, length);
+	}
+
+	/**
+	 * 生成指定长度范围内的合法随机用户名.
+	 * @param minLength 最小长度（必须 >= 3）
+	 * @param maxLength 最大长度（必须 >= minLength）
+	 * @return 合法的随机用户名
+	 */
+	public static String generateUsername(int minLength, int maxLength) {
+		if (minLength < 3) {
+			throw new IllegalArgumentException("minLength must be >= 3");
+		}
+		if (maxLength < minLength) {
+			throw new IllegalArgumentException("maxLength must be >= minLength");
+		}
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		int len = (minLength == maxLength) ? minLength : random.nextInt(minLength, maxLength + 1);
+		StringBuilder sb = new StringBuilder(len);
+		// 首字符必须是字母
+		sb.append(LETTERS[random.nextInt(LETTERS.length)]);
+		for (int i = 1; i < len; i++) {
+			sb.append(USERNAME_CHARS[random.nextInt(USERNAME_CHARS.length)]);
+		}
+		// 尽量避免以下划线结尾（非必须，但更美观）
+		if (sb.charAt(sb.length() - 1) == '_') {
+			sb.setCharAt(sb.length() - 1, LETTERS[random.nextInt(LETTERS.length)]);
+		}
+		return sb.toString();
+	}
 
 }

@@ -13,7 +13,8 @@
 - Optimize module `radp-commons`:
   - Optimize `SnowflakeGenerator`.
   - Add `PasswordGeneratorUtils` for password generation and validation.
-  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, and valid usernames.
+  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
+  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
 
 ### Dependencies
 

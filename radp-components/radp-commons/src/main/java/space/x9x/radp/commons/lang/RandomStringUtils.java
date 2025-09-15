@@ -16,9 +16,13 @@
 
 package space.x9x.radp.commons.lang;
 
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 
 import lombok.experimental.UtilityClass;
+
+import space.x9x.radp.commons.regex.pattern.RegexCache;
 
 /**
  * Utility class for generating random strings. This class extends Apache Commons Lang's
@@ -52,7 +56,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	private static final char[] LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
 	/**
-	 * 用户名合法字符集：字母、数字、下划线.
+	 * 用户名合法字符集: 字母、数字、下划线.
 	 */
 	private static final char[] USERNAME_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 		.toCharArray();
@@ -120,8 +124,8 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	 * 生成合法的随机用户名. 规则:
 	 * <ul>
 	 * <li>用户名需以字母开头</li>
-	 * <li>允许的字符集：[A-Za-z0-9_]</li>
-	 * <li>默认长度范围：6-16</li>
+	 * <li>允许的字符集: [A-Za-z0-9_]</li>
+	 * <li>默认长度范围: 6-16</li>
 	 * </ul>
 	 * @return 合法的随机用户名
 	 */
@@ -159,11 +163,408 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 		for (int i = 1; i < len; i++) {
 			sb.append(USERNAME_CHARS[random.nextInt(USERNAME_CHARS.length)]);
 		}
-		// 尽量避免以下划线结尾（非必须，但更美观）
+		// 尽量避免以下划线结尾（非必须,但更美观）
 		if (sb.charAt(sb.length() - 1) == '_') {
 			sb.setCharAt(sb.length() - 1, LETTERS[random.nextInt(LETTERS.length)]);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * 常见顶级域名集合,用于生成随机邮箱.
+	 */
+	private static final String[] COMMON_TLDS = { "com", "net", "org", "io", "dev", "cn", "com.cn" };
+
+	/**
+	 * 生成随机合法邮箱. 例如: john_doe8@sample.org
+	 * <ul>
+	 * <li>本地部分使用 {@link #generateUsername()} 生成的小写用户名</li>
+	 * <li>域名从常见域名和 TLD 随机组合</li>
+	 * </ul>
+	 * @return 合法邮箱地址
+	 */
+	public static String generateEmail() {
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		String local = generateUsername().toLowerCase(Locale.ROOT);
+		// 生成域名的主机名标签（字母数字开头/结尾,中间允许字母数字和短横线）
+		String host = buildDomainLabel(random.nextInt(4, 11));
+		String tld = COMMON_TLDS[random.nextInt(COMMON_TLDS.length)];
+		String email = local + "@" + host + "." + tld;
+		// 兜底校验（开发期保证生成的确实是合法邮箱）
+		return RegexCache.EMAIL.matcher(email).matches() ? email : (local + "@example.com");
+	}
+
+	/**
+	 * 构建域名标签（字母数字开头/结尾,中间可含-）,长度在 [2,63] 之内,这里按入参长度生成.
+	 */
+	private static String buildDomainLabel(int len) {
+		if (len < 2) {
+			len = 2;
+		}
+		if (len > 63) {
+			len = 63;
+		}
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		String lettersDigits = "abcdefghijklmnopqrstuvwxyz0123456789";
+		String midChars = lettersDigits + "-";
+		StringBuilder sb = new StringBuilder(len);
+		sb.append(lettersDigits.charAt(random.nextInt(lettersDigits.length())));
+		for (int i = 1; i < len - 1; i++) {
+			sb.append(midChars.charAt(random.nextInt(midChars.length())));
+		}
+		sb.append(lettersDigits.charAt(random.nextInt(lettersDigits.length())));
+		return sb.toString();
+	}
+
+	/**
+	 * 用户名正则: 以字母开头,允许 [A-Za-z0-9_],长度 3-16.
+	 */
+	private static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z]\\w{2,15}$");
+
+	/**
+	 * 校验用户名是否合法: 以字母开头,允许 [A-Za-z0-9_],长度 3-16.
+	 * @param username 待校验用户名
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidUsername(String username) {
+		return username != null && USERNAME_PATTERN.matcher(username).matches();
+	}
+
+	/**
+	 * 校验邮箱是否合法（基于 RFC5322 兼容的模式）.
+	 * @param email 邮箱
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidEmail(String email) {
+		return email != null && RegexCache.EMAIL.matcher(email).matches();
+	}
+
+	/**
+	 * 生成合法的随机 IPv4 地址. 例如: 192.168.3.25 每个段在 [0, 255] 范围内.
+	 */
+	public static String generateIPv4() {
+		ThreadLocalRandom r = ThreadLocalRandom.current();
+		return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
+	}
+
+	/**
+	 * 生成合法的随机 IPv6 地址(8 组 1-4 位十六进制,使用冒号分隔). 例如: 2001:db8:85a3:0:0:8a2e:370:7334
+	 */
+	public static String generateIPv6() {
+		ThreadLocalRandom r = ThreadLocalRandom.current();
+		StringBuilder sb = new StringBuilder(39);
+		for (int i = 0; i < 8; i++) {
+			int v = r.nextInt(0x10000); // 0..65535
+			sb.append(Integer.toHexString(v)); // 小写,无前导 0,合法
+			if (i < 7) {
+				sb.append(':');
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 校验是否为合法 IPv4 地址.
+	 * @param ip 待校验字符串
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidIPv4(String ip) {
+		return ip != null && RegexCache.IPV4.matcher(ip).matches();
+	}
+
+	/**
+	 * 校验是否为合法 IPv6 地址.
+	 * @param ip 待校验字符串
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidIPv6(String ip) {
+		return ip != null && RegexCache.IPV6.matcher(ip).matches();
+	}
+
+	/**
+	 * 校验是否为合法 IP 地址(IPv4 或 IPv6 均可).
+	 * @param ip 待校验字符串
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidIp(String ip) {
+		return isValidIPv4(ip) || isValidIPv6(ip);
+	}
+
+	/**
+	 * 按指定规则校验 IP 是否合法.
+	 * <ul>
+	 * <li>allowIPv4: 允许 IPv4</li>
+	 * <li>allowIPv6: 允许 IPv6</li>
+	 * </ul>
+	 * @param ip 待校验字符串
+	 * @param allowIPv4 是否允许 IPv4
+	 * @param allowIPv6 是否允许 IPv6
+	 * @return 合法返回 true；若两者均不允许则恒为 false
+	 */
+	public static boolean isValidIp(String ip, boolean allowIPv4, boolean allowIPv6) {
+		boolean ok4 = allowIPv4 && isValidIPv4(ip);
+		boolean ok6 = allowIPv6 && isValidIPv6(ip);
+		return ok4 || ok6;
+	}
+
+	/**
+	 * 使用自定义正则表达式校验用户名是否合法.
+	 * @param username 待校验用户名
+	 * @param pattern 自定义校验规则（非空）
+	 * @return 合法返回 true；pattern 为 null 时返回 false
+	 */
+	public static boolean isValidUsername(String username, Pattern pattern) {
+		return username != null && pattern != null && pattern.matcher(username).matches();
+	}
+
+	/**
+	 * 使用自定义正则表达式校验用户名是否合法.
+	 * @param username 待校验用户名
+	 * @param regex 自定义正则（非空）
+	 * @return 合法返回 true；regex 为空时返回 false
+	 * @throws java.util.regex.PatternSyntaxException 当正则不合法时抛出
+	 */
+	public static boolean isValidUsername(String username, String regex) {
+		return username != null && regex != null && Pattern.compile(regex).matcher(username).matches();
+	}
+
+	/**
+	 * 使用自定义规则生成合法用户名.
+	 * @param rule 自定义规则（非空）
+	 * @return 合法随机用户名
+	 */
+	public static String generateUsername(UsernameRule rule) {
+		if (rule == null) {
+			throw new IllegalArgumentException("rule must not be null");
+		}
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		int len = (rule.minLength == rule.maxLength) ? rule.minLength
+				: random.nextInt(rule.minLength, rule.maxLength + 1);
+		StringBuilder sb = new StringBuilder(len);
+		// 首字符
+		sb.append(rule.firstChars.charAt(random.nextInt(rule.firstChars.length())));
+		for (int i = 1; i < len; i++) {
+			sb.append(rule.allowedChars.charAt(random.nextInt(rule.allowedChars.length())));
+		}
+		if (rule.disallowTrailingUnderscore && sb.charAt(sb.length() - 1) == '_') {
+			// 若禁止以下划线结尾,则将末位替换为一个合法的非下划线字符
+			char replacement;
+			int guard = 0;
+			do {
+				replacement = rule.allowedChars.charAt(random.nextInt(rule.allowedChars.length()));
+				guard++;
+			}
+			while (replacement == '_' && guard < 8);
+			if (replacement == '_') {
+				// 仍然是 '_',那就从首字符集合中取一个字母替换
+				replacement = rule.firstChars.charAt(random.nextInt(rule.firstChars.length()));
+			}
+			sb.setCharAt(sb.length() - 1, replacement);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 使用自定义规则校验用户名是否合法. 若 rule.validatePattern 非空,则优先基于其进行校验；否则按集合/长度规则校验.
+	 */
+	public static boolean isValidUsername(String username, UsernameRule rule) {
+		if (username == null || rule == null) {
+			return false;
+		}
+		if (rule.validatePattern != null) {
+			return rule.validatePattern.matcher(username).matches();
+		}
+		int len = username.length();
+		if (len < rule.minLength || len > rule.maxLength) {
+			return false;
+		}
+		char first = username.charAt(0);
+		if (notContainsChar(rule.firstChars, first)) {
+			return false;
+		}
+		for (int i = 1; i < len; i++) {
+			if (notContainsChar(rule.allowedChars, username.charAt(i))) {
+				return false;
+			}
+		}
+		return !rule.disallowTrailingUnderscore || username.charAt(len - 1) != '_';
+	}
+
+	/**
+	 * 便捷重载: 自定义字符集与长度的用户名生成.
+	 */
+	public static String generateUsername(int minLength, int maxLength, String firstChars, String allowedChars) {
+		return generateUsername(minLength, maxLength, firstChars, allowedChars, false);
+	}
+
+	/**
+	 * 便捷重载: 自定义字符集与长度的用户名生成.
+	 * @param disallowTrailingUnderscore 是否禁止以下划线结尾
+	 */
+	public static String generateUsername(int minLength, int maxLength, String firstChars, String allowedChars,
+			boolean disallowTrailingUnderscore) {
+		UsernameRule rule = UsernameRule.builder()
+			.firstChars(firstChars)
+			.allowedChars(allowedChars)
+			.minLength(minLength)
+			.maxLength(maxLength)
+			.disallowTrailingUnderscore(disallowTrailingUnderscore)
+			.build();
+		return generateUsername(rule);
+	}
+
+	private static boolean notContainsChar(String set, char c) {
+		return set.indexOf(c) < 0;
+	}
+
+	/**
+	 * 可自定义的用户名规则. 支持: 首字符集合、整体可用字符集合、长度范围与“禁止以下划线结尾”选项； 也可提供自定义 Pattern
+	 * 作为最终校验规则（若提供,则以其为准）.
+	 */
+	public static final class UsernameRule {
+
+		/**
+		 * 允许的首字符集合(必填).
+		 */
+		public final String firstChars;
+
+		/**
+		 * 允许出现的字符集合(必填).
+		 */
+		public final String allowedChars;
+
+		/**
+		 * 最小长度(>=1).
+		 */
+		public final int minLength;
+
+		/**
+		 * 最大长度(>=minLength).
+		 */
+		public final int maxLength;
+
+		/**
+		 * 是否禁止以下划线结尾.
+		 */
+		public final boolean disallowTrailingUnderscore;
+
+		/**
+		 * 可选: 自定义正则,若非空,则以该正则为最终校验.
+		 */
+		public final Pattern validatePattern;
+
+		public static Builder builder() {
+			return new Builder();
+		}
+
+		/**
+		 * 提供与默认逻辑一致的规则: 首字母必须为英文字母,允许 [A-Za-z0-9_],长度 3-16.
+		 */
+		public static UsernameRule defaultRule() {
+			return builder().firstChars(new String(LETTERS))
+				.allowedChars(new String(USERNAME_CHARS))
+				.minLength(3)
+				.maxLength(16)
+				.build();
+		}
+
+		private UsernameRule(Builder b) {
+			validate(b.firstChars, b.allowedChars, b.minLength, b.maxLength);
+			this.firstChars = b.firstChars;
+			this.allowedChars = b.allowedChars;
+			this.minLength = b.minLength;
+			this.maxLength = b.maxLength;
+			this.disallowTrailingUnderscore = b.disallowTrailingUnderscore;
+			this.validatePattern = b.validatePattern;
+		}
+
+		private static void validate(String firstChars, String allowedChars, int minLength, int maxLength) {
+			if (firstChars == null || firstChars.isEmpty()) {
+				throw new IllegalArgumentException("firstChars must not be empty");
+			}
+			if (allowedChars == null || allowedChars.isEmpty()) {
+				throw new IllegalArgumentException("allowedChars must not be empty");
+			}
+			if (minLength < 1) {
+				throw new IllegalArgumentException("minLength must be >= 1");
+			}
+			if (maxLength < minLength) {
+				throw new IllegalArgumentException("maxLength must be >= minLength");
+			}
+		}
+
+		/**
+		 * Builder for {@link UsernameRule}.
+		 */
+		public static final class Builder {
+
+			/**
+			 * Allowed first character set. Required.
+			 */
+			private String firstChars;
+
+			/**
+			 * Allowed character sets for the rest of the username. Required.
+			 */
+			private String allowedChars;
+
+			/**
+			 * Minimum length of username. Default is 3.
+			 */
+			private int minLength = 3;
+
+			/**
+			 * Maximum length of username. Default is 16.
+			 */
+			private int maxLength = 16;
+
+			/**
+			 * Whether to disallow an underscore at the end. Default is false.
+			 */
+			private boolean disallowTrailingUnderscore = false;
+
+			/**
+			 * Optional custom validation pattern. If set, it will be used for final
+			 * validation.
+			 */
+			private Pattern validatePattern;
+
+			public Builder firstChars(String firstChars) {
+				this.firstChars = firstChars;
+				return this;
+			}
+
+			public Builder allowedChars(String allowedChars) {
+				this.allowedChars = allowedChars;
+				return this;
+			}
+
+			public Builder minLength(int minLength) {
+				this.minLength = minLength;
+				return this;
+			}
+
+			public Builder maxLength(int maxLength) {
+				this.maxLength = maxLength;
+				return this;
+			}
+
+			public Builder disallowTrailingUnderscore(boolean disallowTrailingUnderscore) {
+				this.disallowTrailingUnderscore = disallowTrailingUnderscore;
+				return this;
+			}
+
+			public Builder validatePattern(Pattern validatePattern) {
+				this.validatePattern = validatePattern;
+				return this;
+			}
+
+			public UsernameRule build() {
+				return new UsernameRule(this);
+			}
+
+		}
+
 	}
 
 }

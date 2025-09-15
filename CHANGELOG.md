@@ -10,6 +10,7 @@
 - Optimize `radp-mybatis-spring-boot-starter`.
 - Optimize `radp-spring-data`.
 - Optimize `SnowflakeGenerator`.
+- add `PasswordGeneratorUtils` for password generation and validation.
 
 ### Dependencies
 
@@ -23,7 +24,8 @@
 - Update scaffold default radpVersion to `3.25`.
 - Optimize `maven.config` default active profiles.
 - Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
-- Optimize .idea project codeStyles
+- Optimize `.idea` project codeStyles.
+- Optimize `checkstyle-suppressions.xml`. Suppress `HideUtilityClassConstructor` rule globally.
 
 ### Docs
 

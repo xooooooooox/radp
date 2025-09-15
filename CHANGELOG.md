@@ -9,6 +9,7 @@
 - Add module radp-solutions.
 - Optimize `radp-mybatis-spring-boot-starter`.
 - Optimize `radp-spring-data`.
+- Optimize `SnowflakeGenerator`.
 
 ### Dependencies
 

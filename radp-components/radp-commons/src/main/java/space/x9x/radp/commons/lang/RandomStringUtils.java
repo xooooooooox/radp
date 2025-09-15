@@ -42,17 +42,17 @@ import lombok.experimental.UtilityClass;
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
 
 	/**
-	 * 数字字符集
+	 * 数字字符集.
 	 */
 	private static final char[] DIGITS = "0123456789".toCharArray();
 
 	/**
-	 * 字母字符集（用户名首字符使用）
+	 * 字母字符集(用户名首字符使用).
 	 */
 	private static final char[] LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
 	/**
-	 * 用户名合法字符集：字母、数字、下划线
+	 * 用户名合法字符集：字母、数字、下划线.
 	 */
 	private static final char[] USERNAME_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 		.toCharArray();
@@ -117,7 +117,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	}
 
 	/**
-	 * 生成合法的随机用户名。 规则:
+	 * 生成合法的随机用户名. 规则:
 	 * <ul>
 	 * <li>用户名需以字母开头</li>
 	 * <li>允许的字符集：[A-Za-z0-9_]</li>

@@ -15,6 +15,7 @@
   - Add `PasswordGeneratorUtils` for password generation and validation.
   - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
   - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
+  - Add mobile validation helper `isValidMobile()` for Mainland China numbers.
 
 ### Dependencies
 

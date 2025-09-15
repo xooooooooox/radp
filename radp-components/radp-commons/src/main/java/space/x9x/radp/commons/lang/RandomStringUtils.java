@@ -25,22 +25,37 @@ import lombok.experimental.UtilityClass;
 import space.x9x.radp.commons.regex.pattern.RegexCache;
 
 /**
- * Utility class for generating random strings. This class extends Apache Commons Lang's
- * RandomStringUtils to provide convenient access to methods for generating random strings
- * with various characteristics, such as alphabetic, numeric, or alphanumeric content.
+ * Utility class for generating random strings and common test data. This class extends
+ * Apache Commons Lang's RandomStringUtils and adds a set of practical generators and
+ * validators used across the project.
  * <p>
  * Enhancements include:
  * <ul>
- * <li>Generating N-digit numeric strings whose first digit is non-zero</li>
- * <li>Quick generation of an 11-digit number</li>
- * <li>Creation of a plausible Mainland China 11-digit mobile number for testing</li>
- * <li>Generation of valid random usernames (start with a letter; allowed
- * [A-Za-z0-9_])</li>
+ * <li>Numeric helpers: generate N-digit numbers with a non-zero first digit and a quick
+ * 11-digit generator.</li>
+ * <li>Telecom: generate a plausible Mainland China 11-digit mobile number for
+ * testing.</li>
+ * <li>Usernames: generate valid random usernames (default rule: starts with a letter;
+ * uses word characters \w); validate usernames via default regex or custom
+ * {@link java.util.regex.Pattern} and a flexible {@code UsernameRule}
+ * {@code Builder}.</li>
+ * <li>Email: generate RFC 5322–compliant random emails and validate emails via
+ * {@link space.x9x.radp.commons.regex.pattern.RegexCache#EMAIL}.</li>
+ * <li>IP addresses: generate IPv4/IPv6 strings and validate using
+ * {@link space.x9x.radp.commons.regex.pattern.RegexCache#IPV4} and
+ * {@link space.x9x.radp.commons.regex.pattern.RegexCache#IPV6}, including rule-based
+ * validation with {@code isValidIp(String, boolean, boolean)}.</li>
  * </ul>
+ * </p>
+ * <p>
+ * Notes: Random data produced by these helpers is intended for demos/tests and does not
+ * guarantee the existence of real-world resources (e.g., actual phone numbers or emails).
  * </p>
  *
  * @author IO x9x
  * @since 2024-11-20 16:41
+ * @see org.apache.commons.lang3.RandomStringUtils
+ * @see space.x9x.radp.commons.regex.pattern.RegexCache
  */
 @UtilityClass
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
@@ -135,7 +150,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 生成指定长度的合法随机用户名.
-	 * @param length 长度（必须 >= 3）
+	 * @param length 长度(必须 >= 3)
 	 * @return 合法的随机用户名
 	 */
 	public static String generateUsername(int length) {
@@ -144,8 +159,8 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 生成指定长度范围内的合法随机用户名.
-	 * @param minLength 最小长度（必须 >= 3）
-	 * @param maxLength 最大长度（必须 >= minLength）
+	 * @param minLength 最小长度(必须 >= 3)
+	 * @param maxLength 最大长度(必须 >= minLength)
 	 * @return 合法的随机用户名
 	 */
 	public static String generateUsername(int minLength, int maxLength) {
@@ -163,7 +178,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 		for (int i = 1; i < len; i++) {
 			sb.append(USERNAME_CHARS[random.nextInt(USERNAME_CHARS.length)]);
 		}
-		// 尽量避免以下划线结尾（非必须,但更美观）
+		// 尽量避免以下划线结尾(非必须,但更美观)
 		if (sb.charAt(sb.length() - 1) == '_') {
 			sb.setCharAt(sb.length() - 1, LETTERS[random.nextInt(LETTERS.length)]);
 		}
@@ -186,16 +201,16 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	public static String generateEmail() {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		String local = generateUsername().toLowerCase(Locale.ROOT);
-		// 生成域名的主机名标签（字母数字开头/结尾,中间允许字母数字和短横线）
+		// 生成域名的主机名标签(字母数字开头/结尾,中间允许字母数字和短横线)
 		String host = buildDomainLabel(random.nextInt(4, 11));
 		String tld = COMMON_TLDS[random.nextInt(COMMON_TLDS.length)];
 		String email = local + "@" + host + "." + tld;
-		// 兜底校验（开发期保证生成的确实是合法邮箱）
+		// 兜底校验(开发期保证生成的确实是合法邮箱)
 		return RegexCache.EMAIL.matcher(email).matches() ? email : (local + "@example.com");
 	}
 
 	/**
-	 * 构建域名标签（字母数字开头/结尾,中间可含-）,长度在 [2,63] 之内,这里按入参长度生成.
+	 * 构建域名标签(字母数字开头/结尾,中间可含-),长度在 [2,63] 之内,这里按入参长度生成.
 	 */
 	private static String buildDomainLabel(int len) {
 		if (len < 2) {
@@ -217,26 +232,32 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	}
 
 	/**
-	 * 用户名正则: 以字母开头,允许 [A-Za-z0-9_],长度 3-16.
-	 */
-	private static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z]\\w{2,15}$");
-
-	/**
-	 * 校验用户名是否合法: 以字母开头,允许 [A-Za-z0-9_],长度 3-16.
+	 * 校验用户名是否合法(使用 {@link space.x9x.radp.commons.regex.pattern.RegexCache#USERNAME} 规则).
+	 * 支持字母、数字、下划线和中文，不能以下划线结尾，长度 1-18.
 	 * @param username 待校验用户名
 	 * @return 合法返回 true
 	 */
 	public static boolean isValidUsername(String username) {
-		return username != null && USERNAME_PATTERN.matcher(username).matches();
+		return username != null && RegexCache.USERNAME.matcher(username).matches();
 	}
 
 	/**
-	 * 校验邮箱是否合法（基于 RFC5322 兼容的模式）.
+	 * 校验邮箱是否合法(基于 RFC5322 兼容的模式).
 	 * @param email 邮箱
 	 * @return 合法返回 true
 	 */
 	public static boolean isValidEmail(String email) {
 		return email != null && RegexCache.EMAIL.matcher(email).matches();
+	}
+
+	/**
+	 * 校验手机号是否合法(中国大陆，支持可选国家码 +86、86 或 0 前缀). 使用
+	 * {@link space.x9x.radp.commons.regex.pattern.RegexCache#MOBILE} 规则进行校验.
+	 * @param mobile 手机号
+	 * @return 合法返回 true
+	 */
+	public static boolean isValidMobile(String mobile) {
+		return mobile != null && RegexCache.MOBILE.matcher(mobile).matches();
 	}
 
 	/**
@@ -310,7 +331,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	/**
 	 * 使用自定义正则表达式校验用户名是否合法.
 	 * @param username 待校验用户名
-	 * @param pattern 自定义校验规则（非空）
+	 * @param pattern 自定义校验规则(非空)
 	 * @return 合法返回 true；pattern 为 null 时返回 false
 	 */
 	public static boolean isValidUsername(String username, Pattern pattern) {
@@ -320,17 +341,17 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	/**
 	 * 使用自定义正则表达式校验用户名是否合法.
 	 * @param username 待校验用户名
-	 * @param regex 自定义正则（非空）
+	 * @param regex 自定义正则(非空)
 	 * @return 合法返回 true；regex 为空时返回 false
 	 * @throws java.util.regex.PatternSyntaxException 当正则不合法时抛出
 	 */
 	public static boolean isValidUsername(String username, String regex) {
-		return username != null && regex != null && Pattern.compile(regex).matcher(username).matches();
+		return username != null && regex != null && RegexCache.get(regex, 0).matcher(username).matches();
 	}
 
 	/**
 	 * 使用自定义规则生成合法用户名.
-	 * @param rule 自定义规则（非空）
+	 * @param rule 自定义规则(非空)
 	 * @return 合法随机用户名
 	 */
 	public static String generateUsername(UsernameRule rule) {
@@ -419,7 +440,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 可自定义的用户名规则. 支持: 首字符集合、整体可用字符集合、长度范围与“禁止以下划线结尾”选项； 也可提供自定义 Pattern
-	 * 作为最终校验规则（若提供,则以其为准）.
+	 * 作为最终校验规则(若提供,则以其为准).
 	 */
 	public static final class UsernameRule {
 

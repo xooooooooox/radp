@@ -98,6 +98,7 @@
 		<fastjson.version>2.0.22</fastjson.version>
 		<fastjson2.version>2.0.22</fastjson2.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+		<bouncycastle.version>1.81</bouncycastle.version>
 
 		<!-- [测试组件] -->
 		<spock.version>2.3-groovy-4.0</spock.version>
@@ -658,6 +659,11 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>transmittable-thread-local</artifactId>
 				<version>${transmittable-thread-local.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15to18</artifactId>
+				<version>${bouncycastle.version}</version>
 			</dependency>
 			<!-- ====================工具集]==================== -->
 

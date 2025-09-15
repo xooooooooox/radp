@@ -207,6 +207,14 @@
 			<artifactId>assertj-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- ===========================
+			 加密
+			 ============================ -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15to18</artifactId>
+		</dependency>
 	</dependencies>
 
 

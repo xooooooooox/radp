@@ -4,13 +4,16 @@
 
 ### Feature
 
-- Optimize devcontainer.
-- Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
-- Add module radp-solutions.
+- Optimize `devcontainer`.
+- Add module `radp-solutions`.
 - Optimize `radp-mybatis-spring-boot-starter`.
 - Optimize `radp-spring-data`.
-- Optimize `SnowflakeGenerator`.
-- add `PasswordGeneratorUtils` for password generation and validation.
+- Optimize module `radp-spring-boot`:
+  - Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
+- Optimize module `radp-commons`:
+  - Optimize `SnowflakeGenerator`.
+  - Add `PasswordGeneratorUtils` for password generation and validation.
+  - Add `NumberUtils`. Support generate numeric strings of specified lengths, generate plausible Mainland China 11-digit mobile numbers.
 
 ### Dependencies
 

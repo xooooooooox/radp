@@ -31,6 +31,7 @@
 - Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
 - Optimize `.idea` project codeStyles.
 - Optimize `checkstyle-suppressions.xml`. Suppress `HideUtilityClassConstructor` rule globally.
+- Optimize `application-local.yaml`
 
 ### Docs
 

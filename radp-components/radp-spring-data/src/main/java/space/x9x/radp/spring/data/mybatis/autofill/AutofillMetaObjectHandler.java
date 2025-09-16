@@ -82,10 +82,10 @@ public class AutofillMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		this.strictUpdateFill(metaObject, this.lastModifiedDateFieldName, LocalDateTime.class, now);
+		this.setFieldValByName(this.lastModifiedDateFieldName, now, metaObject);
 
 		Long loginUserId = 1L; // TODO v3.25-2025/9/14: 需要从上下文中获取当前登录用户编号
-		this.strictUpdateFill(metaObject, this.updaterFieldName, String.class, loginUserId.toString());
+		this.setFieldValByName(this.updaterFieldName, loginUserId.toString(), metaObject);
 	}
 
 }

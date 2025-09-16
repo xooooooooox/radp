@@ -17,6 +17,10 @@
   - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
   - Add mobile validation helper `isValidMobile()` for Mainland China numbers.
 
+### Bug fix
+
+- fix `AutofillMetaObjectHandler#updateFill` not work.
+
 ### Dependencies
 
 - DependencyManagement add dependency `org.bouncycastle:bcprov-jdk15to18:1.81`.

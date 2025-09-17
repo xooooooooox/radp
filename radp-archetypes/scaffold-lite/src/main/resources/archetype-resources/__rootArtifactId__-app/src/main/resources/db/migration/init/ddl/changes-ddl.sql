@@ -1,15 +1,22 @@
-CREATE TABLE raffle_activity
+########################################################################################################################
+# 每张表一般至少需要包含以下字段
+/*
+-- ----------------------------
+-- Table structure for example
+-- ----------------------------
+DROP TABLE IF EXISTS `example`;
+CREATE TABLE `example`
 (
-    id                  BIGINT(11)   NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
-    activity_id         BIGINT(12)   NOT NULL COMMENT '活动ID',
-    activity_name       VARCHAR(64)  NOT NULL COMMENT '活动名称',
-    activity_desc       VARCHAR(128) NOT NULL COMMENT '活动描述',
-    activity_start_time DATETIME     NOT NULL COMMENT '活动开始时间',
-    activity_end_time   DATETIME     NOT NULL COMMENT '活动结束时间',
-    created_date        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    last_modified_date  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-    PRIMARY KEY (id),
-    UNIQUE KEY uq_activity_id (activity_id),
-    KEY idx_activity_start_time (activity_start_time),
-    KEY idx_activity_end_time (activity_end_time)
-) COMMENT '抽奖活动表';
+    id              BIGINT       NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    creator         VARCHAR(64)  NULL     DEFAULT NULL COMMENT '创建者',
+    updater         VARCHAR(64)  NULL     DEFAULT NULL COMMENT '更新者',
+    created_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+    deleted         BIT(1)       NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    tenant_id       BIGINT       NOT NULL DEFAULT 0 COMMENT '租户编号',
+    PRIMARY KEY (id)
+) COMMENT '示例表';
+*/
+########################################################################################################################
+
+########################################################################################################################

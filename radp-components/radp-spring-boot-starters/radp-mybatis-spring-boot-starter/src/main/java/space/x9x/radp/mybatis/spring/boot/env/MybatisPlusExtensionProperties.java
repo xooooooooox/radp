@@ -71,13 +71,13 @@ public class MybatisPlusExtensionProperties {
 		/**
 		 * Field name for creation time (Java property name, not database column name).
 		 */
-		private String createdDataFieldName = "createdDate";
+		private String createdDataFieldName = "createdAt";
 
 		/**
 		 * Field name for the last modification time (Java property name, not database
 		 * column name).
 		 */
-		private String lastModifiedDateFieldName = "lastModifiedDate";
+		private String lastModifiedDateFieldName = "updatedAt";
 
 		/**
 		 * Field name representing the creator of an entity.

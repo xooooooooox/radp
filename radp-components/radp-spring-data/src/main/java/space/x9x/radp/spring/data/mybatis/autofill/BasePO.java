@@ -48,25 +48,25 @@ public abstract class BasePO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Creation date of the entity. Auto-filled on insert.
+	 * Creation date of the entity. Autofilled on insert.
 	 */
 	@TableField(fill = FieldFill.INSERT)
-	private LocalDateTime createdDate;
+	private LocalDateTime createdAt;
 
 	/**
 	 * Last modification date of the entity. Auto-filled on insert and update.
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private LocalDateTime lastModifiedDate;
+	private LocalDateTime updatedAt;
 
 	/**
-	 * Identifier of the creator. Auto-filled on insert.
+	 * Identifier of the creator. Autofilled on insert.
 	 */
 	@TableField(fill = FieldFill.INSERT)
 	private String creator;
 
 	/**
-	 * Identifier of the last updater. Auto-filled on insert and update.
+	 * Identifier of the last updater. Autofilled on insert and update.
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updater;

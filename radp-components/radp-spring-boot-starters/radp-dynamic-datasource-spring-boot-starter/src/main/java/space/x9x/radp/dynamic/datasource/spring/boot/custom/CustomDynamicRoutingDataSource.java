@@ -26,6 +26,8 @@ import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceContextHolder;
 
 /**
+ * 自定义动态路由数据源.
+ *
  * @author IO x9x
  * @since 2025-09-20 01:04
  */

@@ -26,15 +26,30 @@ import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceContextHolder;
 
 /**
+ * 自定义的动态数据源注解拦截器.
+ * <p>
+ * 基于 dynamic-datasource 的拦截器，结合 RoutingDataSourceContextHolder 管理数据源上下文， 兼容使用 @DS 注解和
+ * SpEL/前缀标记的动态解析.
+ * </p>
+ *
  * @author IO x9x
  * @since 2025-09-20 01:16
  */
 public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSourceAnnotationInterceptor {
 
+	/**
+	 * 动态数据源前缀标记（例如 "#"），用于指示需要通过 DsProcessor 解析的键.
+	 */
 	private static final String DYNAMIC_PREFIX = Strings.HASH;
 
+	/**
+	 * 数据源类解析器，用于在方法/类上解析 @DS 注解定义的数据源键.
+	 */
 	private final DataSourceClassResolver dataSourceClassResolver;
 
+	/**
+	 * 动态数据源键解析器，用于基于方法上下文解析带有前缀的动态数据源键.
+	 */
 	private final DsProcessor dsProcessor;
 
 	public CustomDynamicDataSourceAnnotationInterceptor(Boolean allowedPublicOnly, DsProcessor dsProcessor) {
@@ -56,8 +71,8 @@ public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSou
 	}
 
 	private String determineDatasourceKey(MethodInvocation invocation) {
-		String key = dataSourceClassResolver.findKey(invocation.getMethod(), invocation.getThis(), DS.class);
-		return key.startsWith(DYNAMIC_PREFIX) ? dsProcessor.determineDatasource(invocation, key) : key;
+		String key = this.dataSourceClassResolver.findKey(invocation.getMethod(), invocation.getThis(), DS.class);
+		return key.startsWith(DYNAMIC_PREFIX) ? this.dsProcessor.determineDatasource(invocation, key) : key;
 	}
 
 }

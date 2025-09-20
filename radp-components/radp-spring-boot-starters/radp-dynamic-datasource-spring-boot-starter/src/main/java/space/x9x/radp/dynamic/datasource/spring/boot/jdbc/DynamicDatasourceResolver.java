@@ -23,7 +23,7 @@ import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import space.x9x.radp.spring.data.jdbc.datasource.DataSourceResolver;
 
 /**
- * 动态数据源解析器
+ * 动态数据源解析器.
  *
  * @author IO x9x
  * @since 2025-09-19 22:49
@@ -31,7 +31,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceResolver;
 public class DynamicDatasourceResolver implements DataSourceResolver {
 
 	/**
-	 * 解析数据源
+	 * 解析数据源.
 	 * @param dataSource the original data source to be resolved
 	 * @return 解析后的数据源
 	 */

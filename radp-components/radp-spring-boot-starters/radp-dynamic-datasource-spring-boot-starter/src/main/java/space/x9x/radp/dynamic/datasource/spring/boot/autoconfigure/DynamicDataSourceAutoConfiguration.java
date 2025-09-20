@@ -43,6 +43,8 @@ import space.x9x.radp.dynamic.datasource.spring.boot.custom.CustomDynamicRouting
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 
 /**
+ * 动态数据源自动配置.
+ *
  * @author IO x9x
  * @since 2025-09-20 00:48
  */
@@ -55,10 +57,19 @@ import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 @AutoConfiguration
 public class DynamicDataSourceAutoConfiguration {
 
+	/**
+	 * 日志前缀：自动装配动态路由数据源.
+	 */
 	private static final String AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE = "Autowired DynamicDataSourceDataSource";
 
+	/**
+	 * 日志前缀：自动装配动态数据源注解 Advisor.
+	 */
 	private static final String AUTOWIRED_DYNAMIC_DATASOURCE_ANNOTATION_ADVISOR = "Autowired DynamicDataSourceAnnotationAdvisor";
 
+	/**
+	 * 动态数据源配置属性.
+	 */
 	private final DynamicDataSourceProperties properties;
 
 	public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties properties) {
@@ -70,11 +81,11 @@ public class DynamicDataSourceAutoConfiguration {
 	public DataSource dataSource(List<DynamicDataSourceProvider> providers) {
 		log.info(AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE);
 		DynamicRoutingDataSource dataSource = new CustomDynamicRoutingDataSource(providers);
-		dataSource.setPrimary(properties.getPrimary());
-		dataSource.setStrict(properties.getStrict());
-		dataSource.setStrategy(properties.getStrategy());
-		dataSource.setP6spy(properties.getP6spy());
-		dataSource.setSeata(properties.getSeata());
+		dataSource.setPrimary(this.properties.getPrimary());
+		dataSource.setStrict(this.properties.getStrict());
+		dataSource.setStrategy(this.properties.getStrategy());
+		dataSource.setP6spy(this.properties.getP6spy());
+		dataSource.setSeata(this.properties.getSeata());
 		return dataSource;
 	}
 
@@ -84,7 +95,7 @@ public class DynamicDataSourceAutoConfiguration {
 	@Bean
 	public Advisor dynamicDatasourceAnnotationAdvisor(DsProcessor dsProcessor) {
 		log.debug(AUTOWIRED_DYNAMIC_DATASOURCE_ANNOTATION_ADVISOR);
-		DynamicDatasourceAopProperties aopProperties = properties.getAop();
+		DynamicDatasourceAopProperties aopProperties = this.properties.getAop();
 		CustomDynamicDataSourceAnnotationInterceptor interceptor = new CustomDynamicDataSourceAnnotationInterceptor(
 				aopProperties.getAllowedPublicOnly(), dsProcessor);
 		DynamicDataSourceAnnotationAdvisor advisor = new DynamicDataSourceAnnotationAdvisor(interceptor, DS.class);

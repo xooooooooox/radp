@@ -30,6 +30,10 @@
         </value>
       </option>
     </JavaCodeStyleSettings>
+    <SqlCodeStyleSettings version="7">
+      <option name="KEYWORD_CASE" value="2"/>
+      <option name="TYPE_CASE" value="2"/>
+    </SqlCodeStyleSettings>
     <codeStyleSettings language="Groovy">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true"/>

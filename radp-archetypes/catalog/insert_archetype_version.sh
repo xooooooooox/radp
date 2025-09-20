@@ -1,22 +1,19 @@
 #!/usr/bin/env sh
 # insert_archetype_version.sh
 # Usage:
-#   ./insert_archetype_version.sh -f archetype-catalog.xml -v 3.25.0 -r https://artifactory.example.com/artifactory/maven-public-virtual/
-#   ./insert_archetype_version.sh -v 3.25.0 -r https://repo.example.com/maven/
-#   ./insert_archetype_version.sh 3.25.0                        # 仍支持位置参数版本
+#   ./insert_archetype_version.sh -f archetype-catalog.xml -v 3.25 -r https://repo.example.com/maven/
+#   ./insert_archetype_version.sh -v 3.25
+#   ./insert_archetype_version.sh 3.25
 #
-# Options:
-#   -f FILE     目标 archetype-catalog.xml（默认: ./archetype-catalog.xml）
-#   -v VERSION  要插入的版本号（如 3.25.0），同时会插入 -SNAPSHOT
-#   -r REPO     <repository> 的 URL（默认: ${REPO_URL:-https://artifactory.example.com/artifactory/maven-public-virtual/}）
-#   -h          帮助
+# Notes:
+#   - If -r is omitted, <repository> will NOT be inserted.
 
 set -eu
 
 CATALOG_FILE="${CATALOG_FILE:-archetype-catalog.xml}"
 VERSION=""
-REPO_URL_DEFAULT="https://artifactory.example.com/artifactory/maven-public-virtual/"
-REPO_URL="${REPO_URL:-$REPO_URL_DEFAULT}"
+REPO_URL=""
+ADD_REPO=0
 
 usage() {
   echo "Usage: $0 [-f FILE] -v VERSION [-r REPO_URL]"
@@ -24,7 +21,7 @@ usage() {
   echo "Options:"
   echo "  -f FILE     path to archetype-catalog.xml (default: ./archetype-catalog.xml)"
   echo "  -v VERSION  e.g. 3.25.0 (also inserts 3.25.0-SNAPSHOT)"
-  echo "  -r REPO_URL repository URL to write into <repository>"
+  echo "  -r REPO_URL repository URL to write into <repository>; if omitted, no <repository> is inserted"
   echo "  -h          help"
 }
 
@@ -33,7 +30,7 @@ while getopts ":f:v:r:h" opt; do
   case "$opt" in
   f) CATALOG_FILE="$OPTARG" ;;
   v) VERSION="$OPTARG" ;;
-  r) REPO_URL="$OPTARG" ;;
+  r) REPO_URL="$OPTARG"; ADD_REPO=1 ;;
   h) usage; exit 0 ;;
   :) echo "Option -$OPTARG requires an argument." >&2; usage; exit 1 ;;
   \?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1 ;;
@@ -53,16 +50,20 @@ fi
 case "$VERSION" in
 *[!0-9.]*|"") echo "Invalid version: $VERSION (digits and dots only)" >&2; exit 1 ;;
 esac
-# optional REPO_URL sanity check（宽松）
-case "$REPO_URL" in
-http://*|https://*) : ;;
-*) echo "WARN: REPO_URL does not look like http(s) URL: $REPO_URL" >&2 ;;
-esac
+
+# repo URL sanity check only when -r is given
+if [ "$ADD_REPO" -eq 1 ]; then
+  case "$REPO_URL" in
+  http://*|https://*) : ;;
+  *) echo "WARN: REPO_URL does not look like http(s) URL: $REPO_URL" >&2 ;;
+  esac
+fi
 
 TMP="$(mktemp)"
+trap 'rm -f "$TMP"' EXIT
 cp "$CATALOG_FILE" "$CATALOG_FILE.bak"
 
-awk -v ver="$VERSION" -v repo_url="$REPO_URL" '
+awk -v ver="$VERSION" -v repo_url="$REPO_URL" -v add_repo="$ADD_REPO" '
 function base(v){ sub(/-SNAPSHOT$/,"",v); return v }
 # 返回纯数字零填充串方便字符串比较（不含点号，BSD awk 友好）
 function norm(v,    a,i,max,out,x){
@@ -89,7 +90,8 @@ function print_block(v,    i,g,indent,art,desc){
     print indent "\t<groupId>" g "</groupId>"
     print indent "\t<artifactId>" art[i] "</artifactId>"
     print indent "\t<version>" v "</version>"
-    print indent "\t<repository>" repo_url "</repository>"
+    if (add_repo+0 == 1)
+      print indent "\t<repository>" repo_url "</repository>"
     print indent "\t<description>" desc[i] "</description>"
     print indent "</archetype>"
   }
@@ -106,7 +108,6 @@ BEGIN{
   lines[++N]=$0
   if ($0 ~ /<\/archetypes>/) end_idx=N
 
-  # BSD-safe：字符串正则 + RSTART/RLENGTH
   ver_re = "<version>[^<][^<]*</version>"
   if (match($0, ver_re)) {
     v = substr($0, RSTART, RLENGTH)

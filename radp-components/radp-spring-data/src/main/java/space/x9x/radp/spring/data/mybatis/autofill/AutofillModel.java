@@ -37,6 +37,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Deprecated
 public class AutofillModel<T extends Model<?>> extends Model<T> implements Serializable {
 
 	@Serial
@@ -55,5 +56,21 @@ public class AutofillModel<T extends Model<?>> extends Model<T> implements Seria
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime lastModifiedDate;
+
+	/**
+	 * The username or identifier of the user who created the entity. This field is
+	 * automatically populated during the insert operation using MyBatis Plus's automatic
+	 * field filling mechanism.
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private String creator;
+
+	/**
+	 * The username or identifier of the user who last updated the entity. This field is
+	 * automatically populated during both insert and update operations using MyBatis
+	 * Plus's automatic field filling mechanism.
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private String updater;
 
 }

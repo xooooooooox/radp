@@ -22,5 +22,6 @@
 		<module>radp-logging-spring-boot-starter</module>
 		<module>radp-jasypt-spring-boot-starter</module>
 		<module>radp-redis-spring-boot-starter</module>
+		<module>radp-dynamic-datasource-spring-boot-starter</module>
 	</modules>
 </project>

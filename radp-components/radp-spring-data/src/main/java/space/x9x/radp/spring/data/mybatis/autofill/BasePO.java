@@ -17,28 +17,64 @@
 package space.x9x.radp.spring.data.mybatis.autofill;
 
 import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Data;
 
 /**
- * Base Persistent Object class for database entities. This abstract class extends
- * AutofillModel to provide automatic field filling capabilities for database entities.
- *
+ * Base Persistent Object class for database entities. This class no longer extends any
+ * other class, reducing coupling while still providing automatic field filling
+ * capabilities via MyBatis-Plus MetaObjectHandler. Any entity may extend this class or
+ * simply declare the same-named fields to benefit from auto-fill.
  * <p>
  * Example usage: <pre>
  * {@literal @}TableName("demo")
- * public class DemoPO extends BasePO&lt;DemoPO&gt; {
+ * public class DemoPO extends BasePO {
  *     // Entity fields and methods
  * }
  * </pre>
  *
  * @author IO x9x
  * @since 2024-10-01 10:02
- * @param <T> the type of the entity extending this class
  */
-public abstract class BasePO<T extends Model<?>> extends AutofillModel<T> {
+@Data
+public abstract class BasePO implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Creation date of the entity. Autofilled on insert.
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private LocalDateTime createdAt;
+
+	/**
+	 * Last modification date of the entity. Auto-filled on insert and update.
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updatedAt;
+
+	/**
+	 * Identifier of the creator. Autofilled on insert.
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private String creator;
+
+	/**
+	 * Identifier of the last updater. Autofilled on insert and update.
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private String updater;
+
+	/**
+	 * Logical delete flag.
+	 */
+	@TableLogic
+	private Boolean deleted;
 
 }

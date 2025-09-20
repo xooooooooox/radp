@@ -1,6 +1,5 @@
 *.name
 *.xml
-.cache
 
 !codeStyles/**.xml
 !copyright/**.xml
@@ -19,5 +18,5 @@
 /dataSources.local.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
-
-
+# Apifox
+.cache/.Apifox_Helper

@@ -6,7 +6,15 @@ networks:
 
 services:
   ollama:
-    image: ollama/ollama:0.5.10
+    image: ollama/ollama:${symbol_dollar}{OLLAMA_VERSION}
     restart: unless-stopped
     ports:
-      - "11434"
+      - "11434:11434"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

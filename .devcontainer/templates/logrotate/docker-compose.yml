@@ -1,0 +1,51 @@
+networks:
+  local-network:
+    driver: bridge
+    name: radp-network
+    external: false
+
+services:
+  # Logrotate 日志轮转服务
+  # 参考镜像: https://hub.docker.com/r/instrumentisto/logrotate
+  # 用途: 定时轮转 ./volumes/logs 下的各服务日志（如 app、nginx 等），避免日志无限增长。
+  # 使用说明:
+  # 1) 在 ./volumes/logrotate/logrotate.conf 中配置全局参数（若无可使用镜像内默认配置）。
+  # 2) 在 ./volumes/logrotate/logrotate.d/ 下添加各服务的规则，例如 nginx、app：
+  #    - 示例: 新建 ./volumes/logrotate/logrotate.d/nginx
+  #        /logs/nginx/*.log {
+  #          daily
+  #          rotate 7
+  #          missingok
+  #          notifempty
+  #          compress
+  #          delaycompress
+  #          copytruncate
+  #        }
+  # 3) 本模板将仓库的 ./volumes/logs 挂到容器 /logs，便于规则里统一用 /logs 路径匹配。
+  # 4) 通过 CRON_SCHEDULE 调整轮转周期，默认每天 00:00 执行。
+  logrotate:
+    image: xooooooooox/logrotate:${LOGROTATE_VERSION}
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      # Cron 表达式（默认每日 00:00 执行）
+      CRON_SCHEDULE: "${CRON_SCHEDULE:-0 0 * * *}"
+    volumes:
+      # 需要轮转的日志根目录（建议将其它服务的日志都映射到 ./volumes/logs 下）
+      - ./volumes/logs:/logs:rw
+      # 全局配置（可选，如无则注释掉）
+      - ./volumes/logrotate/logrotate.conf:/etc/logrotate.conf:ro
+      # 各服务规则
+      - ./volumes/logrotate/logrotate.d:/etc/logrotate.d:ro
+      # logrotate 自身日志输出位置（可选）
+      - ./volumes/logs/logrotate:/var/log/logrotate
+    networks:
+      - local-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

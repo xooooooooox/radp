@@ -20,6 +20,7 @@ import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
@@ -29,6 +30,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  *
  * @author IO x9x
  * @since 2024-09-30 13:25
+ * @see BasePO
  */
 @ConfigurationProperties(prefix = MybatisPlusExtensionProperties.PREFIX)
 @Data
@@ -69,13 +71,23 @@ public class MybatisPlusExtensionProperties {
 		/**
 		 * Field name for creation time (Java property name, not database column name).
 		 */
-		private String createdDataFieldName = "createdDate";
+		private String createdDataFieldName = "createdAt";
 
 		/**
-		 * Field name for last modification time (Java property name, not database column
-		 * name).
+		 * Field name for the last modification time (Java property name, not database
+		 * column name).
 		 */
-		private String lastModifiedDateFieldName = "lastModifiedDate";
+		private String lastModifiedDateFieldName = "updatedAt";
+
+		/**
+		 * Field name representing the creator of an entity.
+		 */
+		private String creatorFieldName = "creator";
+
+		/**
+		 * Field name representing the updater of an entity.
+		 */
+		private String updaterFieldName = "updater";
 
 	}
 

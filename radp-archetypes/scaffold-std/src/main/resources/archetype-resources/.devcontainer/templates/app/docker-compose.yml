@@ -62,7 +62,7 @@ services:
       SPRING_PROFILES_ACTIVE: ${symbol_dollar}{SPRING_PROFILES_ACTIVE}
 
     volumes:
-      - ${symbol_dollar}{LOG_VOLUME:-./volumes/app/logs}:/app/logs
+      - ${symbol_dollar}{LOG_VOLUME:-./volumes/logs/app}:/app/logs
       - ${symbol_dollar}{DATA_VOLUME:-./volumes/app/data}:/app/data
       - ${symbol_dollar}{EXTERNAL_CONFIG_VOLUME:-./volumes/app/config/}:/workspace/config/
 
@@ -78,5 +78,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "10m"
+        max-size: "50m"
         max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

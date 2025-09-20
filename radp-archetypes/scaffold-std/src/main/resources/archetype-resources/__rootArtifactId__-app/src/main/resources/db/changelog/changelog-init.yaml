@@ -1,20 +1,20 @@
 databaseChangeLog:
   # ---------------------- 通用（所有环境都会执行） ----------------------
   - changeSet:
-      id: 20241018-000 # TODO: format YYYYMMdd-xxx(序号)
-      author: x9x # TODO: changeSet author
-      comment: 示例第一个changeset # TODO: changeSet comment
-      changes: # TODO 根据实际情况编写, 将 ddl 与 dml 分开编写, 至于 dml 可以选择是使用 csv 或者 sql
+      id: init
+      author: x9x
+      comment: 初始化
+      changes:
         - sqlFile:
             relativeToChangelogFile: true
-            path: ../migration/20241018/ddl/changes-ddl.sql
+            path: ../migration/init/ddl/changes-ddl.sql
             stripComments: true
         - sqlFile:
             relativeToChangelogFile: true
-            path: ../migration/20241018/dml/changes-dml.sql
+            path: ../migration/init/dml/changes-dml.sql
         - loadData:
             relativeToChangelogFile: true
-            file: ../migration/20241018/dml/demo.csv
+            file: ../migration/init/dml/demo.csv
             tableName: demo
             separator: ;
             columns:
@@ -24,53 +24,8 @@ databaseChangeLog:
               - column:
                   name: locked
                   type: boolean
-      rollback: # TODO: 需要编写如何 回退
+      rollback:
         - sqlFile:
             relativeToChangelogFile: true
-            path: ../migration/20241018/rollback/rollback.sql
+            path: ../migration/init/rollback/rollback.sql
             stripComments: true
-
-  # Example of a second changeSet in the same file
-  - changeSet:
-      id: 20241018-001
-      author: x9x
-      comment: 示例第二个changeSet
-      changes:
-        - sql:
-            sql: SELECT 1
-
-  # ---------------------- 仅 dev / uat 环境执行 ------------------------
-  - changeSet:
-      id: 20241018-003
-      author: x9x
-      comment: 导入演示数据（仅 dev、uat）
-      context: dev,uat           # <- 限定环境
-      changes:
-        - loadData:
-            relativeToChangelogFile: true
-            file: ../migration/20241018/env/demo_seed_data.csv
-            tableName: demo
-            separator: ;
-            columns:
-              - column: { name: name,   type: varchar }
-              - column: { name: locked, type: boolean }
-      rollback:
-        - delete:
-            tableName: demo         # 回滚时删除刚插入的数据
-            where: "locked = FALSE" # 仅删演示数据，避免误删正式数据
-
-  # ---------------------- 仅 prod 环境执行 ------------------------------
-  - changeSet:
-      id: 20241018-004
-      author: x9x
-      comment: 为 prod 新建分区或索引
-      context: prod               # <— 只在生产库跑
-      runAlways: false            # prod 里改结构通常只跑一次
-      changes:
-        - sqlFile:
-            relativeToChangelogFile: true
-            path: ../migration/20241018/env/prod/create_prod_index.sql
-      rollback:
-        - sqlFile:
-            relativeToChangelogFile: true
-            path: ../migration/20241018/env/prod/rollback/drop_prod_index.sql

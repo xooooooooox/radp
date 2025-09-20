@@ -16,8 +16,12 @@
 
 package space.x9x.radp.commons.id;
 
+import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.LockSupport;
+
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Synchronized;
 
 /**
@@ -34,16 +38,17 @@ import lombok.Synchronized;
  * Example usage: <pre>{@code
  * public class SnowflakeDemo {
  *     public static void main(String[] args) {
- *         // 1) Create a default SnowflakeGenerator (dataCenterId=1, workerId=1)
- *         SnowflakeGenerator generator = new SnowflakeGenerator();
+ * 			// 方式A
+ *         	// Create a default SnowflakeGenerator (dataCenterId=1, workerId=1)
+ *         	SnowflakeGenerator generator = new SnowflakeGenerator(1, 1);
+ *         	// Generate a Snowflake ID using nextId() method
+ *         	long id1 = generator.nextId();
+ *         	System.out.println("Snowflake ID: " + id1);
  *
- *         // 2) Generate a Snowflake ID using nextId() method
- *         long id = generator.nextId();
- *         System.out.println("Snowflake ID: " + id);
- *
- *         // 3) Generate using static method
- *         long staticId = SnowflakeGenerator.nextId(2, 3);
- *         System.out.println("Snowflake ID (static): " + staticId);
+ * 			// 方式B
+ *         	// Generate using static method
+ *         	long id2 = SnowflakeGenerator.nextId(2, 3);
+ *         	System.out.println("Snowflake ID: " + id2);
  *     }
  * }
  * }</pre>
@@ -51,68 +56,74 @@ import lombok.Synchronized;
  * @author IO x9x
  * @since 2024-12-27 12:36
  */
-@NoArgsConstructor
 public class SnowflakeGenerator {
 
 	/**
 	 * Epoch timestamp (2018-01-01) used as the starting point for ID generation.
 	 */
-	private final long twepoch = 1514736000000L;
+	private static final long EPOCH = 1514736000000L;
 
 	/**
 	 * 机器 ID 占 5 位（机器 ID 和数据中心 ID 加起来不能超过 10）
 	 */
-	private final long workerIdBits = 5L;
+	private static final long WORKER_ID_BITS = 5L; // 0..31
 
 	/**
 	 * 数据中心 ID 占 5 位
 	 */
-	private final long datacenterIdBits = 5L;
+	private static final long DATACENTER_ID_BITS = 5L; // 0..31
 
 	/**
 	 * 序列号占 12 位
 	 */
-	private final long sequenceBits = 12L;
+	private static final long SEQUENCE_BITS = 12L; // 0..4095
 
 	/**
 	 * 支持的最大机器 ID
 	 */
-	private final long maxWorkerId = -1L ^ (-1L << this.workerIdBits);
+	private static final long MAX_WORKER_ID = ~(-1L << WORKER_ID_BITS); // 31
 
 	/**
 	 * 支持的最大数据标识 ID
 	 */
-	private final long maxDatacenterId = -1L ^ (-1L << this.datacenterIdBits);
+	private static final long MAX_DATACENTER_ID = ~(-1L << DATACENTER_ID_BITS); // 31
 
 	/**
 	 * 机器 ID 向左移 12 位
 	 */
-	private final long workerIdShift = this.sequenceBits;
+	private static final long WORKER_ID_SHIFT = SEQUENCE_BITS; // 12
 
 	/**
 	 * 数据标识 ID 向左移 17 位
 	 */
-	private final long datacenterIdShift = this.sequenceBits + this.workerIdBits;
+	private static final long DATACENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS; // 17
 
 	/**
 	 * 时间截向左移 22 位
 	 */
-	private final long timestampLeftShift = this.sequenceBits + this.workerIdBits + this.datacenterIdBits;
+	private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATACENTER_ID_BITS; // 22
 
 	/**
 	 * 生成序列的掩码
 	 */
-	private final long sequenceMask = -1L ^ (-1L << this.sequenceBits);
+	private static final long SEQUENCE_MASK = ~(-1L << SEQUENCE_BITS); // 4095
+
+	/**
+	 * 允许容忍的最大回拨毫秒数 (<=5ms 等待, >5ms 才报错)
+	 */
+	private static final long MAX_BACKWARD_MS = 5L;
 
 	/**
 	 * 机器 ID
 	 */
-	private long workerId = 1L;
+	@Getter
+	private final long workerId;
 
 	/**
 	 * 数据中心 ID
 	 */
-	private long dataCenterId = 1L;
+	@Getter
+	private final long dataCenterId;
 
 	/**
 	 * 毫秒内序列号
@@ -131,24 +142,26 @@ public class SnowflakeGenerator {
 	 */
 	@Builder
 	public SnowflakeGenerator(long dataCenterId, long workerId) {
-		if (dataCenterId > this.maxDatacenterId || dataCenterId < 0) {
-			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", this.maxDatacenterId));
+		if (dataCenterId > MAX_DATACENTER_ID || dataCenterId < 0) {
+			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", MAX_DATACENTER_ID));
 		}
-		if (workerId > this.maxWorkerId || workerId < 0) {
-			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", this.maxWorkerId));
+		if (workerId > MAX_WORKER_ID || workerId < 0) {
+			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", MAX_WORKER_ID));
 		}
 		this.dataCenterId = dataCenterId;
 		this.workerId = workerId;
 	}
 
 	/**
-	 * 获得下一个 ID
+	 * 获得下一个 ID (Recommend)
 	 * @param dataCenterId 数据中心 ID
 	 * @param workerId 工作 ID
 	 * @return snowflakeId
 	 */
 	public static long nextId(long dataCenterId, long workerId) {
-		return SnowflakeGenerator.builder().dataCenterId(dataCenterId).workerId(workerId).build().nextId();
+		SnowflakeGenerator gen = REGISTRY.computeIfAbsent(key(dataCenterId, workerId),
+				k -> new SnowflakeGenerator(dataCenterId, workerId));
+		return gen.nextId();
 	}
 
 	/**
@@ -157,53 +170,68 @@ public class SnowflakeGenerator {
 	 */
 	@Synchronized
 	public long nextId() {
-		long timestamp = timeGen();
+		long ts = currentTime();
 
-		// 如果当前时间小于上一次 ID 生成的时间戳，说明系统时钟回退过，抛出异常
-		if (timestamp < this.lastTimestamp) {
-			throw new RuntimeException(String.format("时钟被回退 %d 毫秒，无法生成", this.lastTimestamp - timestamp));
-		}
-
-		// 如果是同一时间生成的，则进行毫秒内序列
-		if (this.lastTimestamp == timestamp) {
-			this.sequence = (this.sequence + 1) & this.sequenceMask;
-			// 毫秒内序列溢出
-			if (this.sequence == 0) {
-				// 阻塞到下一个毫秒，获得新的时间戳
-				timestamp = tillNextMillis(this.lastTimestamp);
+		// 处理时钟回拨
+		if (ts < this.lastTimestamp) {
+			long diff = this.lastTimestamp - ts;
+			if (diff <= MAX_BACKWARD_MS) {
+				ts = waitUntil(this.lastTimestamp); // 等到不小于 lastTimestamp
+			}
+			else {
+				throw new IllegalStateException("检测到时钟回拨 " + diff + "ms，大于允许阈值 " + MAX_BACKWARD_MS + "ms");
 			}
 		}
-		else { // 时间戳改变，毫秒内序列重置
-			this.sequence = 0L;
+
+		if (ts == this.lastTimestamp) {
+			// 同一毫秒内递增
+			this.sequence = (this.sequence + 1) & SEQUENCE_MASK;
+			if (this.sequence == 0) {
+				// 溢出，等到下一毫秒
+				ts = waitUntil(this.lastTimestamp + 1);
+			}
+		}
+		else {
+			this.sequence = 0L; // 新毫秒，序列归零（也可改为随机起点减冲突，但非必须）
 		}
 
-		// 上次生成 ID 的时间截
-		this.lastTimestamp = timestamp;
+		this.lastTimestamp = ts;
 
-		// 移位并通过或运算拼到一起组成 64 位的 ID
-		return ((timestamp - this.twepoch) << this.timestampLeftShift) | (this.dataCenterId << this.datacenterIdShift)
-				| (this.workerId << this.workerIdShift) | this.sequence;
+		// 组装 64 位 ID（最高位始终为 0）
+		return ((ts - EPOCH) << TIMESTAMP_LEFT_SHIFT) | (this.dataCenterId << DATACENTER_ID_SHIFT)
+				| (this.workerId << WORKER_ID_SHIFT) | this.sequence;
 	}
 
 	/**
-	 * 阻塞到下一个毫秒，直到获得新的时间戳
-	 * @param lastTimestamp 上次生成 ID 的时间截
-	 * @return 当前时间戳
+	 * 缓存 SnowflakeGenerator, 复用创建过的 generator, 避免每次 new 带来丢状态/重复的风险.
 	 */
-	protected long tillNextMillis(long lastTimestamp) {
-		long timestamp = timeGen();
-		while (timestamp <= lastTimestamp) {
-			timestamp = timeGen();
-		}
-		return timestamp;
+	private static final ConcurrentHashMap<Long, SnowflakeGenerator> REGISTRY = new ConcurrentHashMap<>();
+
+	private static long key(long dataCenterId, long workerId) {
+		return (dataCenterId << 5) | workerId;
 	}
 
-	/**
-	 * 返回以毫秒为单位的当前时间
-	 * @return 当前时间戳
-	 */
-	protected long timeGen() {
+	private static long currentTime() {
 		return System.currentTimeMillis();
+	}
+
+	private static long waitUntil(long targetTime) {
+		long now = currentTime();
+		while (now < targetTime) {
+			relax();
+			now = System.currentTimeMillis();
+		}
+		return now;
+	}
+
+	private static void relax() {
+		try {
+			Method method = Thread.class.getMethod("onSpinWait");
+			method.invoke(null);
+		}
+		catch (Exception ignore) {
+			LockSupport.parkNanos(100_000L); // -0.1ms
+		}
 	}
 
 }

@@ -1,5 +1,49 @@
 # ChangeLog
 
+## 3.25
+
+### Feature
+
+- Add module
+  - `radp-solutions-tenant`.
+  - `radp-dynamic-datasource-spring-boot-starter`
+- Optimize `devcontainer`.
+- Optimize `radp-mybatis-spring-boot-starter`.
+- Optimize `radp-spring-data`.
+- Optimize module `radp-spring-boot`:
+  - Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
+- Optimize module `radp-commons`:
+  - Optimize `SnowflakeGenerator`.
+  - Add `PasswordGeneratorUtils` for password generation and validation.
+  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
+  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
+  - Add mobile validation helper `isValidMobile()` for Mainland China numbers.
+
+### Bug fix
+
+- fix `AutofillMetaObjectHandler#updateFill` not work.
+
+### Dependencies
+
+- DependencyManagement add dependency `org.bouncycastle:bcprov-jdk15to18:1.81`.
+- DependencyManagement add dependency `org.passay:passay:1.6.6`.
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.25`.
+- Optimize `maven.config` default active profiles.
+- Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
+- Optimize `.idea` project codeStyles.
+- Optimize `checkstyle-suppressions.xml`. Suppress `HideUtilityClassConstructor` rule globally.
+- Optimize `application-local.yaml`
+
+### Docs
+
+- Comment added in the `application-logback.yaml` file to explain how to adjust the log file name using the environment
+  variable `LOG_FILE_BASENAME`.
+
 ## 3.24
 
 ### Feature

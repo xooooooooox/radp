@@ -1,20 +1,13 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 --- # log
 debug: false
 logging:
   file:
-    path: ../logs/${spring.application.name}
-  level:
-    space.x9x.radp: debug
-    space.x9x: debug
-    com.zaxxer.hikari.HikariConfig: debug
+    path: ${symbol_dollar}{LOG_HOME:/app/logs/${spring.application.name}}
 --- # database
 spring:
   datasource:
     username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
     password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
---- # hikari
-spring:
-  datasource:
-    hikari:
-      data-source-properties:
-        loggerLevel: INFO

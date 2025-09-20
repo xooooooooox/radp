@@ -10,8 +10,16 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ../..:/workspace:cached
+      - ../..:/workspace/radp:cached
     networks:
       - local-network
     environment:
       TZ: Asia/Shanghai
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

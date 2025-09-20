@@ -11,14 +11,22 @@ services:
   # 账号密码 admin/123456
   # kafka-eagle 可选择性安装, IntelliJ big-data-tools 也可以访问 kafka
   kafka-eagle:
-    image: echo21bash/kafka-eagle:3.0.2
+    image: echo21bash/kafka-eagle:${symbol_dollar}{KAFKA_EAGLE_VERSION}
     environment:
       KAFKA_EAGLE_ZK_LIST: zookeeper:2181
     volumes:
       - ./volumes/kafka/kafka-eagle/system-config.properties:/opt/kafka-eagle/conf/system-config.properties
     ports:
-      - "8048"
+      - "8048:8048"
     depends_on:
       - kafka
     networks:
       - local-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+        mode: "non-blocking"
+        max-buffer-size: "8m"

@@ -20,12 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.web.env.WebAPIProperties;
 
 /**
@@ -40,6 +42,7 @@ import space.x9x.radp.spring.boot.web.env.WebAPIProperties;
 @EnableConfigurationProperties(WebAPIProperties.class)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Slf4j
+@ConditionalOnProperty(prefix = WebAPIProperties.PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE)
 public class WebAPIAutoConfiguration implements WebMvcConfigurer {
 
 	/**

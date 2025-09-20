@@ -39,8 +39,13 @@ import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;
 @ToString
 @Setter
 @Getter
-@ConfigurationProperties(prefix = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "web")
+@ConfigurationProperties(prefix = WebAPIProperties.PREFIX)
 public class WebAPIProperties extends ApiConfig {
+
+	/**
+	 * Configuration properties prefix.
+	 */
+	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "web";
 
 	/**
 	 * Flag to enable or disable the web API functionality. When set to true, web API

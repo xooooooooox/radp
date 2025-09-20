@@ -17,6 +17,7 @@
 package space.x9x.radp.spring.data.mybatis.autofill;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.RequiredArgsConstructor;
@@ -43,17 +44,48 @@ public class AutofillMetaObjectHandler implements MetaObjectHandler {
 	 */
 	private final String lastModifiedDateFieldName;
 
+	/**
+	 * The field name representing the creator of the entity.
+	 */
+	private final String creatorFieldName;
+
+	/**
+	 * The field name representing the updater of the entity.
+	 */
+	private final String updaterFieldName;
+
 	@Override
 	public void insertFill(MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		this.strictInsertFill(metaObject, this.createdDateFieldName, LocalDateTime.class, now);
-		this.strictUpdateFill(metaObject, this.lastModifiedDateFieldName, LocalDateTime.class, now);
+
+		Object createdVal = this.getFieldValByName(this.createdDateFieldName, metaObject);
+		if (Objects.isNull(createdVal)) {
+			this.strictInsertFill(metaObject, this.createdDateFieldName, LocalDateTime.class, now);
+		}
+
+		Object lastModVal = this.getFieldValByName(this.lastModifiedDateFieldName, metaObject);
+		if (Objects.isNull(lastModVal)) {
+			this.strictInsertFill(metaObject, this.lastModifiedDateFieldName, LocalDateTime.class, now);
+		}
+
+		Long loginUserId = 1L; // TODO v3.25-2025/9/14: 需要从上下文中获取当前登录用户编号
+		Object creatorVal = this.getFieldValByName(this.creatorFieldName, metaObject);
+		if (Objects.isNull(creatorVal) && Objects.nonNull(loginUserId)) {
+			this.strictInsertFill(metaObject, this.creatorFieldName, String.class, loginUserId.toString());
+		}
+		Object updaterVal = this.getFieldValByName(this.updaterFieldName, metaObject);
+		if (Objects.isNull(updaterVal) && Objects.nonNull(loginUserId)) {
+			this.strictInsertFill(metaObject, this.updaterFieldName, String.class, loginUserId.toString());
+		}
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		this.strictUpdateFill(metaObject, this.lastModifiedDateFieldName, LocalDateTime.class, now);
+		this.setFieldValByName(this.lastModifiedDateFieldName, now, metaObject);
+
+		Long loginUserId = 1L; // TODO v3.25-2025/9/14: 需要从上下文中获取当前登录用户编号
+		this.setFieldValByName(this.updaterFieldName, loginUserId.toString(), metaObject);
 	}
 
 }

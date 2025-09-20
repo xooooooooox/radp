@@ -25,13 +25,12 @@ spring:
 --- # database
 spring:
   datasource:
+    url: jdbc:mysql://localhost:3306/${appName}?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     username: ENC(VDoSzyZ7jS/lvaBnAaIc3ePEo9bh6QEb)
     password: ENC(uvgZQKBNymDMjPilZgaRHAE4LEeSW1xj)
 --- # log
 debug: false
 logging:
-  file:
-    path: ../logs/${spring.application.name}
   level:
     space.x9x.radp: debug
     space.x9x: debug

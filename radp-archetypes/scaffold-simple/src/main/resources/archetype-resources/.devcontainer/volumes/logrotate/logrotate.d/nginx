@@ -1,0 +1,22 @@
+/logs/nginx/*.log {
+	daily						# 每日检测是否需要轮转
+	size 100M					# 单文件超过 100M 也轮转
+	rotate 14					# 保留 7 个归档日志
+	maxage 30					# 删除轮转文件中超过30天的归档
+	dateext						# 使用日期后缀
+	dateformat -%Y%m%d			# 文件名后缀形如 -20250910
+	compress					# 使用 gzip 压缩
+	delaycompress				# 最近一份归档不压缩
+	missingok					# 文件不存在不报错
+	notifempty					# 空文件不轮转
+	create 0640 nginx adm		# 已制定权限 user/group 创建型日志
+	sharedscripts				# 多个文件只执行以此 postrotate
+	postrotate
+		# 不要使用 copytruncate (Nginx 支持 USER1 优雅重开日志
+		# 只有在无法向 master 进程发信号时才考虑 copytruncate
+		if [ -f /var/run/nginx.pid ]; then
+			kill -USER1 $(cat /var/run/nginx.pid)
+		fi
+	endscript
+	olddir /logs/nginx/archive	# 轮转后的文件移动到这个目录下
+}

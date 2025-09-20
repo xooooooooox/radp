@@ -1,10 +1,13 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 --- # logback
 debug: false
 logging:
   config: classpath:radp/logback/template/logback-spring.xml
   file:
-    path: ./logs/${spring.application.name}
-    name: ${logging.file.path}/${spring.application.name}.log # 日志文件名，全路径
+    path: ${symbol_dollar}{LOG_HOME:./logs/${spring.application.name}}
+    name: ${logging.file.path}/${symbol_dollar}{LOG_FILE_BASENAME:${symbol_dollar}{HOSTNAME:${spring.application.name}}}.log # 日志文件名，全路径
   logback:
     rollingpolicy:
       max-history: 7

@@ -21,5 +21,7 @@ radp:
       # 是否自动填充创建时间和更新时间
       auto-fill:
         enabled: true
-        created-data-field-name: createdDate
-        last-modified-date-field-name: lastModifiedDate
+        created-data-field-name: createdAt
+        last-modified-date-field-name: updatedAt
+        creator-field-name: creator
+        updater-field-name: updater

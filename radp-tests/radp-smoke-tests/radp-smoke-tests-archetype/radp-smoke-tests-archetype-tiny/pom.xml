@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-smoke-tests-archetype</artifactId>
-		<version>3.25</version>
+		<version>3.26-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>radp-smoke-tests-archetype-tiny</artifactId>

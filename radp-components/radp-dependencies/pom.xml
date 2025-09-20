@@ -36,6 +36,7 @@
 		<mybatis-plus-join-boot-starter.version>1.5.2</mybatis-plus-join-boot-starter.version>
 		<druid.version>1.2.16</druid.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
+		<dynamic-datasource-spring-boot3-starter>4.3.1</dynamic-datasource-spring-boot3-starter>
 
 		<!-- [NoSQL] -->
 		<mongobee.version>0.13</mongobee.version>
@@ -304,6 +305,11 @@
 				<artifactId>radp-liquibase-spring-boot-starter</artifactId>
 				<version>3.25-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>space.x9x.radp</groupId>
+				<artifactId>radp-dynamic-datasource-spring-boot-starter</artifactId>
+				<version>3.25-SNAPSHOT</version>
+			</dependency>
 
 			<!-- TODO: radp-xx-spring-cloud-starters -->
 
@@ -410,6 +416,12 @@
 				<groupId>com.github.pagehelper</groupId>
 				<artifactId>pagehelper</artifactId>
 				<version>${pagehelper.version}</version>
+			</dependency>
+			<!-- dynamic datasource -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+				<version>${dynamic-datasource-spring-boot3-starter}</version>
 			</dependency>
 			<!-- ====================关系型数据库]==================== -->
 

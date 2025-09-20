@@ -14,19 +14,31 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.spring.data.jdbc.datasource;
+package space.x9x.radp.dynamic.datasource.spring.boot.custom;
+
+import java.util.List;
 
 import javax.sql.DataSource;
 
-import space.x9x.radp.extension.SPI;
+import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
+
+import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceContextHolder;
 
 /**
  * @author IO x9x
- * @since 2024-09-30 13:57
+ * @since 2025-09-20 01:04
  */
-@SPI
-public interface DataSourceResolver {
+public class CustomDynamicRoutingDataSource extends DynamicRoutingDataSource {
 
-	DataSource resolveDataSource(DataSource originalDataSource);
+	public CustomDynamicRoutingDataSource(List<DynamicDataSourceProvider> providers) {
+		super(providers);
+	}
+
+	@Override
+	public DataSource determineDataSource() {
+		String dsKey = RoutingDataSourceContextHolder.peek();
+		return getDataSource(dsKey);
+	}
 
 }

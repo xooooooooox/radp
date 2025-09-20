@@ -21,9 +21,7 @@ import javax.sql.DataSource;
 import space.x9x.radp.extension.SPI;
 
 /**
- * Data Source Resolver interface. This interface defines methods for resolving or
- * transforming data sources. Implementations can unwrap proxied data sources or perform
- * other transformations to access the underlying data source.
+ * 数据源解析器
  *
  * @author IO x9x
  * @since 2024-09-30 13:57
@@ -32,9 +30,9 @@ import space.x9x.radp.extension.SPI;
 public interface DataSourceResolver {
 
 	/**
-	 * Resolves or transforms a data source.
-	 * @param originalDataSource the original data source to be resolved
-	 * @return the resolved data source
+	 * 解析数据源
+	 * @param originalDataSource 原始数据源
+	 * @return 解析后的数据源
 	 */
 	DataSource resolveDataSource(DataSource originalDataSource);
 

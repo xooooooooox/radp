@@ -50,7 +50,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class, MybatisConfiguration.class })
 @ConditionalOnProperty(name = MybatisPlusExtensionProperties.AUTO_FILL_ENABLED, havingValue = "true")
 @AutoConfiguration(after = MybatisPlusAutoConfiguration.class)
-public class RadpMybatisPlusExtensionAutoConfiguration {
+public class MybatisPlusExtensionAutoConfiguration {
 
 	/**
 	 * Log a message for when the MetaObjectHandler is autowired. This constant defines
@@ -70,7 +70,8 @@ public class RadpMybatisPlusExtensionAutoConfiguration {
 	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
 		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
 		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDataFieldName(),
-				properties.getAutoFill().getLastModifiedDateFieldName());
+				properties.getAutoFill().getLastModifiedDateFieldName(), properties.getAutoFill().getCreatorFieldName(),
+				properties.getAutoFill().getUpdaterFieldName());
 	}
 
 }

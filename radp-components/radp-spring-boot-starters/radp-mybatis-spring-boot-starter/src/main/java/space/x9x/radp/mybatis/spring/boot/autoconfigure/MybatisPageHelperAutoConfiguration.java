@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Role;
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @AutoConfiguration(after = DataSourceAutoConfiguration.class)
 @Slf4j
-public class RadpMybatisPageHelperAutoConfiguration {
+public class MybatisPageHelperAutoConfiguration {
 
 	/**
 	 * Log message used when the MybatisPlusInterceptor is autowired. This message is

@@ -47,7 +47,7 @@ import space.x9x.radp.spring.data.mybatis.plugin.MybatisSqlLogInterceptor;
 @AutoConfiguration(after = DataSourceAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
-public class RadpMybatisPluginAutoConfiguration {
+public class MybatisPluginAutoConfiguration {
 
 	/**
 	 * Log message used when the MybatisSqlLogInterceptor is autowired. This message is

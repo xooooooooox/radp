@@ -1,3 +1,3 @@
-space.x9x.radp.mybatis.spring.boot.autoconfigure.RadpMybatisPageHelperAutoConfiguration
-space.x9x.radp.mybatis.spring.boot.autoconfigure.RadpMybatisPluginAutoConfiguration
-space.x9x.radp.mybatis.spring.boot.autoconfigure.RadpMybatisPlusExtensionAutoConfiguration
+space.x9x.radp.mybatis.spring.boot.autoconfigure.MybatisPageHelperAutoConfiguration
+space.x9x.radp.mybatis.spring.boot.autoconfigure.MybatisPluginAutoConfiguration
+space.x9x.radp.mybatis.spring.boot.autoconfigure.MybatisPlusExtensionAutoConfiguration

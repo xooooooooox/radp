@@ -4,8 +4,10 @@
 
 ### Feature
 
+- Add module
+  - `radp-solutions-tenant`.
+  - `radp-dynamic-datasource-spring-boot-starter`
 - Optimize `devcontainer`.
-- Add module `radp-solutions`.
 - Optimize `radp-mybatis-spring-boot-starter`.
 - Optimize `radp-spring-data`.
 - Optimize module `radp-spring-boot`:

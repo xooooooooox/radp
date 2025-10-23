@@ -2,6 +2,10 @@
 
 ## 2.26
 
+### Fix
+
+- Fix `RestExceptionHandler`.
+
 ### Chore
 
 #### Scaffold

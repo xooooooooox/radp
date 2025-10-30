@@ -182,6 +182,7 @@
 			<property name="format" value="[ \t]+$"/>
 			<property name="illegalPattern" value="true"/>
 			<property name="message" value="Trailing whitespace"/>
+			<property name="ignoreComments" value="true"/>
 		</module>
 		<module name="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck">
 			<property name="id" value="atSinceVersionConvention"/>

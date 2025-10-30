@@ -2,6 +2,13 @@
 
 ## 2.26
 
+### Feature
+
+- Add module
+  - `radp-solution-excel`
+- Optimize the checkstyle configuration file to include a property that ignores comments in the trailing whitespace
+  check.
+
 ### Fix
 
 - Fix `RestExceptionHandler`.
@@ -27,8 +34,10 @@
 - Optimize module `radp-commons`:
   - Optimize `SnowflakeGenerator`.
   - Add `PasswordGeneratorUtils` for password generation and validation.
-  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
-  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
+  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid
+    usernames, valid emails, etc.
+  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based
+    validation, rule-based generator).
   - Add mobile validation helper `isValidMobile()` for Mainland China numbers.
 
 ### Bug fix

@@ -16,10 +16,15 @@
 
 package space.x9x.radp.commons.collections;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import lombok.experimental.UtilityClass;
 
@@ -81,6 +86,24 @@ public class CollectionUtils {
 		Set<T> elements = new LinkedHashSet<>(values.length, loadFactor);
 		Collections.addAll(elements, values);
 		return Collections.unmodifiableSet(elements);
+	}
+
+	/**
+	 * Converts a collection of elements from one type to another using a provided mapping function.
+	 * The method processes the input collection and applies the mapping function to each element,
+	 * filters out null results, and collects the results into a new list.
+	 *
+	 * @param <T> the type of the elements in the input collection
+	 * @param <U> the type of the elements in the output list
+	 * @param from the input collection to convert, may be null or empty
+	 * @param func the mapping function to apply to each element of the collection
+	 * @return a list of converted elements, or an empty list if the input collection is null or empty
+	 */
+	public static <T, U> List<U> convertList(Collection<T> from, Function<T, U> func) {
+		if (isEmpty(from)) {
+			return new ArrayList<>();
+		}
+		return from.stream().map(func).filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
 }

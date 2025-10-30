@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>space.x9x.radp</groupId>
-			<artifactId>radp-extensions</artifactId>
+			<artifactId>radp-spring-framework</artifactId>
 		</dependency>
 
 		<dependency>
@@ -23,6 +23,11 @@
 			<artifactId>fastexcel</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>

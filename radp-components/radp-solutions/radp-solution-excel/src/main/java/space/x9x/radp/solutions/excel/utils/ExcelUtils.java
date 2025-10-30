@@ -17,13 +17,19 @@
 package space.x9x.radp.solutions.excel.utils;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import cn.idev.excel.FastExcelFactory;
+import cn.idev.excel.converters.longconverter.LongStringConverter;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import space.x9x.radp.solutions.excel.handler.ColumnWidthMatchStyleStrategy;
+import space.x9x.radp.solutions.excel.handler.SelectSheetWriteHandler;
 
 /**
  * Excel 工具类.
@@ -49,9 +55,26 @@ public class ExcelUtils {
 		// 输出 Excel
 		FastExcelFactory.write(response.getOutputStream(), head)
 			.autoCloseStream(false) // 不要自动关闭, 交给 Servlet 处理
-			.registerWriteHandler(new ColumnWidthMatchStyleStrategy()) // 基于 column 长度, 自动适配单元格宽度, 最大 255 宽度
-			.registerWriteHandler()
+			.registerWriteHandler(new ColumnWidthMatchStyleStrategy()) // 基于 column 长度,
+																		// 自动适配单元格宽度, 最大
+																		// 255 宽度
+			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框,
+																		// 基于
+																		// @ExcelColumnSelect
+																		// 注解配置
+			.registerConverter(new LongStringConverter()) // 避免 Long 类型丢失精度
+			.sheet(sheetName)
+			.doWrite(data);
 
+		// 设置 header 和 contentType. 放到最后的原因是, 避免报错时, 响应 contentType 已经被修改了
+		response.setHeader("Content-Disposition", String.format("attachment;filename=%s", URLEncoder.encode(filename, StandardCharsets.UTF_8.displayName())));
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+	}
+
+	public static <T> List<T> read(MultipartFile file, Class<T> head) throws IOException{
+		return FastExcelFactory.read(file.getInputStream(), head, null)
+			.autoCloseStream(false) // 不自动关闭, 交给 Servlet 处理
+			.doReadAllSync();
 	}
 
 }

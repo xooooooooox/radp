@@ -8,6 +8,7 @@
   - `radp-solution-excel`
 - Optimize the checkstyle configuration file to include a property that ignores comments in the trailing whitespace
   check.
+- Optimize radp-commons
 
 ### Fix
 

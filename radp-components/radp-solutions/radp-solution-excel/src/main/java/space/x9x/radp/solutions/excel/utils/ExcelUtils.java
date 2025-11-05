@@ -49,6 +49,7 @@ public class ExcelUtils {
 	 * rows do not exceed this threshold.
 	 */
 	private static final int COLUMN_AUTO_WIDTH_MAX_ROWS = 3000;
+	private static final java.util.regex.Pattern NON_VISIBLE_ASCII = java.util.regex.Pattern.compile("[^\\x20-\\x7E]");
 
 	/**
 	 * 将列表以 Excel 响应给前端.
@@ -60,6 +61,7 @@ public class ExcelUtils {
 	 * @param <T> 泛型, 保证 head 和 data 数据类型的一致性
 	 * @throws IOException 写失败的情况下抛出异常
 	 */
+	// @formatter:off
 	public static <T> void write(HttpServletResponse response, String filename, String sheetName, Class<T> head,
 			List<T> data) throws IOException {
 		// 先准备好安全的文件名、表名和数据，但不要提前修改响应头，避免后续写入报错时 contentType 已被修改
@@ -74,12 +76,11 @@ public class ExcelUtils {
 		// 采用 RFC 5987/6266 的 Content-Disposition，避免在 header 中出现非 ASCII 字符导致 Tomcat 丢弃
 		// 先构建 UTF-8 百分号编码的 filename*，再提供 ASCII-only 的 filename 作为回退
 		String encodedFileName = URLEncoder.encode(safeFilename, StandardCharsets.UTF_8.name()).replace("+", "%20"); // 空格使用 %20
-		String asciiFallback = toAsciiFilename(safeFilename);
-		// 许多浏览器在同时存在 filename 与 filename* 时，会优先采用**后出现**的参数。
-		// 为了兼容 Chrome/Edge/Firefox 等，先放 ASCII 回退的 filename，再放 RFC 5987 的 filename*（UTF-8 百分号编码），从而正确显示中文文件名。
+		// 为了兼容不支持 filename* 的客户端（如部分 Postman 版本），将 filename 也设置为 UTF-8 百分号编码值
+		// 大多数现代浏览器会优先使用 filename*，忽略这里的编码值；不支持 filename* 的客户端可以据此还原中文文件名
 		String contentDisposition = String.format(
-			"attachment; filename=\"%s\"; filename*=UTF-8''%s",
-			asciiFallback,
+			"attachment; filename*=UTF-8''%s; filename=\"%s\"",
+			encodedFileName,
 			encodedFileName
 		);
 
@@ -87,7 +88,7 @@ public class ExcelUtils {
 		java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
 		ExcelWriterBuilder writer = FastExcelFactory.write(baos, head)
 			.autoCloseStream(false) // 不要自动关闭
-			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框, 基于 @ExcelColumnSelect 注解配置
+			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框, 基于@ExcelColumnSelect 注解配置
 			.registerConverter(new LongStringConverter()); // 避免 Long 类型丢失精度
 
 		int size = safeData.size();
@@ -106,6 +107,7 @@ public class ExcelUtils {
 		response.setContentLength(baos.size());
 		baos.writeTo(response.getOutputStream());
 	}
+	// @formatter:on
 
 	/**
 	 * 从 Excel 文件中读取数据.
@@ -119,41 +121,6 @@ public class ExcelUtils {
 		return FastExcelFactory.read(file.getInputStream(), head, null)
 			.autoCloseStream(false) // 不自动关闭, 交给 Servlet 处理
 			.doReadAllSync();
-	}
-
-	/**
-	 * 将文件名转换为仅包含可见 ASCII 的回退形式，防止在 HTTP header 中出现非 ASCII 字符。
-	 *.
-	 * - 替换非 ASCII 字符为下划线
-	 * - 过滤 CR/LF，避免 header 注入
-	 * - 转义双引号为单引号
-	 */
-	private static String toAsciiFilename(String filename) {
-		if (filename == null || filename.trim().isEmpty()) {
-			return "export.xlsx";
-		}
-		StringBuilder sb = new StringBuilder(filename.length());
-		for (int i = 0; i < filename.length(); i++) {
-			char ch = filename.charAt(i);
-			if (ch == '"') {
-				sb.append('\'');
-			}
-			else if (ch == '\r' || ch == '\n') {
-				// skip CR/LF
-				continue;
-			}
-			else if (ch < 0x20 || ch > 0x7E) { // 非可见 ASCII
-				sb.append('_');
-			}
-			else {
-				sb.append(ch);
-			}
-		}
-		String result = sb.toString().trim();
-		if (result.isEmpty()) {
-			result = "export.xlsx";
-		}
-		return result;
 	}
 
 }

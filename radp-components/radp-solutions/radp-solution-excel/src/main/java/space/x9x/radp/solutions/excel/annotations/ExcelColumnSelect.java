@@ -36,11 +36,13 @@ import java.lang.annotation.Target;
 public @interface ExcelColumnSelect {
 
 	/**
+	 * .
 	 * @return 字典类型
 	 */
 	String dictType() default "";
 
 	/**
+	 * .
 	 * @return 获取下拉数据源的方法名称
 	 */
 	String functionName() default "";

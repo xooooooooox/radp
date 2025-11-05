@@ -45,6 +45,9 @@ public class ColumnWidthMatchStyleStrategy extends AbstractColumnWidthStyleStrat
 	 */
 	private static final int MAX_COLUMN_WIDTH = 255;
 
+	/**
+	 * 缓存每一列的宽度. key 为 sheet 位置，value：key 为列下标，value 为列宽度
+	 */
 	private final Map<Integer, Map<Integer, Integer>> cache = MapUtils.newHashMapWithExpectedSize(8);
 
 	@Override

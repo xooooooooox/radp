@@ -27,11 +27,13 @@ import java.util.List;
 public interface ExcelColumnSelectFunction {
 
 	/**
-	 * @return 获得方法名称
+	 * 获得方法名称.
+	 * @return 方法名称
 	 */
 	String getName();
 
 	/**
+	 * 获取下拉数据源.
 	 * @return 下拉数据源
 	 */
 	List<String> getOptions();

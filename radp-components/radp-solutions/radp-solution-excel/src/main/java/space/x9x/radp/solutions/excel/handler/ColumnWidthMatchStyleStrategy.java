@@ -74,7 +74,7 @@ public class ColumnWidthMatchStyleStrategy extends AbstractColumnWidthStyleStrat
 	}
 
 	private Integer dataLength(List<WriteCellData<?>> cellDataList, Cell cell, Boolean isHead) {
-		if (isHead) {
+		if (Boolean.TRUE.equals(isHead)) {
 			return cell.getStringCellValue().getBytes().length;
 		}
 

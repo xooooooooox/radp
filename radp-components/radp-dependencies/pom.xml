@@ -258,6 +258,11 @@
 				<artifactId>radp-solution-tenant</artifactId>
 				<version>2.26-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>space.x9x.radp</groupId>
+				<artifactId>radp-solution-excel</artifactId>
+				<version>2.26-SNAPSHOT</version>
+			</dependency>
 
 			<!-- radp-xx-spring-boot-starter -->
 			<dependency>

@@ -87,7 +87,6 @@
 		<!-- [工具集] -->
 		<spring-shell.version>2.1.13</spring-shell.version>
 		<jasypt.version>3.0.5</jasypt.version>
-		<commons-io.version>2.7</commons-io.version>
 		<hutool.version>5.8.25</hutool.version>
 		<commons-httpclient.version>3.1</commons-httpclient.version>
 		<retrofit2.version>2.9.0</retrofit2.version>
@@ -584,12 +583,6 @@
 				<groupId>com.github.ulisesbocchio</groupId>
 				<artifactId>jasypt-spring-boot-starter</artifactId>
 				<version>${jasypt.version}</version>
-			</dependency>
-			<!-- Apache Commons IO：提供文件和流的通用工具类 -->
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
 			</dependency>
 			<!-- Hutool：Java 工具库，提供丰富的工具类 -->
 			<dependency>

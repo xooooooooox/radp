@@ -10,6 +10,10 @@
   check.
 - Optimize radp-commons
 
+### Dependencies
+
+- Remove `commons-io` to resolve transitive conflict with `fastexcel`.
+
 ### Fix
 
 - Fix `RestExceptionHandler`.

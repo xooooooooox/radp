@@ -26,6 +26,6 @@ import lombok.experimental.UtilityClass;
  * @since 2025-03-31 18:41
  */
 @UtilityClass
-public class FileUtils extends org.apache.commons.io.FileUtils {
+public class FileUtils {
 
 }

@@ -89,15 +89,16 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Converts a collection of elements from one type to another using a provided mapping function.
-	 * The method processes the input collection and applies the mapping function to each element,
-	 * filters out null results, and collects the results into a new list.
-	 *
+	 * Converts a collection of elements from one type to another using a provided mapping
+	 * function. The method processes the input collection and applies the mapping
+	 * function to each element, filters out null results, and collects the results into a
+	 * new list.
 	 * @param <T> the type of the elements in the input collection
 	 * @param <U> the type of the elements in the output list
 	 * @param from the input collection to convert, may be null or empty
 	 * @param func the mapping function to apply to each element of the collection
-	 * @return a list of converted elements, or an empty list if the input collection is null or empty
+	 * @return a list of converted elements, or an empty list if the input collection is
+	 * null or empty
 	 */
 	public static <T, U> List<U> convertList(Collection<T> from, Function<T, U> func) {
 		if (isEmpty(from)) {

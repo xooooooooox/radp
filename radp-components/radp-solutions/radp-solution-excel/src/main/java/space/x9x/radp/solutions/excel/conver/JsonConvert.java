@@ -65,8 +65,10 @@ public class JsonConvert implements Converter<Object> {
 	 * @throws Exception 转换异常
 	 */
 	@Override
-	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) throws Exception {
 		// 生成 Excel 小表格
 		return new WriteCellData<>(JacksonUtils.toJSONString(value));
 	}
+
 }

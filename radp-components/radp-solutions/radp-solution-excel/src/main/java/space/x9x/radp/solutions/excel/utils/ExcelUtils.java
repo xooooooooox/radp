@@ -67,11 +67,12 @@ public class ExcelUtils {
 			.doWrite(data);
 
 		// 设置 header 和 contentType. 放到最后的原因是, 避免报错时, 响应 contentType 已经被修改了
-		response.setHeader("Content-Disposition", String.format("attachment;filename=%s", URLEncoder.encode(filename, StandardCharsets.UTF_8.displayName())));
+		response.setHeader("Content-Disposition", String.format("attachment;filename=%s",
+				URLEncoder.encode(filename, StandardCharsets.UTF_8.displayName())));
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 	}
 
-	public static <T> List<T> read(MultipartFile file, Class<T> head) throws IOException{
+	public static <T> List<T> read(MultipartFile file, Class<T> head) throws IOException {
 		return FastExcelFactory.read(file.getInputStream(), head, null)
 			.autoCloseStream(false) // 不自动关闭, 交给 Servlet 处理
 			.doReadAllSync();

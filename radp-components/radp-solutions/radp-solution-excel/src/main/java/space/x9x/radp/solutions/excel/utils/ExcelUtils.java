@@ -49,7 +49,6 @@ public class ExcelUtils {
 	 * rows do not exceed this threshold.
 	 */
 	private static final int COLUMN_AUTO_WIDTH_MAX_ROWS = 3000;
-	private static final java.util.regex.Pattern NON_VISIBLE_ASCII = java.util.regex.Pattern.compile("[^\\x20-\\x7E]");
 
 	/**
 	 * 将列表以 Excel 响应给前端.

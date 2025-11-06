@@ -65,7 +65,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	/**
 	 * 数据起始行默认从 1 开始.
 	 * <p>
-	 * 约定: excel 第一行为标题行, 所以数据起始行从 1 开始; 如果有多行标题, 则根据实际进行调整
+	 * 约定: excel 第一行为标题行, 所以数据起始行从 1 开始(0为基); 如果有多行标题, 则根据实际进行调整
 	 */
 	public static final int FIRST_ROW = 1;
 
@@ -188,15 +188,14 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	}
 
 	@Override
+	// @formatter:off
 	public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
 		if (CollUtil.isEmpty(this.selectMap)) {
 			return;
 		}
 
 		// 1. 获取响应操作对象
-		DataValidationHelper dataValidationHelper = writeSheetHolder.getSheet().getDataValidationHelper(); // 需要设置下拉框的
-																											// sheet
-																											// 页的数据验证助手
+		DataValidationHelper dataValidationHelper = writeSheetHolder.getSheet().getDataValidationHelper(); // 需要设置下拉框的 sheet 页的数据验证助手
 		Workbook workbook = writeWorkbookHolder.getWorkbook(); // 获得工作簿
 		List<Entry<Integer, List<String>>> entries = CollectionUtils.convertList(this.selectMap.entrySet(),
 				entry -> entry);
@@ -220,6 +219,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 			setColumnSelect(writeSheetHolder, workbook, dataValidationHelper, entry);
 		}
 	}
+	// @formatter:on
 
 	private void setColumnSelect(WriteSheetHolder writeSheetHolder, Workbook workbook,
 			DataValidationHelper dataValidationHelper, Map.Entry<Integer, List<String>> entry) {
@@ -231,7 +231,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		String excelColumn = ExcelUtil.indexToColName(colIndex);
 		// 1.2 下拉框数据来源 e.g. dict_sheet!$B1:$B2
 		String refers = String.format("%s!$%s$1:$%s$%d", DICT_SHEET_NAME, excelColumn, excelColumn, rowLength);
-		name.setNameName(String.format("dict_%s", colIndex)); // 设置名称的名字
+		name.setNameName(String.format("dict%s", colIndex)); // 设置名称的名字
 		name.setRefersToFormula(refers); // 设置公式
 
 		// 2.1 设置约束

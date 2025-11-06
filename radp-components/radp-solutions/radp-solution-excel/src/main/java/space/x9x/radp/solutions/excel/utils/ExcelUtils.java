@@ -105,12 +105,22 @@ public class ExcelUtils {
 
 	// @formatter:off
 	private static <T> ExcelWriterBuilder baseWriter(OutputStream out, Class<T> head) {
+		return baseWriter(out, head, null, null);
+	}
+
+	private static <T> ExcelWriterBuilder baseWriter(OutputStream out, Class<T> head, Integer firstRow) {
+		return baseWriter(out, head, firstRow, null);
+	}
+
+	private static <T> ExcelWriterBuilder baseWriter(OutputStream out, Class<T> head, Integer firstRow, Integer lastRow) {
 		// Excel stores numbers with a maximum precision of 15 digits.
 		// Java `Long` (up to 19 digits). When exported as numeric cells, Excel rounds the tailing digits to zeros
 
 		return FastExcelFactory.write(out, head)
 			.autoCloseStream(false) // 不要自动关闭, 交给 Servlet 处理
-			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框,基于@ExcelColumnSelect 注解配置
+			.registerWriteHandler((firstRow == null && lastRow == null)
+				? new SelectSheetWriteHandler(head)
+				: new SelectSheetWriteHandler(head, firstRow, lastRow)) // 处理 Excel 单元格的下拉框,基于@ExcelColumnSelect 注解配置
 			.registerConverter(new LongStringConverter()); // 避免 Long 类型丢失精度
 	}
 	// @formatter:on
@@ -127,6 +137,39 @@ public class ExcelUtils {
 	 */
 	public static <T> void write(HttpServletResponse response, String filename, String sheetName, Class<T> head,
 			List<T> data) throws IOException {
+		write(response, filename, sheetName, head, data, null);
+	}
+
+	/**
+	 * 将列表以 Excel 响应给前端，支持自定义下拉起始行.
+	 * @param response 响应
+	 * @param filename 文件名
+	 * @param sheetName excel sheet 名
+	 * @param head excel head 头
+	 * @param data 数据列表
+	 * @param firstRow 下拉验证的首行（0 基，未指定默认为 1）
+	 * @param <T> 泛型, 保证 head 和 data 数据类型的一致性
+	 * @throws IOException 写失败的情况下抛出异常
+	 */
+	public static <T> void write(HttpServletResponse response, String filename, String sheetName, Class<T> head,
+			List<T> data, Integer firstRow) throws IOException {
+		write(response, filename, sheetName, head, data, firstRow, null);
+	}
+
+	/**
+	 * 将列表以 Excel 响应给前端，支持自定义下拉起始/终止行.
+	 * @param response 响应
+	 * @param filename 文件名
+	 * @param sheetName excel sheet 名
+	 * @param head excel head 头
+	 * @param data 数据列表
+	 * @param firstRow 下拉验证的首行（0 基，未指定默认为 1）
+	 * @param lastRow 下拉验证的末行（0 基，未指定默认为默认 LAST_ROW）
+	 * @param <T> 泛型, 保证 head 和 data 数据类型的一致性
+	 * @throws IOException 写失败的情况下抛出异常
+	 */
+	public static <T> void write(HttpServletResponse response, String filename, String sheetName, Class<T> head,
+			List<T> data, Integer firstRow, Integer lastRow) throws IOException {
 		// 先准备好安全的文件名、表名和数据，但不要提前修改响应头，避免后续写入报错时 contentType 已被修改
 		String safeFilename = normalizeFilename(filename);
 		String safeSheetName = normalizeSheetName(sheetName);
@@ -137,7 +180,7 @@ public class ExcelUtils {
 
 		// 生成 Excel 到内存缓冲区，只有成功后才设置响应头与写出内容
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ExcelWriterBuilder writer = baseWriter(baos, head);
+		ExcelWriterBuilder writer = baseWriter(baos, head, firstRow, lastRow);
 
 		int size = safeData.size();
 		// @formatter:off
@@ -169,7 +212,7 @@ public class ExcelUtils {
 	 */
 	public static <T> void writeLarge(HttpServletResponse response, String filename, String sheetName, Class<T> head,
 			List<T> data) throws IOException {
-		writeLarge(response, filename, sheetName, head, data, DEFAULT_BATCH_SIZE);
+		writeLarge(response, filename, sheetName, head, data, DEFAULT_BATCH_SIZE, null);
 	}
 
 	/**
@@ -185,6 +228,41 @@ public class ExcelUtils {
 	 */
 	public static <T> void writeLarge(HttpServletResponse response, String filename, String sheetName, Class<T> head,
 			List<T> data, int batchSize) throws IOException {
+		writeLarge(response, filename, sheetName, head, data, batchSize, null);
+	}
+
+	/**
+	 * 针对大数据量的 Excel 导出，支持自定义批大小与下拉起始行的流式写出.
+	 * @param response 响应
+	 * @param filename 文件名
+	 * @param sheetName sheet 名称
+	 * @param head 表头类型
+	 * @param data 数据列表（会按批次写出）
+	 * @param batchSize 每批写出的记录数，建议 1000~10000
+	 * @param firstRow 下拉验证的首行（0 基，未指定默认为 1）
+	 * @param <T> 泛型
+	 * @throws IOException 写入失败抛出异常。
+	 */
+	public static <T> void writeLarge(HttpServletResponse response, String filename, String sheetName, Class<T> head,
+			List<T> data, int batchSize, Integer firstRow) throws IOException {
+		writeLarge(response, filename, sheetName, head, data, batchSize, firstRow, null);
+	}
+
+	/**
+	 * 针对大数据量的 Excel 导出，支持自定义批大小与下拉起始/终止行的流式写出.
+	 * @param response 响应
+	 * @param filename 文件名
+	 * @param sheetName sheet 名称
+	 * @param head 表头类型
+	 * @param data 数据列表（会按批次写出）
+	 * @param batchSize 每批写出的记录数，建议 1000~10000
+	 * @param firstRow 下拉验证的首行（0 基，未指定默认为 1）
+	 * @param lastRow 下拉验证的末行（0 基，未指定默认为默认 LAST_ROW）
+	 * @param <T> 泛型
+	 * @throws IOException 写入失败抛出异常。
+	 */
+	public static <T> void writeLarge(HttpServletResponse response, String filename, String sheetName, Class<T> head,
+			List<T> data, int batchSize, Integer firstRow, Integer lastRow) throws IOException {
 		String safeFilename = normalizeFilename(filename);
 		String safeSheetName = normalizeSheetName(sheetName);
 		List<T> safeData = safeList(data);
@@ -196,7 +274,7 @@ public class ExcelUtils {
 
 		ExcelWriter excelWriter = null;
 		try {
-			excelWriter = baseWriter(response.getOutputStream(), head)
+			excelWriter = baseWriter(response.getOutputStream(), head, firstRow, lastRow)
 				// 大文件导出关闭列宽自适应，避免高昂的计算开销（不注册列宽策略）
 				.build();
 

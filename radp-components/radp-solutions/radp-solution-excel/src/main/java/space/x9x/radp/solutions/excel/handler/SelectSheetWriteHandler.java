@@ -88,8 +88,24 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	 */
 	private final Map<Integer, List<String>> selectMap = new HashMap<>();
 
+	/**
+	 * 数据起始行（用于设置下拉验证的首行）。未指定时默认为 {@link #FIRST_ROW}.
+	 */
+	private final int firstRow;
+
+	/**
+	 * 数据终止行（用于设置下拉验证的末行）。未指定时默认为 {@link #LAST_ROW}.
+	 */
+	private final int lastRow;
+
 	public SelectSheetWriteHandler(Class<?> head) {
+		this.firstRow = FIRST_ROW; // 默认起始行为 1（第二行，第一行为标题）
+		this.lastRow = LAST_ROW; // 默认终止行为 2000 行
 		// 解析下拉数据
+		parseHead(head);
+	}
+
+	private void parseHead(Class<?> head) {
 		int colIndex = 0;
 		boolean ignoreUnannotated = head.isAnnotationPresent(ExcelIgnoreUnannotated.class);
 		for (Field field : head.getDeclaredFields()) {
@@ -113,6 +129,28 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 			}
 			colIndex++;
 		}
+	}
+
+	/**
+	 * 支持自定义下拉验证的起始行.
+	 * @param head 表头 class
+	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 <0 则回退到 {@link #FIRST_ROW}）
+	 */
+	public SelectSheetWriteHandler(Class<?> head, Integer firstRow) {
+		this(head, firstRow, null);
+	}
+
+	/**
+	 * 支持自定义下拉验证的起始行与终止行.
+	 * @param head 表头 class
+	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 <0 则回退到 {@link #FIRST_ROW}）
+	 * @param lastRow 下拉验证的末行（0 基，若传入 null、<0 或 < firstRow 则回退到 {@link #LAST_ROW}）
+	 */
+	public SelectSheetWriteHandler(Class<?> head, Integer firstRow, Integer lastRow) {
+		this.firstRow = (firstRow == null || firstRow < 0) ? FIRST_ROW : firstRow;
+		this.lastRow = (lastRow == null || lastRow < 0 || lastRow < this.firstRow) ? LAST_ROW : lastRow;
+		// 解析下拉数据
+		parseHead(head);
 	}
 
 	private void getSelectDataList(int colIndex, Field field) {
@@ -200,7 +238,8 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		DataValidationConstraint constraint = dataValidationHelper
 			.createFormulaListConstraint(String.format("dict%s", colIndex));// 设置引用约束
 		// 设置下拉单元格的首行,末行,首列,末列
-		CellRangeAddressList rangeAddressList = new CellRangeAddressList(FIRST_ROW, LAST_ROW, colIndex, colIndex);
+		CellRangeAddressList rangeAddressList = new CellRangeAddressList(this.firstRow, this.lastRow, colIndex,
+				colIndex);
 		DataValidation validation = dataValidationHelper.createValidation(constraint, rangeAddressList);
 		if (validation instanceof HSSFDataValidation) {
 			validation.setSuppressDropDownArrow(false);

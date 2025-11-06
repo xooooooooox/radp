@@ -101,16 +101,17 @@ public class ExcelUtils {
 		response.setContentType(EXCEL_CONTENT_TYPE);
 	}
 
-	// @formatter: off
+	// @formatter:off
 	private static <T> ExcelWriterBuilder baseWriter(OutputStream out, Class<T> head) {
+		// Excel stores numbers with a maximum precision of 15 digits.
+		// Java `Long` (up to 19 digits). When exported as numeric cells, Excel rounds the tailing digits to zeros
+
 		return FastExcelFactory.write(out, head)
 			.autoCloseStream(false) // 不要自动关闭, 交给 Servlet 处理
-			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框,
-																		// 基于@ExcelColumnSelect
-																		// 注解配置
+			.registerWriteHandler(new SelectSheetWriteHandler(head)) // 处理 Excel 单元格的下拉框,基于@ExcelColumnSelect 注解配置
 			.registerConverter(new LongStringConverter()); // 避免 Long 类型丢失精度
 	}
-	// @formatter: on
+	// @formatter:on
 
 	/**
 	 * 将列表以 Excel 响应给前端.
@@ -137,12 +138,12 @@ public class ExcelUtils {
 		ExcelWriterBuilder writer = baseWriter(baos, head);
 
 		int size = safeData.size();
+		// @formatter:off
 		if (size <= COLUMN_AUTO_WIDTH_MAX_ROWS) {
 			// 小数据量开启自适应列宽，避免大数据计算开销
-			writer.registerWriteHandler(new ColumnWidthMatchStyleStrategy()); // 基于 column
-																				// 长度，自动适配。最大
-																				// 255 宽度
+			writer.registerWriteHandler(new ColumnWidthMatchStyleStrategy()); // 基于 column 长度，自动适配。最大 255 宽度
 		}
+		// @formatter:on
 
 		// 如果 doWrite 过程中抛出异常，响应头不会被提前修改
 		writer.sheet(safeSheetName).doWrite(safeData);

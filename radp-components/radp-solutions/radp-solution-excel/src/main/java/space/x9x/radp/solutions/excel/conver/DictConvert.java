@@ -28,6 +28,7 @@ import space.x9x.radp.solutions.excel.annotations.DictFormat;
 
 /**
  * Excel 数据字典转换器.
+ *
  * @author IO x9x
  * @since 2025-11-07 00:10
  */
@@ -46,7 +47,8 @@ public class DictConvert implements Converter<Object> {
 	}
 
 	@Override
-	public Object convertToJavaData(ReadCellData<?> readCellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+	public Object convertToJavaData(ReadCellData<?> readCellData, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) throws Exception {
 		// 使用字典解析
 		String type = getType(contentProperty);
 		String label = readCellData.getStringValue();
@@ -54,11 +56,13 @@ public class DictConvert implements Converter<Object> {
 	}
 
 	@Override
-	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) throws Exception {
 		return null;
 	}
 
 	private static String getType(ExcelContentProperty contentProperty) {
 		return contentProperty.getField().getAnnotation(DictFormat.class).value();
 	}
+
 }

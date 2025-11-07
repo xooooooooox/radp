@@ -8,7 +8,8 @@
   - `radp-solution-excel`
 - Optimize the checkstyle configuration file to include a property that ignores comments in the trailing whitespace
   check.
-- Optimize radp-commons
+- Optimize `radp-commons`
+- Optimize `radp-jasypt-spring-boot-starter`: add SM4 encryption/decryption support with autoconfiguration
 
 ### Dependencies
 

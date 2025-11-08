@@ -58,7 +58,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * exception handling across all REST controllers in the application, converting various
  * exceptions into appropriate HTTP responses with standardized error formats.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 23:52
  */
 @RestControllerAdvice
@@ -73,7 +73,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles general exceptions that are not caught by more specific handlers.
-	 *
 	 * @param ex the exception
 	 * @return a response entity with error details
 	 */
@@ -89,7 +88,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles validation exceptions thrown when method arguments fail validation.
-	 *
 	 * @param ex the validation exception
 	 * @return a response entity with validation error details
 	 */
@@ -104,7 +102,6 @@ public class RestExceptionHandler {
 	/**
 	 * Handles exceptions thrown when method argument types don't match the expected
 	 * types.
-	 *
 	 * @param ex the method argument type mismatch exception
 	 * @return a response entity with error details
 	 */
@@ -117,32 +114,31 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles exceptions thrown when an HTTP request method is not supported.
-	 *
 	 * @param ex the HTTP request method didn't support exception
 	 * @return a response entity with a method didn't allow error details
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
-		return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, GlobalResponseCode.METHOD_NOT_ALLOWED.getErrorCode().getCode(), ex.getMessage());
+		return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED,
+				GlobalResponseCode.METHOD_NOT_ALLOWED.getErrorCode().getCode(), ex.getMessage());
 
 	}
 
 	/**
 	 * Handles exceptions thrown when a requested resource is not found.
-	 *
 	 * @param ex no resource found exception
 	 * @return a response entity with not found error details
 	 */
 	@ExceptionHandler(NoResourceFoundException.class)
 	public ResponseEntity<?> resolveNoResourceFoundException(NoResourceFoundException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage());
-		return this.buildResponseEntity(HttpStatus.NOT_FOUND, GlobalResponseCode.NOT_FOUND.getErrorCode().getCode(), ex.getMessage());
+		return this.buildResponseEntity(HttpStatus.NOT_FOUND, GlobalResponseCode.NOT_FOUND.getErrorCode().getCode(),
+				ex.getMessage());
 	}
 
 	/**
 	 * Handles bad request exceptions when the client sends an invalid request.
-	 *
 	 * @param ex the bad request exception
 	 * @return a response entity with bad request error details
 	 */
@@ -153,7 +149,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles unauthorized exceptions when a user is not authenticated.
-	 *
 	 * @param ex the unauthorized exception
 	 * @return a response entity with unauthorized error details
 	 */
@@ -164,7 +159,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles forbidden exceptions when a user is not authorized to access a resource.
-	 *
 	 * @param ex the forbidden exception
 	 * @return a response entity with forbidden error details
 	 */
@@ -175,7 +169,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles client exceptions for errors caused by client-side issues.
-	 *
 	 * @param ex the client exception
 	 * @return a response entity with bad request error details
 	 */
@@ -188,7 +181,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles server exceptions for errors caused by server-side issues.
-	 *
 	 * @param ex the server exception
 	 * @return a response entity with internal server error details
 	 */
@@ -201,7 +193,6 @@ public class RestExceptionHandler {
 
 	/**
 	 * Handles exceptions related to third-party service failures.
-	 *
 	 * @param ex the third service exception
 	 * @return a response entity with internal server error details
 	 */
@@ -247,7 +238,7 @@ public class RestExceptionHandler {
 			return false;
 		}
 		return accept.contains("application/octet-stream") || accept.contains("application/stream+json")
-			|| accept.contains("application/x-ndjson");
+				|| accept.contains("application/x-ndjson");
 	}
 
 	private String formatPlainMessage(String errMessage, Object... params) {
@@ -274,7 +265,7 @@ public class RestExceptionHandler {
 	}
 
 	private ResponseEntity<?> buildNegotiatedResponse(HttpStatus httpStatus, String errCode, String errMessage,
-		Object... params) {
+			Object... params) {
 		HttpServletRequest request = ServletUtils.getRequest();
 		BodyBuilder builder = ResponseEntity.status(httpStatus);
 		if (isSseRequest(request)) {
@@ -298,7 +289,8 @@ public class RestExceptionHandler {
 		return this.buildNegotiatedResponse(httpStatus, ex.getErrCode(), ex.getErrMessage(), ex.getParams());
 	}
 
-	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, String errCode, String errMessage, Object... params) {
+	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, String errCode, String errMessage,
+			Object... params) {
 		return this.buildNegotiatedResponse(httpStatus, errCode, errMessage, params);
 	}
 

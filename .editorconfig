@@ -1,30 +1,26 @@
 root = true
 
 [*]
+charset = utf-8
+end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{adoc,bat,groovy,html,java,js,jsp,kt,kts,md,properties,py,rb,sh,sql,svg,txt,xml,xsd}]
-charset = utf-8
-
 [*.{groovy,java,kt,kts,xml,xsd}]
 indent_style = tab
-indent_size = 4
-end_of_line = lf
 
 [{.coding/idea,.idea}/**.xml]
+indent_style = space
+indent_size = 2
+
+# Keep intentional trailing spaces in docs for soft line breaks
+[*.{md,MD,adoc,ADOC}]
+trim_trailing_whitespace = false
+
+[{nginx.conf,.devcontainer/volumes/nginx/conf/**.conf}]
 indent_style = space
 indent_size = 2
 
 [radp-archetypes/scaffold-*/src/main/resources/archetype-resources/{.idea,.coding/idea}/**.xml]
 indent_style = space
 indent_size = 2
-
-[*.md]
-trim_trailing_whitespace = false
-
-[{nginx.conf,.devcontainer/volumes/nginx/conf/**.conf}]
-indent_style = space
-indent_size = 2
-end_of_line = lf
-charset = utf-8

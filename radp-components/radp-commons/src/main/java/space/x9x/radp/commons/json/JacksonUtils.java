@@ -16,6 +16,9 @@
 
 package space.x9x.radp.commons.json;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -274,6 +277,74 @@ public class JacksonUtils {
 			return objectMapper.readValue(text, cls);
 		}
 		catch (JsonProcessingException ex) {
+			throw new JacksonException(ex);
+		}
+	}
+
+	/**
+	 * Parses JSON content from a File into an object of the specified class type.
+	 * @param <T> the target type
+	 * @param file the JSON file to parse
+	 * @param cls the class of the target type
+	 * @return the parsed object, or null if the file is null
+	 * @throws JacksonException if an error occurs during JSON processing
+	 */
+	public static <T> T parseObject(File file, Class<T> cls) {
+		return parseObject(file, cls, getDefaultObjectMapper());
+	}
+
+	/**
+	 * Parses JSON content from a File into an object of the specified class type using a
+	 * custom object mapper.
+	 * @param <T> the target type
+	 * @param file the JSON file to parse
+	 * @param cls the class of the target type
+	 * @param objectMapper the object mapper to use for parsing
+	 * @return the parsed object, or null if the file is null
+	 * @throws JacksonException if an error occurs during JSON processing
+	 */
+	public static <T> T parseObject(File file, Class<T> cls, ObjectMapper objectMapper) {
+		if (file == null) {
+			return null;
+		}
+		try {
+			return objectMapper.readValue(file, cls);
+		}
+		catch (IOException ex) {
+			throw new JacksonException(ex);
+		}
+	}
+
+	/**
+	 * Parses JSON content from a URL into an object of the specified class type.
+	 * @param <T> the target type
+	 * @param url the URL that points to JSON content (e.g., Swagger OpenAPI)
+	 * @param cls the class of the target type
+	 * @return the parsed object, or null if the url is null
+	 * @throws JacksonException if an error occurs during JSON processing
+	 */
+	public static <T> T parseObject(URL url, Class<T> cls) {
+		return parseObject(url, cls, getDefaultObjectMapper());
+	}
+
+	/**
+	 * Parses JSON content from a URL into an object of the specified class type using a
+	 * custom object mapper.
+	 * @param <T> the target type
+	 * @param url the URL that points to JSON content
+	 * @param cls the class of the target type
+	 * @param objectMapper the object mapper to use for parsing
+	 * @return the parsed object, or null if the url is null
+	 * @throws JacksonException if an error occurs during JSON processing
+	 */
+	public static <T> T parseObject(URL url, Class<T> cls, ObjectMapper objectMapper) {
+		if (url == null) {
+			return null;
+		}
+		try {
+			return objectMapper.readValue(url, cls);
+		}
+		catch (IOException ex) {
 			throw new JacksonException(ex);
 		}
 	}

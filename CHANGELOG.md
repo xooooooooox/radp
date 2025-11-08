@@ -11,6 +11,7 @@
 - Optimize `radp-commons`
 - Optimize `radp-jasypt-spring-boot-starter`: add SM4 encryption/decryption support with autoconfiguration
 - Update Checkstyle configurations, remove unnecessary or redundant checks.
+- Optimize JacksonUtils: add utility methods for parsing JSON from File and URL.
 
 ### Dependencies
 

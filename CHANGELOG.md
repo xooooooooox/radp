@@ -2,9 +2,26 @@
 
 ## 3.26
 
+### Feature
+
+- Add module
+  - `radp-solution-excel`
+- Optimize the checkstyle configuration file to include a property that ignores comments in the trailing whitespace
+  check.
+- Optimize `radp-commons`
+- Optimize `radp-jasypt-spring-boot-starter`: add SM4 encryption/decryption support with autoconfiguration
+- Update Checkstyle configurations, remove unnecessary or redundant checks.
+- Optimize JacksonUtils: add utility methods for parsing JSON from File and URL.
+
+### Dependencies
+
+- Remove `commons-io` to resolve transitive conflict with `fastexcel`.
+- Upgrade dependency `io.spring.javaformat:spring-javaformat-maven-plugin` from `0.0.46` to `0.0.47`.
+- Upgrade `com.puppycrawl.tools:checkstyle` version from `9.3` to `11.0.1
+
 ### Fix
 
-- Fix `RestExceptionHandler`
+- Fix `RestExceptionHandler`.
 
 ### Chore
 
@@ -27,8 +44,10 @@
 - Optimize module `radp-commons`:
   - Optimize `SnowflakeGenerator`.
   - Add `PasswordGeneratorUtils` for password generation and validation.
-  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
-  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based validation, rule-based generator).
+  - Optimize `RandomStringUtils`. Added methods for generating N-digit numbers, Mainland China mobile numbers, valid
+    usernames, valid emails, etc.
+  - Extend `RandomStringUtils`: username validation and random username generation now support custom rules (regex-based
+    validation, rule-based generator).
   - Add mobile validation helper `isValidMobile()` for Mainland China numbers.
 
 ### Bug fix

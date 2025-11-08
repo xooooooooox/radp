@@ -32,7 +32,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceConte
  * SpEL/前缀标记的动态解析.
  * </p>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-09-20 01:16
  */
 public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSourceAnnotationInterceptor {

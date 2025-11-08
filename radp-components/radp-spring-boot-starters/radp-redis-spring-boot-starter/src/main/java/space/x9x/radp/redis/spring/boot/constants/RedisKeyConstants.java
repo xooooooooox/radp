@@ -28,7 +28,7 @@ import space.x9x.radp.commons.lang.Strings;
  * <p>
  * Example: "radp:user:profile:123"
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-20 18:45
  */
 @UtilityClass

@@ -40,7 +40,7 @@ import space.x9x.radp.druid.spring.boot.jdbc.DruidDatasourcePoolMetadata;
  * Spring Boot's metrics system. It is activated when the 'spring.datasource.druid'
  * property is set and the Druid data source class is available on the classpath.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-01 01:13
  */
 @ConditionalOnProperty(RadpDruidDataSourceMetricsAutoconfiguration.SPRING_DATASOURCE_DRUID)

@@ -38,7 +38,7 @@ import lombok.Data;
  * }
  * </pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-01 10:02
  */
 @Data

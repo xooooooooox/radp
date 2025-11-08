@@ -23,7 +23,7 @@ import java.io.Serial;
  * propagate exceptions that occur during JSON or XML processing with Jackson, providing a
  * unified exception handling approach while preserving the original cause.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-23 13:54
  */
 public class JacksonException extends RuntimeException {

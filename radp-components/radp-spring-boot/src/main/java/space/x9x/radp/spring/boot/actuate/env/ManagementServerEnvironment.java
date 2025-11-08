@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * utility class provides centralized access to property names used for configuring the
  * Spring Boot Actuator management server, including port settings and endpoint paths.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:21
  */
 @UtilityClass

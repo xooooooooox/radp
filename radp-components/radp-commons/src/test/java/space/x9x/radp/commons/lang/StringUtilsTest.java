@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tests for {@link StringUtils}.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-23 13:57
  */
 class StringUtilsTest {

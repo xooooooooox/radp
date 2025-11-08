@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * to provide convenient access to array manipulation methods such as adding, removing,
  * and checking elements in arrays of various types.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-24 23:10
  */
 @UtilityClass

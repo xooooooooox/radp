@@ -28,7 +28,7 @@ import org.apache.ibatis.reflection.MetaObject;
  * and last modified date fields. This handler sets the createdDate field on insert
  * operations and the lastModifiedDate field on both insert and update operations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 14:56
  */
 @RequiredArgsConstructor

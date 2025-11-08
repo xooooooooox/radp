@@ -41,7 +41,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
  * handles creation and modification timestamps in entity objects. It is activated when
  * the appropriate property is set and the required MyBatis-Plus classes are available.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 14:45
  */
 @Slf4j

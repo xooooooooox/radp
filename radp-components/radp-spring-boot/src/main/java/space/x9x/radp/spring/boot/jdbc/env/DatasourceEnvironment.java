@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * Spring Boot applications. These constants can be used to reference datasource
  * configuration properties consistently throughout the application.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:38
  */
 @UtilityClass

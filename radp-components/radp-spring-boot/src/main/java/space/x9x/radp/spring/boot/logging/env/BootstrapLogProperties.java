@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConf
  * extends BootstrapLogConfig to inherit common bootstrap logging configuration properties
  * and adds additional properties specific to the RADP framework.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 20:47
  */
 @EqualsAndHashCode(callSuper = true)

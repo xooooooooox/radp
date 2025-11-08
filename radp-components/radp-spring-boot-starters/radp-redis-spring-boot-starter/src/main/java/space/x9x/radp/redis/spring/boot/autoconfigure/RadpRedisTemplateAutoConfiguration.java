@@ -42,7 +42,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * This configuration runs before RedissonAutoConfiguration to ensure the template is
  * available for other Redis-dependent configurations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-21 11:00
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

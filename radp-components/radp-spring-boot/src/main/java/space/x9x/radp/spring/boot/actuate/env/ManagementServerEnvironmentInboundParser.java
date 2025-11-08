@@ -31,7 +31,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
  * the management server configuration, including protocol, host, port, and base path for
  * endpoints.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:21
  */
 public class ManagementServerEnvironmentInboundParser implements EnvironmentInboundParser {

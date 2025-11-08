@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * functionality of the MessageFormatter class, particularly its ability to format
  * messages by replacing placeholders with values.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-28 19:28
  */
 class MessageFormatterTest {

@@ -59,7 +59,7 @@ import lombok.experimental.UtilityClass;
  * }
  * }</pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 16:27
  */
 @UtilityClass

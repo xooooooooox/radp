@@ -18,6 +18,7 @@ package space.x9x.radp.solutions.excel.handler;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -175,7 +176,11 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		ExcelColumnSelectFunction function = CollUtil.findOne(functionMap.values(),
 				item -> item.getName().equals(functionName));
 		Assert.notNull(function, "未找到对应的 function({})", functionName);
-		this.selectMap.put(colIndex, function.getOptions());
+		List<String> options = function.getOptions();
+		if (options == null) {
+			options = Collections.emptyList();
+		}
+		this.selectMap.put(colIndex, options);
 	}
 
 	/**
@@ -209,7 +214,11 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		for (Map.Entry<Integer, List<String>> entry : entries) {
 			Integer colIndex = entry.getKey();
 			List<String> values = entry.getValue();
-			int rowLength = values.size();
+			int rowLength = values == null ? 0 : values.size();
+			if (rowLength == 0) {
+				// 该列无下拉数据，跳过
+				continue;
+			}
 			// 2.1 设置字典 sheet 页的值, 每列一个字典项
 			for (int i = 0; i < rowLength; i++) {
 				Row row = dictSheet.getRow(i);

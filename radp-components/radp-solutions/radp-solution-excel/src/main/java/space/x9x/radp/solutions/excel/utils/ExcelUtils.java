@@ -37,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
+import space.x9x.radp.solutions.excel.conver.DictConvert;
 import space.x9x.radp.solutions.excel.handler.ColumnWidthMatchStyleStrategy;
 import space.x9x.radp.solutions.excel.handler.SelectSheetWriteHandler;
 
@@ -121,7 +122,8 @@ public class ExcelUtils {
 			.registerWriteHandler((firstRow == null && lastRow == null)
 				? new SelectSheetWriteHandler(head)
 				: new SelectSheetWriteHandler(head, firstRow, lastRow)) // 处理 Excel 单元格的下拉框,基于@ExcelColumnSelect 注解配置
-			.registerConverter(new LongStringConverter()); // 避免 Long 类型丢失精度
+			.registerConverter(new LongStringConverter()) // 避免 Long 类型丢失精度
+			.registerConverter(new DictConvert()); // 启用 @DictFormat 字典转换
 	}
 	// @formatter:on
 
@@ -317,6 +319,7 @@ public class ExcelUtils {
 	public static <T> List<T> read(MultipartFile file, Class<T> head) throws IOException {
 		return FastExcelFactory.read(file.getInputStream(), head, null)
 			.autoCloseStream(false) // 不自动关闭, 交给 Servlet 处理
+			.registerConverter(new DictConvert()) // 启用 @DictFormat 字典转换（读入）
 			.doReadAllSync();
 	}
 

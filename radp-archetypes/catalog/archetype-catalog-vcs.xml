@@ -1535,6 +1535,8 @@
 			<description>spring-boot-starter 脚手架</description>
 		</archetype>
 
+		<!-- === 3.x === -->
+
 		<archetype>
 			<groupId>space.x9x.radp</groupId>
 			<artifactId>scaffold-tiny</artifactId>

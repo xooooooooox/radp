@@ -92,6 +92,8 @@
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
 
 		<!-- plugin dependency version -->
+		<!-- 10.x required JDK11+ -->
+		<!-- 11.x required JDK17+ -->
 		<checkstyle.version>9.3</checkstyle.version>
 	</properties>
 

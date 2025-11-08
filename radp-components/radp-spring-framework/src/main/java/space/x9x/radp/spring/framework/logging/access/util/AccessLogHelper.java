@@ -40,7 +40,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * requests. It handles sampling, MDC integration, and log level selection based on
  * execution results.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 10:20
  */
 @UtilityClass

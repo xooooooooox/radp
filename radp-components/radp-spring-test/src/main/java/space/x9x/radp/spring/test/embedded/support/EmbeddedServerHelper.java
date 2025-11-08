@@ -34,7 +34,7 @@ import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
  * creating, configuring, and managing embedded servers for testing. It supports various
  * server types, including Redis, Zookeeper, and Kafka.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-13 17:52
  */
 @Slf4j

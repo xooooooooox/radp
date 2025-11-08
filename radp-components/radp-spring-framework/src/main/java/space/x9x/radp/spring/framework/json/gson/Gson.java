@@ -28,7 +28,7 @@ import space.x9x.radp.spring.framework.json.JSON;
  * methods for serializing objects to JSON strings and deserializing JSON strings back to
  * objects using Gson.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 13:25
  */
 public class Gson implements JSON {

@@ -20,7 +20,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-21 01:21
  */
 @SpringBootApplication(scanBasePackages = { "space.x9x.radp.smoke.tests.logging.logback.springboot" })

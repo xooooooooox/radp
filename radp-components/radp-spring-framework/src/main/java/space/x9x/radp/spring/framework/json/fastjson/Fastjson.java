@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.json.JSON;
  * provides methods for serializing objects to JSON strings and deserializing JSON strings
  * back to objects using Fastjson.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 12:58
  */
 public class Fastjson implements JSON {

@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-24 13:00
  */
 @SpringBootTest

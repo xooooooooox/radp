@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * standard profile names for different environments to ensure consistent profile naming
  * across the application.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:39
  */
 @UtilityClass

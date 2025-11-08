@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
  * Represents a field to sort by and its sort direction. This class is used in conjunction
  * with SortablePageParam to specify sorting criteria for paginated queries.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-24 14:24
  */
 @Data

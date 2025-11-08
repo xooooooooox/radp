@@ -24,7 +24,7 @@ import io.swagger.v3.oas.models.OpenAPI;
  * information, change defaults, or apply specific configurations to the API
  * documentation.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 18:10
  */
 public interface SwaggerCustomizer {

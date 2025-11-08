@@ -38,7 +38,7 @@ import space.x9x.radp.spring.framework.logging.access.util.AccessLogHelper;
  * configured to highlight slow method executions. It integrates with MDC (Mapped
  * Diagnostic Context) for correlating log entries across threads.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:52
  */
 @RequiredArgsConstructor

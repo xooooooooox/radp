@@ -30,7 +30,7 @@ import space.x9x.radp.spring.framework.web.rest.annotation.EnableRestExceptionHa
  * scanning. The {@code @EnableRestExceptionHandler} annotation enables global REST
  * exception handling.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-11 16:33
  */
 @SpringBootApplication

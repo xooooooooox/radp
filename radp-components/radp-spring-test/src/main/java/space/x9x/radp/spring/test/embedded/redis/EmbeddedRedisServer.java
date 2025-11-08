@@ -32,7 +32,7 @@ import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
  * configuration of port, password, and other Redis settings, and manages the lifecycle of
  * the embedded server instance.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-23 15:02
  */
 @Slf4j

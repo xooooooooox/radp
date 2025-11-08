@@ -23,7 +23,7 @@ import space.x9x.radp.extension.SPI;
  * provides methods for configuring, starting, stopping, and checking the status of
  * embedded servers such as Redis, Zookeeper, etc.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-23 15:03
  */
 @SPI

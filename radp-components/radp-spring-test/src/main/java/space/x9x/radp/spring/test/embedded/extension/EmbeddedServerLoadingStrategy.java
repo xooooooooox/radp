@@ -23,7 +23,7 @@ import space.x9x.radp.extension.strategy.LoadingStrategy;
  * implementations are loaded from the classpath. It specifies the directory where
  * extension definitions are located and the priority of this loading strategy.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-13 17:44
  */
 public class EmbeddedServerLoadingStrategy implements LoadingStrategy {

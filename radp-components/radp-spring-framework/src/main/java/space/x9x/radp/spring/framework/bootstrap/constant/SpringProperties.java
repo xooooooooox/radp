@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * defines standard property names for Spring configuration to ensure consistent property
  * naming across the application.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 20:57
  */
 @UtilityClass

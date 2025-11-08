@@ -43,7 +43,7 @@ import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
  * Users only need to set: jasypt.encryptor.password=yourSecret
  * jasypt.encryptor.algorithm=SM4 (or SM4/CBC/PKCS5Padding, SM4/ECB/PKCS5Padding)
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07
  */
 @Slf4j

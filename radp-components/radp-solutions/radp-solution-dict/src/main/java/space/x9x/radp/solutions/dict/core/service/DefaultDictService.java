@@ -28,7 +28,7 @@ import space.x9x.radp.solutions.dict.core.provider.DictDataProvider;
 /**
  * 默认的字典服务实现.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07 15:55
  */
 @RequiredArgsConstructor

@@ -25,7 +25,7 @@ import space.x9x.radp.solutions.dict.core.DictItem;
  *
  * 应用可在开启 DB 模式时，提供该接口的实现以从数据库中加载字典数据。
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07 16:08
  */
 public interface DictDataQuery {

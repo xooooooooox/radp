@@ -42,7 +42,7 @@ import space.x9x.radp.spring.framework.error.BaseException;
  * <p>
  * 过滤器通过实现{@link Filter}和{@link BaseFilter.Listener}接口， 在Dubbo的调用链中拦截和处理异常，提高系统的稳定性和可维护性。
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-01 23:08
  */
 @Activate(group = CommonConstants.PROVIDER, order = DubboExceptionFilter.ORDER)

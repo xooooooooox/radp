@@ -32,7 +32,7 @@ import space.x9x.radp.solutions.excel.annotations.DictFormat;
 /**
  * Excel 数据字典转换器.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07 00:10
  */
 @Slf4j

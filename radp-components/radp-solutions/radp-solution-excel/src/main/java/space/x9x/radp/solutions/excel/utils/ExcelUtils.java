@@ -46,7 +46,7 @@ import space.x9x.radp.solutions.excel.handler.SelectSheetWriteHandler;
  * <p>
  * 一般来说, Excel 一个 sheet 最多 10 万条数据, 一万条数据大概 1MB (约 15 个字段 x 一万条数据)
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-10-30 14:59
  */
 @Slf4j

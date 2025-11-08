@@ -25,7 +25,7 @@ import space.x9x.radp.extension.SPI;
  * methods for compiling Java source code into Class objects at runtime. It is used by the
  * extension system to generate and compile adaptive classes dynamically.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-24 21:33
  */
 @SPI("javassist")

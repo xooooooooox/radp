@@ -28,7 +28,7 @@ import space.x9x.radp.spring.framework.error.ServerException;
  * Application-specific exception class that extends the ServerException. This exception
  * is used to represent application-level errors with specific error codes.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-01-14 23:18
  */
 public class AppException extends ServerException {

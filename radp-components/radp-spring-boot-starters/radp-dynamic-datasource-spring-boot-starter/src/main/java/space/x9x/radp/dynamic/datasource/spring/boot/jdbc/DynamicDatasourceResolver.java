@@ -25,7 +25,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceResolver;
 /**
  * 动态数据源解析器.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-09-19 22:49
  */
 public class DynamicDatasourceResolver implements DataSourceResolver {

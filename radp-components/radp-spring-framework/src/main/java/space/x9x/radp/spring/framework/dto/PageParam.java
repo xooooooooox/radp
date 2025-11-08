@@ -32,7 +32,7 @@ import lombok.ToString;
  * information. This class provides default values and validation constraints to ensure
  * proper pagination behavior.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 20:35
  */
 @Data

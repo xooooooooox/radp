@@ -30,7 +30,7 @@ import space.x9x.radp.commons.lang.format.MessageFormatter;
  * provides methods to retrieve error messages based on error codes, with support for both
  * application-specific and internal framework error messages.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 16:14
  */
 @Slf4j

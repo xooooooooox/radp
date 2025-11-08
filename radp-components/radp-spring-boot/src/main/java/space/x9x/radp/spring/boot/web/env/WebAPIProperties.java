@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.web.rest.config.ApiConfig;
  * ApiConfig to inherit common API configuration properties and adds additional properties
  * specific to the RADP framework.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 23:03
  */
 @EqualsAndHashCode(callSuper = true)

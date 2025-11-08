@@ -43,7 +43,7 @@ import space.x9x.radp.spring.framework.dto.SortingField;
  * pagination, join queries, simple CRUD operations, and batch processing. It simplifies
  * database access patterns by providing convenient default method implementations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-24 14:38
  * @param <T> the entity type that this mapper operates on
  */

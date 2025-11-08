@@ -24,7 +24,7 @@ import space.x9x.radp.extension.SPI;
 /**
  * Rest 异常后置处理.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-27 10:44
  */
 @SPI

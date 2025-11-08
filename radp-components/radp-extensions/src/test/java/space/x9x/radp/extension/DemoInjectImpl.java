@@ -17,7 +17,7 @@
 package space.x9x.radp.extension;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-25 14:51
  */
 public class DemoInjectImpl implements DemoInject {

@@ -63,7 +63,7 @@ import org.passay.WhitespaceRule;
  * 		System.out.println("Valid? " + vr.valid + (vr.valid ? "" : " -> " + vr.messages));
  * }</pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-09-15 23:47
  */
 @UtilityClass

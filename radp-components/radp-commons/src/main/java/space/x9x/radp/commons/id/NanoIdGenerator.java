@@ -30,7 +30,7 @@ import lombok.experimental.UtilityClass;
  * The default implementation uses a secure random number generator and a URL-friendly
  * alphabet to create identifiers that are safe for use in URLs and filenames.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-27 12:08
  */
 @UtilityClass

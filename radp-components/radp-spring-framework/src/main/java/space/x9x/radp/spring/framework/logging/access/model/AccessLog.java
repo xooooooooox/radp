@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
  * method invocations or HTTP requests, including location (method or URI), arguments,
  * return values, execution time, and any exceptions that occurred during execution.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:54
  */
 @Builder

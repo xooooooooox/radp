@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Excel 下拉数据源获取接口.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-10-30 21:12
  */
 public interface ExcelColumnSelectFunction {

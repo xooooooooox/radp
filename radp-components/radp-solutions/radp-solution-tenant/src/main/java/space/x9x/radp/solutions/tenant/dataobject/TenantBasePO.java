@@ -24,7 +24,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 /**
  * 多租户 BasePO.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-09-14 21:46
  */
 @EqualsAndHashCode(callSuper = true)

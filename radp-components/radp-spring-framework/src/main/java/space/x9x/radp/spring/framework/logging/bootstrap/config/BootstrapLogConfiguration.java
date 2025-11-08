@@ -55,7 +55,7 @@ import space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttp
  * {@link space.x9x.radp.spring.framework.logging.EnableBootstrapLog} annotation is used
  * on a Spring configuration class.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 11:09
  * @see space.x9x.radp.spring.framework.logging.EnableBootstrapLog
  * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter

@@ -27,7 +27,7 @@ import lombok.ToString;
  * when to log it. It can be customized by providing a bean of this type in the
  * application context.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:45
  */
 @EqualsAndHashCode

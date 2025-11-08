@@ -25,7 +25,7 @@ package space.x9x.radp.extension.strategy;
  * the loading behavior. It extends the Prioritized interface, which means loading
  * strategies can be assigned priorities to determine their execution order.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-24 19:40
  */
 public interface LoadingStrategy extends Prioritized {

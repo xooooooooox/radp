@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * 字典格式化. 实现将字典数据的值, 格式化为字典数据对应的标签.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07 00:06
  */
 @Target({ ElementType.FIELD })

@@ -45,7 +45,7 @@ import space.x9x.radp.spring.framework.task.interceptor.ExceptionHandlingAsyncTa
  * threads, and provides exception handling for async tasks. The configuration includes
  * limits on pool size and queue capacity to prevent resource exhaustion.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 11:52
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration

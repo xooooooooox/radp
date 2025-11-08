@@ -53,7 +53,7 @@ import lombok.Synchronized;
  * }
  * }</pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-27 12:36
  */
 public class SnowflakeGenerator {

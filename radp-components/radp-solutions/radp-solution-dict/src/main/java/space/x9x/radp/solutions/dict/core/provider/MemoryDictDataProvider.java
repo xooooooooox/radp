@@ -27,7 +27,7 @@ import space.x9x.radp.solutions.dict.core.DictItem;
 /**
  * 基于配置文件的内存字典数据提供者.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-11-07 16:09
  */
 @RequiredArgsConstructor

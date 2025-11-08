@@ -20,7 +20,7 @@ import space.x9x.radp.spring.framework.error.ErrorCode;
 import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-24 22:17
  */
 public class AssertUtils extends AbstractAssert {

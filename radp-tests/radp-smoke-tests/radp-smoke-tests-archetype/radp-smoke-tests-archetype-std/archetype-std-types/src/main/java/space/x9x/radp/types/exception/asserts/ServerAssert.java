@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.error.util.ExceptionUtils;
 /**
  * Server assertion utility class that provides static methods for assertions.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-24 21:54
  */
 public final class ServerAssert extends BaseAssert<ServerException> {

@@ -27,7 +27,7 @@ import space.x9x.radp.extension.SPI;
  * Implementations can provide specific parsers for different types of inbound
  * connections.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:46
  */
 @SPI

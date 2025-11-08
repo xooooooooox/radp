@@ -51,7 +51,7 @@ import space.x9x.radp.swagger3.spring.boot.env.SwaggerProperties;
  * documentation, including customizers that apply the configured properties to the
  * OpenAPI specification.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 16:40
  */
 @ConditionalOnClass({ Info.class, Servlet.class, DispatcherServlet.class })

@@ -148,12 +148,12 @@
 			<property name="scope" value="public"/>
 		</module>
 		<module name="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck">
-			<property name="scope" value="public"/>
+			<property name="accessModifiers" value="public"/>
 			<property name="allowMissingParamTags" value="true"/>
 			<property name="allowMissingReturnTag" value="true"/>
 		</module>
 		<module name="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck">
-			<property name="accessModifiers" value="public, protected"/>
+			<property name="scope" value="protected"/>
 			<property name="tokens" value="VARIABLE_DEF"/>
 			<property name="ignoreNamePattern" value="(?i)log|logger|serialVersionUID"/>
 		</module>

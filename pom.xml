@@ -88,12 +88,14 @@
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
 		<gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-		<spring-javaformat-maven-plugin.version>0.0.46</spring-javaformat-maven-plugin.version>
+		<spring-javaformat-maven-plugin.version>0.0.47</spring-javaformat-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
 		<git-commit-id-maven-plugin.version>9.0.2</git-commit-id-maven-plugin.version>
 
 		<!-- plugin dependency version -->
-		<checkstyle.version>9.3</checkstyle.version>
+		<!-- 10.x required JDK11+ -->
+		<!-- 11.x required JDK17+ -->
+		<checkstyle.version>11.0.1</checkstyle.version>
 	</properties>
 
 	<developers>

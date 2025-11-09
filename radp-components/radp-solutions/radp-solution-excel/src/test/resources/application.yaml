@@ -1,0 +1,14 @@
+radp:
+  dict:
+    provider: memory
+    types:
+      common_status:
+        - label: 启用
+          value: "1"
+        - label: 禁用
+          value: "0"
+      user_sex:
+        - label: 男
+          value: "0"
+        - label: 女
+          value: "1"

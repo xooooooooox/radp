@@ -56,6 +56,10 @@ Important notes:
 - Centralize exception handling with @RestControllerAdvice; prefer ProblemDetails format.
 - Logging: never use System.out; guard expensive debug logs; never log secrets.
 - Avoid fully qualified names (FQN) in Java/Groovy — add imports and use simple type names.
+- To prevent missing metadata in newly generated Java types, must always add a class-level Javadoc block that contains
+  these tags:
+  - @author — your name/handle; use "Junie" for auto-generated code.
+  - @since — current local date and time in the format yyyy-MM-dd HH:mm (24-hour), Example: 2025-11-09 20:05.
 
 See the two documents above for the full list of rules and rationale.
 

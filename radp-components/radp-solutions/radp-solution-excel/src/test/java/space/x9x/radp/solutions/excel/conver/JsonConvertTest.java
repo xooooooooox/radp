@@ -33,6 +33,13 @@ import space.x9x.radp.commons.json.JacksonUtils;
  */
 class JsonConvertTest {
 
+	@Test
+	@DisplayName("support*Key methods -> Object.class and null as expected")
+	void testSupportKeys() {
+		Assertions.assertThat(converter.supportJavaTypeKey()).isEqualTo(Object.class);
+		Assertions.assertThat(converter.supportExcelTypeKey()).isNull();
+	}
+
 	private final JsonConvert converter = new JsonConvert();
 
 	@Test

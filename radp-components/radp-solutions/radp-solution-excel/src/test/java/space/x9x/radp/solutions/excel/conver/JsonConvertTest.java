@@ -17,6 +17,8 @@
 package space.x9x.radp.solutions.excel.conver;
 
 import cn.idev.excel.metadata.data.WriteCellData;
+import lombok.Getter;
+import lombok.Setter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,9 @@ import space.x9x.radp.commons.json.JacksonUtils;
 
 /**
  * Tests for JsonConvert.
+ *
+ * @author x9x
+ * @since 2025-11-09 20:01
  */
 class JsonConvertTest {
 
@@ -54,7 +59,7 @@ class JsonConvertTest {
 	@Test
 	@DisplayName("convertToExcelData -> list/map round-trip via JacksonUtils for stability")
 	void testConvertCollection() throws Exception {
-		var dto = new Person();
+		Person dto = new Person();
 		dto.setName("Bob");
 		dto.setAge(18);
 		String expected = JacksonUtils.toJSONString(dto);
@@ -63,27 +68,13 @@ class JsonConvertTest {
 	}
 
 	// simple POJO for testing
+	@Setter
+	@Getter
 	static class Person {
 
 		private String name;
 
 		private Integer age;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public Integer getAge() {
-			return age;
-		}
-
-		public void setAge(Integer age) {
-			this.age = age;
-		}
 
 	}
 

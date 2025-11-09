@@ -43,6 +43,9 @@ import space.x9x.radp.solutions.excel.utils.ExcelUtils;
 /**
  * Tests that exercise @DictFormat and @ExcelColumnSelect behaviors, and verify empty-row
  * exclusion using the annotated ExcelImportVO.
+ *
+ * @author x9x
+ * @since 2025-11-09 20:02
  */
 class ExcelDictAndSelectTest {
 

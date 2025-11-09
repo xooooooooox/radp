@@ -33,6 +33,9 @@ import space.x9x.radp.solutions.excel.conver.MobileConvert;
 /**
  * VO for testing import/export with @DictFormat and @ExcelColumnSelect. Provides public
  * getters/setters for tests.
+ *
+ * @author x9x
+ * @since 2025-11-09 20:02
  */
 @Data
 public class ExcelImportVO {

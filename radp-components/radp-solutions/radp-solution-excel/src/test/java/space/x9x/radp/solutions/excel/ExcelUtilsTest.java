@@ -36,7 +36,7 @@ import space.x9x.radp.solutions.excel.utils.ExcelUtils;
 /**
  * Basic unit tests for ExcelUtils focusing on header handling, round-trip write/read, and
  * empty-row skipping behavior.
- *
+ * <p>
  * These tests avoid external dependencies (e.g., DictService) by using a simple head
  * class without dict-related annotations.
  *
@@ -118,7 +118,7 @@ class ExcelUtilsTest {
 		Assertions.assertThat(resp.getHeader("Content-Disposition")).contains("large.xlsx");
 
 		// Content written and no explicit Content-Length set for streaming
-		Assertions.assertThat(resp.getContentAsByteArray().length).isGreaterThan(0);
+		Assertions.assertThat(resp.getContentAsByteArray()).hasSizeGreaterThan(0);
 		Assertions.assertThat(resp.getHeader("Content-Length")).isNull();
 	}
 

@@ -33,7 +33,7 @@ import space.x9x.radp.spring.framework.logging.EnableAccessLog;
  * activate the access logging functionality. The configuration is only activated when the
  * 'radp.access-log.enabled' property is set to 'true'.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 11:30
  */
 @ConditionalOnProperty(prefix = AccessLogProperties.PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE)

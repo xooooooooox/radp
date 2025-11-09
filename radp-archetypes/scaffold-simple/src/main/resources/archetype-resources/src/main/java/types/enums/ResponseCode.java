@@ -30,7 +30,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * Enumeration of business response codes. This enum provides standardized response codes
  * for business operations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-24 14:08
  * @see GlobalResponseCode
  */

@@ -27,7 +27,7 @@ import space.x9x.radp.spring.framework.json.JSON;
  * Jackson implementation of the JSON interface that provides JSON serialization and
  * deserialization functionality using the Jackson library.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 11:37
  */
 public class Jackson implements JSON {

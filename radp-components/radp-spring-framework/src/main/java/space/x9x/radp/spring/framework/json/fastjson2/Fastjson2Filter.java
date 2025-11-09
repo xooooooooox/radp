@@ -25,7 +25,7 @@ import space.x9x.radp.extension.SPI;
  * interface extends Fastjson2's Filter interface and is marked with the SPI annotation to
  * enable dynamic loading of filter implementations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 13:20
  */
 @SPI

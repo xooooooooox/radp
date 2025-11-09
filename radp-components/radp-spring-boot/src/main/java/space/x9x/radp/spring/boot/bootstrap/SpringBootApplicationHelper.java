@@ -43,7 +43,7 @@ import space.x9x.radp.spring.framework.bootstrap.utils.SpringProfileUtils;
  * configuration, setting system properties required by various frameworks, and logging
  * application startup information including inbound and outbound connection details.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:33
  */
 @Slf4j

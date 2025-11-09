@@ -22,10 +22,10 @@ import lombok.experimental.UtilityClass;
  * Utility class for file operations. This class extends Apache Commons IO's FileUtils to
  * provide additional utility methods for working with files and directories.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-03-31 18:41
  */
 @UtilityClass
-public class FileUtils extends org.apache.commons.io.FileUtils {
+public class FileUtils {
 
 }

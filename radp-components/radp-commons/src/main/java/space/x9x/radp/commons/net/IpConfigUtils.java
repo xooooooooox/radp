@@ -36,7 +36,7 @@ import space.x9x.radp.commons.lang.Strings;
 /**
  * Utility class for IP address operations and network-related functionality.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:12
  */
 @UtilityClass

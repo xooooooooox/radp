@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <li>日志匹配: {@code Wait.forLogMessage(".*Started.*", 1)}</li>
  * </ul>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-24 23:03
  */
 @Testcontainers

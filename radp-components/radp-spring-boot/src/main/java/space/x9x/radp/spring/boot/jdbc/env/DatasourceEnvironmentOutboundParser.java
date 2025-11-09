@@ -29,7 +29,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
  * datasource configuration, extracting the JDBC URL from the Spring environment and
  * formatting it for display in logs or monitoring tools.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:38
  */
 public class DatasourceEnvironmentOutboundParser implements EnvironmentOutboundParser {

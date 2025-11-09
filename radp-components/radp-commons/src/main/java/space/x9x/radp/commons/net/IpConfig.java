@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Utility class for IP configuration constants.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:12
  */
 @UtilityClass

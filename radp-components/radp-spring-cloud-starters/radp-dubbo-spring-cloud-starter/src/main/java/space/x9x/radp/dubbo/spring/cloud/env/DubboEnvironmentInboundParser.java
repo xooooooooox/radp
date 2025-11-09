@@ -31,7 +31,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
  * information about Dubbo provider connections, including protocol and port details. When
  * Dubbo is disabled, it returns an empty string.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-03 01:15
  */
 public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {

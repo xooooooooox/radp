@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
  * Plus's Model class and adds fields for tracking creation and modification dates, which
  * are automatically filled by the AutofillMetaObjectHandler.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 14:55
  * @param <T> the type of the model extending this class
  */

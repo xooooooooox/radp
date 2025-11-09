@@ -54,7 +54,7 @@ import space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConf
  * }
  * </pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:53
  * @see space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration
  * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter

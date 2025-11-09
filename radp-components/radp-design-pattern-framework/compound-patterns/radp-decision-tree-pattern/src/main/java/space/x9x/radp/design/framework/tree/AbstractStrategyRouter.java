@@ -19,7 +19,7 @@ package space.x9x.radp.design.framework.tree;
 /**
  * Abstract class for strategy routing. 策略路由抽象类
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-01-14 14:36
  * @param <T> the type of request parameter
  * @param <D> the type of dynamic context

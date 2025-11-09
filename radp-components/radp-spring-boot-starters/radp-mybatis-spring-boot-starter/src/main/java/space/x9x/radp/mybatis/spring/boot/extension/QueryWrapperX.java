@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * This wrapper simplifies building dynamic queries where conditions should only be
  * applied when the corresponding values are present.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-11-20 15:53
  * @param <T> the entity type that this wrapper operates on
  */

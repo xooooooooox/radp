@@ -27,7 +27,7 @@ import space.x9x.radp.spring.framework.logging.EnableAccessLog;
  * configuration classes to import based on the advice mode specified in the
  * EnableAccessLog annotation.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:56
  */
 public class AccessLogImportSelector extends AdviceModeImportSelector<EnableAccessLog> {

@@ -33,7 +33,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * serves as the parent class for more specific result types like SingleResult and
  * MultiResult.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 15:53
  */
 @SuperBuilder

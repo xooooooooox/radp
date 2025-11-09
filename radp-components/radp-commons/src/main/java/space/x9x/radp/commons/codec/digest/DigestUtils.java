@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * DigestUtils to provide convenient access to message digest algorithms such as MD5 and
  * SHA.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-27 16:31
  */
 @UtilityClass

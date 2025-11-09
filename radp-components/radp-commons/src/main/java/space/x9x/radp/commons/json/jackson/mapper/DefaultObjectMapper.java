@@ -28,7 +28,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * serialization and deserialization needs. It includes settings for handling unknown
  * properties, empty beans, date/time formatting, and Java 8 time API support.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-23 13:50
  */
 public class DefaultObjectMapper extends ObjectMapper {

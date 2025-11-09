@@ -25,7 +25,7 @@ import space.x9x.radp.spring.framework.error.ServerException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-16 03:02
  */
 class ErrorCodeLoaderTest {

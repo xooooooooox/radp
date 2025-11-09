@@ -26,7 +26,7 @@ import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;
  * to pool statistics and configuration such as active connections, maximum and minimum
  * pool size, validation query, and default auto-commit settings.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-01 01:10
  */
 public class DruidDatasourcePoolMetadata extends AbstractDataSourcePoolMetadata<DruidDataSource> {

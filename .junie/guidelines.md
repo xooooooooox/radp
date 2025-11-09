@@ -1,4 +1,4 @@
-RADP Development Guidelines
+# Guidelines
 
 This document provides a concise, practical guide for contributing to RADP. It links to deeper explanations and style
 rules used by Junie in this repository.
@@ -18,11 +18,11 @@ Refer to the repository root for a complete tree and each module’s README wher
 
 ## Code Style and Formatting
 
-- Code style (cheatsheet): ./code-style.md
-- Extended guidelines with explanations: ./guidelines-with-explanations.md
-- Checkstyle config: ../.coding/checkstyle/checkstyle.xml
-- Checkstyle suppressions: ../.coding/checkstyle/checkstyle-suppressions.xml
-- Editor configuration: ../.editorconfig
+- [Code style (cheatsheet)](./codestyle.md)
+- [Extended guidelines with explanations](./codestyle-with-explanations.md)
+- [Checkstyle config](../.coding/checkstyle/checkstyle.xml)
+- [Checkstyle suppressions](../.coding/checkstyle/checkstyle-suppressions.xml)
+- [Editor configuration](../.editorconfig)
 
 Important notes:
 
@@ -40,7 +40,7 @@ See the two documents above for the full list of rules and rationale.
 Prerequisites:
 
 - JDK 8 (as configured in the root pom.xml)
-- Maven Wrapper is included; use ./mvnw (or mvnw.cmd on Windows)
+- Maven Wrapper is included; use `./mvnw` (or `mvnw.cmd` on Windows)
 - Docker is recommended for integration tests that use Testcontainers
 
 Common commands (run from repository root):
@@ -56,8 +56,3 @@ Common commands (run from repository root):
   `./mvnw -DskipTests checkstyle:check`
 - (If configured) Apply Spring Java Format:
   `./mvnw spring-javaformat:apply`
-
-CI/CD
-
-- The repository includes .gitlab-ci.yml and Maven Wrapper configuration. Local builds should mirror CI using the
-  commands above.

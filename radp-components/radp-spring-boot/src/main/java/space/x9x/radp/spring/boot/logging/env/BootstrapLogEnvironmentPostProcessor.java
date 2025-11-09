@@ -35,7 +35,7 @@ import space.x9x.radp.spring.framework.logging.MdcConstants;
  * logging based on the application environment. It populates the MDC with application
  * name, active profiles, and local IP address when bootstrap logging is enabled.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-27 21:16
  */
 public class BootstrapLogEnvironmentPostProcessor implements EnvironmentPostProcessor {

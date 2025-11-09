@@ -26,7 +26,7 @@ import space.x9x.radp.extension.SPI;
  * to work with JSON without being tied to a specific implementation. The default
  * implementation is "jackson" as specified by the SPI annotation.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 11:07
  */
 @SPI("jackson")

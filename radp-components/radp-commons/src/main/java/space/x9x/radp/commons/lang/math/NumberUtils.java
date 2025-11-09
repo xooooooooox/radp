@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * NumberUtils to provide convenient access to number manipulation methods such as
  * parsing, conversion, and comparison of numeric values.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-27 21:11
  * @see org.apache.commons.lang3.math.NumberUtils
  */

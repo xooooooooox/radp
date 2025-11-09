@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * centralized access to common constants that are used across different components of the
  * framework.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-12 15:47
  */
 @UtilityClass

@@ -38,7 +38,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-25 14:36
  */
 @Testcontainers

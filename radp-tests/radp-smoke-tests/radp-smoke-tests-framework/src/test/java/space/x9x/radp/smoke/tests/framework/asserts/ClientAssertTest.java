@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Tests for {@link ClientAssert}.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-16 03:02
  */
 class ClientAssertTest {

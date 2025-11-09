@@ -20,7 +20,6 @@ import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
@@ -28,9 +27,9 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * MyBatis-Plus extensions, particularly for automatic field filling functionality like
  * creation and modification timestamps.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 13:25
- * @see BasePO
+ * @see space.x9x.radp.spring.data.mybatis.autofill.BasePO
  */
 @ConfigurationProperties(prefix = MybatisPlusExtensionProperties.PREFIX)
 @Data

@@ -21,12 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
+import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
+
 /**
  * Utility class for Jasypt encryption and decryption operations. This class provides
  * methods for encrypting and decrypting text using various Password-Based Encryption
  * (PBE) algorithms supported by Jasypt.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-17 10:30
  */
 @Slf4j
@@ -83,6 +85,23 @@ public class JasyptUtils {
 		StandardPBEStringEncryptor decryptor = new StandardPBEStringEncryptor();
 		decryptor.setAlgorithm(pbeAlgorithm);
 		decryptor.setPassword(password);
+		return decrypt(decryptor, encryptedText);
+	}
+
+	/**
+	 * Custom SM4 encrypt using the provided algorithm and password. Example algorithms:
+	 * "SM4/CBC/PKCS5Padding", "SM4/ECB/PKCS5Padding".
+	 */
+	public String customSM4Encrypt(String originText, String sm4Algorithm, String password) {
+		Sm4StringEncryptor encryptor = new Sm4StringEncryptor(sm4Algorithm, password);
+		return encrypt(encryptor, originText);
+	}
+
+	/**
+	 * Custom SM4 decrypt using the provided algorithm and password.
+	 */
+	public String customSM4Decrypt(String encryptedText, String sm4Algorithm, String password) {
+		Sm4StringEncryptor decryptor = new Sm4StringEncryptor(sm4Algorithm, password);
 		return decrypt(decryptor, encryptedText);
 	}
 

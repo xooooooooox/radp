@@ -40,7 +40,7 @@ import space.x9x.radp.spring.data.redis.core.CustomRedisTemplateImpl;
  * additional functionality while maintaining compatibility with standard Redis
  * operations.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-19 20:57
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

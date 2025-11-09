@@ -25,7 +25,7 @@ import space.x9x.radp.redis.spring.boot.constants.IRedisKeyProvider;
  * Provider for Redis key prefixes used in the application. This enum implements the
  * IRedisKeyProvider interface to provide standardized Redis key management.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-22 23:04
  */
 public enum RedisKeyProvider implements IRedisKeyProvider {

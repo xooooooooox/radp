@@ -52,7 +52,7 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * guarantee the existence of real-world resources (e.g., actual phone numbers or emails).
  * </p>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-11-20 16:41
  * @see org.apache.commons.lang3.RandomStringUtils
  * @see space.x9x.radp.commons.regex.pattern.RegexCache

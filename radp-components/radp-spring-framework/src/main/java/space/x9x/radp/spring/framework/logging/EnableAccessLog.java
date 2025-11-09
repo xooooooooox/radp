@@ -46,7 +46,7 @@ import space.x9x.radp.spring.framework.logging.access.config.AccessLogImportSele
  * }
  * </pre>
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 09:53
  */
 @Import(AccessLogImportSelector.class)

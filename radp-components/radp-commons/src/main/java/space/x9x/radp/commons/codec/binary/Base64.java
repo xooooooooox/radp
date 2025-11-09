@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * functionality within the RADP framework. Base64 is a binary-to-text encoding scheme
  * that represents binary data in an ASCII string format.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-12-27 16:25
  */
 @UtilityClass

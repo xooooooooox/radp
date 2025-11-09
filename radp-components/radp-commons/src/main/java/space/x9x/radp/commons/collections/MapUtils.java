@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * Utility class for map operations. This class extends Hutool's MapUtil to provide
  * additional utility methods for working with maps.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-23 15:41
  */
 @UtilityClass

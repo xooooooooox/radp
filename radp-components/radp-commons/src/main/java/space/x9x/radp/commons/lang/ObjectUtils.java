@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * ObjectUtils to provide additional utility methods for working with objects, including
  * null-safe operations and string conversions.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 10:34
  */
 @UtilityClass

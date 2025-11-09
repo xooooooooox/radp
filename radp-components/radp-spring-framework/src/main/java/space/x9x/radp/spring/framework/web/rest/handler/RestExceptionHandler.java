@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.validation.BindingResult;
@@ -38,6 +39,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
+import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
@@ -56,7 +58,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * exception handling across all REST controllers in the application, converting various
  * exceptions into appropriate HTTP responses with standardized error formats.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 23:52
  */
 @RestControllerAdvice
@@ -77,19 +79,11 @@ public class RestExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> resolveException(Exception ex) {
 		log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
-		BodyBuilder builder;
-		Object response;
 		ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
-		if (responseStatus != null) {
-			builder = ResponseEntity.status(responseStatus.value());
-			response = builder().buildFailure("500", responseStatus.reason());
-		}
-		else {
-			builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-			response = builder().buildFailure("500", ex.getMessage());
-		}
+		HttpStatus status = (responseStatus != null) ? responseStatus.value() : HttpStatus.INTERNAL_SERVER_ERROR;
+		String message = (responseStatus != null) ? responseStatus.reason() : ex.getMessage();
 		this.postProcess(ex);
-		return builder.body(response);
+		return this.buildResponseEntity(status, "500", message);
 	}
 
 	/**
@@ -102,8 +96,7 @@ public class RestExceptionHandler {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		String message = StringUtils.join(fieldErrors.toArray(), ",");
-		Object response = builder().buildFailure("400", message);
-		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
+		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, "400", message);
 	}
 
 	/**
@@ -115,8 +108,8 @@ public class RestExceptionHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<?> resolveMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
-		Object response = builder().buildFailure("400", "请求参数类型错误{}", ex.getMessage());
-		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
+		String message = "请求参数类型错误: " + ex.getMessage();
+		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, "400", message);
 	}
 
 	/**
@@ -127,8 +120,9 @@ public class RestExceptionHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
-		Object response = builder().buildFailure(GlobalResponseCode.METHOD_NOT_ALLOWED.getErrorCode());
-		return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, response);
+		return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED,
+				GlobalResponseCode.METHOD_NOT_ALLOWED.getErrorCode().getCode(), ex.getMessage());
+
 	}
 
 	/**
@@ -139,8 +133,8 @@ public class RestExceptionHandler {
 	@ExceptionHandler(NoResourceFoundException.class)
 	public ResponseEntity<?> resolveNoResourceFoundException(NoResourceFoundException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage());
-		Object response = builder().buildFailure(GlobalResponseCode.NOT_FOUND.getErrorCode());
-		return this.buildResponseEntity(HttpStatus.NOT_FOUND, response);
+		return this.buildResponseEntity(HttpStatus.NOT_FOUND, GlobalResponseCode.NOT_FOUND.getErrorCode().getCode(),
+				ex.getMessage());
 	}
 
 	/**
@@ -227,14 +221,77 @@ public class RestExceptionHandler {
 		}
 	}
 
+	private boolean isSseRequest(HttpServletRequest request) {
+		if (request == null) {
+			return false;
+		}
+		String accept = request.getHeader("Accept");
+		return accept != null && accept.contains("text/event-stream");
+	}
+
+	private boolean isBinaryOrStreamRequest(HttpServletRequest request) {
+		if (request == null) {
+			return false;
+		}
+		String accept = request.getHeader("Accept");
+		if (accept == null) {
+			return false;
+		}
+		return accept.contains("application/octet-stream") || accept.contains("application/stream+json")
+				|| accept.contains("application/x-ndjson");
+	}
+
+	private String formatPlainMessage(String errMessage, Object... params) {
+		if (params == null || params.length == 0) {
+			return errMessage;
+		}
+		try {
+			String formatted = MessageFormatUtils.format(errMessage, params);
+			if (formatted != null) {
+				return formatted;
+			}
+		}
+		catch (Throwable ignored) {
+			// ignore and fallback
+		}
+		String base = (errMessage == null ? "" : errMessage);
+		return base + (base.isEmpty() ? "" : " ") + StringUtils.join(params, ",");
+	}
+
+	private String buildSseErrorEvent(String code, String message) {
+		String safeCode = (code == null ? "" : code);
+		String safeMsg = (message == null ? "" : message).replace("\r", " ").replace("\n", " ");
+		return "event: error\n" + "data: " + safeCode + " " + safeMsg + "\n\n";
+	}
+
+	private ResponseEntity<?> buildNegotiatedResponse(HttpStatus httpStatus, String errCode, String errMessage,
+			Object... params) {
+		HttpServletRequest request = ServletUtils.getRequest();
+		BodyBuilder builder = ResponseEntity.status(httpStatus);
+		if (isSseRequest(request)) {
+			String sse = buildSseErrorEvent(errCode, formatPlainMessage(errMessage, params));
+			return builder.contentType(MediaType.TEXT_EVENT_STREAM).body(sse);
+		}
+		if (isBinaryOrStreamRequest(request)) {
+			String text = "error=" + errCode + "; message=" + formatPlainMessage(errMessage, params);
+			return builder.contentType(MediaType.TEXT_PLAIN).body(text);
+		}
+		Object response = builder().buildFailure(errCode, errMessage, params);
+		return builder.body(response);
+	}
+
 	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, Object response) {
 		BodyBuilder builder = ResponseEntity.status(httpStatus);
 		return builder.body(response);
 	}
 
 	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, BaseException ex) {
-		Object response = builder().buildFailure(ex.getErrCode(), ex.getErrMessage(), ex.getParams());
-		return this.buildResponseEntity(httpStatus, response);
+		return this.buildNegotiatedResponse(httpStatus, ex.getErrCode(), ex.getErrMessage(), ex.getParams());
+	}
+
+	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, String errCode, String errMessage,
+			Object... params) {
+		return this.buildNegotiatedResponse(httpStatus, errCode, errMessage, params);
 	}
 
 }

@@ -19,7 +19,7 @@ package space.x9x.radp.design.framework.tree;
 /**
  * 策略受理器.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-01-14 14:29
  * @param <T> the type of request parameter
  * @param <D> the type of dynamic context

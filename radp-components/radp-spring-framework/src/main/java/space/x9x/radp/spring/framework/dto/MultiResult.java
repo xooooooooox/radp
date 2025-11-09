@@ -35,7 +35,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * response. It includes methods for building successful and failure responses with
  * collections of data.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-03-18 13:16
  * @param <T> the type of elements in the result collection
  */

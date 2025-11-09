@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * These tests verify that the Redis key management system works correctly with the new
  * validation, normalization, and utility methods.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-30
  */
 class RedisKeyManagementTest {

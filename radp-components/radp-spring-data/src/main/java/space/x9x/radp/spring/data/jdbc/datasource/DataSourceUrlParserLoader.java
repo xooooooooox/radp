@@ -29,7 +29,7 @@ import space.x9x.radp.extension.ExtensionLoader;
  * DataSource objects. It implements a chain of responsibility pattern where each resolver
  * and parser is tried in sequence until a valid URL is found.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 13:50
  */
 public final class DataSourceUrlParserLoader {

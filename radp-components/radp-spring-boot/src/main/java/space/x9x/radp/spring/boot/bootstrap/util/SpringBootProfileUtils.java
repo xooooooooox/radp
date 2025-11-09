@@ -31,7 +31,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
  * methods to configure default profiles for Spring Boot applications, making it easier to
  * set up development environments consistently.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-28 21:37
  */
 @UtilityClass

@@ -14,6 +14,8 @@
 
 	<modules>
 		<module>radp-solution-tenant</module>
+		<module>radp-solution-dict</module>
+		<module>radp-solution-excel</module>
 	</modules>
 
 </project>

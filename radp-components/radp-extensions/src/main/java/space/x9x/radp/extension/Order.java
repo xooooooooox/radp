@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * are prioritized according to their {@code Order} value. Extensions with lower order
  * values have higher priority and will be processed first.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-24 23:47
  */
 @Documented

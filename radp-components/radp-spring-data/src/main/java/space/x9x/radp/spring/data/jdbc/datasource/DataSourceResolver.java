@@ -23,7 +23,7 @@ import space.x9x.radp.extension.SPI;
 /**
  * 数据源解析器.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-30 13:57
  */
 @SPI

@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.error.ThirdServiceException;
  * This class simplifies the creation of ServerException, ClientException, and
  * ThirdServiceException instances with various error codes, messages, and causes.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-27 11:56
  */
 @Slf4j

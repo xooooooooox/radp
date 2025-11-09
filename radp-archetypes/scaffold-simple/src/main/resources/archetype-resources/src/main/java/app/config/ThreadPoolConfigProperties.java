@@ -30,7 +30,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * properties that can be configured in the application properties file to customize the
  * thread pool executor behavior.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-01-17 11:13
  */
 @Data

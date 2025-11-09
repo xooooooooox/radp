@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpServletResponseWrapper;
 /**
  * HttpServletResponse 包装器.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-27 20:55
  */
 public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper {

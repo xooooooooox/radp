@@ -28,7 +28,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * provides methods for building successful and failure responses with various parameters
  * and error codes.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-26 20:19
  */
 public class ResultBuilder implements ResponseBuilder<Result> {

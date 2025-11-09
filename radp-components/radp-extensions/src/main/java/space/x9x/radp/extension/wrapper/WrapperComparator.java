@@ -27,7 +27,7 @@ import space.x9x.radp.extension.active.ActivateComparator;
  * ActivateComparator to provide specialized sorting for extension points that use the
  * Wrapper annotation.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-09-24 13:59
  */
 public class WrapperComparator extends ActivateComparator {

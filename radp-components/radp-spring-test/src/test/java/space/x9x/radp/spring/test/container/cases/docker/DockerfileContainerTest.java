@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * 从 Dockerfile 创建容器
  *
- * @author IO x9x
+ * @author x9x
  * @since 2025-05-24 17:04
  */
 @Testcontainers

@@ -22,8 +22,11 @@ import java.io.Serial;
 import java.util.Properties;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.properties.EncryptableProperties;
+
+import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
 
 /**
  * Extended Jasypt Properties implementation. This class extends Java's Properties class
@@ -31,7 +34,7 @@ import org.jasypt.properties.EncryptableProperties;
  * configures a Jasypt encryptor with settings loaded from various sources in priority
  * order: system properties, environment variables, and external configuration files.
  *
- * @author IO x9x
+ * @author x9x
  * @since 2024-10-17 10:29
  */
 @Slf4j
@@ -82,10 +85,17 @@ public class ExtendJasyptProperties extends Properties {
 		String algorithm = getPropertyValue(ALGORITHM_KEY, externalConfig);
 		String password = getPropertyValue(PASSWORD_KEY, externalConfig);
 
-		// 配置加解密器
-		StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-		encryptor.setPassword(password);
-		encryptor.setAlgorithm(algorithm);
+		// 配置加解密器: 支持 PBE 与 SM4
+		StringEncryptor encryptor;
+		if (algorithm != null && algorithm.toUpperCase().startsWith("SM4")) {
+			encryptor = new Sm4StringEncryptor(algorithm, password);
+		}
+		else {
+			StandardPBEStringEncryptor pbe = new StandardPBEStringEncryptor();
+			pbe.setPassword(password);
+			pbe.setAlgorithm(algorithm);
+			encryptor = pbe;
+		}
 		super.defaults = new EncryptableProperties(encryptor);
 	}
 
@@ -145,7 +155,7 @@ public class ExtendJasyptProperties extends Properties {
 	 * Properties put method to ensure values are stored in the encryptable properties
 	 * object rather than the main properties object.
 	 * @param key the key to be placed into this property list
-	 * @param value the value corresponding to key
+	 * @param value the value corresponding to the key
 	 * @return the previous value of the specified key, or null if it did not have one
 	 */
 	@Override

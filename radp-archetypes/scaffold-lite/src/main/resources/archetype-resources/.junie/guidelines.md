@@ -77,6 +77,8 @@ Common commands (run from repository root):
   `./mvnw clean verify`
 - Skip tests (when appropriate):
   `./mvnw clean verify -DskipTests`
+- Jacoco report and check
+  - `./mvnw clean verify jacoco:report-aggregate -Pcoding,unit-test,env-test`
 - Run Checkstyle only:
   `./mvnw -DskipTests checkstyle:check`
 - (If configured) Apply Spring Java Format:

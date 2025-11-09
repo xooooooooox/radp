@@ -22,15 +22,23 @@ import lombok.Setter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import space.x9x.radp.commons.json.JacksonUtils;
 
 /**
  * Tests for JsonConvert.
  *
  * @author x9x
- * @since 2025-11-09 20:01
+ * @since 2025-11-09 19:59
  */
 class JsonConvertTest {
+
+	@Test
+	@DisplayName("support*Key methods -> Object.class and null as expected")
+	void testSupportKeys() {
+		Assertions.assertThat(converter.supportJavaTypeKey()).isEqualTo(Object.class);
+		Assertions.assertThat(converter.supportExcelTypeKey()).isNull();
+	}
 
 	private final JsonConvert converter = new JsonConvert();
 

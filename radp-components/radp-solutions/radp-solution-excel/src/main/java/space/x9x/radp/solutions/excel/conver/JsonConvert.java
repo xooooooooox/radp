@@ -36,22 +36,20 @@ public class JsonConvert implements Converter<Object> {
 
 	/**
 	 * 获取支持的Java类型.
-	 * <p>
-	 * 该方法暂不支持使用，也不需要实现
 	 */
 	@Override
 	public Class<?> supportJavaTypeKey() {
-		throw new UnsupportedOperationException("暂不支持,也不需要");
+		// 本转换器用于将任意对象序列化为 JSON 文本
+		return Object.class; // 任意对象 -> JSON 文本
 	}
 
 	/**
 	 * 获取支持的Excel单元格数据类型.
-	 * <p>
-	 * 该方法暂不支持使用，也不需要实现
 	 */
 	@Override
 	public CellDataTypeEnum supportExcelTypeKey() {
-		throw new UnsupportedOperationException("暂不支持,也不需要");
+		// 返回 null 表示不限制原始单元格类
+		return null;
 	}
 
 	/**

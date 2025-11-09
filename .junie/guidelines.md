@@ -53,6 +53,8 @@ Common commands (run from repository root):
   `./mvnw clean verify`
 - Skip tests (when appropriate):
   `./mvnw clean verify -DskipTests`
+- Jacoco report and check
+  - `./mvnw clean verify jacoco:report-aggregate -Pcoding,unit-test,env-test`
 - Build a single module and its dependencies:
   `./mvnw -pl <module-path> -am clean verify`
   Example: `./mvnw -pl radp-components/radp-parent -am clean verify`

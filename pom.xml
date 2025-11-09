@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.18</version>
-		<relativePath /> <!-- lookup parent from the repository -->
+		<relativePath/> <!-- lookup parent from the repository -->
 	</parent>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp</artifactId>
@@ -40,17 +41,17 @@
 		<flattened.filename>.flatten-pom-xml</flattened.filename>
 		<javadoc.encoding>${project.build.sourceEncoding}</javadoc.encoding>
 		<central.server.id>central-portal</central.server.id>
-		<user.archetype.catalog.upload.url />
-		<user.archetype.catalog.upload.serverId />
-		<user.gpg.keyname />
-		<user.minio.alias />
-		<user.minio.bucket.path />
-		<user.docker.build.registry />
-		<user.docker.build.base_image />
-		<user.jasypt.encryptor.password />
+		<user.archetype.catalog.upload.url/>
+		<user.archetype.catalog.upload.serverId/>
+		<user.gpg.keyname/>
+		<user.minio.alias/>
+		<user.minio.bucket.path/>
+		<user.docker.build.registry/>
+		<user.docker.build.base_image/>
+		<user.jasypt.encryptor.password/>
 		<!-- checkstyle -->
-		<checkstyle.base.dir>.coding/checkstyle</checkstyle.base.dir>
-		<checkstyle.config.location>.coding/checkstyle/checkstyle.xml</checkstyle.config.location>
+		<checkstyle.base.dir>${maven.multiModuleProjectDirectory}/.coding/checkstyle</checkstyle.base.dir>
+		<checkstyle.config.location>${checkstyle.base.dir}/checkstyle.xml</checkstyle.config.location>
 		<checkstyle.property.expansion>config_loc=${checkstyle.base.dir}</checkstyle.property.expansion>
 		<!-- wrapper -->
 		<wrapper.maven.version>3.9.9</wrapper.maven.version>
@@ -387,9 +388,9 @@
 				<!-- release -->
 				<setting.release.arguments>-DskipTests</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles />
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,publish-central</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles />
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 			<build>
 				<plugins>
@@ -424,7 +425,7 @@
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review,repo-artifactory
 				</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles />
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-artifactory</setting.release.releaseProfiles>
 				<setting.release.extraReleaseProfiles>,o-tar,env-${runtime.env}</setting.release.extraReleaseProfiles>
 			</properties>
@@ -438,9 +439,9 @@
 				<!-- release -->
 				<setting.release.arguments>-DskipTests -Dgpg.skip=true</setting.release.arguments>
 				<setting.release.preparationProfiles>coding,code-review</setting.release.preparationProfiles>
-				<setting.release.extraPreparationProfiles />
+				<setting.release.extraPreparationProfiles/>
 				<setting.release.releaseProfiles>coding,o-release,publish-harbor</setting.release.releaseProfiles>
-				<setting.release.extraReleaseProfiles />
+				<setting.release.extraReleaseProfiles/>
 			</properties>
 		</profile>
 		<profile>

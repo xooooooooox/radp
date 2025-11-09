@@ -13,6 +13,7 @@
 - Optimize `radp-jasypt-spring-boot-starter`: add SM4 encryption/decryption support with autoconfiguration
 - Update Checkstyle configurations, remove unnecessary or redundant checks.
 - Optimize JacksonUtils: add utility methods for parsing JSON from File and URL.
+- Add Junie guidelines.
 
 ### Dependencies
 
@@ -23,6 +24,7 @@
 ### Fix
 
 - Fix `RestExceptionHandler`.
+- Updated Checkstyle configuration paths to use `${maven.multiModuleProjectDirectory}` for improved flexibility.
 
 ### Chore
 

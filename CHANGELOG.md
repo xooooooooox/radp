@@ -20,6 +20,7 @@
 ### Fix
 
 - Fix `RestExceptionHandler`.
+- Updated Checkstyle configuration paths to use `${maven.multiModuleProjectDirectory}` for improved flexibility.
 
 ### Chore
 

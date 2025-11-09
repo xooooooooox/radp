@@ -19,13 +19,20 @@ package space.x9x.radp.solutions.excel.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cn.idev.excel.ExcelWriter;
 import cn.idev.excel.FastExcelFactory;
+import cn.idev.excel.annotation.ExcelProperty;
 import cn.idev.excel.converters.longconverter.LongStringConverter;
 import cn.idev.excel.write.builder.ExcelWriterBuilder;
 import cn.idev.excel.write.metadata.WriteSheet;
@@ -317,6 +324,145 @@ public class ExcelUtils {
 		return FastExcelFactory.read(file.getInputStream(), head, null)
 			.autoCloseStream(false) // 不自动关闭, 交给 Servlet 处理
 			.doReadAllSync();
+	}
+
+	/**
+	 * 从 Excel 文件中读取数据，并可选择跳过“空行”.
+	 * <ul>
+	 * 空行判定规则（尽量贴近实际 Excel 导入场景)
+	 * <li>优先只检查标注了 @ExcelProperty 的字段</li>
+	 * <li>若类上没有任何该注解，则退化为检查所有非 static 字段</li>
+	 * <li>字符串字段：null 或去除首尾空白后长度为 0 视为空</li>
+	 * <li>集合/Map：为空视为“空”</li>
+	 * <li>数组：长度为 0 视为空</li>
+	 * <li>基本类型字段：0/false/'\0' 视为“空”（避免因 Java * 基本类型的默认值导致误判非空）</li>
+	 * <li>包装类型数字（如 Integer/Long 等）：只要不为 null 就认为“非空”（代表用户在 Excel 中确实填写了值）</li>
+	 * </ul>
+	 * @param file excel 文件
+	 * @param head excel 数据对应的类型(表头)
+	 * @param skipEmptyRows 是否跳过空行
+	 * @param <T> 泛型, 确保读取的数据类型一致性
+	 * @return 读取到的数据列表（当 skipEmptyRows=true 时已剔除空行）
+	 * @throws IOException 读取失败时抛出异常
+	 */
+	public static <T> List<T> read(MultipartFile file, Class<T> head, boolean skipEmptyRows) throws IOException {
+		List<T> list = FastExcelFactory.read(file.getInputStream(), head, null).autoCloseStream(false).doReadAllSync();
+		if (!skipEmptyRows || list == null || list.isEmpty()) {
+			return list;
+		}
+		List<T> result = new ArrayList<>(list.size());
+		List<Field> fields = getExcelPropertyFields(head);
+		for (T row : list) {
+			if (!isEmptyRow(row, fields)) {
+				result.add(row);
+			}
+		}
+		return result;
+	}
+
+	// ===== 空行判定与反射缓存 =====
+	private static final Map<Class<?>, List<Field>> EXCEL_FIELDS_CACHE = new ConcurrentHashMap<>();
+
+	private static List<Field> getExcelPropertyFields(Class<?> type) {
+		return EXCEL_FIELDS_CACHE.computeIfAbsent(type, clazz -> {
+			// 优先收集带有 @ExcelProperty 的非 static 字段
+			List<Field> annotated = scanHierarchyFields(clazz, f -> isNonStatic(f) && hasExcelProperty(f));
+			if (!annotated.isEmpty()) {
+				return annotated;
+			}
+			// 若类及其父类均未声明 @ExcelProperty，则退化为收集全部非 static 字段
+			return scanHierarchyFields(clazz, ExcelUtils::isNonStatic);
+		});
+	}
+
+	private static List<Field> scanHierarchyFields(Class<?> clazz, java.util.function.Predicate<Field> filter) {
+		List<Field> fields = new ArrayList<>();
+		Class<?> c = clazz;
+		while (c != null && c != Object.class) {
+			for (Field f : c.getDeclaredFields()) {
+				if (filter.test(f)) {
+					f.setAccessible(true);
+					fields.add(f);
+				}
+			}
+			c = c.getSuperclass();
+		}
+		return fields;
+	}
+
+	private static boolean isNonStatic(Field f) {
+		return !Modifier.isStatic(f.getModifiers());
+	}
+
+	private static boolean hasExcelProperty(Field f) {
+		return f.getAnnotation(ExcelProperty.class) != null;
+	}
+
+	private static boolean isEmptyRow(Object bean, List<Field> fields) {
+		if (bean == null) {
+			return true;
+		}
+		try {
+			for (Field field : fields) {
+				Object value = field.get(bean);
+				if (!isEmptyValue(value, field)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		catch (IllegalAccessException ex) {
+			// 出现异常时，保守地认为非空，避免误删数据
+			log.warn("[ExcelUtils] 判断空行时发生异常: {}", ex.getMessage());
+			return false;
+		}
+	}
+
+	private static boolean isEmptyValue(Object value, Field field) {
+		if (value == null) {
+			return true;
+		}
+		Class<?> fType = (field != null ? field.getType() : null);
+		if (value instanceof CharSequence) {
+			return isBlank((CharSequence) value);
+		}
+		if (value instanceof Collection) {
+			return ((Collection<?>) value).isEmpty();
+		}
+		if (value instanceof Map) {
+			return ((Map<?, ?>) value).isEmpty();
+		}
+		Class<?> vClass = value.getClass();
+		if (vClass.isArray()) {
+			return java.lang.reflect.Array.getLength(value) == 0;
+		}
+		// 对于基本类型字段，使用其默认值作为“空”的判定
+		if (fType != null && fType.isPrimitive()) {
+			if (fType == boolean.class) {
+				return !((Boolean) value);
+			}
+			if (fType == char.class) {
+				return ((Character) value) == '\0';
+			}
+			if (value instanceof Number) {
+				return ((Number) value).doubleValue() == 0.0d;
+			}
+		}
+		// 包装类型数字等：只要有值就认为非空
+		return false;
+	}
+
+	private static boolean isBlank(CharSequence cs) {
+		int len;
+		if (cs == null || (len = cs.length()) == 0) {
+			return true;
+		}
+		for (int i = 0; i < len; i++) {
+			if (!Character.isWhitespace(cs.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

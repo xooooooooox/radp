@@ -11,7 +11,6 @@
 1. 引入依赖（若使用 radp-solutions 聚合已包含则忽略）
 
 ```xml
-
 <dependency>
 	<groupId>space.x9x.radp</groupId>
 	<artifactId>radp-solution-dict</artifactId>
@@ -48,7 +47,6 @@ radp:
 当 provider=db 时，需要在业务应用中提供一个 `DictDataQuery` 的 Bean，用于按类型从数据库查询字典项：
 
 ```java
-
 @Component
 public class MyDictDataQuery implements DictDataQuery {
 	@Override
@@ -76,16 +74,12 @@ public class MyDictDataQuery implements DictDataQuery {
 private DictService dictService;
 
 String label = dictService.getLabel("gender", "1"); // => 男
-
 String value = dictService.getValue("gender", "男"); // => 1
-
 List<DictItem> items = dictService.getItems("status");
-
 List<String> labels = dictService.getLabels("status");
 ```
 
 边界约定：
-
 - 当传入值/标签为 null 时返回 null；
 - 当找不到匹配项时，返回原始入参（便于容错）。
 

@@ -14,6 +14,7 @@
 - Update Checkstyle configurations, remove unnecessary or redundant checks.
 - Optimize JacksonUtils: add utility methods for parsing JSON from File and URL.
 - Add Junie guidelines.
+- Adjust Jacoco branch coverage threshold from 0.60 to 0.50
 
 ### Dependencies
 

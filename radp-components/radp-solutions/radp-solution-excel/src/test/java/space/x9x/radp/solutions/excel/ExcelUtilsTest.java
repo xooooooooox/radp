@@ -65,7 +65,7 @@ class ExcelUtilsTest {
 
 		// Body exists
 		byte[] bytes = resp.getContentAsByteArray();
-		Assertions.assertThat(bytes.length).isGreaterThan(0);
+		Assertions.assertThat(bytes).hasSizeGreaterThan(0);
 	}
 
 	@Test

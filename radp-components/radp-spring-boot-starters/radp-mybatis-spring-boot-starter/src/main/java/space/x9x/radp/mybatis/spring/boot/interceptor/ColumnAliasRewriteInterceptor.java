@@ -17,6 +17,8 @@
 package space.x9x.radp.mybatis.spring.boot.interceptor;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +61,7 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
  * per-entity annotations. If you have custom SQL with explicit aliases, ensure those are
  * compatible with this interceptor.
  *
- * @author Junie
+ * @author x9x
  * @since 2025-11-10 15:04
  */
 @Intercepts({
@@ -206,12 +208,21 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private static final Pattern FROM_PATTERN = Pattern.compile("(?i)\\bfrom\\b");
 
+	private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("([#$]\\{[^}]+})");
+
+	private static final String PLACEHOLDER_TOKEN_PREFIX = "__radp_param_";
+
+	private static final String PLACEHOLDER_TOKEN_SUFFIX = "__";
+
 	private String rewriteSelect(String sql) {
-		Matcher fromMatcher = FROM_PATTERN.matcher(sql);
+		MaskedSql masked = maskPlaceholders(sql);
+		String working = masked.sql();
+		Matcher fromMatcher = FROM_PATTERN.matcher(working);
+		String rewritten;
 		if (fromMatcher.find()) {
 			int idx = fromMatcher.start();
-			String head = sql.substring(0, idx);
-			String tail = sql.substring(idx);
+			String head = working.substring(0, idx);
+			String tail = working.substring(idx);
 			// In the SELECT list (head), alias physical columns back to logical defaults
 			String newHead = head;
 			for (Token t : this.tokens) {
@@ -222,22 +233,26 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 			for (Token t : this.tokens) {
 				newTail = t.replaceAll(newTail);
 			}
-			return newHead + newTail;
+			rewritten = newHead + newTail;
 		}
-		// Fallback: no FROM found, alias across entire SQL conservatively
-		String out = sql;
-		for (Token t : this.tokens) {
-			out = t.aliasHead(out);
+		else {
+			// Fallback: no FROM found, alias across entire SQL conservatively
+			String out = working;
+			for (Token t : this.tokens) {
+				out = t.aliasHead(out);
+			}
+			rewritten = out;
 		}
-		return out;
+		return masked.restore(rewritten);
 	}
 
 	private String rewriteNonSelect(String sql) {
-		String out = sql;
+		MaskedSql masked = maskPlaceholders(sql);
+		String out = masked.sql();
 		for (Token t : this.tokens) {
 			out = t.replaceAll(out);
 		}
-		return out;
+		return masked.restore(out);
 	}
 
 	private static Pattern buildTokenPattern(String logicalName) {
@@ -260,6 +275,23 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 			return false;
 		}
 		return s.regionMatches(true, 0, prefix, 0, len);
+	}
+
+	private MaskedSql maskPlaceholders(String sql) {
+		java.util.regex.Matcher matcher = PLACEHOLDER_PATTERN.matcher(sql);
+		StringBuffer buffer = new StringBuffer();
+		List<String> originals = new ArrayList<>();
+		while (matcher.find()) {
+			String token = placeholderToken(originals.size());
+			originals.add(matcher.group(1));
+			matcher.appendReplacement(buffer, Matcher.quoteReplacement(token));
+		}
+		matcher.appendTail(buffer);
+		return new MaskedSql(buffer.toString(), originals);
+	}
+
+	private static String placeholderToken(int index) {
+		return PLACEHOLDER_TOKEN_PREFIX + index + PLACEHOLDER_TOKEN_SUFFIX;
 	}
 
 	private static final class Token {
@@ -296,6 +328,31 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 				return sql;
 			}
 			return this.pattern.matcher(sql).replaceAll(this.physical);
+		}
+
+	}
+
+	private static final class MaskedSql {
+
+		private final String sql;
+
+		private final List<String> placeholders;
+
+		MaskedSql(String sql, List<String> placeholders) {
+			this.sql = sql;
+			this.placeholders = placeholders;
+		}
+
+		String sql() {
+			return this.sql;
+		}
+
+		String restore(String rewritten) {
+			String result = rewritten;
+			for (int i = 0; i < this.placeholders.size(); i++) {
+				result = result.replace(placeholderToken(i), this.placeholders.get(i));
+			}
+			return result;
 		}
 
 	}

@@ -35,7 +35,7 @@ import org.apache.ibatis.reflection.MetaObject;
  * bean; the delegating handler will invoke it when it supports the current entity.</li>
  * </ul>
  *
- * @author Junie
+ * @author x9x
  * @since 2025-11-10 15:29
  */
 public interface AutoFillStrategy {

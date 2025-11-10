@@ -31,7 +31,7 @@ import org.apache.ibatis.reflection.MetaObject;
  * Note: user id resolution is currently a placeholder and should be integrated with your
  * security context.
  *
- * @author Junie
+ * @author x9x
  * @since 2025-11-10 15:29
  */
 public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {

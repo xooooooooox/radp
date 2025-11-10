@@ -83,9 +83,6 @@ public class MybatisPlusExtensionProperties {
 
 	/**
 	 * SQL rewrite configuration bean.
-	 *
-	 * @author Junie
-	 * @since 2025-11-10 15:04
 	 */
 	@Data
 	public static class SqlRewrite {

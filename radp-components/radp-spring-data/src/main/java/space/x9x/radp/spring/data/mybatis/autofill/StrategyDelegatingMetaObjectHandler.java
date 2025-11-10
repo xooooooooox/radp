@@ -36,7 +36,7 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
  * Strategies can be ordered using Spring's {@code @Order} annotation; the injected list
  * preserves this order.
  *
- * @author Junie
+ * @author x9x
  * @since 2025-11-10 15:29
  */
 @Slf4j

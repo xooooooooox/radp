@@ -16,13 +16,18 @@
 
 package space.x9x.radp.mybatis.spring.boot.autoconfigure;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -33,7 +38,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
 
 import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
-import space.x9x.radp.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
+import space.x9x.radp.mybatis.spring.boot.interceptor.ColumnAliasRewriteInterceptor;
+import space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy;
+import space.x9x.radp.spring.data.mybatis.autofill.BasePOAutoFillStrategy;
 
 /**
  * Autoconfiguration for MyBatis-Plus extensions. This class automatically configures
@@ -67,11 +74,46 @@ public class MybatisPlusExtensionAutoConfiguration {
 	 */
 	@ConditionalOnMissingBean
 	@Bean
-	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
+	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties,
+			ObjectProvider<List<AutoFillStrategy>> strategiesProvider) {
 		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
-		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDataFieldName(),
-				properties.getAutoFill().getLastModifiedDateFieldName(), properties.getAutoFill().getCreatorFieldName(),
-				properties.getAutoFill().getUpdaterFieldName());
+		// Always prefer strategy-based delegation; users provide AutoFillStrategy beans
+		java.util.List<space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy> strategies = strategiesProvider
+			.getIfAvailable(Collections::emptyList);
+		return new space.x9x.radp.spring.data.mybatis.autofill.StrategyDelegatingMetaObjectHandler(strategies);
+	}
+
+	/**
+	 * Register the default BasePO autofill strategy so users get sensible behavior out of
+	 * the box. Users can define their own {@code AutoFillStrategy} beans to
+	 * extend/replace this behavior; the delegating handler will pick the first strategy
+	 * that supports the current entity.
+	 * @return default BasePO strategy
+	 */
+	@ConditionalOnMissingBean(BasePOAutoFillStrategy.class)
+	@Bean
+	public BasePOAutoFillStrategy basePOAutoFillStrategy() {
+		return new BasePOAutoFillStrategy();
+	}
+
+	/**
+	 * Registers a lightweight SQL rewrite interceptor that aliases configured physical
+	 * column names to logical defaults in SELECT lists and rewrites DML statements. The
+	 * interceptor becomes a no-op when configured names equal the defaults
+	 * (created_at/updated_at).
+	 * @param properties the mybatis-plus extension properties
+	 * @return interceptor bean recognized by MyBatis-Spring
+	 */
+	@ConditionalOnMissingBean(name = "columnAliasRewriteInterceptor")
+	@ConditionalOnProperty(name = MybatisPlusExtensionProperties.SQL_REWRITE_ENABLED, havingValue = "true")
+	@Bean
+	public Interceptor columnAliasRewriteInterceptor(MybatisPlusExtensionProperties properties) {
+		MybatisPlusExtensionProperties.SqlRewrite sql = properties.getSqlRewrite();
+		String created = sql.getCreatedColumnName();
+		String updated = sql.getLastModifiedColumnName();
+		String creator = sql.getCreatorColumnName();
+		String updater = sql.getUpdaterColumnName();
+		return new ColumnAliasRewriteInterceptor(created, updated, creator, updater);
 	}
 
 }

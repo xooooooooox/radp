@@ -48,10 +48,21 @@ public class MybatisPlusExtensionProperties {
 	public static final String AUTO_FILL_ENABLED = PREFIX + ".auto-fill.enabled";
 
 	/**
+	 * Property path for enabling SQL rewrite that adjusts created/updated column names.
+	 */
+	public static final String SQL_REWRITE_ENABLED = PREFIX + ".sql-rewrite.enabled";
+
+	/**
 	 * Automatic field filling configuration properties. This field contains settings for
 	 * automatic filling of creation and modification timestamp fields in entity objects.
 	 */
 	private final AutoFill autoFill = new AutoFill();
+
+	/**
+	 * SQL rewrite configuration. Controls whether the optional interceptor that rewrites
+	 * created_at/updated_at to configured physical columns is enabled.
+	 */
+	private final SqlRewrite sqlRewrite = new SqlRewrite();
 
 	/**
 	 * Configuration properties for automatic field filling functionality. This inner
@@ -67,26 +78,41 @@ public class MybatisPlusExtensionProperties {
 		 */
 		private boolean enabled = false;
 
-		/**
-		 * Field name for creation time (Java property name, not database column name).
-		 */
-		private String createdDataFieldName = "createdAt";
+	}
+
+	/**
+	 * SQL rewrite configuration bean.
+	 *
+	 * @author Junie
+	 * @since 2025-11-10 15:04
+	 */
+	@Data
+	public static class SqlRewrite {
+
+		/** Enable SQL rewrite for BasePO audit columns. Default false. */
+		private boolean enabled = false;
 
 		/**
-		 * Field name for the last modification time (Java property name, not database
-		 * column name).
+		 * Physical database column name for the created timestamp. Default is
+		 * 'created_at'.
 		 */
-		private String lastModifiedDateFieldName = "updatedAt";
+		private String createdColumnName = "created_at";
 
 		/**
-		 * Field name representing the creator of an entity.
+		 * Physical database column name for the last modified timestamp. Default is
+		 * 'updated_at'.
 		 */
-		private String creatorFieldName = "creator";
+		private String lastModifiedColumnName = "updated_at";
 
 		/**
-		 * Field name representing the updater of an entity.
+		 * Physical database column name for the creator. Default is 'creator'.
 		 */
-		private String updaterFieldName = "updater";
+		private String creatorColumnName = "creator";
+
+		/**
+		 * Physical database column name for the updater. Default is 'updater'.
+		 */
+		private String updaterColumnName = "updater";
 
 	}
 

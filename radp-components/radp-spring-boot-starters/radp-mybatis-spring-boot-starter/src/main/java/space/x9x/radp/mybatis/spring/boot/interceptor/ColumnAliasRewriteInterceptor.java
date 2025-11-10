@@ -33,6 +33,9 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 
+import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
+import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
+
 /**
  * MyBatis interceptor that rewrites SQL to support configurable physical column names for
  * logical properties {@code createdAt} and {@code updatedAt} while keeping the Java
@@ -63,69 +66,35 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	// Scope helper: only apply rewrite for statements clearly involving BasePO
-	private static boolean isBasePOScope(MappedStatement ms, MetaObject mo) {
+	private static boolean isBasePOScope(MappedStatement ms, Object paramObj) {
+		return hasBasePOResultType(ms) || ParameterWalker.containsBasePO(paramObj);
+	}
+
+	/** Checks if any result map type is assignable to BasePO. */
+	private static boolean hasBasePOResultType(MappedStatement ms) {
 		try {
 			if (ms != null && ms.getResultMaps() != null) {
 				for (ResultMap rm : ms.getResultMaps()) {
-					if (rm != null && rm.getType() != null && space.x9x.radp.spring.data.mybatis.autofill.BasePO.class
-						.isAssignableFrom(rm.getType())) {
+					if (rm != null && rm.getType() != null && BasePO.class.isAssignableFrom(rm.getType())) {
 						return true;
 					}
 				}
 			}
 		}
 		catch (Throwable ignore) {
-			// ignore
-		}
-		try {
-			Object paramObj = mo.getValue("delegate.boundSql.parameterObject");
-			return isOrContainsBasePO(paramObj);
-		}
-		catch (Throwable ignore) {
-			return false;
-		}
-	}
-
-	private static boolean isOrContainsBasePO(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj instanceof space.x9x.radp.spring.data.mybatis.autofill.BasePO) {
-			return true;
-		}
-		if (obj instanceof java.util.Map) {
-			for (Object v : ((java.util.Map<?, ?>) obj).values()) {
-				if (isOrContainsBasePO(v)) {
-					return true;
-				}
-			}
-		}
-		if (obj instanceof Iterable) {
-			for (Object v : (Iterable<?>) obj) {
-				if (isOrContainsBasePO(v)) {
-					return true;
-				}
-			}
-		}
-		if (obj.getClass().isArray()) {
-			int len = java.lang.reflect.Array.getLength(obj);
-			for (int i = 0; i < len; i++) {
-				Object v = java.lang.reflect.Array.get(obj, i);
-				if (isOrContainsBasePO(v)) {
-					return true;
-				}
-			}
+			// ignore and fallthrough
 		}
 		return false;
 	}
 
-	private static final String DEFAULT_CREATED = "created_at";
 
-	private static final String DEFAULT_UPDATED = "updated_at";
+	private static final String DEFAULT_CREATED = BasePO.LOGICAL_COL_CREATED_AT;
 
-	private static final String DEFAULT_CREATOR = "creator";
+	private static final String DEFAULT_UPDATED = BasePO.LOGICAL_COL_UPDATED_AT;
 
-	private static final String DEFAULT_UPDATER = "updater";
+	private static final String DEFAULT_CREATOR = BasePO.LOGICAL_COL_CREATOR;
+
+	private static final String DEFAULT_UPDATER = BasePO.LOGICAL_COL_UPDATER;
 
 	private final String createdPhysical;
 
@@ -135,16 +104,17 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private final String updaterPhysical;
 
-	private final Pattern createdTokenPattern = Pattern.compile("(?i)(?<![\\w])created_at(?![\\w])");
+	private final java.util.List<Token> tokens;
 
-	private final Pattern updatedTokenPattern = Pattern.compile("(?i)(?<![\\w])updated_at(?![\\w])");
+	/** Whether to apply rewrite globally (true) or only in BasePO scope (false). */
+	private final boolean globalScope;
 
-	private final Pattern creatorTokenPattern = Pattern.compile("(?i)(?<![\\w])creator(?![\\w])");
-
-	private final Pattern updaterTokenPattern = Pattern.compile("(?i)(?<![\\w])updater(?![\\w])");
-
-	public ColumnAliasRewriteInterceptor(String createdPhysical, String updatedPhysical, String creatorPhysical,
-			String updaterPhysical) {
+	public ColumnAliasRewriteInterceptor(MybatisPlusExtensionProperties.SqlRewrite config) {
+		this.tokens = new java.util.ArrayList<>(4);
+		String createdPhysical = config == null ? null : config.getCreatedColumnName();
+		String updatedPhysical = config == null ? null : config.getLastModifiedColumnName();
+		String creatorPhysical = config == null ? null : config.getCreatorColumnName();
+		String updaterPhysical = config == null ? null : config.getUpdaterColumnName();
 		this.createdPhysical = (createdPhysical == null || createdPhysical.trim().isEmpty()) ? DEFAULT_CREATED
 				: createdPhysical.trim();
 		this.updatedPhysical = (updatedPhysical == null || updatedPhysical.trim().isEmpty()) ? DEFAULT_UPDATED
@@ -153,6 +123,15 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 				: creatorPhysical.trim();
 		this.updaterPhysical = (updaterPhysical == null || updaterPhysical.trim().isEmpty()) ? DEFAULT_UPDATER
 				: updaterPhysical.trim();
+		// prepare tokens list from logical and physical names
+		this.tokens.add(new Token(DEFAULT_CREATED, this.createdPhysical));
+		this.tokens.add(new Token(DEFAULT_UPDATED, this.updatedPhysical));
+		this.tokens.add(new Token(DEFAULT_CREATOR, this.creatorPhysical));
+		this.tokens.add(new Token(DEFAULT_UPDATER, this.updaterPhysical));
+		// scope configuration
+		MybatisPlusExtensionProperties.SqlRewrite.Scope scope = config == null
+				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO : config.getScope();
+		this.globalScope = (scope == MybatisPlusExtensionProperties.SqlRewrite.Scope.GLOBAL);
 	}
 
 	@Override
@@ -160,22 +139,25 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		// Unwrap to the real StatementHandler to avoid proxy property issues
 		StatementHandler sh = PluginUtils.realTarget((StatementHandler) invocation.getTarget());
 		MetaObject mo = SystemMetaObject.forObject(sh);
-		// Scope control: only apply for statements related to BasePO
+		// Scope control: only apply for statements related to BasePO when not in GLOBAL
+		// scope
 		MappedStatement ms = (MappedStatement) mo.getValue("delegate.mappedStatement");
-		if (!isBasePOScope(ms, mo)) {
+		BoundSql boundSql = sh.getBoundSql();
+		Object paramObj = (boundSql == null ? null : boundSql.getParameterObject());
+		if (!this.globalScope && !isBasePOScope(ms, paramObj)) {
 			return invocation.proceed();
 		}
 
-		BoundSql boundSql = sh.getBoundSql();
 		PluginUtils.MPBoundSql mpBs = PluginUtils.mpBoundSql(boundSql);
 		String sql = mpBs.sql();
 
-		// No-op when configured names equal defaults
-		boolean sameCreated = DEFAULT_CREATED.equalsIgnoreCase(this.createdPhysical);
-		boolean sameUpdated = DEFAULT_UPDATED.equalsIgnoreCase(this.updatedPhysical);
-		boolean sameCreator = DEFAULT_CREATOR.equalsIgnoreCase(this.creatorPhysical);
-		boolean sameUpdater = DEFAULT_UPDATER.equalsIgnoreCase(this.updaterPhysical);
-		if (sameCreated && sameUpdated && sameCreator && sameUpdater) {
+		// No-op when all logical names equal configured physical names
+		if (allNoop()) {
+			return invocation.proceed();
+		}
+
+		// Quick short-circuit: if SQL doesn't contain any logical tokens, skip rewrite
+		if (!hasAnyToken(sql)) {
 			return invocation.proceed();
 		}
 
@@ -204,7 +186,26 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		// no-op
 	}
 
+	private boolean allNoop() {
+		for (Token t : this.tokens) {
+			if (!t.isNoop()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean hasAnyToken(String sql) {
+		for (Token t : this.tokens) {
+			if (t.contains(sql)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private static final Pattern FROM_PATTERN = Pattern.compile("(?i)\\bfrom\\b");
+
 
 	private String rewriteSelect(String sql) {
 		Matcher fromMatcher = FROM_PATTERN.matcher(sql);
@@ -214,70 +215,36 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 			String tail = sql.substring(idx);
 			// In the SELECT list (head), alias physical columns back to logical defaults
 			String newHead = head;
-			if (!DEFAULT_CREATED.equalsIgnoreCase(this.createdPhysical)) {
-				newHead = this.createdTokenPattern.matcher(newHead)
-					.replaceAll(this.createdPhysical + " AS " + DEFAULT_CREATED);
-			}
-			if (!DEFAULT_UPDATED.equalsIgnoreCase(this.updatedPhysical)) {
-				newHead = this.updatedTokenPattern.matcher(newHead)
-					.replaceAll(this.updatedPhysical + " AS " + DEFAULT_UPDATED);
-			}
-			if (!DEFAULT_CREATOR.equalsIgnoreCase(this.creatorPhysical)) {
-				newHead = this.creatorTokenPattern.matcher(newHead)
-					.replaceAll(this.creatorPhysical + " AS " + DEFAULT_CREATOR);
-			}
-			if (!DEFAULT_UPDATER.equalsIgnoreCase(this.updaterPhysical)) {
-				newHead = this.updaterTokenPattern.matcher(newHead)
-					.replaceAll(this.updaterPhysical + " AS " + DEFAULT_UPDATER);
+			for (Token t : this.tokens) {
+				newHead = t.aliasHead(newHead);
 			}
 			// In the rest of the SQL (tail), use the physical columns without alias
 			String newTail = tail;
-			if (!DEFAULT_CREATED.equalsIgnoreCase(this.createdPhysical)) {
-				newTail = this.createdTokenPattern.matcher(newTail).replaceAll(this.createdPhysical);
-			}
-			if (!DEFAULT_UPDATED.equalsIgnoreCase(this.updatedPhysical)) {
-				newTail = this.updatedTokenPattern.matcher(newTail).replaceAll(this.updatedPhysical);
-			}
-			if (!DEFAULT_CREATOR.equalsIgnoreCase(this.creatorPhysical)) {
-				newTail = this.creatorTokenPattern.matcher(newTail).replaceAll(this.creatorPhysical);
-			}
-			if (!DEFAULT_UPDATER.equalsIgnoreCase(this.updaterPhysical)) {
-				newTail = this.updaterTokenPattern.matcher(newTail).replaceAll(this.updaterPhysical);
+			for (Token t : this.tokens) {
+				newTail = t.replaceAll(newTail);
 			}
 			return newHead + newTail;
 		}
 		// Fallback: no FROM found, alias across entire SQL conservatively
 		String out = sql;
-		if (!DEFAULT_CREATED.equalsIgnoreCase(this.createdPhysical)) {
-			out = this.createdTokenPattern.matcher(out).replaceAll(this.createdPhysical + " AS " + DEFAULT_CREATED);
-		}
-		if (!DEFAULT_UPDATED.equalsIgnoreCase(this.updatedPhysical)) {
-			out = this.updatedTokenPattern.matcher(out).replaceAll(this.updatedPhysical + " AS " + DEFAULT_UPDATED);
-		}
-		if (!DEFAULT_CREATOR.equalsIgnoreCase(this.creatorPhysical)) {
-			out = this.creatorTokenPattern.matcher(out).replaceAll(this.creatorPhysical + " AS " + DEFAULT_CREATOR);
-		}
-		if (!DEFAULT_UPDATER.equalsIgnoreCase(this.updaterPhysical)) {
-			out = this.updaterTokenPattern.matcher(out).replaceAll(this.updaterPhysical + " AS " + DEFAULT_UPDATER);
+		for (Token t : this.tokens) {
+			out = t.aliasHead(out);
 		}
 		return out;
 	}
 
 	private String rewriteNonSelect(String sql) {
 		String out = sql;
-		if (!DEFAULT_CREATED.equalsIgnoreCase(this.createdPhysical)) {
-			out = this.createdTokenPattern.matcher(out).replaceAll(this.createdPhysical);
-		}
-		if (!DEFAULT_UPDATED.equalsIgnoreCase(this.updatedPhysical)) {
-			out = this.updatedTokenPattern.matcher(out).replaceAll(this.updatedPhysical);
-		}
-		if (!DEFAULT_CREATOR.equalsIgnoreCase(this.creatorPhysical)) {
-			out = this.creatorTokenPattern.matcher(out).replaceAll(this.creatorPhysical);
-		}
-		if (!DEFAULT_UPDATER.equalsIgnoreCase(this.updaterPhysical)) {
-			out = this.updaterTokenPattern.matcher(out).replaceAll(this.updaterPhysical);
+		for (Token t : this.tokens) {
+			out = t.replaceAll(out);
 		}
 		return out;
+	}
+
+	private static Pattern buildTokenPattern(String logicalName) {
+		// case-insensitive word boundary match of the logical column token
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(logicalName) + "(?![\\w])";
+		return Pattern.compile(regex);
 	}
 
 	private static String ltrim(String s) {
@@ -296,4 +263,136 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		return s.regionMatches(true, 0, prefix, 0, len);
 	}
 
+	/**
+	 * Lightweight, iterative parameter walker to detect presence of BasePO in common
+	 * MyBatis parameter containers. Avoids deep recursion and guards against cycles.
+	 */
+	private static final class ParameterWalker {
+
+		/**
+		 * Maximum number of elements to scan in an Iterable/array to keep checks cheap.
+		 */
+		private static final int MAX_SCAN = 64;
+
+		/** Common MyBatis-Plus ParamMap keys that may hold the entity. */
+		private static final String[] PARAM_KEYS = { "et", "entity", "param1", "arg0", "record" };
+
+		private ParameterWalker() {
+		}
+
+		/**
+		 * Lightweight, one-level check for presence of BasePO in typical MyBatis
+		 * parameter shapes. It only inspects:
+		 * <ul>
+		 * <li>root object itself</li>
+		 * <li>known ParamMap keys: et/entity/param1/arg0/record</li>
+		 * <li>immediate elements of Iterable/array (capped by MAX_SCAN)</li>
+		 * </ul>
+		 * This avoids recursion and expensive traversal while covering common cases.
+		 * @param root parameter object from BoundSql
+		 * @return true if a BasePO instance is clearly present
+		 */
+		static boolean containsBasePO(Object root) {
+			if (root instanceof BasePO) {
+				return true;
+			}
+			if (root == null) {
+				return false;
+			}
+			return isBasePOOrContainerHas(root);
+		}
+
+		private static boolean isBasePOOrContainerHas(Object v) {
+			if (v instanceof BasePO) {
+				return true;
+			}
+			if (v instanceof java.util.Map) {
+				java.util.Map<?, ?> map = (java.util.Map<?, ?>) v;
+				for (String k : PARAM_KEYS) {
+					Object mv = map.get(k);
+					if (mv instanceof BasePO) {
+						return true;
+					}
+					if (mv instanceof Iterable && hasBasePOInIterable((Iterable<?>) mv)) {
+						return true;
+					}
+					if (mv != null && mv.getClass().isArray() && hasBasePOInArray(mv)) {
+						return true;
+					}
+				}
+				return false;
+			}
+			if (v instanceof Iterable) {
+				return hasBasePOInIterable((Iterable<?>) v);
+			}
+			if (v != null && v.getClass().isArray()) {
+				return hasBasePOInArray(v);
+			}
+			return false;
+		}
+
+		private static boolean hasBasePOInIterable(Iterable<?> it) {
+			int i = 0;
+			for (Object v : it) {
+				if (v instanceof BasePO) {
+					return true;
+				}
+				if (++i >= MAX_SCAN) {
+					break;
+				}
+			}
+			return false;
+		}
+
+		private static boolean hasBasePOInArray(Object arr) {
+			int len = java.lang.reflect.Array.getLength(arr);
+			int cap = Math.min(len, MAX_SCAN);
+			for (int i = 0; i < cap; i++) {
+				Object v = java.lang.reflect.Array.get(arr, i);
+				if (v instanceof BasePO) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+	}
+
+	private static final class Token {
+
+		private final String logical;
+
+		private final String physical;
+
+		private final Pattern pattern;
+
+		private Token(String logical, String physical) {
+			this.logical = logical;
+			this.physical = physical;
+			this.pattern = buildTokenPattern(logical);
+		}
+
+		private boolean isNoop() {
+			return this.logical.equalsIgnoreCase(this.physical);
+		}
+
+		private boolean contains(String sql) {
+			return this.pattern.matcher(sql).find();
+		}
+
+		private String aliasHead(String headSql) {
+			if (isNoop()) {
+				return headSql;
+			}
+			return this.pattern.matcher(headSql).replaceAll(this.physical + " AS " + this.logical);
+		}
+
+		private String replaceAll(String sql) {
+			if (isNoop()) {
+				return sql;
+			}
+			return this.pattern.matcher(sql).replaceAll(this.physical);
+		}
+
+	}
 }

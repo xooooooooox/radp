@@ -108,12 +108,7 @@ public class MybatisPlusExtensionAutoConfiguration {
 	@ConditionalOnProperty(name = MybatisPlusExtensionProperties.SQL_REWRITE_ENABLED, havingValue = "true")
 	@Bean
 	public Interceptor columnAliasRewriteInterceptor(MybatisPlusExtensionProperties properties) {
-		MybatisPlusExtensionProperties.SqlRewrite sql = properties.getSqlRewrite();
-		String created = sql.getCreatedColumnName();
-		String updated = sql.getLastModifiedColumnName();
-		String creator = sql.getCreatorColumnName();
-		String updater = sql.getUpdaterColumnName();
-		return new ColumnAliasRewriteInterceptor(created, updated, creator, updater);
+		return new ColumnAliasRewriteInterceptor(properties.getSqlRewrite());
 	}
 
 }

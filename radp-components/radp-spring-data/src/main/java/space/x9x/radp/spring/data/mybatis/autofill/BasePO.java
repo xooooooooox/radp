@@ -46,13 +46,33 @@ public abstract class BasePO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Logical column name used by SQL rewrite for the created timestamp.
+	 */
+	public static final String LOGICAL_COL_CREATED_AT = "created_at";
+
+	/**
+	 * Logical column name used by SQL rewrite for the last modified timestamp.
+	 */
+	public static final String LOGICAL_COL_UPDATED_AT = "updated_at";
+
+	/**
+	 * Logical column name used by SQL rewrite for the creator.
+	 */
+	public static final String LOGICAL_COL_CREATOR = "creator";
+
+	/**
+	 * Logical column name used by SQL rewrite for the updater.
+	 */
+	public static final String LOGICAL_COL_UPDATER = "updater";
+
+	/**
 	 * Creation date of the entity. Autofilled on insert.
 	 */
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createdAt;
 
 	/**
-	 * Last modification date of the entity. Auto-filled on insert and update.
+	 * Last modification date of the entity. Autofilled on insert and update.
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updatedAt;

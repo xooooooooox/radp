@@ -141,8 +141,10 @@ public AutoFillStrategy auditStrategy() {
 
 - Enable/disable auto-fill:
   - `radp.mybatis-plus.extension.auto-fill.enabled=true|false`
-- Optional SQL rewrite (BasePO only; covers createdAt/updatedAt/creator/updater):
+- Optional SQL rewrite (BasePO only by default; covers createdAt/updatedAt/creator/updater):
   - `radp.mybatis-plus.extension.sql-rewrite.enabled=true|false`
+  - `radp.mybatis-plus.extension.sql-rewrite.scope=BASEPO|GLOBAL` (default: BASEPO). BASEPO limits rewrite to statements
+    clearly involving BasePO. GLOBAL applies to all statements.
   - `radp.mybatis-plus.extension.sql-rewrite.created-column-name=created_at (default)`
   - `radp.mybatis-plus.extension.sql-rewrite.last-modified-column-name=updated_at (default)`
   - `radp.mybatis-plus.extension.sql-rewrite.creator-column-name=creator (default)`

@@ -20,6 +20,7 @@ import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
@@ -93,26 +94,46 @@ public class MybatisPlusExtensionProperties {
 		private boolean enabled = false;
 
 		/**
+		 * Scope of the SQL rewrite.
+		 * <ul>
+		 * <li>BASEPO (default): only apply when the statement clearly involves
+		 * {@link BasePO} result types or parameters;</li>
+		 * <li>GLOBAL: apply to all statements (not recommended unless you fully control
+		 * SQL).</li>
+		 * </ul>
+		 */
+		private Scope scope = Scope.BASEPO;
+
+		/**
 		 * Physical database column name for the created timestamp. Default is
 		 * 'created_at'.
 		 */
-		private String createdColumnName = "created_at";
+		private String createdColumnName = BasePO.LOGICAL_COL_CREATED_AT;
 
 		/**
 		 * Physical database column name for the last modified timestamp. Default is
 		 * 'updated_at'.
 		 */
-		private String lastModifiedColumnName = "updated_at";
+		private String lastModifiedColumnName = BasePO.LOGICAL_COL_UPDATED_AT;
 
 		/**
 		 * Physical database column name for the creator. Default is 'creator'.
 		 */
-		private String creatorColumnName = "creator";
+		private String creatorColumnName = BasePO.LOGICAL_COL_CREATOR;
 
 		/**
 		 * Physical database column name for the updater. Default is 'updater'.
 		 */
-		private String updaterColumnName = "updater";
+		private String updaterColumnName = BasePO.LOGICAL_COL_UPDATER;
+
+		/**
+		 * Scope enum for SQL rewrite behavior.
+		 */
+		public enum Scope {
+
+			BASEPO, GLOBAL
+
+		}
 
 	}
 

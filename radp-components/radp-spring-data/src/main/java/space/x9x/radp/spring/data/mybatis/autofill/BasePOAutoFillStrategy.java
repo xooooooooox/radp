@@ -17,7 +17,6 @@
 package space.x9x.radp.spring.data.mybatis.autofill;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import org.apache.ibatis.reflection.MetaObject;
 
@@ -35,49 +34,45 @@ import org.apache.ibatis.reflection.MetaObject;
  * @author Junie
  * @since 2025-11-10 15:29
  */
-public class BasePOAutoFillStrategy implements AutoFillStrategy {
+public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
-	@Override
-	public boolean supports(Object entity) {
-		return entity instanceof BasePO;
+	public BasePOAutoFillStrategy() {
+		super(BasePO.class);
 	}
 
 	@Override
-	public void insertFill(Object entity, MetaObject metaObject) {
+	protected void doInsertFill(BasePO entity, MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		fillIfNull(metaObject, "createdAt", now);
-		fillIfNull(metaObject, "updatedAt", now);
-
-		Long loginUserId = 1L; // TODO integrate with context
-		if (Objects.nonNull(loginUserId)) {
-			fillIfNull(metaObject, "creator", loginUserId.toString());
-			fillIfNull(metaObject, "updater", loginUserId.toString());
+		if (entity.getCreatedAt() == null) {
+			entity.setCreatedAt(now);
 		}
-	}
-
-	@Override
-	public void updateFill(Object entity, MetaObject metaObject) {
-		LocalDateTime now = LocalDateTime.now();
-		setIfPresent(metaObject, "updatedAt", now);
-		Long loginUserId = 1L; // TODO integrate with context
-		if (Objects.nonNull(loginUserId)) {
-			setIfPresent(metaObject, "updater", loginUserId.toString());
+		if (entity.getUpdatedAt() == null) {
+			entity.setUpdatedAt(now);
 		}
-	}
-
-	private void fillIfNull(MetaObject metaObject, String field, Object value) {
-		if (metaObject.hasGetter(field)) {
-			Object current = metaObject.getValue(field);
-			if (current == null) {
-				metaObject.setValue(field, value);
+		String loginUserId = resolveLoginUserId();
+		if (loginUserId != null) {
+			if (entity.getCreator() == null) {
+				entity.setCreator(loginUserId);
+			}
+			if (entity.getUpdater() == null) {
+				entity.setUpdater(loginUserId);
 			}
 		}
 	}
 
-	private void setIfPresent(MetaObject metaObject, String field, Object value) {
-		if (metaObject.hasGetter(field)) {
-			metaObject.setValue(field, value);
+	@Override
+	protected void doUpdateFill(BasePO entity, MetaObject metaObject) {
+		LocalDateTime now = LocalDateTime.now();
+		entity.setUpdatedAt(now);
+		String loginUserId = resolveLoginUserId();
+		if (loginUserId != null) {
+			entity.setUpdater(loginUserId);
 		}
+	}
+
+	private String resolveLoginUserId() {
+		Long loginUserId = 1L; // TODO integrate with context
+		return loginUserId == null ? null : loginUserId.toString();
 	}
 
 }

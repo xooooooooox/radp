@@ -16,12 +16,15 @@
 
 package space.x9x.radp.spring.data.mybatis.autofill;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
+import org.springframework.util.CollectionUtils;
+
+import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
 
 /**
  * A {@link MetaObjectHandler} that delegates to a list of {@link AutoFillStrategy}
@@ -40,11 +43,11 @@ import org.apache.ibatis.reflection.MetaObject;
 @RequiredArgsConstructor
 public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 
-	private final List<AutoFillStrategy> strategies;
+	private final java.util.List<AutoFillStrategy> strategies;
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		Object entity = resolveEntity(metaObject);
+		Object entity = MybatisEntityResolver.resolve(metaObject);
 		if (entity == null) {
 			return;
 		}
@@ -56,7 +59,7 @@ public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
-		Object entity = resolveEntity(metaObject);
+		Object entity = MybatisEntityResolver.resolve(metaObject);
 		if (entity == null) {
 			return;
 		}
@@ -67,10 +70,12 @@ public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 	}
 
 	private AutoFillStrategy selectStrategy(Object entity) {
-		if (this.strategies == null || this.strategies.isEmpty()) {
+		if (CollectionUtils.isEmpty(this.strategies)) {
 			return null;
 		}
-		for (AutoFillStrategy s : this.strategies) {
+		java.util.List<AutoFillStrategy> ordered = new java.util.ArrayList<>(this.strategies);
+		AnnotationAwareOrderComparator.sort(ordered);
+		for (AutoFillStrategy s : ordered) {
 			try {
 				if (s != null && s.supports(entity)) {
 					return s;
@@ -78,23 +83,6 @@ public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 			}
 			catch (Throwable ex) {
 				log.debug("AutoFillStrategy {} threw on supports(): {}", s, ex.toString());
-			}
-		}
-		return null;
-	}
-
-	private Object resolveEntity(MetaObject metaObject) {
-		Object original = metaObject.getOriginalObject();
-		if (original != null) {
-			return original;
-		}
-		List<String> keys = java.util.Arrays.asList("et", "entity", "param1", "arg0", "record");
-		for (String key : keys) {
-			if (metaObject.hasGetter(key)) {
-				Object v = metaObject.getValue(key);
-				if (v != null) {
-					return v;
-				}
 			}
 		}
 		return null;

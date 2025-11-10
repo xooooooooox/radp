@@ -1,12 +1,6 @@
 # radp-mybatis-spring-boot-starter
 
-Lightweight MyBatis-Plus extensions for RADP projects: plug-in auto-fill for audit fields and optional SQL rewrite for
-BasePO audit columns (createdAt, updatedAt, creator, updater).
-
-- Strategy-based auto-fill: you decide how to fill fields per base entity class by providing an AutoFillStrategy bean.
-- Sensible defaults: built-in BasePOAutoFillStrategy supports BasePO createdAt/updatedAt/creator/updater out of the box.
-- Optional SQL rewrite: when your DB uses different physical column names (e.g., created_date/last_modified_date),
-  enable a small interceptor to rewrite SQL at runtime so queries and DML work without changing Java code.
+Lightweight MyBatis-Plus extensions for RADP projects.
 
 ## Installation
 
@@ -85,55 +79,44 @@ Notes:
 
 ##### Scenario 3 — Custom base class and custom fill logic
 
-If BasePO doesn’t match your needs, define your own base type and provide an AutoFillStrategy bean.
+If BasePO doesn’t match your needs, define your own base type and provide an AutoFillStrategy bean. Extend
+`space.x9x.radp.spring.data.mybatis.autofill.AbstractAutoFillStrategy` to get typed insert/update hooks.
 
 Example base type:
 
 ```java
-public class AuditFields {
-	private LocalDateTime createdOn;
 
-	private LocalDateTime modifiedOn;
+@Data
+public class CustomBasePO {
 
-	private String createdBy;
+	@TableField(fill = FieldFill.INSERT)
+	private String field1;
 
-	private String modifiedBy;
-	// getters/setters
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private String field2;
+
 }
 ```
 
 Strategy bean:
 
 ```java
+public class CustomAutoFillStrategy extends AbstractAutoFillStrategy<CustomBasePO> {
 
-@Bean
-public AutoFillStrategy auditStrategy() {
-	return new AutoFillStrategy() {
-		public boolean supports(Object entity) {
-			return entity instanceof AuditFields;
-		}
+	public CustomAutoFillStrategy() {
+		super(CustomBasePO.class);
+	}
 
-		public void insertFill(Object entity, org.apache.ibatis.reflection.MetaObject meta) {
-			LocalDateTime now = LocalDateTime.now();
-			meta.setValue("createdOn", now);
-			meta.setValue("modifiedOn", now);
-			String uid = currentUserId(); // implement your own context lookup
-			if (uid != null) {
-				meta.setValue("createdBy", uid);
-				meta.setValue("modifiedBy", uid);
-			}
-		}
+	@Override
+	protected void doInsertFill(CustomBasePO entity, MetaObject metaObject) {
+		// ...
+	}
 
-		public void updateFill(Object entity, MetaObject meta) {
-			meta.setValue("modifiedOn", LocalDateTime.now());
-			String uid = currentUserId();
-			if (uid != null) meta.setValue("modifiedBy", uid);
-		}
+	@Override
+	protected void doUpdateFill(CustomBasePO entity, MetaObject metaObject) {
+		// ...
+	}
 
-		private String currentUserId() {
-			return "1";
-		}
-	};
 }
 ```
 
@@ -143,24 +126,7 @@ public AutoFillStrategy auditStrategy() {
   - `radp.mybatis-plus.extension.auto-fill.enabled=true|false`
 - Optional SQL rewrite (BasePO only by default; covers createdAt/updatedAt/creator/updater):
   - `radp.mybatis-plus.extension.sql-rewrite.enabled=true|false`
-  - `radp.mybatis-plus.extension.sql-rewrite.scope=BASEPO|GLOBAL` (default: BASEPO). BASEPO limits rewrite to statements
-    clearly involving BasePO. GLOBAL applies to all statements.
   - `radp.mybatis-plus.extension.sql-rewrite.created-column-name=created_at (default)`
   - `radp.mybatis-plus.extension.sql-rewrite.last-modified-column-name=updated_at (default)`
   - `radp.mybatis-plus.extension.sql-rewrite.creator-column-name=creator (default)`
   - `radp.mybatis-plus.extension.sql-rewrite.updater-column-name=updater (default)`
-
-#### Notes
-
-- No more profile-based or target-class configuration. Filling behavior is defined by AutoFillStrategy implementations.
-  The starter provides a default strategy for BasePO.
-- If you don’t extend BasePO and don’t register your own strategy, the handler won’t fill anything.
-- For column name mismatches beyond created/updated, prefer explicit `@TableField` mappings or custom SQL.
-
-#### Troubleshooting
-
-- Unknown column errors on SELECT: if you use BasePO and your DB columns aren’t created_at/updated_at, enable
-  sql-rewrite with your real column names, or annotate fields with @TableField(value="...").
-- Strategy not invoked: ensure `radp.mybatis-plus.extension.auto-fill.enabled=true` and that your
-  `AutoFillStrategy#supports` returns true for the entity.
-- Multiple strategies: order them with `@Order`; the delegating handler selects the first supporting strategy.

@@ -35,6 +35,7 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 
 import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
 import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
+import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
 
 /**
  * MyBatis interceptor that rewrites SQL to support configurable physical column names for
@@ -67,7 +68,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	// Scope helper: only apply rewrite for statements clearly involving BasePO
 	private static boolean isBasePOScope(MappedStatement ms, Object paramObj) {
-		return hasBasePOResultType(ms) || ParameterWalker.containsBasePO(paramObj);
+		return hasBasePOResultType(ms) || MybatisEntityResolver.containsType(paramObj, BasePO.class);
 	}
 
 	/** Checks if any result map type is assignable to BasePO. */
@@ -86,7 +87,6 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		}
 		return false;
 	}
-
 
 	private static final String DEFAULT_CREATED = BasePO.LOGICAL_COL_CREATED_AT;
 
@@ -206,7 +206,6 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private static final Pattern FROM_PATTERN = Pattern.compile("(?i)\\bfrom\\b");
 
-
 	private String rewriteSelect(String sql) {
 		Matcher fromMatcher = FROM_PATTERN.matcher(sql);
 		if (fromMatcher.find()) {
@@ -263,101 +262,6 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		return s.regionMatches(true, 0, prefix, 0, len);
 	}
 
-	/**
-	 * Lightweight, iterative parameter walker to detect presence of BasePO in common
-	 * MyBatis parameter containers. Avoids deep recursion and guards against cycles.
-	 */
-	private static final class ParameterWalker {
-
-		/**
-		 * Maximum number of elements to scan in an Iterable/array to keep checks cheap.
-		 */
-		private static final int MAX_SCAN = 64;
-
-		/** Common MyBatis-Plus ParamMap keys that may hold the entity. */
-		private static final String[] PARAM_KEYS = { "et", "entity", "param1", "arg0", "record" };
-
-		private ParameterWalker() {
-		}
-
-		/**
-		 * Lightweight, one-level check for presence of BasePO in typical MyBatis
-		 * parameter shapes. It only inspects:
-		 * <ul>
-		 * <li>root object itself</li>
-		 * <li>known ParamMap keys: et/entity/param1/arg0/record</li>
-		 * <li>immediate elements of Iterable/array (capped by MAX_SCAN)</li>
-		 * </ul>
-		 * This avoids recursion and expensive traversal while covering common cases.
-		 * @param root parameter object from BoundSql
-		 * @return true if a BasePO instance is clearly present
-		 */
-		static boolean containsBasePO(Object root) {
-			if (root instanceof BasePO) {
-				return true;
-			}
-			if (root == null) {
-				return false;
-			}
-			return isBasePOOrContainerHas(root);
-		}
-
-		private static boolean isBasePOOrContainerHas(Object v) {
-			if (v instanceof BasePO) {
-				return true;
-			}
-			if (v instanceof java.util.Map) {
-				java.util.Map<?, ?> map = (java.util.Map<?, ?>) v;
-				for (String k : PARAM_KEYS) {
-					Object mv = map.get(k);
-					if (mv instanceof BasePO) {
-						return true;
-					}
-					if (mv instanceof Iterable && hasBasePOInIterable((Iterable<?>) mv)) {
-						return true;
-					}
-					if (mv != null && mv.getClass().isArray() && hasBasePOInArray(mv)) {
-						return true;
-					}
-				}
-				return false;
-			}
-			if (v instanceof Iterable) {
-				return hasBasePOInIterable((Iterable<?>) v);
-			}
-			if (v != null && v.getClass().isArray()) {
-				return hasBasePOInArray(v);
-			}
-			return false;
-		}
-
-		private static boolean hasBasePOInIterable(Iterable<?> it) {
-			int i = 0;
-			for (Object v : it) {
-				if (v instanceof BasePO) {
-					return true;
-				}
-				if (++i >= MAX_SCAN) {
-					break;
-				}
-			}
-			return false;
-		}
-
-		private static boolean hasBasePOInArray(Object arr) {
-			int len = java.lang.reflect.Array.getLength(arr);
-			int cap = Math.min(len, MAX_SCAN);
-			for (int i = 0; i < cap; i++) {
-				Object v = java.lang.reflect.Array.get(arr, i);
-				if (v instanceof BasePO) {
-					return true;
-				}
-			}
-			return false;
-		}
-
-	}
-
 	private static final class Token {
 
 		private final String logical;
@@ -395,4 +299,5 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		}
 
 	}
+
 }

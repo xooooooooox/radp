@@ -90,7 +90,7 @@ public class MybatisPlusExtensionProperties {
 	@Data
 	public static class SqlRewrite {
 
-		/** Enable SQL rewrite for BasePO audit columns. Default false. */
+		/** Enable SQL rewrite for BasePO columns. Default false. */
 		private boolean enabled = false;
 
 		/**

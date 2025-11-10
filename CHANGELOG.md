@@ -2,9 +2,9 @@
 
 ## 2.26.1
 
-### Fix
+### Refactor
 
--
+- refactor mybatis autofill.
 
 ### Chore
 

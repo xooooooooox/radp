@@ -107,6 +107,24 @@ class ColumnAliasRewriteInterceptorTests {
 			.isEqualTo("SELECT created_date AS created_at FROM demo");
 	}
 
+	@Test
+	void selectShouldAliasPhysicalColumnsWhenSqlAlreadyUsesPhysicalNames() throws Throwable {
+		MybatisPlusExtensionProperties.SqlRewrite config = new MybatisPlusExtensionProperties.SqlRewrite();
+		config.setEnabled(true);
+		config.setCreatedColumnName("created_date");
+		config.setLastModifiedColumnName("last_modified_date");
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+
+		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
+		String selectSql = "SELECT created_date, last_modified_date FROM demo WHERE id = #{id}";
+		TestStatementHandler handler = new TestStatementHandler(selectSql, new DemoPO(), BasePO.class);
+
+		interceptor.intercept(new Invocation(handler, PREPARE_METHOD, new Object[] { null, 1 }));
+
+		assertThat(handler.getDelegate().getBoundSql().getSql()).isEqualTo(
+				"SELECT created_date AS created_at, last_modified_date AS updated_at FROM demo WHERE id = #{id}");
+	}
+
 	private static class DemoPO extends BasePO {
 
 	}

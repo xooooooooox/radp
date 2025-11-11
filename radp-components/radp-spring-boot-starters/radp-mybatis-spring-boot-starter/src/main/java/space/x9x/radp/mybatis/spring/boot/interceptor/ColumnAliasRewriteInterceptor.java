@@ -255,9 +255,17 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		return masked.restore(out);
 	}
 
-	private static Pattern buildTokenPattern(String logicalName) {
-		// case-insensitive word boundary match of the logical column token
-		String regex = "(?i)(?<![\\w])" + Pattern.quote(logicalName) + "(?![\\w])";
+	private static Pattern buildTokenPattern(String name) {
+		// case-insensitive word boundary match of the column token
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(name) + "(?![\\w])";
+		return Pattern.compile(regex);
+	}
+
+	private static Pattern buildPhysicalHeadPattern(String physical, String logical) {
+		// ensure we don't alias twice when SQL already contains "physical AS logical"
+		String aliasSuffix = "\\s+AS\\s+" + Pattern.quote(logical);
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(physical) + "(?![\\w])(?!(?:"
+				+ aliasSuffix + "))";
 		return Pattern.compile(regex);
 	}
 
@@ -300,12 +308,18 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 		private final String physical;
 
-		private final Pattern pattern;
+		private final Pattern logicalPattern;
+
+		private final Pattern physicalPattern;
+
+		private final Pattern physicalHeadPattern;
 
 		private Token(String logical, String physical) {
 			this.logical = logical;
 			this.physical = physical;
-			this.pattern = buildTokenPattern(logical);
+			this.logicalPattern = buildTokenPattern(logical);
+			this.physicalPattern = buildTokenPattern(physical);
+			this.physicalHeadPattern = buildPhysicalHeadPattern(physical, logical);
 		}
 
 		private boolean isNoop() {
@@ -313,21 +327,25 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		}
 
 		private boolean contains(String sql) {
-			return this.pattern.matcher(sql).find();
+			if (this.logicalPattern.matcher(sql).find()) {
+				return true;
+			}
+			return !isNoop() && this.physicalPattern.matcher(sql).find();
 		}
 
 		private String aliasHead(String headSql) {
 			if (isNoop()) {
 				return headSql;
 			}
-			return this.pattern.matcher(headSql).replaceAll(this.physical + " AS " + this.logical);
+			String out = this.logicalPattern.matcher(headSql).replaceAll(this.physical + " AS " + this.logical);
+			return this.physicalHeadPattern.matcher(out).replaceAll(this.physical + " AS " + this.logical);
 		}
 
 		private String replaceAll(String sql) {
 			if (isNoop()) {
 				return sql;
 			}
-			return this.pattern.matcher(sql).replaceAll(this.physical);
+			return this.logicalPattern.matcher(sql).replaceAll(this.physical);
 		}
 
 	}

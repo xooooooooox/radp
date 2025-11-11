@@ -58,14 +58,14 @@ public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 	/**
 	 * Template method invoked for INSERT statements.
 	 * @param entity typed entity instance
-	 * @param metaObject mybatis meta object for advanced access if necessary
+	 * @param metaObject mybatis meta-object for advanced access if necessary
 	 */
 	protected abstract void doInsertFill(T entity, MetaObject metaObject);
 
 	/**
 	 * Template method invoked for UPDATE statements.
 	 * @param entity typed entity instance
-	 * @param metaObject mybatis meta-object for advanced access if necessary
+	 * @param metaObject mybatis metaobject for advanced access if necessary
 	 */
 	protected abstract void doUpdateFill(T entity, MetaObject metaObject);
 

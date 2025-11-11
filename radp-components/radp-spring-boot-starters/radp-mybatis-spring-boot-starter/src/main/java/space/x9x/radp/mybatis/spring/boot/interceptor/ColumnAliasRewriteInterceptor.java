@@ -110,7 +110,9 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private final List<Token> tokens;
 
-	/** Whether to apply rewrite globally (true) or only in BasePO scope (false). */
+	/**
+	 * Whether to apply rewrite globally (true) or only in BasePO scope (false).
+	 */
 	private final boolean globalScope;
 
 	public ColumnAliasRewriteInterceptor(MybatisPlusExtensionProperties.SqlRewrite config) {
@@ -134,7 +136,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		this.tokens.add(new Token(BasePO.PROPERTY_UPDATER, DEFAULT_UPDATER, this.updaterPhysical));
 		// scope configuration
 		MybatisPlusExtensionProperties.SqlRewrite.Scope scope = config == null
-				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO : config.getScope();
+				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO : config.getScope();
 		this.globalScope = (scope == MybatisPlusExtensionProperties.SqlRewrite.Scope.GLOBAL);
 	}
 

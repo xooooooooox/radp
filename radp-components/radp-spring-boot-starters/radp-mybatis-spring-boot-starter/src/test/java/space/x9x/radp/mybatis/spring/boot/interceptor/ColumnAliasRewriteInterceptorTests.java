@@ -63,7 +63,7 @@ class ColumnAliasRewriteInterceptorTests {
 		config.setLastModifiedColumnName("last_modified_date");
 		config.setCreatorColumnName("created_by");
 		config.setUpdaterColumnName("updated_by");
-		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO);
 
 		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
 
@@ -91,7 +91,7 @@ class ColumnAliasRewriteInterceptorTests {
 		config.setEnabled(true);
 		config.setCreatedColumnName("created_date");
 		config.setLastModifiedColumnName("last_modified_date");
-		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO);
 
 		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
 
@@ -116,7 +116,7 @@ class ColumnAliasRewriteInterceptorTests {
 		config.setEnabled(true);
 		config.setCreatedColumnName("created_date");
 		config.setLastModifiedColumnName("last_modified_date");
-		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO);
 
 		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
 		String selectSql = "SELECT created_date, last_modified_date FROM demo WHERE id = #{id}";
@@ -134,7 +134,7 @@ class ColumnAliasRewriteInterceptorTests {
 		config.setEnabled(true);
 		config.setCreatedColumnName("created_date");
 		config.setLastModifiedColumnName("last_modified_date");
-		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO);
 
 		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
 		TestStatementHandler handler = new TestStatementHandler(

@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 2.26.2
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.26.2`.
+
 ## 2.26.1
 
 ### Refactor

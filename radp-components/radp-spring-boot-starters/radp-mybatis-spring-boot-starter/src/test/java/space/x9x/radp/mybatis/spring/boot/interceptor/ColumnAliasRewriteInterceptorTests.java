@@ -19,6 +19,8 @@ package space.x9x.radp.mybatis.spring.boot.interceptor;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.apache.ibatis.cursor.Cursor;
@@ -27,6 +29,7 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
+import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
@@ -125,6 +128,25 @@ class ColumnAliasRewriteInterceptorTests {
 				"SELECT created_date AS created_at, last_modified_date AS updated_at FROM demo WHERE id = #{id}");
 	}
 
+	@Test
+	void selectShouldRespectResultMapThatAlreadyTargetsPhysicalColumns() throws Throwable {
+		MybatisPlusExtensionProperties.SqlRewrite config = new MybatisPlusExtensionProperties.SqlRewrite();
+		config.setEnabled(true);
+		config.setCreatedColumnName("created_date");
+		config.setLastModifiedColumnName("last_modified_date");
+		config.setScope(MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO);
+
+		ColumnAliasRewriteInterceptor interceptor = new ColumnAliasRewriteInterceptor(config);
+		TestStatementHandler handler = new TestStatementHandler(
+				"SELECT created_date, last_modified_date FROM demo WHERE id = #{id}", new DemoPO(),
+				buildResultMapWithPhysicalColumns());
+
+		interceptor.intercept(new Invocation(handler, PREPARE_METHOD, new Object[] { null, 1 }));
+
+		assertThat(handler.getDelegate().getBoundSql().getSql())
+			.isEqualTo("SELECT created_date, last_modified_date FROM demo WHERE id = #{id}");
+	}
+
 	private static class DemoPO extends BasePO {
 
 	}
@@ -134,7 +156,12 @@ class ColumnAliasRewriteInterceptorTests {
 		private final DelegatingStatementHandler delegate;
 
 		TestStatementHandler(String sql, Object parameterObject, Class<?> resultType) {
-			this.delegate = new DelegatingStatementHandler(sql, parameterObject, resultType);
+			this(sql, parameterObject, defaultResultMap(resultType));
+		}
+
+		TestStatementHandler(String sql, Object parameterObject, ResultMapBundle bundle) {
+			this.delegate = new DelegatingStatementHandler(bundle.configuration, sql, parameterObject,
+					bundle.resultMap);
 		}
 
 		DelegatingStatementHandler getDelegate() {
@@ -189,10 +216,8 @@ class ColumnAliasRewriteInterceptorTests {
 
 		private final ParameterHandler parameterHandler;
 
-		DelegatingStatementHandler(String sql, Object parameterObject, Class<?> resultType) {
-			Configuration configuration = new Configuration();
-			ResultMap resultMap = new ResultMap.Builder(configuration, "default", resultType, Collections.emptyList())
-				.build();
+		DelegatingStatementHandler(Configuration configuration, String sql, Object parameterObject,
+				ResultMap resultMap) {
 			MappedStatement.Builder builder = new MappedStatement.Builder(configuration, "demo",
 					new StaticSqlSourceAdapter(configuration, sql), SqlCommandType.SELECT);
 			builder.resultMaps(Collections.singletonList(resultMap));
@@ -246,6 +271,27 @@ class ColumnAliasRewriteInterceptorTests {
 
 	}
 
+	private static ResultMapBundle buildResultMapWithPhysicalColumns() {
+		Configuration configuration = new Configuration();
+		ResultMapping createdMapping = new ResultMapping.Builder(configuration, BasePO.PROPERTY_CREATED_AT,
+				"created_date", LocalDateTime.class)
+			.build();
+		ResultMapping updatedMapping = new ResultMapping.Builder(configuration, BasePO.PROPERTY_UPDATED_AT,
+				"last_modified_date", LocalDateTime.class)
+			.build();
+		ResultMap resultMap = new ResultMap.Builder(configuration, "physical", DemoPO.class,
+				Arrays.asList(createdMapping, updatedMapping))
+			.build();
+		return new ResultMapBundle(configuration, resultMap);
+	}
+
+	private static ResultMapBundle defaultResultMap(Class<?> resultType) {
+		Configuration configuration = new Configuration();
+		ResultMap resultMap = new ResultMap.Builder(configuration, "default", resultType, Collections.emptyList())
+			.build();
+		return new ResultMapBundle(configuration, resultMap);
+	}
+
 	private static class StaticSqlSourceAdapter extends org.apache.ibatis.builder.StaticSqlSource {
 
 		private final Configuration configuration;
@@ -260,6 +306,19 @@ class ColumnAliasRewriteInterceptorTests {
 			BoundSql boundSql = super.getBoundSql(parameterObject);
 			return new BoundSql(this.configuration, boundSql.getSql(), boundSql.getParameterMappings(),
 					parameterObject);
+		}
+
+	}
+
+	private static final class ResultMapBundle {
+
+		private final Configuration configuration;
+
+		private final ResultMap resultMap;
+
+		private ResultMapBundle(Configuration configuration, ResultMap resultMap) {
+			this.configuration = configuration;
+			this.resultMap = resultMap;
 		}
 
 	}

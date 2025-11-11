@@ -51,9 +51,19 @@ public abstract class BasePO implements Serializable {
 	public static final String LOGICAL_COL_CREATED_AT = "created_at";
 
 	/**
+	 * Property name for {@link #createdAt}.
+	 */
+	public static final String PROPERTY_CREATED_AT = "createdAt";
+
+	/**
 	 * Logical column name used by SQL rewrite for the last modified timestamp.
 	 */
 	public static final String LOGICAL_COL_UPDATED_AT = "updated_at";
+
+	/**
+	 * Property name for {@link #updatedAt}.
+	 */
+	public static final String PROPERTY_UPDATED_AT = "updatedAt";
 
 	/**
 	 * Logical column name used by SQL rewrite for the creator.
@@ -61,9 +71,19 @@ public abstract class BasePO implements Serializable {
 	public static final String LOGICAL_COL_CREATOR = "creator";
 
 	/**
+	 * Property name for {@link #creator}.
+	 */
+	public static final String PROPERTY_CREATOR = "creator";
+
+	/**
 	 * Logical column name used by SQL rewrite for the updater.
 	 */
 	public static final String LOGICAL_COL_UPDATER = "updater";
+
+	/**
+	 * Property name for {@link #updater}.
+	 */
+	public static final String PROPERTY_UPDATER = "updater";
 
 	/**
 	 * Creation date of the entity. Autofilled on insert.

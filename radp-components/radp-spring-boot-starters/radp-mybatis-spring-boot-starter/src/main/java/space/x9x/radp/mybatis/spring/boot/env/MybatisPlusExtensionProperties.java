@@ -20,6 +20,7 @@ import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 
 /**
@@ -48,10 +49,21 @@ public class MybatisPlusExtensionProperties {
 	public static final String AUTO_FILL_ENABLED = PREFIX + ".auto-fill.enabled";
 
 	/**
+	 * Property path for enabling SQL rewrite that adjusts created/updated column names.
+	 */
+	public static final String SQL_REWRITE_ENABLED = PREFIX + ".sql-rewrite.enabled";
+
+	/**
 	 * Automatic field filling configuration properties. This field contains settings for
 	 * automatic filling of creation and modification timestamp fields in entity objects.
 	 */
 	private final AutoFill autoFill = new AutoFill();
+
+	/**
+	 * SQL rewrite configuration. Controls whether the optional interceptor that rewrites
+	 * created_at/updated_at to configured physical columns is enabled.
+	 */
+	private final SqlRewrite sqlRewrite = new SqlRewrite();
 
 	/**
 	 * Configuration properties for automatic field filling functionality. This inner
@@ -67,26 +79,58 @@ public class MybatisPlusExtensionProperties {
 		 */
 		private boolean enabled = false;
 
-		/**
-		 * Field name for creation time (Java property name, not database column name).
-		 */
-		private String createdDataFieldName = "createdAt";
+	}
+
+	/**
+	 * SQL rewrite configuration bean.
+	 */
+	@Data
+	public static class SqlRewrite {
+
+		/** Enable SQL rewrite for BasePO columns. Default false. */
+		private boolean enabled = false;
 
 		/**
-		 * Field name for the last modification time (Java property name, not database
-		 * column name).
+		 * Scope of the SQL rewrite.
+		 * <ul>
+		 * <li>BASE_PO (default): only apply when the statement clearly involves
+		 * {@link BasePO} result types or parameters;</li>
+		 * <li>GLOBAL: apply to all statements (not recommended unless you fully control
+		 * SQL).</li>
+		 * </ul>
 		 */
-		private String lastModifiedDateFieldName = "updatedAt";
+		private Scope scope = Scope.BASE_PO;
 
 		/**
-		 * Field name representing the creator of an entity.
+		 * Physical database column name for the created timestamp. The default is
+		 * 'created_at'.
 		 */
-		private String creatorFieldName = "creator";
+		private String createdColumnName = BasePO.LOGICAL_COL_CREATED_AT;
 
 		/**
-		 * Field name representing the updater of an entity.
+		 * Physical database column name for the last modified timestamp. The default is
+		 * 'updated_at'.
 		 */
-		private String updaterFieldName = "updater";
+		private String lastModifiedColumnName = BasePO.LOGICAL_COL_UPDATED_AT;
+
+		/**
+		 * Physical database column name for the creator. Default is 'creator'.
+		 */
+		private String creatorColumnName = BasePO.LOGICAL_COL_CREATOR;
+
+		/**
+		 * Physical database column name for the updater. Default is 'updater'.
+		 */
+		private String updaterColumnName = BasePO.LOGICAL_COL_UPDATER;
+
+		/**
+		 * Scope enum for SQL rewrite behavior.
+		 */
+		public enum Scope {
+
+			BASE_PO, GLOBAL
+
+		}
 
 	}
 

@@ -1,5 +1,22 @@
 # ChangeLog
 
+## 3.26.2
+
+### Feature
+
+- Add `TenantContextHolder` and `TenantAutoFillStrategy` (via `radp-solution-tenant`) to populate `tenantId`
+  automatically for `TenantBasePO`.
+
+### Refactor
+
+- refactor mybatis autofill.
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.26.2`.
+
 ## 3.26
 
 ### Feature

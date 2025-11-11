@@ -15,6 +15,13 @@
 			<groupId>space.x9x.radp</groupId>
 			<artifactId>radp-spring-framework</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>space.x9x.radp</groupId>
 			<artifactId>radp-spring-test</artifactId>

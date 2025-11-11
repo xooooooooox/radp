@@ -120,6 +120,28 @@ public class CustomAutoFillStrategy extends AbstractAutoFillStrategy<CustomBaseP
 }
 ```
 
+##### Scenario 4 — Extend BasePO but only fill additional fields
+
+Since 2.26.2 the delegating handler executes every {@code AutoFillStrategy} that supports the entity, in {@code @Order}
+sequence. This lets you keep the stock {@code BasePOAutoFillStrategy} for audit fields while registering a second
+strategy that focuses on tenant-specific columns such as {@code tenantId}. For example, adding the
+`radp-solution-tenant` dependency contributes a `TenantAutoFillStrategy` that reads the id from
+`TenantContextHolder` and cooperates with the default BasePO strategy automatically:
+
+```java
+TenantContextHolder.setTenantId(0L); // usually done in a web filter
+demoMapper.
+
+insert(new DebugAutofillPO()); // BasePO audit fields + tenantId are now filled
+		TenantContextHolder.
+
+clear();
+```
+
+You can create similar micro-strategies for other BasePO subclasses; just implement
+`AbstractAutoFillStrategy<YourSubClass>` and register it as a Spring bean. Use {@code @Order} when you need to control
+whether it runs before or after the default BasePO strategy.
+
 #### Configuration summary
 
 - Enable/disable auto-fill:

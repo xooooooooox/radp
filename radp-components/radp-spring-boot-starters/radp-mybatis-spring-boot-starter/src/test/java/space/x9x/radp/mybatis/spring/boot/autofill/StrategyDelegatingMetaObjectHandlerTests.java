@@ -80,6 +80,19 @@ class StrategyDelegatingMetaObjectHandlerTests {
 		assertThat(entity.getField2()).isEqualTo("update");
 	}
 
+	@Test
+	void shouldInvokeAllStrategiesSupportingSameEntity() {
+		TenantAwareAutoFillStrategy tenantStrategy = new TenantAwareAutoFillStrategy();
+		StrategyDelegatingMetaObjectHandler handler = new StrategyDelegatingMetaObjectHandler(
+				Arrays.asList(tenantStrategy, new BasePOAutoFillStrategy()));
+
+		TenantAwarePO entity = new TenantAwarePO();
+		handler.insertFill(SystemMetaObject.forObject(entity));
+
+		assertThat(entity.getTenantId()).isEqualTo(TenantAwareAutoFillStrategy.TENANT_ID);
+		assertThat(entity.getCreatedAt()).isNotNull(); // filled by BasePO strategy
+	}
+
 	private static class DemoPO extends BasePO {
 
 	}
@@ -125,6 +138,40 @@ class StrategyDelegatingMetaObjectHandlerTests {
 		@Override
 		protected void doUpdateFill(CustomBasePO entity, MetaObject metaObject) {
 			entity.setField2("update");
+		}
+
+	}
+
+	private static class TenantAwarePO extends BasePO {
+
+		private Long tenantId;
+
+		Long getTenantId() {
+			return this.tenantId;
+		}
+
+		void setTenantId(Long tenantId) {
+			this.tenantId = tenantId;
+		}
+
+	}
+
+	private static class TenantAwareAutoFillStrategy extends AbstractAutoFillStrategy<TenantAwarePO> {
+
+		static final long TENANT_ID = 42L;
+
+		TenantAwareAutoFillStrategy() {
+			super(TenantAwarePO.class);
+		}
+
+		@Override
+		protected void doInsertFill(TenantAwarePO entity, MetaObject metaObject) {
+			entity.setTenantId(TENANT_ID);
+		}
+
+		@Override
+		protected void doUpdateFill(TenantAwarePO entity, MetaObject metaObject) {
+			// no-op for test
 		}
 
 	}

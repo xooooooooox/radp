@@ -16,6 +16,10 @@
 
 package space.x9x.radp.spring.data.mybatis.autofill;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +32,9 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
 
 /**
  * A {@link MetaObjectHandler} that delegates to a list of {@link AutoFillStrategy}
- * implementations. The first strategy that reports
- * {@link AutoFillStrategy#supports(Object)} true for the current entity will be used to
- * perform fill operations.
- *
- * <p>
- * Strategies can be ordered using Spring's {@code @Order} annotation; the injected list
- * preserves this order.
+ * implementations. All strategies that report {@link AutoFillStrategy#supports(Object)}
+ * true for the current entity will be invoked in Spring {@code @Order} order, allowing
+ * layered fill logic (e.g., BasePO audit fields and tenant-specific fields).
  *
  * @author x9x
  * @since 2025-11-10 15:29
@@ -43,7 +43,7 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
 @RequiredArgsConstructor
 public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 
-	private final java.util.List<AutoFillStrategy> strategies;
+	private final List<AutoFillStrategy> strategies;
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
@@ -51,9 +51,12 @@ public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 		if (entity == null) {
 			return;
 		}
-		AutoFillStrategy s = selectStrategy(entity);
-		if (s != null) {
-			s.insertFill(entity, metaObject);
+		List<AutoFillStrategy> matches = selectStrategies(entity);
+		if (matches.isEmpty()) {
+			return;
+		}
+		for (AutoFillStrategy strategy : matches) {
+			strategy.insertFill(entity, metaObject);
 		}
 	}
 
@@ -63,29 +66,33 @@ public class StrategyDelegatingMetaObjectHandler implements MetaObjectHandler {
 		if (entity == null) {
 			return;
 		}
-		AutoFillStrategy s = selectStrategy(entity);
-		if (s != null) {
-			s.updateFill(entity, metaObject);
+		List<AutoFillStrategy> matches = selectStrategies(entity);
+		if (matches.isEmpty()) {
+			return;
+		}
+		for (AutoFillStrategy strategy : matches) {
+			strategy.updateFill(entity, metaObject);
 		}
 	}
 
-	private AutoFillStrategy selectStrategy(Object entity) {
+	private List<AutoFillStrategy> selectStrategies(Object entity) {
 		if (CollectionUtils.isEmpty(this.strategies)) {
-			return null;
+			return Collections.emptyList();
 		}
-		java.util.List<AutoFillStrategy> ordered = new java.util.ArrayList<>(this.strategies);
+		List<AutoFillStrategy> ordered = new ArrayList<>(this.strategies);
 		AnnotationAwareOrderComparator.sort(ordered);
+		List<AutoFillStrategy> matches = new ArrayList<>();
 		for (AutoFillStrategy s : ordered) {
 			try {
 				if (s != null && s.supports(entity)) {
-					return s;
+					matches.add(s);
 				}
 			}
-			catch (Throwable ex) {
+			catch (Exception ex) {
 				log.debug("AutoFillStrategy {} threw on supports(): {}", s, ex.toString());
 			}
 		}
-		return null;
+		return matches;
 	}
 
 }

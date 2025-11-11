@@ -16,6 +16,8 @@
 
 package space.x9x.radp.solutions.tenant.dataobject;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,6 +36,7 @@ public abstract class TenantBasePO extends BasePO {
 	/**
 	 * 多租户编号.
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Long tenantId;
 
 }

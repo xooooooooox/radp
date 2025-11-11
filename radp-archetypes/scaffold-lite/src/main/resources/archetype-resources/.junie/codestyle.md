@@ -97,28 +97,16 @@
   When building verbose messages at `DEBUG` or `TRACE` level, especially those involving method calls or complex string
   concatenations, wrap them in a level check or use suppliers:
 
-```java
+```
 if(logger.isDebugEnabled()){
-		logger.
-
-debug("Detailed state: {}",computeExpensiveDetails());
-		}
+  logger.debug("Detailed state: {}",computeExpensiveDetails());
+}
 
 // using Supplier/Lambda expression
-		logger.
-
-atDebug()
-	.
-
-setMessage("Detailed state: {}")
-	.
-
-addArgument(() ->
-
-computeExpensiveDetails())
-		.
-
-log();
+logger.atDebug()
+	.setMessage("Detailed state: {}")
+	.addArgument(() ->computeExpensiveDetails())
+  .log();
 ```
 
 ## 15. Avoid Fully Qualified Names (FQN)

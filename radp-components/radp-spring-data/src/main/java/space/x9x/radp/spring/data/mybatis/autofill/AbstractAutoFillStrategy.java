@@ -16,6 +16,8 @@
 
 package space.x9x.radp.spring.data.mybatis.autofill;
 
+import java.util.Objects;
+
 import org.apache.ibatis.reflection.MetaObject;
 
 import org.springframework.util.Assert;
@@ -40,7 +42,7 @@ public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 
 	@Override
 	public final boolean supports(Object entity) {
-		return entity != null && this.supportedType.isInstance(entity);
+		return Objects.nonNull(entity) && this.supportedType.isInstance(entity);
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 	/**
 	 * Template method invoked for UPDATE statements.
 	 * @param entity typed entity instance
-	 * @param metaObject mybatis meta object for advanced access if necessary
+	 * @param metaObject mybatis meta-object for advanced access if necessary
 	 */
 	protected abstract void doUpdateFill(T entity, MetaObject metaObject);
 

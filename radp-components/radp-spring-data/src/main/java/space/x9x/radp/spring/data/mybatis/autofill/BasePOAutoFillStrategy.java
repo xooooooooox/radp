@@ -17,8 +17,11 @@
 package space.x9x.radp.spring.data.mybatis.autofill;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.apache.ibatis.reflection.MetaObject;
+
+import org.springframework.util.StringUtils;
 
 /**
  * default auto-fill strategy for {@link BasePO}.
@@ -42,19 +45,24 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
 	@Override
 	protected void doInsertFill(BasePO entity, MetaObject metaObject) {
+		// 1) 自动填充 创建时间以及最后更新时间
 		LocalDateTime now = LocalDateTime.now();
-		if (entity.getCreatedAt() == null) {
+		if (Objects.isNull(entity.getCreatedAt())) {
+			// 如果未显示指定创建时间
 			entity.setCreatedAt(now);
 		}
-		if (entity.getUpdatedAt() == null) {
+		if (Objects.isNull(entity.getUpdatedAt())) {
+			// 如果为显式指定修改时间
 			entity.setUpdatedAt(now);
 		}
+
+		// 2) 自动填充 创建者与修改者
 		String loginUserId = resolveLoginUserId();
-		if (loginUserId != null) {
-			if (entity.getCreator() == null) {
+		if (Objects.nonNull(loginUserId)) {
+			if (!StringUtils.hasText(entity.getCreator())) {
 				entity.setCreator(loginUserId);
 			}
-			if (entity.getUpdater() == null) {
+			if (!StringUtils.hasText(entity.getUpdater())) {
 				entity.setUpdater(loginUserId);
 			}
 		}
@@ -62,16 +70,23 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
 	@Override
 	protected void doUpdateFill(BasePO entity, MetaObject metaObject) {
+		// 1) 自动填充 创建者
 		LocalDateTime now = LocalDateTime.now();
-		entity.setUpdatedAt(now);
-		String loginUserId = resolveLoginUserId();
-		if (loginUserId != null) {
+		if (Objects.isNull(entity.getUpdatedAt())) {
+			// 如果为显式指定"最后修改时间", 则自动填充当前时间作为"最后修改时间"
+			entity.setUpdatedAt(now);
+		}
+
+		// 2) 自动填充 修改者
+		String loginUserId = resolveLoginUserId(); // 当前登录用户
+		if (Objects.nonNull(loginUserId) && StringUtils.hasText(entity.getUpdater())) {
+			// 若未显式指定更新者且当前登录用户非空, 则自动填充当前登录用户人作为 updater
 			entity.setUpdater(loginUserId);
 		}
 	}
 
 	private String resolveLoginUserId() {
-		Long loginUserId = 1L; // TODO integrate with context
+		Long loginUserId = null; // TODO integrate with context
 		return loginUserId == null ? null : loginUserId.toString();
 	}
 

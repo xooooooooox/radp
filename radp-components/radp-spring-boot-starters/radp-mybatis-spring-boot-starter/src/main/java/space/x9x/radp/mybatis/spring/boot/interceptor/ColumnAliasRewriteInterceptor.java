@@ -264,8 +264,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 	private static Pattern buildPhysicalHeadPattern(String physical, String logical) {
 		// ensure we don't alias twice when SQL already contains "physical AS logical"
 		String aliasSuffix = "\\s+AS\\s+" + Pattern.quote(logical);
-		String regex = "(?i)(?<![\\w])" + Pattern.quote(physical) + "(?![\\w])(?!(?:"
-				+ aliasSuffix + "))";
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(physical) + "(?![\\w])(?!(?:" + aliasSuffix + "))";
 		return Pattern.compile(regex);
 	}
 

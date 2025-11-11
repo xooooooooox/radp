@@ -31,7 +31,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.StrategyDelegatingMetaObjectH
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Covers the documented auto-fill scenarios:
+ * Covers the documented autofill scenarios:
  * <ul>
  * <li>Scenario 1 – BasePO with default column names.</li>
  * <li>Scenario 3 – Custom base class with bespoke strategy.</li>

@@ -14,29 +14,15 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.solutions.tenant.dataobject;
+package space.x9x.radp.spring.security;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
+import lombok.experimental.UtilityClass;
 
 /**
- * 多租户 BasePO.
- *
  * @author x9x
- * @since 2025-09-14 21:46
+ * @since 2025-11-11 23:28
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public abstract class TenantBasePO extends BasePO {
-
-	/**
-	 * 多租户编号.
-	 */
-	@TableField(fill = FieldFill.INSERT)
-	private Long tenantId;
+@UtilityClass
+public class SpringSecurityUtils {
 
 }

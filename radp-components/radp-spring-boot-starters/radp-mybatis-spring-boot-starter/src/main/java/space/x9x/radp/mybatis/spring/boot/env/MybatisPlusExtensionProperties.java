@@ -99,7 +99,7 @@ public class MybatisPlusExtensionProperties {
 		 * SQL).</li>
 		 * </ul>
 		 */
-		private Scope scope = Scope.BASEPO;
+		private Scope scope = Scope.BASE_PO;
 
 		/**
 		 * Physical database column name for the created timestamp. Default is
@@ -128,7 +128,7 @@ public class MybatisPlusExtensionProperties {
 		 */
 		public enum Scope {
 
-			BASEPO, GLOBAL
+			BASE_PO, GLOBAL
 
 		}
 

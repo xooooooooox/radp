@@ -19,6 +19,7 @@ package space.x9x.radp.mybatis.spring.boot.interceptor;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +28,7 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
+import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
@@ -84,7 +86,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 				}
 			}
 		}
-		catch (Throwable ignore) {
+		catch (Exception ignore) {
 			// ignore and fallthrough
 		}
 		return false;
@@ -106,33 +108,35 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private final String updaterPhysical;
 
-	private final java.util.List<Token> tokens;
+	private final List<Token> tokens;
 
-	/** Whether to apply rewrite globally (true) or only in BasePO scope (false). */
+	/**
+	 * Whether to apply rewrite globally (true) or only in BasePO scope (false).
+	 */
 	private final boolean globalScope;
 
 	public ColumnAliasRewriteInterceptor(MybatisPlusExtensionProperties.SqlRewrite config) {
 		this.tokens = new java.util.ArrayList<>(4);
-		String createdPhysical = config == null ? null : config.getCreatedColumnName();
-		String updatedPhysical = config == null ? null : config.getLastModifiedColumnName();
-		String creatorPhysical = config == null ? null : config.getCreatorColumnName();
-		String updaterPhysical = config == null ? null : config.getUpdaterColumnName();
-		this.createdPhysical = (createdPhysical == null || createdPhysical.trim().isEmpty()) ? DEFAULT_CREATED
-				: createdPhysical.trim();
-		this.updatedPhysical = (updatedPhysical == null || updatedPhysical.trim().isEmpty()) ? DEFAULT_UPDATED
-				: updatedPhysical.trim();
-		this.creatorPhysical = (creatorPhysical == null || creatorPhysical.trim().isEmpty()) ? DEFAULT_CREATOR
-				: creatorPhysical.trim();
-		this.updaterPhysical = (updaterPhysical == null || updaterPhysical.trim().isEmpty()) ? DEFAULT_UPDATER
-				: updaterPhysical.trim();
+		String createdPhysicalName = config == null ? null : config.getCreatedColumnName();
+		String updatedPhysicalName = config == null ? null : config.getLastModifiedColumnName();
+		String creatorPhysicalName = config == null ? null : config.getCreatorColumnName();
+		String updaterPhysicalName = config == null ? null : config.getUpdaterColumnName();
+		this.createdPhysical = (createdPhysicalName == null || createdPhysicalName.trim().isEmpty()) ? DEFAULT_CREATED
+				: createdPhysicalName.trim();
+		this.updatedPhysical = (updatedPhysicalName == null || updatedPhysicalName.trim().isEmpty()) ? DEFAULT_UPDATED
+				: updatedPhysicalName.trim();
+		this.creatorPhysical = (creatorPhysicalName == null || creatorPhysicalName.trim().isEmpty()) ? DEFAULT_CREATOR
+				: creatorPhysicalName.trim();
+		this.updaterPhysical = (updaterPhysicalName == null || updaterPhysicalName.trim().isEmpty()) ? DEFAULT_UPDATER
+				: updaterPhysicalName.trim();
 		// prepare tokens list from logical and physical names
-		this.tokens.add(new Token(DEFAULT_CREATED, this.createdPhysical));
-		this.tokens.add(new Token(DEFAULT_UPDATED, this.updatedPhysical));
-		this.tokens.add(new Token(DEFAULT_CREATOR, this.creatorPhysical));
-		this.tokens.add(new Token(DEFAULT_UPDATER, this.updaterPhysical));
+		this.tokens.add(new Token(BasePO.PROPERTY_CREATED_AT, DEFAULT_CREATED, this.createdPhysical));
+		this.tokens.add(new Token(BasePO.PROPERTY_UPDATED_AT, DEFAULT_UPDATED, this.updatedPhysical));
+		this.tokens.add(new Token(BasePO.PROPERTY_CREATOR, DEFAULT_CREATOR, this.creatorPhysical));
+		this.tokens.add(new Token(BasePO.PROPERTY_UPDATER, DEFAULT_UPDATER, this.updaterPhysical));
 		// scope configuration
 		MybatisPlusExtensionProperties.SqlRewrite.Scope scope = config == null
-				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASEPO : config.getScope();
+				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO : config.getScope();
 		this.globalScope = (scope == MybatisPlusExtensionProperties.SqlRewrite.Scope.GLOBAL);
 	}
 
@@ -168,7 +172,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 		String rewritten;
 		if (isSelect) {
-			rewritten = rewriteSelect(sql);
+			rewritten = rewriteSelect(sql, ms);
 		}
 		else {
 			rewritten = rewriteNonSelect(sql);
@@ -214,7 +218,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private static final String PLACEHOLDER_TOKEN_SUFFIX = "__";
 
-	private String rewriteSelect(String sql) {
+	private String rewriteSelect(String sql, MappedStatement ms) {
 		MaskedSql masked = maskPlaceholders(sql);
 		String working = masked.sql();
 		Matcher fromMatcher = FROM_PATTERN.matcher(working);
@@ -226,7 +230,8 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 			// In the SELECT list (head), alias physical columns back to logical defaults
 			String newHead = head;
 			for (Token t : this.tokens) {
-				newHead = t.aliasHead(newHead);
+				boolean aliasPhysical = shouldAliasPhysicalColumns(t, ms);
+				newHead = t.aliasHead(newHead, aliasPhysical);
 			}
 			// In the rest of the SQL (tail), use the physical columns without alias
 			String newTail = tail;
@@ -239,7 +244,8 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 			// Fallback: no FROM found, alias across entire SQL conservatively
 			String out = working;
 			for (Token t : this.tokens) {
-				out = t.aliasHead(out);
+				boolean aliasPhysical = shouldAliasPhysicalColumns(t, ms);
+				out = t.aliasHead(out, aliasPhysical);
 			}
 			rewritten = out;
 		}
@@ -255,9 +261,54 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		return masked.restore(out);
 	}
 
-	private static Pattern buildTokenPattern(String logicalName) {
-		// case-insensitive word boundary match of the logical column token
-		String regex = "(?i)(?<![\\w])" + Pattern.quote(logicalName) + "(?![\\w])";
+	private boolean shouldAliasPhysicalColumns(Token token, MappedStatement ms) {
+		if (ms == null) {
+			return true;
+		}
+		List<ResultMap> resultMaps = ms.getResultMaps();
+		if (resultMaps == null || resultMaps.isEmpty()) {
+			return true;
+		}
+		for (ResultMap rm : resultMaps) {
+			if (!isBasePOResultType(rm)) {
+				continue;
+			}
+			if (hasExplicitPhysicalMapping(token, rm.getResultMappings())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean hasExplicitPhysicalMapping(Token token, List<ResultMapping> mappings) {
+		if (mappings == null || mappings.isEmpty()) {
+			return false;
+		}
+		for (ResultMapping mapping : mappings) {
+			if (mapping == null) {
+				continue;
+			}
+			if (token.matchesProperty(mapping.getProperty()) && token.matchesPhysicalColumn(mapping.getColumn())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean isBasePOResultType(ResultMap rm) {
+		return rm != null && rm.getType() != null && BasePO.class.isAssignableFrom(rm.getType());
+	}
+
+	private static Pattern buildTokenPattern(String name) {
+		// case-insensitive word boundary match of the column token
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(name) + "(?![\\w])";
+		return Pattern.compile(regex);
+	}
+
+	private static Pattern buildPhysicalHeadPattern(String physical, String logical) {
+		// ensure we don't alias twice when SQL already contains "physical AS logical"
+		String aliasSuffix = "\\s+AS\\s+" + Pattern.quote(logical);
+		String regex = "(?i)(?<![\\w])" + Pattern.quote(physical) + "(?![\\w])(?!(?:" + aliasSuffix + "))";
 		return Pattern.compile(regex);
 	}
 
@@ -296,16 +347,28 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 
 	private static final class Token {
 
+		private final String property;
+
 		private final String logical;
 
 		private final String physical;
 
-		private final Pattern pattern;
+		private final Pattern logicalPattern;
 
-		private Token(String logical, String physical) {
+		private final Pattern physicalPattern;
+
+		private final Pattern physicalHeadPattern;
+
+		private final String physicalLowerCase;
+
+		private Token(String property, String logical, String physical) {
+			this.property = property;
 			this.logical = logical;
 			this.physical = physical;
-			this.pattern = buildTokenPattern(logical);
+			this.logicalPattern = buildTokenPattern(logical);
+			this.physicalPattern = buildTokenPattern(physical);
+			this.physicalHeadPattern = buildPhysicalHeadPattern(physical, logical);
+			this.physicalLowerCase = normalize(physical);
 		}
 
 		private boolean isNoop() {
@@ -313,21 +376,55 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		}
 
 		private boolean contains(String sql) {
-			return this.pattern.matcher(sql).find();
+			if (this.logicalPattern.matcher(sql).find()) {
+				return true;
+			}
+			return !isNoop() && this.physicalPattern.matcher(sql).find();
 		}
 
-		private String aliasHead(String headSql) {
+		private String aliasHead(String headSql, boolean aliasPhysical) {
 			if (isNoop()) {
 				return headSql;
 			}
-			return this.pattern.matcher(headSql).replaceAll(this.physical + " AS " + this.logical);
+			String out = this.logicalPattern.matcher(headSql).replaceAll(this.physical + " AS " + this.logical);
+			if (aliasPhysical) {
+				out = this.physicalHeadPattern.matcher(out).replaceAll(this.physical + " AS " + this.logical);
+			}
+			return out;
 		}
 
 		private String replaceAll(String sql) {
 			if (isNoop()) {
 				return sql;
 			}
-			return this.pattern.matcher(sql).replaceAll(this.physical);
+			return this.logicalPattern.matcher(sql).replaceAll(this.physical);
+		}
+
+		private boolean matchesProperty(String candidate) {
+			if (candidate == null || this.property == null) {
+				return false;
+			}
+			return this.property.equalsIgnoreCase(candidate.trim());
+		}
+
+		private boolean matchesPhysicalColumn(String column) {
+			if (column == null) {
+				return false;
+			}
+			String normalized = normalize(column);
+			return this.physicalLowerCase.equals(normalized);
+		}
+
+		private static String normalize(String column) {
+			String value = column.trim();
+			if (value.startsWith("`") && value.endsWith("`") && value.length() > 1) {
+				value = value.substring(1, value.length() - 1);
+			}
+			int dot = value.lastIndexOf('.');
+			if (dot >= 0 && dot < value.length() - 1) {
+				value = value.substring(dot + 1);
+			}
+			return value.toLowerCase(Locale.ENGLISH);
 		}
 
 	}

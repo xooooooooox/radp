@@ -41,6 +41,7 @@ import space.x9x.radp.mybatis.spring.boot.env.MybatisPlusExtensionProperties;
 import space.x9x.radp.mybatis.spring.boot.interceptor.ColumnAliasRewriteInterceptor;
 import space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy;
 import space.x9x.radp.spring.data.mybatis.autofill.BasePOAutoFillStrategy;
+import space.x9x.radp.spring.data.mybatis.autofill.StrategyDelegatingMetaObjectHandler;
 
 /**
  * Autoconfiguration for MyBatis-Plus extensions. This class automatically configures
@@ -78,9 +79,8 @@ public class MybatisPlusExtensionAutoConfiguration {
 			ObjectProvider<List<AutoFillStrategy>> strategiesProvider) {
 		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
 		// Always prefer strategy-based delegation; users provide AutoFillStrategy beans
-		java.util.List<space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy> strategies = strategiesProvider
-			.getIfAvailable(Collections::emptyList);
-		return new space.x9x.radp.spring.data.mybatis.autofill.StrategyDelegatingMetaObjectHandler(strategies);
+		List<AutoFillStrategy> strategies = strategiesProvider.getIfAvailable(Collections::emptyList);
+		return new StrategyDelegatingMetaObjectHandler(strategies);
 	}
 
 	/**

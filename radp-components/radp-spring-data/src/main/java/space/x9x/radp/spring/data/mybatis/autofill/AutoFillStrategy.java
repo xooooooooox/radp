@@ -42,7 +42,7 @@ public interface AutoFillStrategy {
 
 	/**
 	 * whether this strategy supports handling the specified entity instance.
-	 * @param entity current entity resolved from mybatis meta object (never null)
+	 * @param entity the current entity resolved from mybatis meta object (never null)
 	 * @return true if this strategy should handle auto-fill for the entity
 	 */
 	boolean supports(Object entity);
@@ -50,14 +50,14 @@ public interface AutoFillStrategy {
 	/**
 	 * perform insert-time filling for supported entities.
 	 * @param entity the current entity (never null)
-	 * @param metaObject mybatis meta object for property access (never null)
+	 * @param metaObject mybatis metaobject for property access (never null)
 	 */
 	void insertFill(Object entity, MetaObject metaObject);
 
 	/**
 	 * perform update-time filling for supported entities.
 	 * @param entity the current entity (never null)
-	 * @param metaObject mybatis meta object for property access (never null)
+	 * @param metaObject mybatis metaobject for property access (never null)
 	 */
 	void updateFill(Object entity, MetaObject metaObject);
 

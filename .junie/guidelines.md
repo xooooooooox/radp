@@ -23,6 +23,7 @@ Refer to the repository root for a complete tree and each module’s README wher
 - [Checkstyle config](../.coding/checkstyle/checkstyle.xml)
 - [Checkstyle suppressions](../.coding/checkstyle/checkstyle-suppressions.xml)
 - [Editor configuration](../.editorconfig)
+- [Markdown Style](./markdown_codestyle.md)
 
 Important notes:
 

@@ -79,7 +79,7 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
 		// 2) 自动填充 修改者
 		String loginUserId = resolveLoginUserId(); // 当前登录用户
-		if (Objects.nonNull(loginUserId) && StringUtils.hasText(entity.getUpdater())) {
+		if (Objects.nonNull(loginUserId) && !StringUtils.hasText(entity.getUpdater())) {
 			// 若未显式指定更新者且当前登录用户非空, 则自动填充当前登录用户人作为 updater
 			entity.setUpdater(loginUserId);
 		}

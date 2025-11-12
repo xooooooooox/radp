@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>space.x9x.radp</groupId>
 		<artifactId>radp-components</artifactId>
-		<version>3.26.2-SNAPSHOT</version>
+		<version>3.26.2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<packaging>pom</packaging>
@@ -191,59 +191,59 @@
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-commons</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-extensions</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-framework</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-test</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-boot-test</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-data</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-integration</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-security</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-boot</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-spring-cloud</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 
 			<!-- 设计模式框架 -->
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-decision-tree-pattern</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 
 
@@ -251,74 +251,74 @@
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-solution-tenant</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-solution-dict</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-solution-excel</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 
 			<!-- radp-xx-spring-boot-starter -->
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-jasypt-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-logging-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-mybatis-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-springdoc-webmvc-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-springdoc-webflux-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-undertow-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-druid-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-hikaricp-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-redis-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-liquibase-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-dynamic-datasource-spring-boot-starter</artifactId>
-				<version>3.26.2-SNAPSHOT</version>
+				<version>3.26.2</version>
 			</dependency>
 
 			<!-- TODO: radp-xx-spring-cloud-starters -->

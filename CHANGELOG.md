@@ -1,6 +1,14 @@
 # ChangeLog
 
-## 3.26.2
+## 3.27
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `3.27`.
+
+## 2.26.2
 
 ### Feature
 

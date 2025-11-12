@@ -2,6 +2,12 @@
 
 ## 2.27
 
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.27`.
+
 ## 2.26.2
 
 ### Feature

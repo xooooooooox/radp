@@ -6,11 +6,17 @@
 
 - enhance `BasePO` and `TenantBasePO` with lombok builder.
 
+### Dependencies
+
+- DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
+- Add properties `swagger-api.version=2.2.29`
+
 ### Chore
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.27`.
+- Add `swagger-annotations-jakarta` dependency to API layer pom template (scaffold-std)
 
 ## 2.26.2
 

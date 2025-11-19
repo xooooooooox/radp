@@ -24,6 +24,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
@@ -53,7 +54,7 @@ public class JasyptAutoConfiguration {
 
 	@Bean(name = "jasyptStringEncryptor")
 	@ConditionalOnMissingBean(name = "jasyptStringEncryptor")
-	@org.springframework.context.annotation.Primary
+	@Primary
 	public StringEncryptor jasyptStringEncryptor(Environment environment) {
 		String algorithm = environment.getProperty("jasypt.encryptor.algorithm", "SM4");
 		String password = environment.getProperty("jasypt.encryptor.password", "");

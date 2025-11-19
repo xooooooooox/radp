@@ -24,8 +24,7 @@ try{
 		mapper.
 
 insert(new DebugAutofillPO());
-		}
-		finally{
+		}finally{
 		TenantContextHolder.
 
 clear();

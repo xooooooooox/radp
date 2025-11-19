@@ -4,7 +4,7 @@
 
 ### Fix
 
-- Optimize `BasesPO` and `TenantBasePO`
+- enhance `BasePO` and `TenantBasePO` with lombok builder.
 
 ### Chore
 

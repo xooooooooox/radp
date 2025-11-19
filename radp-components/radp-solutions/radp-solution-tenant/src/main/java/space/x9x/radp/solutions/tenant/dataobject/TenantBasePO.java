@@ -18,8 +18,12 @@ package space.x9x.radp.solutions.tenant.dataobject;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
 
@@ -31,6 +35,10 @@ import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@ToString(callSuper = true)
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class TenantBasePO extends BasePO {
 
 	/**

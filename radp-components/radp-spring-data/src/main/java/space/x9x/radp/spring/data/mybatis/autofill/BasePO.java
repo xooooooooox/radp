@@ -23,7 +23,12 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Base Persistent Object class for database entities. This class no longer extends any
@@ -42,6 +47,11 @@ import lombok.Data;
  * @since 2024-10-01 10:02
  */
 @Data
+@ToString
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public abstract class BasePO implements Serializable {
 
 	@Serial

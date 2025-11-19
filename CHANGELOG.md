@@ -2,6 +2,10 @@
 
 ## 3.27
 
+### Fix
+
+- Optimize `BasesPO` and `TenantBasePO`
+
 ### Chore
 
 #### Scaffold

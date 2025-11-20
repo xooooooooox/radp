@@ -32,10 +32,10 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * @author x9x
  * @since 2024-09-27 12:13
  */
-public abstract class AbstractAssert extends Assert {
+public abstract class AbstractAssert {
 
 	/**
-	 * Helper method to get error message from error code.
+	 * Helper method to get the error message from error code.
 	 * @param errCode the error code
 	 * @param placeholders the placeholders for the error message
 	 * @return the error message
@@ -53,7 +53,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void doesNotContain(String textToSearch, String substring,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		doesNotContain(textToSearch, substring, getErrorMessage(errCode, placeholders));
+		Assert.doesNotContain(textToSearch, substring, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -64,7 +64,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void hasLength(String expression,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		hasLength(expression, getErrorMessage(errCode, placeholders));
+		Assert.hasLength(expression, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -75,7 +75,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void hasText(String text, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 			Object... placeholders) {
-		hasText(text, getErrorMessage(errCode, placeholders));
+		Assert.hasText(text, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void isInstanceOf(Class<?> type, Object obj,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		isInstanceOf(type, obj, getErrorMessage(errCode, placeholders));
+		Assert.isInstanceOf(type, obj, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -98,7 +98,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void isNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 			Object... placeholders) {
-		isNull(object, getErrorMessage(errCode, placeholders));
+		Assert.isNull(object, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -109,7 +109,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void notNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 			Object... placeholders) {
-		notNull(object, getErrorMessage(errCode, placeholders));
+		Assert.notNull(object, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -120,7 +120,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void isTrue(boolean expression,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		isTrue(expression, getErrorMessage(errCode, placeholders));
+		Assert.isTrue(expression, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -131,7 +131,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void noNullElements(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		noNullElements(collection, getErrorMessage(errCode, placeholders));
+		Assert.noNullElements(collection, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -142,7 +142,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void notEmpty(Object[] array,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		notEmpty(array, getErrorMessage(errCode, placeholders));
+		Assert.notEmpty(array, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -153,7 +153,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void notEmpty(Collection<?> collection,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		notEmpty(collection, getErrorMessage(errCode, placeholders));
+		Assert.notEmpty(collection, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -164,19 +164,19 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void notEmpty(Map<?, ?> map,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		notEmpty(map, getErrorMessage(errCode, placeholders));
+		Assert.notEmpty(map, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
 	 * Assert that the given subType is assignable to the given superType.
 	 * @param superType the super type to check against
-	 * @param subType the sub type to check
+	 * @param subType the subtype to check
 	 * @param errCode the error code to use if the assertion fails
 	 * @param placeholders the placeholder values to be substituted in the error message
 	 */
 	public static void isAssignable(Class<?> superType, Class<?> subType,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		isAssignable(superType, subType, getErrorMessage(errCode, placeholders));
+		Assert.isAssignable(superType, subType, getErrorMessage(errCode, placeholders));
 	}
 
 	/**
@@ -187,7 +187,7 @@ public abstract class AbstractAssert extends Assert {
 	 */
 	public static void state(boolean expression,
 			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
-		state(expression, getErrorMessage(errCode, placeholders));
+		Assert.state(expression, getErrorMessage(errCode, placeholders));
 	}
 
 }

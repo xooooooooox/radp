@@ -11,6 +11,10 @@
 - DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
 - Add properties `swagger-api.version=2.2.29`
 
+### Refactor
+
+- Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`
+
 ### Chore
 
 #### Scaffold

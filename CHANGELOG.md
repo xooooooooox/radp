@@ -15,6 +15,7 @@
 
 - Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
+- Optimize `BaseConvertor`.
 
 ### Chore
 

@@ -9,18 +9,21 @@
 ### Dependencies
 
 - DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
-- Add properties `swagger-api.version=2.2.29`
+- Add properties `swagger-api.version=2.2.29`.
 
 ### Refactor
 
-- Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`
+- Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`.
+- Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 
 ### Chore
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.27`.
-- Add `swagger-annotations-jakarta` dependency to API layer pom template (scaffold-std)
+- Add `swagger-annotations-jakarta` dependency to API layer pom template (scaffold-std).
+- `ClientAssert`, `ServerAssert` and `ThirdServiceAssert` add `@Contract` annotations and refactor null/nonnull handling
+  in assertion methods.
 
 ## 2.26.2
 

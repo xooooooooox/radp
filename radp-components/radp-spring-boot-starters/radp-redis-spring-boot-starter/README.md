@@ -44,13 +44,13 @@ Key utility methods:
 - `isValidKey(key)`: Validates that a Redis key follows the standard format
 - `extractPrefix(key)`: Extracts the prefix (first part) from a Redis key
 
-### RedisKeyProvider
+### IRedisKeyProvider
 
-The `RedisKeyProvider` interface allows different modules to define their own Redis key formats while maintaining a
+The `IRedisKeyProvider` interface allows different modules to define their own Redis key formats while maintaining a
 consistent approach to key generation:
 
 ```java
-public interface RedisKeyProvider {
+public interface IRedisKeyProvider {
     String getPrefix();
 
     default String buildKey(String... parts) {

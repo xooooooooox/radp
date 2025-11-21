@@ -11,11 +11,6 @@
 	<description>开发 API 层</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-annotations-jakarta</artifactId>
-		</dependency>
-
 		<!-- 自身模块 -->
 		<dependency>
 			<groupId>${groupId}</groupId>

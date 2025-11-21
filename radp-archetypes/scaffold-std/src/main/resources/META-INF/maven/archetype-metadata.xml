@@ -92,6 +92,20 @@
 			</includes>
 		</fileSet>
 
+		<!-- .junie -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>.junie</directory>
+			<includes>
+				<include>guidelines.md</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.junie</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
 		<!-- .mvn -->
 		<fileSet encoding="UTF-8">
 			<directory>.mvn</directory>

@@ -48,7 +48,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Data
 @ToString
-@SuperBuilder(toBuilder = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode

@@ -46,7 +46,7 @@ public enum RedisKeyProvider implements IRedisKeyProvider {
 	 */
 	@Override
 	public String getPrefix() {
-		return "";
+		return PREFIX;
 	}
 
 }

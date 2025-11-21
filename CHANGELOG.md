@@ -18,6 +18,8 @@
 - Optimize `BaseConvertor`.
 - `scaffold-std` add module `xxx-case`.
 - Replace hardcoded empty string with PREFIX in RedisKeyProvider.
+- Restructure package organization in `xxx-api` layer.
+- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
 
 ### Chore
 

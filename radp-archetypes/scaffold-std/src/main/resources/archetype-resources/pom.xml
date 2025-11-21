@@ -31,6 +31,7 @@
 		<module>${rootArtifactId}-types</module>
 		<module>${rootArtifactId}-api</module>
 		<module>${rootArtifactId}-domain</module>
+		<module>${rootArtifactId}-case</module>
 		<module>${rootArtifactId}-infrastructure</module>
 		<module>${rootArtifactId}-trigger</module>
 		<module>${rootArtifactId}-app</module>
@@ -46,6 +47,11 @@
 			<dependency>
 				<groupId>${groupId}</groupId>
 				<artifactId>${rootArtifactId}-domain</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>${rootArtifactId}-case</artifactId>
 				<version>${version}</version>
 			</dependency>
 			<dependency>

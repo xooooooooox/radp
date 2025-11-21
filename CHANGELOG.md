@@ -8,6 +8,18 @@
 
 - Update scaffold default radpVersion to `2.27`.
 
+## 2.26.3
+
+### fix
+
+- fix `BasePO` and `TenantBasePO`
+
+### Chore
+
+#### Scaffold
+
+- Update scaffold default radpVersion to `2.26.3`.
+
 ## 2.26.2
 
 ### Feature

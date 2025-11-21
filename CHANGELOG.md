@@ -17,7 +17,7 @@
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
 - `scaffold-std` add module `xxx-case`.
-- Fix `RedisKeyProvider`.
+- Replace hardcoded empty string with PREFIX in RedisKeyProvider.
 
 ### Chore
 

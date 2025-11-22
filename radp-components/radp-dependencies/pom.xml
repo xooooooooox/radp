@@ -27,6 +27,7 @@
 		<!-- [接口文档组件] -->
 		<knife4j.version>4.1.0</knife4j.version>
 		<springdoc.version>1.6.15</springdoc.version>
+		<swagger-api.version>2.2.8</swagger-api.version>
 
 		<!-- [关系型数据库] -->
 		<mybatis.version>3.5.16</mybatis.version>
@@ -375,6 +376,11 @@
 				<version>${springdoc.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger.core.v3</groupId>
+				<artifactId>swagger-annotations</artifactId> <!-- 如果是 SpringBoot2 则使用 swagger-annotations -->
+				<version>${swagger-api.version}</version>
 			</dependency>
 			<!-- ====================接口文档组件]==================== -->
 

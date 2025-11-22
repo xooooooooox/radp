@@ -92,6 +92,20 @@
 			</includes>
 		</fileSet>
 
+		<!-- .junie -->
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>.junie</directory>
+			<includes>
+				<include>guidelines.md</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>.junie</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+
 		<!-- .mvn -->
 		<fileSet encoding="UTF-8">
 			<directory>.mvn</directory>
@@ -205,6 +219,16 @@
 			</fileSets>
 		</module>
 		<module id="${rootArtifactId}-domain" dir="__rootArtifactId__-domain" name="${rootArtifactId}-domain">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-case" dir="__rootArtifactId__-case" name="${rootArtifactId}-case">
 			<fileSets>
 				<fileSet filtered="true" packaged="true" encoding="UTF-8">
 					<directory>src/main/java</directory>

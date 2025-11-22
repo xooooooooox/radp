@@ -38,7 +38,7 @@ public enum RedisKeyProvider implements IRedisKeyProvider {
 	/**
 	 * The prefix used for Redis keys in this application.
 	 */
-	private static final String PREFIX = "radp";
+	private static final String PREFIX = "radp:${appName}";
 
 	/**
 	 * Returns the prefix to be used for Redis keys.
@@ -46,7 +46,7 @@ public enum RedisKeyProvider implements IRedisKeyProvider {
 	 */
 	@Override
 	public String getPrefix() {
-		return "";
+		return PREFIX;
 	}
 
 }

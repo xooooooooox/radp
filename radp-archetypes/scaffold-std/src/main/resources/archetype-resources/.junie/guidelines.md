@@ -8,22 +8,24 @@ rules used by Junie in this repository.
 This repository is a multi-module Maven project organized by Domain-Driven Design (DDD) with a Ports & Adapters (
 Hexagonal) architecture. At a glance:
 
-- scaffold-std-demo-types — Shared types used across modules
+- ${appName}-types — Shared types used across modules
   - Enums, common utilities, unified exceptions/error codes
   - Keep framework dependencies minimal
-- scaffold-std-demo-api — Public API contracts for external consumers
+- ${appName}-api — Public API contracts for external consumers
   - DTOs/request-response objects; no domain entities
+  - CQRS
   - Stable contracts that triggers and clients depend on
-- scaffold-std-demo-domain — Pure domain layer
+- ${appName}-domain — Pure domain layer
   - Aggregates, Entities, Value Objects, Domain Services, Domain Events
   - Repository interfaces (ports) defined here; no framework/persistence details
-- scaffold-std-demo-infrastructure — Technical adapters (outbound)
+- ${appName}-case
+- ${appName}-infrastructure — Technical adapters (outbound)
   - Repository implementations, DAOs/POs, database/cache/config/message integrations
   - Depends on “domain” to implement its ports; contains anti‑corruption for external systems
-- scaffold-std-demo-trigger — Inbound adapters (“triggers”)
+- ${appName}-trigger — Inbound adapters (“triggers”)
   - HTTP/RPC controllers, jobs/schedulers, message listeners, input validation and DTOs
   - Orchestrates calls into the domain (no business rules here)
-- scaffold-std-demo-app — Application bootstrap and packaging
+- ${appName}-app — Application bootstrap and packaging
   - Spring Boot entrypoint, wiring/configuration, deployment artifacts
   - Kubernetes/Helm manifests under src/main/jkube (JKube): deployment.yml, service.yml, helm/values.yaml
 
@@ -31,7 +33,8 @@ Supporting directories:
 
 - docs — Architecture diagrams and technical notes
   - Open the reference diagram: `../docs/scaffold.drawio` (see pages “4.1-DDD架构指导图一”, “4.2-DDD架构指导图二”, and
-    the appendix on MVC)
+    the appendix on MVC); Or
+    see [四色建模指导图](./img.png), [DDD架构指导图一](./img_1.png), [DDD架构指导图二](./img_2.png)
 - Writerside — Documentation site sources (JetBrains Writerside)
 - logs — Runtime logs (current and archived)
 

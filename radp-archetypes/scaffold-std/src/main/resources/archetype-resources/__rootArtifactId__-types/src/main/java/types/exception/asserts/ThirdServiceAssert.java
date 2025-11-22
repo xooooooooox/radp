@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.PropertyKey;
 
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
@@ -80,8 +80,8 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the string contains the substring
 	 */
-	public static void doesNotContain(@NotNull String textToSearch, String substring,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	public static void doesNotContain(String textToSearch, String substring,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertDoesNotContain(textToSearch, substring, errCode, placeholders);
 	}
 
@@ -93,8 +93,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the string has a length of 0
 	 */
-	public static void hasLength(@NotNull String expression,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("null, _, _ -> fail")
+	public static void hasLength(String expression,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertHasLength(expression, errCode, placeholders);
 	}
 
@@ -107,8 +108,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the string does not contain the text
 	 */
+	@Contract("null, _, _ -> fail")
 	public static void hasText(String text, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-			Object... placeholders) {
+		Object... placeholders) {
 		INSTANCE.assertHasText(text, errCode, placeholders);
 	}
 
@@ -122,8 +124,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @throws ThirdServiceException if the object is not an instance of the specified
 	 * type
 	 */
-	public static void isInstanceOf(Class<?> type, @NotNull Object obj,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("_, null, _, _ -> fail")
+	public static void isInstanceOf(Class<?> type, Object obj,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertIsInstanceOf(type, obj, errCode, placeholders);
 	}
 
@@ -135,8 +138,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the object is not null
 	 */
+	@Contract("!null, _, _ -> fail")
 	public static void isNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-			Object... placeholders) {
+		Object... placeholders) {
 		INSTANCE.assertIsNull(object, errCode, placeholders);
 	}
 
@@ -148,8 +152,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the object is null
 	 */
+	@Contract("null, _, _ -> fail")
 	public static void notNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-			Object... placeholders) {
+		Object... placeholders) {
 		INSTANCE.assertNotNull(object, errCode, placeholders);
 	}
 
@@ -161,8 +166,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the expression is false
 	 */
+	@Contract("false, _, _ -> fail")
 	public static void isTrue(boolean expression,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertIsTrue(expression, errCode, placeholders);
 	}
 
@@ -174,8 +180,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the collection contains a null element
 	 */
-	public static void noNullElements(@NotNull Collection<?> collection,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("null, _, _ -> fail")
+	public static void noNullElements(Collection<?> collection,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertNoNullElements(collection, errCode, placeholders);
 	}
 
@@ -187,8 +194,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the array is empty
 	 */
+	@Contract("null, _, _ -> fail")
 	public static void notEmpty(Object[] array,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertNotEmpty(array, errCode, placeholders);
 	}
 
@@ -200,8 +208,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the collection is empty
 	 */
-	public static void notEmpty(@NotNull Collection<?> collection,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("null, _, _ -> fail")
+	public static void notEmpty(Collection<?> collection,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertNotEmpty(collection, errCode, placeholders);
 	}
 
@@ -213,8 +222,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the map is empty
 	 */
-	public static void notEmpty(@NotNull Map<?, ?> map,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("null, _, _ -> fail")
+	public static void notEmpty(Map<?, ?> map,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertNotEmpty(map, errCode, placeholders);
 	}
 
@@ -227,8 +237,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the subType is not assignable to the superType
 	 */
-	public static void isAssignable(Class<?> superType, @NotNull Class<?> subType,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+	@Contract("null, _, _, _ -> fail; _, null, _, _ -> fail")
+	public static void isAssignable(Class<?> superType, Class<?> subType,
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertIsAssignable(superType, subType, errCode, placeholders);
 	}
 
@@ -240,8 +251,9 @@ public final class ThirdServiceAssert extends BaseAssert<ThirdServiceException> 
 	 * @param placeholders the placeholders to use in the error message
 	 * @throws ThirdServiceException if the expression is false
 	 */
+	@Contract("false, _, _ -> fail")
 	public static void state(boolean expression,
-			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
+		@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... placeholders) {
 		INSTANCE.assertState(expression, errCode, placeholders);
 	}
 

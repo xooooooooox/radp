@@ -2,6 +2,10 @@
 
 ## 3.27
 
+### Feature
+
+- security
+
 ### Fix
 
 - enhance `BasePO` and `TenantBasePO` with lombok builder.

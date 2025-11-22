@@ -9,22 +9,22 @@
 
 ### Refactor
 
-- Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`.
+- Refactor SingleResult and PageResult method name `#build` to `#ok`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
-- `scaffold-std` add module `xxx-case`.
-- Replace hardcoded empty string with PREFIX in RedisKeyProvider.
-- Restructure package organization in `xxx-api` layer.
-- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
 
 ### Chore
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `2.27`.
-- Add `swagger-annotations-jakarta` dependency to API layer pom template (scaffold-std).
+- Add `swagger-annotations` dependency to the `xxx-type` layer.
 - `ClientAssert`, `ServerAssert` and `ThirdServiceAssert` add `@Contract` annotations and refactor null/nonnull handling
   in assertion methods.
+- `scaffold-std` add module `xxx-case`.
+- Replace hardcoded empty string with PREFIX in RedisKeyProvider.
+- Restructure package organization in `xxx-api` layer.
+- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
 
 ## 2.26.3
 
@@ -353,7 +353,7 @@
 ### Tests
 
 - Add module `radp-smoke-tests-redis`,
-- Add module`radp-smoke-tests-logging`
+- Add module `radp-smoke-tests-logging`
 - Add module `radp-smoke-tests-test`
   - Add test cases for TestContainers
   - Add test cases for EmbeddedServers
@@ -445,9 +445,11 @@
   - Optimize entrypoint.sh
   - Optimize liquibase
     - Fixed the issue with duplicate initialization caused by inconsistent filenames recognized in changesets
-      - see <https://docs.liquibase.com/change-types/includeall.html>
-      -
-      see <https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com>
+
+      see [https://docs.liquibase.com/change-types/includeall.html](https://docs.liquibase.com/change-types/includeall.html)
+      -----------------------------------------------------------
+
+      see [https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com](https://docs.liquibase.com/start/release-notes/liquibase-release-notes/liquibase-4.31.1.html?utm_source=chatgpt.com)
     - Optimized changelog-init.yaml example, migration/20241018 directory structure, and multienvironment support
 
 ## 2.18
@@ -461,7 +463,7 @@
   - profile `coding` add property `user.docker.build.namespace`
 - scaffold
   - Update scaffold default radpVersion to `2.18`
-  - Optimize`.mvn/settings.xml`
+  - Optimize `.mvn/settings.xml`
     - add profile `repo-central`
     - profile `default` add property `setting.docker.build.namespace`
   - Support writerside and mdbook to manage project documentation

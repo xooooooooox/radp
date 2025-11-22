@@ -25,6 +25,7 @@
 - Replace hardcoded empty string with PREFIX in RedisKeyProvider.
 - Restructure package organization in `xxx-api` layer.
 - Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
+- Add `checkstyle-idea.xml`.
 
 ## 2.26.3
 

@@ -13,22 +13,23 @@
 
 ### Refactor
 
-- Refactor SingleResult and PageResult method name `#buildSuccess` to `#ok`.
+- Refactor SingleResult and PageResult method name `#build` to `#ok`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
-- `scaffold-std` add module `xxx-case`.
-- Replace hardcoded empty string with PREFIX in RedisKeyProvider.
-- Restructure package organization in `xxx-api` layer.
-- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
 
 ### Chore
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.27`.
-- Add `swagger-annotations-jakarta` dependency to API layer pom template (scaffold-std).
+- Add `swagger-annotations-jakarta` dependency to this `xxx-type` layer.
 - `ClientAssert`, `ServerAssert` and `ThirdServiceAssert` add `@Contract` annotations and refactor null/nonnull handling
   in assertion methods.
+- `scaffold-std` add module `xxx-case`.
+- Replace hardcoded empty string with PREFIX in RedisKeyProvider.
+- Restructure package organization in `xxx-api` layer.
+- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
+- Add `checkstyle-idea.xml`.
 
 ## 2.26.2
 

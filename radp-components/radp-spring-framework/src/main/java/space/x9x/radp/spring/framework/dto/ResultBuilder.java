@@ -54,7 +54,7 @@ public class ResultBuilder implements ResponseBuilder<Result> {
 		if (data == null) {
 			return new Result();
 		}
-		return SingleResult.build(data);
+		return SingleResult.ok(data);
 	}
 
 	/**

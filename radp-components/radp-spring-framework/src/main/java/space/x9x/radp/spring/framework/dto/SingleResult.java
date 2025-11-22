@@ -55,8 +55,8 @@ public class SingleResult<T> extends Result {
 	 * @param <T> the type of the data item
 	 * @return a new SingleResult instance with success status and no data
 	 */
-	public static <T> SingleResult<T> build() {
-		return build(null);
+	public static <T> SingleResult<T> ok() {
+		return ok(null);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class SingleResult<T> extends Result {
 	 * @param data the data to include in the result
 	 * @return a new SingleResult instance with success status and the specified data
 	 */
-	public static <T> SingleResult<T> build(T data) {
+	public static <T> SingleResult<T> ok(T data) {
 		return SingleResult.<T>singleResultBuilder()
 			.success(true)
 			.code(GlobalResponseCode.SUCCESS.code())

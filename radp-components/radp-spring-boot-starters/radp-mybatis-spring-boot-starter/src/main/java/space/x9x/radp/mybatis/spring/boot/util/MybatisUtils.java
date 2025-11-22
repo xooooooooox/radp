@@ -86,7 +86,7 @@ public class MybatisUtils {
 	 * page
 	 */
 	public static <T> PageResult<T> transformPage(IPage<T> mpPage) {
-		return PageResult.build(mpPage.getRecords(), mpPage.getTotal());
+		return PageResult.ok(mpPage.getRecords(), mpPage.getTotal());
 	}
 
 }

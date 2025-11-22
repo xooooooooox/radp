@@ -87,12 +87,12 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 			@Param("ew") Wrapper<T> queryWrapper) {
 		if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
 			List<T> totalList = selectList(queryWrapper);
-			return PageResult.build(totalList, (long) totalList.size());
+			return PageResult.ok(totalList, (long) totalList.size());
 		}
 
 		IPage<T> mpPage = MybatisUtils.buildPage(pageParam, sortingFields);
 		selectPage(mpPage, queryWrapper);
-		return PageResult.build(mpPage.getRecords(), mpPage.getTotal());
+		return PageResult.ok(mpPage.getRecords(), mpPage.getTotal());
 	}
 
 	// ============================= Join Query Methods ===========================
@@ -110,7 +110,7 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 	default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
 		if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
 			List<D> totalList = selectJoinList(clazz, lambdaWrapper);
-			return PageResult.build(totalList, (long) totalList.size());
+			return PageResult.ok(totalList, (long) totalList.size());
 		}
 
 		// Execute MyBatis Plus Join query

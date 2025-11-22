@@ -87,7 +87,7 @@ public class PageResult<T> extends Result {
 	 * @return a new PageResult instance with success status and the provided data and
 	 * total
 	 */
-	public static <T> PageResult<T> build(Collection<T> data, Long total) {
+	public static <T> PageResult<T> ok(Collection<T> data, Long total) {
 		return PageResult.<T>pageResultBuilder()
 			.success(true)
 			.code(GlobalResponseCode.SUCCESS.code())

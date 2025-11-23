@@ -2,6 +2,18 @@
 
 ## 2.27
 
+### Feature
+
+- Add starter `radp-jwt-spring-boot-starter`.
+- Implement JWT-based authentication and authorization.
+- ServletUtils add utility methods to wrap HTTP responses with JSON content.
+
+### Test
+
+- Add test for `MessageFormatterTest`.
+- Add test for `MessageFormatUtils`.
+- Add test for `ResponseBuilderTest`.
+
 ### Dependencies
 
 - DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations:2.2.8`.
@@ -12,6 +24,7 @@
 - Refactor SingleResult and PageResult method name `#build` to `#ok`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
+- Adjust the system’s built-in error codes, reserving codes below 1000 for framework-level internal use.
 
 ### Chore
 

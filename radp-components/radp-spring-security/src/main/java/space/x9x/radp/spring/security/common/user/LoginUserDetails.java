@@ -60,6 +60,9 @@ public class LoginUserDetails implements UserDetails {
 	@Builder.Default
 	private boolean rememberMe = false;
 
+	/**
+	 * @return 权限列表
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;

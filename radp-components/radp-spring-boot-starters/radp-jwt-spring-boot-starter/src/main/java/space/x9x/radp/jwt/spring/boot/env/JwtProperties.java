@@ -31,6 +31,9 @@ import space.x9x.radp.spring.security.jwt.config.JwtConfig;
 @ConfigurationProperties(prefix = JwtProperties.PREFIX)
 public class JwtProperties {
 
+	/**
+	 * Prefix for JWT configuration properties.
+	 */
 	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "jwt";
 
 	private JwtConfig config;

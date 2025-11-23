@@ -34,9 +34,9 @@ class ResponseBuilderTest {
 	@Test
 	void test() {
 		String msg = "msg";
-		Result result = (Result) ResponseBuilder.builder().buildFailure("1000", msg);
+		Result result = (Result) ResponseBuilder.builder().buildFailure("0400", msg);
 		System.out.println(JSONHelper.json().toJSONString(result));
-		Assertions.assertThat(result.getCode()).isEqualTo("1000");
+		Assertions.assertThat(result.getCode()).isEqualTo("0400");
 		Assertions.assertThat(result.getMsg()).isEqualTo(msg);
 
 	}
@@ -46,21 +46,21 @@ class ResponseBuilderTest {
 	void test_with_params() {
 		String msg = "msg {} {}";
 		Result result;
-		result = (Result) ResponseBuilder.builder().buildFailure("1000", msg);
+		result = (Result) ResponseBuilder.builder().buildFailure("0400", msg);
 		System.out.println(JSONHelper.json().toJSONString(result));
-		Assertions.assertThat(result.getCode()).isEqualTo("1000");
+		Assertions.assertThat(result.getCode()).isEqualTo("0400");
 		Assertions.assertThat(result.getMsg()).isEqualTo("msg {} {}");
-		result = (Result) ResponseBuilder.builder().buildFailure("1000", msg, "a", "b");
+		result = (Result) ResponseBuilder.builder().buildFailure("0400", msg, "a", "b");
 		System.out.println(JSONHelper.json().toJSONString(result));
-		Assertions.assertThat(result.getCode()).isEqualTo("1000");
+		Assertions.assertThat(result.getCode()).isEqualTo("0400");
 		Assertions.assertThat(result.getMsg()).isEqualTo("msg a b");
-		result = (Result) ResponseBuilder.builder().buildFailure("1000", msg, "a");
+		result = (Result) ResponseBuilder.builder().buildFailure("0400", msg, "a");
 		System.out.println(JSONHelper.json().toJSONString(result));
-		Assertions.assertThat(result.getCode()).isEqualTo("1000");
+		Assertions.assertThat(result.getCode()).isEqualTo("0400");
 		Assertions.assertThat(result.getMsg()).isEqualTo("msg a {}");
-		result = (Result) ResponseBuilder.builder().buildFailure("1000", msg, "a", "b", "c");
+		result = (Result) ResponseBuilder.builder().buildFailure("0400", msg, "a", "b", "c");
 		System.out.println(JSONHelper.json().toJSONString(result));
-		Assertions.assertThat(result.getCode()).isEqualTo("1000");
+		Assertions.assertThat(result.getCode()).isEqualTo("0400");
 		Assertions.assertThat(result.getMsg()).isEqualTo("msg a b");
 	}
 
@@ -72,9 +72,9 @@ class ResponseBuilderTest {
 			throw new RuntimeException(msg);
 		}
 		catch (Exception e) {
-			result = (Result) ResponseBuilder.builder().buildFailure("1000", e.getMessage());
+			result = (Result) ResponseBuilder.builder().buildFailure("0400", e.getMessage());
 			System.out.println(JSONHelper.json().toJSONString(result));
-			Assertions.assertThat(result.getCode()).isEqualTo("1000");
+			Assertions.assertThat(result.getCode()).isEqualTo("0400");
 			Assertions.assertThat(result.getMsg()).isEqualTo(msg);
 		}
 	}

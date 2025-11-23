@@ -34,11 +34,11 @@ class ErrorCodeLoaderTest {
 	@Test
 	void test() {
 		try {
-			ServerAssert.notNull(null, "0001", 123);
+			ServerAssert.notNull(null, "TEST_0001", 123);
 		}
 		catch (ServerException e) {
 			assertThat(e.getMessage()).isEqualTo("HELLO 123");
-			assertThat(e.getErrCode()).isEqualTo("0001");
+			assertThat(e.getErrCode()).isEqualTo("TEST_0001");
 			assertThat(e.getCause()).isNull();
 		}
 	}

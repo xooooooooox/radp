@@ -40,7 +40,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		log.error("Unauthorized error: {}", authException.getMessage(), authException);
-		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "1000", "Authentication required");
+		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "0400", "Authentication required");
 	}
 
 }

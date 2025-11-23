@@ -32,7 +32,7 @@ class ServerAssertTest {
 		String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
 		assertThat(message).isEqualTo("hello world");
 		try {
-			ServerAssert.notNull(null, "0001", "world");
+			ServerAssert.notNull(null, "TEST_0001", "world");
 		}
 		catch (Exception e) {
 			assertThat(e.getMessage()).isEqualTo("hello world");

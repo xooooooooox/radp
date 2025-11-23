@@ -60,14 +60,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		if (!isAnonymousUrls(request)) {
 			AccessToken accessToken = resolveToken(request);
 			if (accessToken == null) {
-				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "1000", "token is required");
+				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "0400", "token is required");
 				return;
 			}
 			try {
 				this.jwtTokenProvider.validateToken(accessToken);
 			}
 			catch (Exception ex) {
-				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "1000", ex.getMessage());
+				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "0400", ex.getMessage());
 				return;
 			}
 			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);

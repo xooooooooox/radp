@@ -40,7 +40,7 @@ public class ForbiddenAccessDeniedHandler implements AccessDeniedHandler {
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		log.error("Forbidden error: {}", accessDeniedException.getMessage(), accessDeniedException);
-		ServletUtils.wrap(response, HttpServletResponse.SC_FORBIDDEN, "1001", "Access denied.");
+		ServletUtils.wrap(response, HttpServletResponse.SC_FORBIDDEN, "0403", "Access denied.");
 	}
 
 }

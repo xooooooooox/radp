@@ -40,7 +40,7 @@ public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		log.error("Authentication error: {}", exception.getMessage(), exception);
-		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "1000", "Authentication failed");
+		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "0400", "Authentication failed");
 	}
 
 }

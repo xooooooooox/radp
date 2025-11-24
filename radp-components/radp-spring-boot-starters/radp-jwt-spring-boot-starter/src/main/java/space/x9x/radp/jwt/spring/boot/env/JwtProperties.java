@@ -19,6 +19,7 @@ package space.x9x.radp.jwt.spring.boot.env;
 import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
 import space.x9x.radp.spring.security.jwt.config.JwtConfig;
@@ -34,8 +35,9 @@ public class JwtProperties {
 	/**
 	 * Prefix for JWT configuration properties.
 	 */
-	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "security.jwt";
+	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "security.jwt.config";
 
+	@NestedConfigurationProperty
 	private JwtConfig config;
 
 }

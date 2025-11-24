@@ -40,6 +40,8 @@ public class JwtConfig {
 	@Builder.Default
 	private String header = HttpHeaders.AUTHORIZATION;
 
+	private boolean enabled;
+
 	private String base64Secret;
 
 	private String secret;

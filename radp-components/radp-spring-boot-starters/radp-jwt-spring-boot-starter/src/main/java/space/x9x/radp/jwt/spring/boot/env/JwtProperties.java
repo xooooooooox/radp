@@ -35,7 +35,12 @@ public class JwtProperties {
 	/**
 	 * Prefix for JWT configuration properties.
 	 */
-	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "security.jwt.config";
+	public static final String PREFIX = Globals.RADP_CONFIGURATION_PROPERTIES_PREFIX + "security.jwt";
+
+	/**
+	 * Configuration prefix for JWT settings.
+	 */
+	public static final String CONFIG_PREFIX = PREFIX + ".config";
 
 	@NestedConfigurationProperty
 	private JwtConfig config;

@@ -16,6 +16,7 @@
 
 package space.x9x.radp.spring.security.jwt.config;
 
+import java.util.Collections;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +45,19 @@ public class JwtConfig {
 
 	private String base64Secret;
 
+	/**
+	 * The secret key used for JWT token signing and verification.
+	 * <ul>
+	 * Requirements
+	 * <li>Minimum length: 32 characters</li>
+	 * <li>Should contain a mix of uppercase, lowercase, numbers and * special
+	 * characters</li>
+	 * <li>should not contain common dictionary * words</li>
+	 * <li>Must be kept secure and not exposed in logs or configurations</li>
+	 * </ul>
+	 * You can use {@code openssl } to generate a random key of at least 32 bytes. For
+	 * example: {@code openssl rand -base64 64}
+	 */
 	private String secret;
 
 	@Builder.Default
@@ -52,10 +66,13 @@ public class JwtConfig {
 	@Builder.Default
 	private long tokenValidityInSecondsForRememberMe = 2592000;
 
-	private List<String> anonymousUrls;
+	@Builder.Default
+	private List<String> anonymousUrls = Collections.emptyList();
 
-	private List<String> permitAllUrls;
+	@Builder.Default
+	private List<String> permitAllUrls = Collections.emptyList();
 
-	private List<String> authenticatedUrls;
+	@Builder.Default
+	private List<String> authenticatedUrls = Collections.emptyList();
 
 }

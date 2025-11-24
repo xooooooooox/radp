@@ -81,7 +81,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		if (CollectionUtils.isEmpty(anonymousUrls)) {
 			return false;
 		}
-		String requestURI = request.getRequestURI();
+		// 这里不使用 request.getRequestURI() 的原因：
+		// 1. requestURI 通常包含 contextPath，而我们的匿名 URL 配置一般是以应用内路径（不含 contextPath）为基准，
+		// 如果直接用 requestURI 去匹配会因为前缀不同导致匹配失败。
+		// 2. 在经过反向代理或网关时，请求的真实访问路径可能被重写，servletPath 更接近应用内部实际处理的路径，
+		// 与 Spring 的路径匹配策略（如 AntPathMatcher）更一致。
+		// 因此这里使用 getServletPath() 来做路径匹配，避免因为 contextPath 或代理重写导致的匹配误差。
+		String requestURI = request.getServletPath();
 		return anonymousUrls.stream().anyMatch(url -> this.pathMatcher.match(url, requestURI));
 	}
 

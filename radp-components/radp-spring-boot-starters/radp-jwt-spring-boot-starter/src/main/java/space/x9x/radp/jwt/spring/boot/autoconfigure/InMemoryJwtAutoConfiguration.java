@@ -17,6 +17,7 @@
 package space.x9x.radp.jwt.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -24,50 +25,44 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 
 import space.x9x.radp.jwt.spring.boot.env.JwtProperties;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
-import space.x9x.radp.spring.security.jwt.config.JwtConfig;
-import space.x9x.radp.spring.security.jwt.token.JwtTokenProvider;
-import space.x9x.radp.spring.security.jwt.token.JwtTokenService;
+import space.x9x.radp.spring.security.common.token.AccessToken;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
 
 /**
  * @author x9x
- * @since 2025-11-23 02:15
+ * @since 2025-11-24 22:44
  */
 @AutoConfiguration
 @EnableConfigurationProperties(JwtProperties.class)
 @ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE)
 @RequiredArgsConstructor
 @Configuration
-public class JwtAutoConfiguration {
-
-	private final JwtProperties jwtProperties;
-
-	@ConditionalOnMissingBean
-	@Bean
-	public JwtTokenProvider jwtTokenProvider(JwtTokenStore jwtTokenStore) {
-		JwtConfig jwtConfig = JwtConfig.builder()
-			.header(this.jwtProperties.getConfig().getHeader())
-			.secret(this.jwtProperties.getConfig().getSecret())
-			.base64Secret(this.jwtProperties.getConfig().getBase64Secret())
-			.tokenValidityInSeconds(this.jwtProperties.getConfig().getTokenValidityInSeconds())
-			.tokenValidityInSecondsForRememberMe(
-					this.jwtProperties.getConfig().getTokenValidityInSecondsForRememberMe())
-			.anonymousUrls(this.jwtProperties.getConfig().getAnonymousUrls())
-			.authenticatedUrls(this.jwtProperties.getConfig().getAuthenticatedUrls())
-			.permitAllUrls(this.jwtProperties.getConfig().getPermitAllUrls())
-			.build();
-		return new JwtTokenProvider(jwtConfig, jwtTokenStore);
-	}
+@Slf4j
+public class InMemoryJwtAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public JwtTokenService jwtTokenService(AuthenticationManager authenticationManager,
-			JwtTokenProvider jwtTokenProvider) {
-		return new JwtTokenService(authenticationManager, jwtTokenProvider);
+	public JwtTokenStore jwtTokenStore() {
+		log.debug("Autowired InMemoryJwtTokenStore");
+		return new JwtTokenStore() {
+			@Override
+			public void storeAccessToken(AccessToken accessToken) {
+				// do nothing
+			}
+
+			@Override
+			public boolean validateAccessToken(AccessToken accessToken) {
+				return true;
+			}
+
+			@Override
+			public void removeAccessToken(AccessToken accessToken) {
+				// do nothing
+			}
+		};
 	}
 
 }

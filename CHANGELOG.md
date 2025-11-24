@@ -21,7 +21,7 @@
 
 ### Refactor
 
-- Refactor SingleResult and PageResult method name `#build` to `#ok`.
+- Refactor SingleResult and PageResult method name `#build` to `#ok`, `#buildFailure` to `#failed`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
 - Adjust the system’s built-in error codes, reserving codes below 1000 for framework-level internal use.

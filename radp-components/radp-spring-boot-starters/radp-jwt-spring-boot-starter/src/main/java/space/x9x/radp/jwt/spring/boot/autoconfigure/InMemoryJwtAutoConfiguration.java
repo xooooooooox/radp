@@ -32,6 +32,13 @@ import space.x9x.radp.spring.security.common.token.AccessToken;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
 
 /**
+ * Autoconfiguration class for in-memory JWT token storage. This configuration is
+ * activated when the JWT properties are enabled (radp.jwt.enabled=true).
+ * <p>
+ * Provides a basic in-memory implementation of {@link JwtTokenStore} that performs no
+ * actual storage operations, suitable for testing or scenarios where token persistence is
+ * not required.
+ *
  * @author x9x
  * @since 2025-11-24 22:44
  */
@@ -43,6 +50,16 @@ import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
 @Slf4j
 public class InMemoryJwtAutoConfiguration {
 
+	/**
+	 * Creates a default in-memory implementation of {@link JwtTokenStore}. This
+	 * implementation does not store tokens but always validates them as true, making it
+	 * suitable for testing or development environments.
+	 * <p>
+	 * This bean is only created if no other {@link JwtTokenStore} bean is present in the
+	 * application context.
+	 * @return a new instance of {@link JwtTokenStore} that provides no-op token storage
+	 * operations
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public JwtTokenStore jwtTokenStore() {

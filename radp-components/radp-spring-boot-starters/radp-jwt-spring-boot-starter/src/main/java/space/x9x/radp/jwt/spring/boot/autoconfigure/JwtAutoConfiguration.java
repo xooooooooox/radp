@@ -16,22 +16,35 @@
 
 package space.x9x.radp.jwt.spring.boot.autoconfigure;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import space.x9x.radp.jwt.spring.boot.env.JwtProperties;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.security.jwt.config.JwtConfig;
+import space.x9x.radp.spring.security.jwt.config.JwtSecurityConfigurer;
+import space.x9x.radp.spring.security.jwt.filter.JwtAuthorizationFilter;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenProvider;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenService;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
+import space.x9x.radp.spring.security.web.handler.ForbiddenAccessDeniedHandler;
+import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
 
 /**
  * @author x9x
@@ -41,10 +54,17 @@ import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
 @EnableConfigurationProperties(JwtProperties.class)
 @ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE)
 @RequiredArgsConstructor
-@Configuration
+@ConditionalOnClass(HttpSecurity.class)
 public class JwtAutoConfiguration {
 
 	private final JwtProperties jwtProperties;
+
+	@ConditionalOnMissingBean
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
 
 	@ConditionalOnMissingBean
 	@Bean
@@ -68,6 +88,55 @@ public class JwtAutoConfiguration {
 	public JwtTokenService jwtTokenService(AuthenticationManager authenticationManager,
 			JwtTokenProvider jwtTokenProvider) {
 		return new JwtTokenService(authenticationManager, jwtTokenProvider);
+	}
+
+	// ========== Web-related beans (no SecurityFilterChain) ==========
+
+	@ConditionalOnMissingBean
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+
+	@ConditionalOnMissingBean
+	@Bean
+	public UnauthorizedEntryPoint unauthorizedEntryPoint() {
+		return new UnauthorizedEntryPoint();
+	}
+
+	@ConditionalOnMissingBean
+	@Bean
+	public ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler() {
+		return new ForbiddenAccessDeniedHandler();
+	}
+
+	@ConditionalOnMissingBean(PathMatcher.class)
+	@Bean
+	public PathMatcher pathMatcher() {
+		return new AntPathMatcher();
+	}
+
+	@ConditionalOnMissingBean
+	@Bean
+	public JwtAuthorizationFilter jwtAuthorizationFilter(AuthenticationManager authenticationManager,
+			JwtTokenProvider jwtTokenProvider, PathMatcher pathMatcher) {
+		return new JwtAuthorizationFilter(authenticationManager, jwtTokenProvider, pathMatcher);
+	}
+
+	/**
+	 * Central HttpSecurity configurer for JWT. Applications typically inject and apply
+	 * this in their own SecurityConfig.
+	 */
+	@ConditionalOnMissingBean
+	@Bean
+	public JwtSecurityConfigurer jwtSecurityConfigurer(JwtAuthorizationFilter jwtAuthorizationFilter,
+			JwtTokenProvider jwtTokenProvider, UnauthorizedEntryPoint unauthorizedEntryPoint,
+			ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler,
+			List<RequestMappingHandlerMapping> handlerMappings) {
+
+		JwtConfig jwtConfig = jwtTokenProvider.getJwtConfig();
+		return JwtSecurityConfigurer.withDefaultPathMatcher(jwtAuthorizationFilter, jwtConfig, unauthorizedEntryPoint,
+				forbiddenAccessDeniedHandler, handlerMappings);
 	}
 
 }

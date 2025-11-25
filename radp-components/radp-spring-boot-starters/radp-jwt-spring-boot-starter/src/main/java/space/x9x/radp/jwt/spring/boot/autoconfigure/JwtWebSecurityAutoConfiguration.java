@@ -16,11 +16,14 @@
 
 package space.x9x.radp.jwt.spring.boot.autoconfigure;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -32,6 +35,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import space.x9x.radp.jwt.spring.boot.env.JwtProperties;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
+import space.x9x.radp.spring.security.jwt.config.JwtAuthorizeHttpRequestsCustomizer;
 import space.x9x.radp.spring.security.jwt.config.JwtSecurityConfigurer;
 
 /**
@@ -44,9 +48,12 @@ import space.x9x.radp.spring.security.jwt.config.JwtSecurityConfigurer;
  * @since 2025-11-25 12:54
  * @see JwtSecurityConfigurer
  */
-@AutoConfiguration
+// 避免由于 SecurityAutoConfiguration 以及 actuator 的
+// ManagementWebSecurityAutoConfiguration 自动注入了 SecurityFilterChain 以至于
+// @ConditionalOnMissingBean(SecurityFilterChain.class) 条件不满足导致注入失败
+@AutoConfiguration(before = SecurityAutoConfiguration.class, beforeName = {
+		"org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration" })
 @AutoConfigureAfter(JwtAutoConfiguration.class)
-@AutoConfigureBefore(SecurityAutoConfiguration.class)
 @ConditionalOnClass({ HttpSecurity.class, SecurityFilterChain.class })
 @ConditionalOnBean(JwtSecurityConfigurer.class)
 @ConditionalOnProperty(prefix = JwtProperties.WEB_PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE,
@@ -58,13 +65,18 @@ public class JwtWebSecurityAutoConfiguration {
 	 * Default SecurityFilterChain that simply applies the JwtSecurityConfigurer. Users
 	 * can override this by defining their own SecurityFilterChain bean.
 	 */
-	// 只在没有名为 "securityFilterChain" 的 bean 时才生效
-	@ConditionalOnMissingBean(name = "securityFilterChain")
+	@ConditionalOnMissingBean(SecurityFilterChain.class)
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-			JwtSecurityConfigurer jwtSecurityConfigurer) throws Exception {
-		log.debug("Creating default SecurityFilterChain");
-		httpSecurity.apply(jwtSecurityConfigurer);
+			JwtSecurityConfigurer jwtSecurityConfigurer,
+			ObjectProvider<JwtAuthorizeHttpRequestsCustomizer> customizerProvider) throws Exception {
+
+		List<JwtAuthorizeHttpRequestsCustomizer> customizers = customizerProvider.orderedStream()
+			.collect(Collectors.toList());
+
+		log.debug("Creating radp SecurityFilterChain, found {} JwtAuthorizeHttpRequestsCustomizer bean(s)",
+				customizers.size());
+		jwtSecurityConfigurer.configure(httpSecurity, customizers);
 		return httpSecurity.build();
 	}
 

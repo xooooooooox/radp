@@ -16,6 +16,7 @@
 
 package space.x9x.radp.jwt.spring.boot.autoconfigure;
 
+import java.util.Collections;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -136,7 +137,7 @@ public class JwtAutoConfiguration {
 
 		JwtConfig jwtConfig = jwtTokenProvider.getJwtConfig();
 		return JwtSecurityConfigurer.withDefaultPathMatcher(jwtAuthorizationFilter, jwtConfig, unauthorizedEntryPoint,
-				forbiddenAccessDeniedHandler, handlerMappings);
+				forbiddenAccessDeniedHandler, handlerMappings, Collections.emptyList());
 	}
 
 }

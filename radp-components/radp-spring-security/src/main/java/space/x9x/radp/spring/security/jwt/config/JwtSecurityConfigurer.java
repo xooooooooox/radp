@@ -16,8 +16,10 @@
 
 package space.x9x.radp.spring.security.jwt.config;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.security.PermitAll;
@@ -27,18 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import space.x9x.radp.commons.json.JacksonUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
 import space.x9x.radp.spring.security.jwt.filter.JwtAuthorizationFilter;
 import space.x9x.radp.spring.security.web.handler.ForbiddenAccessDeniedHandler;
 import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
@@ -59,7 +58,7 @@ import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
  * Application code usually only needs to call:
  *
  * <pre>
- * http.apply(jwtSecurityConfigurer);
+ * jwtSecurityConfigurer.configure(httpSecurity);
  * </pre>
  *
  * @author x9x
@@ -67,7 +66,7 @@ import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class JwtSecurityConfigurer {
 
 	private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
@@ -81,23 +80,36 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
 
 	private final List<RequestMappingHandlerMapping> requestMappingHandlerMappings;
 
+	private final List<JwtAuthorizeHttpRequestsCustomizer> authorizeHttpRequestsCustomizers;
+
 	/**
 	 * Convenience factory when user code doesn't care about a custom PathMatcher.
 	 */
 	public static JwtSecurityConfigurer withDefaultPathMatcher(JwtAuthorizationFilter jwtAuthorizationFilter,
 			JwtConfig jwtConfig, UnauthorizedEntryPoint unauthorizedEntryPoint,
 			ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler,
-			java.util.List<RequestMappingHandlerMapping> handlerMappings) {
+			List<RequestMappingHandlerMapping> handlerMappings,
+			List<JwtAuthorizeHttpRequestsCustomizer> authorizeHttpRequestsCustomizers) {
 
 		return new JwtSecurityConfigurer(jwtAuthorizationFilter, jwtConfig, unauthorizedEntryPoint,
-				forbiddenAccessDeniedHandler, new AntPathMatcher(), handlerMappings);
+				forbiddenAccessDeniedHandler, new AntPathMatcher(), handlerMappings, authorizeHttpRequestsCustomizers);
 	}
 
-	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
-		String[] authenticatedUrls = this.jwtConfig.getAuthenticatedUrls().toArray(new String[0]);
-		String[] permittedUrls = this.jwtConfig.getPermitAllUrls().toArray(new String[0]);
-		String[] anonymousUrls = this.jwtConfig.getAnonymousUrls().toArray(new String[0]);
+		configure(httpSecurity, Collections.emptyList());
+	}
+
+	public void configure(HttpSecurity httpSecurity,
+			List<JwtAuthorizeHttpRequestsCustomizer> authorizeHttpRequestsCustomizers) throws Exception {
+		String[] authenticatedUrls = Optional.ofNullable(this.jwtConfig.getAuthenticatedUrls())
+			.orElse(Collections.emptyList())
+			.toArray(new String[0]);
+		String[] permittedUrls = Optional.ofNullable(this.jwtConfig.getPermitAllUrls())
+			.orElse(Collections.emptyList())
+			.toArray(new String[0]);
+		String[] anonymousUrls = Optional.ofNullable(this.jwtConfig.getAnonymousUrls())
+			.orElse(Collections.emptyList())
+			.toArray(new String[0]);
 		String[] permitAllUrlsFromAnnotations = getPermitAllUrlsFromAnnotations();
 
 		httpSecurity
@@ -110,43 +122,41 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
 				.accessDeniedHandler(this.forbiddenAccessDeniedHandler))
 
 			// 设置每个请求的权限 (Spring Security 5.x 使用 antMatchers, 6.x 使用 requestMatchers)
-			.authorizeHttpRequests(c -> {
-				// 0) 认证: 对于显式配置需要认证的 url, 必须认证
-				if (ArrayUtils.isNotEmpty(authenticatedUrls)) {
-					c.antMatchers(authenticatedUrls).authenticated();
-					log.debug("Authenticated urls: {}", JacksonUtils.toJSONString(authenticatedUrls));
-				}
-				// 1) 放行: 允许对网站 静态资源 的无授权访问
-				c.antMatchers(HttpMethod.GET, "/*.css", "/*.js", "/*.html").permitAll();
-				// 2) 放行: 对配置文件中指定的 permit-all-urls 接口允许未授权访问(比如登录/注册等)
-				if (ArrayUtils.isNotEmpty(permittedUrls)) {
-					c.antMatchers(permittedUrls).permitAll();
-					log.debug("PermitAll urls (from config): {}", JacksonUtils.toJSONString(permittedUrls));
-				}
-				// 3) 放行: 对 @PermitAll 标注的接口允许未授权访问
-				if (ArrayUtils.isNotEmpty(permitAllUrlsFromAnnotations)) {
-					c.antMatchers(permitAllUrlsFromAnnotations).permitAll();
-					log.debug("PermitAll urls (from annotations): {}",
-							JacksonUtils.toJSONString(permitAllUrlsFromAnnotations));
-				}
-				// 4) 放行: 对配置文件中指定的 anonymous-urls 接口允许未授权访问
-				if (ArrayUtils.isNotEmpty(anonymousUrls)) {
-					c.antMatchers(anonymousUrls).permitAll();
-					log.debug("Anonymous urls: {}", JacksonUtils.toJSONString(anonymousUrls));
-				}
-				// 5) 兜底: 对所有其它请求开启授权保护(即均需要进行认证授权)
-				c.anyRequest().authenticated();
-			})
+			.authorizeRequests(registry -> {
+				// 1. 全局共享规则
+				// 1.1 认证: 对于显式配置需要认证的 url, 必须认证
+				registry.antMatchers(authenticatedUrls).authenticated();
+				// 1.2 放行: 允许对网站 静态资源 的无授权访问
+				registry.antMatchers(HttpMethod.GET, "/*.css", "/*.js", "/*.html").permitAll();
+				// 1.3 放行: 对配置文件中指定的 permit-all-urls 接口允许未授权访问(比如登录/注册等)
+				registry.antMatchers(permittedUrls).permitAll();
+				// 1.4 放行: 对 @PermitAll 标注的接口允许未授权访问
+				registry.antMatchers(permitAllUrlsFromAnnotations).permitAll();
+				// 1.5 放行: 对配置文件中指定的 anonymous-urls 接口允许未授权访问
+				registry.antMatchers(anonymousUrls).permitAll();
 
-			// register JWT filter
-			.addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+				// 2. 引入该 starter 的项目的自定义规则
+				authorizeHttpRequestsCustomizers.forEach(customizer -> customizer.customize(registry));
+
+				// 3. 兜底规则
+				// 除了上述之外的其他请求, 都必须认证
+				registry.anyRequest().authenticated();
+			});
+
+		// register JWT filter
+		httpSecurity.addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		log.debug("Authenticated urls: {}", JacksonUtils.toJSONString(authenticatedUrls));
+		log.debug("PermitAll urls (from config): {}", JacksonUtils.toJSONString(permittedUrls));
+		log.debug("PermitAll urls (from annotations): {}", JacksonUtils.toJSONString(permitAllUrlsFromAnnotations));
+		log.debug("Anonymous urls: {}", JacksonUtils.toJSONString(anonymousUrls));
 	}
 
 	private String[] getPermitAllUrlsFromAnnotations() {
 		Set<String> urls = new LinkedHashSet<>();
 
-		this.requestMappingHandlerMappings.forEach(mapping -> {
-			mapping.getHandlerMethods().forEach((requestMappingInfo, handlerMethod) -> {
+		this.requestMappingHandlerMappings
+			.forEach(mapping -> mapping.getHandlerMethods().forEach((requestMappingInfo, handlerMethod) -> {
 				boolean hasPermitAll = AnnotatedElementUtils.hasAnnotation(handlerMethod.getBeanType(), PermitAll.class)
 						|| AnnotatedElementUtils.hasAnnotation(handlerMethod.getMethod(), PermitAll.class);
 
@@ -160,8 +170,7 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
 					log.debug("Detected @PermitAll mapping: {}", pattern);
 					urls.add(pattern);
 				});
-			});
-		});
+			}));
 
 		return urls.toArray(new String[0]);
 	}

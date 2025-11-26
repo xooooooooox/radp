@@ -36,6 +36,7 @@
 - Replace hardcoded empty string with PREFIX in RedisKeyProvider.
 - Restructure package organization in `xxx-api` layer.
 - Add `checkstyle-idea.xml`.
+- Fix writerside setup.
 
 ## 2.26.2
 

@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  */
 class ServerAssertTest {
 
-	private static final String ERROR_CODE = "10000";
+	private static final String ERROR_CODE = "TEST_0001";
 
 	private static final String EXPECTED_MESSAGE = "HELLO 123";
 

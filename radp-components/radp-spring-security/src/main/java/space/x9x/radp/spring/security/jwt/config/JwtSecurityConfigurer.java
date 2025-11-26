@@ -68,6 +68,18 @@ import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
 @Slf4j
 public class JwtSecurityConfigurer {
 
+	/**
+	 * 可选的 JWT 认证过滤器.
+	 * <p>
+	 * 当为 {@code null} 时, 当前配置仅负责:
+	 * <ul>
+	 * <li>禁用 CSRF;</li>
+	 * <li>配置无状态会话;</li>
+	 * <li>注册认证入口点和访问拒绝处理器;</li>
+	 * <li>应用 URL 授权规则;</li>
+	 * <li>不再从请求中解析 JWT.</li>
+	 * </ul>
+	 */
 	private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
 	private final JwtConfig jwtConfig;
@@ -112,15 +124,43 @@ public class JwtSecurityConfigurer {
 			.toArray(new String[0]);
 		String[] permitAllUrlsFromAnnotations = getPermitAllUrlsFromAnnotations();
 
-		httpSecurity
-			// 基于 TOKEN 机制, 可屏蔽 CSRF 防护
-			.csrf(AbstractHttpConfigurer::disable)
-			// 基于 TOKEN 机制, 不需要 Session
-			.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			// 添加自定义 未登录和未授权 结果返回
-			.exceptionHandling(eh -> eh.authenticationEntryPoint(this.unauthorizedEntryPoint)
-				.accessDeniedHandler(this.forbiddenAccessDeniedHandler))
+		// ===== 1. 仅在启用 JWT 过滤器时, 才接管 CSRF/Session/ExceptionHandling =====
+		if (this.jwtAuthorizationFilter != null) {
+			httpSecurity
+				// 基于 TOKEN 机制, 可屏蔽 CSRF 防护
+				.csrf(AbstractHttpConfigurer::disable)
+				// 基于 TOKEN 机制, 不需要 Session
+				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				// 添加自定义 未登录和未授权 结果返回
+				.exceptionHandling(eh -> eh.authenticationEntryPoint(this.unauthorizedEntryPoint)
+					.accessDeniedHandler(this.forbiddenAccessDeniedHandler));
 
+			log.debug(
+					"JWT authorization filter is enabled: CSRF disabled, session stateless, custom entry point active.");
+		}
+		else {
+			// 未启用 JWT 过滤器:
+			// - 使用 Spring Security 默认策略
+			// - 显式启用表单登录, 让未认证访问受保护资源时跳转到 /login
+			httpSecurity.formLogin() // 使用默认 login 页面和 loginProcessingUrl("/login")
+				.and()
+				.httpBasic(); // 可选: 同时支持 HTTP Basic
+
+			log.debug("No JwtAuthorizationFilter found. Enable formLogin/httpBasic with default entry point.");
+		}
+
+		// ===== 2. 仅在启用 JWT 过滤器时, 才把它加入过滤器链 =====
+		if (this.jwtAuthorizationFilter != null) {
+			httpSecurity.addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+			log.debug("Registered JwtAuthorizationFilter in SecurityFilterChain.");
+		}
+		else {
+			log.debug(
+					"No JwtAuthorizationFilter registered. Starter will not parse JWT, but will keep stateless session and authorization rules.");
+		}
+
+		// ===== 3. URL 授权规则: 无论是否启用 JWT 过滤器, 都统一生效 =====
+		httpSecurity
 			// 设置每个请求的权限 (Spring Security 5.x 使用 antMatchers, 6.x 使用 requestMatchers)
 			.authorizeRequests(registry -> {
 				// 1. 全局共享规则
@@ -142,9 +182,6 @@ public class JwtSecurityConfigurer {
 				// 除了上述之外的其他请求, 都必须认证
 				registry.anyRequest().authenticated();
 			});
-
-		// register JWT filter
-		httpSecurity.addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		log.debug("Authenticated urls: {}", JacksonUtils.toJSONString(authenticatedUrls));
 		log.debug("PermitAll urls (from config): {}", JacksonUtils.toJSONString(permittedUrls));

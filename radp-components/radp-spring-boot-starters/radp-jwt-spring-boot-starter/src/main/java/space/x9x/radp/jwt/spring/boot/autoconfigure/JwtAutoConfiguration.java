@@ -21,6 +21,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -117,7 +118,9 @@ public class JwtAutoConfiguration {
 		return new AntPathMatcher();
 	}
 
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(JwtAuthorizationFilter.class)
+	@ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = "use-default-authentication-filter",
+			havingValue = Conditions.TRUE, matchIfMissing = true)
 	@Bean
 	public JwtAuthorizationFilter jwtAuthorizationFilter(AuthenticationManager authenticationManager,
 			JwtTokenProvider jwtTokenProvider, PathMatcher pathMatcher) {
@@ -130,12 +133,14 @@ public class JwtAutoConfiguration {
 	 */
 	@ConditionalOnMissingBean
 	@Bean
-	public JwtSecurityConfigurer jwtSecurityConfigurer(JwtAuthorizationFilter jwtAuthorizationFilter,
-			JwtTokenProvider jwtTokenProvider, UnauthorizedEntryPoint unauthorizedEntryPoint,
-			ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler,
+	public JwtSecurityConfigurer jwtSecurityConfigurer(
+			ObjectProvider<JwtAuthorizationFilter> jwtAuthorizationFilterProvider, JwtTokenProvider jwtTokenProvider,
+			UnauthorizedEntryPoint unauthorizedEntryPoint, ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler,
 			List<RequestMappingHandlerMapping> handlerMappings) {
 
 		JwtConfig jwtConfig = jwtTokenProvider.getJwtConfig();
+		JwtAuthorizationFilter jwtAuthorizationFilter = jwtAuthorizationFilterProvider.getIfAvailable();
+
 		return JwtSecurityConfigurer.withDefaultPathMatcher(jwtAuthorizationFilter, jwtConfig, unauthorizedEntryPoint,
 				forbiddenAccessDeniedHandler, handlerMappings, Collections.emptyList());
 	}

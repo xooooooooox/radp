@@ -4,20 +4,17 @@
 
 ### Feature
 
-- Add starter `radp-jwt-spring-boot-starter`.
-- Implement JWT-based authentication and authorization.
+- Add starter `radp-jwt-spring-boot-starter`, implement JWT-based authentication and authorization.
 - ServletUtils add utility methods to wrap HTTP responses with JSON content.
 
 ### Test
 
-- Add test for `MessageFormatterTest`.
-- Add test for `MessageFormatUtils`.
-- Add test for `ResponseBuilderTest`.
+- Add test for `MessageFormatter`, `MessageFormatUtils`, `ResponseBuilder`
 
 ### Dependencies
 
-- DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations:2.2.8`.
-- Add properties `swagger-api.version=2.2.8`.
+- DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations:2.2.8`, add properties
+  `swagger-api.version=2.2.8`.
 
 ### Refactor
 

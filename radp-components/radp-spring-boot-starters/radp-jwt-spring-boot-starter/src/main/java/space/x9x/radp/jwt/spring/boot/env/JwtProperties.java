@@ -42,12 +42,6 @@ public class JwtProperties {
 	 */
 	public static final String CONFIG_PREFIX = PREFIX + ".config";
 
-	/**
-	 * Web integration prefix for JWT (controls auto-registered SecurityFilterChain,
-	 * etc.).
-	 */
-	public static final String WEB_PREFIX = PREFIX + ".web";
-
 	@NestedConfigurationProperty
 	private JwtConfig config;
 

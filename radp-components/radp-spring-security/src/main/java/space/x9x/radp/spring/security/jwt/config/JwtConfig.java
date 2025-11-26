@@ -43,6 +43,8 @@ public class JwtConfig {
 
 	private boolean enabled;
 
+	private boolean useDefaultSecurityFilterChain;
+
 	private String base64Secret;
 
 	/**

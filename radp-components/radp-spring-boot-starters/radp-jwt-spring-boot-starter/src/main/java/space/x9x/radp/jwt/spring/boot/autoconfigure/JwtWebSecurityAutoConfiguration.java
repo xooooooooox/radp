@@ -56,8 +56,7 @@ import space.x9x.radp.spring.security.jwt.config.JwtSecurityConfigurer;
 @AutoConfigureAfter(JwtAutoConfiguration.class)
 @ConditionalOnClass({ HttpSecurity.class, SecurityFilterChain.class })
 @ConditionalOnBean(JwtSecurityConfigurer.class)
-@ConditionalOnProperty(prefix = JwtProperties.WEB_PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE,
-		matchIfMissing = true)
+@ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE)
 @Slf4j
 public class JwtWebSecurityAutoConfiguration {
 
@@ -65,6 +64,8 @@ public class JwtWebSecurityAutoConfiguration {
 	 * Default SecurityFilterChain that simply applies the JwtSecurityConfigurer. Users
 	 * can override this by defining their own SecurityFilterChain bean.
 	 */
+	@ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = "use-default-security-filter-chain",
+			havingValue = Conditions.TRUE, matchIfMissing = true)
 	@ConditionalOnMissingBean(SecurityFilterChain.class)
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,

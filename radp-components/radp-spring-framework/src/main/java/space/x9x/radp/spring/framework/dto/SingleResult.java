@@ -24,8 +24,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.jetbrains.annotations.PropertyKey;
 
+import space.x9x.radp.commons.lang.MessageFormatUtils;
 import space.x9x.radp.spring.framework.error.ErrorCode;
+import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 
 /**
@@ -78,17 +81,73 @@ public class SingleResult<T> extends Result {
 	}
 
 	/**
+	 * Creates and returns a SingleResult object that represents a successful operation.
+	 * @param <T> the type of the data to be included in the result
+	 * @param data the payload or data to include in the result object
+	 * @param message a descriptive message indicating the success of the operation
+	 * @return a SingleResult object containing the success flag, status code, message,
+	 * and the provided data
+	 */
+	public static <T> SingleResult<T> ok(T data, String message) {
+		return SingleResult.<T>singleResultBuilder()
+			.success(true)
+			.code(GlobalResponseCode.SUCCESS.code())
+			.msg(message)
+			.data(data)
+			.build();
+	}
+
+	/**
 	 * Creates a failure result with the specified error code.
 	 * @param <T> the type of the data item
 	 * @param errorCode the error code to include in the result
 	 * @return a new SingleResult instance with failure status and the specified error
 	 * code
 	 */
-	public static <T> SingleResult<T> buildFailure(ErrorCode errorCode) {
+	public static <T> SingleResult<T> failed(ErrorCode errorCode) {
 		return SingleResult.<T>singleResultBuilder()
 			.success(false)
 			.code(errorCode.getCode())
 			.msg(errorCode.getMessage())
+			.build();
+	}
+
+	/**
+	 * Creates a failure result with the specified error code and optional placeholders
+	 * for formatting the error message. The error message is retrieved from a resource
+	 * bundle based on the provided error code.
+	 * @param <T> the type of the data item in the result
+	 * @param errCode the error code to include in the result; a key in the resource
+	 * bundle
+	 * @param placeholders optional parameters to replace placeholders in the error
+	 * message
+	 * @return a new SingleResult instance with failure status, the specified error code,
+	 * and the formatted error message
+	 */
+	public static <T> SingleResult<T> failed(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			Object... placeholders) {
+		return SingleResult.<T>singleResultBuilder()
+			.success(false)
+			.code(errCode)
+			.msg(ErrorCodeLoader.getErrMessage(errCode, placeholders))
+			.build();
+	}
+
+	/**
+	 * Constructs a failed {@code SingleResult} instance with the provided error code,
+	 * error message, and optional placeholder values for message formatting.
+	 * @param <T> the type of the result object
+	 * @param errCode the error code associated with the failure
+	 * @param errMessage the error message describing the failure
+	 * @param placeholders optional placeholder values to format the error message
+	 * @return a {@code SingleResult} instance representing a failed result
+	 */
+	public static <T> SingleResult<T> failed(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+			String errMessage, Object... placeholders) {
+		return SingleResult.<T>singleResultBuilder()
+			.success(false)
+			.code(errCode)
+			.msg(MessageFormatUtils.format(errMessage, placeholders))
 			.build();
 	}
 

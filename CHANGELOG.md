@@ -15,6 +15,7 @@
 
 - DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`, add properties
   `swagger-api.version=2.2.29`.
+- DependencyManagement upgrade `retrofit.version` from `2.9` to `3.0`.
 
 ### Refactor
 

@@ -18,11 +18,13 @@ package space.x9x.radp.spring.framework.web.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.PropertyKey;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -30,6 +32,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import space.x9x.radp.commons.lang.StringUtils;
 import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
+import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
+import space.x9x.radp.spring.framework.json.support.JSONHelper;
 
 /**
  * Utility class providing helper methods for working with HTTP servlet requests and
@@ -175,6 +180,45 @@ public class ServletUtils {
 	 */
 	public static String getLocalAddr(HttpServletRequest request) {
 		return StringUtils.trimToEmpty(request.getLocalAddr());
+	}
+
+	/**
+	 * Wraps the given HTTP servlet response with a success response in JSON format. This
+	 * method sets the HTTP status code, content type, and writes a default success
+	 * response as JSON to the response body.
+	 * @param response the HTTP servlet response object to be wrapped
+	 * @param statusCode the HTTP status code to set on the response
+	 * @throws IOException if an I/O error occurs during response writing
+	 */
+	public static void wrap(HttpServletResponse response, int statusCode) throws IOException {
+		response.setStatus(statusCode);
+		response.setContentType(APPLICATION_JSON_UTF8_VALUE);
+		PrintWriter writer = response.getWriter();
+		String result = JSONHelper.json().toJSONString(ResponseBuilder.builder().buildSuccess());
+		writer.write(result);
+	}
+
+	/**
+	 * Wraps the given HTTP response with JSON content representing a failure message.
+	 * This method sets the HTTP status code, content type, and writes a JSON response
+	 * containing the error code, message, and optional parameters.
+	 * @param response the HTTP servlet response object to be wrapped
+	 * @param statusCode the HTTP status code to set on the response
+	 * @param errCode the error code associated with the failure, derived from a resource
+	 * bundle
+	 * @param errMessage error message
+	 * @param params optional parameters to include in the error message
+	 * @throws IOException if an I/O error occurs during response writing
+	 */
+	public static void wrap(HttpServletResponse response, int statusCode,
+			@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, String errMessage,
+			Object... params) throws IOException {
+		response.setStatus(statusCode);
+		response.setContentType(APPLICATION_JSON_UTF8_VALUE);
+		PrintWriter writer = response.getWriter();
+		String result = JSONHelper.json()
+			.toJSONString(ResponseBuilder.builder().buildFailure(errCode, errMessage, params));
+		writer.write(result);
 	}
 
 }

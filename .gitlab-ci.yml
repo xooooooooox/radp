@@ -56,8 +56,8 @@ variables:
   #====================================================================================================================#
   # 说明: (code-review = lint + unit_test + sonarqube)
   # 如果 mr target branch 在这个列表中, 将触发 code-review 相关 Jobs
-  TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|future)$/'
-  TP_WORKFLOW_RULE_BRANCHES_RELEASE: '/^(master|develop|main|future)$/'
+  TP_WORKFLOW_RULE_BRANCHES_MR: '/^(master|develop|main|future|3.x|4.x)$/'
+  TP_WORKFLOW_RULE_BRANCHES_RELEASE: '/^(master|develop|main|future|3.x|4.x)$/'
 
   #--------------------------------------------- [p-1] prepare args ---------------------------------------------------#
   TP_PREPARE_SCRIPT_REF: main   # 可选: 指定使用哪个分支的脚本，如果未指定，将尝试获取最新的tag，如果没有tag则使用main. 默认为 [environment-]x.y.x, 如果 environment 指定了 prod, 则 tag 为 prod-1.0.0; 否则为 1.0.0

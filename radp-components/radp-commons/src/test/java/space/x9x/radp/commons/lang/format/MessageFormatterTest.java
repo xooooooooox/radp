@@ -34,8 +34,11 @@ class MessageFormatterTest {
 	void test_arrayFormat() {
 		String messagePattern = "hello {}";
 		Object[] params = { "world" };
-		String message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
+		String message;
+		message = MessageFormatter.arrayFormat(messagePattern, params).getMessage();
 		assertThat(message).isEqualTo("hello world");
+		messagePattern = "TOKEN_REQUIRED";
+		System.out.println(MessageFormatter.arrayFormat(messagePattern, params).getMessage());
 	}
 
 }

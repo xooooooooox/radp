@@ -12,16 +12,17 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>radp-druid-spring-boot-starter</module>
+		<module>radp-dynamic-datasource-spring-boot-starter</module>
+		<module>radp-hikaricp-spring-boot-starter</module>
+		<module>radp-jasypt-spring-boot-starter</module>
+		<module>radp-jwt-spring-boot-starter</module>
+		<module>radp-liquibase-spring-boot-starter</module>
+		<module>radp-logging-spring-boot-starter</module>
 		<module>radp-mybatis-spring-boot-starter</module>
+		<module>radp-redis-spring-boot-starter</module>
 		<module>radp-springdoc-webmvc-spring-boot-starter</module>
 		<module>radp-springdoc-webflux-spring-boot-starter</module>
 		<module>radp-undertow-spring-boot-starter</module>
-		<module>radp-hikaricp-spring-boot-starter</module>
-		<module>radp-druid-spring-boot-starter</module>
-		<module>radp-liquibase-spring-boot-starter</module>
-		<module>radp-logging-spring-boot-starter</module>
-		<module>radp-jasypt-spring-boot-starter</module>
-		<module>radp-redis-spring-boot-starter</module>
-		<module>radp-dynamic-datasource-spring-boot-starter</module>
 	</modules>
 </project>

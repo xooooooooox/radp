@@ -4,35 +4,36 @@
 
 ### Feature
 
-- security
+- Add starter `radp-jwt-spring-boot-starter`, implement JWT-based authentication and authorization.
+- `ServletUtils` add utility methods to wrap HTTP responses with JSON content.
 
-### Fix
+### Test
 
-- enhance `BasePO` and `TenantBasePO` with lombok builder.
+- Add test for `MessageFormatter`, `MessageFormatUtils`, `ResponseBuilder`
 
 ### Dependencies
 
-- DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
-- Add properties `swagger-api.version=2.2.29`.
+- DependencyManagement add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`, add properties
+  `swagger-api.version=2.2.29`.
 
 ### Refactor
 
-- Refactor SingleResult and PageResult method name `#build` to `#ok`.
+- Refactor SingleResult and PageResult method name `#build` to `#ok`, `#buildFailure` to `#failed`.
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
+- Adjust the system’s built-in error codes, reserving codes below 1000 for framework-level internal use.
 
 ### Chore
 
 #### Scaffold
 
 - Update scaffold default radpVersion to `3.27`.
-- Add `swagger-annotations-jakarta` dependency to this `xxx-type` layer.
+- Add `swagger-annotations-jakarta` dependency to the `xxx-type` layer.
 - `ClientAssert`, `ServerAssert` and `ThirdServiceAssert` add `@Contract` annotations and refactor null/nonnull handling
   in assertion methods.
 - `scaffold-std` add module `xxx-case`.
 - Replace hardcoded empty string with PREFIX in RedisKeyProvider.
 - Restructure package organization in `xxx-api` layer.
-- Add `swagger-annotations-jakarta` dependency to `xxx-type` layer.
 - Add `checkstyle-idea.xml`.
 
 ## 2.26.2

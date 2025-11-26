@@ -38,6 +38,13 @@ import space.x9x.radp.spring.security.jwt.constants.JwtConstants;
 import space.x9x.radp.spring.security.jwt.token.JwtTokenProvider;
 
 /**
+ * JwtAuthorizationFilter is a custom authorization filter that extends
+ * BasicAuthenticationFilter to handle JWT-based authentication and authorization.
+ * <p>
+ * This filter intercepts HTTP requests to extract and validate the JWT access token from
+ * the request headers, perform authentication, and populate the SecurityContext with the
+ * authenticated user's details.
+ *
  * @author x9x
  * @since 2025-11-23 02:21
  */

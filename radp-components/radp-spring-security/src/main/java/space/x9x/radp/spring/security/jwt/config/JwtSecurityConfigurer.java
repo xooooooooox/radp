@@ -43,26 +43,45 @@ import space.x9x.radp.spring.security.web.handler.ForbiddenAccessDeniedHandler;
 import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
 
 /**
- * Centralizes default HttpSecurity configuration for JWT.
+ * Centralizes default HttpSecurity configuration for JWT-based authentication and
+ * authorization.
  * <p>
- * This configurer:
+ * This configurer provides a comprehensive security setup for JWT-based authentication:
  * <ul>
- * <li>Disables CSRF</li>
- * <li>Configures stateless sessions</li>
- * <li>Registers authentication entry point and access denied handler</li>
- * <li>Applies URL authorization from {@link JwtConfig}</li>
- * <li>Detects @PermitAll mappings</li>
- * <li>Registers {@link JwtAuthorizationFilter}</li>
+ * <li>Disables CSRF protection as it's unnecessary for token-based authentication</li>
+ * <li>Configures stateless sessions to align with JWT principles</li>
+ * <li>Registers authentication entry point and access-denied handler for proper error
+ * handling</li>
+ * <li>Applies URL authorization rules from {@link JwtConfig}</li>
+ * <li>Automatically detects and processes @PermitAll annotations for endpoint access</li>
+ * <li>Registers {@link JwtAuthorizationFilter} in the security filter chain</li>
  * </ul>
  *
- * Application code usually only needs to call:
+ * <p>
+ * Key features:
+ * <ul>
+ * <li>Flexible configuration through {@link JwtConfig}</li>
+ * <li>Support for both authenticated and anonymous access paths</li>
+ * <li>Integration with Spring MVC handler mappings</li>
+ * <li>Customizable authorization rules through
+ * {@link JwtAuthorizeHttpRequestsCustomizer}</li>
+ * </ul>
  *
- * <pre>
+ * <p>
+ * Basic usage in application code: <pre>
  * jwtSecurityConfigurer.configure(httpSecurity);
+ * </pre>
+ *
+ * <p>
+ * For custom authorization rules: <pre>
+ * jwtSecurityConfigurer.configure(httpSecurity, customizers);
  * </pre>
  *
  * @author x9x
  * @since 2025-11-23 13:31
+ * @see JwtConfig
+ * @see JwtAuthorizationFilter
+ * @see JwtAuthorizeHttpRequestsCustomizer
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -95,7 +114,22 @@ public class JwtSecurityConfigurer {
 	private final List<JwtAuthorizeHttpRequestsCustomizer> authorizeHttpRequestsCustomizers;
 
 	/**
-	 * Convenience factory when user code doesn't care about a custom PathMatcher.
+	 * Creates a new {@code JwtSecurityConfigurer} instance with a default path matcher
+	 * and the specified components for configuring JWT-based security.
+	 * @param jwtAuthorizationFilter the {@link JwtAuthorizationFilter} used for JWT
+	 * authentication and authorization.
+	 * @param jwtConfig the {@link JwtConfig} containing configurations such as header
+	 * name and token validity.
+	 * @param unauthorizedEntryPoint the {@link UnauthorizedEntryPoint} to handle
+	 * unauthorized requests.
+	 * @param forbiddenAccessDeniedHandler the {@link ForbiddenAccessDeniedHandler} to
+	 * handle access denial responses.
+	 * @param handlerMappings the list of {@link RequestMappingHandlerMapping} instances
+	 * for mapping HTTP requests.
+	 * @param authorizeHttpRequestsCustomizers the list of
+	 * {@link JwtAuthorizeHttpRequestsCustomizer} for customizing authorization rules.
+	 * @return a new instance of {@code JwtSecurityConfigurer} configured with the
+	 * provided arguments.
 	 */
 	public static JwtSecurityConfigurer withDefaultPathMatcher(JwtAuthorizationFilter jwtAuthorizationFilter,
 			JwtConfig jwtConfig, UnauthorizedEntryPoint unauthorizedEntryPoint,

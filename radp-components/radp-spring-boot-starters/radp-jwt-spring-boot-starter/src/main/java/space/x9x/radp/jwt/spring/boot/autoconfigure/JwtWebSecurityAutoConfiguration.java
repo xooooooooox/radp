@@ -63,6 +63,13 @@ public class JwtWebSecurityAutoConfiguration {
 	/**
 	 * Default SecurityFilterChain that simply applies the JwtSecurityConfigurer. Users
 	 * can override this by defining their own SecurityFilterChain bean.
+	 * @param httpSecurity the HttpSecurity to be configured
+	 * @param jwtSecurityConfigurer the JWT security configurer to apply to the
+	 * HttpSecurity
+	 * @param customizerProvider provider of JwtAuthorizeHttpRequestsCustomizer beans to
+	 * customize the security configuration
+	 * @return the configured SecurityFilterChain
+	 * @throws Exception if an error occurs during security configuration
 	 */
 	@ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = "use-default-security-filter-chain",
 			havingValue = Conditions.TRUE, matchIfMissing = true)

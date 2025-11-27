@@ -8,6 +8,16 @@
 
 - Update scaffold default radpVersion to `2.27`.
 
+## 2.26.4
+
+### feature
+
+- Added `LoginUserResolver` interface to support resolving current login user context.
+
+### fix
+
+- fix `BasePOAutoFillStrategy`.
+
 ## 2.26.3
 
 ### fix

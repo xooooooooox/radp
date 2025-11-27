@@ -37,7 +37,7 @@ import org.jasypt.encryption.StringEncryptor;
  * "SM4/CBC/PKCS5Padding") - "SM4/CBC/PKCS5Padding" - "SM4/ECB/PKCS5Padding"
  * <p>
  * The encryptor derives a 128-bit key from the provided password via UTF-8 bytes: - If
- * password bytes length >= 16, the first 16 bytes are used. - If shorter, it is
+ * password bytes {@code length >= 16}, the first 16 bytes are used. - If shorter, it is
  * zero-padded to 16 bytes.
  * <p>
  * For CBC mode, a random 16-byte IV is generated per encryption and prefixed to the

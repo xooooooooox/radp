@@ -37,6 +37,10 @@
 - Add `checkstyle-idea.xml`.
 - Fix writerside setup.
 
+### Documentation
+
+- Optimize Javadoc (MobileConvert, Sm4StringEncryptor, JasyptUtils, JwtAutoConfiguration)
+
 ## 2.26.3
 
 ### fix

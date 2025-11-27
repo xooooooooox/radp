@@ -55,7 +55,14 @@ public class MobileConvert implements Converter<String> {
 	}
 
 	/**
-	 * 写出: Java -> Excel. 把 Java 的手机号写成“文本单元格”，并设置 dataFormat=49
+	 * 将Java数据转换为Excel单元格数据.
+	 * <p>
+	 * 将Java String类型数据转换为Excel单元格格式. 通过设置单元格样式为文本格式("@")， 确保数据在Excel中正确显示，避免手机号变成科学计数法表示.
+	 * @param value java字符串值，通常是手机号
+	 * @param contentProperty excel内容属性，可能包含额外的元数据
+	 * @param globalConfiguration 全局配置信息
+	 * @return 转换后的Excel单元格数据
+	 * @throws Exception 转换过程中出现错误时抛出异常
 	 */
 	@Override
 	public WriteCellData<?> convertToExcelData(String value, ExcelContentProperty contentProperty,
@@ -73,7 +80,14 @@ public class MobileConvert implements Converter<String> {
 	}
 
 	/**
-	 * 写入: Excel -> Java. 无论原始是字符串还是数字，都还原为纯字符串，避免科学计数法/进位
+	 * 将Excel单元格数据转换为Java数据.
+	 * <p>
+	 * 将Excel中的单元格数据转换回Java String类型. 无论原始数据是字符串还是数字， 都会还原为纯字符串格式，这样可以避免出现科学计数法或数字进位的问题.
+	 * @param cellData excel单元格数据，包含原始值和数据类型
+	 * @param contentProperty excel内容属性，可能包含额外的元数据
+	 * @param globalConfiguration 全局配置信息
+	 * @return 转换后的String类型数据，如果输入为空则返回null
+	 * @throws Exception 转换过程中出现错误时抛出异常
 	 */
 	@Override
 	public String convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,

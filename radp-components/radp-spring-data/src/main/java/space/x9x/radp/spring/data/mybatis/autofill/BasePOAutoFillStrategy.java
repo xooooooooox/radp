@@ -21,7 +21,10 @@ import java.util.Objects;
 
 import org.apache.ibatis.reflection.MetaObject;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
+
+import space.x9x.radp.spring.framework.web.LoginUserResolver;
 
 /**
  * default auto-fill strategy for {@link BasePO}.
@@ -39,8 +42,12 @@ import org.springframework.util.StringUtils;
  */
 public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
-	public BasePOAutoFillStrategy() {
+	@Nullable
+	private final LoginUserResolver loginUserResolver;
+
+	public BasePOAutoFillStrategy(@Nullable LoginUserResolver loginUserResolver) {
 		super(BasePO.class);
+		this.loginUserResolver = loginUserResolver;
 	}
 
 	@Override
@@ -70,12 +77,9 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
 	@Override
 	protected void doUpdateFill(BasePO entity, MetaObject metaObject) {
-		// 1) 自动填充 创建者
+		// 1) 自动填充 更新时间
 		LocalDateTime now = LocalDateTime.now();
-		if (Objects.isNull(entity.getUpdatedAt())) {
-			// 如果为显式指定"最后修改时间", 则自动填充当前时间作为"最后修改时间"
-			entity.setUpdatedAt(now);
-		}
+		entity.setUpdatedAt(now);
 
 		// 2) 自动填充 修改者
 		String loginUserId = resolveLoginUserId(); // 当前登录用户
@@ -85,9 +89,9 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 		}
 	}
 
+	@Nullable
 	private String resolveLoginUserId() {
-		Long loginUserId = null; // TODO integrate with context
-		return loginUserId == null ? null : loginUserId.toString();
+		return this.loginUserResolver != null ? this.loginUserResolver.resolveCurrentLoginUser() : null;
 	}
 
 }

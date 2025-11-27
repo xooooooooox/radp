@@ -47,10 +47,10 @@ import lombok.experimental.SuperBuilder;
  * @since 2024-10-01 10:02
  */
 @Data
-@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @EqualsAndHashCode
 public abstract class BasePO implements Serializable {
 

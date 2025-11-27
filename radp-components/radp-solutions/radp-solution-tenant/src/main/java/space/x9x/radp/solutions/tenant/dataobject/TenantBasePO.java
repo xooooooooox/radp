@@ -35,10 +35,10 @@ import space.x9x.radp.spring.data.mybatis.autofill.BasePO;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ToString(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 public abstract class TenantBasePO extends BasePO {
 
 	/**

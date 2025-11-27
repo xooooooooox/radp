@@ -5,7 +5,7 @@
 ### Feature
 
 - Add starter `radp-jwt-spring-boot-starter`, implement JWT-based authentication and authorization.
-- ServletUtils add utility methods to wrap HTTP responses with JSON content.
+- `ServletUtils` add utility methods to wrap HTTP responses with JSON content.
 
 ### Test
 
@@ -35,6 +35,7 @@
 - Replace hardcoded empty string with PREFIX in RedisKeyProvider.
 - Restructure package organization in `xxx-api` layer.
 - Add `checkstyle-idea.xml`.
+- Fix writerside setup.
 
 ## 2.26.3
 

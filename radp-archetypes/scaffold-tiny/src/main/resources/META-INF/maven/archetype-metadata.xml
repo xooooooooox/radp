@@ -46,6 +46,11 @@
 		<requiredProperty key="imageNamespace">
 			<defaultValue>xooooooooox</defaultValue>
 		</requiredProperty>
+
+		<!-- writerside main cfg name -->
+		<requiredProperty key="writerside">
+			<defaultValue>writerside</defaultValue>
+		</requiredProperty>
 	</requiredProperties>
 
 	<fileSets>

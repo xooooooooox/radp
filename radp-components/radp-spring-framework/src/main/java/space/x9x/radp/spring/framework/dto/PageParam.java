@@ -28,9 +28,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Parameter object for pagination requests that contains page index and page size
- * information. This class provides default values and validation constraints to ensure
- * proper pagination behavior.
+ * 分页请求参数对象，包含页码与每页条数信息. 提供默认值与校验约束以确保分页行为正确。
+ *
+ * <p>
+ * 功能特性：
+ * <ul>
+ * <li>支持从 1 开始的页码索引；</li>
+ * <li>提供最小/最大分页边界常量，防止一次性加载过多数据；</li>
+ * <li>支持使用 {@link #NO_PAGINATION} 表示不分页，直接返回全部结果（由上层调用方决定是否使用）。</li>
+ * </ul>
  *
  * @author x9x
  * @since 2024-09-26 20:35
@@ -46,45 +52,44 @@ public class PageParam implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default page index value (1-based indexing).
+	 * 默认页码（从 1 开始计数).
 	 */
 	public static final int DEFAULT_PAGE_INDEX = 1;
 
 	/**
-	 * Default number of items per page.
+	 * 默认每页条数.
 	 */
 	public static final int DEFAULT_PAGE_SIZE = 10;
 
 	/**
-	 * Minimum allowed page index value.
+	 * 允许的最小页码.
 	 */
 	public static final int MIN_PAGE_INDEX = 1;
 
 	/**
-	 * Minimum allowed page size value.
+	 * 允许的最小每页条数.
 	 */
 	public static final int MIN_PAGE_SIZE = 1;
 
 	/**
-	 * Maximum allowed page size value to prevent excessive data loading.
+	 * 允许的最大每页条数，用于限制单次数据量.
 	 */
 	public static final int MAX_PAGE_SIZE = 500;
 
 	/**
-	 * Special value indicating that pagination should be disabled (return all results).
+	 * 禁用分页的特殊值（返回全部结果).
 	 */
-	public static final int PAGE_SIZE_NONE = -1;
+	public static final int NO_PAGINATION = -1;
 
 	/**
-	 * The current page number (1-based indexing). Must be at least
-	 * {@link #MIN_PAGE_INDEX}.
+	 * 当前页码（从 1 开始计数). 不得小于 {@link #MIN_PAGE_INDEX}.
 	 */
 	@Min(value = MIN_PAGE_INDEX, message = "页码最小值为 {value}")
 	private Integer pageIndex = DEFAULT_PAGE_INDEX;
 
 	/**
-	 * The number of items to display per page. Must be between {@link #MIN_PAGE_SIZE} and
-	 * {@link #MAX_PAGE_SIZE}, or can be {@link #PAGE_SIZE_NONE} to disable pagination.
+	 * 每页展示的条数. 应介于 {@link #MIN_PAGE_SIZE} 与 {@link #MAX_PAGE_SIZE} 之间，或可设置为
+	 * {@link #NO_PAGINATION} 以禁用分页.
 	 */
 	@Min(value = MIN_PAGE_SIZE, message = "每页最小条数为 {value}")
 	@Max(value = MAX_PAGE_SIZE, message = "每页最大条数为 {value}")

@@ -23,7 +23,9 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
 import com.github.yulichang.base.MPJBaseMapper;
@@ -38,54 +40,50 @@ import space.x9x.radp.spring.framework.dto.SortablePageParam;
 import space.x9x.radp.spring.framework.dto.SortingField;
 
 /**
- * Extended MyBatis-Plus base mapper interface. This interface extends MPJBaseMapper to
- * provide additional utility methods for common database operations, including
- * pagination, join queries, simple CRUD operations, and batch processing. It simplifies
- * database access patterns by providing convenient default method implementations.
+ * 扩展的 MyBatis-Plus 基础 mapper 接口. 在 {@link MPJBaseMapper}
+ * 的基础上，提供常见数据库操作的便捷方法，包括分页、关联查询、简单的 CRUD 操作以及批处理。 通过提供默认方法实现，简化了数据访问的常见模式。
  *
  * @author x9x
  * @since 2024-12-24 14:38
- * @param <T> the entity type that this mapper operates on
+ * @param <T> 该 Mapper 操作的实体类型
+ * @see BaseMapper mybatis-plus 基础接口，提供基本的 CRUD 特性
+ * @see MPJBaseMapper 为 mybatis-plus 基础接口，提供表关联 join 能力
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
 	// ============================= Pagination Methods ==============================
 
 	/**
-	 * Selects a page of records using the provided page parameters and query wrapper.
-	 * This method uses the sorting fields from the page parameters for ordering the
-	 * results.
-	 * @param pageParam the pagination and sorting parameters
-	 * @param queryWrapper the query conditions
-	 * @return a page result containing the records and total count
+	 * 基于给定的分页参数与查询条件，查询分页数据. 会使用分页参数中提供的排序字段对结果进行排序。
+	 * @param pageParam 分页与排序参数
+	 * @param queryWrapper 查询条件
+	 * @return 包含记录列表与总条数的分页结果
 	 */
 	default PageResult<T> selectPage(SortablePageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
 		return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);
 	}
 
 	/**
-	 * Selects a page of records using the provided page parameters and query wrapper.
-	 * This method does not apply any sorting to the results.
-	 * @param pageParam the pagination parameters
-	 * @param queryWrapper the query conditions
-	 * @return a page result containing the records and total count
+	 * 基于给定的分页参数与查询条件，查询分页数据. 不对结果应用任何排序。
+	 * @param pageParam 分页参数
+	 * @param queryWrapper 查询条件
+	 * @return 包含记录列表与总条数的分页结果
 	 */
 	default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
 		return selectPage(pageParam, null, queryWrapper);
 	}
 
 	/**
-	 * Selects a page of records using the provided page parameters, sorting fields, and
-	 * query wrapper. This is the core pagination method that handles both regular
-	 * pagination and the special case where all records are requested (PAGE_SIZE_NONE).
-	 * @param pageParam the pagination parameters
-	 * @param sortingFields the fields to sort by (can be null for no sorting)
-	 * @param queryWrapper the query conditions
-	 * @return a page result containing the records and total count
+	 * 基于分页参数、排序字段与查询条件查询分页数据. 这是核心的分页方法，既处理常规分页，也处理请求全部数据的特殊场景（NO_PAGINATION）。
+	 * @param pageParam 分页参数
+	 * @param sortingFields 需要排序的字段（为 null 表示不排序）
+	 * @param queryWrapper 查询条件
+	 * @return 包含记录列表与总条数的分页结果
 	 */
 	default PageResult<T> selectPage(PageParam pageParam, List<SortingField> sortingFields,
 			@Param("ew") Wrapper<T> queryWrapper) {
-		if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
+		if (pageParam.getPageSize().equals(PageParam.NO_PAGINATION)) {
+			MybatisUtils.addOrder(queryWrapper, sortingFields);
 			List<T> totalList = selectList(queryWrapper);
 			return PageResult.ok(totalList, (long) totalList.size());
 		}
@@ -98,109 +96,100 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 	// ============================= Join Query Methods ===========================
 
 	/**
-	 * Performs a paginated join query using MyBatis Plus Join. This method supports
-	 * retrieving data from multiple tables with a lambda-style wrapper. It handles both
-	 * regular pagination and the special case where all records are requested.
-	 * @param <D> the type of the result objects
-	 * @param pageParam the pagination parameters
-	 * @param clazz the class of the result objects
-	 * @param lambdaWrapper the lambda-style join query wrapper
-	 * @return a page result containing the joined records and total count
+	 * 使用 mybatis plus join 执行分页的关联查询. 支持通过 lambda 风格的 wrapper 从多表检索数据。
+	 * 同时支持常规分页与请求全部数据的特殊场景。
+	 * @param <D> 结果对象类型
+	 * @param pageParam 分页参数
+	 * @param clazz 结果对象的 class
+	 * @param lambdaWrapper lambda 风格的关联查询包装器
+	 * @return 包含关联查询结果与总条数的分页结果
 	 */
 	default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
-		if (pageParam.getPageSize().equals(PageParam.PAGE_SIZE_NONE)) {
+		// 部分也, 直接查询所有
+		if (pageParam.getPageSize().equals(PageParam.NO_PAGINATION)) {
 			List<D> totalList = selectJoinList(clazz, lambdaWrapper);
 			return PageResult.ok(totalList, (long) totalList.size());
 		}
 
-		// Execute MyBatis Plus Join query
+		// execute mybatis plus join query
 		IPage<D> mpPage = MybatisUtils.buildPage(pageParam);
 		mpPage = selectJoinPage(mpPage, clazz, lambdaWrapper);
-		// Convert and return the result
+		// convert and return the result
 		return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
 	}
 
 	/**
-	 * Performs a paginated join query using a base join query wrapper. This method is a
-	 * more generic version of the join query that works with any implementation of
-	 * MPJBaseJoin.
-	 * @param <DTO> the type of the result objects
-	 * @param pageParam the pagination parameters
-	 * @param resultTypeClass the class of the result objects
-	 * @param joinQueryWrapper the join query wrapper
-	 * @return a page result containing the joined records and total count
+	 * 使用基础的关联查询包装器执行分页的关联查询. 这是一个更通用的版本，适用于任何 {@link MPJBaseJoin} 的实现。
+	 * @param <DTO> 结果对象类型
+	 * @param pageParam 分页参数
+	 * @param resultTypeClass 结果对象的 class
+	 * @param joinQueryWrapper 关联查询包装器
+	 * @return 包含关联查询结果与总条数的分页结果
 	 */
 	@SuppressWarnings("java:S119")
 	default <DTO> PageResult<DTO> selectJoinPage(PageParam pageParam, Class<DTO> resultTypeClass,
 			MPJBaseJoin<T> joinQueryWrapper) {
 		IPage<DTO> mpPage = MybatisUtils.buildPage(pageParam);
 		selectJoinPage(mpPage, resultTypeClass, joinQueryWrapper);
-		// Convert and return the result
+		// convert and return the result
 		return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
 	}
 
 	// ============================= Simple Query Methods =============================
 
 	/**
-	 * Selects a single entity by field name and value. This method creates a query with
-	 * an equality condition on the specified field.
-	 * @param field the name of the field to filter by
-	 * @param value the value to match
-	 * @return the matching entity, or null if none found
+	 * 根据字段名与值查询单个实体. 该方法会在指定字段上构建等值查询条件。
+	 * @param field 字段名
+	 * @param value 匹配值
+	 * @return 匹配的实体；若未找到则返回 null
 	 */
 	default T selectOne(String field, Object value) {
 		return selectOne(new QueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Selects a single entity by field and value using type-safe lambda expressions. This
-	 * method creates a lambda query with an equality condition on the specified field.
-	 * @param field the field to filter by, specified as a lambda expression
-	 * @param value the value to match
-	 * @return the matching entity, or null if none found
+	 * 使用类型安全的 lambda 表达式，根据字段与值查询单个实体. 会在指定字段上构建等值条件。
+	 * @param field 以 lambda 表达式指定的字段
+	 * @param value 匹配值
+	 * @return 匹配的实体；若未找到则返回 null
 	 */
 	default T selectOne(SFunction<T, ?> field, Object value) {
 		return selectOne(new LambdaQueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Selects a single entity by two field names and values. This method creates a query
-	 * with equality conditions on both specified fields.
-	 * @param field1 the name of the first field to filter by
-	 * @param value1 the value to match for the first field
-	 * @param field2 the name of the second field to filter by
-	 * @param value2 the value to match for the second field
-	 * @return the matching entity, or null if none found
+	 * 根据两个字段名与其值查询单个实体. 会在两个字段上分别构建等值条件。
+	 * @param field1 第一个字段名
+	 * @param value1 第一个字段的匹配值
+	 * @param field2 第二个字段名
+	 * @param value2 第二个字段的匹配值
+	 * @return 匹配的实体；若未找到则返回 null
 	 */
 	default T selectOne(String field1, Object value1, String field2, Object value2) {
 		return selectOne(new QueryWrapper<T>().eq(field1, value1).eq(field2, value2));
 	}
 
 	/**
-	 * Selects a single entity by two fields and values using type-safe lambda
-	 * expressions. This method creates a lambda query with equality conditions on both
-	 * specified fields.
-	 * @param field1 the first field to filter by, specified as a lambda expression
-	 * @param value1 the value to match for the first field
-	 * @param field2 the second field to filter by, specified as a lambda expression
-	 * @param value2 the value to match for the second field
-	 * @return the matching entity, or null if none found
+	 * 使用类型安全的 lambda 表达式，根据两个字段与其值查询单个实体. 会在两个字段上分别构建等值条件。
+	 * @param field1 第一个字段（lambda 指定）
+	 * @param value1 第一个字段的匹配值
+	 * @param field2 第二个字段（lambda 指定）
+	 * @param value2 第二个字段的匹配值
+	 * @return 匹配的实体；若未找到则返回 null
 	 */
 	default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
 		return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
 	}
 
 	/**
-	 * Selects a single entity by three fields and values using type-safe lambda
-	 * expressions. This method creates a lambda query with equality conditions on all
-	 * three specified fields.
-	 * @param field1 the first field to filter by, specified as a lambda expression
-	 * @param value1 the value to match for the first field
-	 * @param field2 the second field to filter by, specified as a lambda expression
-	 * @param value2 the value to match for the second field
-	 * @param field3 the third field to filter by, specified as a lambda expression
-	 * @param value3 the value to match for the third field
-	 * @return the matching entity, or null if none found
+	 * 使用类型安全的 lambda 表达式，根据三个字段与其值查询单个实体. 会在三个字段上分别构建等值条件。
+	 * @param field1 第一个字段（lambda 指定）
+	 * @param value1 第一个字段的匹配值
+	 * @param field2 第二个字段（lambda 指定）
+	 * @param value2 第二个字段的匹配值
+	 * @param field3 第三个字段（lambda 指定）
+	 * @param value3 第三个字段的匹配值
+	 * @return 匹配的实体；若未找到则返回 null
 	 */
 	default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2,
 			SFunction<T, ?> field3, Object value3) {
@@ -208,72 +197,66 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 	}
 
 	/**
-	 * Counts all records in the table.
-	 * @return the total count of records
+	 * 统计表中的全部记录数.
+	 * @return 记录总数
 	 */
 	default Long selectCount() {
 		return selectCount(new QueryWrapper<>());
 	}
 
 	/**
-	 * Counts records that match the specified field and value.
-	 * @param field the field name to filter by
-	 * @param value the value to match
-	 * @return the count of matching records
+	 * 统计满足指定字段等值条件的记录数.
+	 * @param field 字段名
+	 * @param value 匹配值
+	 * @return 符合条件的记录数
 	 */
 	default Long selectCount(String field, Object value) {
 		return selectCount(new QueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Counts records that match the specified field and value using a lambda function.
-	 * @param field the field to filter by, specified as a lambda function
-	 * @param value the value to match
-	 * @return the count of matching records
+	 * 使用 lambda 指定字段，统计满足等值条件的记录数.
+	 * @param field 以 lambda 指定的字段
+	 * @param value 匹配值
+	 * @return 符合条件的记录数
 	 */
 	default Long selectCount(SFunction<T, ?> field, Object value) {
 		return selectCount(new LambdaQueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Selects all entities from the table. This method creates an empty query wrapper to
-	 * retrieve all records.
-	 * @return a list of all entities in the table
+	 * 查询表中所有实体. 将创建一个空条件的查询包装器以获取全部记录。
+	 * @return 全部实体列表
 	 */
 	default List<T> selectList() {
 		return selectList(new QueryWrapper<>());
 	}
 
 	/**
-	 * Selects entities by field name and value. This method creates a query with an
-	 * equality condition on the specified field.
-	 * @param field the name of the field to filter by
-	 * @param value the value to match
-	 * @return a list of entities matching the condition
+	 * 根据字段名与值查询实体列表. 会在指定字段上构建等值条件。
+	 * @param field 字段名
+	 * @param value 匹配值
+	 * @return 满足条件的实体列表
 	 */
 	default List<T> selectList(String field, Object value) {
 		return selectList(new QueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Selects entities by field and value using type-safe lambda expressions. This method
-	 * creates a lambda query with an equality condition on the specified field.
-	 * @param field the field to filter by, specified as a lambda expression
-	 * @param value the value to match
-	 * @return a list of entities matching the condition
+	 * 使用类型安全的 lambda 表达式，根据字段与值查询实体列表. 会在指定字段上构建等值条件。
+	 * @param field 以 lambda 表达式指定的字段
+	 * @param value 匹配值
+	 * @return 满足条件的实体列表
 	 */
 	default List<T> selectList(SFunction<T, ?> field, Object value) {
 		return selectList(new LambdaQueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Selects entities where a field's value is in a collection of values. This method
-	 * creates a query with an IN condition on the specified field. If the collection is
-	 * empty, an empty list is returned without querying the database.
-	 * @param field the name of the field to filter by
-	 * @param values the collection of values to match against
-	 * @return a list of entities matching the condition, or an empty list if values is
-	 * empty
+	 * 查询指定字段值属于给定集合的实体列表. 会在该字段上构建 IN 条件；若集合为空，则不查询数据库并直接返回空列表。
+	 * @param field 字段名
+	 * @param values 需要匹配的值集合
+	 * @return 满足条件的实体列表；若集合为空则返回空列表
 	 */
 	default List<T> selectList(String field, Collection<?> values) {
 		if (CollUtil.isEmpty(values)) {
@@ -283,14 +266,10 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 	}
 
 	/**
-	 * Selects entities where a field's value is in a collection of values using type-safe
-	 * lambda expressions. This method creates a lambda query with an IN condition on the
-	 * specified field. If the collection is empty, an empty list is returned without
-	 * querying the database.
-	 * @param field the field to filter by, specified as a lambda expression
-	 * @param values the collection of values to match against
-	 * @return a list of entities matching the condition, or an empty list if values is
-	 * empty
+	 * 使用类型安全的 lambda 表达式，查询指定字段值属于给定集合的实体列表. 会在该字段上构建 IN 条件；若集合为空，则不查询数据库并直接返回空列表。
+	 * @param field 以 lambda 表达式指定的字段
+	 * @param values 需要匹配的值集合
+	 * @return 满足条件的实体列表；若集合为空则返回空列表
 	 */
 	default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
 		if (CollUtil.isEmpty(values)) {
@@ -300,82 +279,86 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 	}
 
 	/**
-	 * Selects entities by two fields and values using type-safe lambda expressions. This
-	 * method creates a lambda query with equality conditions on both specified fields.
-	 * @param field1 the first field to filter by, specified as a lambda expression
-	 * @param value1 the value to match for the first field
-	 * @param field2 the second field to filter by, specified as a lambda expression
-	 * @param value2 the value to match for the second field
-	 * @return a list of entities matching both conditions
+	 * 使用类型安全的 lambda 表达式，根据两个字段与其值查询实体列表. 会在两个字段上分别构建等值条件。
+	 * @param field1 第一个字段（lambda 指定）
+	 * @param value1 第一个字段的匹配值
+	 * @param field2 第二个字段（lambda 指定）
+	 * @param value2 第二个字段的匹配值
+	 * @return 同时满足两个条件的实体列表
 	 */
 	default List<T> selectList(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
 		return selectList(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
 	}
 
 	/**
-	 * Updates all entities that match an empty query wrapper with the provided entity.
-	 * This method effectively updates all records in the table with the non-null values
-	 * from the provided entity.
-	 * @param update the entity containing the values to update
-	 * @return the number of rows affected
+	 * 以空条件更新所有记录，将提供的实体中非空字段更新到表的每一条记录上.
+	 * @param update 承载更新值的实体
+	 * @return 受影响的行数
 	 */
 	default int updateBatch(T update) {
 		return update(update, new QueryWrapper<>());
 	}
 
 	/**
-	 * Updates a collection of entities in batch mode. This method uses MyBatis Plus's
-	 * batch update functionality to efficiently update multiple entities by their IDs.
-	 * @param entities the collection of entities to update
-	 * @return true if the operation was successful, false otherwise
+	 * 批量更新实体集合. 使用 mybatis plus 的批量更新能力，按 ID 高效更新多条记录。
+	 * @param entities 需要更新的实体集合
+	 * @return 更新成功返回 true，否则返回 false
 	 */
 	default Boolean updateBatch(Collection<T> entities) {
 		return Db.updateBatchById(entities);
 	}
 
 	/**
-	 * Updates a collection of entities in batch mode with a specified batch size. This
-	 * method uses MyBatis Plus's batch update functionality to efficiently update
-	 * multiple entities by their IDs, with control over the batch size.
-	 * @param entities the collection of entities to update
-	 * @param size the batch size for the operation
-	 * @return true if the operation was successful, false otherwise
+	 * 以指定批次大小批量更新实体集合. 使用 mybatis plus 的批量更新能力，按 ID 高效更新多条记录，并可控制批次大小。
+	 * @param entities 需要更新的实体集合
+	 * @param size 批次大小
+	 * @return 更新成功返回 true，否则返回 false
 	 */
 	default Boolean updateBatch(Collection<T> entities, int size) {
 		return Db.updateBatchById(entities, size);
 	}
 
 	/**
-	 * Deletes records that match the specified field and value.
-	 * @param field the field name to filter by
-	 * @param value the value to match
-	 * @return the number of records deleted
+	 * 删除满足指定字段等值条件的记录.
+	 * @param field 字段名
+	 * @param value 匹配值
+	 * @return 删除的记录条数
 	 */
 	default int delete(String field, String value) {
 		return delete(new QueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Deletes records that match the specified field and value using a lambda function.
-	 * @param field the field to filter by, specified as a lambda function
-	 * @param value the value to match
-	 * @return the number of records deleted
+	 * 使用 lambda 指定字段，删除满足等值条件的记录.
+	 * @param field 以 lambda 指定的字段
+	 * @param value 匹配值
+	 * @return 删除的记录条数
 	 */
 	default int delete(SFunction<T, ?> field, Object value) {
 		return delete(new LambdaQueryWrapper<T>().eq(field, value));
 	}
 
 	/**
-	 * Inserts a collection of entities in batch mode with a specified batch size. This
-	 * method uses MyBatis Plus's batch insert functionality to efficiently insert
-	 * multiple entities, with control over the batch size.
-	 * @param collections the collection of entities to insert
-	 * @param size the batch size for the operation, default is 1000 in
-	 * {@link Db#saveBatch}
-	 * @return true if the operation was successful, false otherwise
+	 * 以指定批次大小批量插入实体集合. 使用 MyBatis Plus 的批量插入能力高效写入多条记录，并可控制批次大小。
+	 * @param collections 需要插入的实体集合
+	 * @param size 批次大小；在 {@link Db#saveBatch} 中默认值为 1000
+	 * @return 插入成功返回 true，否则返回 false
 	 */
 	default Boolean insertBatch(Collection<T> collections, int size) {
 		return Db.saveBatch(collections, size);
+	}
+
+	/**
+	 * 根据值集合批量删除记录. 会在指定字段上构建 IN 条件；当集合为空时，不执行 SQL 并直接返回 0。
+	 * @param field 以 lambda 指定的字段
+	 * @param values 需要匹配删除的值集合
+	 * @return 实际删除的记录条数；若集合为空返回 0
+	 */
+	default int deleteBatch(SFunction<T, ?> field, Collection<?> values) {
+		if (CollectionUtils.isEmpty(values)) {
+			return 0;
+		}
+		return delete(new LambdaQueryWrapper<T>().in(field, values));
 	}
 
 }

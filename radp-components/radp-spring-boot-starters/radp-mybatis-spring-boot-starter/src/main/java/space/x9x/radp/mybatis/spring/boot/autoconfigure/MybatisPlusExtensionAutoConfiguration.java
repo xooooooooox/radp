@@ -28,6 +28,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -42,6 +43,7 @@ import space.x9x.radp.mybatis.spring.boot.interceptor.ColumnAliasRewriteIntercep
 import space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy;
 import space.x9x.radp.spring.data.mybatis.autofill.BasePOAutoFillStrategy;
 import space.x9x.radp.spring.data.mybatis.autofill.StrategyDelegatingMetaObjectHandler;
+import space.x9x.radp.spring.framework.web.LoginUserResolver;
 
 /**
  * Autoconfiguration for MyBatis-Plus extensions. This class automatically configures
@@ -92,8 +94,9 @@ public class MybatisPlusExtensionAutoConfiguration {
 	 */
 	@ConditionalOnMissingBean(BasePOAutoFillStrategy.class)
 	@Bean
-	public BasePOAutoFillStrategy basePOAutoFillStrategy() {
-		return new BasePOAutoFillStrategy();
+	public BasePOAutoFillStrategy basePOAutoFillStrategy(
+			@Autowired(required = false) LoginUserResolver loginUserResolver) {
+		return new BasePOAutoFillStrategy(loginUserResolver);
 	}
 
 	/**

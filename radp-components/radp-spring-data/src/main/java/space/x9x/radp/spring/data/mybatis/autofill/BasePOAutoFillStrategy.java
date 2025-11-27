@@ -45,45 +45,45 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 	}
 
 	@Override
-	protected void doInsertFill(BasePO entity, MetaObject metaObject) {
+	protected void doInsertFill(BasePO basePO, MetaObject metaObject) {
 		// 1) 自动填充 创建时间以及最后更新时间
 		LocalDateTime now = LocalDateTime.now();
-		if (Objects.isNull(entity.getCreatedAt())) {
+		if (Objects.isNull(basePO.getCreatedAt())) {
 			// 如果未显示指定创建时间
-			entity.setCreatedAt(now);
+			basePO.setCreatedAt(now);
 		}
-		if (Objects.isNull(entity.getUpdatedAt())) {
+		if (Objects.isNull(basePO.getUpdatedAt())) {
 			// 如果为显式指定修改时间
-			entity.setUpdatedAt(now);
+			basePO.setUpdatedAt(now);
 		}
 
 		// 2) 自动填充 创建者与修改者
 		String loginUserId = resolveLoginUserId();
 		if (Objects.nonNull(loginUserId)) {
-			if (!StringUtils.hasText(entity.getCreator())) {
-				entity.setCreator(loginUserId);
+			if (!StringUtils.hasText(basePO.getCreator())) {
+				basePO.setCreator(loginUserId);
 			}
-			if (!StringUtils.hasText(entity.getUpdater())) {
-				entity.setUpdater(loginUserId);
+			if (!StringUtils.hasText(basePO.getUpdater())) {
+				basePO.setUpdater(loginUserId);
 			}
 		}
 	}
 
 	@Override
-	protected void doUpdateFill(BasePO entity, MetaObject metaObject) {
+	protected void doUpdateFill(BasePO basePO, MetaObject metaObject) {
 		// 1) 自动填充 更新时间
 		LocalDateTime now = LocalDateTime.now();
 		// entity.setUpdatedAt(now);
-		if (Objects.isNull(entity.getUpdatedAt())) {
+		if (Objects.isNull(basePO.getUpdatedAt())) {
 			// 如果为显式指定"最后修改时间", 则自动填充当前时间作为"最后修改时间"
-			entity.setUpdatedAt(now);
+			basePO.setUpdatedAt(now);
 		}
 
 		// 2) 自动填充 修改者
 		String loginUserId = resolveLoginUserId(); // 当前登录用户
-		if (Objects.nonNull(loginUserId) && !StringUtils.hasText(entity.getUpdater())) {
+		if (Objects.nonNull(loginUserId) && !StringUtils.hasText(basePO.getUpdater())) {
 			// 若未显式指定更新者且当前登录用户非空, 则自动填充当前登录用户人作为 updater
-			entity.setUpdater(loginUserId);
+			basePO.setUpdater(loginUserId);
 		}
 	}
 

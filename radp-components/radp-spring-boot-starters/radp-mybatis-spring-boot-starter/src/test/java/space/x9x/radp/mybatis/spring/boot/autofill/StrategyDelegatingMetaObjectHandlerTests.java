@@ -18,6 +18,7 @@ package space.x9x.radp.mybatis.spring.boot.autofill;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
@@ -42,7 +43,7 @@ class StrategyDelegatingMetaObjectHandlerTests {
 	@Test
 	void scenarioOneShouldPopulateBasePoAuditFields() {
 		StrategyDelegatingMetaObjectHandler handler = new StrategyDelegatingMetaObjectHandler(
-				Arrays.asList(new BasePOAutoFillStrategy()));
+				Collections.singletonList(new BasePOAutoFillStrategy(null)));
 
 		DemoPO entity = new DemoPO();
 		MetaObject metaObject = SystemMetaObject.forObject(entity);
@@ -51,22 +52,22 @@ class StrategyDelegatingMetaObjectHandlerTests {
 
 		assertThat(entity.getCreatedAt()).isNotNull();
 		assertThat(entity.getUpdatedAt()).isNotNull();
-		assertThat(entity.getCreator()).isEqualTo("1");
-		assertThat(entity.getUpdater()).isEqualTo("1");
+		assertThat(entity.getCreator()).isNull();
+		assertThat(entity.getUpdater()).isNull();
 
 		LocalDateTime originalUpdatedAt = entity.getUpdatedAt();
 
 		handler.updateFill(SystemMetaObject.forObject(entity));
 
 		assertThat(entity.getUpdatedAt()).isAfterOrEqualTo(originalUpdatedAt);
-		assertThat(entity.getUpdater()).isEqualTo("1");
+		assertThat(entity.getUpdater()).isNull();
 	}
 
 	@Test
 	void scenarioThreeShouldInvokeCustomStrategyWhenBaseDoesNotMatch() {
 		CustomAutoFillStrategy customStrategy = new CustomAutoFillStrategy();
 		StrategyDelegatingMetaObjectHandler handler = new StrategyDelegatingMetaObjectHandler(
-				Arrays.asList(customStrategy, new BasePOAutoFillStrategy()));
+				Arrays.asList(customStrategy, new BasePOAutoFillStrategy(null)));
 
 		CustomBasePO entity = new CustomBasePO();
 		handler.insertFill(SystemMetaObject.forObject(entity));
@@ -84,7 +85,7 @@ class StrategyDelegatingMetaObjectHandlerTests {
 	void shouldInvokeAllStrategiesSupportingSameEntity() {
 		TenantAwareAutoFillStrategy tenantStrategy = new TenantAwareAutoFillStrategy();
 		StrategyDelegatingMetaObjectHandler handler = new StrategyDelegatingMetaObjectHandler(
-				Arrays.asList(tenantStrategy, new BasePOAutoFillStrategy()));
+				Arrays.asList(tenantStrategy, new BasePOAutoFillStrategy(null)));
 
 		TenantAwarePO entity = new TenantAwarePO();
 		handler.insertFill(SystemMetaObject.forObject(entity));

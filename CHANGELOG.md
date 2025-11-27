@@ -7,6 +7,8 @@
 - Add starter `radp-jwt-spring-boot-starter`, implement JWT-based authentication and authorization.
 - Optimize `BasePOAutoFillStrategy`, use `LoginUserResolver` to get current login user from context.
 - `ServletUtils` add utility methods to wrap HTTP responses with JSON content.
+- MybatisUtils add `#addOrder` utility method.
+- BaseMapperX add `deleteBatch` utility method.
 
 ### Test
 
@@ -23,6 +25,7 @@
 - Optimize custom `AbstractAssert`, remove inheritance from `Assert`.
 - Optimize `BaseConvertor`.
 - Adjust the system’s built-in error codes, reserving codes below 1000 for framework-level internal use.
+- Rename `PageParam` variable name `PAGE_SIZE_NONE` to `NO_PAGINATION`.
 
 ### Chore
 

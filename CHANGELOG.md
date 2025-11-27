@@ -5,6 +5,7 @@
 ### Feature
 
 - Add starter `radp-jwt-spring-boot-starter`, implement JWT-based authentication and authorization.
+- Optimize `BasePOAutoFillStrategy`, use `LoginUserResolver` to get current login user from context.
 - `ServletUtils` add utility methods to wrap HTTP responses with JSON content.
 
 ### Test

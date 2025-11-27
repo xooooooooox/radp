@@ -21,7 +21,6 @@ import java.util.Objects;
 
 import org.apache.ibatis.reflection.MetaObject;
 
-import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 import space.x9x.radp.spring.framework.web.LoginUserResolver;
@@ -33,19 +32,14 @@ import space.x9x.radp.spring.framework.web.LoginUserResolver;
  * update. This strategy only applies when the entity is an instance of {@link BasePO} (or
  * a subclass).
  *
- * <p>
- * Note: user id resolution is currently a placeholder and should be integrated with your
- * security context.
- *
  * @author x9x
  * @since 2025-11-10 15:29
  */
 public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
-	@Nullable
 	private final LoginUserResolver loginUserResolver;
 
-	public BasePOAutoFillStrategy(@Nullable LoginUserResolver loginUserResolver) {
+	public BasePOAutoFillStrategy(LoginUserResolver loginUserResolver) {
 		super(BasePO.class);
 		this.loginUserResolver = loginUserResolver;
 	}
@@ -79,7 +73,11 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 	protected void doUpdateFill(BasePO entity, MetaObject metaObject) {
 		// 1) 自动填充 更新时间
 		LocalDateTime now = LocalDateTime.now();
-		entity.setUpdatedAt(now);
+		// entity.setUpdatedAt(now);
+		if (Objects.isNull(entity.getUpdatedAt())) {
+			// 如果为显式指定"最后修改时间", 则自动填充当前时间作为"最后修改时间"
+			entity.setUpdatedAt(now);
+		}
 
 		// 2) 自动填充 修改者
 		String loginUserId = resolveLoginUserId(); // 当前登录用户
@@ -89,7 +87,6 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 		}
 	}
 
-	@Nullable
 	private String resolveLoginUserId() {
 		return this.loginUserResolver != null ? this.loginUserResolver.resolveCurrentLoginUser() : null;
 	}

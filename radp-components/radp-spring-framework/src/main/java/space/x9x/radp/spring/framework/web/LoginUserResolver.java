@@ -23,7 +23,7 @@ package space.x9x.radp.spring.framework.web;
 public interface LoginUserResolver {
 
 	/**
-	 * Resolve the current login user
+	 * Resolve the current login user.
 	 * @return userId, username, or {@code null}
 	 */
 	String resolveCurrentLoginUser();

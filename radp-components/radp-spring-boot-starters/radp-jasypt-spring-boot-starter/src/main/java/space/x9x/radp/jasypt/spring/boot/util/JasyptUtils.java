@@ -90,7 +90,12 @@ public class JasyptUtils {
 
 	/**
 	 * Custom SM4 encrypt using the provided algorithm and password. Example algorithms:
-	 * "SM4/CBC/PKCS5Padding", "SM4/ECB/PKCS5Padding".
+	 * "SM4/CBC/PKCS5Padding", "SM4/ECB/PKCS5Padding". This method creates a SM4 encryptor
+	 * with the specified algorithm and password, then encrypts the original text.
+	 * @param originText the original text to encrypt
+	 * @param sm4Algorithm the SM4 algorithm to use (e.g., SM4/CBC/PKCS5Padding)
+	 * @param password the password (salt) for encryption
+	 * @return the encrypted text
 	 */
 	public String customSM4Encrypt(String originText, String sm4Algorithm, String password) {
 		Sm4StringEncryptor encryptor = new Sm4StringEncryptor(sm4Algorithm, password);
@@ -98,7 +103,13 @@ public class JasyptUtils {
 	}
 
 	/**
-	 * Custom SM4 decrypt using the provided algorithm and password.
+	 * Custom SM4 decrypt using the provided algorithm and password. This method creates a
+	 * SM4 decryptor with the specified algorithm and password, then decrypts the
+	 * encrypted text.
+	 * @param encryptedText the encrypted text to decrypt
+	 * @param sm4Algorithm the SM4 algorithm to use (e.g., SM4/CBC/PKCS5Padding)
+	 * @param password the password (salt) for decryption
+	 * @return the decrypted text
 	 */
 	public String customSM4Decrypt(String encryptedText, String sm4Algorithm, String password) {
 		Sm4StringEncryptor decryptor = new Sm4StringEncryptor(sm4Algorithm, password);

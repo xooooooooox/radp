@@ -130,6 +130,14 @@ public class JwtAutoConfiguration {
 	/**
 	 * Central HttpSecurity configurer for JWT. Applications typically inject and apply
 	 * this in their own SecurityConfig.
+	 * @param jwtAuthorizationFilterProvider the provider for the optional
+	 * {@link JwtAuthorizationFilter}
+	 * @param jwtTokenProvider the provider for resolving JWT tokens
+	 * @param unauthorizedEntryPoint the handler for unauthorized request entry points
+	 * @param forbiddenAccessDeniedHandler the handler for forbidden access cases
+	 * @param handlerMappings the request mapping handler mappings used for path
+	 * configurations
+	 * @return a configured {@link JwtSecurityConfigurer} instance
 	 */
 	@ConditionalOnMissingBean
 	@Bean

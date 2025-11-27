@@ -41,6 +41,16 @@
 
 - Optimize Javadoc (MobileConvert, Sm4StringEncryptor, JasyptUtils, JwtAutoConfiguration)
 
+## 2.26.4
+
+### feature
+
+- Added `LoginUserResolver` interface to support resolving current login user context.
+
+### fix
+
+- fix `BasePOAutoFillStrategy`.
+
 ## 2.26.3
 
 ### fix

@@ -28,7 +28,8 @@
 
 #### Chore — Scaffold
 
-- Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull handling.
+- Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull
+  handling.
 - Add module `xxx-case` to `scaffold-std`.
 - Replace hardcoded empty string with `PREFIX` in `RedisKeyProvider`.
 - Restructure package organization in the `xxx-api` layer.
@@ -39,22 +40,24 @@
 
 - Improve Javadoc for `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, and `JwtAutoConfiguration`.
 
-> Note: The exact Swagger dependency coordinates and default `radpVersion` differ per major version. See the version-specific sections below.
+> Note: The exact Swagger dependency coordinates and default `radpVersion` differ per major version. See the
+> version-specific sections below.
 
 ### 3.27
 
-- Spring Boot 3.x line.
 - DependencyManagement:
   - Add `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
   - Set `swagger-api.version=2.2.29`.
   - Upgrade `retrofit.version` from `2.9` to `3.0`.
-- Scaffold:
+  - Upgrade `spring-boot.version` from `3.4.5` to `3.5.8`
+  - Remove `org.springframework.kafka:spring-kafka` and let it be managed by the Spring Boot BOM.
+  - Reorder dependencies so that all BOMs are grouped at the top.
+- Scaffold:  
   - Default `radpVersion` is `3.27`.
   - `xxx-type` layer uses `swagger-annotations-jakarta`.
 
 ### 2.27
 
-- Spring Boot 2.x line.
 - DependencyManagement:
   - Add `io.swagger.core.v3:swagger-annotations:2.2.8` (non-Jakarta).
   - Set `swagger-api.version=2.2.8`.
@@ -97,7 +100,6 @@
 
 ### 3.26
 
-- Spring Boot 3.x line.
 - Uses the dependency and plugin versions compatible with Spring Boot 3.x and Jakarta APIs.
 - Scaffold default `radpVersion` is `3.26`.
 
@@ -125,7 +127,8 @@
 
 #### Features
 
-- Allow multiple MyBatis autofill strategies to run for the same entity so `BasePO` audit fields can coexist with custom logic
+- Allow multiple MyBatis autofill strategies to run for the same entity so `BasePO` audit fields can coexist with custom
+  logic
   (for example, tenant-specific fields).
 - Add `TenantContextHolder` and `TenantAutoFillStrategy` (via `radp-solution-tenant`) to populate `tenantId`
   automatically for `TenantBasePO`.
@@ -146,7 +149,6 @@
 
 ### 2.26
 
-- Spring Boot 2.x line.
 - Shares the features listed in **Shared changes**.
 - Uses Spring Boot 2.x–compatible versions for Checkstyle, spring-javaformat, and other plugins.
 - Scaffold default `radpVersion` is `2.26`.
@@ -173,7 +175,8 @@
   - Add `PasswordGeneratorUtils` for password generation and validation.
   - Enhance `RandomStringUtils`:
     - Add methods to generate N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
-    - Allow username validation and random username generation to use custom rules (regex-based validation, rule-based generation).
+    - Allow username validation and random username generation to use custom rules (regex-based validation, rule-based
+      generation).
   - Add `isValidMobile()` helper for Mainland China mobile numbers.
 
 #### Bug fixes
@@ -199,12 +202,10 @@
 
 ### 3.25
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.25`.
 
 ### 2.25
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.25`.
 - Uses dependency versions aligned with Spring Boot 2.x.
 
@@ -238,12 +239,10 @@
 
 ### 3.24
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.24`.
 
 ### 2.24
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.24`.
 
 ---
@@ -306,7 +305,6 @@
 
 ### 3.23
 
-- Spring Boot 3.x line.
 - DependencyManagement:
   - Upgrade Spring Boot parent from `3.4.5` to `3.5.4`.
   - Upgrade `com.google.cloud.tools:jib-maven-plugin` from `3.4.5` to `3.4.6`.
@@ -314,7 +312,6 @@
 
 ### 2.23
 
-- Spring Boot 2.x line.
 - Uses a 2.x compatible Spring Boot parent (no `3.4.5 → 3.5.4` change).
 - Scaffold default `radpVersion` is `2.23`.
 
@@ -375,12 +372,10 @@
 
 ### 3.22
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.22`.
 
 ### 2.22
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.22`.
 
 ---
@@ -433,7 +428,6 @@
 
 ### 3.21
 
-- Spring Boot 3.x line.
 - Dependencies:
   - Upgrade Spring Boot parent from `3.4.4` to `3.4.5`.
   - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
@@ -451,7 +445,6 @@
 
 ### 2.21
 
-- Spring Boot 2.x line.
 - Dependencies:
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
   - Remove `maven-antrun-plugin.version`.
@@ -469,7 +462,8 @@
 - Fix `BaseException`:
   - Properly set the cause when a `Throwable` is passed as the last vararg parameter.
   - Handle placeholder mismatches when a `Throwable` is passed as a parameter.
-- Add `ErrorCodeLoader.getErrMessage(String errCode)` to retrieve the raw message template without placeholder substitution.
+- Add `ErrorCodeLoader.getErrMessage(String errCode)` to retrieve the raw message template without placeholder
+  substitution.
 - Remove deprecated `ListenableFuture` methods in `TtlThreadPoolTaskExecutor`.
 - Add `serialVersionUID` to improve serialization stability.
 - Use a more appropriate constructor for adaptive extension instantiation.
@@ -516,12 +510,10 @@
 
 ### 3.20.2
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.20.2`.
 
 ### 2.20.2
 
-- Spring Boot 2.x line.
 - Additionally overrides `maven-resources-plugin.version` from `3.2.0` to `3.3.1`.
 - Scaffold default `radpVersion` is `2.20.2`.
 
@@ -583,12 +575,10 @@
 
 ### 3.19
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.19`.
 
 ### 2.19
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.19`.
 
 ---
@@ -656,12 +646,10 @@
 
 ### 3.18
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.18`.
 
 ### 2.18
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.18`.
 
 ---
@@ -691,12 +679,10 @@
 
 ### 3.17
 
-- Spring Boot 3.x line.
 - Scaffold default `radpVersion` is `3.17`.
 
 ### 2.17
 
-- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.17`.
 
 ---
@@ -764,13 +750,11 @@
 
 ### 3.16
 
-- Spring Boot 3.x line.
 - In addition, `PluginManagement` includes `wagon-maven-plugin`.
 - Scaffold default `radpVersion` is `3.15.1` (legacy baseline value in this branch).
 
 ### 2.16
 
-- Spring Boot 2.x line.
 - `PluginManagement` adds `maven-resources-plugin` and `maven-enforcer-plugin` only.
 - Scaffold default `radpVersion` is `2.16`.
 
@@ -814,7 +798,8 @@
 - In `DependencyManagement`, add:
   - `central-publishing-maven-plugin:0.6.0`
   - `maven-javadoc-plugin:3.5.0`
-- Keep `space.x9x.radp:radp` using the `maven-deploy-plugin` defined in `radp-dependencies` instead of the one from `spring-boot-dependencies`.
+- Keep `space.x9x.radp:radp` using the `maven-deploy-plugin` defined in `radp-dependencies` instead of the one from
+  `spring-boot-dependencies`.
 - Fix `org.apache.dubbo:dubbo-dependencies-zookeeper`.
 - Change Knife4j starter coordinates to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`.
 - Remove redundant plugin versions from `radp-parent` and duplicate plugin definitions from `radp-dependencies`.
@@ -835,15 +820,14 @@
 
 ### 3.15
 
-- Spring Boot 3.x line.
 - Upgrade Spring Boot from `3.2.3` to `3.4.4`.
 - Upgrade Spring Cloud from `2023.0.0` to `2024.0.0`.
 - Scaffold default `radpVersion` is `3.15`.
 
 ### 2.15
 
-- Spring Boot 2.x line.
-- Remains on the Spring Boot 2.x line with compatible Spring Cloud versions (no `3.2.3 → 3.4.4` or `2023.0.0 → 2024.0.0`).
+- Remains on the Spring Boot 2.x line with compatible Spring Cloud versions (no `3.2.3 → 3.4.4` or
+  `2023.0.0 → 2024.0.0`).
 - Scaffold default `radpVersion` is `2.15`.
 
 ---
@@ -888,12 +872,10 @@
 
 ### 3.14
 
-- Spring Boot 3.x line.
 - Use Knife4j Jakarta starter: `knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`.
 
 ### 2.14
 
-- Spring Boot 2.x line.
 - Use `springdoc-openapi` BOM and 2.x-compatible `springdoc` / Knife4j coordinates.
 
 ---
@@ -948,7 +930,6 @@
 
 ### 2.13
 
-- Spring Boot 2.x line.
 - Uses `spring-boot-parent` `2.7.18`.
 - Uses 2.x compatible versions of Spring Cloud, SpringDoc, and MyBatis.
 - Dockerfile base image and scaffold details are tuned for 2.x / JDK 8–11 setups.

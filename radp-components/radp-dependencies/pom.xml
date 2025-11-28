@@ -103,7 +103,6 @@
 		<!-- ============================================[通讯组件]=================================================== -->
 		<!-- [通讯组件] -->
 		<netty.version>4.1.105.Final</netty.version>
-		<!-- 解决 DNS TCP fallback on UDP query timeout disabled. Upgrade Netty to 4.1.105 or higher. -->
 		<!-- ============================================[通讯组件]=================================================== -->
 
 		<!-- ============================================[监控组件]=================================================== -->
@@ -366,6 +365,86 @@
 			<!-- TODO: radp-xx-spring-cloud-starters -->
 			<!-- ============================================[radp]================================================= -->
 
+			<!-- ============================================[Spring Platform]====================================== -->
+			<!-- Spring Boot BOM -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Cloud BOM -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- ============================================[Spring Platform]====================================== -->
+
+			<!-- ============================================[Framework BOMs]======================================= -->
+			<!-- SpringDoc OpenAPI UI：自动生成 OpenAPI 文档的工具 -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi</artifactId>
+				<version>${springdoc.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- MyBatis-Plus BOM -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-bom</artifactId>
+				<version>${mybatis-plus.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Dubbo Zookeeper Dependencies -->
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-dependencies-zookeeper</artifactId>
+				<version>${apache.dubbo.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-reload4j
+						</artifactId> <!-- fix error 'SLF4J: Class path contains multiple SLF4J bindings' -->
+					</exclusion>
+					<exclusion>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId> <!-- fix appender error -->
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- Spock 测试框架 BOM -->
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-bom</artifactId>
+				<version>${spock.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Testcontainers -->
+			<!--
+			Docker 29.0.0 could not find a valid Docker environment
+			issue: https://github.com/testcontainers/testcontainers-java/issues/11212
+				Workaround is to set the client version explicitly.
+				For instance in $HOME/.docker-java.properties
+				api.version=1.44
+			-->
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers-bom</artifactId>
+				<version>${testcontainers.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- ============================================[Framework BOMs]======================================= -->
+
 			<!-- ============================================[效率工具]============================================== -->
 			<!-- [效率工具] -->
 			<!-- MapStruct：用于简化 Java Bean 之间映射的工具 -->
@@ -407,13 +486,6 @@
 				<version>${knife4j.version}</version>
 			</dependency>
 			<!-- SpringDoc OpenAPI UI：自动生成 OpenAPI 文档的工具 -->
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi</artifactId>
-				<version>${springdoc.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-annotations</artifactId> <!-- Spring Boot 2 使用 swagger-annotations -->
@@ -526,25 +598,6 @@
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-spring-boot-starter</artifactId>
 				<version>${apache.dubbo.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.dubbo</groupId>
-				<artifactId>dubbo-dependencies-zookeeper</artifactId>
-				<version>${apache.dubbo.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-reload4j</artifactId>
-						<!-- fix error 'SLF4J: Class path contains multiple SLF4J bindings' -->
-					</exclusion>
-					<exclusion>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-						<!-- fix appender error -->
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<!-- Dubbo For Nacos -->
 			<dependency>
@@ -738,14 +791,6 @@
 
 			<!-- ============================================[测试组件]============================================== -->
 			<!-- [测试组件] -->
-			<!-- Spock测试框架依赖(java,groovy) -->
-			<dependency>
-				<groupId>org.spockframework</groupId>
-				<artifactId>spock-bom</artifactId>
-				<version>${spock.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<!-- Cucumber测试框架依赖 -->
 			<dependency>
 				<groupId>io.cucumber</groupId>
@@ -787,45 +832,12 @@
 				<version>${embedded-redis.version}</version>
 			</dependency>
 			<!-- Testcontainers -->
-			<!--
-			Docker 29.0.0 could not find a valid Docker environment
-			issue: https://github.com/testcontainers/testcontainers-java/issues/11212
-				Workaround is to set the client version explicitly.
-				For instance in $HOME/.docker-java.properties
-				api.version=1.44
-			-->
-			<dependency>
-				<groupId>org.testcontainers</groupId>
-				<artifactId>testcontainers-bom</artifactId>
-				<version>${testcontainers.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>com.redis.testcontainers</groupId>
 				<artifactId>testcontainers-redis</artifactId>
 				<version>${testcontainers-redis.version}</version>
 			</dependency>
 			<!-- ============================================[测试组件]============================================== -->
-
-			<!-- ============================================[Spring Platform]====================================== -->
-			<!-- Spring Boot BOM -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Cloud BOM -->
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- ============================================[Spring Platform]====================================== -->
 		</dependencies>
 	</dependencyManagement>
 

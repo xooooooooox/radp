@@ -58,6 +58,7 @@ public class AccessToken {
 	/**
 	 * 授权类型.
 	 */
+	@Builder.Default
 	private String tokenType = JwtConstants.BEARER_TYPE;
 
 	/**

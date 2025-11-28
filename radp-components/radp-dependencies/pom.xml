@@ -524,12 +524,6 @@
 			<!-- ============================================[缓存]================================================== -->
 
 			<!-- ============================================[消息队列]============================================== -->
-			<!-- kafka -->
-			<dependency>
-				<groupId>org.springframework.kafka</groupId>
-				<artifactId>spring-kafka</artifactId>
-				<version>${spring-kafka.version}</version>
-			</dependency>
 			<!-- rocketmq -->
 			<dependency>
 				<groupId>org.apache.rocketmq</groupId>

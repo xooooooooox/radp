@@ -382,6 +382,78 @@
 
 			<!-- ============================================[radp]================================================== -->
 
+			<!-- ============================================[Spring Platform]====================================== -->
+			<!-- Spring Boot BOM -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Cloud BOM -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- ============================================[Spring Platform]====================================== -->
+
+			<!-- ============================================[Framework BOMs]======================================= -->
+			<!-- SpringDoc OpenAPI UI：自动生成 OpenAPI 文档的工具 -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi</artifactId>
+				<version>${springdoc.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- MyBatis-Plus BOM -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-bom</artifactId>
+				<version>${mybatis-plus.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Dubbo Zookeeper Dependencies -->
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-dependencies-zookeeper</artifactId>
+				<version>${apache.dubbo.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-reload4j
+						</artifactId> <!-- fix error 'SLF4J: Class path contains multiple SLF4J bindings' -->
+					</exclusion>
+					<exclusion>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId> <!-- fix appender error -->
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- Spock 测试框架 BOM -->
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-bom</artifactId>
+				<version>${spock.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Testcontainers BOM -->
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers-bom</artifactId>
+				<version>${testcontainers.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- ============================================[Framework BOMs]======================================= -->
 
 			<!-- ============================================[效率工具]============================================== -->
 			<!-- MapStruct：用于简化 Java Bean 之间映射的工具 -->
@@ -421,14 +493,6 @@
 				<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
 				<version>${knife4j.version}</version>
 			</dependency>
-			<!-- SpringDoc OpenAPI UI：自动生成 OpenAPI 文档的工具 -->
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi</artifactId>
-				<version>${springdoc.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-annotations-jakarta</artifactId> <!-- 如果是 SpringBoot2 则使用 swagger-annotations -->
@@ -461,13 +525,6 @@
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus</artifactId>
 				<version>${mybatis-plus.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.baomidou</groupId>
-				<artifactId>mybatis-plus-bom</artifactId>
-				<version>${mybatis-plus.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
 			</dependency>
 			<!-- MyBatis-Plus Join -->
 			<dependency>
@@ -543,24 +600,6 @@
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-spring-boot-starter</artifactId>
 				<version>${apache.dubbo.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.dubbo</groupId>
-				<artifactId>dubbo-dependencies-zookeeper</artifactId>
-				<version>${apache.dubbo.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-reload4j
-						</artifactId> <!-- fix error 'SLF4J: Class path contains multiple SLF4J bindings' -->
-					</exclusion>
-					<exclusion>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId> <!-- fix appender error -->
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<!-- Dubbo For Nacos -->
 			<dependency>
@@ -758,14 +797,6 @@
 			<!-- ============================================[工具集]================================================ -->
 
 			<!-- ============================================[测试组件]============================================== -->
-			<!-- Spock测试框架依赖(java,groovy) -->
-			<dependency>
-				<groupId>org.spockframework</groupId>
-				<artifactId>spock-bom</artifactId>
-				<version>${spock.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<!-- Cucumber测试框架依赖 -->
 			<dependency>
 				<groupId>io.cucumber</groupId>
@@ -806,40 +837,13 @@
 				<artifactId>embedded-redis</artifactId>
 				<version>${embedded-redis.version}</version>
 			</dependency>
-			<!-- Testcontainers -->
-			<dependency>
-				<groupId>org.testcontainers</groupId>
-				<artifactId>testcontainers-bom</artifactId>
-				<version>${testcontainers.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+			<!-- Testcontainers Redis module -->
 			<dependency>
 				<groupId>com.redis</groupId>
 				<artifactId>testcontainers-redis</artifactId>
 				<version>${testcontainers-redis.version}</version>
 			</dependency>
-			<!-- ====================测试组件]==================== -->
-
-
-			<!-- ====================[Spring==================== -->
-			<!-- Spring Boot -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Cloud -->
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- ====================Spring]==================== -->
+			<!-- ============================================[测试组件]=============================================== -->
 		</dependencies>
 	</dependencyManagement>
 

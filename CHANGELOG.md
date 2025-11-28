@@ -11,6 +11,13 @@
 - Add utility methods in `ServletUtils` to wrap HTTP responses with JSON content.
 - Add `#addOrder` utility method to `MybatisUtils`.
 - Add `#deleteBatch` utility method to `BaseMapperX`.
+- Optimize `ErrorCodeLoader`
+  - Implemented resource merging for `META-INF/error/message*.properties` with override priority (libraries < app
+    classes).
+  - Added support for Spring `MessageSource` to enable application-specific i18n error messages.
+  - Introduced fallback mechanism ensuring error resolution robustness: app messages > internal bundle > error code
+    itself.
+  - Improved thread-safety in message resource initialization.
 
 #### Tests
 

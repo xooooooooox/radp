@@ -2,6 +2,7 @@
 *.xml
 .cache
 
+!.idea/misc.xml
 !codeStyles/**.xml
 !copyright/**.xml
 !dictionaries/**.xml

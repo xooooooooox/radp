@@ -37,7 +37,7 @@ class ErrorCodeLoaderTest {
 			ServerAssert.notNull(null, "TEST_0001", 123);
 		}
 		catch (ServerException e) {
-			assertThat(e.getMessage()).isEqualTo("HELLO 123");
+			assertThat(e.getMessage()).isEqualTo("hello 123");
 			assertThat(e.getErrCode()).isEqualTo("TEST_0001");
 			assertThat(e.getCause()).isNull();
 		}

@@ -14,8 +14,9 @@
 
 	<properties>
 		<!-- [Spring] -->
-		<spring-boot.version>3.4.5</spring-boot.version>
-		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<spring-boot.version>3.5.8</spring-boot.version>
+		<spring-cloud.version>2024.0.2</spring-cloud.version>
+		<!-- ============================================[Spring]=================================================== -->
 
 		<!-- [效率组件] -->
 		<lombok.version>1.18.30</lombok.version>

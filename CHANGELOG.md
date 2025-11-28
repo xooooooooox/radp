@@ -22,6 +22,7 @@
 #### Tests
 
 - Add tests for `MessageFormatter`, `MessageFormatUtils`, and `ResponseBuilder`.
+- Fix tests for `RedissonServiceSmokeTest`, `ElasticsearchKibanaTest`, `
 
 #### Refactor
 

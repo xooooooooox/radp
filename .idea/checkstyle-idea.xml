@@ -3,6 +3,7 @@
   <component name="CheckStyle-IDEA" serialisationVersion="2">
     <checkstyleVersion>9.3</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
+    <scanBeforeCheckin>true</scanBeforeCheckin>
     <option name="thirdPartyClasspath">
       <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-config/0.0.47/spring-javaformat-config-0.0.47.jar" />
       <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-checkstyle/0.0.47/spring-javaformat-checkstyle-0.0.47.jar" />

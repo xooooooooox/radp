@@ -10,7 +10,7 @@
 - Optimize `BasePOAutoFillStrategy` to use `LoginUserResolver` to obtain the current logged-in user from context.
 - Add utility methods in `ServletUtils` to wrap HTTP responses with JSON content.
 - Add `#addOrder` utility method to `MybatisUtils`.
-- Add `deleteBatch` utility method to `BaseMapperX`.
+- Add `#deleteBatch` utility method to `BaseMapperX`.
 
 #### Tests
 

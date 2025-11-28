@@ -48,6 +48,12 @@ import space.x9x.radp.solutions.dict.core.service.DefaultDictService;
 @EnableConfigurationProperties(DictProperties.class)
 public class DictAutoConfiguration {
 
+	/**
+	 * Provides an in-memory {@link DictDataProvider} when provider is set to "memory"
+	 * (default).
+	 * @param properties dict configuration properties
+	 * @return memory-backed {@link DictDataProvider}
+	 */
 	@Bean
 	@ConditionalOnProperty(prefix = DictProperties.PREFIX, name = "provider", havingValue = "memory",
 			matchIfMissing = true)
@@ -55,12 +61,22 @@ public class DictAutoConfiguration {
 		return new MemoryDictDataProvider(properties);
 	}
 
+	/**
+	 * Provides a DB-backed {@link DictDataProvider} when provider is set to "db".
+	 * @param queryProvider provider for {@link DictDataQuery} (optional)
+	 * @return db-backed {@link DictDataProvider}
+	 */
 	@Bean
 	@ConditionalOnProperty(prefix = DictProperties.PREFIX, name = "provider", havingValue = "db")
 	public DictDataProvider dbDictDataProvider(ObjectProvider<DictDataQuery> queryProvider) {
 		return new DbDictDataProvider(queryProvider);
 	}
 
+	/**
+	 * Creates the primary {@link DictService} backed by the configured data provider.
+	 * @param provider the selected {@link DictDataProvider}
+	 * @return {@link DictService} bean
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public DictService dictService(DictDataProvider provider) {

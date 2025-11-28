@@ -72,10 +72,19 @@ public class DynamicDataSourceAutoConfiguration {
 	 */
 	private final DynamicDataSourceProperties properties;
 
+	/**
+	 * Create a new autoconfiguration instance using the provided properties.
+	 * @param properties dynamic data source configuration properties
+	 */
 	public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties properties) {
 		this.properties = properties;
 	}
 
+	/**
+	 * Registers the primary {@link DataSource} backed by dynamic routing.
+	 * @param providers list of dynamic data source providers
+	 * @return configured dynamic routing {@link DataSource}
+	 */
 	@Primary
 	@Bean
 	public DataSource dataSource(List<DynamicDataSourceProvider> providers) {
@@ -89,6 +98,12 @@ public class DynamicDataSourceAutoConfiguration {
 		return dataSource;
 	}
 
+	/**
+	 * Registers an {@link Advisor} that applies dynamic data source switching based on
+	 * {@link DS} annotations.
+	 * @param dsProcessor the processor chain to resolve data source keys
+	 * @return an advisor configured with a custom interceptor and order from properties
+	 */
 	@ConditionalOnProperty(prefix = DynamicDataSourceProperties.PREFIX + ".aop", name = Conditions.ENABLED,
 			havingValue = Conditions.TRUE, matchIfMissing = true)
 	@Primary

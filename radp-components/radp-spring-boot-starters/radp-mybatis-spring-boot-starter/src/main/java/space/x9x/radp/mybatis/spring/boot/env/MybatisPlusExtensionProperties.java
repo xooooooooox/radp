@@ -128,7 +128,15 @@ public class MybatisPlusExtensionProperties {
 		 */
 		public enum Scope {
 
-			BASE_PO, GLOBAL
+			/**
+			 * Apply only when statements clearly involve BasePO types or parameters.
+			 */
+			BASE_PO,
+
+			/**
+			 * Apply globally to all statements.
+			 */
+			GLOBAL
 
 		}
 

@@ -32,6 +32,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @UtilityClass
 public class SpringSecurityUtils {
 
+	/**
+	 * Get the current authenticated principal name from the {@link SecurityContext}, if
+	 * available.
+	 * @return an {@link Optional} containing the principal name, or empty if no
+	 * authentication is present
+	 */
 	public static Optional<String> getPrincipal() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));

@@ -46,6 +46,12 @@ public class JwtTokenService {
 
 	private final JwtTokenProvider jwtTokenProvider;
 
+	/**
+	 * Authenticate the given user and issue a new {@link AccessToken}.
+	 * @param loginUserDetails authenticated user details
+	 * @param claims extra custom claims to include in the token, may be {@code null}
+	 * @return a newly created access token representing the authenticated user
+	 */
 	public AccessToken authenticate(LoginUserDetails loginUserDetails, Map<String, Object> claims) {
 		try {
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

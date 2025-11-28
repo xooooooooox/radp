@@ -73,6 +73,8 @@ public class MybatisPlusExtensionAutoConfiguration {
 	 * provides automatic filling of creation and modification timestamp fields in entity
 	 * objects during insert and update operations.
 	 * @param properties the configuration properties for MyBatis-Plus extensions
+	 * @param strategiesProvider optional provider for a list of {@link AutoFillStrategy}
+	 * instances
 	 * @return a configured MetaObjectHandler that automatically fills timestamp fields
 	 */
 	@ConditionalOnMissingBean

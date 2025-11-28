@@ -35,6 +35,10 @@ public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 
 	private final Class<T> supportedType;
 
+	/**
+	 * Creates a strategy bound to the given supported entity type.
+	 * @param supportedType the entity type this strategy applies to (must not be null)
+	 */
 	protected AbstractAutoFillStrategy(Class<T> supportedType) {
 		Assert.notNull(supportedType, "supportedType must not be null");
 		this.supportedType = supportedType;
@@ -69,6 +73,10 @@ public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 	 */
 	protected abstract void doUpdateFill(T entity, MetaObject metaObject);
 
+	/**
+	 * Returns the entity type supported by this strategy.
+	 * @return supported entity {@link Class}
+	 */
 	protected final Class<T> getSupportedType() {
 		return this.supportedType;
 	}

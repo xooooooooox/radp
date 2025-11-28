@@ -141,10 +141,24 @@ public class JwtSecurityConfigurer {
 				forbiddenAccessDeniedHandler, new AntPathMatcher(), handlerMappings, authorizeHttpRequestsCustomizers);
 	}
 
+	/**
+	 * Apply the default JWT-based security configuration to the given
+	 * {@link HttpSecurity}. Delegates to {@link #configure(HttpSecurity, List)} with no
+	 * extra customizers.
+	 * @param httpSecurity the {@link HttpSecurity} to configure
+	 * @throws Exception if an error occurs while applying configuration
+	 */
 	public void configure(HttpSecurity httpSecurity) throws Exception {
 		configure(httpSecurity, Collections.emptyList());
 	}
 
+	/**
+	 * Apply JWT-based security configuration with optional authorization customizers.
+	 * @param httpSecurity the {@link HttpSecurity} to configure
+	 * @param authorizeHttpRequestsCustomizers additional customizers to contribute
+	 * request authorization rules
+	 * @throws Exception if an error occurs while applying configuration
+	 */
 	public void configure(HttpSecurity httpSecurity,
 			List<JwtAuthorizeHttpRequestsCustomizer> authorizeHttpRequestsCustomizers) throws Exception {
 		String[] authenticatedUrls = Optional.ofNullable(this.jwtConfig.getAuthenticatedUrls())

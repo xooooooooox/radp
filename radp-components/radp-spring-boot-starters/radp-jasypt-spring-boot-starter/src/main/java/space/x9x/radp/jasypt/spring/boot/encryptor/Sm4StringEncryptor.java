@@ -73,6 +73,11 @@ public class Sm4StringEncryptor implements StringEncryptor {
 		}
 	}
 
+	/**
+	 * Constructs an SM4-based {@link StringEncryptor}.
+	 * @param algorithm algorithm or transformation, e.g. "SM4", "SM4/CBC/PKCS5Padding"
+	 * @param password secret used to derive a 128-bit SM4 key
+	 */
 	public Sm4StringEncryptor(String algorithm, String password) {
 		this.transformation = normalizeAlgo(algorithm);
 		this.keyBytes = deriveKey(password);

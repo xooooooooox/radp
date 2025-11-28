@@ -329,8 +329,10 @@ public class ExcelUtils {
 
 	/**
 	 * 从 Excel 文件中读取数据，并可选择跳过“空行”.
+	 * <p>
+	 * 空行判定规则（尽量贴近实际 Excel 导入场景）：
+	 * </p>
 	 * <ul>
-	 * 空行判定规则（尽量贴近实际 Excel 导入场景)
 	 * <li>优先只检查标注了 @ExcelProperty 的字段</li>
 	 * <li>若类上没有任何该注解，则退化为检查所有非 static 字段</li>
 	 * <li>字符串字段：null 或去除首尾空白后长度为 0 视为空</li>

@@ -160,6 +160,12 @@ public class ExtensionLoader<T> {
 				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
 	}
 
+	/**
+	 * Constructs an ExtensionLoader with an explicit object factory. Typically used in
+	 * tests or custom bootstrapping scenarios.
+	 * @param type the extension point type (interface) managed by this loader
+	 * @param objectFactory the factory used to inject and create extension instances
+	 */
 	public ExtensionLoader(Class<?> type, ExtensionFactory objectFactory) {
 		this.type = type;
 		this.objectFactory = objectFactory;

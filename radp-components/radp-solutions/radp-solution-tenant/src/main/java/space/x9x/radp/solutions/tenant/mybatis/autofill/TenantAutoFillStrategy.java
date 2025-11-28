@@ -39,6 +39,9 @@ import space.x9x.radp.spring.data.mybatis.autofill.AbstractAutoFillStrategy;
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 public class TenantAutoFillStrategy extends AbstractAutoFillStrategy<TenantBasePO> {
 
+	/**
+	 * Creates a tenant autofill strategy targeting {@link TenantBasePO}.
+	 */
 	public TenantAutoFillStrategy() {
 		super(TenantBasePO.class);
 	}

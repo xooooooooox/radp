@@ -54,6 +54,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private final PathMatcher pathMatcher;
 
+	/**
+	 * Constructs a JWT authorization filter.
+	 * @param authenticationManager authentication manager used by the filter
+	 * @param jwtTokenProvider provider to validate and parse JWT tokens
+	 * @param pathMatcher matcher for anonymous URL patterns
+	 */
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
 			PathMatcher pathMatcher) {
 		super(authenticationManager);

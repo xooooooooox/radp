@@ -100,6 +100,13 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	 */
 	private final int lastRow;
 
+	/**
+	 * 使用给定表头类型创建选择下拉写入处理器，采用默认的数据起止行范围.
+	 * <p>
+	 * 默认起始行为 {@link #FIRST_ROW}，默认终止行为 {@link #LAST_ROW}。
+	 * </p>
+	 * @param head 表头 class
+	 */
 	public SelectSheetWriteHandler(Class<?> head) {
 		this.firstRow = FIRST_ROW; // 默认起始行为 1（第二行，第一行为标题）
 		this.lastRow = LAST_ROW; // 默认终止行为 2000 行
@@ -136,7 +143,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	/**
 	 * 支持自定义下拉验证的起始行.
 	 * @param head 表头 class
-	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 <0 则回退到 {@link #FIRST_ROW}）
+	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 &lt;0 则回退到 {@link #FIRST_ROW}）
 	 */
 	public SelectSheetWriteHandler(Class<?> head, Integer firstRow) {
 		this(head, firstRow, null);
@@ -145,8 +152,8 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 	/**
 	 * 支持自定义下拉验证的起始行与终止行.
 	 * @param head 表头 class
-	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 <0 则回退到 {@link #FIRST_ROW}）
-	 * @param lastRow 下拉验证的末行（0 基，若传入 null、<0 或 < firstRow 则回退到 {@link #LAST_ROW}）
+	 * @param firstRow 下拉验证的首行（0 基，若传入 null 或 &lt;0 则回退到 {@link #FIRST_ROW}）
+	 * @param lastRow 下拉验证的末行（0 基，若传入 null、&lt;0 或 &lt; firstRow 则回退到 {@link #LAST_ROW}）
 	 */
 	public SelectSheetWriteHandler(Class<?> head, Integer firstRow, Integer lastRow) {
 		this.firstRow = (firstRow == null || firstRow < 0) ? FIRST_ROW : firstRow;

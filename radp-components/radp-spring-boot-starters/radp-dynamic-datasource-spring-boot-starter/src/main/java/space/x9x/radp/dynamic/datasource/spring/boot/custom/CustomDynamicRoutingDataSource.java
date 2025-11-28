@@ -33,6 +33,11 @@ import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceConte
  */
 public class CustomDynamicRoutingDataSource extends DynamicRoutingDataSource {
 
+	/**
+	 * Create a routing data source backed by the given providers.
+	 * @param providers dynamic data source providers used to initialize target data
+	 * sources
+	 */
 	public CustomDynamicRoutingDataSource(List<DynamicDataSourceProvider> providers) {
 		super(providers);
 	}

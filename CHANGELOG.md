@@ -2,12 +2,12 @@
 
 ## *.27
 
-### 3.27
+### Shared changes
 
 #### Features
 
 - Add starter `radp-jwt-spring-boot-starter`, implementing JWT-based authentication and authorization.
-- Optimize `BasePOAutoFillStrategy`, using `LoginUserResolver` to obtain the current logged-in user from context.
+- Optimize `BasePOAutoFillStrategy` to use `LoginUserResolver` to obtain the current logged-in user from context.
 - Add utility methods in `ServletUtils` to wrap HTTP responses with JSON content.
 - Add `#addOrder` utility method to `MybatisUtils`.
 - Add `deleteBatch` utility method to `BaseMapperX`.
@@ -16,12 +16,6 @@
 
 - Add tests for `MessageFormatter`, `MessageFormatUtils`, and `ResponseBuilder`.
 
-#### Dependencies
-
-- In `DependencyManagement`, add `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29` and set
-  `swagger-api.version=2.2.29`.
-- Upgrade `retrofit.version` from `2.9` to `3.0`.
-
 #### Refactor
 
 - Rename `SingleResult` and `PageResult` methods:
@@ -29,16 +23,12 @@
   - `#buildFailure` → `#failed`
 - Optimize custom `AbstractAssert`, removing inheritance from Spring’s `Assert`.
 - Optimize `BaseConvertor`.
-- Adjust the system’s built-in error codes, reserving codes below `1000` for framework-level internal use.
+- Adjust built-in error codes so that codes below `1000` are reserved for framework-level internal use.
 - Rename the `PageParam` constant `PAGE_SIZE_NONE` to `NO_PAGINATION`.
 
-#### Chore
+#### Chore — Scaffold
 
-##### Scaffold
-
-- Update scaffold default `radpVersion` to `3.27`.
-- Add `swagger-annotations-jakarta` dependency to the `xxx-type` layer.
-- Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert` and refactor null/nonnull handling.
+- Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull handling.
 - Add module `xxx-case` to `scaffold-std`.
 - Replace hardcoded empty string with `PREFIX` in `RedisKeyProvider`.
 - Restructure package organization in the `xxx-api` layer.
@@ -49,31 +39,42 @@
 
 - Improve Javadoc for `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, and `JwtAutoConfiguration`.
 
+> Note: The exact Swagger dependency coordinates and default `radpVersion` differ per major version. See the version-specific sections below.
+
+### 3.27
+
+- Spring Boot 3.x line.
+- DependencyManagement:
+  - Add `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
+  - Set `swagger-api.version=2.2.29`.
+  - Upgrade `retrofit.version` from `2.9` to `3.0`.
+- Scaffold:
+  - Default `radpVersion` is `3.27`.
+  - `xxx-type` layer uses `swagger-annotations-jakarta`.
+
 ### 2.27
 
-Same as **3.27** unless otherwise noted.
-
-#### Differences
-
-- **Dependencies**
-  - Use `io.swagger.core.v3:swagger-annotations:2.2.8` (non-Jakarta) and set `swagger-api.version=2.2.8`.
+- Spring Boot 2.x line.
+- DependencyManagement:
+  - Add `io.swagger.core.v3:swagger-annotations:2.2.8` (non-Jakarta).
+  - Set `swagger-api.version=2.2.8`.
   - Retrofit remains on the 2.x line’s version (no `2.9 → 3.0` upgrade here).
-- **Scaffold**
-  - Scaffold default `radpVersion` is `2.27`.
-  - The `xxx-type` layer adds `swagger-annotations` instead of `swagger-annotations-jakarta`.
+- Scaffold:
+  - Default `radpVersion` is `2.27`.
+  - `xxx-type` layer uses `swagger-annotations` (non-Jakarta).
 
 ---
 
 ## *.26
 
-### 3.26
+### Shared changes
 
 #### Features
 
 - Add modules:
   - `radp-solution-excel`
   - `radp-solution-dict`
-- Optimize the Checkstyle configuration to ignore comments when checking trailing whitespace.
+- Optimize Checkstyle configuration to ignore comments when checking trailing whitespace.
 - Optimize `radp-commons`.
 - Optimize `radp-jasypt-spring-boot-starter`: add SM4 encryption/decryption support with auto-configuration.
 - Update Checkstyle configurations and remove unnecessary or redundant checks.
@@ -84,19 +85,21 @@ Same as **3.27** unless otherwise noted.
 #### Dependencies
 
 - Remove `commons-io` to resolve a transitive conflict with `fastexcel`.
-- Upgrade `io.spring.javaformat:spring-javaformat-maven-plugin` from `0.0.46` to `0.0.47`.
-- Upgrade `com.puppycrawl.tools:checkstyle` from `9.3` to `11.0.1`.
 
 #### Fixes
 
 - Fix `RestExceptionHandler`.
 - Update Checkstyle configuration paths to use `${maven.multiModuleProjectDirectory}` for improved flexibility.
 
-#### Chore
+#### Chore — Scaffold
 
-##### Scaffold
+- Update scaffold default `radpVersion` to `*.26` (actual value differs per major line).
 
-- Update scaffold default `radpVersion` to `3.26`.
+### 3.26
+
+- Spring Boot 3.x line.
+- Uses the dependency and plugin versions compatible with Spring Boot 3.x and Jakarta APIs.
+- Scaffold default `radpVersion` is `3.26`.
 
 ### 2.26.4
 
@@ -114,9 +117,7 @@ Same as **3.27** unless otherwise noted.
 
 - Fix `BasePO` and `TenantBasePO`.
 
-#### Chore
-
-##### Scaffold
+#### Chore — Scaffold
 
 - Update scaffold default `radpVersion` to `2.26.3`.
 
@@ -124,14 +125,12 @@ Same as **3.27** unless otherwise noted.
 
 #### Features
 
-- Allow multiple MyBatis autofill strategies to run for the same entity so `BasePO` audit fields can coexist with custom
-  logic (for example, tenant-specific fields).
+- Allow multiple MyBatis autofill strategies to run for the same entity so `BasePO` audit fields can coexist with custom logic
+  (for example, tenant-specific fields).
 - Add `TenantContextHolder` and `TenantAutoFillStrategy` (via `radp-solution-tenant`) to populate `tenantId`
   automatically for `TenantBasePO`.
 
-#### Chore
-
-##### Scaffold
+#### Chore — Scaffold
 
 - Update scaffold default `radpVersion` to `2.26.2`.
 
@@ -141,49 +140,43 @@ Same as **3.27** unless otherwise noted.
 
 - Refactor the MyBatis autofill implementation.
 
-#### Chore
-
-##### Scaffold
+#### Chore — Scaffold
 
 - Update scaffold default `radpVersion` to `2.26.1`.
 
 ### 2.26
 
-Same as **3.26** in terms of features (Excel/Dict modules, Jacoco threshold adjustments, Jasypt SM4 support, etc.), unless otherwise noted.
-
-#### Differences
-
-- **Dependencies**
-  - Also removes `commons-io` for the `fastexcel` conflict, but Checkstyle and spring-javaformat plugin versions follow
-    the Spring Boot 2.x line (see the 2.x POMs for exact versions).
-- **Scaffold**
-  - Scaffold default `radpVersion` is `2.26`.
+- Spring Boot 2.x line.
+- Shares the features listed in **Shared changes**.
+- Uses Spring Boot 2.x–compatible versions for Checkstyle, spring-javaformat, and other plugins.
+- Scaffold default `radpVersion` is `2.26`.
 
 ---
 
 ## *.25
 
-### 3.25
+### Shared changes
 
 #### Features
 
 - Add modules:
   - `radp-solutions-tenant`
   - `radp-dynamic-datasource-spring-boot-starter`
-- Optimize `devcontainer`.
-- Optimize `radp-mybatis-spring-boot-starter`.
-- Optimize `radp-spring-data`.
-- Optimize module `radp-spring-boot`:
-  - Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
-- Optimize module `radp-commons`:
+- Optimize:
+  - `devcontainer`
+  - `radp-mybatis-spring-boot-starter`
+  - `radp-spring-data`
+  - `radp-spring-boot`:
+    - Enable conditional configuration for `WebAPIAutoConfiguration` based on properties.
+- Optimize `radp-commons`:
   - Optimize `SnowflakeGenerator`.
   - Add `PasswordGeneratorUtils` for password generation and validation.
   - Enhance `RandomStringUtils`:
     - Add methods to generate N-digit numbers, Mainland China mobile numbers, valid usernames, valid emails, etc.
     - Allow username validation and random username generation to use custom rules (regex-based validation, rule-based generation).
-  - Add helper `isValidMobile()` for Mainland China mobile numbers.
+  - Add `isValidMobile()` helper for Mainland China mobile numbers.
 
-#### Bug Fixes
+#### Bug fixes
 
 - Fix `AutofillMetaObjectHandler#updateFill` not being invoked.
 
@@ -193,110 +186,99 @@ Same as **3.26** in terms of features (Excel/Dict modules, Jacoco threshold adju
   - `org.bouncycastle:bcprov-jdk15to18:1.81`
   - `org.passay:passay:1.6.6`
 
-#### Chore
+#### Chore — Scaffold
 
-##### Scaffold
-
-- Update scaffold default `radpVersion` to `3.25`.
-- Optimize `maven.config` default active profiles.
-- Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME` environment variables.
-- Optimize `.idea` project code styles.
-- Optimize `checkstyle-suppressions.xml` and suppress the `HideUtilityClassConstructor` rule globally.
+- Standardize log file paths using `LOG_HOME` and `LOG_FILE_BASENAME`.
+- Optimize `.idea` code styles.
+- Optimize `checkstyle-suppressions.xml` and suppress `HideUtilityClassConstructor` globally.
 - Optimize `application-local.yaml`.
 
 #### Documentation
 
-- Add comments to `application-logback.yaml` explaining how to adjust the log file name using `LOG_FILE_BASENAME`.
+- Add comments in `application-logback.yaml` explaining how to adjust the log file name using `LOG_FILE_BASENAME`.
+
+### 3.25
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.25`.
 
 ### 2.25
 
-Same as **3.25** unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.25`.
-- All dependency versions are aligned with the Spring Boot 2.x line (see 2.x POMs for exact versions).
+- Uses dependency versions aligned with Spring Boot 2.x.
 
 ---
 
 ## *.24
 
-### 3.24
+### Shared changes
 
 #### Features
 
 - Add devcontainer.
-- Optimize `radp-logging-spring-boot-starter`:
-  - Support overriding the log file basename via an environment variable.
+- Optimize `radp-logging-spring-boot-starter` to support overriding the log file basename via an environment variable.
 
 #### Fixes
 
 - Fix `.mvn/settings.xml`.
 
-#### Chore
-
-##### Build
+#### Chore — Build
 
 - Update license.
 - Optimize `jib-maven-plugin` configuration properties.
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.24`.
 - Optimize `Dockerfile` and `.dockerignore`.
 - Optimize helper script `helper`.
 - Fix archetype generation failures.
 - Optimize `layers.xml`.
 - Optimize `.devcontainer`.
 
+### 3.24
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.24`.
+
 ### 2.24
 
-Same as **3.24** unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.24`.
-- Dependencies remain aligned to the Spring Boot 2.x line.
 
 ---
 
 ## *.23.1
 
-### 3.23.1
+### Shared changes
 
-#### Chore
+#### Chore — Build
 
-##### Build
+- Add support for configuring a custom container runtime user.
 
-- Add support for custom container runtime user.
+#### Chore — Scaffold
 
-##### Scaffold
-
-- Update scaffold default `radpVersion` to `3.23.1`.
 - Update `.gitlab-ci.yml`.
 - Optimize `Dockerfile`.
 - Add `.dockerignore`.
 - Add `imageRegistry` property and update fileSet includes.
 - Refactor Dockerfile build script `build.sh`.
 
+### 3.23.1
+
+- Scaffold default `radpVersion` is `3.23.1`.
+
 ### 2.23.1
 
-Same as **3.23.1** unless otherwise noted.
-
-#### Differences
-
 - Scaffold default `radpVersion` is `2.23.1`.
-- CI and image-related configuration are kept compatible with the Spring Boot 2.x line.
 
 ---
 
 ## *.23
 
-### 3.23
+### Shared changes
 
-#### Chore
-
-##### Build
+#### Chore — Build
 
 - Optimize `.mvn`:
   - Add `jvm.config`.
@@ -305,51 +287,53 @@ Same as **3.23.1** unless otherwise noted.
 - Optimize assembly:
   - Change dist filename from `${project.build.finalName}-assembly.tar.gz`
     to `${project.build.finalName}-assembly-${project.version}.tar.gz`.
-  - Remove `zip` format from assembly configuration.
+  - Remove the `zip` format from assembly configuration.
 - Optimize `maven-release-plugin`:
-  - Add `maven.release.extraPreparationProfiles` and `maven.release.extraReleaseProfiles`.
+  - Add `maven.release.extraPreparationProfiles`.
+  - Add `maven.release.extraReleaseProfiles`.
 - Add profile `o-catalog`.
 - Remove redundant `auto-release` profile.
 - Optimize `jib-maven-plugin` configuration to support building images without the Docker daemon.
 
-##### Dependencies
+#### Chore — Dependencies
 
-- Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.5` to `3.5.4`.
-- Upgrade `com.google.cloud.tools:jib-maven-plugin` from `3.4.5` to `3.4.6`.
-- Remove `archetype-packaging` pluginManagement to resolve:
+- Remove `archetype-packaging` from `pluginManagement` to fix
   `Failed to retrieve plugin descriptor … No plugin descriptor found at META-INF/maven/plugin.xml`.
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.23`.
+- Update scaffold configuration to match the build changes above.
+
+### 3.23
+
+- Spring Boot 3.x line.
+- DependencyManagement:
+  - Upgrade Spring Boot parent from `3.4.5` to `3.5.4`.
+  - Upgrade `com.google.cloud.tools:jib-maven-plugin` from `3.4.5` to `3.4.6`.
+- Scaffold default `radpVersion` is `3.23`.
 
 ### 2.23
 
-Same as **3.23** in terms of build and scaffold structure unless otherwise noted.
-
-#### Differences
-
-- Continues to use a Spring Boot 2.x parent.
+- Spring Boot 2.x line.
+- Uses a 2.x compatible Spring Boot parent (no `3.4.5 → 3.5.4` change).
 - Scaffold default `radpVersion` is `2.23`.
 
 ---
 
 ## *.22
 
-### 3.22
+### Shared changes
 
-#### Chore
-
-##### Dependencies
+#### Chore — Dependencies
 
 - Upgrade `io.gatling.highcharts:gatling-charts-highcharts` from `3.2.1` to `3.10.0`.
 - Upgrade `io.github.git-commit-id:git-commit-id-maven-plugin` from `9.0.1` to `9.0.2`.
 - Remove unused MongoDB dependencies.
 
-##### Build
+#### Chore — Build
 
 - Upgrade `io.gatling:gatling-maven-plugin` from `3.0.3` to `4.6.0`.
-- Remove unused `disableCompiler` configuration in the Gatling Maven Plugin.
+- Remove unused `disableCompiler` configuration in the Gatling plugin.
 - Update Checkstyle config location.
 - Add default `pluginGroup` to `.mvn/settings.xml`.
 - Optimize profile `code-review`:
@@ -357,16 +341,15 @@ Same as **3.23** in terms of build and scaffold structure unless otherwise noted
   - Add `sonar.qualitygate.wait`.
 - Optimize profile `unit-test`.
 - Rename profile `aggregate-reports` to `site-aggregate`.
-- Remove unused `argLine` configuration from the Surefire plugin to fix Jacoco integration.
+- Remove unused `argLine` configuration in Surefire to fix Jacoco integration.
 - Add profile `o-wrapper`.
-- Remove `sonar.login` to avoid deprecation warnings.
+- Remove property `sonar.login` to avoid deprecation warnings.
 - Change `maven-release-plugin` `tagNameFormat` from `x.y.z` to `vx.y.z`.
-- Add `skipViaCommandLine` option for overriding the `git-commit-id-maven-plugin` skip flag.
+- Add `skipViaCommandLine` option to override the `git-commit-id-maven-plugin` skip flag.
 
-##### Scaffold
+#### Chore — Scaffold
 
 - Avoid generating incorrect `.gitlab-ci.yml`.
-- Update scaffold default `radpVersion` to `3.22`.
 - Update `archetype-catalog-vcs.xml`.
 - Update IDEA and Checkstyle configuration.
 - Update `.editorconfig`.
@@ -381,101 +364,53 @@ Same as **3.23** in terms of build and scaffold structure unless otherwise noted
 - Update profiles in `.mvn/maven.config` to include `code-review`.
 - Update `.gitlab-ci.yml`.
 - Optimize `checkstyle-suppressions.xml`:
-  - Add suppression for `target/generated-sources`.
+  - Add a suppression for `target/generated-sources`.
 - Optimize `assembly.xml` to include `jib-maven.tar`.
-- Fix scaffold Writerside configuration.
+- Fix Writerside configuration in the scaffold.
 
-##### Style
+#### Style
 
 - Update code style and Checkstyle configuration.
 - Optimize import order.
 
+### 3.22
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.22`.
+
 ### 2.22
 
-Same as **3.22** in terms of build, style, and scaffold changes unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.22`.
-- Dependency and plugin versions are aligned with the Spring Boot 2.x line.
 
 ---
 
 ## *.21
 
-### 3.21
+### Shared changes
 
-#### Breaking Changes
+#### Breaking changes
 
-- Refactor `radp-logging-spring-boot-starter` for clearer and more extensible logging.
+- Refactor `radp-logging-spring-boot-starter` to provide clearer and more extensible logging.
 
 #### Features
 
 - Add Redis key management utilities to standardize key creation and validation.
 - Add a comprehensive testing support module in `radp-spring-test`.
 
-#### Bug Fixes
+#### Bug fixes
 
 - Fix `class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found`.
 - Fix and optimize `TtlThreadPoolTaskExecutor` and `ExceptionHandlingAsyncTaskExecutor`.
 - Fix error handling in embedded servers.
 - Fix `Unable to find a URL to the parent project. The parent menu will NOT be added.`.
-- Resolve various transitive dependency issues.
-
-#### Chore
-
-##### Dependencies
-
-- Upgrade `org.springframework.boot:spring-boot-starter-parent` from `3.4.4` to `3.4.5`.
-- Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
-- Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`.
-- Add `com.redis:testcontainers-redis:2.2.2` to `DependencyManagement`.
-- Override `kafka.version` from `3.8.1` to `3.9.0` to consolidate `junit-platform.properties`.
-- Simplify and clean up dependencies to remove module cycles.
-- Remove `mongodb.version` and `maven-surefire-plugin.version` properties.
-- Exclude `spring-boot-starter-logging` in `radp-spring-boot-test`.
-- Remove unused `radp-spring-test` dependency from `radp-spring-framework`.
-- Remove redundant dependencies from `radp-integration-test`.
-
-##### Build
-
-- In `PluginManagement`, add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45`.
-- Remove the redundant `code-review` profile from the parent.
-- Move `git-commit-id-maven-plugin` and `versions-maven-plugin` from `radp-parent` to the root POM.
-- Optimize profile `code-review`:
-  - Explicitly set `maven.test.skip=false`.
-  - Add `spring-javaformat-maven-plugin` and `maven-checkstyle-plugin`.
-- Optimize profile `unit-test`:
-  - Move it to the root POM.
-  - Explicitly set `maven.test.skip=false`.
-- Optimize profile `aggregate-reports`:
-  - Use `src/checkstyle/checkstyle.xml` (Spring Checks) for Checkstyle.
-- Add missing `relativePath` in POM parent configuration.
-- Optimize `radp-smoke-tests-archetype`:
-  - Remove `maven.install.skip` from submodules.
-  - Add `maven.test.skip` to `radp-smoke-tests-archetype`.
-
-##### Scaffold
-
-- Update scaffold default `radpVersion` to `3.21`.
-- Update `application-logback.yaml` and `logback-test.xml`.
-- Add `RedisKeyProvider` enum.
-- Relocate assert classes to a new package.
-- Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`.
-- Add `.idea` settings for copyright and scope.
-
-##### Other
-
-- Change license from GNU GPLv3 to Apache 2.0.
-- Optimize CheckStyle-IDEA plugin configuration and integrate Spring Checks.
-- Optimize IDEA CodeStyle configuration.
+- Resolve transitive dependency issues.
 
 #### Refactor
 
 - Relocate `ResponseBuilder` to the DTO package.
 - Refactor `LocalCallFirstCluster` and `DubboExceptionFilter` to reduce complexity and improve readability.
-- Optimize `RedissonService`:
-  - Use non-deprecated `setNx` methods.
+- Optimize `RedissonService` to use non-deprecated `setNx` methods.
 
 #### Tests
 
@@ -483,55 +418,75 @@ Same as **3.22** in terms of build, style, and scaffold changes unless otherwise
   - `radp-smoke-tests-redis`
   - `radp-smoke-tests-logging`
   - `radp-smoke-tests-test`
-- Add tests for:
-  - Testcontainers
-  - Embedded servers
-  - `RedissonService` in `radp-redis-spring-boot-starter`
+- Add tests for Testcontainers and embedded servers.
+- Add `RedissonServiceTest` for `radp-redis-spring-boot-starter`.
+
+#### Chore — Scaffold
+
+- Update `application-logback.yaml` and `logback-test.xml`.
+- Add `RedisKeyProvider` enum.
+- Relocate assert classes to a new package.
+- Optimize `.gitignore`, `.gitattributes`, `.gitlab-ci.yml`.
+- Add `.idea` settings for copyright and scope.
+- Change license from GNU GPLv3 to Apache 2.0.
+- Optimize CheckStyle-IDEA plugin configuration and IDEA CodeStyle.
+
+### 3.21
+
+- Spring Boot 3.x line.
+- Dependencies:
+  - Upgrade Spring Boot parent from `3.4.4` to `3.4.5`.
+  - Upgrade `testcontainers.version` from `1.17.6` to `1.21.0`.
+  - Upgrade `com.github.codemonstur:embedded-redis` from `0.11.0` to `1.4.3`.
+  - Add `com.redis:testcontainers-redis:2.2.2`.
+  - Override `kafka.version` from `3.8.1` to `3.9.0` to consolidate `junit-platform.properties`.
+  - Clean up unused properties and redundant dependencies.
+- Build:
+  - Add `io.spring.javaformat:spring-javaformat-maven-plugin:0.0.45` to `PluginManagement`.
+  - Move `git-commit-id-maven-plugin` and `versions-maven-plugin` to the root POM.
+  - Optimize profiles `code-review`, `unit-test`, and `aggregate-reports`.
+  - Fix missing `relativePath` entries.
+  - Optimize `radp-smoke-tests-archetype`.
+- Scaffold default `radpVersion` is `3.21`.
 
 ### 2.21
 
-Same as **3.21** in terms of logging refactor, Redis key utilities, testing support, and most chore work unless otherwise noted.
-
-#### Differences
-
-- **Dependencies**
+- Spring Boot 2.x line.
+- Dependencies:
   - Override `kafka.version` from `3.1.2` to `3.9.0`.
   - Remove `maven-antrun-plugin.version`.
-- **Build / Scaffold**
-  - Uses a Spring Boot 2.x parent.
-  - Scaffold default `radpVersion` is `2.21`.
+- Uses Spring Boot 2.x parent and compatible dependency set.
+- Scaffold default `radpVersion` is `2.21`.
 
 ---
 
 ## *.20.2
 
-### 3.20.2
+### Shared changes
 
 #### Fixes
 
 - Fix `BaseException`:
   - Properly set the cause when a `Throwable` is passed as the last vararg parameter.
   - Handle placeholder mismatches when a `Throwable` is passed as a parameter.
-- Add `ErrorCodeLoader.getErrMessage(String errCode)` to retrieve the raw message template without placeholder replacement.
+- Add `ErrorCodeLoader.getErrMessage(String errCode)` to retrieve the raw message template without placeholder substitution.
 - Remove deprecated `ListenableFuture` methods in `TtlThreadPoolTaskExecutor`.
-- Add `serialVersionUID` for better serialization consistency.
-- Use a more appropriate constructor in adaptive extension instantiation.
+- Add `serialVersionUID` to improve serialization stability.
+- Use a more appropriate constructor for adaptive extension instantiation.
 - Simplify instance checks in `ExceptionHandlingAsyncTaskExecutor`.
 - Fix `ExtensionLoader` by replacing deprecated `newInstance` usage.
 - Fix `AccessLogConfiguration` NPE.
 
-#### Chore
-
-##### Parent / Build
+#### Chore — Parent / Build
 
 - Optimize profile `auto-update-local-catalog` by disabling default excludes.
 - Fix profiles `code-review`, `unit-test`, and `integration-test`.
 - Add profile `aggregate-reports`:
   - Integrate SonarQube.
-  - Add `maven-jxr-plugin` for source cross-references.
+  - Add `maven-jxr-plugin` for source cross-reference.
   - Configure `maven-site-plugin` and `project-info-reports-plugin`.
 
-##### Dependencies / Plugins
+#### Chore — Dependencies / Plugins
 
 - Upgrade:
   - `maven-wrapper-plugin.version` from `3.2.0` to `3.3.2`.
@@ -540,17 +495,16 @@ Same as **3.21** in terms of logging refactor, Redis key utilities, testing supp
   - `maven-surefire-plugin` from `3.0.0-M7` to `3.1.2`.
   - `maven-failsafe-plugin` from `3.0.0-M3` to `3.1.2`.
   - `org.jacoco:jacoco-maven-plugin` from `0.8.7` to `0.8.9`.
-- In `DependencyManagement`, add `com.google.code.findbugs:annotations:3.0.1`.
-- In `PluginManagement`, add:
+- Add `com.google.code.findbugs:annotations:3.0.1` to `DependencyManagement`.
+- Add to `PluginManagement`:
   - `maven-jxr-plugin:3.3.0`
   - `maven-project-info-reports-plugin:3.6.2`
   - `maven-site-plugin:3.12.1`
   - `maven-checkstyle-plugin:3.3.1`
   - `archetype-packaging:3.2.0`
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.20.2`.
 - Optimize `.mvn`.
 - Add `.gitattributes`.
 - Add default `ApplicationTests`.
@@ -560,29 +514,29 @@ Same as **3.21** in terms of logging refactor, Redis key utilities, testing supp
 
 - Add Javadoc and resolve Javadoc warnings.
 
+### 3.20.2
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.20.2`.
+
 ### 2.20.2
 
-Same as **3.20.2** in terms of `BaseException`, `ErrorCodeLoader`, and most build/tooling improvements unless otherwise noted.
-
-#### Differences
-
-- Dependencies also add or override:
-  - `maven-resources-plugin.version` from `3.2.0` to `3.3.1`.
+- Spring Boot 2.x line.
+- Additionally overrides `maven-resources-plugin.version` from `3.2.0` to `3.3.1`.
 - Scaffold default `radpVersion` is `2.20.2`.
-- All plugin and dependency versions remain compatible with Spring Boot 2.x.
 
 ---
 
 ## *.19.1
 
-### 3.19.1
+### Shared changes
 
 #### Fixes
 
 - Fix `ErrorCodeLoader`.
 - Fix `BaseException` message formatting with parameters.
-- Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException`, and
-  `ExceptionUtils.thirdServiceException` placeholder handling.
+- Fix `ExceptionUtils.clientException`, `ExceptionUtils.serverException`,
+  and `ExceptionUtils.thirdServiceException` placeholder handling.
 - Fix default value for `PageResult#total`.
 
 #### Documentation
@@ -591,99 +545,90 @@ Same as **3.20.2** in terms of `BaseException`, `ErrorCodeLoader`, and most buil
 
 #### Scaffold
 
-- Update scaffold default `radpVersion` to `3.19.1`.
-- Fix placeholder handling in `XxxAssert` messages.
+- Fix `XxxAssert` message formatting with placeholders.
+
+### 3.19.1
+
+- Scaffold default `radpVersion` is `3.19.1`.
 
 ### 2.19.1
 
-Same as **3.19.1** unless otherwise noted.
-
-#### Differences
-
 - Scaffold default `radpVersion` is `2.19.1`.
-- Dependency versions align with the Spring Boot 2.x line.
 
 ---
 
 ## *.19
 
-### 3.19
+### Shared changes
 
 #### Features
 
 - Optimize custom assertion utilities.
 
-#### Chore
-
-##### Parent
+#### Chore — Parent
 
 - Add profiles `env-sit` and `o-all-env`.
 
-##### Dependencies
+#### Chore — Dependencies
 
 - Upgrade `com.google.cloud.tools:jib-maven-plugin` from `3.4.4` to `3.4.5`.
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.19`.
 - Optimize `build.sh`.
-- Optimize `pom.xml` for `scaffold-xx` `xx-types` and `xx-app` modules.
+- Optimize POMs for `scaffold-xx` `xx-types` and `xx-app` modules.
 - Fix `entrypoint.sh` (`Unrecognized option: --spring.config.additional-location=`).
 - Optimize `application-local.yaml` for exposing env and loggers endpoints.
 - Optimize `dev-ops/docker-compose-app.yaml`.
 
+### 3.19
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.19`.
+
 ### 2.19
 
-Same as **3.19** in terms of assert optimization and scaffold changes unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.19`.
-- Dependencies remain compatible with Spring Boot 2.x.
 
 ---
 
 ## *.18.1
 
-### 3.18.1
+### Shared changes
 
-#### Chore
-
-##### Dependencies
+#### Chore — Dependencies
 
 - Override `liquibase.version` to `4.31.1`.
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.18.1`.
 - Optimize `entrypoint.sh`.
-- Improve Liquibase support:
-  - Fix duplicate initialization caused by filename inconsistencies recognized in changesets.
+- Improve Liquibase integration:
+  - Fix duplicate initialization caused by filename inconsistencies in changesets.
   - Improve the `changelog-init.yaml` example.
   - Improve `migration/20241018` directory structure and multi-environment support.
 
+### 3.18.1
+
+- Scaffold default `radpVersion` is `3.18.1`.
+
 ### 2.18.1
 
-Same as **3.18.1** for Liquibase behavior unless otherwise noted.
-
-#### Differences
-
-- Also override `commons-lang3.version` to `3.17.0`.
+- Additionally override `commons-lang3.version` to `3.17.0`.
 - Scaffold default `radpVersion` is `2.18.1`.
 
 ---
 
 ## *.18
 
-### 3.18
+### Shared changes
 
-#### Chore
-
-##### Dependencies
+#### Chore — Dependencies
 
 - Upgrade `org.sonatype.central:central-publishing-maven-plugin` from `0.6.0` to `0.7.0`.
 
-##### Parent
+#### Chore — Parent
 
 - Add support for publishing snapshots to the Central portal.
 - Add profile `env.uat`.
@@ -691,9 +636,8 @@ Same as **3.18.1** for Liquibase behavior unless otherwise noted.
   - Add properties `auto.layered.enabled` and `auto.assembly.enabled`.
 - In profile `coding`, add property `user.docker.build.namespace`.
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.18`.
 - Optimize `.mvn/settings.xml`:
   - Add profile `repo-central`.
   - In profile `default`, add `setting.docker.build.namespace`.
@@ -710,79 +654,77 @@ Same as **3.18.1** for Liquibase behavior unless otherwise noted.
 - Fix Dockerfile and Spring Boot `entrypoint.sh`.
 - Optimize `.gitlab-ci.yml`.
 
+### 3.18
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.18`.
+
 ### 2.18
 
-Same as **3.18** unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.18`.
-- Dependency versions are aligned with Spring Boot 2.x.
 
 ---
 
 ## *.17
 
-### 3.17
+### Shared changes
 
-#### Chore
+#### Chore — Parent
 
-##### Parent
-
-- Optimize profile `auto-jib`:
-  - Split into `auto-jib-buildTar` and `auto-jib-dockerBuild` to work around `jib:buildTar` not supporting multi-platform builds.
+- Optimize profile `auto-jib` by splitting it into:
+  - `auto-jib-buildTar`
+  - `auto-jib-dockerBuild`
+    to work around `jib:buildTar` not supporting multi-platform builds.
 - Add profiles:
   - `o-release`
   - `o-tar`
   - `publish-harbor`
   - `publish-artifactory`
 
-##### Scaffold
+#### Chore — Scaffold
 
-- Update scaffold default `radpVersion` to `3.17`.
 - Fix `.github/trigger-releases.yml`.
 - Change generated project version from `1.0.0-SNAPSHOT` to `1.0-SNAPSHOT`.
-- Optimize dev-ops `app` configuration.
+- Optimize dev-ops application configuration.
 - Optimize `.mvn/settings.xml`.
+
+### 3.17
+
+- Spring Boot 3.x line.
+- Scaffold default `radpVersion` is `3.17`.
 
 ### 2.17
 
-Same as **3.17** unless otherwise noted.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Scaffold default `radpVersion` is `2.17`.
-- All build and deployment configurations are tuned for the Spring Boot 2.x line.
 
 ---
 
 ## *.16.1
 
-### 3.16.1
+### Shared changes
 
 #### Fixes
 
-- Fix deployment to Artifactory error:
+- Fix deployment to Artifactory:
   - `the parameters 'url' for wagon-maven-plugin are missing or invalid`.
-- Fix GitHub Actions error:
+- Fix GitHub Actions:
   - `Unable to decrypt gpg passphrase`.
 
-#### Chore
-
-##### Parent
+#### Chore — Parent
 
 - Rename profile `auto-archetype-xx` to `auto-upload-catalog-xx`.
 
-##### Scaffold
+#### Chore — Scaffold
 
 - Update `.mvn/settings.xml`.
-- Update scaffold default `radpVersion` to `3.16.1`.
+
+### 3.16.1
+
+- Scaffold default `radpVersion` is `3.16.1`.
 
 ### 2.16.1
-
-Same as **3.16.1** unless otherwise noted.
-
-#### Differences
 
 - Scaffold default `radpVersion` is `2.16.1`.
 
@@ -790,7 +732,7 @@ Same as **3.16.1** unless otherwise noted.
 
 ## *.16
 
-### 3.16
+### Shared changes
 
 #### Features
 
@@ -800,74 +742,68 @@ Same as **3.16.1** unless otherwise noted.
 
 - Fix `logging.pattern.console` not taking effect.
 
-#### Chore
-
-##### Parent
+#### Chore — Parent / Dependencies
 
 - Optimize profile `auto-jib`.
-- Optimize `archetype-catalog.xml` deployment to a self-hosted Artifactory.
-
-##### Dependencies
-
+- Optimize archetype catalog deployment to a self-hosted Artifactory.
 - In `PluginManagement`, add:
   - `maven-resources-plugin`
   - `maven-enforcer-plugin`
-  - `wagon-maven-plugin`
 
-##### Scaffold
+#### Chore — Scaffold
 
 - Remove `JasyptTest` and add a blank JUnit 5 `ApiTest`.
 - Optimize `application.yaml` and add `application-jasypt.yaml`.
-- Update scaffold default `radpVersion` to `3.15.1` (legacy value retained).
 - Update `application-logback.yaml`.
 - Optimize `application.yaml` and add `application-webmvc.yaml`.
-- In `.mvn/settings.xml`, add property `auto.archetype.catalog.artifactory`.
+- In `.mvn/settings.xml`, add `auto.archetype.catalog.artifactory`.
 
-##### Writerside
+#### Writerside
 
 - Update `1.1.1-use_archetype_create_project.md`.
 
+### 3.16
+
+- Spring Boot 3.x line.
+- In addition, `PluginManagement` includes `wagon-maven-plugin`.
+- Scaffold default `radpVersion` is `3.15.1` (legacy baseline value in this branch).
+
 ### 2.16
 
-Same as **3.16** in terms of features and fixes unless otherwise noted.
-
-#### Differences
-
-- In Parent / PluginManagement, this line only adds `maven-resources-plugin` and `maven-enforcer-plugin` (no `wagon-maven-plugin`).
+- Spring Boot 2.x line.
+- `PluginManagement` adds `maven-resources-plugin` and `maven-enforcer-plugin` only.
 - Scaffold default `radpVersion` is `2.16`.
 
 ---
 
 ## *.15.1
 
-### 3.15.1
+### Shared changes
 
 #### Dependencies
 
-- Upgrade `commons-io:commons-io` from `2.13.0` to `2.17.0` to ensure compatibility with `org.apache.tika:tika-core`.
+- Upgrade `commons-io:commons-io` to `2.17.0` to ensure compatibility with `org.apache.tika:tika-core`.
 
 #### Scaffold
 
 - Add dev-ops files:
   - `docker-compose-pgadmin.yaml`
   - `docker-compose-redis-commander.yaml`
-- Update scaffold default `radpVersion` to `3.15.1`.
 - Fix dev-ops configuration in the scaffold.
+
+### 3.15.1
+
+- Scaffold default `radpVersion` is `3.15.1`.
 
 ### 2.15.1
 
-Same as **3.15.1** for dev-ops changes unless otherwise noted.
-
-#### Differences
-
 - Scaffold default `radpVersion` is `2.15.1`.
-- Exact dependency versions follow the 2.x POM set.
 
 ---
 
 ## *.15
 
-### 3.15
+### Shared changes
 
 #### Features
 
@@ -875,17 +811,14 @@ Same as **3.15.1** for dev-ops changes unless otherwise noted.
 
 #### Dependencies
 
-- Upgrade Spring Boot from `3.2.3` to `3.4.4`.
-- Upgrade Spring Cloud from `2023.0.0` to `2024.0.0`.
 - In `DependencyManagement`, add:
   - `central-publishing-maven-plugin:0.6.0`
   - `maven-javadoc-plugin:3.5.0`
-- Keep `space.x9x.radp:radp` using `maven-deploy-plugin` as defined in `radp-dependencies` rather than the one from `spring-boot-dependencies`.
-- Fix `org.apache.dubbo:dubbo-dependencies-zookeeper` in `DependencyManagement`.
-- Change Knife4j starter group from `com.github.xingfudeshi` to `com.github.xiaoming`.
-- Remove redundant plugin version configuration in `radp-parent`.
-- Remove duplicate plugin definitions in `radp-dependencies`.
-- Fix an issue where transitive dependencies caused the Spring Framework version to be downgraded.
+- Keep `space.x9x.radp:radp` using the `maven-deploy-plugin` defined in `radp-dependencies` instead of the one from `spring-boot-dependencies`.
+- Fix `org.apache.dubbo:dubbo-dependencies-zookeeper`.
+- Change Knife4j starter coordinates to `com.github.xiaoming:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`.
+- Remove redundant plugin versions from `radp-parent` and duplicate plugin definitions from `radp-dependencies`.
+- Fix an issue where transitive dependencies downgraded the Spring Framework version.
 
 #### Parent
 
@@ -897,24 +830,27 @@ Same as **3.15.1** for dev-ops changes unless otherwise noted.
 #### Scaffold
 
 - Optimize dev-ops.
-- Fix `application-dev.yaml`.
 - Optimize Docker base image configuration.
-- Update scaffold default `radpVersion` to `3.15`.
+- Fix `application-dev.yaml`.
+
+### 3.15
+
+- Spring Boot 3.x line.
+- Upgrade Spring Boot from `3.2.3` to `3.4.4`.
+- Upgrade Spring Cloud from `2023.0.0` to `2024.0.0`.
+- Scaffold default `radpVersion` is `3.15`.
 
 ### 2.15
 
-Same as **3.15** in terms of features and general dependency management patterns unless otherwise noted.
-
-#### Differences
-
-- Does not upgrade to Spring Boot 3.x / Spring Cloud 2024.x; remains on the Spring Boot 2.x line.
+- Spring Boot 2.x line.
+- Remains on the Spring Boot 2.x line with compatible Spring Cloud versions (no `3.2.3 → 3.4.4` or `2023.0.0 → 2024.0.0`).
 - Scaffold default `radpVersion` is `2.15`.
 
 ---
 
 ## *.14
 
-### 3.14
+### Shared changes
 
 #### Features
 
@@ -929,14 +865,13 @@ Same as **3.15** in terms of features and general dependency management patterns
 
 #### Fixes
 
-- Resolve `AsyncTaskExecutionAutoConfiguration` deprecation issue related to `TaskExecutorBuilder`.
+- Resolve `AsyncTaskExecutionAutoConfiguration` deprecation warning involving `TaskExecutorBuilder`.
 
 #### Dependencies
 
 - Optimize plugin management:
   - Use `radp-dependencies` to manage Maven plugin versions.
   - Use `radp-parent` to manage plugin configuration.
-- Switch Knife4j starter to `com.github.xingfudeshi:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`.
 
 #### Parent
 
@@ -951,20 +886,21 @@ Same as **3.15** in terms of features and general dependency management patterns
 
 - Update Writerside `about.md`.
 
+### 3.14
+
+- Spring Boot 3.x line.
+- Use Knife4j Jakarta starter: `knife4j-openapi3-jakarta-spring-boot-starter:4.1.0`.
+
 ### 2.14
 
-Same as **3.14** with respect to modules and auto-configuration flags unless otherwise noted.
-
-#### Differences
-
-- Dependencies are tuned to Spring Boot 2.x and use the `springdoc-openapi` BOM.
-- Scaffold entries for the 2.x line remain specific to Spring Boot 2.x.
+- Spring Boot 2.x line.
+- Use `springdoc-openapi` BOM and 2.x-compatible `springdoc` / Knife4j coordinates.
 
 ---
 
 ## *.13
 
-### 3.13
+### Shared changes
 
 #### Scaffold
 
@@ -972,25 +908,21 @@ Same as **3.14** with respect to modules and auto-configuration flags unless oth
 - Add properties `docker.build.base_image` and `docker.build.image_tag`.
 - Improve `.gitignore`.
 - Fix `maven-release-plugin` SCM configuration.
-- Change Dockerfile base image from `eclipse-temurin:11-jdk` to `eclipse-temurin:17-jdk`.
 - Optimize `docker-compose-app.yaml`.
 - Adjust Hikari logging configuration in `application-local.yaml` and `application-dev.yaml`.
 - Remove `application-homelab.yaml`.
 - Optimize actuator configuration.
-- Add `project.name` property.
-- Fix issues where assembly JAR profiles activated by CLI did not work.
+- Add `project.name`.
+- Fix assembly JAR profiles activation by CLI.
 - Include `bin/catalina.sh`, `bin/catalina.bat`, `bin/startup.sh`, and `bin/shutdown.sh` in assembly.
 
 #### Dependencies
 
-- Replace `pl.project13.maven:git-commit-id-plugin:4.9.10` with `io.github.git-commit-id:git-commit-id-maven-plugin:6.0.0`.
-- Upgrade `commons-io:commons-io` from `2.7` to `2.13.0`.
-- Upgrade `springdoc-openapi` from `1.6.15` to `2.4.0`.
-- Upgrade `com.baomidou:mybatis-plus-boot-starter:2.5.7` to `com.baomidou:mybatis-plus-spring-boot3-starter:2.5.7`.
-- Use the `springdoc-openapi` BOM.
-- Upgrade Spring Cloud from `2021.0.5` to `2023.0.0`.
-- Upgrade `mybatis-spring-boot` from `2.1.4` to `3.0.4`.
-- Upgrade MyBatis-Plus from `3.5.7` to `3.5.9` and use the MyBatis-Plus BOM.
+- Replace `pl.project13.maven:git-commit-id-plugin` with `io.github.git-commit-id:git-commit-id-maven-plugin`.
+- Upgrade `commons-io:commons-io` to `2.13.0`.
+- Upgrade `springdoc-openapi` to `2.4.0`.
+- Upgrade MyBatis-Plus and `mybatis-spring-boot`, and use the MyBatis-Plus BOM.
+- Upgrade Spring Cloud to a newer compatible release.
 
 #### Features
 
@@ -1003,30 +935,38 @@ Same as **3.14** with respect to modules and auto-configuration flags unless oth
 #### Fixes
 
 - Fix missing `PaginationInnerInterceptor` by explicitly declaring `mybatis-plus-jsqlparser`.
-- Fix GitLab CI/CD after upgrading to Spring Boot 3 (JDK 17).
-- Fix GitHub Actions after upgrading to Spring Boot 3 (JDK 17).
+- Fix CI/CD pipelines after upgrading the stack.
 - Fix `ResponseBuilder` bug in `radp-spring-framework`.
 - Fix internal SPI registration under `META-INF`.
 - Fix `ApplicationContextHelper#getBean`.
 - Fix `RestExceptionHandler`.
 
+### 3.13
+
+- Spring Boot 3.x line (JDK 17 baseline).
+- Dockerfile base image: `eclipse-temurin:17-jdk`.
+
 ### 2.13
 
-Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExceptionHandler`, etc.) but implemented on Spring Boot 2.x.
-
-#### Differences
-
+- Spring Boot 2.x line.
 - Uses `spring-boot-parent` `2.7.18`.
-- Spring Cloud, SpringDoc, and MyBatis versions follow the Spring Boot 2.x compatibility matrix.
-- Docker base image and other scaffold details are tuned for JDK 8/11-era 2.x projects.
+- Uses 2.x compatible versions of Spring Cloud, SpringDoc, and MyBatis.
+- Dockerfile base image and scaffold details are tuned for 2.x / JDK 8–11 setups.
 
 ---
 
 ## *.12
 
+### Shared changes
+
+- Introduce a dual-line strategy:
+  - `future` branch for **JDK 17 + Spring Boot 3.x**.
+  - Existing 2.x line maintained for stability.
+
 ### 3.12
 
-- Move mainline development to **JDK 17 + Spring Boot 3.x**:
+- Start of the Spring Boot 3.x line:
+  - JDK 17 baseline.
   - Add `arm64` support for `netty-resolver-dns-native-macos`.
   - Switch from `javax.validation:validation-api` to `jakarta.validation:jakarta.validation-api`.
   - Switch from `javax.servlet.*` to `jakarta.servlet.*`.
@@ -1034,7 +974,8 @@ Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExcept
 
 ### 2.12
 
-- Introduce the `future` branch for JDK 17 + Spring Boot 3.x development, while 2.12 itself remains on the Spring Boot 2.x line and serves as a transition point.
+- Last Spring Boot 2.x minor before the 3.x transition.
+- Introduces the `future` branch while keeping core functionality on the 2.x stack.
 
 ---
 
@@ -1045,13 +986,13 @@ Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExcept
 
 ## 0.10
 
-- Fix GitHub Action Maven cache not working.
+- Fix GitHub Actions Maven cache not working.
 - Change default JDK from `java 8.0.432+6-tem` to `java 8.0.442+6-amzn` to support arm64.
 - Update archetype `application-dev.yaml`.
 
 ## 0.9
 
-- Optimize GitHub Action Maven cache configuration.
+- Optimize GitHub Actions Maven cache configuration.
 - Optimize `auto-assembly` profile.
 
 ## 0.8
@@ -1059,7 +1000,7 @@ Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExcept
 - Update archetype structure.
 - Optimize GitHub Actions workflows.
 - Add `rapd-design-pattern-framework`:
-  - Provide abstractions for design pattern usage to reduce complexity and standardize style.
+  - Provide abstractions for common design patterns to reduce usage complexity and standardize style.
   - Include a decision-tree pattern abstraction.
 - Archetype:
   - Optimize assembly.
@@ -1068,7 +1009,7 @@ Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExcept
 ## 0.7
 
 - Add support for publishing GitLab Pages via GitLab CI/CD.
-- Optimize GitLab CI pipeline by using remote templates.
+- Optimize the GitLab CI pipeline by using remote templates.
 - Update archetype, `.mvn`, and `.github` Actions.
 
 ## 0.6
@@ -1100,7 +1041,7 @@ Same as **3.13** conceptually (e.g. `MultiResult`, logging template, `RestExcept
 
 ## 0.1.3
 
-- Support publishing artifacts to Central, GitHub Packages, and a self-hosted Artifactory.
+- Support publishing artifacts to Maven Central, GitHub Packages, and a self-hosted Artifactory.
 - Use GitHub Actions to build and publish GitHub Pages.
 - Add a DDD scaffold.
 - Add core common components.

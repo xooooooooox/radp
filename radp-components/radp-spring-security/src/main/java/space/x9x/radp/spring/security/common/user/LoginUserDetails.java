@@ -39,6 +39,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class LoginUserDetails implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Login username.
 	 */

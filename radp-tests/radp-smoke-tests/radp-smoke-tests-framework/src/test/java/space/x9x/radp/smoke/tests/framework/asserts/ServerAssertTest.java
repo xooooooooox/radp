@@ -40,7 +40,7 @@ class ServerAssertTest {
 
 	private static final String ERROR_CODE = "TEST_0001";
 
-	private static final String EXPECTED_MESSAGE = "HELLO 123";
+	private static final String EXPECTED_MESSAGE = "hello 123";
 
 	private static final Object[] PLACEHOLDERS = { 123 };
 

@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
@@ -45,6 +46,7 @@ class RedissonServiceSmokeTest {
 
 	private static final String TEST_VALUE = "test-value";
 
+	@Container
 	private static final RedisContainer redisContainer = new RedisContainer(DockerImageName.parse("redis:6.2.6"));
 
 	private RedissonClient redissonClient;

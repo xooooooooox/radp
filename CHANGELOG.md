@@ -60,6 +60,7 @@
   - Upgrade `spring-boot.version` from `3.4.5` to `3.5.8`
   - Remove `org.springframework.kafka:spring-kafka` and let it be managed by the Spring Boot BOM.
   - Reorder dependencies so that all BOMs are grouped at the top.
+  - Remove property`netty.version`.
 - Scaffold:  
   - Default `radpVersion` is `3.27`.
   - `xxx-type` layer uses `swagger-annotations-jakarta`.

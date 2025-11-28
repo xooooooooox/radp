@@ -16,6 +16,7 @@
 
 package space.x9x.radp.spring.security.common.user;
 
+import java.io.Serial;
 import java.util.Collection;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class LoginUserDetails implements UserDetails {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

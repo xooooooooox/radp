@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>space.x9x.radp</groupId>
@@ -13,23 +15,30 @@
 	<description>统一依赖管理</description>
 
 	<properties>
+		<!-- ============================================[Spring]=================================================== -->
+		<!-- compatibility matrix  https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases -->
 		<!-- [Spring] -->
 		<spring-boot.version>3.5.8</spring-boot.version>
 		<spring-cloud.version>2024.0.2</spring-cloud.version>
 		<!-- ============================================[Spring]=================================================== -->
 
+		<!-- ============================================[效率组件]=================================================== -->
 		<!-- [效率组件] -->
 		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.6.2</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
 		<arthas.version>3.6.7</arthas.version>
 		<common-beanutils.version>1.9.4</common-beanutils.version>
+		<!-- ============================================[效率组件]=================================================== -->
 
+		<!-- ============================================[接口文档组件]=============================================== -->
 		<!-- [接口文档组件] -->
 		<knife4j.version>4.1.0</knife4j.version>
 		<springdoc.version>2.8.6</springdoc.version>
 		<swagger-api.version>2.2.29</swagger-api.version> <!-- 这个版本号建议与 springdoc.version 里面的定义保持一致 -->
+		<!-- ============================================[接口文档组件]=============================================== -->
 
+		<!-- ============================================[关系型数据库]=============================================== -->
 		<!-- [关系型数据库] -->
 		<mybatis.version>3.5.16</mybatis.version>
 		<mybatis-spring.version>3.0.4</mybatis-spring.version>
@@ -39,51 +48,73 @@
 		<druid.version>1.2.16</druid.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
 		<dynamic-datasource-spring-boot3-starter>4.3.1</dynamic-datasource-spring-boot3-starter>
+		<!-- ============================================[关系型数据库]=============================================== -->
 
+		<!-- ============================================[NoSQL]==================================================== -->
 		<!-- [NoSQL] -->
 		<mongobee.version>0.13</mongobee.version>
 		<neo4j.version>2.0.6</neo4j.version>
 		<influxdb.version>6.4.0</influxdb.version>
+		<!-- ============================================[NoSQL]==================================================== -->
 
+		<!-- ============================================[搜索引擎]================================================== -->
 		<!-- [搜索引擎] -->
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
 		</spring-boot-starter-data-elasticsearch.version>
 		<t-digest.version>3.2</t-digest.version>
 		<jopt-simple.version>5.0.4</jopt-simple.version>
+		<!-- ============================================[搜索引擎]================================================== -->
 
+		<!-- ============================================[缓存组件]================================================== -->
 		<!-- [缓存组件] -->
 		<ehcache.version>2.10.4</ehcache.version>
 		<redisson.version>3.32.0</redisson.version>
 		<caffeine.version>2.9.3</caffeine.version>
 		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
+		<!-- ============================================[缓存组件]=================================================== -->
 
+		<!-- ============================================[消息队列]=================================================== -->
 		<!-- [消息队列] -->
 		<rocketmq-spring-boot.version>2.3.1</rocketmq-spring-boot.version>
 		<kafka.version>3.9.0</kafka.version>
+		<!-- ============================================[消息队列]=================================================== -->
 
+		<!-- ============================================[分布式组件]================================================= -->
 		<!-- [分布式组件] -->
 		<apache.dubbo.version>3.2.14</apache.dubbo.version>
 		<protostuff.version>1.3.0</protostuff.version>
 		<zookeeper.version>3.8.4</zookeeper.version>
 		<xxl-job.version>2.4.0</xxl-job.version>
+		<!-- ============================================[分布式组件]================================================= -->
 
+		<!-- ============================================[授权认证组件]=============================================== -->
 		<!-- [授权认证组件] -->
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<jjwt.version>0.11.2</jjwt.version>
 		<shiro.version>1.12.0</shiro.version>
+		<!-- ============================================[授权认证组件]=============================================== -->
 
+		<!-- ============================================[云原生组件]================================================= -->
 		<!-- [云原生组件] -->
 		<docker-java.version>3.2.14</docker-java.version>
+		<!-- ============================================[云原生组件]================================================= -->
 
+		<!-- ============================================[通讯组件]=================================================== -->
 		<!-- [通讯组件] -->
-		<netty.version>4.1.105.Final
-		</netty.version> <!-- 解决 DNS TCP fallback on UDP query timeout disabled. Upgrade Netty to 4.1.105 or higher. -->
+		<netty.version>4.1.105.Final</netty.version>
+		<!-- 解决 DNS TCP fallback on UDP query timeout disabled. Upgrade Netty to 4.1.105 or higher. -->
+		<!-- ============================================[通讯组件]=================================================== -->
 
+		<!-- ============================================[监控组件]=================================================== -->
 		<!-- [监控组件] -->
 		<!--        <micrometer.version>1.9.1</micrometer.version>-->
+		<!-- ============================================[监控组件]=================================================== -->
 
+		<!-- ============================================[链路组件]================================================== -->
 		<!-- TODO: [链路组件] -->
+		<!-- ============================================[链路组件]================================================== -->
 
+		<!-- ============================================[工具集]==================================================== -->
 		<!-- [工具集] -->
 		<spring-shell.version>2.1.13</spring-shell.version>
 		<jasypt.version>3.0.5</jasypt.version>
@@ -103,7 +134,9 @@
 		<bouncycastle.version>1.81</bouncycastle.version>
 		<passay.version>1.6.6</passay.version>
 		<fastexcel.version>1.3.0</fastexcel.version>
+		<!-- ============================================[工具集]=================================================== -->
 
+		<!-- ============================================[测试组件==================== -->
 		<!-- [测试组件] -->
 		<spock.version>2.3-groovy-4.0</spock.version>
 		<cucumber.version>3.0.2</cucumber.version>
@@ -113,15 +146,19 @@
 		<testcontainers.version>1.21.0</testcontainers.version>
 		<testcontainers-redis.version>2.2.2</testcontainers-redis.version>
 		<embedded-redis.version>1.4.3</embedded-redis.version>
-		<!-- ============================================================================== -->
+		<!-- ============================================[测试组件]=================================================== -->
 
-
-		<!-- ============================================================================== -->
+		<!-- ============================================[Maven 与构建插件]=========================================== -->
+		<!-- Spring Boot 插件 -->
 		<spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
+
+		<!-- 打包相关插件 -->
 		<maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
 		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
 		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
 		<maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+
+		<!-- 安装 / 部署插件 -->
 		<!-- 安装到本地制品库-->
 		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
 		<!-- 部署到远程制品库 -->
@@ -130,14 +167,19 @@
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
-		<!-- 发布版本 -->
+
+		<!-- 发布版本管理 -->
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
 		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+
 		<!-- 代码质量 -->
 		<sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+
+		<!-- 测试相关插件 -->
 		<!-- 单元测试 -->
 		<junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
 		<!-- 集成测试 -->
@@ -145,36 +187,44 @@
 		<redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
 		<!-- 性能测试 -->
 		<gatling-maven-plugin.version>4.6.0</gatling-maven-plugin.version>
+
 		<!-- 版本控制 -->
 		<maven-scm-plugin.version>2.0.0-M3</maven-scm-plugin.version>
 		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
+
 		<!-- 项目脚手架 -->
 		<archetype-packaging.version>3.2.0</archetype-packaging.version>
 		<maven-archetype-plugin.version>3.3.1</maven-archetype-plugin.version>
-		<!-- Docker 部署 -->
+
+		<!-- Docker / 镜像部署 -->
 		<jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
 		<dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
-		<!-- J2EE 部署 -->
+
+		<!-- J2EE 容器部署 -->
 		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
+
 		<!-- 数据库迁移工具 -->
 		<liquibase.version>4.31.1</liquibase.version>
 		<liquibase-maven-plugin.version>${liquibase.version}</liquibase-maven-plugin.version>
 		<flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
-		<!-- OpenAPI 生成工具 -->
+
+		<!-- OpenAPI / 文档生成工具 -->
 		<openapi-generator-maven-plugin.version>5.2.1</openapi-generator-maven-plugin.version>
-		<!-- OpenAPI 文档生成工具 -->
 		<asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
 		<asciidoctorj-diagram.version>1.5.18</asciidoctorj-diagram.version>
 		<asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
 		<swagger2markup-maven-plugin.version>1.3.7</swagger2markup-maven-plugin.version>
 		<swagger2markup-extensions.version>1.3.3</swagger2markup-extensions.version>
+
 		<!-- 属性解析工具 -->
 		<os-maven-plugin.version>1.6.2</os-maven-plugin.version>
 		<yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
 		<properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
+
 		<!-- 其他编程语言 -->
 		<gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
-		<!-- 其它 -->
+
+		<!-- 其它构建插件 -->
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
 		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
@@ -184,11 +234,12 @@
 		<maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
 		<maven-site-plugin.version>3.12.1</maven-site-plugin.version>
 		<maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
+		<!-- ============================================[Maven 与构建插件]=========================================== -->
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- ====================[radp==================== -->
+			<!-- ============================================[radp]================================================= -->
 			<!-- radp 基础组件 -->
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
@@ -247,7 +298,6 @@
 				<artifactId>radp-decision-tree-pattern</artifactId>
 				<version>3.27-SNAPSHOT</version>
 			</dependency>
-
 
 			<!-- radp solutions -->
 			<dependency>
@@ -330,10 +380,10 @@
 
 			<!-- TODO: radp-xx-spring-cloud-starters -->
 
-			<!-- ====================radp]==================== -->
+			<!-- ============================================[radp]================================================== -->
 
 
-			<!-- ====================[效率工具==================== -->
+			<!-- ============================================[效率工具]============================================== -->
 			<!-- MapStruct：用于简化 Java Bean 之间映射的工具 -->
 			<dependency>
 				<groupId>org.mapstruct</groupId>
@@ -362,9 +412,9 @@
 				<artifactId>commons-beanutils</artifactId>
 				<version>${common-beanutils.version}</version>
 			</dependency>
-			<!-- ====================效率工具]==================== -->
+			<!-- ============================================[效率工具]============================================== -->
 
-			<!-- ====================[接口文档组件==================== -->
+			<!-- ============================================[接口文档组件]=========================================== -->
 			<!-- Knife4j OpenAPI3：增强版的 Swagger UI，用于 API 文档展示 -->
 			<dependency>
 				<groupId>com.github.xiaoymin</groupId>
@@ -384,10 +434,10 @@
 				<artifactId>swagger-annotations-jakarta</artifactId> <!-- 如果是 SpringBoot2 则使用 swagger-annotations -->
 				<version>${swagger-api.version}</version>
 			</dependency>
-			<!-- ====================接口文档组件]==================== -->
+			<!-- ============================================[接口文档组件]=========================================== -->
 
-			<!-- ====================[关系型数据库==================== -->
-			<!-- MyBatis -->
+			<!-- ============================================[关系型数据库]=========================================== -->
+			<!-- MyBatis Core -->
 			<dependency>
 				<groupId>org.mybatis</groupId>
 				<artifactId>mybatis</artifactId>
@@ -398,12 +448,15 @@
 				<artifactId>mybatis-spring</artifactId>
 				<version>${mybatis-spring.version}</version>
 			</dependency>
+
+			<!-- MyBatis Spring Boot Starter -->
 			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>
 				<artifactId>mybatis-spring-boot-starter</artifactId>
 				<version>${mybatis-spring-boot.version}</version>
 			</dependency>
-			<!-- mybatis-plus -->
+
+			<!-- MyBatis-Plus -->
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus</artifactId>
@@ -416,13 +469,14 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- MyBatis-Plus Join：支持复杂关联查询的扩展 -->
+			<!-- MyBatis-Plus Join -->
 			<dependency>
 				<groupId>com.github.yulichang</groupId>
 				<artifactId>mybatis-plus-join-boot-starter</artifactId>
 				<version>${mybatis-plus-join-boot-starter.version}</version>
 			</dependency>
-			<!-- Druid -->
+
+			<!-- DataSource: Druid -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid</artifactId>
@@ -433,27 +487,29 @@
 				<artifactId>druid-spring-boot-starter</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
-			<!-- PageHelper：MyBatis 的分页插件 -->
+
+			<!-- Paging -->
 			<dependency>
 				<groupId>com.github.pagehelper</groupId>
 				<artifactId>pagehelper</artifactId>
 				<version>${pagehelper.version}</version>
 			</dependency>
-			<!-- dynamic datasource -->
+
+			<!-- Dynamic DataSource -->
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
 				<version>${dynamic-datasource-spring-boot3-starter}</version>
 			</dependency>
-			<!-- ====================关系型数据库]==================== -->
+			<!-- ============================================[关系型数据库]=========================================== -->
 
-			<!-- ====================[NoSQL==================== -->
-			<!-- ====================NoSQL]==================== -->
+			<!-- ============================================[NoSQL]================================================ -->
+			<!-- ============================================[NoSQL]================================================ -->
 
-			<!-- TODO: ====================[搜索引擎==================== -->
-			<!-- TODO: ====================搜索引擎]==================== -->
+			<!-- TODO: ============================================[搜索引擎]======================================== -->
+			<!-- TODO: ============================================[搜索引擎]======================================== -->
 
-			<!-- ====================[缓存==================== -->
+			<!-- ============================================[缓存]================================================== -->
 			<!-- Redisson Spring Boot Starter：基于 Redis 的分布式 Java 库 -->
 			<dependency>
 				<groupId>org.redisson</groupId>
@@ -465,9 +521,9 @@
 				<artifactId>redisson-spring-data-27</artifactId>
 				<version>${redisson.version}</version>
 			</dependency>
-			<!-- ====================缓存]==================== -->
+			<!-- ============================================[缓存]================================================== -->
 
-			<!-- ====================[消息队列==================== -->
+			<!-- ============================================[消息队列]============================================== -->
 			<!-- kafka -->
 			<dependency>
 				<groupId>org.springframework.kafka</groupId>
@@ -480,10 +536,9 @@
 				<artifactId>rocketmq-spring-boot-starter</artifactId>
 				<version>${rocketmq-spring-boot.version}</version>
 			</dependency>
-			<!-- ====================消息队列]==================== -->
+			<!-- ============================================[消息队列]============================================== -->
 
-
-			<!-- ====================[分布式组件==================== -->
+			<!-- ============================================[分布式组件]============================================= -->
 			<!-- Apache Dubbo -->
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
@@ -509,8 +564,7 @@
 					</exclusion>
 					<exclusion>
 						<groupId>log4j</groupId>
-						<artifactId>log4j
-						</artifactId> <!-- fix appender error -->
+						<artifactId>log4j</artifactId> <!-- fix appender error -->
 					</exclusion>
 				</exclusions>
 			</dependency>
@@ -543,9 +597,9 @@
 				<artifactId>xxl-job-core</artifactId>
 				<version>${xxl-job.version}</version>
 			</dependency>
-			<!-- ====================分布式组件]==================== -->
+			<!-- ============================================[分布式组件]============================================= -->
 
-			<!-- ====================[授权认证组件==================== -->
+			<!-- ============================================[授权认证组件]=========================================== -->
 			<!-- shiro -->
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
@@ -578,15 +632,15 @@
 				<artifactId>spring-security-jwt</artifactId>
 				<version>${spring-security-jwt.version}</version>
 			</dependency>
-			<!-- ====================授权认证组件]==================== -->
+			<!-- ============================================[授权认证组件]=========================================== -->
 
-			<!-- TODO: ====================[监控==================== -->
-			<!-- TODO: ====================监控]==================== -->
+			<!-- TODO: ============================================[监控]============================================ -->
+			<!-- TODO: ============================================[监控]============================================ -->
 
-			<!-- TODO: ====================[链路组件==================== -->
-			<!-- TODO: ====================链路组件]==================== -->
+			<!-- TODO: ============================================[链路组件]========================================= -->
+			<!-- TODO: ============================================[链路组件]========================================= -->
 
-			<!-- ====================[工具集==================== -->
+			<!-- ============================================[工具集]================================================ -->
 			<!-- Spring Shell Starter：用于构建交互式命令行应用的工具 -->
 			<dependency>
 				<groupId>org.springframework.shell</groupId>
@@ -707,9 +761,9 @@
 				<artifactId>fastexcel</artifactId>
 				<version>${fastexcel.version}</version>
 			</dependency>
-			<!-- ====================工具集]==================== -->
+			<!-- ============================================[工具集]================================================ -->
 
-			<!-- ====================[测试组件==================== -->
+			<!-- ============================================[测试组件]============================================== -->
 			<!-- Spock测试框架依赖(java,groovy) -->
 			<dependency>
 				<groupId>org.spockframework</groupId>
@@ -799,15 +853,15 @@
 		<pluginManagement>
 			<!-- 相同的 phase 按引入顺序执行 -->
 			<plugins>
-				<!-- ====================[清理==================== -->
+				<!-- ============================================[清理]============================================== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>${maven-clean-plugin.version}</version>
 				</plugin>
-				<!-- ====================清理]==================== -->
+				<!-- ============================================[清理]============================================== -->
 
-				<!-- ====================[编译==================== -->
+				<!-- ============================================[编译]============================================== -->
 				<!-- maven-compiler-plugin 插件，解决 spring-boot-configuration-processor + Lombok + MapStruct 组合 -->
 				<!-- https://stackoverflow.com/questions/33483697/re-run-spring-boot-configuration-annotation-processor-to-update-generated-metada -->
 				<plugin>
@@ -815,9 +869,9 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
 				</plugin>
-				<!-- ====================编译]==================== -->
+				<!-- ============================================[编译]============================================== -->
 
-				<!-- ====================[资源管理==================== -->
+				<!-- ============================================[资源管理]=========================================== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
@@ -833,9 +887,9 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven-resources-plugin.version}</version>
 				</plugin>
-				<!-- ====================资源管理]==================== -->
+				<!-- ============================================[资源管理]=========================================== -->
 
-				<!-- ====================[打包成可执行程序==================== -->
+				<!-- ============================================[打包成可执行程序]==================================== -->
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
@@ -866,9 +920,9 @@
 					<artifactId>maven-shade-plugin</artifactId>
 					<version>${maven-shade-plugin.version}</version>
 				</plugin>
-				<!-- ====================打包成可执行程序]==================== -->
+				<!-- ============================================[打包成可执行程序]==================================== -->
 
-				<!-- ====================[部署仓库==================== -->
+				<!-- ============================================[部署仓库]========================================== -->
 				<!-- 部署到本地制品库 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -919,9 +973,9 @@
 					<artifactId>cargo-maven2-plugin</artifactId>
 					<version>${cargo-maven2-plugin.version}</version>
 				</plugin>
-				<!-- ====================部署仓库]==================== -->
+				<!-- ============================================[部署仓库]========================================== -->
 
-				<!-- ====================[发布版本==================== -->
+				<!-- ============================================[发布版本]========================================== -->
 				<!-- 该插件需要结合 scm 使用 -->
 				<!-- 1. mvn release:prepare -B -->
 				<!-- 0) 这里的 -B 表示 batch mode, 无交互式运行 -->
@@ -940,17 +994,17 @@
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>${versions-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================发布版本]==================== -->
+				<!-- ============================================[发布版本]========================================== -->
 
-				<!-- ====================[代码覆盖率==================== -->
+				<!-- ============================================[代码覆盖率]========================================= -->
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
 					<version>${jacoco-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================代码覆盖率]==================== -->
+				<!-- ============================================[代码覆盖率]========================================= -->
 
-				<!-- ====================[代码质量==================== -->
+				<!-- ============================================[代码质量]========================================== -->
 				<plugin>
 					<groupId>org.sonarsource.scanner.maven</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
@@ -968,9 +1022,9 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-				<!-- ====================代码质量]==================== -->
+				<!-- ============================================[代码质量]=========================================== -->
 
-				<!-- ====================[单元测试==================== -->
+				<!-- ============================================[单元测试]=========================================== -->
 				<!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
 				<!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
 				<plugin>
@@ -998,9 +1052,9 @@
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>${maven-project-info-reports-plugin.version}</version>
 				</plugin>
-				<!-- ====================单元测试]==================== -->
+				<!-- ============================================[单元测试]========================================== -->
 
-				<!-- ====================[集成测试==================== -->
+				<!-- ============================================[集成测试]========================================== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
@@ -1011,17 +1065,17 @@
 					<artifactId>redis-maven-plugin</artifactId>
 					<version>${redis-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================集成测试]==================== -->
+				<!-- ============================================[集成测试]========================================== -->
 
-				<!-- ====================[性能测试==================== -->
+				<!-- ============================================[性能测试]========================================== -->
 				<plugin>
 					<groupId>io.gatling</groupId>
 					<artifactId>gatling-maven-plugin</artifactId>
 					<version>${gatling-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================性能测试]==================== -->
+				<!-- ============================================[性能测试]========================================== -->
 
-				<!-- ====================[版本控制==================== -->
+				<!-- ============================================[版本控制]========================================== -->
 				<!-- 版本管理 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -1040,17 +1094,17 @@
 					<artifactId>git-changelog-maven-plugin</artifactId>
 					<version>${git-changelog-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================版本控制]==================== -->
+				<!-- ============================================[版本控制]========================================== -->
 
-				<!-- ====================[项目脚手架==================== -->
+				<!-- ============================================[项目脚手架]======================================== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-archetype-plugin</artifactId>
 					<version>${maven-archetype-plugin.version}</version>
 				</plugin>
-				<!-- ====================项目脚手架]==================== -->
+				<!-- ============================================[项目脚手架]========================================= -->
 
-				<!-- ====================[数据库迁移工具==================== -->
+				<!-- ============================================[数据库迁移工具]===================================== -->
 				<plugin>
 					<groupId>org.flywaydb</groupId>
 					<artifactId>flyway-maven-plugin</artifactId>
@@ -1061,17 +1115,17 @@
 					<artifactId>liquibase-maven-plugin</artifactId>
 					<version>${liquibase-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================数据库迁移工具]==================== -->
+				<!-- ============================================[数据库迁移工具]===================================== -->
 
-				<!-- ====================[OpenAPI 生成工具==================== -->
+				<!-- ============================================[OpenAPI 生成工具]================================== -->
 				<plugin>
 					<groupId>org.openapitools</groupId>
 					<artifactId>openapi-generator-maven-plugin</artifactId>
 					<version>${openapi-generator-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================OpenAPI 生成工具]==================== -->
+				<!-- ============================================[OpenAPI 生成工具]================================== -->
 
-				<!-- ====================[属性解析工具==================== -->
+				<!-- ============================================[属性解析工具]======================================== -->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>properties-maven-plugin</artifactId>
@@ -1082,17 +1136,17 @@
 					<artifactId>yaml-properties-maven-plugin</artifactId>
 					<version>${yaml-properties-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================属性解析工具]==================== -->
+				<!-- ============================================[属性解析工具]======================================= -->
 
-				<!-- ====================[其他编程语言==================== -->
+				<!-- ============================================[其他编程语言]======================================= -->
 				<plugin>
 					<groupId>org.codehaus.gmavenplus</groupId>
 					<artifactId>gmavenplus-plugin</artifactId>
 					<version>${gmavenplus-plugin.version}</version>
 				</plugin>
-				<!-- ====================其他编程语言]==================== -->
+				<!-- ============================================[其他编程语言]======================================= -->
 
-				<!-- ====================[其它==================== -->
+				<!-- ============================================[其它]============================================== -->
 				<!-- 解决多模块 revision 版本替换问题 -->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -1119,7 +1173,7 @@
 					<artifactId>wagon-maven-plugin</artifactId>
 					<version>${wagon-maven-plugin.version}</version>
 				</plugin>
-				<!-- ====================其它]==================== -->
+				<!-- ============================================[其它]============================================== -->
 			</plugins>
 		</pluginManagement>
 	</build>

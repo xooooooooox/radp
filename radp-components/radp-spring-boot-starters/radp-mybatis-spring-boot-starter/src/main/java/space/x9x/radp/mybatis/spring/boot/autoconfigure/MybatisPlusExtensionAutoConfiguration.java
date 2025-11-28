@@ -90,6 +90,7 @@ public class MybatisPlusExtensionAutoConfiguration {
 	 * the box. Users can define their own {@code AutoFillStrategy} beans to
 	 * extend/replace this behavior; the delegating handler will pick the first strategy
 	 * that supports the current entity.
+	 * @param loginUserResolver resolver to get the current user
 	 * @return default BasePO strategy
 	 */
 	@ConditionalOnMissingBean(BasePOAutoFillStrategy.class)

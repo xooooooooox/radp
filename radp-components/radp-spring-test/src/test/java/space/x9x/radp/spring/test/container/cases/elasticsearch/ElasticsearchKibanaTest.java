@@ -22,6 +22,7 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -73,6 +74,8 @@ class ElasticsearchKibanaTest {
 
 		// 索引数据
 		IndexRequest indexRequest = new IndexRequest("logs").source(Map.of("message", "Test log", "level", "INFO"));
+		// 立即刷新使文档对后续搜索可见（避免 NRT 可见性延迟导致的 0 结果）
+		indexRequest.setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
 		client.index(indexRequest, RequestOptions.DEFAULT);
 
 		// 搜索数据

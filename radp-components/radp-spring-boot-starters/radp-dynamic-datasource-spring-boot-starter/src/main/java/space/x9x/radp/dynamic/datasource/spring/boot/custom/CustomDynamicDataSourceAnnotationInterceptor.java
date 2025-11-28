@@ -52,6 +52,13 @@ public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSou
 	 */
 	private final DsProcessor dsProcessor;
 
+	/**
+	 * Create a new interceptor that resolves {@link DS} annotations and dynamic data
+	 * source keys (starting with {@link #DYNAMIC_PREFIX}) using the given
+	 * {@link DsProcessor}.
+	 * @param allowedPublicOnly whether only public methods should be intercepted
+	 * @param dsProcessor processor used to resolve dynamic data source keys
+	 */
 	public CustomDynamicDataSourceAnnotationInterceptor(Boolean allowedPublicOnly, DsProcessor dsProcessor) {
 		super(allowedPublicOnly, dsProcessor);
 		this.dataSourceClassResolver = new DataSourceClassResolver(allowedPublicOnly);

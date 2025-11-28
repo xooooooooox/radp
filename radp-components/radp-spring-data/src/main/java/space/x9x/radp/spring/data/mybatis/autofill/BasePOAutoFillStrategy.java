@@ -39,6 +39,11 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 
 	private final LoginUserResolver loginUserResolver;
 
+	/**
+	 * Creates the default auto-fill strategy for {@link BasePO}-based entities.
+	 * @param loginUserResolver resolver used to obtain the current login user id; may be
+	 * null
+	 */
 	public BasePOAutoFillStrategy(LoginUserResolver loginUserResolver) {
 		super(BasePO.class);
 		this.loginUserResolver = loginUserResolver;

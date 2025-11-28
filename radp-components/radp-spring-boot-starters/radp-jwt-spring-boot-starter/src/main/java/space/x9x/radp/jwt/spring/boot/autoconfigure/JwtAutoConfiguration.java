@@ -61,6 +61,12 @@ public class JwtAutoConfiguration {
 
 	private final JwtProperties jwtProperties;
 
+	/**
+	 * Exposes the application {@link AuthenticationManager}.
+	 * @param authenticationConfiguration spring Security authentication configuration
+	 * @return the {@link AuthenticationManager} bean
+	 * @throws Exception if the authentication manager cannot be obtained
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
@@ -68,6 +74,12 @@ public class JwtAutoConfiguration {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
+	/**
+	 * Creates a {@link JwtTokenProvider} configured from {@link JwtProperties}.
+	 * @param jwtTokenStore token store used to persist/validate JWTs (optional
+	 * implementation)
+	 * @return configured {@link JwtTokenProvider}
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public JwtTokenProvider jwtTokenProvider(JwtTokenStore jwtTokenStore) {
@@ -85,6 +97,12 @@ public class JwtAutoConfiguration {
 		return new JwtTokenProvider(jwtConfig, jwtTokenStore);
 	}
 
+	/**
+	 * Creates the {@link JwtTokenService} for issuing and validating tokens.
+	 * @param authenticationManager authentication manager used during authentication
+	 * @param jwtTokenProvider provider for creating and parsing JWTs
+	 * @return {@link JwtTokenService} bean
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public JwtTokenService jwtTokenService(AuthenticationManager authenticationManager,
@@ -94,30 +112,53 @@ public class JwtAutoConfiguration {
 
 	// ========== Web-related beans (no SecurityFilterChain) ==========
 
+	/**
+	 * Provides a delegating {@link PasswordEncoder} supporting multiple encoders.
+	 * @return delegating password encoder
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
+	/**
+	 * Handler for 401 Unauthorized responses.
+	 * @return {@link UnauthorizedEntryPoint} bean
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public UnauthorizedEntryPoint unauthorizedEntryPoint() {
 		return new UnauthorizedEntryPoint();
 	}
 
+	/**
+	 * Handler for 403 Forbidden responses.
+	 * @return {@link ForbiddenAccessDeniedHandler} bean
+	 */
 	@ConditionalOnMissingBean
 	@Bean
 	public ForbiddenAccessDeniedHandler forbiddenAccessDeniedHandler() {
 		return new ForbiddenAccessDeniedHandler();
 	}
 
+	/**
+	 * Provides a default {@link PathMatcher} based on Ant-style patterns.
+	 * @return path matcher bean
+	 */
 	@ConditionalOnMissingBean(PathMatcher.class)
 	@Bean
 	public PathMatcher pathMatcher() {
 		return new AntPathMatcher();
 	}
 
+	/**
+	 * Registers the default {@link JwtAuthorizationFilter}.
+	 * @param authenticationManager authentication manager used by the filter
+	 * @param jwtTokenProvider provider to validate and parse JWT tokens
+	 * @param pathMatcher matcher for anonymous URL patterns
+	 * @return {@link JwtAuthorizationFilter} bean
+	 */
 	@ConditionalOnMissingBean(JwtAuthorizationFilter.class)
 	@ConditionalOnProperty(prefix = JwtProperties.CONFIG_PREFIX, name = "use-default-authentication-filter",
 			havingValue = Conditions.TRUE, matchIfMissing = true)

@@ -39,9 +39,7 @@ import org.passay.RuleResult;
 import org.passay.WhitespaceRule;
 
 /**
- * Password generation and validation utilities powered by Passay.
- * <p>
- * <pre>{@code
+ * Password generation and validation utilities powered by Passay. <pre>{@code
  * 		// 1) 默认强密码（16 位）
  * 		String p1 = PasswordGeneratorUtils.generate();
  * 		System.out.println("Default: " + p1);
@@ -86,6 +84,7 @@ public final class PasswordGeneratorUtils {
 
 	/**
 	 * 生成默认策略的强密码（16 位）.
+	 * @return 随机强密码字符串
 	 */
 	public static String generate() {
 		return generate(16);
@@ -93,6 +92,8 @@ public final class PasswordGeneratorUtils {
 
 	/**
 	 * 生成指定长度、默认策略的强密码.
+	 * @param length 目标密码长度
+	 * @return 随机强密码字符串
 	 */
 	public static String generate(int length) {
 		return generate(Policy.builder().withLength(12, Math.max(12, Math.min(length, 128))).build(), length);
@@ -100,6 +101,10 @@ public final class PasswordGeneratorUtils {
 
 	/**
 	 * 使用自定义策略生成强密码（length 必须在策略区间内）.
+	 * @param policy 自定义密码策略(非空)
+	 * @param length 目标密码长度(需处于策略的 [minLength, maxLength] 区间)
+	 * @return 随机强密码字符串
+	 * @throws IllegalArgumentException 当 length 超出策略允许范围或最小需求之和超过 length 时
 	 */
 	public static String generate(Policy policy, int length) {
 		Objects.requireNonNull(policy, "policy");
@@ -306,10 +311,18 @@ public final class PasswordGeneratorUtils {
 			this.sequenceLength = b.sequenceLength;
 		}
 
+		/**
+		 * 创建策略构建器.
+		 * @return {@link Builder} 实例
+		 */
 		public static Builder builder() {
 			return new Builder();
 		}
 
+		/**
+		 * Builder for password policy allowing fluent configuration of length, character
+		 * requirements and safety options.
+		 */
 		public static final class Builder {
 
 			/**
@@ -359,6 +372,9 @@ public final class PasswordGeneratorUtils {
 
 			/**
 			 * 长度上下限(如 12~128).
+			 * @param min 最小长度
+			 * @param max 最大长度
+			 * @return this builder
 			 */
 			public Builder withLength(int min, int max) {
 				this.minLength = min;
@@ -366,21 +382,41 @@ public final class PasswordGeneratorUtils {
 				return this;
 			}
 
+			/**
+			 * 设置至少包含的大写字母数量.
+			 * @param n 最小大写字母数
+			 * @return this builder
+			 */
 			public Builder minUpper(int n) {
 				this.minUpper = n;
 				return this;
 			}
 
+			/**
+			 * 设置至少包含的小写字母数量.
+			 * @param n 最小小写字母数
+			 * @return this builder
+			 */
 			public Builder minLower(int n) {
 				this.minLower = n;
 				return this;
 			}
 
+			/**
+			 * 设置至少包含的数字数量.
+			 * @param n 最小数字数
+			 * @return this builder
+			 */
 			public Builder minDigit(int n) {
 				this.minDigit = n;
 				return this;
 			}
 
+			/**
+			 * 设置至少包含的特殊字符数量.
+			 * @param n 最小特殊字符数
+			 * @return this builder
+			 */
 			public Builder minSpecial(int n) {
 				this.minSpecial = n;
 				return this;
@@ -388,6 +424,8 @@ public final class PasswordGeneratorUtils {
 
 			/**
 			 * 自定义符号字符集.
+			 * @param chars 自定义符号字符集(非空)
+			 * @return this builder
 			 */
 			public Builder specialChars(String chars) {
 				this.specialChars = Objects.requireNonNull(chars);
@@ -396,6 +434,8 @@ public final class PasswordGeneratorUtils {
 
 			/**
 			 * 避免易混淆字符(0/O, 1/l/I 等).
+			 * @param v 是否避开易混淆字符
+			 * @return this builder
 			 */
 			public Builder avoidAmbiguous(boolean v) {
 				this.avoidAmbiguous = v;
@@ -404,12 +444,18 @@ public final class PasswordGeneratorUtils {
 
 			/**
 			 * 连续序列的判定阈值(默认 3).
+			 * @param len 序列阈值(最小 3)
+			 * @return this builder
 			 */
 			public Builder sequenceLength(int len) {
 				this.sequenceLength = Math.max(3, len);
 				return this;
 			}
 
+			/**
+			 * 构建策略对象.
+			 * @return 策略实例
+			 */
 			public Policy build() {
 				return new Policy(this);
 			}
@@ -418,6 +464,9 @@ public final class PasswordGeneratorUtils {
 
 	}
 
+	/**
+	 * 校验结果封装: 是否通过以及失败原因列表.
+	 */
 	public static final class ValidationResult {
 
 		/**
@@ -435,10 +484,19 @@ public final class PasswordGeneratorUtils {
 			this.messages = messages == null ? Collections.emptyList() : Collections.unmodifiableList(messages);
 		}
 
+		/**
+		 * 成功结果.
+		 * @return 通过的校验结果
+		 */
 		public static ValidationResult ok() {
 			return new ValidationResult(true, Collections.emptyList());
 		}
 
+		/**
+		 * 失败结果.
+		 * @param messages 失败原因列表
+		 * @return 未通过的校验结果
+		 */
 		public static ValidationResult fail(List<String> messages) {
 			return new ValidationResult(false, messages);
 		}

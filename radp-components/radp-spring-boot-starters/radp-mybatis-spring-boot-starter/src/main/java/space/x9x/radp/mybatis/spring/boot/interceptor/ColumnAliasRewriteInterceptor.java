@@ -115,6 +115,10 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 	 */
 	private final boolean globalScope;
 
+	/**
+	 * Creates the SQL column alias rewrite interceptor.
+	 * @param config sql rewrite configuration; determines physical column names and scope
+	 */
 	public ColumnAliasRewriteInterceptor(MybatisPlusExtensionProperties.SqlRewrite config) {
 		this.tokens = new java.util.ArrayList<>(4);
 		String createdPhysicalName = config == null ? null : config.getCreatedColumnName();

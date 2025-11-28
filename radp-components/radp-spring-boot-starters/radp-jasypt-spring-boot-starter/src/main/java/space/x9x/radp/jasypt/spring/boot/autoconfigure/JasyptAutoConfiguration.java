@@ -52,6 +52,12 @@ import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
 @ConditionalOnClass(StringEncryptor.class)
 public class JasyptAutoConfiguration {
 
+	/**
+	 * Creates the primary {@link StringEncryptor} bean. Chooses SM4 or standard Jasypt
+	 * PBE based on the 'jasypt.encryptor.algorithm' property.
+	 * @param environment spring environment to read encryption properties
+	 * @return configured {@link StringEncryptor} instance
+	 */
 	@Bean(name = "jasyptStringEncryptor")
 	@ConditionalOnMissingBean(name = "jasyptStringEncryptor")
 	@Primary

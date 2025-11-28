@@ -46,11 +46,9 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * {@link space.x9x.radp.commons.regex.pattern.RegexCache#IPV6}, including rule-based
  * validation with {@code isValidIp(String, boolean, boolean)}.</li>
  * </ul>
- * </p>
  * <p>
  * Notes: Random data produced by these helpers is intended for demos/tests and does not
  * guarantee the existence of real-world resources (e.g., actual phone numbers or emails).
- * </p>
  *
  * @author x9x
  * @since 2024-11-20 16:41
@@ -84,7 +82,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	 * </p>
 	 * @param length total number of digits; must be >= 1
 	 * @return a numeric string of the given length; its first digit is in [1-9]
-	 * @throws IllegalArgumentException if length < 1
+	 * @throws IllegalArgumentException if length &lt; 1
 	 */
 	public static String generateNDigitNumber(int length) {
 		if (length < 1) {
@@ -120,7 +118,6 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 	 * </ul>
 	 * Note: The result is not guaranteed to correspond to an actually assigned/valid
 	 * number; it is intended for demos/tests only.
-	 * </p>
 	 * @return a string containing 11 digits representing a plausible mobile number
 	 */
 	public static String generateChineseMobile() {
@@ -262,6 +259,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 生成合法的随机 IPv4 地址. 例如: 192.168.3.25 每个段在 [0, 255] 范围内.
+	 * @return 随机 IPv4 字符串
 	 */
 	public static String generateIPv4() {
 		ThreadLocalRandom r = ThreadLocalRandom.current();
@@ -270,6 +268,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 生成合法的随机 IPv6 地址(8 组 1-4 位十六进制,使用冒号分隔). 例如: 2001:db8:85a3:0:0:8a2e:370:7334
+	 * @return 随机 IPv6 字符串
 	 */
 	public static String generateIPv6() {
 		ThreadLocalRandom r = ThreadLocalRandom.current();
@@ -387,6 +386,9 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 使用自定义规则校验用户名是否合法. 若 rule.validatePattern 非空,则优先基于其进行校验；否则按集合/长度规则校验.
+	 * @param username 待校验用户名
+	 * @param rule 用户名规则(非空)
+	 * @return 合法返回 true
 	 */
 	public static boolean isValidUsername(String username, UsernameRule rule) {
 		if (username == null || rule == null) {
@@ -413,6 +415,11 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 便捷重载: 自定义字符集与长度的用户名生成.
+	 * @param minLength 最小长度
+	 * @param maxLength 最大长度
+	 * @param firstChars 首字符允许集合
+	 * @param allowedChars 总体允许字符集合
+	 * @return 合法随机用户名
 	 */
 	public static String generateUsername(int minLength, int maxLength, String firstChars, String allowedChars) {
 		return generateUsername(minLength, maxLength, firstChars, allowedChars, false);
@@ -420,7 +427,12 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 	/**
 	 * 便捷重载: 自定义字符集与长度的用户名生成.
+	 * @param minLength 最小长度
+	 * @param maxLength 最大长度
+	 * @param firstChars 首字符允许集合
+	 * @param allowedChars 总体允许字符集合
 	 * @param disallowTrailingUnderscore 是否禁止以下划线结尾
+	 * @return 合法随机用户名
 	 */
 	public static String generateUsername(int minLength, int maxLength, String firstChars, String allowedChars,
 			boolean disallowTrailingUnderscore) {
@@ -474,12 +486,17 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 		 */
 		public final Pattern validatePattern;
 
+		/**
+		 * 创建 {@link UsernameRule} 的构建器.
+		 * @return builder 实例
+		 */
 		public static Builder builder() {
 			return new Builder();
 		}
 
 		/**
 		 * 提供与默认逻辑一致的规则: 首字母必须为英文字母,允许 [A-Za-z0-9_],长度 3-16.
+		 * @return 默认用户名规则
 		 */
 		public static UsernameRule defaultRule() {
 			return builder().firstChars(new String(LETTERS))
@@ -550,36 +567,70 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 			 */
 			private Pattern validatePattern;
 
+			/**
+			 * 设置首字符允许集合.
+			 * @param firstChars 首字符允许集合
+			 * @return this builder
+			 */
 			public Builder firstChars(String firstChars) {
 				this.firstChars = firstChars;
 				return this;
 			}
 
+			/**
+			 * 设置总体允许字符集合.
+			 * @param allowedChars 允许字符集合
+			 * @return this builder
+			 */
 			public Builder allowedChars(String allowedChars) {
 				this.allowedChars = allowedChars;
 				return this;
 			}
 
+			/**
+			 * 设置最小长度.
+			 * @param minLength 最小长度
+			 * @return this builder
+			 */
 			public Builder minLength(int minLength) {
 				this.minLength = minLength;
 				return this;
 			}
 
+			/**
+			 * 设置最大长度.
+			 * @param maxLength 最大长度
+			 * @return this builder
+			 */
 			public Builder maxLength(int maxLength) {
 				this.maxLength = maxLength;
 				return this;
 			}
 
+			/**
+			 * 设置是否禁止以下划线结尾.
+			 * @param disallowTrailingUnderscore 是否禁止以下划线结尾
+			 * @return this builder
+			 */
 			public Builder disallowTrailingUnderscore(boolean disallowTrailingUnderscore) {
 				this.disallowTrailingUnderscore = disallowTrailingUnderscore;
 				return this;
 			}
 
+			/**
+			 * 设置自定义最终校验正则.
+			 * @param validatePattern 自定义正则(可选)
+			 * @return this builder
+			 */
 			public Builder validatePattern(Pattern validatePattern) {
 				this.validatePattern = validatePattern;
 				return this;
 			}
 
+			/**
+			 * 构建 {@link UsernameRule}.
+			 * @return 规则实例
+			 */
 			public UsernameRule build() {
 				return new UsernameRule(this);
 			}

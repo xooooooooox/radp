@@ -42,6 +42,13 @@ public final class MybatisEntityResolver {
 	private MybatisEntityResolver() {
 	}
 
+	/**
+	 * Resolves the primary entity from a MyBatis {@link MetaObject} or parameter
+	 * container. Unwraps common containers (ParamMap, Map, Iterable, array) to locate the
+	 * entity value.
+	 * @param metaObject myBatis meta object; may be null
+	 * @return the resolved entity object, or null if none found
+	 */
 	public static Object resolve(MetaObject metaObject) {
 		if (metaObject == null) {
 			return null;
@@ -49,6 +56,14 @@ public final class MybatisEntityResolver {
 		return unwrap(metaObject.getOriginalObject());
 	}
 
+	/**
+	 * Checks whether the given parameter root (possibly a MyBatis container) contains an
+	 * instance of the given type. Traverses common containers with a depth guard to avoid
+	 * excessive scanning.
+	 * @param root parameter root object; may be null
+	 * @param type target type to search for (must not be null)
+	 * @return true if an instance of {@code type} is found; false otherwise
+	 */
 	public static boolean containsType(Object root, Class<?> type) {
 		Assert.notNull(type, "type must not be null");
 		return containsType(root, type, new IdentityHashMap<>());

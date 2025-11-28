@@ -86,6 +86,14 @@ public class JwtTokenProvider implements InitializingBean {
 		this.tokenValidityInMillisecondsForRememberMe = 1000 * this.jwtConfig.getTokenValidityInSecondsForRememberMe();
 	}
 
+	/**
+	 * Create a JWT {@link AccessToken} using the given {@link Authentication} as subject.
+	 * Populates authorities into claims when present.
+	 * @param authentication spring Security authentication
+	 * @param rememberMe whether to use the longer remember-me validity
+	 * @param claims extra claims to include in the token (mutable)
+	 * @return newly created access token
+	 */
 	public AccessToken createToken(Authentication authentication, boolean rememberMe, Map<String, Object> claims) {
 		if (CollectionUtils.isNotEmpty(authentication.getAuthorities())) {
 			String authorities = authentication.getAuthorities()
@@ -97,6 +105,13 @@ public class JwtTokenProvider implements InitializingBean {
 		return createToken(authentication.getName(), rememberMe, claims);
 	}
 
+	/**
+	 * Create a JWT {@link AccessToken} for a given subject.
+	 * @param subject jwt subject (typically username)
+	 * @param rememberMe whether to use the longer remember-me validity
+	 * @param claims extra claims to include in the token
+	 * @return newly created access token
+	 */
 	public AccessToken createToken(String subject, boolean rememberMe, Map<String, Object> claims) {
 		Instant expiration;
 		if (rememberMe) {
@@ -121,6 +136,12 @@ public class JwtTokenProvider implements InitializingBean {
 		return accessToken;
 	}
 
+	/**
+	 * Validate the given access token.
+	 * @param accessToken jwt access token wrapper to validate (must not be {@code null})
+	 * @throws UnauthorizedException if the token is invalid, expired, or otherwise not
+	 * accepted
+	 */
 	public void validateToken(@NotNull AccessToken accessToken) {
 		try {
 			if (this.jwtTokenStore != null && !this.jwtTokenStore.validateAccessToken(accessToken)) {
@@ -150,12 +171,26 @@ public class JwtTokenProvider implements InitializingBean {
 		}
 	}
 
+	/**
+	 * Remove the given token from the token store, if a store is configured.
+	 * @param accessToken token to clear from the store
+	 */
 	public void clearToken(AccessToken accessToken) {
 		if (this.jwtTokenStore != null) {
 			this.jwtTokenStore.removeAccessToken(accessToken);
 		}
 	}
 
+	/**
+	 * Build an {@link Authentication} object from the given {@link AccessToken}.
+	 * <p>
+	 * Typically used to reconstruct the Spring Security authentication for the current
+	 * request based on the JWT.
+	 * </p>
+	 * @param accessToken jwt access token wrapper
+	 * @return an {@link Authentication} representing the token’s principal and
+	 * authorities
+	 */
 	public Authentication getAuthentication(AccessToken accessToken) {
 		Claims claims = parseClaims(accessToken);
 
@@ -171,6 +206,18 @@ public class JwtTokenProvider implements InitializingBean {
 		return new UsernamePasswordAuthenticationToken(principal, accessToken, authorities);
 	}
 
+	/**
+	 * Parse and return the JWT {@link Claims} contained in the given {@link AccessToken}.
+	 * @param accessToken jwt access token wrapper
+	 * @return parsed JWT claims
+	 * @throws ExpiredJwtException if the token is expired
+	 * @throws UnsupportedJwtException if the token uses an unsupported format or
+	 * algorithm
+	 * @throws MalformedJwtException if the token string is not a valid JWT
+	 * @throws SignatureException if the token signature is invalid
+	 * @throws IllegalArgumentException if the token value is {@code null} or otherwise
+	 * invalid
+	 */
 	public Claims parseClaims(AccessToken accessToken) {
 		return this.jwtParser.parseClaimsJws(accessToken.getValue()).getBody();
 	}

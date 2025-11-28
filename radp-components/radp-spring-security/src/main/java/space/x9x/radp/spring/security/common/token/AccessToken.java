@@ -68,6 +68,10 @@ public class AccessToken {
 	@Builder.Default
 	private Map<String, Object> additionalInformation = Collections.emptyMap();
 
+	/**
+	 * Remaining lifetime in seconds.
+	 * @return seconds until expiration; 0 if already expired or no expiration set
+	 */
 	public int getExpiresIn() {
 		// 返回剩余秒速(小于 0 时 返回 0)
 		long secondsRemaining = 0;
@@ -84,6 +88,10 @@ public class AccessToken {
 		setExpiration(Instant.now().plusSeconds(delta));
 	}
 
+	/**
+	 * Whether the token is expired.
+	 * @return true if the expiration is before now; false otherwise
+	 */
 	public boolean isExpired() {
 		return this.expiration != null && this.expiration.isBefore(Instant.now());
 	}

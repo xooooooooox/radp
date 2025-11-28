@@ -64,6 +64,7 @@ public class ErrorMessageAutoConfiguration {
 	 * them in the declared order and return the first match. That gives: <pre>
 	 *     app > libs > internal
 	 * </pre>
+	 * @return the primary {@link MessageSource} used to resolve RADP error messages
 	 */
 	@Bean(name = "radpErrorMessageSource")
 	@ConditionalOnMissingBean(name = "radpErrorMessageSource")

@@ -39,24 +39,48 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class LoginUserDetails implements UserDetails {
 
+	/**
+	 * Login username.
+	 */
 	private String username;
 
+	/**
+	 * Encoded user password.
+	 */
 	private String password;
 
+	/**
+	 * Granted authorities for this user.
+	 */
 	private Collection<? extends GrantedAuthority> authorities;
 
+	/**
+	 * Whether the account is non-expired.
+	 */
 	@Builder.Default
 	private boolean accountNonExpired = true;
 
+	/**
+	 * Whether the account is non-locked.
+	 */
 	@Builder.Default
 	private boolean accountNonLocked = true;
 
+	/**
+	 * Whether the credentials are non-expired.
+	 */
 	@Builder.Default
 	private boolean credentialsNonExpired = true;
 
+	/**
+	 * Whether the account is enabled.
+	 */
 	@Builder.Default
 	private boolean enabled = true;
 
+	/**
+	 * Whether to remember user (longer token validity).
+	 */
 	@Builder.Default
 	private boolean rememberMe = false;
 

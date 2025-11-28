@@ -35,6 +35,10 @@ import space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy;
 @ConditionalOnClass(AutoFillStrategy.class)
 public class TenantSolutionAutoConfiguration {
 
+	/**
+	 * Registers the tenant autofill strategy bean.
+	 * @return a {@link TenantAutoFillStrategy} bean
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public TenantAutoFillStrategy tenantAutoFillStrategy() {

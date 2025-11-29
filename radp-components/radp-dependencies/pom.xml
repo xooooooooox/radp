@@ -24,7 +24,6 @@
 
 		<!-- ============================================[效率组件]=================================================== -->
 		<!-- [效率组件] -->
-		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.6.2</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
 		<arthas.version>3.6.7</arthas.version>

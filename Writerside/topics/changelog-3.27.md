@@ -12,6 +12,8 @@
   - Remove `org.springframework.kafka:spring-kafka:3.9.0`
   - Remove the property `netty.version=4.1.105.Final`
   - Remove the property `lombok.version=1.18.30`
+  - Remove the property `testcontainers.version=1.21.0`
+  - Remove the property `testcontainers-redis.version=2.2.2`
 - Add properties
   - Add the property `swagger-api.version=2.2.29`.
 - Add dependencies

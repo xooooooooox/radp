@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-      - 3.x
-      - 4.0.x
+      - '3.x'
+      - '4.*'
     paths-ignore:
       - '.github/**/*'
       - '.gitlab/**/*'

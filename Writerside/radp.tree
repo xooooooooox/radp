@@ -32,5 +32,108 @@
             <toc-element topic="1.3.2-db_router.md"/>
         </toc-element>
     </toc-element>
-    <toc-element topic="9-faq.md"/>
+	<toc-element topic="changelog.md">
+		<toc-element topic="changelog-v27.md">
+			<toc-element topic="changelog-3.27.md"/>
+			<toc-element topic="changelog-2.27.md"/>
+		</toc-element>
+		<toc-element topic="changelog-v26.md">
+			<toc-element topic="changelog-3.26.md"/>
+			<toc-element topic="changelog-2.26.3.md"/>
+			<toc-element topic="changelog-2.26.2.md"/>
+			<toc-element topic="changelog-2.26.1.md"/>
+			<toc-element topic="changelog-2.26.md"/>
+		</toc-element>
+		<toc-element topic="changelog-old-versions.md">
+			<toc-element topic="changelog-v25.md">
+				<toc-element topic="changelog-3.25.md"/>
+				<toc-element topic="changelog-2.25.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v24.md">
+				<toc-element topic="changelog-3.24.md"/>
+				<toc-element topic="changelog-2.24.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v23.1.md">
+				<toc-element topic="changelog-3.23.1.md"/>
+				<toc-element topic="changelog-2.23.1.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v23.md">
+				<toc-element topic="changelog-3.23.md"/>
+				<toc-element topic="changelog-2.23.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v22.md">
+				<toc-element topic="changelog-3.22.md"/>
+				<toc-element topic="changelog-2.22.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v21.md">
+				<toc-element topic="changelog-3.21.md"/>
+				<toc-element topic="changelog-2.21.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v20.2.md">
+				<toc-element topic="changelog-3.20.2.md"/>
+				<toc-element topic="changelog-2.20.2.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v19.1.md">
+				<toc-element topic="changelog-3.19.1.md"/>
+				<toc-element topic="changelog-2.19.1.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v19.md">
+				<toc-element topic="changelog-3.19.md"/>
+				<toc-element topic="changelog-2-19.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v18.1.md">
+				<toc-element topic="changelog-3.18.1.md"/>
+				<toc-element topic="changelog-2.18.1.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v18.md">
+				<toc-element topic="changelog-3.18.md"/>
+				<toc-element topic="changelog-2.18.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v17.md">
+				<toc-element topic="changelog-3.17.md"/>
+				<toc-element topic="changelog-2.17.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v16.1.md">
+				<toc-element topic="changelog-3.16.1.md"/>
+				<toc-element topic="changelog-2.16.1.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v16.md">
+				<toc-element topic="changelog-3.16.md"/>
+				<toc-element topic="changelog-2.16.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v15-1.md">
+				<toc-element topic="changelog-3.15.1.md"/>
+				<toc-element topic="changelog-2.15.1.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v15.md">
+				<toc-element topic="changelog-3.15.md"/>
+				<toc-element topic="changelog-2.15.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v14.md">
+				<toc-element topic="changelog-3.14.md"/>
+				<toc-element topic="changelog-2.14.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v13.md">
+				<toc-element topic="changelog-3.13.md"/>
+				<toc-element topic="changelog-2.13.md"/>
+			</toc-element>
+			<toc-element topic="changelog-v12.md">
+				<toc-element topic="changelog-3.12.md"/>
+				<toc-element topic="changelog-2.12.md"/>
+			</toc-element>
+			<toc-element topic="changelog-legacy.md">
+				<toc-element topic="changelog-0.1.3.md"/>
+				<toc-element topic="changelog-0.2.md"/>
+				<toc-element topic="changelog-0.3.md"/>
+				<toc-element topic="changelog-0.5.md"/>
+				<toc-element topic="changelog-0.6.md"/>
+				<toc-element topic="changelog-0.7.md"/>
+				<toc-element topic="changelog-0.8.md"/>
+				<toc-element topic="changelog-0.9.md"/>
+				<toc-element topic="changelog-0.10.md"/>
+				<toc-element topic="changelog-0.11.md"/>
+			</toc-element>
+		</toc-element>
+	</toc-element>
+	<toc-element topic="9-faq.md"/>
 </instance-profile>

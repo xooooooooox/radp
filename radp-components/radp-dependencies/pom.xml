@@ -24,7 +24,6 @@
 
 		<!-- ============================================[效率组件]=================================================== -->
 		<!-- [效率组件] -->
-		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.6.2</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
 		<arthas.version>3.6.7</arthas.version>
@@ -164,7 +163,6 @@
 		<central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
 		<!-- 发布版本 -->
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
 		<!-- 代码质量 -->
@@ -208,7 +206,7 @@
 		<gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
 		<!-- 其它 -->
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
-		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+		<!--		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>-->
 		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
 		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 		<xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>

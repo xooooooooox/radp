@@ -20,6 +20,12 @@
 			<artifactId>radp-spring-boot</artifactId>
 		</dependency>
 
+		<!-- SpringBoot4 需要显式引入该依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-data-redis</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

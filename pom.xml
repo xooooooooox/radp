@@ -71,12 +71,6 @@
 		</maven.release.extraReleaseProfiles> <!-- Append profiles to maven.release.releaseProfiles 比如: ,o-tar,env-dev-->
 
 		<!-- ============================================[Maven插件版本]============================================= -->
-		<!--
-		id::layout::url
-		SpringBoot2 default maven-deploy-plugin version is 2.x
-		2.x 不支持省略 layout, 会报错 Invalid syntax for alternative repository.
-		-->
-		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>

@@ -25,6 +25,9 @@
 - Upgrade dependency `spring-boot` from `3.4.5` to `3.5.8`.
 - Upgrade dependency `druid` from `1.2.16` to `1.2.27`, use `com.alibaba:druid-spring-boot-3-starter` instead of
   `com.alibaba:druid-spring-boot-starter`.
+- Upgrade dependency `redisson`
+  - upgrade `redisson-spring-boot-starter` from `3.32.0` to `3.52.0`
+  - use `redisson-spring-data-35` instead of `redisson-spring-data-27`
 
 ## Plugin Management
 

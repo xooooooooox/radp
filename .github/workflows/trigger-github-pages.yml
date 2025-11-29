@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - '3.x'
+      - '4.*'
     paths: [ 'Writerside/**/*' ]
   workflow_dispatch:
 

@@ -67,7 +67,7 @@
 		<!-- ============================================[缓存组件]================================================== -->
 		<!-- [缓存组件] -->
 		<ehcache.version>2.10.4</ehcache.version>
-		<redisson.version>3.32.0</redisson.version>
+		<redisson.version>3.52.0</redisson.version>
 		<caffeine.version>2.9.3</caffeine.version>
 		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
 		<!-- ============================================[缓存组件]=================================================== -->
@@ -573,7 +573,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.redisson</groupId>
-				<artifactId>redisson-spring-data-27</artifactId>
+				<artifactId>redisson-spring-data-35</artifactId>
 				<version>${redisson.version}</version>
 			</dependency>
 			<!-- ============================================[缓存]================================================== -->

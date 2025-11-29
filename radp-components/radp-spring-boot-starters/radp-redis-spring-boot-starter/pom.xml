@@ -40,17 +40,10 @@
 		<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson-spring-boot-starter</artifactId>
-			<exclusions>
-				<!-- 使用 redisson-spring-data-27 替代，解决 Tuple NoClassDefFoundError 报错 -->
-				<exclusion>
-					<groupId>org.redisson</groupId>
-					<artifactId>redisson-spring-data-33</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.redisson</groupId>
-			<artifactId>redisson-spring-data-27</artifactId>
+			<artifactId>redisson-spring-data-35</artifactId>
 		</dependency>
 
 		<dependency>

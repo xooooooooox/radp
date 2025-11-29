@@ -44,7 +44,7 @@
 		<mybatis-spring-boot.version>${mybatis-spring.version}</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.9</mybatis-plus.version>
 		<mybatis-plus-join-boot-starter.version>1.5.2</mybatis-plus-join-boot-starter.version>
-		<druid.version>1.2.16</druid.version>
+		<druid.version>1.2.27</druid.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
 		<dynamic-datasource-spring-boot3-starter>4.3.1</dynamic-datasource-spring-boot3-starter>
 		<!-- ============================================[关系型数据库]=============================================== -->
@@ -139,8 +139,6 @@
 		<gatling.version>3.10.0</gatling.version>
 		<groovy4.version>4.0.6</groovy4.version>
 		<jmh.version>1.36</jmh.version>
-		<testcontainers.version>1.21.0</testcontainers.version>
-		<testcontainers-redis.version>2.2.2</testcontainers-redis.version>
 		<embedded-redis.version>1.4.3</embedded-redis.version>
 		<!-- ============================================[测试组件]=================================================== -->
 
@@ -541,7 +539,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
-				<artifactId>druid-spring-boot-starter</artifactId>
+				<artifactId>druid-spring-boot-3-starter</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
 
@@ -841,7 +839,7 @@
 			<dependency>
 				<groupId>com.redis</groupId>
 				<artifactId>testcontainers-redis</artifactId>
-				<version>${testcontainers-redis.version}</version>
+				<version>${testcontainers-redis-module.version}</version>
 			</dependency>
 			<!-- ============================================[测试组件]=============================================== -->
 		</dependencies>

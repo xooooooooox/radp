@@ -1,5 +1,10 @@
 # 3.27
 
+## Bug fixes
+
+- Fix `radp-logging-spring-boot-starter` to resolve the warning:
+  `The 'condition' attribute in the <if> element is deprecated and slated for removal`.
+
 ## Dependency Management
 
 - Reorder dependencies so that all BOMs are grouped at the top.

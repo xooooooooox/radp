@@ -34,7 +34,6 @@
     </toc-element>
 	<toc-element topic="changelog.md">
 		<toc-element topic="changelog-v27.md">
-			<toc-element topic="changelog-3.27.md"/>
 			<toc-element topic="changelog-2.27.md"/>
 		</toc-element>
 		<toc-element topic="changelog-v26.md">

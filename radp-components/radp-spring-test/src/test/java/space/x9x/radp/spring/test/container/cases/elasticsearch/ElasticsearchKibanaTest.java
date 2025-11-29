@@ -24,10 +24,6 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.ElasticsearchTransport;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -75,33 +71,26 @@ class ElasticsearchKibanaTest {
 	@Test
 	void testElasticsearchKibana() throws Exception {
 		// Create Elasticsearch client
-		RestClient restClient = RestClient.builder(new HttpHost("localhost", elasticsearch.getMappedPort(9200), "http"))
-			.build();
+		Integer httpPort = elasticsearch.getMappedPort(9200);
+		try (ElasticsearchClient client = ElasticsearchClient
+			.of(cfg -> cfg.host("http://localhost:" + httpPort).jsonMapper(new JacksonJsonpMapper()))) {
 
-		// Create a transport layer
-		ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+			// Index data
+			Map<String, Object> document = new HashMap<>();
+			document.put("message", "Test log");
+			document.put("level", "INFO");
+			client.index(i -> i.index("logs").document(document));
 
-		// Create API client
-		ElasticsearchClient client = new ElasticsearchClient(transport);
+			// Wait for index refresh
+			client.indices().refresh(r -> r.index("logs"));
 
-		// Index data
-		Map<String, Object> document = new HashMap<>();
-		document.put("message", "Test log");
-		document.put("level", "INFO");
-		client.index(i -> i.index("logs").document(document));
+			// Search data
+			SearchResponse<JsonData> response = client.search(
+					s -> s.index("logs").query(q -> q.match(m -> m.field("message").query("Test"))), JsonData.class);
 
-		// Wait for index refresh
-		client.indices().refresh(r -> r.index("logs"));
-
-		// Search data
-		SearchResponse<JsonData> response = client
-			.search(s -> s.index("logs").query(q -> q.match(m -> m.field("message").query("Test"))), JsonData.class);
-
-		assertThat(response.hits().total()).isNotNull();
-		assertThat(response.hits().total().value()).isEqualTo(1);
-
-		// Close client
-		transport.close();
+			assertThat(response.hits().total()).isNotNull();
+			assertThat(response.hits().total().value()).isEqualTo(1);
+		}
 	}
 
 }

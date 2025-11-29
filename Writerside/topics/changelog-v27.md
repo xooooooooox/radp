@@ -37,7 +37,7 @@
 
 ## Documentation
 
-- Improve Javadoc for `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, and `JwtAutoConfiguration`.
+- Fix Javadoc error: `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, `JwtAutoConfiguration`,
 - Migrate CHANGELOG to writerside.
 
 ## Tests

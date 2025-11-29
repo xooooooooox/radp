@@ -18,6 +18,7 @@ package space.x9x.radp.commons.json;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -156,7 +157,7 @@ public class JacksonUtils {
 			xmlMapper = getDefaultXmlMapper();
 		}
 		try {
-			Object object = xmlMapper.setSerializationInclusion(include).readValue(text, cls);
+			Object object = xmlMapper.setDefaultPropertyInclusion(include).readValue(text, cls);
 			return toJSONString(object, include, objectMapper);
 		}
 		catch (JsonProcessingException ex) {
@@ -204,7 +205,7 @@ public class JacksonUtils {
 			objectMapper = getDefaultObjectMapper();
 		}
 		try {
-			return objectMapper.setSerializationInclusion(include)
+			return objectMapper.setDefaultPropertyInclusion(include)
 				.writerWithDefaultPrettyPrinter()
 				.writeValueAsString(object);
 		}
@@ -341,8 +342,8 @@ public class JacksonUtils {
 		if (url == null) {
 			return null;
 		}
-		try {
-			return objectMapper.readValue(url, cls);
+		try (InputStream in = url.openStream()) {
+			return objectMapper.readValue(in, cls);
 		}
 		catch (IOException ex) {
 			throw new JacksonException(ex);
@@ -383,7 +384,7 @@ public class JacksonUtils {
 	 * Parses the specified JSON string into an {@link Optional} object of the specified
 	 * type. This method uses the default ObjectMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param typeReference the type reference of the object to create
 	 * @return an {@link Optional} containing the parsed object, or an empty
 	 * {@link Optional} if parsing fails
@@ -399,7 +400,7 @@ public class JacksonUtils {
 	 * This method will return an {@link Optional} containing the parsed object if the
 	 * parsing is successful, and an empty {@link Optional} otherwise.
 	 * @param <T> the type of the desired object
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param typeReference the type of the object to create
 	 * @param objectMapper the ObjectMapper to use for parsing
 	 * @return an {@link Optional} containing the parsed object, or an empty
@@ -424,7 +425,7 @@ public class JacksonUtils {
 	 * Parses the specified JSON string into an {@link Optional} object of the specified
 	 * class. This method uses the default ObjectMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param clazz the class of the object to create
 	 * @return an {@link Optional} containing the parsed object, or an empty
 	 * {@link Optional} if parsing fails
@@ -437,7 +438,7 @@ public class JacksonUtils {
 	 * Parses the specified JSON string into an {@link Optional} object of the specified
 	 * class. This method allows specifying a custom ObjectMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param clazz the class of the object to create
 	 * @param objectMapper the ObjectMapper to use for parsing
 	 * @return an {@link Optional} containing the parsed object, or an empty
@@ -463,7 +464,7 @@ public class JacksonUtils {
 	 * ObjectMapper for parsing.
 	 * @param <K> the type of keys in the map
 	 * @param <V> the type of values in the map
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @return a Map containing the parsed data, or an empty Map if parsing fails
 	 */
 	public static <K, V> Map<K, V> parseMap(String text) {
@@ -475,7 +476,7 @@ public class JacksonUtils {
 	 * ObjectMapper for parsing.
 	 * @param <K> the type of keys in the map
 	 * @param <V> the type of values in the map
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param objectMapper the ObjectMapper to use for parsing
 	 * @return a Map containing the parsed data, or an empty Map if the input is empty
 	 * @throws JacksonException if a parsing error occurs
@@ -499,7 +500,7 @@ public class JacksonUtils {
 	 * Parses the specified JSON string into a List containing objects of the specified
 	 * class. This method uses the default ObjectMapper for parsing.
 	 * @param <T> the type of elements in the list
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param cls the class of the elements to create
 	 * @return a List containing the parsed objects, or an empty List if the input is
 	 * empty
@@ -512,7 +513,7 @@ public class JacksonUtils {
 	 * Parses the specified JSON string into a List containing objects of the specified
 	 * class. This method allows specifying a custom ObjectMapper for parsing.
 	 * @param <T> the type of elements in the list
-	 * @param text the JSON string to parse, may be null or empty
+	 * @param text the JSON string to parse may be null or empty
 	 * @param cls the class of the elements to create
 	 * @param objectMapper the ObjectMapper to use for parsing
 	 * @return a List containing the parsed objects, or an empty List if the input is
@@ -699,7 +700,7 @@ public class JacksonUtils {
 	public static String toXMLStringPretty(String text, Class<?> cls, JsonInclude.Include include,
 			ObjectMapper objectMapper, XmlMapper xmlMapper) {
 		Object object = parseObject(text, cls, objectMapper);
-		ObjectWriter objectWriter = xmlMapper.setSerializationInclusion(include).writerWithDefaultPrettyPrinter();
+		ObjectWriter objectWriter = xmlMapper.setDefaultPropertyInclusion(include).writerWithDefaultPrettyPrinter();
 		try {
 			return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
 		}
@@ -714,7 +715,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an object of the specified type. This method uses the
 	 * default XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param typeReference the type reference of the object to create
 	 * @return the parsed object, or null if the input is empty
 	 */
@@ -726,7 +727,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an object of the specified type. This method allows
 	 * specifying a custom XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param typeReference the type reference of the object to create
 	 * @param xmlMapper the XmlMapper to use for parsing
 	 * @return the parsed object, or null if the input is empty
@@ -748,7 +749,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an object of the specified class. This method uses the
 	 * default XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param cls the class of the object to create
 	 * @return the parsed object, or null if the input is empty
 	 */
@@ -760,7 +761,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an object of the specified class. This method allows
 	 * specifying a custom XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param cls the class of the object to create
 	 * @param xmlMapper the XmlMapper to use for parsing
 	 * @return the parsed object, or null if the input is empty
@@ -784,7 +785,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an {@link Optional} object of the specified type. This
 	 * method uses the default XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param typeReference the type reference of the object to create
 	 * @return an {@link Optional} containing the parsed object, or an empty
 	 * {@link Optional} if parsing fails
@@ -797,7 +798,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an {@link Optional} object of the specified type. This
 	 * method allows specifying a custom XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param typeReference the type reference of the object to create
 	 * @param xmlMapper the XmlMapper to use for parsing
 	 * @return an {@link Optional} containing the parsed object, or an empty
@@ -821,7 +822,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an {@link Optional} object of the specified class. This
 	 * method uses the default XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param clazz the class of the object to create
 	 * @return an {@link Optional} containing the parsed object, or an empty
 	 * {@link Optional} if parsing fails
@@ -834,7 +835,7 @@ public class JacksonUtils {
 	 * Parses an XML string into an {@link Optional} object of the specified class. This
 	 * method allows specifying a custom XmlMapper for parsing.
 	 * @param <T> the type of the desired object
-	 * @param xml the XML string to parse, may be null or empty
+	 * @param xml the XML string to parse may be null or empty
 	 * @param clazz the class of the object to create
 	 * @param xmlMapper the XmlMapper to use for parsing
 	 * @return an {@link Optional} containing the parsed object, or an empty
@@ -856,11 +857,11 @@ public class JacksonUtils {
 	// ============================ private ============================
 
 	private static ObjectWriter getObjectWriter(JsonInclude.Include include, ObjectMapper objectMapper) {
-		return objectMapper.setSerializationInclusion(include).writer();
+		return objectMapper.setDefaultPropertyInclusion(include).writer();
 	}
 
 	private static ObjectWriter getObjectWriter(JsonInclude.Include include, XmlMapper xmlMapper) {
-		return xmlMapper.setSerializationInclusion(include).writer();
+		return xmlMapper.setDefaultPropertyInclusion(include).writer();
 	}
 
 }

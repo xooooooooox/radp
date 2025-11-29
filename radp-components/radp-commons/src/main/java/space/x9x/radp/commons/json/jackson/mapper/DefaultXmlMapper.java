@@ -50,7 +50,7 @@ public class DefaultXmlMapper extends XmlMapper {
 	public DefaultXmlMapper() {
 		super();
 
-		this.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+		this.setDefaultPropertyInclusion(JsonInclude.Include.ALWAYS);
 		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}

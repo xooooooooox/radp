@@ -19,13 +19,13 @@ package space.x9x.radp.logging.spring.boot.condition;
 import ch.qos.logback.core.boolex.PropertyConditionBase;
 
 /**
- * Resolve waning
- * {@code The 'condition' attribute in <if> element is deprecated and slated for removal.}.
+ * Resolve warning: {@code The 'condition' attribute in {@literal <if>} element is
+ * deprecated and slated for removal.}
  * <p>
- * <a href="https://logback.qos.ch/codes.html">Spring Boot 3.5.x upgrades Logback to a
- * version where the condition="..." attribute on <if> is now deprecated (because it
- * relies on Janino to compile arbitrary Java expressions, which is considered a security
- * risk)</a>
+ * <a href="https://logback.qos.ch/codes.html"> Spring Boot 3.5.x upgrades Logback to a
+ * version where the {@code condition="..."} attribute on {@literal <if>} is now
+ * deprecated (because it relies on Janino to compile arbitrary Java expressions, which is
+ * considered a security risk). </a>
  *
  * @author x9x
  * @since 2025-11-29 17:18

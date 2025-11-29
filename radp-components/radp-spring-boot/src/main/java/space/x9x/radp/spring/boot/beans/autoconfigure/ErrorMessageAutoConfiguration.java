@@ -62,7 +62,7 @@ public class ErrorMessageAutoConfiguration {
 	 * <p>
 	 * Later basename take lower priority when resolving a single key: Spring will try
 	 * them in the declared order and return the first match. That gives: <pre>
-	 *     app > libs > internal
+	 *     app &gt; libs &gt; internal
 	 * </pre>
 	 * @return the primary {@link MessageSource} used to resolve RADP error messages
 	 */

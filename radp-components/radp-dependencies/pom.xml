@@ -167,7 +167,6 @@
 
 		<!-- 发布版本管理 -->
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
 
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>

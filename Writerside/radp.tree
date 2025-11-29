@@ -134,5 +134,6 @@
 			</toc-element>
 		</toc-element>
 	</toc-element>
+	<toc-element topic="migration-guide.md"/>
 	<toc-element topic="9-faq.md"/>
 </instance-profile>

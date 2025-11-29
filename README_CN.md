@@ -17,6 +17,32 @@
 
 [![Static Badge](https://img.shields.io/badge/README-EN-blue)](./README.md) [![Static Badge](https://img.shields.io/badge/README-中-red)](./README_CN.md) [![Static Badge](https://img.shields.io/badge/Document-Pages-green)](https://xooooooooox.github.io/radp)
 
+[快速开始](#getting-started) | [文档](https://xooooooooox.github.io/radp) | [变更日志](https://xooooooooox.github.io/radp/changelog.html)
+
+---
+
+## 目录
+
+- [介绍](#介绍)
+- [核心特性](#核心特性)
+  - [统一依赖管理与插件封装](#统一依赖管理与插件封装)
+  - [通用组件集成](#通用组件集成)
+  - [可扩展适配层](#可扩展适配层)
+  - [设计模式框架](#设计模式框架)
+  - [脚手架与架构模板](#脚手架与架构模板)
+- [快速开始](#快速开始)
+  - [前提条件](#前提条件)
+  - [安装](#安装)
+- [项目结构](#项目结构)
+- [文档](#文档)
+- [发布说明](#发布说明)
+- [版本控制](#版本控制)
+- [贡献](#贡献)
+- [Star 历史](#star-历史)
+- [许可证](#许可证)
+
+---
+
 ## 介绍
 
 RADP 是一个全面的面向企业级 Java 开发的一站式解决方案。通过对依赖的标准化管理、通用组件的整合以及开箱即用的工具支持，RADP
@@ -155,10 +181,14 @@ RADP 组织为几个主要模块：
 
 完整文档可在 [https://xooooooooox.github.io/radp](https://xooooooooox.github.io/radp) 获取。
 
+## 发布说明
+
+如果你正在进行升级，请阅读[发布说明](https://xooooooooox.github.io/radp/changelog.html)，了解升级说明以及“新特性和重要变更”。
+
 ## 版本控制
 
-RADP 遵循[语义化版本控制](https://semver.org/)
-。有关可用版本，请参阅[此存储库上的标签](https://github.com/xooooooooox/radp/tags)。
+RADP 遵循[语义化版本控制](https://semver.org/).
+有关可用版本，请参阅[此存储库上的标签](https://github.com/xooooooooox/radp/tags)。
 
 ## 贡献
 

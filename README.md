@@ -17,6 +17,33 @@
 
 [![Static Badge](https://img.shields.io/badge/README-EN-blue)](./README.md) [![Static Badge](https://img.shields.io/badge/README-中-red)](./README_CN.md) [![Static Badge](https://img.shields.io/badge/Document-Pages-green)](https://xooooooooox.github.io/radp)
 
+[Quick start](#getting-started) | [Documentation](https://xooooooooox.github.io/radp) | [Changelog](https://xooooooooox.github.io/radp/changelog.html)
+
+---
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#key-features)
+  - [Unified Dependency Management & Plugin Wrappers](#unified-dependency-management--plugin-wrappers)
+  - [Common Components Integration](#common-components-integration)
+  - [Extensible Adaptation Layers](#extensible-adaptation-layers)
+  - [Design Pattern Framework](#design-pattern-framework)
+  - [Scaffolding & Architecture Templates](#scaffolding--architecture-templates)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Creating a New Project with Archetypes](#creating-a-new-project-with-archetypes)
+- [Project Structure](#project-structure)
+- [Documentation](#documentation)
+- [Release Notes](#release-notes)
+- [Versioning](#versioning)
+- [Contributing](#contributing)
+- [Star History](#star-history)
+- [License](#license)
+
+---
+
 ## Introduction
 
 RADP is a comprehensive one-stop solution designed to streamline enterprise-level Java development. By standardizing
@@ -157,6 +184,11 @@ RADP is organized into several main modules:
 ## Documentation
 
 Comprehensive documentation is available at [https://xooooooooox.github.io/radp](https://xooooooooox.github.io/radp).
+
+## Release Notes
+
+If you are upgrading, read the [Release Notes](https://xooooooooox.github.io/radp/changelog.html) for upgrade
+instructions and "new and noteworthy" features.
 
 ## Versioning
 

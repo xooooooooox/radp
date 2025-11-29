@@ -71,11 +71,8 @@
 		</maven.release.extraReleaseProfiles> <!-- Append profiles to maven.release.releaseProfiles 比如: ,o-tar,env-dev-->
 
 		<!-- plugin version -->
-		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
-		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
 		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>

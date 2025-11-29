@@ -139,8 +139,6 @@
 		<gatling.version>3.10.0</gatling.version>
 		<groovy4.version>4.0.6</groovy4.version>
 		<jmh.version>1.36</jmh.version>
-		<testcontainers.version>1.21.0</testcontainers.version>
-		<testcontainers-redis.version>2.2.2</testcontainers-redis.version>
 		<embedded-redis.version>1.4.3</embedded-redis.version>
 		<!-- ============================================[测试组件]=================================================== -->
 

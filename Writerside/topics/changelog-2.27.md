@@ -14,7 +14,6 @@
 
 - Remove some entries from `pluginManagement` and let spring-boot-dependencies handle those dependencies
   - Remove the property `maven-javadoc-plugin.version=3.5.0`
-  - Remove the property `maven-deploy-plugin.version=3.0.0`
   - Remove the property `versions-maven-plugin.version=2.14.2`
 
 ## Scaffold:

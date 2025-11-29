@@ -1,6 +1,6 @@
 # v27
 
-### Features
+## Features
 
 - Add starter `radp-jwt-spring-boot-starter`, implementing JWT-based authentication and authorization.
 - Optimize `BasePOAutoFillStrategy` to use `LoginUserResolver` to obtain the current logged-in user from context.
@@ -15,7 +15,7 @@
     itself.
   - Improved thread-safety in message resource initialization.
 
-### Refactor
+## Refactor
 
 - Rename `SingleResult` and `PageResult` methods:
   - `#build` → `#ok`
@@ -25,7 +25,7 @@
 - Adjust built-in error codes so that codes below `1000` are reserved for framework-level internal use.
 - Rename the `PageParam` constant `PAGE_SIZE_NONE` to `NO_PAGINATION`.
 
-### Scaffold
+## Scaffold
 
 - Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull
   handling.
@@ -35,12 +35,12 @@
 - Add `checkstyle-idea.xml`.
 - Fix Writerside setup.
 
-### Documentation
+## Documentation
 
 - Improve Javadoc for `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, and `JwtAutoConfiguration`.
 - Migrate CHANGELOG to writerside.
 
-### Tests
+## Tests
 
 - Add tests for `MessageFormatter`, `MessageFormatUtils`, and `ResponseBuilder`.
 - Fix tests for `RedissonServiceSmokeTest`, `ElasticsearchKibanaTest`

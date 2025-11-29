@@ -70,7 +70,7 @@
 		<maven.release.extraReleaseProfiles>${user.release.extraReleaseProfiles}
 		</maven.release.extraReleaseProfiles> <!-- Append profiles to maven.release.releaseProfiles 比如: ,o-tar,env-dev-->
 
-		<!-- plugin version -->
+		<!-- ============================================[Maven插件版本]============================================= -->
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<maven-wrapper-plugin.version>3.3.2</maven-wrapper-plugin.version>

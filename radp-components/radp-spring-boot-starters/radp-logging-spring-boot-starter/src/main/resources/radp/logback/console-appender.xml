@@ -5,19 +5,20 @@
 -->
 
 <included>
-    <!-- Only create a console appender if LOG_PATTERN_CONSOLE is not empty or LOG_PATTERN_CONSOLE not defined-->
-    <if condition='!isDefined("userConsoleLogPattern") || !property("userConsoleLogPattern").isEmpty()'>
-        <then>
-            <appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
-                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>${console_log_pattern}</pattern>
-                    <charset>${console_log_charset}</charset>
-                </encoder>
-            </appender>
-        </then>
-        <else>
-            <!-- Create a no-op appender when console logging is disabled -->
-            <appender name="radp_console_appender" class="ch.qos.logback.core.helpers.NOPAppender"/>
-        </else>
-    </if>
+	<!-- Only create a console appender if LOG_PATTERN_CONSOLE is not empty or LOG_PATTERN_CONSOLE not defined-->
+	<condition class="space.x9x.radp.logging.spring.boot.condition.UserConsoleLogPatterCondition"/>
+	<if>
+		<then>
+			<appender name="radp_console_appender" class="ch.qos.logback.core.ConsoleAppender">　　　　
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<pattern>${console_log_pattern}</pattern>
+					<charset>${console_log_charset}</charset>
+				</encoder>
+			</appender>
+		</then>
+		<else>
+			<!-- Create a no-op appender when console logging is disabled -->
+			<appender name="radp_console_appender" class="ch.qos.logback.core.helpers.NOPAppender"/>
+		</else>
+	</if>
 </included>

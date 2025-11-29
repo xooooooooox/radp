@@ -40,3 +40,8 @@
 - Refactor `RadpRedisCacheAutoConfiguration`: use `org.springframework.boot.cache.autoconfigure.CacheProperties`
   instead of `org.springframework.boot.autoconfigure.cache.CacheProperties`
 
+> Resolve deprecated api
+
+- Refactor `JacksonUtils`, `DefaultXmlMapper`, `DefaultObjectMapper`:
+  - Use `#setDefaultPropertyInclusion()` instead of `#setSerializationInclusion()`
+  - Use `#readValue(InputStream, Class<T>)` instead of `#readValue(URL,Class<T>)`

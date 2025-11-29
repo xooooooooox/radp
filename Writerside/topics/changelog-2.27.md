@@ -1,9 +1,23 @@
 # 2.27
 
-- DependencyManagement:
-  - Add `io.swagger.core.v3:swagger-annotations:2.2.8` (non-Jakarta).
-  - Set `swagger-api.version=2.2.8`.
-  - Retrofit remains on the 2.x line’s version (no `2.9 → 3.0` upgrade here).
-- Scaffold:
-  - Default `radpVersion` is `2.27`.
-  - `xxx-type` layer uses `swagger-annotations` (non-Jakarta).
+## Dependency Management
+
+- Reorder dependencies so that all BOMs are grouped at the top.
+- Remove some entries from `dependencyManagement` and let spring-boot-dependencies handle those dependencies
+  - Remove the property `lombok.version=1.18.30`
+- Add properties
+  - Add the property `swagger-api.version=2.2.8`.
+- Add dependencies
+  - Add dependency `io.swagger.core.v3:swagger-annotations:2.2.8`.
+
+## Plugin Management
+
+- Remove some entries from `pluginManagement` and let spring-boot-dependencies handle those dependencies
+  - Remove the property `maven-javadoc-plugin.version=3.5.0`
+  - Remove the property `maven-deploy-plugin.version=3.0.0`
+  - Remove the property `versions-maven-plugin.version=2.14.2`
+
+## Scaffold:
+
+- Default `radpVersion` is `2.27`.
+- `xxx-type` layer uses `swagger-annotations` (non-Jakarta).

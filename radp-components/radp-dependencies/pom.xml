@@ -159,7 +159,6 @@
 		<!-- 安装到本地制品库-->
 		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
 		<!-- 部署到远程制品库 -->
-		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
 		<maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>

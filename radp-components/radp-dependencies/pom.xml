@@ -44,7 +44,7 @@
 		<mybatis-spring-boot.version>${mybatis-spring.version}</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.9</mybatis-plus.version>
 		<mybatis-plus-join-boot-starter.version>1.5.2</mybatis-plus-join-boot-starter.version>
-		<druid.version>1.2.16</druid.version>
+		<druid.version>1.2.27</druid.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
 		<dynamic-datasource-spring-boot3-starter>4.3.1</dynamic-datasource-spring-boot3-starter>
 		<!-- ============================================[关系型数据库]=============================================== -->
@@ -539,7 +539,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
-				<artifactId>druid-spring-boot-starter</artifactId>
+				<artifactId>druid-spring-boot-3-starter</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
 

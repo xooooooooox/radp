@@ -16,6 +16,10 @@
 
 package space.x9x.radp.druid.spring.boot.autoconfigure;
 
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -27,7 +31,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.jdbc.DataSourceUnwrapper;
 import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
@@ -79,12 +82,27 @@ public class RadpDruidDataSourceMetricsAutoconfiguration {
 	public DataSourcePoolMetadataProvider druidDataSourcePoolMetadataProvider() {
 		log.debug(AUTOWIRED_DATA_SOURCE_POOL_METADATA_PROVIDER);
 		return dataSource -> {
-			DruidDataSource dds = DataSourceUnwrapper.unwrap(dataSource, DruidDataSource.class);
+			DruidDataSource dds = unwrapDruidDataSource(dataSource);
 			if (dds != null) {
 				return new DruidDatasourcePoolMetadata(dds);
 			}
 			return null;
 		};
+	}
+
+	private DruidDataSource unwrapDruidDataSource(DataSource dataSource) {
+		if (dataSource instanceof DruidDataSource druidDataSource) {
+			return druidDataSource;
+		}
+		try {
+			if (dataSource.isWrapperFor(DruidDataSource.class)) {
+				return dataSource.unwrap(DruidDataSource.class);
+			}
+		}
+		catch (SQLException ex) {
+			log.warn("Failed to unwrap datasource from [{}]:", dataSource, ex);
+		}
+		return null;
 	}
 
 }

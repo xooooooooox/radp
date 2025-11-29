@@ -15,6 +15,15 @@
 			<groupId>space.x9x.radp</groupId>
 			<artifactId>radp-spring-boot</artifactId>
 		</dependency>
+		<!--
+		从 SpringBoot4 开始, 核心模块做了拆分,
+		当前 spring-boot-starter 仅负责 core+logging+yaml+autoconfigure,
+		所以这里需要显式引入 spring-boot-jdbc 依赖
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-jdbc</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

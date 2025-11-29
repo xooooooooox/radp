@@ -4,6 +4,9 @@
 
 - Fix `radp-logging-spring-boot-starter` to resolve the warning:
   `The 'condition' attribute in the <if> element is deprecated and slated for removal`.
+- Update `DruidDataSourceAutoConfigure` import: from
+  `com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure` to
+  `com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure`
 
 ## Dependency Management
 
@@ -19,7 +22,9 @@
 - Add dependencies
   - Add dependency `io.swagger.core.v3:swagger-annotations-jakarta:2.2.29`.
 - Upgrade dependency `retrofit` from `2.9` to `3.0`.
-- Upgrade dependency `spring-boot` from `3.4.5` to `3.5.8`
+- Upgrade dependency `spring-boot` from `3.4.5` to `3.5.8`.
+- Upgrade dependency `druid` from `1.2.16` to `1.2.27`, use `com.alibaba:druid-spring-boot-3-starter` instead of
+  `com.alibaba:druid-spring-boot-starter`.
 
 ## Plugin Management
 

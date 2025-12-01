@@ -1,5 +1,9 @@
 # 2.27
 
+## Feature
+
+- Add module `radp-oauth2-spring-boot-starter`
+
 ## Dependency Management
 
 - Reorder dependencies so that all BOMs are grouped at the top.

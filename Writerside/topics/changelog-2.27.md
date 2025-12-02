@@ -24,3 +24,4 @@
 
 - Default `radpVersion` is `2.27`.
 - `xxx-type` layer uses `swagger-annotations` (non-Jakarta).
+- Update default resource bundle `message.properties`.

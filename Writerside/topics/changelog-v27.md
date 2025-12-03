@@ -3,10 +3,11 @@
 ## Features
 
 - Add starter `radp-jwt-spring-boot-starter`, implementing JWT-based authentication and authorization.
+- Add starter `radp-oauth2-spring-boot-starter`
 - Optimize `BasePOAutoFillStrategy` to use `LoginUserResolver` to obtain the current logged-in user from context.
 - Add utility methods in `ServletUtils` to wrap HTTP responses with JSON content.
-- Add `#addOrder` utility method to `MybatisUtils`.
-- Add `#deleteBatch` utility method to `BaseMapperX`.
+- Add `#addOrder()` utility method to `MybatisUtils`.
+- Add the `#deleteBatch()` utility method to `BaseMapperX`.
 - Optimize `ErrorCodeLoader`
   - Implemented resource merging for `META-INF/error/message*.properties` with override priority (libraries < app
     classes).
@@ -14,6 +15,10 @@
   - Introduced fallback mechanism ensuring error resolution robustness: app messages > internal bundle > error code
     itself.
   - Improved thread-safety in message resource initialization.
+
+## Fix
+
+- Fix `RestExceptionHandler` leaking sensitive exception details to the frontend.
 
 ## Refactor
 
@@ -34,6 +39,7 @@
 - Restructure package organization in the `xxx-api` layer.
 - Add `checkstyle-idea.xml`.
 - Fix Writerside setup.
+- Update default resource bundle `message.properties`.
 
 ## Documentation
 

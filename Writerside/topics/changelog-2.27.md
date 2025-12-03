@@ -1,9 +1,5 @@
 # 2.27
 
-## Feature
-
-- Add module `radp-oauth2-spring-boot-starter`
-
 ## Dependency Management
 
 - Reorder dependencies so that all BOMs are grouped at the top.
@@ -24,4 +20,3 @@
 
 - Default `radpVersion` is `2.27`.
 - `xxx-type` layer uses `swagger-annotations` (non-Jakarta).
-- Update default resource bundle `message.properties`.

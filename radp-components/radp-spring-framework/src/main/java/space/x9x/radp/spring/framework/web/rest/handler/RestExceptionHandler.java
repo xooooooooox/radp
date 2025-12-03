@@ -81,7 +81,8 @@ public class RestExceptionHandler {
 		log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
 		ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
 		HttpStatus status = (responseStatus != null) ? responseStatus.value() : HttpStatus.INTERNAL_SERVER_ERROR;
-		String message = (responseStatus != null) ? responseStatus.reason() : ex.getMessage();
+		String message = (responseStatus != null && StringUtils.isNotBlank(responseStatus.reason()))
+				? responseStatus.reason() : HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
 		this.postProcess(ex);
 		return this.buildResponseEntity(status, "500", message);
 	}

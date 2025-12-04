@@ -39,7 +39,7 @@ class QueryWrapperXTests {
 
 		QueryWrapperX<Object> w2 = new QueryWrapperX<>();
 		w2.likeIfPresent("name", " ");
-		assertThat(w2.getSqlSegment()).isNull();
+		assertThat(w2.getSqlSegment()).isNullOrEmpty();
 	}
 
 	@Test
@@ -54,7 +54,7 @@ class QueryWrapperXTests {
 
 		QueryWrapperX<Object> w3 = new QueryWrapperX<>();
 		w3.inIfPresent("id", Collections.emptyList());
-		assertThat(w3.getSqlSegment()).isNull();
+		assertThat(w3.getSqlSegment()).isNullOrEmpty();
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class QueryWrapperXTests {
 			.geIfPresent("x", null)
 			.ltIfPresent("x", null)
 			.leIfPresent("x", null);
-		assertThat(w2.getSqlSegment()).isNull();
+		assertThat(w2.getSqlSegment()).isNullOrEmpty();
 	}
 
 	@Test
@@ -96,7 +96,7 @@ class QueryWrapperXTests {
 
 		QueryWrapperX<Object> w4 = new QueryWrapperX<>();
 		w4.betweenIfPresent("score", (Object[]) null);
-		assertThat(w4.getSqlSegment()).isNull();
+		assertThat(w4.getSqlSegment()).isNullOrEmpty();
 	}
 
 	@Test

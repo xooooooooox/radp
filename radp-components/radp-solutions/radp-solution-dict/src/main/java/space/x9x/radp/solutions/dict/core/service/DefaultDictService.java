@@ -65,7 +65,7 @@ public class DefaultDictService implements DictService {
 	@Override
 	public List<DictItem> getItems(String type) {
 		List<DictItem> items = this.provider.getItems(type);
-		return items == null ? Collections.emptyList() : items;
+		return (items != null) ? items : Collections.emptyList();
 	}
 
 }

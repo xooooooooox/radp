@@ -93,7 +93,7 @@ public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {
 	}
 
 	private String resolveLoginUserId() {
-		return this.loginUserResolver != null ? this.loginUserResolver.resolveCurrentLoginUser() : null;
+		return (this.loginUserResolver != null) ? this.loginUserResolver.resolveCurrentLoginUser() : null;
 	}
 
 }

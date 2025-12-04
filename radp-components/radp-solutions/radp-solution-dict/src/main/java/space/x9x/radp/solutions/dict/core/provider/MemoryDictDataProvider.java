@@ -41,7 +41,7 @@ public class MemoryDictDataProvider implements DictDataProvider {
 	@Override
 	public List<DictItem> getItems(String type) {
 		List<DictItem> items = this.properties.getTypes().get(type);
-		return items == null ? Collections.emptyList() : items;
+		return (items != null) ? items : Collections.emptyList();
 	}
 
 }

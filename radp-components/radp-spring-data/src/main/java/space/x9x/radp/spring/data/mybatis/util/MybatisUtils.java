@@ -144,7 +144,7 @@ public class MybatisUtils {
 			DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
 			return StringConstants.HARD_QUOTE + formatter.format(obj) + StringConstants.HARD_QUOTE;
 		}
-		return obj == null ? StringConstants.EMPTY : String.valueOf(obj);
+		return (obj != null) ? String.valueOf(obj) : StringConstants.EMPTY;
 	}
 
 }

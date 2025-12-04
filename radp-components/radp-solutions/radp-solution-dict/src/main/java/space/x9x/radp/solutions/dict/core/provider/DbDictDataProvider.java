@@ -27,9 +27,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import space.x9x.radp.solutions.dict.core.DictItem;
 
 /**
- * 基于数据库的字典数据提供者.
- *
- * 需要应用侧提供 {@link DictDataQuery} 实现。
+ * 基于数据库的字典数据提供者. 需要应用侧提供 {@link DictDataQuery} 实现。
  *
  * @author RADP x9x
  * @since 2025-11-07 16:04
@@ -52,7 +50,7 @@ public class DbDictDataProvider implements DictDataProvider {
 			return Collections.emptyList();
 		}
 		List<DictItem> list = query.getItemsByType(type);
-		return list == null ? Collections.emptyList() : list;
+		return (list != null) ? list : Collections.emptyList();
 	}
 
 }

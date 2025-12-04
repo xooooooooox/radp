@@ -221,7 +221,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		for (Map.Entry<Integer, List<String>> entry : entries) {
 			Integer colIndex = entry.getKey();
 			List<String> values = entry.getValue();
-			int rowLength = values == null ? 0 : values.size();
+			int rowLength = (values != null) ? values.size() : 0;
 			if (rowLength == 0) {
 				// 该列无下拉数据，跳过
 				continue;
@@ -255,7 +255,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 
 		// 2.1 设置约束
 		DataValidationConstraint constraint = dataValidationHelper
-			.createFormulaListConstraint(String.format("dict%s", colIndex));// 设置引用约束
+			.createFormulaListConstraint(String.format("dict%s", colIndex)); // 设置引用约束
 		// 设置下拉单元格的首行,末行,首列,末列
 		CellRangeAddressList rangeAddressList = new CellRangeAddressList(this.firstRow, this.lastRow, colIndex,
 				colIndex);

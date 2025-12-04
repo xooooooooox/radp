@@ -20,10 +20,9 @@ import org.junit.jupiter.api.Test;
 
 import space.x9x.radp.spring.test.embedded.IEmbeddedServer;
 import space.x9x.radp.spring.test.embedded.redis.EmbeddedRedisServer;
+import space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.EmbeddedServerType;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.EmbeddedServerType;
-import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.embeddedServer;
 
 /**
  * Tests for {@link EmbeddedServerHelper}.
@@ -36,13 +35,14 @@ class EmbeddedServerHelperTests {
 	@Test
 	void testRedisServer() {
 		// Test creating a Redis server with the default port
-		EmbeddedRedisServer server = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS);
+		EmbeddedRedisServer server = (EmbeddedRedisServer) EmbeddedServerHelper
+			.embeddedServer(EmbeddedServerType.REDIS);
 		assertThat(server).isNotNull();
 
 		// Test creating a Redis server with a custom port
 		int customPort = 6380;
-		EmbeddedRedisServer portServer = (EmbeddedRedisServer) embeddedServer(EmbeddedServerType.REDIS.getSpi(),
-				customPort);
+		EmbeddedRedisServer portServer = (EmbeddedRedisServer) EmbeddedServerHelper
+			.embeddedServer(EmbeddedServerType.REDIS.getSpi(), customPort);
 		assertThat(portServer).isNotNull();
 
 		// Test creating a Redis server with a custom port and password
@@ -52,7 +52,7 @@ class EmbeddedServerHelperTests {
 	void testEmbeddedServer() {
 		// Test creating an embedded server using the extension mechanism
 		// Note: This requires the "redis" SPI to be properly registered
-		IEmbeddedServer server = embeddedServer("redis", 6380);
+		IEmbeddedServer server = EmbeddedServerHelper.embeddedServer("redis", 6380);
 		assertThat(server).isNotNull();
 	}
 

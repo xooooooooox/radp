@@ -60,7 +60,7 @@ class CustomWaitStrategyTests {
 
 		private final int targetPort;
 
-		public SimpleCustomWaitStrategy(int targetPort) {
+		SimpleCustomWaitStrategy(int targetPort) {
 			this.targetPort = targetPort;
 		}
 
@@ -106,7 +106,7 @@ class CustomWaitStrategyTests {
 
 		private final WaitStrategy[] strategies;
 
-		public CompositeWaitStrategy(WaitStrategy... strategies) {
+		CompositeWaitStrategy(WaitStrategy... strategies) {
 			this.strategies = strategies;
 		}
 

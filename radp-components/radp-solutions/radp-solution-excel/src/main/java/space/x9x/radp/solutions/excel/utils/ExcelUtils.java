@@ -95,7 +95,7 @@ public class ExcelUtils {
 	}
 
 	private static <T> List<T> safeList(List<T> data) {
-		return (data == null) ? Collections.emptyList() : data;
+		return (data != null) ? data : Collections.emptyList();
 	}
 
 	private static String buildContentDisposition(String filename) throws IOException {
@@ -425,7 +425,7 @@ public class ExcelUtils {
 		if (value == null) {
 			return true;
 		}
-		Class<?> fType = (field != null ? field.getType() : null);
+		Class<?> fType = (field != null) ? field.getType() : null;
 		if (value instanceof CharSequence) {
 			return isBlank((CharSequence) value);
 		}
@@ -456,8 +456,12 @@ public class ExcelUtils {
 	}
 
 	private static boolean isBlank(CharSequence cs) {
-		int len;
-		if (cs == null || (len = cs.length()) == 0) {
+		if (cs == null) {
+			return true;
+		}
+
+		int len = cs.length();
+		if (len == 0) {
 			return true;
 		}
 		for (int i = 0; i < len; i++) {

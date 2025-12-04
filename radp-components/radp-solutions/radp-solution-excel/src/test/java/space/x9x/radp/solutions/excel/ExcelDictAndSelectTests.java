@@ -148,7 +148,7 @@ class ExcelDictAndSelectTests {
 
 		private final Map<String, Map<String, String>> valueToLabel = new HashMap<>();
 
-		public TestDictService() {
+		TestDictService() {
 			put("user_sex", "男", "0");
 			put("user_sex", "女", "1");
 			put("common_status", "启用", "1");

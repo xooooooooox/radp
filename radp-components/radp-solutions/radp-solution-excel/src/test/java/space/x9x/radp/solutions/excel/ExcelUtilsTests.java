@@ -133,10 +133,10 @@ class ExcelUtilsTests {
 		@ExcelProperty("Score")
 		private Integer score;
 
-		public SimpleVO() {
+		SimpleVO() {
 		}
 
-		public SimpleVO(String name, Integer score) {
+		SimpleVO(String name, Integer score) {
 			this.name = name;
 			this.score = score;
 		}

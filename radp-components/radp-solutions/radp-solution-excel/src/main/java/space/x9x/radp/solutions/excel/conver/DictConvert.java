@@ -74,7 +74,7 @@ public class DictConvert implements Converter<Object> {
 	@Override
 	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty,
 			GlobalConfiguration globalConfiguration) throws Exception {
-		String text = value == null ? "" : String.valueOf(value);
+		String text = (value != null) ? String.valueOf(value) : "";
 		if (contentProperty == null || contentProperty.getField() == null
 				|| !contentProperty.getField().isAnnotationPresent(DictFormat.class)) {
 			return new WriteCellData<>(text);

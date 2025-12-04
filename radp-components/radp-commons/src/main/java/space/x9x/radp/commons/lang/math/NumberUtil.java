@@ -17,17 +17,30 @@
 package space.x9x.radp.commons.lang.math;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * Utility class for number operations. This class extends Apache Commons Lang's
- * NumberUtils to provide convenient access to number manipulation methods such as
- * parsing, conversion, and comparison of numeric values.
- *
  * @author x9x
  * @since 2024-09-27 21:11
  * @see org.apache.commons.lang3.math.NumberUtils
  */
 @UtilityClass
-public class NumberUtil extends org.apache.commons.lang3.math.NumberUtils {
+public class NumberUtil {
+
+	public static long toLong(final String str) {
+		return NumberUtils.toLong(str);
+	}
+
+	public static long toLong(final String str, final long defaultValue) {
+		return NumberUtils.toLong(str, defaultValue);
+	}
+
+	public static int toInt(final String str) {
+		return NumberUtils.toInt(str);
+	}
+
+	public static int toInt(final String str, final int defaultValue) {
+		return NumberUtils.toInt(str, defaultValue);
+	}
 
 }

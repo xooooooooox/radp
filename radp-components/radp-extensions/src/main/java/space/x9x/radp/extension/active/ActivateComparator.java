@@ -67,7 +67,7 @@ public class ActivateComparator implements Comparator<Object> {
 			return 0;
 		}
 
-		return getOrder(o1.getClass()) > getOrder(o2.getClass()) ? 1 : -1;
+		return (getOrder(o1.getClass()) > getOrder(o2.getClass())) ? 1 : -1;
 	}
 
 	/**

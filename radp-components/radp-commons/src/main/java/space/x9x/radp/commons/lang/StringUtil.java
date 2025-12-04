@@ -17,6 +17,7 @@
 package space.x9x.radp.commons.lang;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Utility class for string operations, extending Apache Commons Lang StringUtils.
@@ -26,7 +27,7 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-23 13:57
  */
 @UtilityClass
-public class StringUtil extends org.apache.commons.lang3.StringUtils {
+public class StringUtil {
 
 	/**
 	 * Converts camel-case text to lower-case words separated by {@code split}.
@@ -43,7 +44,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 	 * uppercase letters
 	 */
 	public static String camelToSplitName(String camelName, String split) {
-		if (isEmpty(camelName) || split == null) {
+		if (StringUtils.isEmpty(camelName) || split == null) {
 			return camelName;
 		}
 
@@ -64,6 +65,67 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 			}
 		}
 		return out.toString();
+	}
+
+	public static boolean isEmpty(final CharSequence cs) {
+		return StringUtils.isEmpty(cs);
+	}
+
+	public static String trimToEmpty(final String str) {
+		return StringUtils.trimToEmpty(str);
+	}
+
+	public static boolean isNotEmpty(final CharSequence cs) {
+		return StringUtils.isNotEmpty(cs);
+	}
+
+	public static boolean isNoneEmpty(final CharSequence... css) {
+		return StringUtils.isNoneEmpty(css);
+	}
+
+	public static boolean isBlank(final CharSequence cs) {
+		return StringUtils.isBlank(cs);
+	}
+
+	public static boolean isNotBlank(final CharSequence cs) {
+		return StringUtils.isNotBlank(cs);
+	}
+
+	public static boolean isNoneBlank(final CharSequence... css) {
+		return StringUtils.isNoneBlank(css);
+	}
+
+	public static String join(final Object[] array, final char delimiter) {
+		return StringUtils.join(array, delimiter);
+	}
+
+	public static String join(final Object[] array, final String delimiter) {
+		return StringUtils.join(array, delimiter);
+	}
+
+	@SafeVarargs
+	public static <T> String join(final T... elements) {
+		return StringUtils.join(elements);
+	}
+
+	public static String[] split(final String str, final String separatorChars) {
+		return StringUtils.split(str, separatorChars);
+	}
+
+	public static String substringBefore(final String str, final String separator) {
+		return StringUtils.substringBefore(str, separator);
+	}
+
+	public static String substringAfter(final String str, final String separator) {
+		return StringUtils.substringAfter(str, separator);
+	}
+
+	public static String substring(final String str, int start, int end) {
+		return StringUtils.substring(str, start, end);
+	}
+
+	public static String right(final String str, final int len) {
+		return StringUtils.right(str, len);
 	}
 
 }

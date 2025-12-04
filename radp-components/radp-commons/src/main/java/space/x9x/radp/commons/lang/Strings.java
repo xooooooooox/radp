@@ -17,6 +17,7 @@
 package space.x9x.radp.commons.lang;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * String constants for common use throughout the application. This utility class provides
@@ -32,12 +33,12 @@ public class Strings {
 	/**
 	 * Empty string constant. Used when an empty string is needed.
 	 */
-	public static final String EMPTY = StringUtil.EMPTY;
+	public static final String EMPTY = StringUtils.EMPTY;
 
 	/**
 	 * Space character constant. Used for string formatting and whitespace replacement.
 	 */
-	public static final String SPACE = StringUtil.SPACE;
+	public static final String SPACE = StringUtils.SPACE;
 
 	/**
 	 * Single quote character constant. Used for quoting strings in SQL or other contexts.

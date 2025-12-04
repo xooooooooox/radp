@@ -28,6 +28,6 @@ import lombok.experimental.UtilityClass;
  * @see org.apache.commons.lang3.math.NumberUtils
  */
 @UtilityClass
-public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
+public class NumberUtil extends org.apache.commons.lang3.math.NumberUtils {
 
 }

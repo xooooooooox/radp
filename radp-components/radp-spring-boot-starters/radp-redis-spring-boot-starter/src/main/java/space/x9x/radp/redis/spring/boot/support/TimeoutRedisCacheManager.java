@@ -27,7 +27,7 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 
 import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.commons.lang.math.NumberUtils;
+import space.x9x.radp.commons.lang.math.NumberUtil;
 
 /**
  * an extension of {@link RedisCacheManager} that supports dynamic cache timeout
@@ -118,7 +118,7 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 	 * @return the numeric time value
 	 */
 	private Long removeDurationSuffix(String ttlStr) {
-		return NumberUtils.toLong(StringUtil.substring(ttlStr, 0, ttlStr.length() - 1));
+		return NumberUtil.toLong(StringUtil.substring(ttlStr, 0, ttlStr.length() - 1));
 	}
 
 }

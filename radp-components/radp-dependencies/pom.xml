@@ -370,7 +370,7 @@
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-oauth2-spring-boot-starter</artifactId>
-				<version>2.27-SNAPSHOT</version>
+				<version>3.27-SNAPSHOT</version>
 			</dependency>
 
 			<!-- TODO: radp-xx-spring-cloud-starters -->

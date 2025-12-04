@@ -16,6 +16,8 @@
 
 package space.x9x.radp.commons.collections;
 
+import java.util.HashMap;
+
 import cn.hutool.core.map.MapUtil;
 import lombok.experimental.UtilityClass;
 
@@ -25,8 +27,25 @@ import lombok.experimental.UtilityClass;
  *
  * @author x9x
  * @since 2024-10-23 15:41
+ * @see cn.hutool.core.map.MapUtil
  */
 @UtilityClass
-public class MapUtils extends MapUtil {
+public class MapUtils {
+
+	public static <K, V> HashMap<K, V> newHashMap() {
+		return MapUtil.newHashMap();
+	}
+
+	public static <K, V> HashMap<K, V> newHashMap(int size, boolean isLinked) {
+		return MapUtil.newHashMap(size, isLinked);
+	}
+
+	public static <K, V> HashMap<K, V> newHashMap(int size) {
+		return MapUtil.newHashMap(size);
+	}
+
+	public static <K, V> HashMap<K, V> newHashMap(boolean isLinked) {
+		return MapUtil.newHashMap(isLinked);
+	}
 
 }

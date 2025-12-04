@@ -273,7 +273,7 @@ class ServerAssertTests {
 
 		public static final String MESSAGE = "Test message";
 
-		public TestErrorCode() {
+		TestErrorCode() {
 			super(CODE, MESSAGE);
 		}
 

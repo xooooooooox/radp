@@ -106,7 +106,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * applicationContext
 	 */
 	public static ListableBeanFactory getBeanFactory() {
-		return beanFactory == null ? applicationContext : beanFactory;
+		return (beanFactory != null) ? beanFactory : applicationContext;
 	}
 
 	/**

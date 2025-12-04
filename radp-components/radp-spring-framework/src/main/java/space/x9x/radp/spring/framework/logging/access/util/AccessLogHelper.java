@@ -88,7 +88,7 @@ public class AccessLogHelper {
 			if (i > 0) {
 				argsBuilder.append(", ");
 			}
-			argsBuilder.append(args[i] == null ? StringConstants.NULL : args[i].toString());
+			argsBuilder.append((args[i] != null) ? args[i].toString() : StringConstants.NULL);
 		}
 		String arguments = argsBuilder.toString();
 		if (arguments.length() > maxLength) {

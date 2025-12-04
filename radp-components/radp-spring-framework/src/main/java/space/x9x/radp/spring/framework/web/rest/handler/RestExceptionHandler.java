@@ -242,13 +242,13 @@ public class RestExceptionHandler {
 		catch (Throwable ignored) {
 			// ignore and fallback
 		}
-		String base = (errMessage == null ? "" : errMessage);
+		String base = (errMessage != null) ? errMessage : "";
 		return base + (base.isEmpty() ? "" : " ") + StringUtil.join(params, ",");
 	}
 
 	private String buildSseErrorEvent(String code, String message) {
-		String safeCode = (code == null ? "" : code);
-		String safeMsg = (message == null ? "" : message).replace("\r", " ").replace("\n", " ");
+		String safeCode = (code != null) ? code : "";
+		String safeMsg = ((message != null) ? message : "").replace("\r", " ").replace("\n", " ");
 		return "event: error\n" + "data: " + safeCode + " " + safeMsg + "\n\n";
 	}
 

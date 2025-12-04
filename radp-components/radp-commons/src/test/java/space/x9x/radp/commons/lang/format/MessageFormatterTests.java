@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author RADP x9x
  * @since 2025-05-28 19:28
  */
-class MessageFormatterTest {
+class MessageFormatterTests {
 
 	@Test
 	void test_arrayFormat() {

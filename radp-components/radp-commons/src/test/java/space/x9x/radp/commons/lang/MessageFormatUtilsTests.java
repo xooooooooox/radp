@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author RADP x9x
  * @since 2025-11-23 12:40
  */
-class MessageFormatUtilsTest {
+class MessageFormatUtilsTests {
 
 	@DisplayName("场景:无异常不带占位符")
 	@Test

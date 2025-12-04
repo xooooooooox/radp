@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author RADP x9x
  * @since 2024-09-23 13:57
  */
-class StringUtilTest {
+class StringUtilTests {
 
 	@Test
 	void testCamelToSplitName() {

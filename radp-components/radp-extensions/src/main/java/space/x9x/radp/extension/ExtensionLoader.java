@@ -61,9 +61,9 @@ import space.x9x.radp.extension.wrapper.WrapperExtensionLoader;
  * configuration. It supports features like adaptive extensions, wrapper extensions, and
  * dependency injection for extensions.
  *
+ * @param <T> the type of extension this loader handles
  * @author RADP x9x
  * @since 2024-09-24 11:28
- * @param <T> the type of extension this loader handles
  */
 @Slf4j
 public class ExtensionLoader<T> {

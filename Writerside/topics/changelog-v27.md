@@ -54,6 +54,11 @@
 - Fix Writerside setup.
 - Update default resource bundle `message.properties`.
 
+## Chore
+
+- Optimize `checkstyle.xml`
+- Optimize `checkstyle-suppressions.xml`
+
 ## Documentation
 
 - Fix Javadoc error: `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, `JwtAutoConfiguration`,

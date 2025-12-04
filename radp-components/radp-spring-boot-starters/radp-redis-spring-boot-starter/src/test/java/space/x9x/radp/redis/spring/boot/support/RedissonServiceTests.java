@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for {@link RedissonService}.
@@ -116,31 +116,31 @@ class RedissonServiceTests {
 		redissonService = new RedissonService(redissonClient);
 
 		// Setup of common mocks
-		when(redissonClient.<String>getBucket(anyString())).thenReturn(stringBucket);
-		when(redissonClient.getAtomicLong(anyString())).thenReturn(atomicLong);
-		when(redissonClient.<String>getQueue(anyString())).thenReturn(queue);
-		when(redissonClient.<String>getBlockingQueue(anyString())).thenReturn(blockingQueue);
-		when(redissonClient.<String>getDelayedQueue(any())).thenReturn(delayedQueue);
-		when(redissonClient.<String>getSet(anyString())).thenReturn(set);
-		when(redissonClient.<String>getList(anyString())).thenReturn(list);
-		when(redissonClient.<String, String>getMap(anyString())).thenReturn(map);
-		when(redissonClient.<String>getSortedSet(anyString())).thenReturn(sortedSet);
-		when(redissonClient.getLock(anyString())).thenReturn(lock);
-		when(redissonClient.getFairLock(anyString())).thenReturn(lock);
-		when(redissonClient.getReadWriteLock(anyString())).thenReturn(readWriteLock);
-		when(redissonClient.getSemaphore(anyString())).thenReturn(semaphore);
-		when(redissonClient.getPermitExpirableSemaphore(anyString())).thenReturn(permitExpirableSemaphore);
-		when(redissonClient.getCountDownLatch(anyString())).thenReturn(countDownLatch);
-		when(redissonClient.<String>getBloomFilter(anyString())).thenReturn(bloomFilter);
-		when(redissonClient.getBitSet(anyString())).thenReturn(bitSet);
+		given(redissonClient.<String>getBucket(anyString())).willReturn(stringBucket);
+		given(redissonClient.getAtomicLong(anyString())).willReturn(atomicLong);
+		given(redissonClient.<String>getQueue(anyString())).willReturn(queue);
+		given(redissonClient.<String>getBlockingQueue(anyString())).willReturn(blockingQueue);
+		given(redissonClient.<String>getDelayedQueue(any())).willReturn(delayedQueue);
+		given(redissonClient.<String>getSet(anyString())).willReturn(set);
+		given(redissonClient.<String>getList(anyString())).willReturn(list);
+		given(redissonClient.<String, String>getMap(anyString())).willReturn(map);
+		given(redissonClient.<String>getSortedSet(anyString())).willReturn(sortedSet);
+		given(redissonClient.getLock(anyString())).willReturn(lock);
+		given(redissonClient.getFairLock(anyString())).willReturn(lock);
+		given(redissonClient.getReadWriteLock(anyString())).willReturn(readWriteLock);
+		given(redissonClient.getSemaphore(anyString())).willReturn(semaphore);
+		given(redissonClient.getPermitExpirableSemaphore(anyString())).willReturn(permitExpirableSemaphore);
+		given(redissonClient.getCountDownLatch(anyString())).willReturn(countDownLatch);
+		given(redissonClient.<String>getBloomFilter(anyString())).willReturn(bloomFilter);
+		given(redissonClient.getBitSet(anyString())).willReturn(bitSet);
 	}
 
 	@Test
 	void testSetValue() {
 		// Test setValue(String key, T value)
 		redissonService.setValue("testKey", "testValue");
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).set("testValue");
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().set("testValue");
 	}
 
 	@Test
@@ -148,21 +148,21 @@ class RedissonServiceTests {
 		// Test setValue(String key, T value, long expired)
 		long expiration = 1000L;
 		redissonService.setValue("testKey", "testValue", expiration);
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).set("testValue", Duration.ofMillis(expiration));
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().set("testValue", Duration.ofMillis(expiration));
 	}
 
 	@Test
 	void testGetValue() {
 		// Setup
-		when(stringBucket.get()).thenReturn("testValue");
+		given(stringBucket.get()).willReturn("testValue");
 
 		// Test getValue(String key)
 		String result = redissonService.getValue("testKey");
 
 		// Verify
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).get();
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().get();
 		assertThat(result).isEqualTo("testValue");
 	}
 
@@ -172,7 +172,7 @@ class RedissonServiceTests {
 		RQueue<String> result = redissonService.getQueue("testKey");
 
 		// Verify
-		verify(redissonClient).getQueue("testKey");
+		then(redissonClient).should().getQueue("testKey");
 		assertThat(result).isEqualTo(queue);
 	}
 
@@ -182,7 +182,7 @@ class RedissonServiceTests {
 		RBlockingQueue<String> result = redissonService.getBlockingQueue("testKey");
 
 		// Verify
-		verify(redissonClient).getBlockingQueue("testKey");
+		then(redissonClient).should().getBlockingQueue("testKey");
 		assertThat(result).isEqualTo(blockingQueue);
 	}
 
@@ -192,161 +192,161 @@ class RedissonServiceTests {
 		RDelayedQueue<String> result = redissonService.getDelayedQueue(blockingQueue);
 
 		// Verify
-		verify(redissonClient).getDelayedQueue(blockingQueue);
+		then(redissonClient).should().getDelayedQueue(blockingQueue);
 		assertThat(result).isEqualTo(delayedQueue);
 	}
 
 	@Test
 	void testSetAndGetAtomicLong() {
 		// Setup
-		when(atomicLong.get()).thenReturn(100L);
+		given(atomicLong.get()).willReturn(100L);
 
 		// Test setAtomicLong(String key, long value)
 		redissonService.setAtomicLong("testKey", 100L);
 
 		// Verify
-		verify(redissonClient).getAtomicLong("testKey");
-		verify(atomicLong).set(100L);
+		then(redissonClient).should().getAtomicLong("testKey");
+		then(atomicLong).should().set(100L);
 
 		// Test getAtomicLong(String key)
 		Long result = redissonService.getAtomicLong("testKey");
 
 		// Verify
-		verify(redissonClient, times(2)).getAtomicLong("testKey");
-		verify(atomicLong).get();
+		then(redissonClient).should(times(2)).getAtomicLong("testKey");
+		then(atomicLong).should().get();
 		assertThat(result).isEqualTo(100L);
 	}
 
 	@Test
 	void testIncrAndDecr() {
 		// Setup
-		when(atomicLong.incrementAndGet()).thenReturn(101L);
-		when(atomicLong.decrementAndGet()).thenReturn(99L);
-		when(atomicLong.addAndGet(10L)).thenReturn(110L);
-		when(atomicLong.addAndGet(-10L)).thenReturn(90L);
+		given(atomicLong.incrementAndGet()).willReturn(101L);
+		given(atomicLong.decrementAndGet()).willReturn(99L);
+		given(atomicLong.addAndGet(10L)).willReturn(110L);
+		given(atomicLong.addAndGet(-10L)).willReturn(90L);
 
 		// Test incr(String key)
 		long incrResult = redissonService.incr("testKey");
 
 		// Verify
-		verify(redissonClient).getAtomicLong("testKey");
-		verify(atomicLong).incrementAndGet();
+		then(redissonClient).should().getAtomicLong("testKey");
+		then(atomicLong).should().incrementAndGet();
 		assertThat(incrResult).isEqualTo(101L);
 
 		// Test incrBy(String key, long delta)
 		long incrByResult = redissonService.incrBy("testKey", 10L);
 
 		// Verify
-		verify(redissonClient, times(2)).getAtomicLong("testKey");
-		verify(atomicLong).addAndGet(10L);
+		then(redissonClient).should(times(2)).getAtomicLong("testKey");
+		then(atomicLong).should().addAndGet(10L);
 		assertThat(incrByResult).isEqualTo(110L);
 
 		// Test decr(String key)
 		long decrResult = redissonService.decr("testKey");
 
 		// Verify
-		verify(redissonClient, times(3)).getAtomicLong("testKey");
-		verify(atomicLong).decrementAndGet();
+		then(redissonClient).should(times(3)).getAtomicLong("testKey");
+		then(atomicLong).should().decrementAndGet();
 		assertThat(decrResult).isEqualTo(99L);
 
 		// Test decrBy(String key, long delta)
 		long decrByResult = redissonService.decrBy("testKey", 10L);
 
 		// Verify
-		verify(redissonClient, times(4)).getAtomicLong("testKey");
-		verify(atomicLong).addAndGet(-10L);
+		then(redissonClient).should(times(4)).getAtomicLong("testKey");
+		then(atomicLong).should().addAndGet(-10L);
 		assertThat(decrByResult).isEqualTo(90L);
 	}
 
 	@Test
 	void testRemoveAndExists() {
 		// Setup
-		when(stringBucket.isExists()).thenReturn(true, false);
+		given(stringBucket.isExists()).willReturn(true, false);
 
 		// Test isExists(String key) - should return true
 		boolean existsResult = redissonService.isExists("testKey");
 
 		// Verify
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).isExists();
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().isExists();
 		assertThat(existsResult).isTrue();
 
 		// Test remove(String key)
 		redissonService.remove("testKey");
 
 		// Verify
-		verify(redissonClient, times(2)).getBucket("testKey");
-		verify(stringBucket).delete();
+		then(redissonClient).should(times(2)).getBucket("testKey");
+		then(stringBucket).should().delete();
 
 		// Test isExists(String key) after removal - should return false
 		existsResult = redissonService.isExists("testKey");
 
 		// Verify
-		verify(redissonClient, times(3)).getBucket("testKey");
-		verify(stringBucket, times(2)).isExists();
+		then(redissonClient).should(times(3)).getBucket("testKey");
+		then(stringBucket).should(times(2)).isExists();
 		assertThat(existsResult).isFalse();
 	}
 
 	@Test
 	void testSetOperations() {
 		// Setup
-		when(set.contains("testValue")).thenReturn(true);
+		given(set.contains("testValue")).willReturn(true);
 
 		// Test addToSet(String key, String value)
 		redissonService.addToSet("testKey", "testValue");
 
 		// Verify
-		verify(redissonClient).getSet("testKey");
-		verify(set).add("testValue");
+		then(redissonClient).should().getSet("testKey");
+		then(set).should().add("testValue");
 
 		// Test isSetMember(String key, String value)
 		boolean isMember = redissonService.isSetMember("testKey", "testValue");
 
 		// Verify
-		verify(redissonClient, times(2)).getSet("testKey");
-		verify(set).contains("testValue");
+		then(redissonClient).should(times(2)).getSet("testKey");
+		then(set).should().contains("testValue");
 		assertThat(isMember).isTrue();
 	}
 
 	@Test
 	void testListOperations() {
 		// Setup
-		when(list.get(0)).thenReturn("testValue");
+		given(list.get(0)).willReturn("testValue");
 
 		// Test addToList(String key, String value)
 		redissonService.addToList("testKey", "testValue");
 
 		// Verify
-		verify(redissonClient).getList("testKey");
-		verify(list).add("testValue");
+		then(redissonClient).should().getList("testKey");
+		then(list).should().add("testValue");
 
 		// Test getFromList(String key, int index)
 		String value = redissonService.getFromList("testKey", 0);
 
 		// Verify
-		verify(redissonClient, times(2)).getList("testKey");
-		verify(list).get(0);
+		then(redissonClient).should(times(2)).getList("testKey");
+		then(list).should().get(0);
 		assertThat(value).isEqualTo("testValue");
 	}
 
 	@Test
 	void testMapOperations() {
 		// Setup
-		when(map.get("field")).thenReturn("testValue");
+		given(map.get("field")).willReturn("testValue");
 
 		// Test addToMap(String key, String field, String value)
 		redissonService.addToMap("testKey", "field", "testValue");
 
 		// Verify
-		verify(redissonClient).getMap("testKey");
-		verify(map).put("field", "testValue");
+		then(redissonClient).should().getMap("testKey");
+		then(map).should().put("field", "testValue");
 
 		// Test getFromMap(String key, String field)
 		String value = redissonService.getFromMap("testKey", "field");
 
 		// Verify
-		verify(redissonClient, times(2)).getMap("testKey");
-		verify(map).get("field");
+		then(redissonClient).should(times(2)).getMap("testKey");
+		then(map).should().get("field");
 		assertThat(value).isEqualTo("testValue");
 	}
 
@@ -356,8 +356,8 @@ class RedissonServiceTests {
 		redissonService.addToSortedSet("testKey", "testValue");
 
 		// Verify
-		verify(redissonClient).getSortedSet("testKey");
-		verify(sortedSet).add("testValue");
+		then(redissonClient).should().getSortedSet("testKey");
+		then(sortedSet).should().add("testValue");
 	}
 
 	@Test
@@ -366,21 +366,21 @@ class RedissonServiceTests {
 		RLock lockResult = redissonService.getLock("testKey");
 
 		// Verify
-		verify(redissonClient).getLock("testKey");
+		then(redissonClient).should().getLock("testKey");
 		assertThat(lockResult).isEqualTo(lock);
 
 		// Test getFairLock(String key)
 		RLock fairLockResult = redissonService.getFairLock("testKey");
 
 		// Verify
-		verify(redissonClient).getFairLock("testKey");
+		then(redissonClient).should().getFairLock("testKey");
 		assertThat(fairLockResult).isEqualTo(lock);
 
 		// Test getReadWriteLock(String key)
 		RReadWriteLock rwLockResult = redissonService.getReadWriteLock("testKey");
 
 		// Verify
-		verify(redissonClient).getReadWriteLock("testKey");
+		then(redissonClient).should().getReadWriteLock("testKey");
 		assertThat(rwLockResult).isEqualTo(readWriteLock);
 	}
 
@@ -390,14 +390,14 @@ class RedissonServiceTests {
 		RSemaphore semaphoreResult = redissonService.getSemaphore("testKey");
 
 		// Verify
-		verify(redissonClient).getSemaphore("testKey");
+		then(redissonClient).should().getSemaphore("testKey");
 		assertThat(semaphoreResult).isEqualTo(semaphore);
 
 		// Test getPermitExpirableSemaphore(String key)
 		RPermitExpirableSemaphore permitSemaphoreResult = redissonService.getPermitExpirableSemaphore("testKey");
 
 		// Verify
-		verify(redissonClient).getPermitExpirableSemaphore("testKey");
+		then(redissonClient).should().getPermitExpirableSemaphore("testKey");
 		assertThat(permitSemaphoreResult).isEqualTo(permitExpirableSemaphore);
 	}
 
@@ -407,7 +407,7 @@ class RedissonServiceTests {
 		RCountDownLatch latchResult = redissonService.getCountDownLatch("testKey");
 
 		// Verify
-		verify(redissonClient).getCountDownLatch("testKey");
+		then(redissonClient).should().getCountDownLatch("testKey");
 		assertThat(latchResult).isEqualTo(countDownLatch);
 	}
 
@@ -417,35 +417,35 @@ class RedissonServiceTests {
 		RBloomFilter<String> filterResult = redissonService.getBloomFilter("testKey");
 
 		// Verify
-		verify(redissonClient).getBloomFilter("testKey");
+		then(redissonClient).should().getBloomFilter("testKey");
 		assertThat(filterResult).isEqualTo(bloomFilter);
 	}
 
 	@Test
 	void testSetNx() {
 		// Setup
-		when(stringBucket.setIfAbsent(eq("lock"))).thenReturn(true);
+		given(stringBucket.setIfAbsent(eq("lock"))).willReturn(true);
 
 		// Test setNx(String key)
 		Boolean result = redissonService.setNx("testKey");
 
 		// Verify
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).setIfAbsent("lock");
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().setIfAbsent("lock");
 		assertThat(result).isTrue();
 	}
 
 	@Test
 	void testSetNxWithExpiration() {
 		// Setup
-		when(stringBucket.setIfAbsent(eq("lock"), any(Duration.class))).thenReturn(true);
+		given(stringBucket.setIfAbsent(eq("lock"), any(Duration.class))).willReturn(true);
 
 		// Test setNx(String key, long expired, TimeUnit timeUnit)
 		Boolean result = redissonService.setNx("testKey", 1000L, TimeUnit.MILLISECONDS);
 
 		// Verify
-		verify(redissonClient).getBucket("testKey");
-		verify(stringBucket).setIfAbsent(eq("lock"), any(Duration.class));
+		then(redissonClient).should().getBucket("testKey");
+		then(stringBucket).should().setIfAbsent(eq("lock"), any(Duration.class));
 		assertThat(result).isTrue();
 	}
 
@@ -455,7 +455,7 @@ class RedissonServiceTests {
 		RBitSet bitSetResult = redissonService.getBitSet("testKey");
 
 		// Verify
-		verify(redissonClient).getBitSet("testKey");
+		then(redissonClient).should().getBitSet("testKey");
 		assertThat(bitSetResult).isEqualTo(bitSet);
 	}
 

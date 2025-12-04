@@ -19,14 +19,13 @@ package space.x9x.radp.mybatis.spring.boot.extension;
 import java.io.Serial;
 import java.util.Collection;
 
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 
 import org.springframework.util.StringUtils;
 
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 
 /**
  * 扩展的 MyBatis-Plus LambdaQueryWrapper，提供额外便捷能力.
@@ -67,7 +66,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 	 * @return 当前包装器实例，便于链式调用
 	 */
 	public LambdaQueryWrapperX<T> inIfPresent(SFunction<T, ?> column, Collection<?> values) {
-		if (ObjectUtil.isAllNotEmpty(values) && !ArrayUtil.isEmpty(values)) {
+		if (ObjectUtil.isAllNotEmpty(values) && !cn.hutool.core.util.ArrayUtil.isEmpty(values)) {
 			return (LambdaQueryWrapperX<T>) super.in(column, values);
 		}
 		return this;
@@ -80,7 +79,7 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 	 * @return 当前包装器实例，便于链式调用
 	 */
 	public LambdaQueryWrapperX<T> inIfPresent(SFunction<T, ?> column, Object... values) {
-		if (ObjectUtil.isAllNotEmpty(values) && !ArrayUtil.isEmpty(values)) {
+		if (ObjectUtil.isAllNotEmpty(values) && !cn.hutool.core.util.ArrayUtil.isEmpty(values)) {
 			return (LambdaQueryWrapperX<T>) super.in(column, values);
 		}
 		return this;
@@ -197,8 +196,8 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 	 * @return 当前包装器实例，便于链式调用
 	 */
 	public LambdaQueryWrapperX<T> betweenIfPresent(SFunction<T, ?> column, Object[] values) {
-		Object val1 = ArrayUtils.get(values, 0);
-		Object val2 = ArrayUtils.get(values, 1);
+		Object val1 = ArrayUtil.get(values, 0);
+		Object val2 = ArrayUtil.get(values, 1);
 		return betweenIfPresent(column, val1, val2);
 	}
 

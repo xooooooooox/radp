@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.Adaptive;
 import space.x9x.radp.extension.ExtensionLoader;
 
@@ -240,7 +240,7 @@ public class AdaptiveClassCodeGenerator {
 	private String[] getMethodAdaptiveValue(Adaptive adaptiveAnnotation) {
 		String[] value = adaptiveAnnotation.value();
 		if (value.length == 0) {
-			String splitName = StringUtils.camelToSplitName(this.type.getSimpleName(), ".");
+			String splitName = StringUtil.camelToSplitName(this.type.getSimpleName(), ".");
 			value = new String[] { splitName };
 		}
 		return value;

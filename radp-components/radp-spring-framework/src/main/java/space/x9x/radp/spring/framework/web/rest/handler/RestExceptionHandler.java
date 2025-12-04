@@ -40,7 +40,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
 import space.x9x.radp.spring.framework.error.BaseException;
@@ -81,7 +81,8 @@ public class RestExceptionHandler {
 		log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
 		ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
 		HttpStatus status = (responseStatus != null) ? responseStatus.value() : HttpStatus.INTERNAL_SERVER_ERROR;
-		String message = (responseStatus != null) ? responseStatus.reason() : ex.getMessage();
+		String message = (responseStatus != null && StringUtil.isNotBlank(responseStatus.reason()))
+				? responseStatus.reason() : HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
 		this.postProcess(ex);
 		return this.buildResponseEntity(status, "500", message);
 	}
@@ -95,7 +96,7 @@ public class RestExceptionHandler {
 	public ResponseEntity<?> resolveValidationException(MethodArgumentNotValidException ex) {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
-		String message = StringUtils.join(fieldErrors.toArray(), ",");
+		String message = StringUtil.join(fieldErrors.toArray(), ",");
 		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, "400", message);
 	}
 
@@ -255,7 +256,7 @@ public class RestExceptionHandler {
 			// ignore and fallback
 		}
 		String base = (errMessage == null ? "" : errMessage);
-		return base + (base.isEmpty() ? "" : " ") + StringUtils.join(params, ",");
+		return base + (base.isEmpty() ? "" : " ") + StringUtil.join(params, ",");
 	}
 
 	private String buildSseErrorEvent(String code, String message) {

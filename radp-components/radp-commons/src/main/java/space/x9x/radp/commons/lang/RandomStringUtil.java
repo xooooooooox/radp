@@ -56,7 +56,7 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * @see space.x9x.radp.commons.regex.pattern.RegexCache
  */
 @UtilityClass
-public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
+public class RandomStringUtil {
 
 	/**
 	 * 数字字符集.

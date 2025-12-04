@@ -70,6 +70,7 @@ public class CollectionUtils {
 	 * @param <T> the type of elements in the set
 	 * @return an immutable set containing the given elements
 	 */
+	@SafeVarargs
 	public static <T> Set<T> ofSet(T... values) {
 		// Ensure that the array is not null and has elements
 		if (values == null || values.length == 0) {

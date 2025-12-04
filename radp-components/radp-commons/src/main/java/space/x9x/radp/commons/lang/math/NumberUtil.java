@@ -14,19 +14,33 @@
  * limitations under the License.
  */
 
-package space.x9x.radp.commons.lang;
+package space.x9x.radp.commons.lang.math;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * Utility class for array operations. This class extends Apache Commons Lang's ArrayUtils
- * to provide convenient access to array manipulation methods such as adding, removing,
- * and checking elements in arrays of various types.
- *
  * @author x9x
- * @since 2024-09-24 23:10
+ * @since 2024-09-27 21:11
+ * @see org.apache.commons.lang3.math.NumberUtils
  */
 @UtilityClass
-public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
+public class NumberUtil {
+
+	public static long toLong(final String str) {
+		return NumberUtils.toLong(str);
+	}
+
+	public static long toLong(final String str, final long defaultValue) {
+		return NumberUtils.toLong(str, defaultValue);
+	}
+
+	public static int toInt(final String str) {
+		return NumberUtils.toInt(str);
+	}
+
+	public static int toInt(final String str, final int defaultValue) {
+		return NumberUtils.toInt(str, defaultValue);
+	}
 
 }

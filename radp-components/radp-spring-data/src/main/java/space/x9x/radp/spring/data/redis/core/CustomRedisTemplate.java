@@ -22,8 +22,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 
 /**
  * Custom Redis template interface. This interface defines operations for interacting with
@@ -230,7 +230,7 @@ public interface CustomRedisTemplate {
 	 * @return a string representing the complete Redis key
 	 */
 	default <T> String buildRedisKey(String keyPrefix, T key) {
-		return StringUtils.join(keyPrefix, Strings.COLON, String.valueOf(key));
+		return StringUtil.join(keyPrefix, StringConstants.COLON, String.valueOf(key));
 	}
 
 }

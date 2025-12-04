@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.json.jackson.exception.JacksonException;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultObjectMapper;
 import space.x9x.radp.commons.json.jackson.mapper.DefaultXmlMapper;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 
 /**
  * Utility class for JSON and XML processing using Jackson. This class provides a
@@ -237,7 +237,7 @@ public class JacksonUtils {
 	 * @throws JacksonException if an error occurs during JSON processing
 	 */
 	public static <T> T parseObject(String text, TypeReference<T> typeReference, ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return null;
 		}
 		try {
@@ -270,7 +270,7 @@ public class JacksonUtils {
 	 * @throws JacksonException if an error occurs during JSON processing
 	 */
 	public static <T> T parseObject(String text, Class<T> cls, ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return null;
 		}
 		try {
@@ -408,7 +408,7 @@ public class JacksonUtils {
 	 */
 	public static <T> Optional<T> parseObjectOptional(String text, TypeReference<T> typeReference,
 			ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return Optional.empty();
 		}
 		try {
@@ -444,7 +444,7 @@ public class JacksonUtils {
 	 * {@link Optional} if parsing fails
 	 */
 	public static <T> Optional<T> parseObjectOptional(String text, Class<T> clazz, ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return Optional.empty();
 		}
 		try {
@@ -482,7 +482,7 @@ public class JacksonUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <K, V> Map<K, V> parseMap(String text, ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return Collections.emptyMap();
 		}
 		try {
@@ -520,7 +520,7 @@ public class JacksonUtils {
 	 * @throws JacksonException if a parsing error occurs
 	 */
 	public static <T> List<T> parseList(String text, Class<T> cls, ObjectMapper objectMapper) {
-		if (StringUtils.isEmpty(text)) {
+		if (StringUtil.isEmpty(text)) {
 			return Collections.emptyList();
 		}
 		List<Map<Object, Object>> list;
@@ -568,7 +568,7 @@ public class JacksonUtils {
 		Object object = parseObject(text, cls, objectMapper);
 		ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
 		try {
-			return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
+			return StringUtil.trimToEmpty(objectWriter.writeValueAsString(object));
 		}
 		catch (JsonProcessingException ex) {
 			throw new JacksonException(ex);
@@ -635,7 +635,7 @@ public class JacksonUtils {
 			xmlMapper = getDefaultXmlMapper();
 		}
 		ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
-		return StringUtils.trimToEmpty(objectWriter.writeValueAsString(objectMapper.readTree(text)));
+		return StringUtil.trimToEmpty(objectWriter.writeValueAsString(objectMapper.readTree(text)));
 	}
 
 	// ============================ to toXMLStringPretty ============================
@@ -701,7 +701,7 @@ public class JacksonUtils {
 		Object object = parseObject(text, cls, objectMapper);
 		ObjectWriter objectWriter = xmlMapper.setSerializationInclusion(include).writerWithDefaultPrettyPrinter();
 		try {
-			return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
+			return StringUtil.trimToEmpty(objectWriter.writeValueAsString(object));
 		}
 		catch (JsonProcessingException ex) {
 			throw new JacksonException(ex);
@@ -733,7 +733,7 @@ public class JacksonUtils {
 	 * @throws JacksonException if a parsing error occurs
 	 */
 	public static <T> T parseXMLObject(String xml, TypeReference<T> typeReference, XmlMapper xmlMapper) {
-		if (StringUtils.isEmpty(xml)) {
+		if (StringUtil.isEmpty(xml)) {
 			return null;
 		}
 		try {
@@ -767,7 +767,7 @@ public class JacksonUtils {
 	 * @throws JacksonException if a parsing error occurs
 	 */
 	public static <T> T parseXMLObject(String xml, Class<T> cls, XmlMapper xmlMapper) {
-		if (StringUtils.isEmpty(xml)) {
+		if (StringUtil.isEmpty(xml)) {
 			return null;
 		}
 		try {
@@ -805,7 +805,7 @@ public class JacksonUtils {
 	 */
 	public static <T> Optional<T> parseXMLObjectOptional(String xml, TypeReference<T> typeReference,
 			XmlMapper xmlMapper) {
-		if (StringUtils.isEmpty(xml)) {
+		if (StringUtil.isEmpty(xml)) {
 			return Optional.empty();
 		}
 		try {
@@ -841,7 +841,7 @@ public class JacksonUtils {
 	 * {@link Optional} if parsing fails
 	 */
 	public static <T> Optional<T> parseXMLObjectOptional(String xml, Class<T> clazz, XmlMapper xmlMapper) {
-		if (StringUtils.isEmpty(xml)) {
+		if (StringUtil.isEmpty(xml)) {
 			return Optional.empty();
 		}
 		try {

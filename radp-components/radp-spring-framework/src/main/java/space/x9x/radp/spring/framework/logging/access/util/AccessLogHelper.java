@@ -25,9 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.MDC;
 
-import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.ObjectUtil;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
 import space.x9x.radp.spring.framework.logging.MdcConstants;
@@ -78,7 +78,7 @@ public class AccessLogHelper {
 
 		String className = Objects.requireNonNull(invocation.getThis()).getClass().getName();
 		String methodName = invocation.getMethod().getName();
-		String location = className + Strings.DOT + methodName;
+		String location = className + StringConstants.DOT + methodName;
 		accessLog.setLocation(location);
 
 		Object[] args = invocation.getArguments();
@@ -87,7 +87,7 @@ public class AccessLogHelper {
 			if (i > 0) {
 				argsBuilder.append(", ");
 			}
-			argsBuilder.append(args[i] == null ? Strings.NULL : args[i].toString());
+			argsBuilder.append(args[i] == null ? StringConstants.NULL : args[i].toString());
 		}
 		String arguments = argsBuilder.toString();
 		if (arguments.length() > maxLength) {
@@ -95,7 +95,8 @@ public class AccessLogHelper {
 		}
 		accessLog.setArguments(arguments);
 
-		String returnValue = ObjectUtils.isEmpty(result) ? Strings.EMPTY : JSONHelper.json().toJSONString(result);
+		String returnValue = ObjectUtil.isEmpty(result) ? StringConstants.EMPTY
+				: JSONHelper.json().toJSONString(result);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}
@@ -104,8 +105,8 @@ public class AccessLogHelper {
 		if (enabledMdc) {
 			MDC.put(MdcConstants.CLASS_NAME, className);
 			MDC.put(MdcConstants.METHOD_NAME, methodName);
-			MDC.put(MdcConstants.ARGUMENTS, StringUtils.trimToEmpty(arguments));
-			MDC.put(MdcConstants.RETURN_VALUE, StringUtils.trimToEmpty(returnValue));
+			MDC.put(MdcConstants.ARGUMENTS, StringUtil.trimToEmpty(arguments));
+			MDC.put(MdcConstants.RETURN_VALUE, StringUtil.trimToEmpty(returnValue));
 			MDC.put(MdcConstants.DURATION, String.valueOf(duration));
 		}
 		log(accessLog, slowThreshold);
@@ -150,8 +151,8 @@ public class AccessLogHelper {
 		if (enabledMdc) {
 			MDC.put(MdcConstants.REMOTE_USER, remoteUser);
 			MDC.put(MdcConstants.REMOTE_ADDR, remoteAddr);
-			MDC.put(MdcConstants.ARGUMENTS, StringUtils.trimToEmpty(arguments));
-			MDC.put(MdcConstants.RETURN_VALUE, StringUtils.trimToEmpty(returnValue));
+			MDC.put(MdcConstants.ARGUMENTS, StringUtil.trimToEmpty(arguments));
+			MDC.put(MdcConstants.RETURN_VALUE, StringUtil.trimToEmpty(returnValue));
 			MDC.put(MdcConstants.DURATION, String.valueOf(duration));
 		}
 

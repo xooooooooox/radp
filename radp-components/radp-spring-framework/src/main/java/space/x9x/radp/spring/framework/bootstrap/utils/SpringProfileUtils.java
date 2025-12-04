@@ -20,7 +20,7 @@ import lombok.experimental.UtilityClass;
 
 import org.springframework.core.env.Environment;
 
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 
 /**
  * Utility class for working with Spring profiles. This class provides helper methods for
@@ -42,9 +42,9 @@ public class SpringProfileUtils {
 	 */
 	public static String[] getActiveProfiles(Environment env) {
 		String[] activeProfiles = env.getActiveProfiles();
-		if (ArrayUtils.isEmpty(activeProfiles)) {
+		if (ArrayUtil.isEmpty(activeProfiles)) {
 			String[] defaultProfiles = env.getDefaultProfiles();
-			if (ArrayUtils.isEmpty(defaultProfiles)) {
+			if (ArrayUtil.isEmpty(defaultProfiles)) {
 				return new String[0];
 			}
 			return defaultProfiles;

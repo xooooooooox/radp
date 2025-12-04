@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.Activate;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.extension.common.Constants;
@@ -188,7 +188,7 @@ public class ActiveExtensionLoader<T> {
 	 */
 	public List<T> getActivateExtension(URL url, String key, String group) {
 		String value = url.getParameter(key);
-		return getActivateExtension(url, StringUtils.isEmpty(value) ? null : Constants.COMMA_SPLIT_PATTERN.split(value),
+		return getActivateExtension(url, StringUtil.isEmpty(value) ? null : Constants.COMMA_SPLIT_PATTERN.split(value),
 				group);
 	}
 
@@ -205,7 +205,7 @@ public class ActiveExtensionLoader<T> {
 	}
 
 	private boolean isMatchGroup(String group, String[] groups) {
-		if (StringUtils.isEmpty(group)) {
+		if (StringUtil.isEmpty(group)) {
 			return true;
 		}
 		if (groups != null && groups.length > 0) {

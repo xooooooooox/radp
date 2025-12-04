@@ -30,8 +30,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.experimental.UtilityClass;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.spring.framework.dto.PageParam;
 import space.x9x.radp.spring.framework.dto.PageResult;
 import space.x9x.radp.spring.framework.dto.SortingField;
@@ -119,12 +119,12 @@ public class MybatisUtils {
 			// LambdaQueryWrapper 不直接支持字符串字段排序, 使用 #last 方法拼接 orderBy
 			StringBuilder orderBy = new StringBuilder();
 			sortingFields.forEach(sortingField -> {
-				if (StringUtils.isNotEmpty(orderBy)) {
-					orderBy.append(Strings.COMMA);
-					orderBy.append(Strings.SPACE);
+				if (StringUtil.isNotEmpty(orderBy)) {
+					orderBy.append(StringConstants.COMMA);
+					orderBy.append(StringConstants.SPACE);
 				}
 				orderBy.append(StrUtil.toUnderlineCase(sortingField.getField()))
-					.append(Strings.SPACE)
+					.append(StringConstants.SPACE)
 					.append(SortingField.ASC.equals(sortingField.getOrder()) ? SortingField.ASC : SortingField.DESC);
 			});
 			lambdaQueryWrapper.last("ORDER BY " + orderBy);

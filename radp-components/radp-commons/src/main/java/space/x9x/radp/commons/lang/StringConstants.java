@@ -17,6 +17,7 @@
 package space.x9x.radp.commons.lang;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * String constants for common use throughout the application. This utility class provides
@@ -27,7 +28,7 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-28 21:00
  */
 @UtilityClass
-public class Strings {
+public class StringConstants {
 
 	/**
 	 * Empty string constant. Used when an empty string is needed.

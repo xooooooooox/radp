@@ -28,8 +28,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
@@ -104,8 +104,8 @@ public class SpringBootApplicationHelper {
 	 * @param env the Spring environment containing application configuration
 	 */
 	private static void logAfterRunning(Environment env) {
-		String appName = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-		String profile = String.join(Strings.COMMA, SpringProfileUtils.getActiveProfiles(env));
+		String appName = StringUtil.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
+		String profile = String.join(StringConstants.COMMA, SpringProfileUtils.getActiveProfiles(env));
 		log.info("\n----------------------------------------------------------\n" + "Application '{}' is running!\n"
 				+ "Profile(s):\t{}\n" + getInboundInfo(env) + getOutboundInfo(env)
 				+ "----------------------------------------------------------", appName, profile);
@@ -126,7 +126,7 @@ public class SpringBootApplicationHelper {
 		StringBuilder logStr = new StringBuilder();
 		for (String extension : extensions) {
 			String info = extensionLoader.getExtension(extension).toString(env);
-			if (StringUtils.isBlank(info)) {
+			if (StringUtil.isBlank(info)) {
 				continue;
 			}
 			logStr.append(info).append("\n");
@@ -149,7 +149,7 @@ public class SpringBootApplicationHelper {
 		StringBuilder logStr = new StringBuilder();
 		for (String extension : extensions) {
 			String info = extensionLoader.getExtension(extension).toString(env);
-			if (StringUtils.isBlank(info)) {
+			if (StringUtil.isBlank(info)) {
 				continue;
 			}
 			logStr.append(info).append("\n");

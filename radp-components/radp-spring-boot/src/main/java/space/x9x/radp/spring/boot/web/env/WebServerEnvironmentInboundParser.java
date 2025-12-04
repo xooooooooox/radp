@@ -19,9 +19,9 @@ package space.x9x.radp.spring.boot.web.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.commons.lang.math.NumberUtils;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
+import space.x9x.radp.commons.lang.math.NumberUtil;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
 
@@ -53,12 +53,12 @@ public class WebServerEnvironmentInboundParser implements EnvironmentInboundPars
 	@Override
 	public String toString(Environment env) {
 		if (!env.containsProperty(WebServerEnvironment.SERVER_PORT)) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 
 		boolean protocol = env.containsProperty(WebServerEnvironment.SERVER_SSL_KEY_STORE);
-		int port = NumberUtils.toInt(WebServerEnvironment.SERVER_PORT);
-		String contextPath = StringUtils.trimToEmpty(env.getProperty(WebServerEnvironment.SERVER_SERVLET_CONTEXT_PATH));
+		int port = NumberUtil.toInt(WebServerEnvironment.SERVER_PORT);
+		String contextPath = StringUtil.trimToEmpty(env.getProperty(WebServerEnvironment.SERVER_SERVLET_CONTEXT_PATH));
 		return MessageFormatUtils.format(TEMPLATE, protocol, IpConfigUtils.getIpAddress(), port, contextPath);
 	}
 

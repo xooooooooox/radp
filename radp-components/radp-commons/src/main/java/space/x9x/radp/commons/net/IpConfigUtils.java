@@ -29,8 +29,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 
 /**
  * Utility class for IP address operations and network-related functionality.
@@ -96,10 +96,10 @@ public class IpConfigUtils {
 	public static String getIpAddress(String interfaceName) {
 		try {
 			List<String> ipList = getHostAddress(interfaceName);
-			return CollectionUtils.isNotEmpty(ipList) ? ipList.get(0) : Strings.EMPTY;
+			return CollectionUtils.isNotEmpty(ipList) ? ipList.get(0) : StringConstants.EMPTY;
 		}
 		catch (SocketException ex) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 	}
 
@@ -159,13 +159,13 @@ public class IpConfigUtils {
 	 */
 	public static String parseIpAddress(HttpServletRequest request) {
 		String ip = request.getHeader(X_FORWARDED_FOR);
-		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader(PROXY_CLIENT_IP);
 		}
-		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader(WL_PROXY_CLIENT_IP);
 		}
-		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 		return ip;

@@ -28,7 +28,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.framework.error.http.UnauthorizedException;
 import space.x9x.radp.spring.security.common.token.AccessToken;
 import space.x9x.radp.spring.security.common.user.LoginUserDetails;
@@ -65,7 +65,7 @@ public class JwtTokenService {
 				}
 				StringBuilder authorities = new StringBuilder();
 				authentication.getAuthorities()
-					.forEach(authority -> authorities.append(authority.getAuthority()).append(Strings.COMMA));
+					.forEach(authority -> authorities.append(authority.getAuthority()).append(StringConstants.COMMA));
 				claims.put(JwtConstants.AUTHORITIES_KEY, authorities.toString());
 			}
 

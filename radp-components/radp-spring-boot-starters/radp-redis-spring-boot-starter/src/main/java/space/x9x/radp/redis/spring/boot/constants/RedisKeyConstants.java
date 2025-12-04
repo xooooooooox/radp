@@ -18,7 +18,7 @@ package space.x9x.radp.redis.spring.boot.constants;
 
 import lombok.experimental.UtilityClass;
 
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 
 /**
  * Redis key constants and utilities for standardized key management.
@@ -42,7 +42,7 @@ public class RedisKeyConstants {
 	/**
 	 * The standard delimiter used to separate parts of Redis keys.
 	 */
-	public static final String DELIMITER = Strings.COLON;
+	public static final String DELIMITER = StringConstants.COLON;
 
 	/**
 	 * Default implementation of RedisKeyProvider for core RADP functionality. This can be

@@ -17,6 +17,7 @@
 package space.x9x.radp.commons.lang;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Utility class for object operations. This class extends Apache Commons Lang's
@@ -27,7 +28,7 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-30 10:34
  */
 @UtilityClass
-public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
+public class ObjectUtil {
 
 	/**
 	 * Converts an object to a string and trims any whitespace.
@@ -41,9 +42,17 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 	 */
 	public static String trimToString(Object object) {
 		if (object == null) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
-		return StringUtils.trimToEmpty(String.valueOf(object));
+		return StringUtil.trimToEmpty(String.valueOf(object));
+	}
+
+	public static boolean isEmpty(final Object object) {
+		return ObjectUtils.isEmpty(object);
+	}
+
+	public static boolean isNotEmpty(final Object object) {
+		return ObjectUtils.isNotEmpty(object);
 	}
 
 }

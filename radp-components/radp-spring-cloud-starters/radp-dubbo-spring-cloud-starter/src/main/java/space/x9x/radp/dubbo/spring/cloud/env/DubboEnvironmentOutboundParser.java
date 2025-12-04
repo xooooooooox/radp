@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
 
@@ -54,7 +54,7 @@ public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser
 	public String toString(Environment env) {
 		boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
 		if (disabled) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 
 		String registryAddress = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.REGISTRY_ADDRESS));

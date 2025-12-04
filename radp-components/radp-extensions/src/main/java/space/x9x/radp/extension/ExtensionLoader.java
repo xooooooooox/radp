@@ -38,9 +38,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.reflect.ReflectionUtils;
 import space.x9x.radp.extension.active.ActiveExtensionLoader;
 import space.x9x.radp.extension.adaptive.AdaptiveExtensionLoader;
@@ -444,7 +444,7 @@ public class ExtensionLoader<T> {
 						else {
 							clazz = line;
 						}
-						if (StringUtils.isNotEmpty(clazz) && !isExcluded(clazz, excludedPackages)) {
+						if (StringUtil.isNotEmpty(clazz) && !isExcluded(clazz, excludedPackages)) {
 							loadClass(extensionClasses, resourceURL, Class.forName(clazz, true, classLoader), name,
 									overridden);
 						}
@@ -489,7 +489,7 @@ public class ExtensionLoader<T> {
 		clazz.getConstructor();
 
 		// 如果名称为空, 从类名匹配
-		if (StringUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			name = findExtensionName(clazz);
 			if (name.isEmpty()) {
 				throw new IllegalStateException(
@@ -499,7 +499,7 @@ public class ExtensionLoader<T> {
 
 		// 根据名称缓存扩展类
 		String[] names = Constants.COMMA_SPLIT_PATTERN.split(name);
-		if (ArrayUtils.isNotEmpty(names)) {
+		if (ArrayUtil.isNotEmpty(names)) {
 			this.activeExtensionLoader.cacheActiveClass(clazz, names[0]);
 			for (String n : names) {
 				saveInCacheName(clazz, n);
@@ -593,7 +593,7 @@ public class ExtensionLoader<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T getExtension(String name, boolean wrap) {
-		if (StringUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			throw new IllegalArgumentException("Extension name == null");
 		}
 		final Holder<Object> holder = getOrCreateHolder(name);
@@ -651,8 +651,8 @@ public class ExtensionLoader<T> {
 				if (CollectionUtils.isNotEmpty(wrapperClassesList)) {
 					for (Class<?> wrapperClass : wrapperClassesList) {
 						Wrapper wrapper = wrapperClass.getAnnotation(Wrapper.class);
-						if (wrapper == null || (ArrayUtils.contains(wrapper.matches(), name)
-								&& !ArrayUtils.contains(wrapper.mismatches(), name))) {
+						if (wrapper == null || (ArrayUtil.contains(wrapper.matches(), name)
+								&& !ArrayUtil.contains(wrapper.mismatches(), name))) {
 							instance = injectExtension(
 									(T) wrapperClass.getConstructor(this.type).newInstance(instance));
 						}
@@ -797,7 +797,7 @@ public class ExtensionLoader<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T getLoadedExtension(String name) {
-		if (StringUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			throw new IllegalArgumentException("Extension name == null");
 		}
 		Holder<Object> holder = getOrCreateHolder(name);
@@ -835,7 +835,7 @@ public class ExtensionLoader<T> {
 	 */
 	public T getDefaultExtension() {
 		this.getExtensionClasses();
-		if (StringUtils.isBlank(this.cachedDefaultName)) {
+		if (StringUtil.isBlank(this.cachedDefaultName)) {
 			return null;
 		}
 		return getExtension(this.cachedDefaultName);

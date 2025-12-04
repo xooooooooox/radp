@@ -38,8 +38,8 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.collections.MapUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
+import space.x9x.radp.commons.lang.StringUtil;
 
 /**
  * Utility class for working with Spring Expression Language (SpEL). Provides methods to
@@ -93,7 +93,7 @@ public class SpringExpressionUtils {
 		// Spring 的表达式上下文对象
 		StandardEvaluationContext context = new StandardEvaluationContext();
 		// 给上下文赋值
-		if (ArrayUtils.isNotEmpty(parameterNames)) {
+		if (ArrayUtil.isNotEmpty(parameterNames)) {
 			Object[] args = joinPoint.getArgs();
 			for (int i = 0; i < Objects.requireNonNull(parameterNames).length; i++) {
 				context.setVariable(parameterNames[i], args[i]);
@@ -116,7 +116,7 @@ public class SpringExpressionUtils {
 	 * @return 执行结果
 	 */
 	public static Object parseExpression(String expressionString) {
-		if (StringUtils.isBlank(expressionString)) {
+		if (StringUtil.isBlank(expressionString)) {
 			return null;
 		}
 

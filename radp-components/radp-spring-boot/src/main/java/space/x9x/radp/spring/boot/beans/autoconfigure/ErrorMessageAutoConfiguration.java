@@ -42,7 +42,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * all static usages of ErrorCodeLoader transparently benefit from i18n and deterministic
  * precedence.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-28 20:41
  */
 @AutoConfiguration

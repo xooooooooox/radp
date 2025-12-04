@@ -58,7 +58,7 @@ import space.x9x.radp.solutions.excel.function.ExcelColumnSelectFunction;
  * <p>
  * 该处理器通过在固定sheet中创建数据源来实现Excel单元格下拉选择功能
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-10-30 16:59
  */
 @Slf4j

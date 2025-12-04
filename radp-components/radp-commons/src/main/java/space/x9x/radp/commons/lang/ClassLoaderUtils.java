@@ -27,7 +27,7 @@ import lombok.experimental.UtilityClass;
  * appropriate ClassLoaders in different contexts and maintains a mapping of primitive
  * type names to their corresponding Class objects.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 20:23
  */
 @UtilityClass

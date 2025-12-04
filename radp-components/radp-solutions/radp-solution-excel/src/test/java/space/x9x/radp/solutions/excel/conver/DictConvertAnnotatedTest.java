@@ -35,7 +35,7 @@ import space.x9x.radp.solutions.excel.annotations.DictFormat;
  * context is available so SpringUtil.getBean(...) will fail and the converter should
  * enter its catch branch and return safe fallbacks.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-09 20:52
  */
 class DictConvertAnnotatedTest {

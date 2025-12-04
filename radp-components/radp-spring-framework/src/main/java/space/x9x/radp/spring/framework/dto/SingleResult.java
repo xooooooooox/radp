@@ -33,7 +33,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * Result object for responses that contain a single data item. This class extends the
  * base Result class to provide a typed data field.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 15:57
  * @param <T> the type of the data item in the result
  */

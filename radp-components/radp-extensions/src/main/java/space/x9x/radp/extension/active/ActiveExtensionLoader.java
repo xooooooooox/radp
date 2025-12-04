@@ -42,7 +42,7 @@ import space.x9x.radp.extension.common.URL;
  * based on specified criteria such as groups and values, and to sort them according to
  * their activation order.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 12:46
  * @param <T> the type of extension this loader handles
  */

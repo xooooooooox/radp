@@ -29,7 +29,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 00:30
  */
 @SuperBuilder

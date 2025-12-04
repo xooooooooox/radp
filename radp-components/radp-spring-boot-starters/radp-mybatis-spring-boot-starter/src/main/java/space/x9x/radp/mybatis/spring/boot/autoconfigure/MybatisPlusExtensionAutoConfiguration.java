@@ -51,7 +51,7 @@ import space.x9x.radp.spring.framework.web.LoginUserResolver;
  * handles creation and modification timestamps in entity objects. It is activated when
  * the appropriate property is set and the required MyBatis-Plus classes are available.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 14:45
  */
 @Slf4j

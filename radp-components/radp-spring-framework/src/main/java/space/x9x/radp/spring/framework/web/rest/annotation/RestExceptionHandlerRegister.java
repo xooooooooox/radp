@@ -30,7 +30,7 @@ import space.x9x.radp.spring.framework.web.rest.handler.RestExceptionHandler;
  * RestExceptionHandler in the application context. This class implements
  * ImportBeanDefinitionRegistrar to programmatically register the exception handler bean.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 00:05
  */
 public class RestExceptionHandlerRegister implements ImportBeanDefinitionRegistrar {

@@ -34,7 +34,7 @@ import space.x9x.radp.commons.collections.CollectionUtils;
  * {@link cn.idev.excel.write.style.column.LongestMatchColumnWidthStyleStrategy}, 额外处理了
  * Date 类型
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-10-30 16:08
  * @see <a href="https://github.com/YunaiV/yudao-cloud/pull/196/">添加自适应列宽处理器，并替换默认列宽策略</a>
  */

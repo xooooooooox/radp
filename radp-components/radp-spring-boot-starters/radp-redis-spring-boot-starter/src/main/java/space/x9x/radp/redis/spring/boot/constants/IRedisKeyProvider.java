@@ -24,7 +24,7 @@ package space.x9x.radp.redis.spring.boot.constants;
  * formats while maintaining a consistent approach to key generation throughout the
  * application.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-30
  */
 public interface IRedisKeyProvider {

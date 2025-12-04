@@ -28,7 +28,7 @@ import space.x9x.radp.commons.json.JacksonUtils;
 /**
  * Tests for JsonConvert.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-09 19:59
  */
 class JsonConvertTest {

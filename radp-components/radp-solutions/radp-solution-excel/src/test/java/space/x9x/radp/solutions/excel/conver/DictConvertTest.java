@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Tests for DictConvert that avoid Spring DictService by using null contentProperty so
  * that dictionary lookup paths are skipped.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-09 20:30
  */
 class DictConvertTest {

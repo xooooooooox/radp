@@ -44,7 +44,7 @@ import space.x9x.radp.spring.security.jwt.config.JwtSecurityConfigurer;
  * <p>
  * If the application defines its own SecurityFilterChain, this auto-config backs off.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-25 12:54
  * @see JwtSecurityConfigurer
  */

@@ -28,7 +28,7 @@ import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
  * methods for encrypting and decrypting text using various Password-Based Encryption
  * (PBE) algorithms supported by Jasypt.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-17 10:30
  */
 @Slf4j

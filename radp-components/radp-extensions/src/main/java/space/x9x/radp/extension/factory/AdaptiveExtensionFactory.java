@@ -32,7 +32,7 @@ import space.x9x.radp.extension.ExtensionLoader;
  * instances. It uses the SPI mechanism to discover all available extension factories and
  * tries each one in sequence until an extension is found.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-25 10:30
  */
 @Adaptive

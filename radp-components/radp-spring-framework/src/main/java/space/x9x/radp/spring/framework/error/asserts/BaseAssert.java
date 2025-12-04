@@ -28,7 +28,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * Base an abstract class for all assertion classes with common assertion logic. This
  * class extends AbstractAssert and adds exception handling functionality.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:47
  * @param <E> the type of exception to be thrown
  */

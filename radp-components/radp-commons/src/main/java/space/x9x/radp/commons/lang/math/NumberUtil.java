@@ -20,7 +20,7 @@ import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 21:11
  * @see org.apache.commons.lang3.math.NumberUtils
  */

@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tests for {@link EmbeddedRedisServer}.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-30
  */
 class EmbeddedRedisServerTest {

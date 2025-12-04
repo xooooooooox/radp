@@ -29,7 +29,7 @@ import org.testcontainers.utility.MountableFile;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-05-24 16:52
  */
 @Testcontainers

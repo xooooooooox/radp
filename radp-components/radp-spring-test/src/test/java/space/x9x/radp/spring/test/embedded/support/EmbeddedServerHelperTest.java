@@ -28,7 +28,7 @@ import static space.x9x.radp.spring.test.embedded.support.EmbeddedServerHelper.e
 /**
  * Tests for {@link EmbeddedServerHelper}.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-30
  */
 class EmbeddedServerHelperTest {

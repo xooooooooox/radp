@@ -40,7 +40,7 @@ import space.x9x.radp.solutions.excel.utils.ExcelUtils;
  * These tests avoid external dependencies (e.g., DictService) by using a simple head
  * class without dict-related annotations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-09 19:45
  */
 class ExcelUtilsTest {

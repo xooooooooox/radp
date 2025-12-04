@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Tests for {@link ServerAssert}.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-05-16 03:02
  */
 class ServerAssertTest {

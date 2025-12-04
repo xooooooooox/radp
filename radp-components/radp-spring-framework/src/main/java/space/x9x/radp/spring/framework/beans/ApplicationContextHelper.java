@@ -38,7 +38,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
  * application context and bean factory during application startup. It provides utility
  * methods for registering beans and retrieving beans from the context.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 00:07
  */
 public class ApplicationContextHelper implements ApplicationContextAware, BeanFactoryPostProcessor {

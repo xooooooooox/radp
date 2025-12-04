@@ -28,7 +28,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 23:04
  */
 public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

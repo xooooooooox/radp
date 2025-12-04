@@ -50,7 +50,7 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * Notes: Random data produced by these helpers is intended for demos/tests and does not
  * guarantee the existence of real-world resources (e.g., actual phone numbers or emails).
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-11-20 16:41
  * @see org.apache.commons.lang3.RandomStringUtils
  * @see space.x9x.radp.commons.regex.pattern.RegexCache

@@ -38,7 +38,7 @@ import org.springframework.util.concurrent.ListenableFuture;
  * This class overrides all task submission methods to ensure each task is wrapped with
  * TTL, thereby enabling the transmission of ThreadLocal values.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 12:04
  */
 public class TtlThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {

@@ -33,7 +33,7 @@ import space.x9x.radp.spring.framework.json.JSON;
  * back to objects using Fastjson2, which is the next generation of Fastjson with improved
  * performance and features.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 13:21
  */
 public class Fastjson2 implements JSON {

@@ -28,7 +28,7 @@ import lombok.experimental.UtilityClass;
  * provide additional utility methods for working with reflection, including method
  * analysis, type checking, and property name extraction.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 16:25
  */
 @UtilityClass

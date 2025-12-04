@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * Focus on branch coverage of convertToJavaData (NUMBER/BOOLEAN/STRING) and verifying
  * convertToExcelData sets STRING cell type with text format ("@").
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-09 20:15
  */
 class MobileConvertTest {

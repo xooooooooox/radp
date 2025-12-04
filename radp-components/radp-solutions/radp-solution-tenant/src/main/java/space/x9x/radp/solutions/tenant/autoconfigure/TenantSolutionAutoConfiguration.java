@@ -28,7 +28,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.AutoFillStrategy;
  * Auto-configuration that contributes the tenant auto-fill strategy when the RADP MyBatis
  * auto-fill infrastructure is present.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-11 20:58
  */
 @AutoConfiguration

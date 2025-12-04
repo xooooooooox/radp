@@ -28,7 +28,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * MyBatis-Plus extensions, particularly for automatic field filling functionality like
  * creation and modification timestamps.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:25
  * @see space.x9x.radp.spring.data.mybatis.autofill.BasePO
  */

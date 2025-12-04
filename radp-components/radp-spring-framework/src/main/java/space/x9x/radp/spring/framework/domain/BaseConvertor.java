@@ -28,7 +28,7 @@ import org.mapstruct.MapperConfig;
  * methods for converting objects from the source type to the target type. It supports
  * conversion of single objects, lists, and streams.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-27 10:53
  * @param <S> source type to convert from
  * @param <T> target type to convert to

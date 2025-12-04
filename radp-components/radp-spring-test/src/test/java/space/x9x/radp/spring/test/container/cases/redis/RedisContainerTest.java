@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>
  * 假设你有一个简单的 API 服务依赖 Redis, 我们可以使用 TestContainers 模拟这种依赖关系
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-05-24 22:30
  */
 @Testcontainers

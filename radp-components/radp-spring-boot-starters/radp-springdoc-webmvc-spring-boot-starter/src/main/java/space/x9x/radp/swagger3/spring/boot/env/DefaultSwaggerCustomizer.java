@@ -33,7 +33,7 @@ import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
  * specification. It also implements the Ordered interface to control its execution order
  * when multiple customizers are present.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 18:14
  */
 public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {

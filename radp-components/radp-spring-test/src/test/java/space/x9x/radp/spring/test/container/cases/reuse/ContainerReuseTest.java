@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <li>复用容器适合只读测试, 如果测试会修改容器状态, 可能导致后续测试失败</li>
  * </ol>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-05-24 23:30
  */
 @Testcontainers

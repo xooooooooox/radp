@@ -44,7 +44,7 @@ import org.jasypt.encryption.StringEncryptor;
  * ciphertext. The final output is Base64 encoded with the format: base64(IV ||
  * CIPHERTEXT). For ECB mode, there is no IV prefix.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 12:49
  */
 public class Sm4StringEncryptor implements StringEncryptor {

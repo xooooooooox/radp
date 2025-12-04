@@ -31,7 +31,7 @@ import space.x9x.radp.solutions.dict.core.DictItem;
  *
  * 需要应用侧提供 {@link DictDataQuery} 实现。
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 16:04
  */
 @RequiredArgsConstructor

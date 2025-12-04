@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * that should be activated under specific conditions, such as belonging to certain groups
  * or when specific configuration parameters are present.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 12:49
  */
 @Documented

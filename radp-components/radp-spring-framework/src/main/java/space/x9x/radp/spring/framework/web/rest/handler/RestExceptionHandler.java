@@ -58,7 +58,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * exception handling across all REST controllers in the application, converting various
  * exceptions into appropriate HTTP responses with standardized error formats.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:52
  */
 @RestControllerAdvice

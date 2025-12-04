@@ -43,7 +43,7 @@ import space.x9x.radp.spring.framework.dto.SortingField;
  * 扩展的 MyBatis-Plus 基础 mapper 接口. 在 {@link MPJBaseMapper}
  * 的基础上，提供常见数据库操作的便捷方法，包括分页、关联查询、简单的 CRUD 操作以及批处理。 通过提供默认方法实现，简化了数据访问的常见模式。
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-24 14:38
  * @param <T> 该 Mapper 操作的实体类型
  * @see BaseMapper mybatis-plus 基础接口，提供基本的 CRUD 特性

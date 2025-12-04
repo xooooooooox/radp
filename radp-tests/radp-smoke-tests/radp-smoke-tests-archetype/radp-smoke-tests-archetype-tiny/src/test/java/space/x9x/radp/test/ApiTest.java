@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2024-11-15 11:56
  */
 @SpringBootTest

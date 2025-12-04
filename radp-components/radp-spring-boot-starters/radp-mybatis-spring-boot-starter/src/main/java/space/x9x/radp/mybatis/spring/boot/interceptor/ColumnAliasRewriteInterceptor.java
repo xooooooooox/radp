@@ -63,7 +63,7 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
  * per-entity annotations. If you have custom SQL with explicit aliases, ensure those are
  * compatible with this interceptor.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-10 15:04
  */
 @Intercepts({

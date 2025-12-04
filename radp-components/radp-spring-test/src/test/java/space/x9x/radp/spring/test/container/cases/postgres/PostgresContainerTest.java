@@ -30,7 +30,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-05-23 15:44
  */
 @Testcontainers // 管理容器生命周期

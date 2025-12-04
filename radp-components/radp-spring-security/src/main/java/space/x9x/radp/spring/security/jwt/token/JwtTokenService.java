@@ -35,7 +35,7 @@ import space.x9x.radp.spring.security.common.user.LoginUserDetails;
 import space.x9x.radp.spring.security.jwt.constants.JwtConstants;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 01:47
  */
 @RequiredArgsConstructor

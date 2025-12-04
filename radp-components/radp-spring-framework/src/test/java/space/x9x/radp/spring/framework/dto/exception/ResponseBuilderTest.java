@@ -25,7 +25,7 @@ import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 12:50
  */
 class ResponseBuilderTest {

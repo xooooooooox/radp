@@ -17,7 +17,7 @@
 package space.x9x.radp.spring.framework.web;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-27 14:13
  */
 public interface LoginUserResolver {

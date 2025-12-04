@@ -52,7 +52,7 @@ import static org.mockito.Mockito.when;
 /**
  * Unit tests for {@link RedissonService}.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-28 15:41
  */
 class RedissonServiceTest {

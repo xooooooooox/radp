@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 12:40
  */
 class MessageFormatUtilsTest {

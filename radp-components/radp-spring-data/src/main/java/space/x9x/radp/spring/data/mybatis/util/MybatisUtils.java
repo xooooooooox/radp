@@ -43,7 +43,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserLoader;
  * with MyBatis, including extracting database URLs and resolving SQL queries with
  * parameters. It's particularly useful for logging and debugging MyBatis operations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:48
  */
 @UtilityClass

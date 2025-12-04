@@ -25,7 +25,7 @@ import space.x9x.radp.extension.SPI;
  * interface extends Fastjson's SerializeFilter interface and is marked with the SPI
  * annotation to enable dynamic loading of filter implementations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 13:04
  */
 @SPI

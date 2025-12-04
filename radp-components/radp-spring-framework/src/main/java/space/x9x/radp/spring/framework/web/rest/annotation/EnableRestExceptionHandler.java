@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Import;
 /**
  * 用于开启 REST 接口异常解析器自动装配.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:52
  */
 @Import(RestExceptionHandlerRegister.class)

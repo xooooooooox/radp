@@ -26,7 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-11 23:28
  */
 @UtilityClass

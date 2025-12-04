@@ -28,7 +28,7 @@ package space.x9x.radp.extension.util;
  * multi-threaded environment. It uses the volatile keyword to ensure visibility across
  * threads.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 11:33
  * @param <T> any type, indicating that this holder can hold objects of any type
  */

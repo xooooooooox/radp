@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  * is documented by documentation tools and retained at runtime, allowing it to be
  * accessed through reflection.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 11:20
  */
 @Documented

@@ -32,7 +32,7 @@ import space.x9x.radp.commons.lang.ArrayUtil;
  * used by the extension system. It provides methods to load, get, and set the strategies
  * that determine how extensions are discovered and loaded.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 19:56
  */
 @UtilityClass

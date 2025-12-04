@@ -27,7 +27,7 @@ import lombok.experimental.UtilityClass;
  * US-ASCII, and GBK. It provides both the Charset objects and their corresponding name
  * strings.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:03
  */
 @UtilityClass

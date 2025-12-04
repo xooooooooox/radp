@@ -42,7 +42,7 @@ import lombok.experimental.SuperBuilder;
  * }
  * </pre>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-01 10:02
  */
 @Data

@@ -77,8 +77,8 @@ public class JwtTokenProvider implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		byte[] keyBytes = this.jwtConfig.getBase64Secret() != null ? Decoders.BASE64.decode(this.jwtConfig.getSecret())
-				: this.jwtConfig.getSecret().getBytes();
+		byte[] keyBytes = (this.jwtConfig.getBase64Secret() != null)
+				? Decoders.BASE64.decode(this.jwtConfig.getSecret()) : this.jwtConfig.getSecret().getBytes();
 
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 		this.jwtParser = Jwts.parserBuilder().setSigningKey(this.key).build();

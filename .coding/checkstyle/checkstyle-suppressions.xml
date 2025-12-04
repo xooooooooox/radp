@@ -81,4 +81,8 @@
 	<suppress files="AccessLogHelper\.java" checks="HideUtilityClassConstructor"/>
 	<suppress files="ServletUtils\.java" checks="HideUtilityClassConstructor"/>
 
+	<!-- radp-smoke-tests -->
+	<suppress checks="NoWhitespaceBefore"
+			  files="ResponseCode\.java"/>
+
 </suppressions>

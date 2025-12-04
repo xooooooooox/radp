@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tests for {@link QueryWrapperX} helpers.
  *
- * @author Junie
+ * @author RADP x9x
  * @since 2025-12-05 00:06
  */
 class QueryWrapperXTests {

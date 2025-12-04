@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
  * pages to {@link PageResult}, and applying order to both {@link QueryWrapper} and
  * {@link LambdaQueryWrapper}.
  *
- * @author Junie
+ * @author RADP x9x
  * @since 2025-12-05 00:06
  */
 class MybatisUtilsTests {

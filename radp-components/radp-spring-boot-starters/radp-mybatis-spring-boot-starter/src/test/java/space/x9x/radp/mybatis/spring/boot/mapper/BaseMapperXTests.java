@@ -35,9 +35,9 @@ import space.x9x.radp.spring.framework.dto.SortingField;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Tests for {@link BaseMapperX} default methods.
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.when;
  * We use Mockito with CALLS_REAL_METHODS so default methods are executed while abstract
  * CRUD methods are stubbed.
  *
- * @author Junie
+ * @author RADP x9x
  * @since 2025-12-05 00:06
  */
 class BaseMapperXTests {
@@ -91,7 +91,7 @@ class BaseMapperXTests {
 		BaseMapperX<E> mapper = mock(BaseMapperX.class, Mockito.CALLS_REAL_METHODS);
 
 		List<E> list = Arrays.asList(new E(1L, "A"), new E(2L, "B"), new E(3L, "C"));
-		when(mapper.selectList(any(Wrapper.class))).thenReturn(list);
+		given(mapper.selectList(any(Wrapper.class))).willReturn(list);
 
 		// NO_PAGINATION branch
 		PageParam noPg = new PageParam(1, PageParam.NO_PAGINATION);
@@ -102,12 +102,12 @@ class BaseMapperXTests {
 		assertThat(r1.getData()).hasSize(3);
 
 		// paged branch
-		doAnswer(inv -> {
+		willAnswer(inv -> {
 			IPage<E> p = inv.getArgument(0);
 			p.setRecords(list);
 			p.setTotal(list.size());
 			return p;
-		}).when(mapper).selectPage(any(IPage.class), any(Wrapper.class));
+		}).given(mapper).selectPage(any(IPage.class), any(Wrapper.class));
 
 		PageParam pg = new PageParam(2, 10);
 		PageResult<E> r2 = mapper.selectPage(pg, null, new QueryWrapper<>());
@@ -122,19 +122,19 @@ class BaseMapperXTests {
 		List<Dto> dtoList = Arrays.asList(new Dto("a"), new Dto("b"));
 
 		// NO_PAGINATION branch for lambda wrapper overload
-		when(mapper.selectJoinList(eq(Dto.class), any(MPJLambdaWrapper.class))).thenReturn(dtoList);
+		given(mapper.selectJoinList(eq(Dto.class), any(MPJLambdaWrapper.class))).willReturn(dtoList);
 		PageParam noPg = new PageParam(1, PageParam.NO_PAGINATION);
 		PageResult<Dto> jr1 = mapper.selectJoinPage(noPg, Dto.class, new MPJLambdaWrapper<>());
 		assertThat(jr1.getTotal()).isEqualTo(2);
 		assertThat(jr1.getData()).hasSize(2);
 
 		// paged branch for lambda wrapper overload
-		doAnswer(inv -> {
+		willAnswer(inv -> {
 			IPage<Dto> p = inv.getArgument(0);
 			p.setRecords(dtoList);
 			p.setTotal(dtoList.size());
 			return p;
-		}).when(mapper).selectJoinPage(any(IPage.class), eq(Dto.class), any(MPJLambdaWrapper.class));
+		}).given(mapper).selectJoinPage(any(IPage.class), eq(Dto.class), any(MPJLambdaWrapper.class));
 		PageParam pg = new PageParam(1, 10);
 		PageResult<Dto> jr2 = mapper.selectJoinPage(pg, Dto.class, new MPJLambdaWrapper<>());
 		assertThat(jr2.getTotal()).isEqualTo(2);
@@ -142,12 +142,12 @@ class BaseMapperXTests {
 
 		// overload with MPJBaseJoin
 		MPJBaseJoin<E> join = mock(MPJBaseJoin.class);
-		doAnswer(inv -> {
+		willAnswer(inv -> {
 			IPage<Dto> p = inv.getArgument(0);
 			p.setRecords(dtoList);
 			p.setTotal(dtoList.size());
 			return p;
-		}).when(mapper).selectJoinPage(any(IPage.class), eq(Dto.class), eq(join));
+		}).given(mapper).selectJoinPage(any(IPage.class), eq(Dto.class), eq(join));
 		PageResult<Dto> jr3 = mapper.selectJoinPage(pg, Dto.class, join);
 		assertThat(jr3.getTotal()).isEqualTo(2);
 		assertThat(jr3.getData()).hasSize(2);
@@ -158,9 +158,9 @@ class BaseMapperXTests {
 	void simpleHelpers_shouldDelegateToBaseCrudMethods() {
 		BaseMapperX<E> mapper = mock(BaseMapperX.class, Mockito.CALLS_REAL_METHODS);
 		E e = new E(1L, "A");
-		when(mapper.selectOne(any(Wrapper.class))).thenReturn(e);
-		when(mapper.selectCount(any(Wrapper.class))).thenReturn(5L);
-		when(mapper.selectList(any(Wrapper.class))).thenReturn(Arrays.asList(e));
+		given(mapper.selectOne(any(Wrapper.class))).willReturn(e);
+		given(mapper.selectCount(any(Wrapper.class))).willReturn(5L);
+		given(mapper.selectList(any(Wrapper.class))).willReturn(Arrays.asList(e));
 
 		assertThat(mapper.selectOne("name", "A")).isNotNull();
 		assertThat(mapper.selectOne(E::getName, "A")).isNotNull();

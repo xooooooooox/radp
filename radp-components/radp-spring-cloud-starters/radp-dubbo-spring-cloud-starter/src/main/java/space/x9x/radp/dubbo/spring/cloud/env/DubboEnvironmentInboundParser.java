@@ -19,7 +19,7 @@ package space.x9x.radp.dubbo.spring.cloud.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
@@ -56,7 +56,7 @@ public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {
 		if (disabled) {
 			return Strings.EMPTY;
 		}
-		String protocol = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
+		String protocol = StrUtils.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
 		int port = NumberUtils.toInt(env.getProperty(DubboEnvironment.PORT));
 		return MessageFormatUtils.format(TEMPLATE, protocol, port, protocol);
 	}

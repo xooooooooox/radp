@@ -30,7 +30,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.experimental.UtilityClass;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.framework.dto.PageParam;
 import space.x9x.radp.spring.framework.dto.PageResult;
@@ -120,7 +120,7 @@ public class MybatisUtils {
 			LambdaQueryWrapper<T> lambdaQueryWrapper = (LambdaQueryWrapper<T>) wrapper;
 			StringBuilder orderBy = new StringBuilder();
 			sortingFields.forEach(sortingField -> {
-				if (StringUtils.isNotEmpty(orderBy)) {
+				if (StrUtils.isNotEmpty(orderBy)) {
 					orderBy.append(Strings.COMMA);
 					orderBy.append(Strings.SPACE);
 				}

@@ -48,7 +48,7 @@ import org.apache.poi.ss.util.CellRangeAddressList;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.solutions.dict.core.DictService;
 import space.x9x.radp.solutions.excel.annotations.ExcelColumnSelect;
 import space.x9x.radp.solutions.excel.function.ExcelColumnSelectFunction;
@@ -170,7 +170,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 				"Field({}) 的 @ExcelColumnSelect 注解, dictType 和 functionName 不能同时为空", field.getName());
 
 		// 情况一: 使用 dictType 获取下拉数据
-		if (StringUtils.isNotEmpty(dictType)) { // 字典数据(默认)
+		if (StrUtils.isNotEmpty(dictType)) { // 字典数据(默认)
 			DictService dictService = SpringUtil.getBean(DictService.class);
 			List<String> options = dictService.getLabels(dictType);
 			this.selectMap.put(colIndex, options);

@@ -31,7 +31,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
 
 /**
@@ -87,7 +87,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	@Override
 	public <T> Optional<List<T>> getForList(String key, Class<T> clazz) {
 		String value = this.redisTemplate.opsForValue().get(key);
-		if (StringUtils.isBlank(value)) {
+		if (StrUtils.isBlank(value)) {
 			return Optional.empty();
 		}
 		return Optional.of(JSONHelper.json().parseList(value, clazz));
@@ -191,7 +191,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	 */
 	private <T> Optional<T> toObject(String value, Class<T> clazz) {
 		return Optional.ofNullable(value)
-			.filter(StringUtils::isNoneBlank)
+			.filter(StrUtils::isNoneBlank)
 			.map(s -> JSONHelper.json().parseObject(s, clazz));
 	}
 

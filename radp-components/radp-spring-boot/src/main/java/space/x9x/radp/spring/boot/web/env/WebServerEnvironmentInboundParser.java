@@ -19,7 +19,7 @@ package space.x9x.radp.spring.boot.web.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 import space.x9x.radp.commons.net.IpConfigUtils;
@@ -58,7 +58,7 @@ public class WebServerEnvironmentInboundParser implements EnvironmentInboundPars
 
 		boolean protocol = env.containsProperty(WebServerEnvironment.SERVER_SSL_KEY_STORE);
 		int port = NumberUtils.toInt(WebServerEnvironment.SERVER_PORT);
-		String contextPath = StringUtils.trimToEmpty(env.getProperty(WebServerEnvironment.SERVER_SERVLET_CONTEXT_PATH));
+		String contextPath = StrUtils.trimToEmpty(env.getProperty(WebServerEnvironment.SERVER_SERVLET_CONTEXT_PATH));
 		return MessageFormatUtils.format(TEMPLATE, protocol, IpConfigUtils.getIpAddress(), port, contextPath);
 	}
 

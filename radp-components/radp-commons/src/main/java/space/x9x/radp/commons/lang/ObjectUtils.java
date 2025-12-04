@@ -43,7 +43,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 		if (object == null) {
 			return Strings.EMPTY;
 		}
-		return StringUtils.trimToEmpty(String.valueOf(object));
+		return StrUtils.trimToEmpty(String.valueOf(object));
 	}
 
 }

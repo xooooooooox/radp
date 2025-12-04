@@ -27,7 +27,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.MDC;
 
 import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
@@ -105,8 +105,8 @@ public class AccessLogHelper {
 		if (enabledMdc) {
 			MDC.put(MdcConstants.CLASS_NAME, className);
 			MDC.put(MdcConstants.METHOD_NAME, methodName);
-			MDC.put(MdcConstants.ARGUMENTS, StringUtils.trimToEmpty(arguments));
-			MDC.put(MdcConstants.RETURN_VALUE, StringUtils.trimToEmpty(returnValue));
+			MDC.put(MdcConstants.ARGUMENTS, StrUtils.trimToEmpty(arguments));
+			MDC.put(MdcConstants.RETURN_VALUE, StrUtils.trimToEmpty(returnValue));
 			MDC.put(MdcConstants.DURATION, String.valueOf(duration));
 		}
 		log(accessLog, slowThreshold);
@@ -151,8 +151,8 @@ public class AccessLogHelper {
 		if (enabledMdc) {
 			MDC.put(MdcConstants.REMOTE_USER, remoteUser);
 			MDC.put(MdcConstants.REMOTE_ADDR, remoteAddr);
-			MDC.put(MdcConstants.ARGUMENTS, StringUtils.trimToEmpty(arguments));
-			MDC.put(MdcConstants.RETURN_VALUE, StringUtils.trimToEmpty(returnValue));
+			MDC.put(MdcConstants.ARGUMENTS, StrUtils.trimToEmpty(arguments));
+			MDC.put(MdcConstants.RETURN_VALUE, StrUtils.trimToEmpty(returnValue));
 			MDC.put(MdcConstants.DURATION, String.valueOf(duration));
 		}
 

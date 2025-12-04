@@ -22,7 +22,7 @@ import java.util.Deque;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.experimental.UtilityClass;
 
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 
 /**
  * 动态路由数据源上下文管理.
@@ -58,7 +58,7 @@ public class RoutingDataSourceContextHolder {
 	 * @see #clear()
 	 */
 	public static String push(String ds) {
-		String dataSourceStr = StringUtils.isEmpty(ds) ? "" : ds;
+		String dataSourceStr = StrUtils.isEmpty(ds) ? "" : ds;
 		CONTEXT.get().push(dataSourceStr);
 		return dataSourceStr;
 	}

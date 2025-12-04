@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 
 /**
@@ -230,7 +230,7 @@ public interface CustomRedisTemplate {
 	 * @return a string representing the complete Redis key
 	 */
 	default <T> String buildRedisKey(String keyPrefix, T key) {
-		return StringUtils.join(keyPrefix, Strings.COLON, String.valueOf(key));
+		return StrUtils.join(keyPrefix, Strings.COLON, String.valueOf(key));
 	}
 
 }

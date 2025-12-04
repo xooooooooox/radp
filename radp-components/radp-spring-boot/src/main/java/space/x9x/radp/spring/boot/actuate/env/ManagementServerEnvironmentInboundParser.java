@@ -19,7 +19,7 @@ package space.x9x.radp.spring.boot.actuate.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 import space.x9x.radp.commons.net.IpConfigUtils;
@@ -62,7 +62,7 @@ public class ManagementServerEnvironmentInboundParser implements EnvironmentInbo
 		}
 
 		int port = NumberUtils.toInt(env.getProperty(ManagementServerEnvironment.PORT));
-		String basePath = StringUtils.trimToEmpty(env.getProperty(ManagementServerEnvironment.ENDPOINTS_WEB_BASE_PATH));
+		String basePath = StrUtils.trimToEmpty(env.getProperty(ManagementServerEnvironment.ENDPOINTS_WEB_BASE_PATH));
 		return MessageFormatUtils.format(TEMPLATE, PROTOCOL, IpConfigUtils.getIpAddress(), port, basePath);
 	}
 

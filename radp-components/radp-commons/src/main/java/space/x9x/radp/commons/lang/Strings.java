@@ -32,12 +32,12 @@ public class Strings {
 	/**
 	 * Empty string constant. Used when an empty string is needed.
 	 */
-	public static final String EMPTY = StringUtils.EMPTY;
+	public static final String EMPTY = StrUtils.EMPTY;
 
 	/**
 	 * Space character constant. Used for string formatting and whitespace replacement.
 	 */
-	public static final String SPACE = StringUtils.SPACE;
+	public static final String SPACE = StrUtils.SPACE;
 
 	/**
 	 * Single quote character constant. Used for quoting strings in SQL or other contexts.

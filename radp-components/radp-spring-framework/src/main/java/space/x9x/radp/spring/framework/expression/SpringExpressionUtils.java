@@ -39,7 +39,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.collections.MapUtils;
 import space.x9x.radp.commons.lang.ArrayUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StrUtils;
 
 /**
  * Utility class for working with Spring Expression Language (SpEL). Provides methods to
@@ -116,7 +116,7 @@ public class SpringExpressionUtils {
 	 * @return 执行结果
 	 */
 	public static Object parseExpression(String expressionString) {
-		if (StringUtils.isBlank(expressionString)) {
+		if (StrUtils.isBlank(expressionString)) {
 			return null;
 		}
 

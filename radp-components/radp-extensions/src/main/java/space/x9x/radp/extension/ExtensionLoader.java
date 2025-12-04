@@ -156,8 +156,8 @@ public class ExtensionLoader<T> {
 
 	private ExtensionLoader(Class<?> type) {
 		this.type = type;
-		this.objectFactory = (type == ExtensionFactory.class ? null
-				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
+		this.objectFactory = (type == ExtensionFactory.class) ? null
+				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension();
 	}
 
 	/**
@@ -535,10 +535,10 @@ public class ExtensionLoader<T> {
 			if (clazz.isAnnotationPresent(Order.class) || c.isAnnotationPresent(Order.class)) {
 				// 获取当前类的Order注解和值
 				Order destOrder = clazz.getAnnotation(Order.class);
-				int destValue = destOrder != null ? destOrder.value() : 0;
+				int destValue = (destOrder != null) ? destOrder.value() : 0;
 				// 获取已存在类的Order注解和值
 				Order srcOrder = c.getAnnotation(Order.class);
-				int srcValue = srcOrder != null ? srcOrder.value() : 0;
+				int srcValue = (srcOrder != null) ? srcOrder.value() : 0;
 				// 如果当前类的Order值小于已存在类的Order值，则优先使用当前类
 				if (srcValue > destValue) {
 					log.debug("Compare extension {} name {} use {} instead of {}", this.type.getName(), name,

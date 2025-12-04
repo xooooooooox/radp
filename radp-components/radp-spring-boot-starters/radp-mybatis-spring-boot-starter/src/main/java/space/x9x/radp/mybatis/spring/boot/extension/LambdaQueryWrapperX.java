@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 
 import org.springframework.util.StringUtils;
 
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrUtils;
 
 /**
  * 扩展的 MyBatis-Plus LambdaQueryWrapper，提供额外便捷能力.
@@ -195,8 +195,8 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 	 * @return 当前包装器实例，便于链式调用
 	 */
 	public LambdaQueryWrapperX<T> betweenIfPresent(SFunction<T, ?> column, Object[] values) {
-		Object val1 = ArrayUtils.get(values, 0);
-		Object val2 = ArrayUtils.get(values, 1);
+		Object val1 = ArrUtils.get(values, 0);
+		Object val2 = ArrUtils.get(values, 1);
 		return betweenIfPresent(column, val1, val2);
 	}
 

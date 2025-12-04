@@ -38,7 +38,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.collections.MapUtils;
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrUtils;
 import space.x9x.radp.commons.lang.StrUtils;
 
 /**
@@ -93,7 +93,7 @@ public class SpringExpressionUtils {
 		// Spring 的表达式上下文对象
 		StandardEvaluationContext context = new StandardEvaluationContext();
 		// 给上下文赋值
-		if (ArrayUtils.isNotEmpty(parameterNames)) {
+		if (ArrUtils.isNotEmpty(parameterNames)) {
 			Object[] args = joinPoint.getArgs();
 			for (int i = 0; i < Objects.requireNonNull(parameterNames).length; i++) {
 				context.setVariable(parameterNames[i], args[i]);

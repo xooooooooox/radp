@@ -23,7 +23,7 @@ import java.util.stream.StreamSupport;
 
 import lombok.experimental.UtilityClass;
 
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrUtils;
 
 /**
  * LoadingStrategy 容器
@@ -75,7 +75,7 @@ public class LoadingStrategyHolder {
 	 * @param strategies the loading strategies to set
 	 */
 	public static void setLoadingStrategies(LoadingStrategy... strategies) {
-		if (ArrayUtils.isNotEmpty(strategies)) {
+		if (ArrUtils.isNotEmpty(strategies)) {
 			LoadingStrategyHolder.strategies = strategies;
 		}
 	}

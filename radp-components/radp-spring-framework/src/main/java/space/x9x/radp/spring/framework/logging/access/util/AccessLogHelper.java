@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.MDC;
 
-import space.x9x.radp.commons.lang.ObjectUtils;
+import space.x9x.radp.commons.lang.ObjUtils;
 import space.x9x.radp.commons.lang.StrUtils;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.net.IpConfigUtils;
@@ -96,7 +96,7 @@ public class AccessLogHelper {
 		}
 		accessLog.setArguments(arguments);
 
-		String returnValue = ObjectUtils.isEmpty(result) ? Strings.EMPTY : JSONHelper.json().toJSONString(result);
+		String returnValue = ObjUtils.isEmpty(result) ? Strings.EMPTY : JSONHelper.json().toJSONString(result);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}

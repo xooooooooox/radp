@@ -27,7 +27,7 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-30 10:34
  */
 @UtilityClass
-public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
+public class ObjUtils extends org.apache.commons.lang3.ObjectUtils {
 
 	/**
 	 * Converts an object to a string and trims any whitespace.

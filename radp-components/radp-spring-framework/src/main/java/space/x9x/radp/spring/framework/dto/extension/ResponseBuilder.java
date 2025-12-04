@@ -29,9 +29,9 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * creating success and failure responses with various parameters. It supports extension
  * through the SPI mechanism and can be integrated with Spring's application context.
  *
+ * @param <T> the type of response object this builder creates
  * @author RADP x9x
  * @since 2024-09-26 16:11
- * @param <T> the type of response object this builder creates
  */
 @SPI("response")
 public interface ResponseBuilder<T> {

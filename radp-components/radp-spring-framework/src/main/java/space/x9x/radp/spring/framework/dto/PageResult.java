@@ -40,9 +40,9 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
  * total count. This class extends the base Result class to provide pagination-specific
  * information.
  *
+ * @param <T> the type of elements in the result collection
  * @author RADP x9x
  * @since 2024-09-26 16:02
- * @param <T> the type of elements in the result collection
  */
 @SuperBuilder(builderMethodName = "pageResultBuilder")
 @NoArgsConstructor

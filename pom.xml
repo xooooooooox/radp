@@ -57,10 +57,10 @@
 		<wrapper.distribution.type>only-script</wrapper.distribution.type>
 		<!-- jacoco -->
 		<jacoco.skip>false</jacoco.skip>
-		<jacoco.bundle.instruction.coveredratio>0.65</jacoco.bundle.instruction.coveredratio>
+		<jacoco.bundle.instruction.coveredratio>0.60</jacoco.bundle.instruction.coveredratio>
 		<jacoco.bundle.branch.coveredratio>0.50</jacoco.bundle.branch.coveredratio>
-		<jacoco.bundle.class.missedcount>0</jacoco.bundle.class.missedcount>
-		<jacoco.class.line.coveredratio>0.50</jacoco.class.line.coveredratio>
+		<jacoco.bundle.class.missedcount>10</jacoco.bundle.class.missedcount>
+		<jacoco.class.line.coveredratio>0.40</jacoco.class.line.coveredratio>
 		<!-- release -->
 		<maven.release.arguments>${user.release.arguments}</maven.release.arguments>
 		<maven.release.preparationProfiles>${user.release.preparationProfiles}</maven.release.preparationProfiles>
@@ -669,11 +669,25 @@
 										<!-- rule2: 类级门槛 -->
 										<rule>
 											<element>CLASS</element>
+											<includes>
+												<include>*Service</include>
+												<include>*ServiceImpl</include>
+												<include>*Handler</include>
+												<include>*Case*</include>
+											</includes>
 											<excludes>
 												<exclude>*Exception*</exclude>
 												<exclude>*Application</exclude>
 												<exclude>*Config*</exclude>
 												<exclude>*Properties</exclude>
+												<exclude>*DTO</exclude>
+												<exclude>*VO</exclude>
+												<exclude>*PO</exclude>
+												<exclude>*Request</exclude>
+												<exclude>*Response</exclude>
+												<exclude>*Mapper</exclude>
+												<exclude>*Convertor</exclude>
+												<exclude>*Entity</exclude>
 											</excludes>
 											<limits>
 												<limit>

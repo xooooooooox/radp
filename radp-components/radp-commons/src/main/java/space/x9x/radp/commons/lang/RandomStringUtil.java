@@ -80,7 +80,7 @@ public class RandomStringUtil {
 	 * <p>
 	 * For example, length=4 may yield "1234" or "9087".
 	 * </p>
-	 * @param length total number of digits; must be >= 1
+	 * @param length total number of digits; must be &gt;= 1
 	 * @return a numeric string of the given length; its first digit is in [1-9]
 	 * @throws IllegalArgumentException if length &lt; 1
 	 */
@@ -147,7 +147,7 @@ public class RandomStringUtil {
 
 	/**
 	 * 生成指定长度的合法随机用户名.
-	 * @param length 长度(必须 >= 3)
+	 * @param length 长度(必须 &gt;= 3)
 	 * @return 合法的随机用户名
 	 */
 	public static String generateUsername(int length) {
@@ -156,8 +156,8 @@ public class RandomStringUtil {
 
 	/**
 	 * 生成指定长度范围内的合法随机用户名.
-	 * @param minLength 最小长度(必须 >= 3)
-	 * @param maxLength 最大长度(必须 >= minLength)
+	 * @param minLength 最小长度(必须 &gt;= 3)
+	 * @param maxLength 最大长度(必须 &gt;= minLength)
 	 * @return 合法的随机用户名
 	 */
 	public static String generateUsername(int minLength, int maxLength) {
@@ -467,12 +467,12 @@ public class RandomStringUtil {
 		public final String allowedChars;
 
 		/**
-		 * 最小长度(>=1).
+		 * 最小长度(&gt;=1).
 		 */
 		public final int minLength;
 
 		/**
-		 * 最大长度(>=minLength).
+		 * 最大长度(&gt;=minLength).
 		 */
 		public final int maxLength;
 

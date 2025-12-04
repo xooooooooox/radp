@@ -25,12 +25,12 @@ package space.x9x.radp.extension.util;
  * Generic type holder class. This class is used to store objects of any type and provides
  * methods to set and get the object. It is primarily used when a type-safe value
  * container needs to be passed, especially when the container needs to be accessed in a
- * multi-threaded environment. It uses the volatile keyword to ensure visibility across
+ * multithreaded environment. It uses the volatile keyword to ensure visibility across
  * threads.
  *
+ * @param <T> any type, indicating that this holder can hold objects of any type
  * @author RADP x9x
  * @since 2024-09-24 11:33
- * @param <T> any type, indicating that this holder can hold objects of any type
  */
 public class Holder<T> {
 

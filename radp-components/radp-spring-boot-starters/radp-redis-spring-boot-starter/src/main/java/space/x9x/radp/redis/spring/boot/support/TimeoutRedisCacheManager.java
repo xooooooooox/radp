@@ -25,7 +25,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtils;
 
@@ -66,21 +66,21 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 
 	@Override
 	protected @NotNull RedisCache createRedisCache(@NotNull String name, RedisCacheConfiguration cacheConfig) {
-		if (StrUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			return super.createRedisCache(name, cacheConfig);
 		}
 		// 如果使用 # 分隔符, 大小不为 2, 则说明不使用自定义火气时间
-		String[] names = StrUtils.split(name, SPLIT);
+		String[] names = StringUtil.split(name, SPLIT);
 		if (names.length != 2) {
 			super.createRedisCache(name, cacheConfig);
 		}
 		// 核心: 通过修改 cacheConfig 的过期时间, 实现自定义过期时间
 		if (cacheConfig != null) {
 			// 移除 # 后面的 : 以及后见面的内容, 避免影响解析
-			String ttlStr = StrUtils.substringBefore(names[1], Strings.COLON); // 获取
+			String ttlStr = StringUtil.substringBefore(names[1], Strings.COLON); // 获取
 																					// ttlStr
 																					// 时间部分
-			names[1] = StrUtils.substringAfter(names[1], ttlStr); // 移除掉 ttlStr 时间部分
+			names[1] = StringUtil.substringAfter(names[1], ttlStr); // 移除掉 ttlStr 时间部分
 			// 解析时间
 			Duration duration = parseDuration(ttlStr);
 			cacheConfig = cacheConfig.entryTtl(duration);
@@ -96,7 +96,7 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 	 * @return the parsed Duration
 	 */
 	private Duration parseDuration(String ttlStr) {
-		String timeUnit = StrUtils.right(ttlStr, 1);
+		String timeUnit = StringUtil.right(ttlStr, 1);
 		switch (timeUnit) {
 			case "s":
 				return Duration.ofSeconds(removeDurationSuffix(ttlStr));
@@ -118,7 +118,7 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 	 * @return the numeric time value
 	 */
 	private Long removeDurationSuffix(String ttlStr) {
-		return NumberUtils.toLong(StrUtils.substring(ttlStr, 0, ttlStr.length() - 1));
+		return NumberUtils.toLong(StringUtil.substring(ttlStr, 0, ttlStr.length() - 1));
 	}
 
 }

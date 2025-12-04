@@ -26,7 +26,7 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-23 13:57
  */
 @UtilityClass
-public class StrUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtil extends org.apache.commons.lang3.StringUtils {
 
 	/**
 	 * Converts camel-case text to lower-case words separated by {@code split}.

@@ -31,7 +31,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.util.PathMatcher;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
 import space.x9x.radp.spring.security.common.token.AccessToken;
 import space.x9x.radp.spring.security.jwt.constants.JwtConstants;
@@ -106,7 +106,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private AccessToken resolveToken(HttpServletRequest request) {
 		String bearerToken = request.getHeader(this.jwtTokenProvider.getJwtConfig().getHeader());
-		if (StrUtils.isNotBlank(bearerToken) && bearerToken.startsWith(JwtConstants.BEARER_PREFIX)) {
+		if (StringUtil.isNotBlank(bearerToken) && bearerToken.startsWith(JwtConstants.BEARER_PREFIX)) {
 			return AccessToken.builder().value(bearerToken.substring(JwtConstants.BEARER_PREFIX.length())).build();
 		}
 		return null;

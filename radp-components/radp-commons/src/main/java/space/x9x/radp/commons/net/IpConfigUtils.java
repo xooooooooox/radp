@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.Strings;
 
 /**
@@ -160,13 +160,13 @@ public class IpConfigUtils {
 	 */
 	public static String parseIpAddress(HttpServletRequest request) {
 		String ip = request.getHeader(X_FORWARDED_FOR);
-		if (StrUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader(PROXY_CLIENT_IP);
 		}
-		if (StrUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader(WL_PROXY_CLIENT_IP);
 		}
-		if (StrUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtil.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 		return ip;

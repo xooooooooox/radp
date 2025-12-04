@@ -21,39 +21,39 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StrUtils}.
+ * Tests for {@link StringUtil}.
  *
  * @author x9x
  * @since 2024-09-23 13:57
  */
-class StrUtilsTest {
+class StringUtilTest {
 
 	@Test
 	void testCamelToSplitName() {
 		// Test with an empty string
-		assertThat(StrUtils.camelToSplitName("", "-")).isEqualTo("");
+		assertThat(StringUtil.camelToSplitName("", "-")).isEqualTo("");
 
 		// Test with null
-		assertThat(StrUtils.camelToSplitName(null, "-")).isNull();
+		assertThat(StringUtil.camelToSplitName(null, "-")).isNull();
 
 		// Test with no uppercase letters
-		assertThat(StrUtils.camelToSplitName("lowercase", "-")).isEqualTo("lowercase");
+		assertThat(StringUtil.camelToSplitName("lowercase", "-")).isEqualTo("lowercase");
 
 		// Test with uppercase letters
-		assertThat(StrUtils.camelToSplitName("camelCase", "-")).isEqualTo("camel-case");
+		assertThat(StringUtil.camelToSplitName("camelCase", "-")).isEqualTo("camel-case");
 
 		// Test with uppercase letters at the beginning
-		assertThat(StrUtils.camelToSplitName("CamelCase", "-")).isEqualTo("camel-case");
+		assertThat(StringUtil.camelToSplitName("CamelCase", "-")).isEqualTo("camel-case");
 
 		// Test with multiple uppercase letters
-		assertThat(StrUtils.camelToSplitName("camelCaseWithMultipleWords", "-"))
+		assertThat(StringUtil.camelToSplitName("camelCaseWithMultipleWords", "-"))
 			.isEqualTo("camel-case-with-multiple-words");
 
 		// Test with different separator
-		assertThat(StrUtils.camelToSplitName("camelCase", "_")).isEqualTo("camel_case");
+		assertThat(StringUtil.camelToSplitName("camelCase", "_")).isEqualTo("camel_case");
 
 		// Test with consecutive uppercase letters
-		assertThat(StrUtils.camelToSplitName("camelCaseURL", "-")).isEqualTo("camel-case-url");
+		assertThat(StringUtil.camelToSplitName("camelCaseURL", "-")).isEqualTo("camel-case-url");
 	}
 
 }

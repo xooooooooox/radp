@@ -20,7 +20,7 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.ExtensionLoader;
 
 /**
@@ -71,7 +71,7 @@ public final class DataSourceUrlParserLoader {
 		for (String extension : extensions) {
 			DataSourceUrlParser parser = extensionLoader.getExtension(extension);
 			String url = parser.getDatasourceUrl(dataSource);
-			if (StrUtils.isNoneEmpty(url)) {
+			if (StringUtil.isNoneEmpty(url)) {
 				return url;
 			}
 		}

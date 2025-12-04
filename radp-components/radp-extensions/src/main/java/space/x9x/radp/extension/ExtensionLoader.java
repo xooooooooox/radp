@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 import space.x9x.radp.commons.collections.CollectionUtils;
 import space.x9x.radp.commons.lang.ArrUtils;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.reflect.ReflectionUtils;
 import space.x9x.radp.extension.active.ActiveExtensionLoader;
 import space.x9x.radp.extension.adaptive.AdaptiveExtensionLoader;
@@ -444,7 +444,7 @@ public class ExtensionLoader<T> {
 						else {
 							clazz = line;
 						}
-						if (StrUtils.isNotEmpty(clazz) && !isExcluded(clazz, excludedPackages)) {
+						if (StringUtil.isNotEmpty(clazz) && !isExcluded(clazz, excludedPackages)) {
 							loadClass(extensionClasses, resourceURL, Class.forName(clazz, true, classLoader), name,
 									overridden);
 						}
@@ -489,7 +489,7 @@ public class ExtensionLoader<T> {
 		clazz.getConstructor();
 
 		// 如果名称为空, 从类名匹配
-		if (StrUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			name = findExtensionName(clazz);
 			if (name.isEmpty()) {
 				throw new IllegalStateException(
@@ -593,7 +593,7 @@ public class ExtensionLoader<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T getExtension(String name, boolean wrap) {
-		if (StrUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			throw new IllegalArgumentException("Extension name == null");
 		}
 		final Holder<Object> holder = getOrCreateHolder(name);
@@ -797,7 +797,7 @@ public class ExtensionLoader<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T getLoadedExtension(String name) {
-		if (StrUtils.isEmpty(name)) {
+		if (StringUtil.isEmpty(name)) {
 			throw new IllegalArgumentException("Extension name == null");
 		}
 		Holder<Object> holder = getOrCreateHolder(name);
@@ -835,7 +835,7 @@ public class ExtensionLoader<T> {
 	 */
 	public T getDefaultExtension() {
 		this.getExtensionClasses();
-		if (StrUtils.isBlank(this.cachedDefaultName)) {
+		if (StringUtil.isBlank(this.cachedDefaultName)) {
 			return null;
 		}
 		return getExtension(this.cachedDefaultName);

@@ -31,7 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import space.x9x.radp.commons.lang.StrUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
@@ -112,7 +112,7 @@ public class ServletUtils {
 	 * @return the remote user as a string, or empty string if not available
 	 */
 	public static String getRemoteUser(HttpServletRequest request) {
-		return StrUtils.trimToEmpty(request.getRemoteUser());
+		return StringUtil.trimToEmpty(request.getRemoteUser());
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class ServletUtils {
 	 * @return the request URI as a string, or empty string if not available
 	 */
 	public static String getRequestURI(HttpServletRequest request) {
-		return StrUtils.trimToEmpty(request.getRequestURI());
+		return StringUtil.trimToEmpty(request.getRequestURI());
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ServletUtils {
 	 * @return the local address as a string, or empty string if not available
 	 */
 	public static String getLocalAddr(HttpServletRequest request) {
-		return StrUtils.trimToEmpty(request.getLocalAddr());
+		return StringUtil.trimToEmpty(request.getLocalAddr());
 	}
 
 	/**

@@ -38,7 +38,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ArrUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 import space.x9x.radp.commons.lang.ClassLoaderUtils;
 import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.commons.lang.reflect.ReflectionUtils;
@@ -499,7 +499,7 @@ public class ExtensionLoader<T> {
 
 		// 根据名称缓存扩展类
 		String[] names = Constants.COMMA_SPLIT_PATTERN.split(name);
-		if (ArrUtils.isNotEmpty(names)) {
+		if (ArrayUtil.isNotEmpty(names)) {
 			this.activeExtensionLoader.cacheActiveClass(clazz, names[0]);
 			for (String n : names) {
 				saveInCacheName(clazz, n);
@@ -651,8 +651,8 @@ public class ExtensionLoader<T> {
 				if (CollectionUtils.isNotEmpty(wrapperClassesList)) {
 					for (Class<?> wrapperClass : wrapperClassesList) {
 						Wrapper wrapper = wrapperClass.getAnnotation(Wrapper.class);
-						if (wrapper == null || (ArrUtils.contains(wrapper.matches(), name)
-								&& !ArrUtils.contains(wrapper.mismatches(), name))) {
+						if (wrapper == null || (ArrayUtil.contains(wrapper.matches(), name)
+								&& !ArrayUtil.contains(wrapper.mismatches(), name))) {
 							instance = injectExtension(
 									(T) wrapperClass.getConstructor(this.type).newInstance(instance));
 						}

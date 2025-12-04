@@ -23,7 +23,7 @@ import com.alibaba.fastjson.serializer.SerializeFilter;
 import com.google.common.collect.Lists;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ArrUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.framework.json.JSON;
 
@@ -40,7 +40,7 @@ public class Fastjson implements JSON {
 	@Override
 	public <T> String toJSONString(T object) {
 		SerializeFilter[] filters = loadFilters();
-		return ArrUtils.isNotEmpty(filters) ? com.alibaba.fastjson.JSON.toJSONString(object, filters)
+		return ArrayUtil.isNotEmpty(filters) ? com.alibaba.fastjson.JSON.toJSONString(object, filters)
 				: com.alibaba.fastjson.JSON.toJSONString(object);
 	}
 

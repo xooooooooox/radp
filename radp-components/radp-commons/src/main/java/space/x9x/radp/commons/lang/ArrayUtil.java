@@ -27,6 +27,6 @@ import lombok.experimental.UtilityClass;
  * @since 2024-09-24 23:10
  */
 @UtilityClass
-public class ArrUtils extends org.apache.commons.lang3.ArrayUtils {
+public class ArrayUtil extends org.apache.commons.lang3.ArrayUtils {
 
 }

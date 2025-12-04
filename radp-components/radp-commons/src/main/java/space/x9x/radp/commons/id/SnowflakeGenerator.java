@@ -160,7 +160,7 @@ public class SnowflakeGenerator {
 	 */
 	public static long nextId(long dataCenterId, long workerId) {
 		SnowflakeGenerator gen = REGISTRY.computeIfAbsent(key(dataCenterId, workerId),
-				k -> new SnowflakeGenerator(dataCenterId, workerId));
+				(k) -> new SnowflakeGenerator(dataCenterId, workerId));
 		return gen.nextId();
 	}
 

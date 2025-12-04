@@ -78,8 +78,8 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 		if (cacheConfig != null) {
 			// 移除 # 后面的 : 以及后见面的内容, 避免影响解析
 			String ttlStr = StringUtil.substringBefore(names[1], StringConstants.COLON); // 获取
-																					// ttlStr
-																					// 时间部分
+																							// ttlStr
+																							// 时间部分
 			names[1] = StringUtil.substringAfter(names[1], ttlStr); // 移除掉 ttlStr 时间部分
 			// 解析时间
 			Duration duration = parseDuration(ttlStr);

@@ -19,7 +19,9 @@
 				  io.spring.javaformat.checkstyle.check.SpringImportOrderCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck,
+				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheck,
+				  com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheck,
 				  io.spring.javaformat.checkstyle.check.SpringLambdaCheck"/>
 	</module>
 	<!-- ========================================== Spring Checks ================================================== -->

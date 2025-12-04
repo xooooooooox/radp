@@ -27,9 +27,9 @@ import org.springframework.util.Assert;
  * type. Subclasses only need to implement the strongly typed template methods while this
  * class handles support checks and casts.
  *
+ * @param <T> entity type supported by the strategy
  * @author RADP x9x
  * @since 2025-01-28
- * @param <T> entity type supported by the strategy
  */
 public abstract class AbstractAutoFillStrategy<T> implements AutoFillStrategy {
 

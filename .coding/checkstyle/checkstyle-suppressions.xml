@@ -82,7 +82,6 @@
 	<suppress files="ServletUtils\.java" checks="HideUtilityClassConstructor"/>
 
 	<!-- radp-smoke-tests -->
-	<suppress checks="NoWhitespaceBefore"
-			  files="ResponseCode\.java"/>
+	<suppress checks="NoWhitespaceBefore" files="ResponseCode\.java"/>
 
 </suppressions>

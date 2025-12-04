@@ -19,6 +19,7 @@
 				  io.spring.javaformat.checkstyle.check.SpringImportOrderCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck,
+				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck,
 				  com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheck,
 				  io.spring.javaformat.checkstyle.check.SpringLambdaCheck"/>
 	</module>
@@ -49,6 +50,10 @@
 			<property name="accessModifiers" value="public"/>
 			<property name="allowMissingParamTags" value="true"/>
 			<property name="allowMissingReturnTag" value="true"/>
+		</module>
+		<module name="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck">
+			<property name="scope" value="protected"/>
+			<property name="tokens" value="VARIABLE_DEF"/>
 		</module>
 	</module>
 

@@ -53,7 +53,7 @@ class SpringBootMysqlContainerTests {
 	static class TestConfig {
 
 		@Bean
-		public DataSource dataSource() {
+		DataSource dataSource() {
 			DriverManagerDataSource dataSource = new DriverManagerDataSource();
 			dataSource.setUrl(MY_SQL_CONTAINER.getJdbcUrl());
 			dataSource.setUsername(MY_SQL_CONTAINER.getUsername());

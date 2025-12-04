@@ -514,7 +514,7 @@ public class ExtensionLoader<T> {
 	 * @param name 扩展类名称
 	 */
 	private void saveInCacheName(Class<?> clazz, String name) {
-		this.cachedNames.computeIfAbsent(clazz, k -> name);
+		this.cachedNames.computeIfAbsent(clazz, (k) -> name);
 	}
 
 	/**
@@ -822,7 +822,7 @@ public class ExtensionLoader<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> getLoadedExtensionInstances() {
 		List<T> instances = new ArrayList<>();
-		this.cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
+		this.cachedInstances.values().forEach((holder) -> instances.add((T) holder.get()));
 		return instances;
 	}
 

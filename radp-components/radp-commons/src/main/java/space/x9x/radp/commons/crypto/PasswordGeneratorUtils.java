@@ -215,7 +215,7 @@ public final class PasswordGeneratorUtils {
 	private static final Set<Character> AMBIGUOUS = new HashSet<>(Arrays.asList('0', 'O', 'o', '1', 'l', 'I'));
 
 	private static String replaceAmbiguous(String pwd, Policy policy) {
-		if (pwd.chars().noneMatch(c -> AMBIGUOUS.contains((char) c))) {
+		if (pwd.chars().noneMatch((c) -> AMBIGUOUS.contains((char) c))) {
 			return pwd;
 		}
 

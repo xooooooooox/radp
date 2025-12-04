@@ -144,7 +144,7 @@ public class RedisKeyConstants {
 		}
 
 		int delimiterIndex = key.indexOf(DELIMITER);
-		return delimiterIndex > 0 ? key.substring(0, delimiterIndex) : key;
+		return (delimiterIndex > 0) ? key.substring(0, delimiterIndex) : key;
 	}
 
 }

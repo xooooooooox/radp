@@ -19,11 +19,11 @@ package space.x9x.radp.design.framework.tree;
 /**
  * 策略映射器.
  *
- * @author RADP x9x
- * @since 2025-01-14 14:25
  * @param <T> 入参 - the type of request parameter
  * @param <D> 动态上下文 - the type of dynamic context
  * @param <R> 返参 - the type of result
+ * @author RADP x9x
+ * @since 2025-01-14 14:25
  */
 public interface StrategyMapper<T, D, R> {
 

@@ -28,6 +28,8 @@ import org.mockito.Mockito;
 
 import space.x9x.radp.solutions.excel.annotations.DictFormat;
 
+import static org.mockito.BDDMockito.given;
+
 /**
  * DictConvert tests for paths when a field is annotated with @DictFormat.
  * <p>
@@ -62,7 +64,7 @@ class DictConvertAnnotatedTests {
 	private ExcelContentProperty mockContentPropertyForField(String name) throws NoSuchFieldException {
 		ExcelContentProperty contentProperty = Mockito.mock(ExcelContentProperty.class);
 		Field f = Demo.class.getDeclaredField(name);
-		Mockito.when(contentProperty.getField()).thenReturn(f);
+		given(contentProperty.getField()).willReturn(f);
 		return contentProperty;
 	}
 

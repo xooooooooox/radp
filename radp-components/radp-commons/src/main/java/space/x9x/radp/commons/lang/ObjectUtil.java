@@ -42,7 +42,7 @@ public class ObjectUtil {
 	 */
 	public static String trimToString(Object object) {
 		if (object == null) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 		return StringUtil.trimToEmpty(String.valueOf(object));
 	}

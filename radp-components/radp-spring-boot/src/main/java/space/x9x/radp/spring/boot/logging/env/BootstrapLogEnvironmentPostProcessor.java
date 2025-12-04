@@ -22,8 +22,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 import space.x9x.radp.spring.framework.bootstrap.utils.SpringProfileUtils;
@@ -54,7 +54,7 @@ public class BootstrapLogEnvironmentPostProcessor implements EnvironmentPostProc
 			.parseBoolean(StringUtil.trimToEmpty(environment.getProperty(BootstrapLogProperties.ENABLED)))) {
 			String appName = StringUtil.trimToEmpty(environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
 			String profile = StringUtil
-				.trimToEmpty(String.join(Strings.COMMA, SpringProfileUtils.getActiveProfiles(environment)));
+				.trimToEmpty(String.join(StringConstants.COMMA, SpringProfileUtils.getActiveProfiles(environment)));
 			MDC.put(MdcConstants.APP, appName);
 			MDC.put(MdcConstants.PROFILE, profile);
 			MDC.put(MdcConstants.LOCAL_ADDR, IpConfigUtils.getIpAddress());

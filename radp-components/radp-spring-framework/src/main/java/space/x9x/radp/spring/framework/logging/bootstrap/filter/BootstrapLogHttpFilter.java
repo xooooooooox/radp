@@ -30,8 +30,8 @@ import org.slf4j.MDC;
 
 import org.springframework.core.env.Environment;
 
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.net.IpConfigUtils;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 import space.x9x.radp.spring.framework.logging.MdcConstants;
@@ -77,7 +77,7 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 
 		if (this.enabledMdc) {
 			String appName = StringUtil.trimToEmpty(this.env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-			String profile = StringUtil.trimToEmpty(String.join(Strings.COMMA, getActiveProfiles(this.env)));
+			String profile = StringUtil.trimToEmpty(String.join(StringConstants.COMMA, getActiveProfiles(this.env)));
 			String requestURI = ServletUtils.getRequestURI(req);
 			String remoteUser = ServletUtils.getRemoteUser(req);
 			String remoteAddr = IpConfigUtils.parseIpAddress(req);

@@ -28,8 +28,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.extension.ExtensionLoader;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
@@ -105,7 +105,7 @@ public class SpringBootApplicationHelper {
 	 */
 	private static void logAfterRunning(Environment env) {
 		String appName = StringUtil.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-		String profile = String.join(Strings.COMMA, SpringProfileUtils.getActiveProfiles(env));
+		String profile = String.join(StringConstants.COMMA, SpringProfileUtils.getActiveProfiles(env));
 		log.info("\n----------------------------------------------------------\n" + "Application '{}' is running!\n"
 				+ "Profile(s):\t{}\n" + getInboundInfo(env) + getOutboundInfo(env)
 				+ "----------------------------------------------------------", appName, profile);

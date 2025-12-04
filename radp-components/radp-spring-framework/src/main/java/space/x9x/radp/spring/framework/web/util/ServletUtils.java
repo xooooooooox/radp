@@ -31,8 +31,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
@@ -146,7 +146,7 @@ public class ServletUtils {
 		if (contentType != null && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
 			return response.toString();
 		}
-		return Strings.EMPTY;
+		return StringConstants.EMPTY;
 	}
 
 	/**

@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
  * @since 2024-09-28 21:00
  */
 @UtilityClass
-public class Strings {
+public class StringConstants {
 
 	/**
 	 * Empty string constant. Used when an empty string is needed.

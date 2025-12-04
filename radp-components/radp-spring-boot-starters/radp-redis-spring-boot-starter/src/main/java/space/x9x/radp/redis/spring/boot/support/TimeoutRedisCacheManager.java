@@ -25,8 +25,8 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.commons.lang.math.NumberUtil;
 
 /**
@@ -50,7 +50,7 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 	 * cache name contains this delimiter, the part after it is parsed as a custom timeout
 	 * value.
 	 */
-	private static final String SPLIT = Strings.HASH;
+	private static final String SPLIT = StringConstants.HASH;
 
 	/**
 	 * Constructs a new TimeoutRedisCacheManager with the specified cache writer and
@@ -77,7 +77,7 @@ public class TimeoutRedisCacheManager extends RedisCacheManager {
 		// 核心: 通过修改 cacheConfig 的过期时间, 实现自定义过期时间
 		if (cacheConfig != null) {
 			// 移除 # 后面的 : 以及后见面的内容, 避免影响解析
-			String ttlStr = StringUtil.substringBefore(names[1], Strings.COLON); // 获取
+			String ttlStr = StringUtil.substringBefore(names[1], StringConstants.COLON); // 获取
 																					// ttlStr
 																					// 时间部分
 			names[1] = StringUtil.substringAfter(names[1], ttlStr); // 移除掉 ttlStr 时间部分

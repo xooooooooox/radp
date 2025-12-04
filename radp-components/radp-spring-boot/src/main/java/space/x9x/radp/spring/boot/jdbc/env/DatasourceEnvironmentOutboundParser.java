@@ -19,8 +19,8 @@ package space.x9x.radp.spring.boot.jdbc.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.commons.lang.StringUtil;
-import space.x9x.radp.commons.lang.Strings;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
 
 /**
@@ -52,12 +52,12 @@ public class DatasourceEnvironmentOutboundParser implements EnvironmentOutboundP
 	@Override
 	public String toString(Environment env) {
 		if (!env.containsProperty(DatasourceEnvironment.URL)) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 
 		String url = env.getProperty(DatasourceEnvironment.URL);
-		if (StringUtil.isNotBlank(url) && url.contains(Strings.PLACEHOLDER)) {
-			url = url.substring(0, url.indexOf(Strings.PLACEHOLDER));
+		if (StringUtil.isNotBlank(url) && url.contains(StringConstants.PLACEHOLDER)) {
+			url = url.substring(0, url.indexOf(StringConstants.PLACEHOLDER));
 		}
 		return MessageFormatUtils.format(TEMPLATE, url);
 	}

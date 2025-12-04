@@ -17,7 +17,9 @@
 package space.x9x.radp.commons.collections;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.map.MapUtil;
 import lombok.experimental.UtilityClass;
 
@@ -31,6 +33,10 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class MapUtils {
+
+	public static <K, V> MapBuilder<K, V> builder(Map<K, V> map) {
+		return MapUtil.builder(map);
+	}
 
 	public static <K, V> HashMap<K, V> newHashMap() {
 		return MapUtil.newHashMap();
@@ -46,6 +52,14 @@ public class MapUtils {
 
 	public static <K, V> HashMap<K, V> newHashMap(boolean isLinked) {
 		return MapUtil.newHashMap(isLinked);
+	}
+
+	public static <K, V> HashMap<K, V> of(K key, V value) {
+		return MapUtil.of(key, value);
+	}
+
+	public static <K, V> HashMap<K, V> of(K key, V value, boolean isOrder) {
+		return MapUtil.of(key, value, isOrder);
 	}
 
 }

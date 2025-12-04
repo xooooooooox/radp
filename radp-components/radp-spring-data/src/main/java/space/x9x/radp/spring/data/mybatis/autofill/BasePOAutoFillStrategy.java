@@ -32,8 +32,7 @@ import space.x9x.radp.spring.framework.web.LoginUserResolver;
  * update. This strategy only applies when the entity is an instance of {@link BasePO} (or
  * a subclass).
  *
- * * @author RADP x9x RADP x9x
- *
+ * @author RADP x9x
  * @since 2025-11-10 15:29
  */
 public class BasePOAutoFillStrategy extends AbstractAutoFillStrategy<BasePO> {

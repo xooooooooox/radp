@@ -28,6 +28,6 @@ import lombok.experimental.UtilityClass;
  * @since 2024-12-27 16:25
  */
 @UtilityClass
-public class Base64 extends org.apache.commons.codec.binary.Base64 {
+public class Base64 {
 
 }

@@ -47,7 +47,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ObjUtils;
+import space.x9x.radp.commons.lang.ObjectUtil;
 import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.solutions.dict.core.DictService;
 import space.x9x.radp.solutions.excel.annotations.ExcelColumnSelect;
@@ -166,7 +166,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		ExcelColumnSelect columnSelect = field.getAnnotation(ExcelColumnSelect.class);
 		String dictType = columnSelect.dictType();
 		String functionName = columnSelect.functionName();
-		Assert.isTrue(ObjUtils.isNotEmpty(dictType) || ObjUtils.isNotEmpty(functionName),
+		Assert.isTrue(ObjectUtil.isNotEmpty(dictType) || ObjectUtil.isNotEmpty(functionName),
 				"Field({}) 的 @ExcelColumnSelect 注解, dictType 和 functionName 不能同时为空", field.getName());
 
 		// 情况一: 使用 dictType 获取下拉数据

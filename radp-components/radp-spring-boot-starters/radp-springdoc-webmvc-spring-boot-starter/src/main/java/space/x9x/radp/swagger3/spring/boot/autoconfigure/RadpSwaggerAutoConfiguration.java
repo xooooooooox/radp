@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Role;
 import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import space.x9x.radp.commons.lang.ObjUtils;
+import space.x9x.radp.commons.lang.ObjectUtil;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.framework.bootstrap.constant.SpringProperties;
 import space.x9x.radp.spring.integration.swagger3.customizer.SwaggerCustomizer;
@@ -106,7 +106,7 @@ public class RadpSwaggerAutoConfiguration {
 	 */
 	public RadpSwaggerAutoConfiguration(SwaggerProperties properties) {
 		this.properties = properties;
-		if (ObjUtils.isEmpty(properties.getTitle())) {
+		if (ObjectUtil.isEmpty(properties.getTitle())) {
 			properties.setTitle(this.applicationName);
 		}
 	}

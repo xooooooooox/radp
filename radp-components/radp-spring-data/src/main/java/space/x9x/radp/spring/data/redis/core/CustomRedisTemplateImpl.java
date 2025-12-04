@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ObjUtils;
+import space.x9x.radp.commons.lang.ObjectUtil;
 import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
 
@@ -114,7 +114,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	@Override
 	public <T> Optional<T> hget(String key, String hashKey, Class<T> clazz) {
 		Object hashValue = this.redisTemplate.opsForHash().get(key, hashKey);
-		return toObject(ObjUtils.trimToString(hashValue), clazz);
+		return toObject(ObjectUtil.trimToString(hashValue), clazz);
 	}
 
 	@Override

@@ -181,7 +181,7 @@ public final class PasswordGeneratorUtils {
 	}
 
 	private static CharacterData specials(Policy policy) {
-		final String chars = policy.specialChars == null || policy.specialChars.isEmpty() ? DEFAULT_SPECIALS
+		final String chars = (policy.specialChars == null || policy.specialChars.isEmpty()) ? DEFAULT_SPECIALS
 				: policy.specialChars;
 		return new CharacterData() {
 			@Override
@@ -219,7 +219,7 @@ public final class PasswordGeneratorUtils {
 			return pwd;
 		}
 
-		String specials = policy.specialChars == null || policy.specialChars.isEmpty() ? DEFAULT_SPECIALS
+		String specials = (policy.specialChars == null || policy.specialChars.isEmpty()) ? DEFAULT_SPECIALS
 				: policy.specialChars;
 
 		StringBuilder sb = new StringBuilder(pwd.length());
@@ -481,7 +481,7 @@ public final class PasswordGeneratorUtils {
 
 		private ValidationResult(boolean valid, List<String> messages) {
 			this.valid = valid;
-			this.messages = messages == null ? Collections.emptyList() : Collections.unmodifiableList(messages);
+			this.messages = (messages != null) ? Collections.unmodifiableList(messages) : Collections.emptyList();
 		}
 
 		/**

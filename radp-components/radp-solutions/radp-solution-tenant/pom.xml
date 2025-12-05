@@ -10,6 +10,10 @@
     <artifactId>radp-solution-tenant</artifactId>
 	<name>${project.artifactId}</name>
 
+	<properties>
+		<jacoco.bundle.instruction.coveredratio>0.55</jacoco.bundle.instruction.coveredratio>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>space.x9x.radp</groupId>

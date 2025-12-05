@@ -27,7 +27,7 @@ import ch.qos.logback.core.boolex.PropertyConditionBase;
  * deprecated (because it relies on Janino to compile arbitrary Java expressions, which is
  * considered a security risk). </a>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-29 17:18
  */
 public class UserConsoleLogPatterCondition extends PropertyConditionBase {

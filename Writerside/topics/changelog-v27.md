@@ -15,6 +15,15 @@
   - Introduced fallback mechanism ensuring error resolution robustness: app messages > internal bundle > error code
     itself.
   - Improved thread-safety in message resource initialization.
+- Update scaffold
+  - Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull
+    handling.
+  - Add module `xxx-case` to `scaffold-std`.
+  - Replace hardcoded empty string with `PREFIX` in `RedisKeyProvider`.
+  - Restructure package organization in the `xxx-api` layer.
+  - Add `checkstyle-idea.xml`.
+  - Fix Writerside setup.
+  - Update default resource bundle `message.properties`.
 
 ## Fix
 
@@ -42,17 +51,6 @@
   - Refactor `MapUtils`
 - Add `@SafeVarargs` on `CollectionUtils#ofSet` to resolve the warning:
   `Possible heap pollution from parameterized vararg type T`
-
-## Scaffold
-
-- Add `@Contract` annotations to `ClientAssert`, `ServerAssert`, and `ThirdServiceAssert`, and refactor null/nonnull
-  handling.
-- Add module `xxx-case` to `scaffold-std`.
-- Replace hardcoded empty string with `PREFIX` in `RedisKeyProvider`.
-- Restructure package organization in the `xxx-api` layer.
-- Add `checkstyle-idea.xml`.
-- Fix Writerside setup.
-- Update default resource bundle `message.properties`.
 
 ## Chore
 

@@ -40,7 +40,7 @@ import space.x9x.radp.commons.lang.math.NumberUtil;
  * seconds, m for minutes, h for hours, d for days). for example: {@code users#30m}
  * creates a cache named "users" with a 30-minute timeout.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-21 11:53
  */
 public class TimeoutRedisCacheManager extends RedisCacheManager {

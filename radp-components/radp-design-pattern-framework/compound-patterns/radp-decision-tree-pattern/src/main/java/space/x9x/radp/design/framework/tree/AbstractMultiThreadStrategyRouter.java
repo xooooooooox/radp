@@ -23,11 +23,11 @@ import java.util.concurrent.TimeoutException;
  * Abstract class for multithreaded asynchronous resource loading and strategy routing.
  * 多线程异步资源加载 + 策略路由的抽象类.
  *
- * @author x9x
- * @since 2025-01-14 21:53
  * @param <T> the type of request parameter
  * @param <D> the type of dynamic context
  * @param <R> the type of result
+ * @author RADP x9x
+ * @since 2025-01-14 21:53
  */
 public abstract class AbstractMultiThreadStrategyRouter<T, D, R> extends AbstractStrategyRouter<T, D, R> {
 

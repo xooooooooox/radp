@@ -40,7 +40,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * requests. It handles sampling, MDC integration, and log level selection based on
  * execution results.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 10:20
  */
 @UtilityClass
@@ -87,7 +87,7 @@ public class AccessLogHelper {
 			if (i > 0) {
 				argsBuilder.append(", ");
 			}
-			argsBuilder.append(args[i] == null ? StringConstants.NULL : args[i].toString());
+			argsBuilder.append((args[i] != null) ? args[i].toString() : StringConstants.NULL);
 		}
 		String arguments = argsBuilder.toString();
 		if (arguments.length() > maxLength) {

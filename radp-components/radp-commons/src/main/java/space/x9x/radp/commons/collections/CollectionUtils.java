@@ -33,7 +33,7 @@ import lombok.experimental.UtilityClass;
  * working with collections, including checking for emptiness and creating immutable sets.
  * It also wraps some functionality from Apache Commons Collections.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 13:10
  */
 @UtilityClass

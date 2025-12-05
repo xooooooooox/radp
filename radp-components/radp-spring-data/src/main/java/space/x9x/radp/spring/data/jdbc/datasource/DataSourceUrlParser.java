@@ -25,7 +25,7 @@ import space.x9x.radp.extension.SPI;
  * JDBC URL from different types of data sources. Implementations of this interface handle
  * specific data source types like Druid, HikariCP, and MyBatis.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:50
  */
 @SPI

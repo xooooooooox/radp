@@ -26,7 +26,7 @@ import lombok.ToString;
  * information in MDC (Mapped Diagnostic Context). It can be customized by providing a
  * bean of this type in the application context.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-28 20:48
  * @see space.x9x.radp.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration
  * @see space.x9x.radp.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter

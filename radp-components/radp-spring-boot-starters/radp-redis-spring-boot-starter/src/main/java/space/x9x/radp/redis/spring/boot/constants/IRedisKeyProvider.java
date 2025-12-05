@@ -24,7 +24,7 @@ package space.x9x.radp.redis.spring.boot.constants;
  * formats while maintaining a consistent approach to key generation throughout the
  * application.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-30
  */
 public interface IRedisKeyProvider {
@@ -32,7 +32,7 @@ public interface IRedisKeyProvider {
 	/**
 	 * Gets the prefix for all keys managed by this provider.
 	 * <p>
-	 * The prefix typically includes the application and module name, for example:
+	 * The prefix typically includes the application and module name, for example,
 	 * "radp:module-name"
 	 * @return the key prefix
 	 */
@@ -106,7 +106,7 @@ public interface IRedisKeyProvider {
 		String[] parts = key.split(RedisKeyConstants.DELIMITER);
 		int entityIndex = prefixDelimiters + 1;
 
-		return parts.length > entityIndex ? parts[entityIndex] : null;
+		return (parts.length > entityIndex) ? parts[entityIndex] : null;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public interface IRedisKeyProvider {
 		String[] parts = key.split(RedisKeyConstants.DELIMITER);
 		int idIndex = prefixDelimiters + 2;
 
-		return parts.length > idIndex ? parts[idIndex] : null;
+		return (parts.length > idIndex) ? parts[idIndex] : null;
 	}
 
 	/**

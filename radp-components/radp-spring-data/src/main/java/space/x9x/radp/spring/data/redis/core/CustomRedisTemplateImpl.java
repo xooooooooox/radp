@@ -40,7 +40,7 @@ import space.x9x.radp.spring.framework.json.support.JSONHelper;
  * underlying mechanism for Redis communication. It handles serialization and
  * deserialization of objects to/from JSON for storage in Redis.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-19 16:33
  */
 @RequiredArgsConstructor

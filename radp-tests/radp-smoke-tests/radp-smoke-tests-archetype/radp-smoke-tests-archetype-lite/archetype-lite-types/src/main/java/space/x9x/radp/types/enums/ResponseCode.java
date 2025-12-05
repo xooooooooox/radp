@@ -26,7 +26,7 @@ import space.x9x.radp.spring.framework.error.GlobalResponseCode;
 /**
  * 业务返回码枚举.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-24 14:08
  * @see GlobalResponseCode
  */

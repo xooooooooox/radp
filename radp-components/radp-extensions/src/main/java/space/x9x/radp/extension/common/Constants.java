@@ -27,7 +27,7 @@ import lombok.experimental.UtilityClass;
  * utility class provides common constants that are used throughout the extension
  * framework to ensure consistency and avoid duplication.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 19:31
  */
 @UtilityClass

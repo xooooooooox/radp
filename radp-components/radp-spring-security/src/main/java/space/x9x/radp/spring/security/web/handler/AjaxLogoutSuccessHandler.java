@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 23:05
  */
 public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler

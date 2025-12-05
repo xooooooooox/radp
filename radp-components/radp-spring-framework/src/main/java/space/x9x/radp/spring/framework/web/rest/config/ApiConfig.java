@@ -25,7 +25,7 @@ import lombok.ToString;
  * Configuration class for API settings, providing properties to configure RESTful API
  * behavior.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 23:20
  */
 @EqualsAndHashCode

@@ -27,7 +27,7 @@ import space.x9x.radp.solutions.dict.core.DictItem;
 /**
  * 基于配置文件的内存字典数据提供者.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 16:09
  */
 @RequiredArgsConstructor
@@ -41,7 +41,7 @@ public class MemoryDictDataProvider implements DictDataProvider {
 	@Override
 	public List<DictItem> getItems(String type) {
 		List<DictItem> items = this.properties.getTypes().get(type);
-		return items == null ? Collections.emptyList() : items;
+		return (items != null) ? items : Collections.emptyList();
 	}
 
 }

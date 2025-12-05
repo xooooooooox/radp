@@ -42,7 +42,7 @@ import space.x9x.radp.spring.framework.json.support.JSONHelper;
  * extracting information from them, and handling request/response content in a web
  * application context.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 10:54
  */
 @UtilityClass

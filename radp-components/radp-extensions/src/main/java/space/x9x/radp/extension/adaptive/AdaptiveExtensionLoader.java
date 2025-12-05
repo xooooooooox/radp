@@ -31,9 +31,9 @@ import space.x9x.radp.extension.util.Holder;
  * cache adaptive extension instances that can adapt their behavior based on runtime
  * parameters.
  *
- * @author x9x
- * @since 2024-09-24 15:55
  * @param <T> the type of extension this loader handles
+ * @author RADP x9x
+ * @since 2024-09-24 15:55
  */
 @RequiredArgsConstructor
 @SuppressWarnings({ "java:S3077", "unchecked" })

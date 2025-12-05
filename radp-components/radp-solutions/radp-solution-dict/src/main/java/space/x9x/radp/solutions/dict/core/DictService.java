@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * 字典服务抽象.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 15:51
  */
 public interface DictService {

@@ -58,7 +58,7 @@ import space.x9x.radp.spring.framework.web.util.ServletUtils;
  * exception handling across all REST controllers in the application, converting various
  * exceptions into appropriate HTTP responses with standardized error formats.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:52
  */
 @RestControllerAdvice
@@ -255,13 +255,13 @@ public class RestExceptionHandler {
 		catch (Throwable ignored) {
 			// ignore and fallback
 		}
-		String base = (errMessage == null ? "" : errMessage);
+		String base = (errMessage != null) ? errMessage : "";
 		return base + (base.isEmpty() ? "" : " ") + StringUtil.join(params, ",");
 	}
 
 	private String buildSseErrorEvent(String code, String message) {
-		String safeCode = (code == null ? "" : code);
-		String safeMsg = (message == null ? "" : message).replace("\r", " ").replace("\n", " ");
+		String safeCode = (code != null) ? code : "";
+		String safeMsg = ((message != null) ? message : "").replace("\r", " ").replace("\n", " ");
 		return "event: error\n" + "data: " + safeCode + " " + safeMsg + "\n\n";
 	}
 

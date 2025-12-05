@@ -23,7 +23,7 @@ import space.x9x.radp.solutions.dict.core.DictItem;
 /**
  * 字典数据提供者 SPI.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 16:01
  */
 public interface DictDataProvider {

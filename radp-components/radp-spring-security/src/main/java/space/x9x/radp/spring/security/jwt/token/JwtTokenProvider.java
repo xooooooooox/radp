@@ -55,7 +55,7 @@ import space.x9x.radp.spring.security.jwt.config.JwtConfig;
 import space.x9x.radp.spring.security.jwt.constants.JwtConstants;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-22 22:49
  */
 @RequiredArgsConstructor
@@ -77,8 +77,8 @@ public class JwtTokenProvider implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		byte[] keyBytes = this.jwtConfig.getBase64Secret() != null ? Decoders.BASE64.decode(this.jwtConfig.getSecret())
-				: this.jwtConfig.getSecret().getBytes();
+		byte[] keyBytes = (this.jwtConfig.getBase64Secret() != null)
+				? Decoders.BASE64.decode(this.jwtConfig.getSecret()) : this.jwtConfig.getSecret().getBytes();
 
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 		this.jwtParser = Jwts.parserBuilder().setSigningKey(this.key).build();

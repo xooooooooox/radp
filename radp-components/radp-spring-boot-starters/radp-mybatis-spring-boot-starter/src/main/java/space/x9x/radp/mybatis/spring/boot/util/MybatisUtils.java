@@ -47,7 +47,7 @@ import space.x9x.radp.spring.framework.dto.SortingField;
  * <li>将查询结果 {@link IPage} 转为框架统一的 {@link PageResult}。</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-24 15:29
  */
 @UtilityClass

@@ -47,7 +47,7 @@ import space.x9x.radp.commons.lang.StringUtil;
  * handling Optional results, and working with various data structures like Maps and
  * Lists.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-23 13:45
  */
 @UtilityClass

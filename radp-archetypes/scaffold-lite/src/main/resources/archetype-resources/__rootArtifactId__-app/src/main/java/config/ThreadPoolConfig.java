@@ -42,7 +42,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * {@code @Configuration} annotation indicates that this class declares one or more
  * {@code @Bean} methods and may be processed by the Spring container.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-01-17 11:13
  */
 @Slf4j

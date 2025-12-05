@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * applications. These constants can be used when programmatically accessing or setting
  * Dubbo configuration properties.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-01 23:41
  */
 @UtilityClass

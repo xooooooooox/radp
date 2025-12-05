@@ -36,7 +36,7 @@ import space.x9x.radp.spring.boot.web.env.WebAPIProperties;
  * controllers, allowing a common prefix to be applied to all REST API endpoints in the
  * application. The prefix is configurable through the WebAPIProperties.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 23:08
  */
 @AutoConfiguration

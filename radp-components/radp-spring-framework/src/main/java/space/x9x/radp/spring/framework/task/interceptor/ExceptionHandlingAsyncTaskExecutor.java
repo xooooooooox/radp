@@ -37,7 +37,7 @@ import org.springframework.core.task.AsyncTaskExecutor;
  * this class also implements InitializingBean and DisposableBean interfaces to ensure the
  * wrapped executor's lifecycle methods are properly called.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 11:43
  */
 @Slf4j

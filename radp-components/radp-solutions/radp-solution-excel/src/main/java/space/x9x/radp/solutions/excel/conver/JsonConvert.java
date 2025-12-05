@@ -29,7 +29,7 @@ import space.x9x.radp.commons.json.JacksonUtils;
  * <p>
  * 该转换器通过Jackson将对象序列化为JSON字符串，以便在Excel中展示
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-10-30 23:03
  */
 public class JsonConvert implements Converter<Object> {

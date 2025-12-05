@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy;
  * or extend other extension points. It allows specifying which extension points should be
  * matched or excluded.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 13:55
  */
 @Retention(RetentionPolicy.RUNTIME)

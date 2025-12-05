@@ -37,9 +37,9 @@ import space.x9x.radp.commons.lang.ArrayUtil;
  * <p>
  * 用于简化动态查询的构建：只有当对应值存在时才应用条件。
  *
- * @author x9x
- * @since 2024-11-20 15:49
  * @param <T> 该包装器操作的实体类型
+ * @author RADP x9x
+ * @since 2024-11-20 15:49
  */
 public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 

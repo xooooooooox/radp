@@ -49,7 +49,7 @@ import space.x9x.radp.spring.security.web.handler.ForbiddenAccessDeniedHandler;
 import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 02:15
  */
 @AutoConfiguration

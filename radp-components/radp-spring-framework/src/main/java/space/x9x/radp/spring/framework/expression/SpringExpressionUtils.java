@@ -46,7 +46,7 @@ import space.x9x.radp.commons.lang.StringUtil;
  * parse and evaluate SpEL expressions in different contexts, including within AOP join
  * points and from the Spring bean factory.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-23 14:40
  */
 @UtilityClass

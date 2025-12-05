@@ -28,7 +28,7 @@ import org.jetbrains.annotations.PropertyKey;
  * {@code META-INF/error/message.properties}中, 也可以不定义在
  * {@code META-INF/error/message.properties}, 直接定义在枚举类中
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-24 13:27
  */
 @Getter

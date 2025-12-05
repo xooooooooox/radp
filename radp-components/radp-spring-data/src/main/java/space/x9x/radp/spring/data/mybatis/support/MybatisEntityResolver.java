@@ -31,6 +31,7 @@ import org.springframework.util.Assert;
  * entity type participates in the current statement. Reuses across auto-fill and SQL
  * rewrite components to keep the heuristics in one place.
  *
+ * @author RADP x9x
  * @since 2025-01-28
  */
 public final class MybatisEntityResolver {

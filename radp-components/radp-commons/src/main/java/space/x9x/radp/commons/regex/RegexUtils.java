@@ -53,7 +53,7 @@ import space.x9x.radp.commons.regex.pattern.RegexCache;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-27 12:50
  * @see space.x9x.radp.commons.regex.pattern.Regex
  */

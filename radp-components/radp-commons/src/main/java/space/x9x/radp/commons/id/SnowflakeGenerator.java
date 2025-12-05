@@ -53,7 +53,7 @@ import lombok.Synchronized;
  * }
  * }</pre>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-27 12:36
  */
 public class SnowflakeGenerator {
@@ -160,7 +160,7 @@ public class SnowflakeGenerator {
 	 */
 	public static long nextId(long dataCenterId, long workerId) {
 		SnowflakeGenerator gen = REGISTRY.computeIfAbsent(key(dataCenterId, workerId),
-				k -> new SnowflakeGenerator(dataCenterId, workerId));
+				(k) -> new SnowflakeGenerator(dataCenterId, workerId));
 		return gen.nextId();
 	}
 

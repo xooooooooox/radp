@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 /**
  * 字典项.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 15:51
  */
 @Data

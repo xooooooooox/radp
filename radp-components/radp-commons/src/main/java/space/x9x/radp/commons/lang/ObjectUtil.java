@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * ObjectUtils to provide additional utility methods for working with objects, including
  * null-safe operations and string conversions.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 10:34
  */
 @UtilityClass

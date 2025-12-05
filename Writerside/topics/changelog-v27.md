@@ -54,6 +54,12 @@
 - Fix Writerside setup.
 - Update default resource bundle `message.properties`.
 
+## Chore
+
+- Optimize `checkstyle.xml`
+- Optimize `checkstyle-suppressions.xml`
+- Optimize jacoco configuration
+
 ## Documentation
 
 - Fix Javadoc error: `MobileConvert`, `Sm4StringEncryptor`, `JasyptUtils`, `JwtAutoConfiguration`,
@@ -63,3 +69,5 @@
 
 - Add tests for `MessageFormatter`, `MessageFormatUtils`, and `ResponseBuilder`.
 - Fix tests for `RedissonServiceSmokeTest`, `ElasticsearchKibanaTest`
+- Add tests for `radp-mybatis-spring-boot-starter`.
+- Add tests for `radp-solution-tenant`.

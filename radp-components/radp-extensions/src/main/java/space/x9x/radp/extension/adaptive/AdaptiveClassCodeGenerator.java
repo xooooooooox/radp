@@ -40,7 +40,7 @@ import space.x9x.radp.extension.ExtensionLoader;
  * that can route method calls to the appropriate extension implementation based on
  * runtime parameters.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 14:05
  */
 @RequiredArgsConstructor

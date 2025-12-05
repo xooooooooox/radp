@@ -61,9 +61,9 @@ import space.x9x.radp.extension.wrapper.WrapperExtensionLoader;
  * configuration. It supports features like adaptive extensions, wrapper extensions, and
  * dependency injection for extensions.
  *
- * @author x9x
- * @since 2024-09-24 11:28
  * @param <T> the type of extension this loader handles
+ * @author RADP x9x
+ * @since 2024-09-24 11:28
  */
 @Slf4j
 public class ExtensionLoader<T> {
@@ -156,8 +156,8 @@ public class ExtensionLoader<T> {
 
 	private ExtensionLoader(Class<?> type) {
 		this.type = type;
-		this.objectFactory = (type == ExtensionFactory.class ? null
-				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
+		this.objectFactory = (type == ExtensionFactory.class) ? null
+				: ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension();
 	}
 
 	/**
@@ -514,7 +514,7 @@ public class ExtensionLoader<T> {
 	 * @param name 扩展类名称
 	 */
 	private void saveInCacheName(Class<?> clazz, String name) {
-		this.cachedNames.computeIfAbsent(clazz, k -> name);
+		this.cachedNames.computeIfAbsent(clazz, (k) -> name);
 	}
 
 	/**
@@ -535,10 +535,10 @@ public class ExtensionLoader<T> {
 			if (clazz.isAnnotationPresent(Order.class) || c.isAnnotationPresent(Order.class)) {
 				// 获取当前类的Order注解和值
 				Order destOrder = clazz.getAnnotation(Order.class);
-				int destValue = destOrder != null ? destOrder.value() : 0;
+				int destValue = (destOrder != null) ? destOrder.value() : 0;
 				// 获取已存在类的Order注解和值
 				Order srcOrder = c.getAnnotation(Order.class);
-				int srcValue = srcOrder != null ? srcOrder.value() : 0;
+				int srcValue = (srcOrder != null) ? srcOrder.value() : 0;
 				// 如果当前类的Order值小于已存在类的Order值，则优先使用当前类
 				if (srcValue > destValue) {
 					log.debug("Compare extension {} name {} use {} instead of {}", this.type.getName(), name,
@@ -822,7 +822,7 @@ public class ExtensionLoader<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> getLoadedExtensionInstances() {
 		List<T> instances = new ArrayList<>();
-		this.cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
+		this.cachedInstances.values().forEach((holder) -> instances.add((T) holder.get()));
 		return instances;
 	}
 

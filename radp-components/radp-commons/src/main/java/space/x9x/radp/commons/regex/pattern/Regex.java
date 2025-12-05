@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * pre-defined regular expression patterns for validating common data formats such as
  * email addresses, phone numbers, IP addresses, and more.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-27 12:50
  */
 @UtilityClass

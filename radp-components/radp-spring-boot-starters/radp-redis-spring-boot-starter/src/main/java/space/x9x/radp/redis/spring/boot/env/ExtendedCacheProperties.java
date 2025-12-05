@@ -27,7 +27,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * configuration properties for Redis caching beyond what Spring Boot provides by default.
  * It includes settings for Redis scan operations and other cache-related configurations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-21 11:45
  */
 @Data

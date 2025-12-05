@@ -41,7 +41,7 @@ import space.x9x.radp.solutions.dict.core.service.DefaultDictService;
  * <li>radp.dict.types: Map 类型，存放各字典类型的条目</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 15:48
  */
 @AutoConfiguration

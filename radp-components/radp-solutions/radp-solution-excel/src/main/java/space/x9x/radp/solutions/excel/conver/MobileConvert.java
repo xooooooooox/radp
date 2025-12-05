@@ -95,7 +95,7 @@ public class MobileConvert implements Converter<String> {
 		switch (cellData.getType()) {
 			case NUMBER:
 				BigDecimal num = cellData.getNumberValue();
-				return trimToNull(num == null ? null : num.toPlainString());
+				return trimToNull((num != null) ? num.toPlainString() : null);
 			case BOOLEAN:
 				return String.valueOf(cellData.getBooleanValue());
 			case STRING:

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
  * Defines the structure for message queue (MQ) messages. This abstract class provides a
  * base for all event types in the system.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-11-28 14:43
  * @param <T> the type of data contained in the event
  */

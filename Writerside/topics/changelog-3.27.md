@@ -17,6 +17,7 @@
   - Remove the property `lombok.version=1.18.30`
   - Remove the property `testcontainers.version=1.21.0`
   - Remove the property `testcontainers-redis.version=2.2.2`
+  - Remove the property `liquibase.version=4.31.1`
 - Add properties
   - Add the property `swagger-api.version=2.2.29`.
 - Add dependencies
@@ -28,6 +29,8 @@
 - Upgrade dependency `redisson`
   - upgrade `redisson-spring-boot-starter` from `3.32.0` to `3.52.0`
   - use `redisson-spring-data-35` instead of `redisson-spring-data-27`
+- Remove dependency `spring-security-oauth2-autoconfigure`, Spring Boot 3.x BOM no longer manages
+  spring-security-oauth2-autoconfigure.
 
 ## Plugin Management
 

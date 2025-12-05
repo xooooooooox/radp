@@ -27,7 +27,7 @@ import org.jetbrains.annotations.PropertyKey;
  * interactions with systems outside the application's control. It extends BaseException
  * to provide standardized error handling.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:49
  */
 @EqualsAndHashCode(callSuper = true)

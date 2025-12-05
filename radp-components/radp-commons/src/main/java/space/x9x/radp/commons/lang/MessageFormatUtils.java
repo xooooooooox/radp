@@ -25,7 +25,7 @@ import space.x9x.radp.commons.lang.format.MessageFormatter;
  * convenient wrapper around {@link MessageFormatter} for creating formatted message
  * strings by replacing placeholders with provided values.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 20:29
  */
 @UtilityClass

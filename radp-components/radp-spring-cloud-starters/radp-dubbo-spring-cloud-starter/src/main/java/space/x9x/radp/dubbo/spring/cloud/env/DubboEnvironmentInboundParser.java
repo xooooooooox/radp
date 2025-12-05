@@ -19,9 +19,9 @@ package space.x9x.radp.dubbo.spring.cloud.env;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
-import space.x9x.radp.commons.lang.math.NumberUtils;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
+import space.x9x.radp.commons.lang.math.NumberUtil;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
 
@@ -31,7 +31,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentInboundParser;
  * information about Dubbo provider connections, including protocol and port details. When
  * Dubbo is disabled, it returns an empty string.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-03 01:15
  */
 public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {
@@ -54,10 +54,10 @@ public class DubboEnvironmentInboundParser implements EnvironmentInboundParser {
 	public String toString(Environment env) {
 		boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
 		if (disabled) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
-		String protocol = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
-		int port = NumberUtils.toInt(env.getProperty(DubboEnvironment.PORT));
+		String protocol = StringUtil.trimToEmpty(env.getProperty(DubboEnvironment.PROTOCOL));
+		int port = NumberUtil.toInt(env.getProperty(DubboEnvironment.PORT));
 		return MessageFormatUtils.format(TEMPLATE, protocol, port, protocol);
 	}
 

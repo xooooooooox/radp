@@ -20,7 +20,7 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.extension.ExtensionLoader;
 
 /**
@@ -29,7 +29,7 @@ import space.x9x.radp.extension.ExtensionLoader;
  * DataSource objects. It implements a chain of responsibility pattern where each resolver
  * and parser is tried in sequence until a valid URL is found.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:50
  */
 public final class DataSourceUrlParserLoader {
@@ -71,7 +71,7 @@ public final class DataSourceUrlParserLoader {
 		for (String extension : extensions) {
 			DataSourceUrlParser parser = extensionLoader.getExtension(extension);
 			String url = parser.getDatasourceUrl(dataSource);
-			if (StringUtils.isNoneEmpty(url)) {
+			if (StringUtil.isNoneEmpty(url)) {
 				return url;
 			}
 		}

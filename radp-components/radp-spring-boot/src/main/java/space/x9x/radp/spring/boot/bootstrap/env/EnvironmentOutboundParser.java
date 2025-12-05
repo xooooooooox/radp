@@ -27,7 +27,7 @@ import space.x9x.radp.extension.SPI;
  * service endpoints. Implementations can provide specific parsers for different types of
  * outbound connections.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-28 21:47
  */
 @SPI

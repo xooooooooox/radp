@@ -28,7 +28,7 @@ import space.x9x.radp.solutions.dict.core.provider.DictDataProvider;
 /**
  * 默认的字典服务实现.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 15:55
  */
 @RequiredArgsConstructor
@@ -65,7 +65,7 @@ public class DefaultDictService implements DictService {
 	@Override
 	public List<DictItem> getItems(String type) {
 		List<DictItem> items = this.provider.getItems(type);
-		return items == null ? Collections.emptyList() : items;
+		return (items != null) ? items : Collections.emptyList();
 	}
 
 }

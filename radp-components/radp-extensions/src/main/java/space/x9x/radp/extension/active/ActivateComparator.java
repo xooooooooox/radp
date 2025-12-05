@@ -26,7 +26,7 @@ import space.x9x.radp.extension.Activate;
  * Activation comparator class. Implements the Comparator interface to compare the
  * activation order of objects with the @Activate annotation.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 12:56
  */
 public class ActivateComparator implements Comparator<Object> {
@@ -67,7 +67,7 @@ public class ActivateComparator implements Comparator<Object> {
 			return 0;
 		}
 
-		return getOrder(o1.getClass()) > getOrder(o2.getClass()) ? 1 : -1;
+		return (getOrder(o1.getClass()) > getOrder(o2.getClass())) ? 1 : -1;
 	}
 
 	/**

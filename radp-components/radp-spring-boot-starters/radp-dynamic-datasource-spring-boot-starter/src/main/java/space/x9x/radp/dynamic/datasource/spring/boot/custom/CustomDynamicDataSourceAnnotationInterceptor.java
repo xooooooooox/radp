@@ -22,7 +22,7 @@ import com.baomidou.dynamic.datasource.processor.DsProcessor;
 import com.baomidou.dynamic.datasource.support.DataSourceClassResolver;
 import org.aopalliance.intercept.MethodInvocation;
 
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceContextHolder;
 
 /**
@@ -32,7 +32,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.routing.RoutingDataSourceConte
  * SpEL/前缀标记的动态解析.
  * </p>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-09-20 01:16
  */
 public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSourceAnnotationInterceptor {
@@ -40,7 +40,7 @@ public class CustomDynamicDataSourceAnnotationInterceptor extends DynamicDataSou
 	/**
 	 * 动态数据源前缀标记（例如 "#"），用于指示需要通过 DsProcessor 解析的键.
 	 */
-	private static final String DYNAMIC_PREFIX = Strings.HASH;
+	private static final String DYNAMIC_PREFIX = StringConstants.HASH;
 
 	/**
 	 * 数据源类解析器，用于在方法/类上解析 @DS 注解定义的数据源键.

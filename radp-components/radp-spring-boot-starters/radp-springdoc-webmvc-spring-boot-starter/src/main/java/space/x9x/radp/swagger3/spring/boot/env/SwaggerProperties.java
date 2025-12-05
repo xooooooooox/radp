@@ -29,7 +29,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * documentation generated for the application. It includes properties for contact
  * information, API description, license details, and other metadata.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 16:36
  */
 @Getter

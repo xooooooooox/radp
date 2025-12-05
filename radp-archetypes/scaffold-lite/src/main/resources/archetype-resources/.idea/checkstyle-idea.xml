@@ -4,8 +4,8 @@
     <checkstyleVersion>11.0.1</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
     <option name="thirdPartyClasspath">
-      <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-config/0.0.47/spring-javaformat-config-0.0.47.jar" />
-      <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-checkstyle/0.0.47/spring-javaformat-checkstyle-0.0.47.jar" />
+      <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-config/0.0.46/spring-javaformat-config-0.0.46.jar" />
+      <option value="$MAVEN_REPOSITORY$/io/spring/javaformat/spring-javaformat-checkstyle/0.0.46/spring-javaformat-checkstyle-0.0.46.jar" />
     </option>
     <option name="activeLocationIds">
       <option value="4e2aa1e2-991f-494c-8af1-45ad1fe25fff" />

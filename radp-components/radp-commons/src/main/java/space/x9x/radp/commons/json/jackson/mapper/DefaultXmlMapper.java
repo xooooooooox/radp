@@ -29,7 +29,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  * deserialization needs. It includes settings for handling unknown properties and empty
  * beans during processing.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-23 13:53
  */
 public class DefaultXmlMapper extends XmlMapper {

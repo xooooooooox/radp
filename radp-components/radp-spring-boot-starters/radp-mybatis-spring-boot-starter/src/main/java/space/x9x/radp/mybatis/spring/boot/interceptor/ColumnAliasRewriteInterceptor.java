@@ -63,7 +63,7 @@ import space.x9x.radp.spring.data.mybatis.support.MybatisEntityResolver;
  * per-entity annotations. If you have custom SQL with explicit aliases, ensure those are
  * compatible with this interceptor.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-10 15:04
  */
 @Intercepts({
@@ -121,10 +121,10 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 	 */
 	public ColumnAliasRewriteInterceptor(MybatisPlusExtensionProperties.SqlRewrite config) {
 		this.tokens = new java.util.ArrayList<>(4);
-		String createdPhysicalName = config == null ? null : config.getCreatedColumnName();
-		String updatedPhysicalName = config == null ? null : config.getLastModifiedColumnName();
-		String creatorPhysicalName = config == null ? null : config.getCreatorColumnName();
-		String updaterPhysicalName = config == null ? null : config.getUpdaterColumnName();
+		String createdPhysicalName = (config != null) ? config.getCreatedColumnName() : null;
+		String updatedPhysicalName = (config != null) ? config.getLastModifiedColumnName() : null;
+		String creatorPhysicalName = (config != null) ? config.getCreatorColumnName() : null;
+		String updaterPhysicalName = (config != null) ? config.getUpdaterColumnName() : null;
 		this.createdPhysical = (createdPhysicalName == null || createdPhysicalName.trim().isEmpty()) ? DEFAULT_CREATED
 				: createdPhysicalName.trim();
 		this.updatedPhysical = (updatedPhysicalName == null || updatedPhysicalName.trim().isEmpty()) ? DEFAULT_UPDATED
@@ -139,8 +139,8 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		this.tokens.add(new Token(BasePO.PROPERTY_CREATOR, DEFAULT_CREATOR, this.creatorPhysical));
 		this.tokens.add(new Token(BasePO.PROPERTY_UPDATER, DEFAULT_UPDATER, this.updaterPhysical));
 		// scope configuration
-		MybatisPlusExtensionProperties.SqlRewrite.Scope scope = config == null
-				? MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO : config.getScope();
+		MybatisPlusExtensionProperties.SqlRewrite.Scope scope = (config != null) ? config.getScope()
+				: MybatisPlusExtensionProperties.SqlRewrite.Scope.BASE_PO;
 		this.globalScope = (scope == MybatisPlusExtensionProperties.SqlRewrite.Scope.GLOBAL);
 	}
 
@@ -153,7 +153,7 @@ public class ColumnAliasRewriteInterceptor implements Interceptor {
 		// scope
 		MappedStatement ms = (MappedStatement) mo.getValue("delegate.mappedStatement");
 		BoundSql boundSql = sh.getBoundSql();
-		Object paramObj = (boundSql == null ? null : boundSql.getParameterObject());
+		Object paramObj = (boundSql != null) ? boundSql.getParameterObject() : null;
 		if (!this.globalScope && !isBasePOScope(ms, paramObj)) {
 			return invocation.proceed();
 		}

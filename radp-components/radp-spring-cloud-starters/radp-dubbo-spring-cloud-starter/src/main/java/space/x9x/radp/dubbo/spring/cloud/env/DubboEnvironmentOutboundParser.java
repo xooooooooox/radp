@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 
 import space.x9x.radp.commons.lang.MessageFormatUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
 
@@ -31,7 +31,7 @@ import space.x9x.radp.spring.boot.bootstrap.env.EnvironmentOutboundParser;
  * information about Dubbo registry connections. When Dubbo is disabled, it returns an
  * empty string.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-03 01:20
  */
 public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser {
@@ -54,7 +54,7 @@ public class DubboEnvironmentOutboundParser implements EnvironmentOutboundParser
 	public String toString(Environment env) {
 		boolean disabled = !Boolean.parseBoolean(env.getProperty(DubboEnvironment.ENABLED, Conditions.TRUE));
 		if (disabled) {
-			return Strings.EMPTY;
+			return StringConstants.EMPTY;
 		}
 
 		String registryAddress = StringUtils.trimToEmpty(env.getProperty(DubboEnvironment.REGISTRY_ADDRESS));

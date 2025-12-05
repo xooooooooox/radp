@@ -22,7 +22,7 @@ import java.io.Serial;
  * Exception thrown when there is an error parsing a data source URL. This exception is
  * used to wrap the original exception with additional context information.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:52
  */
 public class DataSourceUrlParserException extends RuntimeException {

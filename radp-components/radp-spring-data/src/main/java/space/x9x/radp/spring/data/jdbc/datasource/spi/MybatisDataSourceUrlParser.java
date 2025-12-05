@@ -32,7 +32,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserException;
  * JDBC URL from MyBatis PooledDataSource by accessing the underlying UnpooledDataSource
  * through reflection.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:51
  */
 @Slf4j

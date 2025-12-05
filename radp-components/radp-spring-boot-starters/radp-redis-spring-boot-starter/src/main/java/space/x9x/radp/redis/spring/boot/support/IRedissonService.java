@@ -42,7 +42,7 @@ import org.redisson.api.RSemaphore;
  * <li>bloom filters and bit operations</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-28 15:21
  */
 public interface IRedissonService {

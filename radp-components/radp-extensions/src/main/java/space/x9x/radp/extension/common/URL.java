@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
  * used in the extension system to pass configuration parameters to extension
  * implementations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-25 00:29
  */
 @RequiredArgsConstructor

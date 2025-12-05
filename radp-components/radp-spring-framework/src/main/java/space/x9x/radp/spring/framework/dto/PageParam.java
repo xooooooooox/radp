@@ -21,6 +21,7 @@ import java.io.Serializable;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,7 @@ import lombok.ToString;
  * <li>支持使用 {@link #NO_PAGINATION} 表示不分页，直接返回全部结果（由上层调用方决定是否使用）。</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 20:35
  */
 @Data
@@ -84,6 +85,7 @@ public class PageParam implements Serializable {
 	/**
 	 * 当前页码（从 1 开始计数). 不得小于 {@link #MIN_PAGE_INDEX}.
 	 */
+	@NotNull(message = "页码不能为空")
 	@Min(value = MIN_PAGE_INDEX, message = "页码最小值为 {value}")
 	private Integer pageIndex = DEFAULT_PAGE_INDEX;
 
@@ -91,6 +93,7 @@ public class PageParam implements Serializable {
 	 * 每页展示的条数. 应介于 {@link #MIN_PAGE_SIZE} 与 {@link #MAX_PAGE_SIZE} 之间，或可设置为
 	 * {@link #NO_PAGINATION} 以禁用分页.
 	 */
+	@NotNull(message = "每页条数不能为空")
 	@Min(value = MIN_PAGE_SIZE, message = "每页最小条数为 {value}")
 	@Max(value = MAX_PAGE_SIZE, message = "每页最大条数为 {value}")
 	private Integer pageSize = DEFAULT_PAGE_SIZE;

@@ -43,7 +43,7 @@ import space.x9x.radp.spring.cloud.dubbo.DubboAttachments;
  * 该集群实现会优先选择本地服务进行调用，如果本地没有对应服务，则会按照以下策略选择远程服务： 1. 过滤掉与本地在同一子网的服务（避免与其他开发人员环境冲突） 2.
  * 如果过滤后没有可用服务，则使用默认的故障转移策略
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-01 22:07
  */
 @Slf4j
@@ -81,7 +81,7 @@ public class LocalCallFirstCluster implements Cluster {
 			 */
 			private String getLocalHost() {
 				// 使用ClientAttachment替代已废弃的getContext方法
-				final String host = RpcContext.getClientAttachment().getAttachment(DubboAttachments.IP) != null
+				final String host = (RpcContext.getClientAttachment().getAttachment(DubboAttachments.IP) != null)
 						? RpcContext.getClientAttachment().getAttachment(DubboAttachments.IP) : NetUtils.getLocalHost();
 				// 将主机地址保存到RPC上下文中
 				RpcContext.getClientAttachment().setAttachment(DubboAttachments.IP, host);
@@ -104,12 +104,12 @@ public class LocalCallFirstCluster implements Cluster {
 			 * @param directory 服务目录
 			 * @param invocation 调用信息
 			 * @param invokers 调用者列表
-			 * @param loadbalance 负载均衡策略
+			 * @param loadBalance 负载均衡策略
 			 * @param localHost 本地主机地址
 			 * @return 调用结果
 			 */
 			private Result invokeRemoteService(Directory<T> directory, Invocation invocation, List<Invoker<T>> invokers,
-					LoadBalance loadbalance, String localHost) {
+					LoadBalance loadBalance, String localHost) {
 
 				FailoverClusterInvoker<T> failoverClusterInvoker = new FailoverClusterInvoker<>(directory);
 
@@ -119,10 +119,10 @@ public class LocalCallFirstCluster implements Cluster {
 				// 如果过滤后没有可用服务，则使用原始调用者列表
 				if (CollectionUtils.isEmpty(filteredInvokers)) {
 					log.warn("所有服务都在同一子网内，无法过滤。使用原始调用者列表进行故障转移调用。");
-					return failoverClusterInvoker.doInvoke(invocation, invokers, loadbalance);
+					return failoverClusterInvoker.doInvoke(invocation, invokers, loadBalance);
 				}
 
-				return failoverClusterInvoker.doInvoke(invocation, filteredInvokers, loadbalance);
+				return failoverClusterInvoker.doInvoke(invocation, filteredInvokers, loadBalance);
 			}
 
 			/**

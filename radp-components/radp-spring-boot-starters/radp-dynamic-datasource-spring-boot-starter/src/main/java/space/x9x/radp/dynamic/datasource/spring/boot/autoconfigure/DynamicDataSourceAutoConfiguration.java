@@ -45,7 +45,7 @@ import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
 /**
  * 动态数据源自动配置.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-09-20 00:48
  */
 

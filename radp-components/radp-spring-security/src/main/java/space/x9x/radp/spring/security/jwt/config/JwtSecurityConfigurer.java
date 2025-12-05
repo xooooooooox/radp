@@ -77,7 +77,7 @@ import space.x9x.radp.spring.security.web.handler.UnauthorizedEntryPoint;
  * jwtSecurityConfigurer.configure(httpSecurity, customizers);
  * </pre>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 13:31
  * @see JwtConfig
  * @see JwtAuthorizationFilter

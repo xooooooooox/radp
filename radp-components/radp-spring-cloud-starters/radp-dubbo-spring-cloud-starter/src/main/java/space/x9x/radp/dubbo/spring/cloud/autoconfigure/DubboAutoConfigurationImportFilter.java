@@ -31,7 +31,7 @@ import space.x9x.radp.spring.boot.bootstrap.constants.Conditions;
  * activation of Dubbo functionality. When Dubbo is disabled, this filter prevents
  * specific Dubbo actuator auto-configurations from being imported.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-01 23:41
  */
 public class DubboAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {

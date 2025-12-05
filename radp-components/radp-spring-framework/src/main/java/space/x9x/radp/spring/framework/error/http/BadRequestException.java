@@ -27,7 +27,7 @@ import space.x9x.radp.spring.framework.error.BaseException;
  * process the request due to client error (e.g., malformed request syntax, invalid
  * request message framing, or deceptive request routing).
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 11:08
  */
 @EqualsAndHashCode(callSuper = true)

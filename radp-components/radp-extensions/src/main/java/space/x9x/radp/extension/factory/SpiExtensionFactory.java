@@ -23,7 +23,7 @@ import space.x9x.radp.extension.SPI;
 /**
  * SPI 扩展点实例工厂.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-25 10:30
  */
 public class SpiExtensionFactory implements ExtensionFactory {

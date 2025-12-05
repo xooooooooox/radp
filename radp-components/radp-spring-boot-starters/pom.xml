@@ -20,6 +20,7 @@
 		<module>radp-liquibase-spring-boot-starter</module>
 		<module>radp-logging-spring-boot-starter</module>
 		<module>radp-mybatis-spring-boot-starter</module>
+		<module>radp-oauth2-spring-boot-starter</module>
 		<module>radp-redis-spring-boot-starter</module>
 		<module>radp-springdoc-webmvc-spring-boot-starter</module>
 		<module>radp-springdoc-webflux-spring-boot-starter</module>

@@ -24,7 +24,7 @@ import lombok.Getter;
  * of a message formatting operation, including the formatted message string, the original
  * argument array, and any throwable that might have been extracted from the arguments.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 19:24
  */
 @Getter

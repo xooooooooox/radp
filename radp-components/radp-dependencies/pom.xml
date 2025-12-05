@@ -196,7 +196,6 @@
 		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
 
 		<!-- 数据库迁移工具 -->
-		<liquibase.version>4.31.1</liquibase.version>
 		<liquibase-maven-plugin.version>${liquibase.version}</liquibase-maven-plugin.version>
 		<flyway-maven-plugin.version>${flyway.version}</flyway-maven-plugin.version>
 
@@ -366,6 +365,11 @@
 			<dependency>
 				<groupId>space.x9x.radp</groupId>
 				<artifactId>radp-jwt-spring-boot-starter</artifactId>
+				<version>3.27-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>space.x9x.radp</groupId>
+				<artifactId>radp-oauth2-spring-boot-starter</artifactId>
 				<version>3.27-SNAPSHOT</version>
 			</dependency>
 

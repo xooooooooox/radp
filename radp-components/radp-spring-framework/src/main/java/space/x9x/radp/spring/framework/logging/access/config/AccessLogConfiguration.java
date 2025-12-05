@@ -37,7 +37,7 @@ import space.x9x.radp.spring.framework.logging.access.aop.AccessLogInterceptor;
  * advisor. It processes the settings from the EnableAccessLog annotation to configure the
  * logging behavior.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 09:50
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

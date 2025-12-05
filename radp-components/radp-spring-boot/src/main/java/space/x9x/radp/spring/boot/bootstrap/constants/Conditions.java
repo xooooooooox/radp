@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * common string constants used in conditional configurations for enabling/disabling
  * features and controlling bean registration behavior in Spring Boot applications.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 09:15
  */
 @UtilityClass

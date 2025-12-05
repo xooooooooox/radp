@@ -33,7 +33,7 @@ import lombok.experimental.UtilityClass;
  * working with collections, including checking for emptiness and creating immutable sets.
  * It also wraps some functionality from Apache Commons Collections.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 13:10
  */
 @UtilityClass
@@ -70,6 +70,7 @@ public class CollectionUtils {
 	 * @param <T> the type of elements in the set
 	 * @return an immutable set containing the given elements
 	 */
+	@SafeVarargs
 	public static <T> Set<T> ofSet(T... values) {
 		// Ensure that the array is not null and has elements
 		if (values == null || values.length == 0) {

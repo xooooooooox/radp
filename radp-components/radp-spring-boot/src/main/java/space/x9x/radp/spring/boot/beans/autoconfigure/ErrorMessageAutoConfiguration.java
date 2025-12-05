@@ -42,7 +42,7 @@ import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
  * all static usages of ErrorCodeLoader transparently benefit from i18n and deterministic
  * precedence.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-28 20:41
  */
 @AutoConfiguration
@@ -62,7 +62,7 @@ public class ErrorMessageAutoConfiguration {
 	 * <p>
 	 * Later basename take lower priority when resolving a single key: Spring will try
 	 * them in the declared order and return the first match. That gives: <pre>
-	 *     app > libs > internal
+	 *     app &gt; libs &gt; internal
 	 * </pre>
 	 * @return the primary {@link MessageSource} used to resolve RADP error messages
 	 */

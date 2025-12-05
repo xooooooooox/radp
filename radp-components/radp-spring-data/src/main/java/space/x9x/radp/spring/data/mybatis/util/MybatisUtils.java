@@ -35,7 +35,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserLoader;
 
 /**
@@ -43,7 +43,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParserLoader;
  * with MyBatis, including extracting database URLs and resolving SQL queries with
  * parameters. It's particularly useful for logging and debugging MyBatis operations.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:48
  */
 @UtilityClass
@@ -97,7 +97,7 @@ public class MybatisUtils {
 	private static String resolveSql(Configuration configuration, BoundSql boundSql) {
 		Object parameterObject = boundSql.getParameterObject();
 		List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
-		String sql = boundSql.getSql().replaceAll("[\\s]+", Strings.SPACE);
+		String sql = boundSql.getSql().replaceAll("[\\s]+", StringConstants.SPACE);
 		if (!parameterMappings.isEmpty() && parameterObject != null) {
 			TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 			if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
@@ -138,13 +138,13 @@ public class MybatisUtils {
 	 */
 	private static String resolveParameterValue(Object obj) {
 		if (obj instanceof CharSequence) {
-			return Strings.HARD_QUOTE + obj + Strings.HARD_QUOTE;
+			return StringConstants.HARD_QUOTE + obj + StringConstants.HARD_QUOTE;
 		}
 		if (obj instanceof Date) {
 			DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
-			return Strings.HARD_QUOTE + formatter.format(obj) + Strings.HARD_QUOTE;
+			return StringConstants.HARD_QUOTE + formatter.format(obj) + StringConstants.HARD_QUOTE;
 		}
-		return obj == null ? Strings.EMPTY : String.valueOf(obj);
+		return (obj != null) ? String.valueOf(obj) : StringConstants.EMPTY;
 	}
 
 }

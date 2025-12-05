@@ -34,7 +34,7 @@ import space.x9x.radp.spring.framework.bootstrap.constant.Globals;
  * <li>types: 内存模式下，定义各字典类型的条目</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 15:53
  */
 @Data

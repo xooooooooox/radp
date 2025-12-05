@@ -23,7 +23,7 @@ import space.x9x.radp.spring.framework.error.asserts.AbstractAssert;
  * utility class that provides assertion methods for validating arguments and state. this
  * class extends AbstractAssert to provide common assertion functionality.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-24 22:17
  */
 public class AssertUtils extends AbstractAssert {

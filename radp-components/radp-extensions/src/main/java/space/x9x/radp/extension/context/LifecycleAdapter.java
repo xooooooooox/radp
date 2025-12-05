@@ -19,7 +19,7 @@ package space.x9x.radp.extension.context;
 /**
  * 组件生命周期适配器.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 23:17
  */
 public class LifecycleAdapter implements Lifecycle {

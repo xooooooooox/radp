@@ -26,7 +26,7 @@ import org.jetbrains.annotations.PropertyKey;
  * to provide consistent error responses. It supports loading error messages from resource
  * bundles and formatting them with parameters.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-24 10:31
  */
 @Data

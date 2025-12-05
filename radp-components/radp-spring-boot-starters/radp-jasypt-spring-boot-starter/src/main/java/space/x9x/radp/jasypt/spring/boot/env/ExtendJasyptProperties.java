@@ -33,7 +33,7 @@ import space.x9x.radp.jasypt.spring.boot.encryptor.Sm4StringEncryptor;
  * configures a Jasypt encryptor with settings loaded from various sources in priority
  * order: system properties, environment variables, and external configuration files.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-17 10:29
  */
 @Slf4j

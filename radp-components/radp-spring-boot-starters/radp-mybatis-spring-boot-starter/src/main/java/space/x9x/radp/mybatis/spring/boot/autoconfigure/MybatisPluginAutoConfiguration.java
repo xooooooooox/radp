@@ -37,7 +37,7 @@ import space.x9x.radp.spring.data.mybatis.plugin.MybatisSqlLogInterceptor;
  * plugins, particularly the SQL logging interceptor that provides SQL execution
  * monitoring.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:34
  */
 @ConditionalOnMissingBean(SqlSessionFactory.class)

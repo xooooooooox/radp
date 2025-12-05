@@ -25,7 +25,7 @@ import space.x9x.radp.spring.framework.json.JSON;
  * Utility class providing helper methods for working with JSON implementations. This
  * class simplifies access to JSON implementations through the ExtensionLoader mechanism.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 12:53
  */
 @UtilityClass

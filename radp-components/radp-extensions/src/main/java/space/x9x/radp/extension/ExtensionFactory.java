@@ -23,7 +23,7 @@ package space.x9x.radp.extension;
  * interface defines methods for obtaining extension instances, used for dynamically
  * loading and creating extension instances of specified types.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 11:19
  */
 @SPI

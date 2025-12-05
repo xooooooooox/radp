@@ -40,7 +40,7 @@ import space.x9x.radp.spring.data.mybatis.util.MybatisUtils;
  * MyBatis and their execution times. It can also identify slow SQL queries that exceed a
  * configurable threshold and log them at a warning level.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 13:38
  */
 @Intercepts({

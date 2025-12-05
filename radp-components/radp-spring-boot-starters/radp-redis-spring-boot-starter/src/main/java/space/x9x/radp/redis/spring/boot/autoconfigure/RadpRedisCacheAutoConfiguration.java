@@ -52,7 +52,7 @@ import space.x9x.radp.redis.spring.boot.support.TimeoutRedisCacheManager;
  * This configuration enables the @Cacheable, @CachePut, and @CacheEvict annotations to
  * work with Redis, providing a distributed caching solution for the application.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-10-21 11:37
  */
 @EnableConfigurationProperties({ CacheProperties.class, ExtendedCacheProperties.class })

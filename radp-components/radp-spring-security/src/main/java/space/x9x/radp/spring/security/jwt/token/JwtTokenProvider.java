@@ -48,14 +48,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
 import space.x9x.radp.spring.framework.error.http.UnauthorizedException;
 import space.x9x.radp.spring.security.common.token.AccessToken;
 import space.x9x.radp.spring.security.jwt.config.JwtConfig;
 import space.x9x.radp.spring.security.jwt.constants.JwtConstants;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-22 22:49
  */
 @RequiredArgsConstructor
@@ -77,8 +77,8 @@ public class JwtTokenProvider implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		byte[] keyBytes = this.jwtConfig.getBase64Secret() != null ? Decoders.BASE64.decode(this.jwtConfig.getSecret())
-				: this.jwtConfig.getSecret().getBytes();
+		byte[] keyBytes = (this.jwtConfig.getBase64Secret() != null)
+				? Decoders.BASE64.decode(this.jwtConfig.getSecret()) : this.jwtConfig.getSecret().getBytes();
 
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 		this.jwtParser = Jwts.parserBuilder().setSigningKey(this.key).build();
@@ -99,7 +99,7 @@ public class JwtTokenProvider implements InitializingBean {
 			String authorities = authentication.getAuthorities()
 				.stream()
 				.map(GrantedAuthority::getAuthority)
-				.collect(Collectors.joining(Strings.COMMA));
+				.collect(Collectors.joining(StringConstants.COMMA));
 			claims.put(JwtConstants.AUTHORITIES_KEY, authorities);
 		}
 		return createToken(authentication.getName(), rememberMe, claims);
@@ -196,13 +196,14 @@ public class JwtTokenProvider implements InitializingBean {
 
 		List<? extends GrantedAuthority> authorities = Collections.emptyList();
 		if (claims.containsKey(JwtConstants.AUTHORITIES_KEY)) {
-			authorities = Arrays.stream(claims.get(JwtConstants.AUTHORITIES_KEY).toString().split(Strings.COMMA))
+			authorities = Arrays
+				.stream(claims.get(JwtConstants.AUTHORITIES_KEY).toString().split(StringConstants.COMMA))
 				.filter(auth -> !auth.trim().isEmpty())
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 		}
 
-		User principal = new User(claims.getSubject(), Strings.EMPTY, authorities);
+		User principal = new User(claims.getSubject(), StringConstants.EMPTY, authorities);
 		return new UsernamePasswordAuthenticationToken(principal, accessToken, authorities);
 	}
 

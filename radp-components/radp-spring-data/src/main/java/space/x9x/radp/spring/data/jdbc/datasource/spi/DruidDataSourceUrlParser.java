@@ -27,7 +27,7 @@ import space.x9x.radp.spring.data.jdbc.datasource.DataSourceUrlParser;
  * JDBC URL from Druid datasource by checking the class type and casting to
  * DruidDataSource when applicable.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 14:33
  */
 public class DruidDataSourceUrlParser implements DataSourceUrlParser {

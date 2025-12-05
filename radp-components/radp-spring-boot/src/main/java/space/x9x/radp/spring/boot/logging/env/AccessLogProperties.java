@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.logging.access.config.AccessLogConfig;
  * AccessLogConfig to inherit common access logging configuration properties and adds
  * additional properties specific to the RADP framework.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 09:44
  */
 @EqualsAndHashCode(callSuper = true)

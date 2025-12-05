@@ -31,8 +31,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import space.x9x.radp.commons.lang.StringUtils;
-import space.x9x.radp.commons.lang.Strings;
+import space.x9x.radp.commons.lang.StringConstants;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.spring.framework.dto.extension.ResponseBuilder;
 import space.x9x.radp.spring.framework.error.ErrorCodeLoader;
 import space.x9x.radp.spring.framework.json.support.JSONHelper;
@@ -43,7 +43,7 @@ import space.x9x.radp.spring.framework.json.support.JSONHelper;
  * extracting information from them, and handling request/response content in a web
  * application context.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 10:54
  */
 @UtilityClass
@@ -112,7 +112,7 @@ public class ServletUtils {
 	 * @return the remote user as a string, or empty string if not available
 	 */
 	public static String getRemoteUser(HttpServletRequest request) {
-		return StringUtils.trimToEmpty(request.getRemoteUser());
+		return StringUtil.trimToEmpty(request.getRemoteUser());
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class ServletUtils {
 		if (contentType != null && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
 			return response.toString();
 		}
-		return Strings.EMPTY;
+		return StringConstants.EMPTY;
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class ServletUtils {
 	 * @return the request URI as a string, or empty string if not available
 	 */
 	public static String getRequestURI(HttpServletRequest request) {
-		return StringUtils.trimToEmpty(request.getRequestURI());
+		return StringUtil.trimToEmpty(request.getRequestURI());
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ServletUtils {
 	 * @return the local address as a string, or empty string if not available
 	 */
 	public static String getLocalAddr(HttpServletRequest request) {
-		return StringUtils.trimToEmpty(request.getLocalAddr());
+		return StringUtil.trimToEmpty(request.getLocalAddr());
 	}
 
 	/**

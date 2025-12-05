@@ -26,7 +26,7 @@ import lombok.experimental.UtilityClass;
  * objects for commonly used regular expressions and a caching mechanism to improve
  * performance when compiling frequently used patterns.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-12-27 12:55
  */
 @UtilityClass

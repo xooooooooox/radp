@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
  * loading and managing extension implementations that are annotated with @Wrapper, which
  * allows extensions to wrap or enhance other extensions.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 14:00
  */
 @RequiredArgsConstructor

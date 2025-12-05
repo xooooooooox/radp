@@ -34,7 +34,7 @@ import space.x9x.radp.spring.framework.logging.EnableBootstrapLog;
  * the 'radp.bootstrap-log.enabled' property is set to 'true', or by default if the
  * property is not specified (matchIfMissing = true).
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 11:37
  */
 @ConditionalOnProperty(prefix = BootstrapLogProperties.PREFIX, name = Conditions.ENABLED, havingValue = Conditions.TRUE,

@@ -39,7 +39,7 @@ import space.x9x.radp.spring.security.jwt.token.JwtTokenStore;
  * actual storage operations, suitable for testing or scenarios where token persistence is
  * not required.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-24 22:44
  */
 @AutoConfiguration

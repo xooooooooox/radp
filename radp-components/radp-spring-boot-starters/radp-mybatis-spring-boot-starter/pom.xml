@@ -10,6 +10,11 @@
 	<artifactId>radp-mybatis-spring-boot-starter</artifactId>
 	<name>${project.artifactId}</name>
 
+	<properties>
+		<jacoco.bundle.instruction.coveredratio>0.55</jacoco.bundle.instruction.coveredratio>
+		<jacoco.bundle.branch.coveredratio>0.30</jacoco.bundle.branch.coveredratio>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>space.x9x.radp</groupId>

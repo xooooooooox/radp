@@ -21,7 +21,7 @@ package space.x9x.radp.commons.json.jackson.exception;
  * propagate exceptions that occur during JSON or XML processing with Jackson, providing a
  * unified exception handling approach while preserving the original cause.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-23 13:54
  */
 public class JacksonException extends RuntimeException {

@@ -35,5 +35,6 @@
 	<!-- infrastructure -->
 	<!-- trigger -->
 	<!-- types -->
+	<suppress checks="NoWhitespaceBefore" files="ResponseCode\.java"/>
 
 </suppressions>

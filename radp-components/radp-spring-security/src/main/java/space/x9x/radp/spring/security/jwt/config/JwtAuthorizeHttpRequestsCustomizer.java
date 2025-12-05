@@ -25,7 +25,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
  * <p>
  * 允许业务侧在默认规则基础上追加自定义授权规则.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-25 23:53
  * @see JwtSecurityConfigurer#configure(HttpSecurity)
  */

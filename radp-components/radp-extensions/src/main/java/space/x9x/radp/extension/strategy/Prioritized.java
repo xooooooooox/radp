@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  * Comparable to allow objects to be sorted based on their priority values. Lower priority
  * values indicate higher precedence in processing order.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 19:41
  */
 public interface Prioritized extends Comparable<Prioritized> {

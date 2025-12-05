@@ -24,7 +24,7 @@ import org.jetbrains.annotations.PropertyKey;
  * the server side, such as database failures, service unavailability, or internal
  * processing errors. It extends BaseException to provide standardized error handling.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 23:46
  */
 @EqualsAndHashCode(callSuper = true)

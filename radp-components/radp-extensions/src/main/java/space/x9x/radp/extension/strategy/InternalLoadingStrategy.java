@@ -23,7 +23,7 @@ package space.x9x.radp.extension.strategy;
  * interface to provide a strategy for loading internal extensions from a specific
  * directory. Internal extensions are those that are bundled with the framework itself.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 19:54
  */
 public class InternalLoadingStrategy implements LoadingStrategy {

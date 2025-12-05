@@ -27,7 +27,7 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
  * It extends AspectJExpressionPointcutAdvisor to leverage Spring's AOP infrastructure for
  * method interception based on AspectJ pointcut expressions.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-30 09:52
  */
 public class AccessLogAdvisor extends AspectJExpressionPointcutAdvisor {

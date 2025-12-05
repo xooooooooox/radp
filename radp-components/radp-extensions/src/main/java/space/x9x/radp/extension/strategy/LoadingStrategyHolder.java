@@ -23,7 +23,7 @@ import java.util.stream.StreamSupport;
 
 import lombok.experimental.UtilityClass;
 
-import space.x9x.radp.commons.lang.ArrayUtils;
+import space.x9x.radp.commons.lang.ArrayUtil;
 
 /**
  * LoadingStrategy 容器
@@ -32,7 +32,7 @@ import space.x9x.radp.commons.lang.ArrayUtils;
  * used by the extension system. It provides methods to load, get, and set the strategies
  * that determine how extensions are discovered and loaded.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 19:56
  */
 @UtilityClass
@@ -75,7 +75,7 @@ public class LoadingStrategyHolder {
 	 * @param strategies the loading strategies to set
 	 */
 	public static void setLoadingStrategies(LoadingStrategy... strategies) {
-		if (ArrayUtils.isNotEmpty(strategies)) {
+		if (ArrayUtil.isNotEmpty(strategies)) {
 			LoadingStrategyHolder.strategies = strategies;
 		}
 	}

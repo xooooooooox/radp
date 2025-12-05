@@ -17,7 +17,7 @@
 package space.x9x.radp.extension;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-25 14:48
  */
 @SPI("demo2")

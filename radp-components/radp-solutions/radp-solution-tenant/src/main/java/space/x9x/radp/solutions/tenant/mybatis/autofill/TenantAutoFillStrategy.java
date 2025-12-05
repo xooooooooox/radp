@@ -33,7 +33,7 @@ import space.x9x.radp.spring.data.mybatis.autofill.AbstractAutoFillStrategy;
  * {@link space.x9x.radp.spring.data.mybatis.autofill.BasePOAutoFillStrategy} so audit
  * fields keep working out of the box.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-11 20:58
  */
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)

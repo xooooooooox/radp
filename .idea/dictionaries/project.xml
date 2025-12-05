@@ -2,6 +2,7 @@
   <dictionary name="project">
     <words>
       <w>aliyun</w>
+      <w>atclause</w>
       <w>confluentinc</w>
       <w>coveredratio</w>
       <w>devcontainer</w>
@@ -16,6 +17,7 @@
       <w>nacos</w>
       <w>passay</w>
       <w>pcoding</w>
+      <w>puppycrawl</w>
       <w>sourcefile</w>
       <w>xlint</w>
       <w>xpkginfo</w>

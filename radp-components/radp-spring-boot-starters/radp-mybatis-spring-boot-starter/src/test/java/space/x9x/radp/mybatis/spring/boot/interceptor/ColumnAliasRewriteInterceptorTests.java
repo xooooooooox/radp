@@ -227,7 +227,7 @@ class ColumnAliasRewriteInterceptorTests {
 			this.parameterHandler = new DefaultParameterHandler(this.mappedStatement, parameterObject, this.boundSql);
 		}
 
-		public MappedStatement getMappedStatement() {
+		MappedStatement getMappedStatement() {
 			return this.mappedStatement;
 		}
 

@@ -32,7 +32,7 @@ import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
  * context if one is not already defined. The ApplicationContextHelper provides a way to
  * access the Spring ApplicationContext from non-Spring managed classes.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-27 21:14
  */
 @Slf4j

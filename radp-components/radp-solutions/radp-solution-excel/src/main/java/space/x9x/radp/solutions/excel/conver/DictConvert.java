@@ -32,7 +32,7 @@ import space.x9x.radp.solutions.excel.annotations.DictFormat;
 /**
  * Excel 数据字典转换器.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-07 00:10
  */
 @Slf4j
@@ -74,7 +74,7 @@ public class DictConvert implements Converter<Object> {
 	@Override
 	public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty,
 			GlobalConfiguration globalConfiguration) throws Exception {
-		String text = value == null ? "" : String.valueOf(value);
+		String text = (value != null) ? String.valueOf(value) : "";
 		if (contentProperty == null || contentProperty.getField() == null
 				|| !contentProperty.getField().isAnnotationPresent(DictFormat.class)) {
 			return new WriteCellData<>(text);

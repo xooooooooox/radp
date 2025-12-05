@@ -28,7 +28,7 @@ import lombok.experimental.UtilityClass;
  * provide additional utility methods for working with reflection, including method
  * analysis, type checking, and property name extraction.
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-24 16:25
  */
 @UtilityClass
@@ -96,7 +96,7 @@ public class ReflectionUtils extends ReflectUtil {
 	public static String getSetterProperty(Method method) {
 		// 当方法名长度大于3时，表明可能符合setter方法的命名规则，提取属性名部分并转换为小写
 		// 否则，返回空字符串，表示无法从方法名中识别出属性名称
-		return method.getName().length() > 3
+		return (method.getName().length() > 3)
 				? method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4) : "";
 	}
 

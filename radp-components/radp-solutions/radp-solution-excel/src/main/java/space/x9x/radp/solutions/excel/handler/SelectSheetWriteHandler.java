@@ -47,8 +47,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
 import space.x9x.radp.commons.collections.CollectionUtils;
-import space.x9x.radp.commons.lang.ObjectUtils;
-import space.x9x.radp.commons.lang.StringUtils;
+import space.x9x.radp.commons.lang.ObjectUtil;
+import space.x9x.radp.commons.lang.StringUtil;
 import space.x9x.radp.solutions.dict.core.DictService;
 import space.x9x.radp.solutions.excel.annotations.ExcelColumnSelect;
 import space.x9x.radp.solutions.excel.function.ExcelColumnSelectFunction;
@@ -58,7 +58,7 @@ import space.x9x.radp.solutions.excel.function.ExcelColumnSelectFunction;
  * <p>
  * 该处理器通过在固定sheet中创建数据源来实现Excel单元格下拉选择功能
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-10-30 16:59
  */
 @Slf4j
@@ -166,11 +166,11 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		ExcelColumnSelect columnSelect = field.getAnnotation(ExcelColumnSelect.class);
 		String dictType = columnSelect.dictType();
 		String functionName = columnSelect.functionName();
-		Assert.isTrue(ObjectUtils.isNotEmpty(dictType) || ObjectUtils.isNotEmpty(functionName),
+		Assert.isTrue(ObjectUtil.isNotEmpty(dictType) || ObjectUtil.isNotEmpty(functionName),
 				"Field({}) 的 @ExcelColumnSelect 注解, dictType 和 functionName 不能同时为空", field.getName());
 
 		// 情况一: 使用 dictType 获取下拉数据
-		if (StringUtils.isNotEmpty(dictType)) { // 字典数据(默认)
+		if (StringUtil.isNotEmpty(dictType)) { // 字典数据(默认)
 			DictService dictService = SpringUtil.getBean(DictService.class);
 			List<String> options = dictService.getLabels(dictType);
 			this.selectMap.put(colIndex, options);
@@ -221,7 +221,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 		for (Map.Entry<Integer, List<String>> entry : entries) {
 			Integer colIndex = entry.getKey();
 			List<String> values = entry.getValue();
-			int rowLength = values == null ? 0 : values.size();
+			int rowLength = (values != null) ? values.size() : 0;
 			if (rowLength == 0) {
 				// 该列无下拉数据，跳过
 				continue;
@@ -255,7 +255,7 @@ public class SelectSheetWriteHandler implements SheetWriteHandler {
 
 		// 2.1 设置约束
 		DataValidationConstraint constraint = dataValidationHelper
-			.createFormulaListConstraint(String.format("dict%s", colIndex));// 设置引用约束
+			.createFormulaListConstraint(String.format("dict%s", colIndex)); // 设置引用约束
 		// 设置下拉单元格的首行,末行,首列,末列
 		CellRangeAddressList rangeAddressList = new CellRangeAddressList(this.firstRow, this.lastRow, colIndex,
 				colIndex);

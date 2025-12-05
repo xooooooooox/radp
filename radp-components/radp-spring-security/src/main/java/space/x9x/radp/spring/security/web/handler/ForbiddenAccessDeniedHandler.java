@@ -30,7 +30,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import space.x9x.radp.spring.framework.web.util.ServletUtils;
 
 /**
- * @author x9x
+ * @author RADP x9x
  * @since 2025-11-23 22:58
  */
 @Slf4j

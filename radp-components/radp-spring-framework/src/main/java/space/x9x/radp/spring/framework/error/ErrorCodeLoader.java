@@ -66,7 +66,7 @@ import space.x9x.radp.spring.framework.beans.ApplicationContextHelper;
  * <li>Works both with and without Spring.</li>
  * </ul>
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2024-09-26 16:14
  */
 @Slf4j

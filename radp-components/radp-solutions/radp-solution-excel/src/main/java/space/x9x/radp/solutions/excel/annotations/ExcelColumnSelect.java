@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <p>
  * 其中的 {@link #dictType()} 和 {@link #functionName()} 二选一即可
  *
- * @author x9x
+ * @author RADP x9x
  * @since 2025-10-30 20:52
  */
 @Target({ ElementType.FIELD })

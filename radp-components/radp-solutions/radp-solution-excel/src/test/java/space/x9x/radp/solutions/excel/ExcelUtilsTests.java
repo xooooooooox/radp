@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.idev.excel.annotation.ExcelProperty;
-import lombok.Getter;
-import lombok.Setter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -120,27 +117,6 @@ class ExcelUtilsTests {
 		// Content written and no explicit Content-Length set for streaming
 		Assertions.assertThat(resp.getContentAsByteArray()).hasSizeGreaterThan(0);
 		Assertions.assertThat(resp.getHeader("Content-Length")).isNull();
-	}
-
-	// Simple head model for tests
-	@Setter
-	@Getter
-	public static class SimpleVO {
-
-		@ExcelProperty("Name")
-		private String name;
-
-		@ExcelProperty("Score")
-		private Integer score;
-
-		SimpleVO() {
-		}
-
-		SimpleVO(String name, Integer score) {
-			this.name = name;
-			this.score = score;
-		}
-
 	}
 
 }
